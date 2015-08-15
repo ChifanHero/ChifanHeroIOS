@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  FirstViewController.swift
 //  SoHungry
 //
 //  Created by Shi Yan on 7/29/15.
@@ -8,7 +8,15 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        return nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

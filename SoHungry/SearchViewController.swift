@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  SecondViewController.swift
 //  SoHungry
 //
 //  Created by Shi Yan on 7/29/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
