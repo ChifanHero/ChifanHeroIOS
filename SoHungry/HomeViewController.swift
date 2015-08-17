@@ -15,7 +15,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return nil
+        return UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "")
     }
 
     override func viewDidLoad() {
@@ -27,7 +27,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
