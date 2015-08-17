@@ -237,6 +237,7 @@
 			children = (
 				C43728241B812FBA009121C9 /* NSDateExtension.swift */,
 				C43728261B8149A2009121C9 /* JSONHelper.swift */,
+				C4B14E201B802D7F001E8B62 /* HttpClient.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -251,7 +252,6 @@
 				C4B14E251B804778001E8B62 /* Parse */,
 				C4B14E231B804755001E8B62 /* DataAccessor.swift */,
 				C4A595B51B7FC79F009E0F24 /* ServiceInvoker.swift */,
-				C4B14E201B802D7F001E8B62 /* HttpClient.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
