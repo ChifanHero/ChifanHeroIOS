@@ -21,6 +21,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        print("home view did load")
+        let getPromotionsRequest = GetPromotionsRequest()
+        getPromotionsRequest.limit = 10
+        getPromotionsRequest.offset = 0
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
+            //
+        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -8,10 +8,10 @@
 
 import Foundation
 
-protocol GetRequestProtocol {
+protocol GetRequestProtocol : HttpRequestProtocol{
     func getParameters() -> [String:String]
 }
 
-protocol GetResourceRequestProtocol {
-    func getResourceId() -> String
+protocol GetResourceRequestProtocol : HttpRequestProtocol{
+    
 }

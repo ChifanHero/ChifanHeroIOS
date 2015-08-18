@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol PostRequestProtocol {
+protocol PostRequestProtocol : HttpRequestProtocol{
     func getRequestBody() -> [String : AnyObject]
 }

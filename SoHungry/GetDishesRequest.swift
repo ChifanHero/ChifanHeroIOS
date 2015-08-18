@@ -15,4 +15,8 @@ class GetDishesRequest : GetRequestProtocol{
         return parameters
     }
     
+    func getRelativeURL() -> String {
+        return ""
+    }
+    
 }

@@ -31,7 +31,9 @@
 		C43728271B8149A2009121C9 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43728261B8149A2009121C9 /* JSONHelper.swift */; };
 		C43728291B815C8F009121C9 /* JSONHelperExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43728281B815C8F009121C9 /* JSONHelperExtension.swift */; };
 		C437282B1B81668C009121C9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437282A1B81668C009121C9 /* Error.swift */; };
-		C4A595B61B7FC79F009E0F24 /* ServiceInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A595B51B7FC79F009E0F24 /* ServiceInvoker.swift */; };
+		C437282D1B82ED06009121C9 /* HttpRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437282C1B82ED06009121C9 /* HttpRequestProtocol.swift */; };
+		C437282F1B82F12F009121C9 /* ParseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437282E1B82F12F009121C9 /* ParseConfiguration.swift */; };
+		C4A595B61B7FC79F009E0F24 /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */; };
 		C4B14E211B802D7F001E8B62 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E201B802D7F001E8B62 /* HttpClient.swift */; };
 		C4B14E241B804755001E8B62 /* DataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E231B804755001E8B62 /* DataAccessor.swift */; };
 		C4B14E271B804847001E8B62 /* GetPromotionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E261B804847001E8B62 /* GetPromotionsResponse.swift */; };
@@ -97,7 +99,9 @@
 		C43728261B8149A2009121C9 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 		C43728281B815C8F009121C9 /* JSONHelperExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelperExtension.swift; sourceTree = "<group>"; };
 		C437282A1B81668C009121C9 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		C4A595B51B7FC79F009E0F24 /* ServiceInvoker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceInvoker.swift; sourceTree = "<group>"; };
+		C437282C1B82ED06009121C9 /* HttpRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequestProtocol.swift; sourceTree = "<group>"; };
+		C437282E1B82F12F009121C9 /* ParseConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConfiguration.swift; sourceTree = "<group>"; };
+		C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4B14E1A1B7FD5F2001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		C4B14E1C1B7FD68B001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
@@ -251,7 +255,7 @@
 				C4B14E311B8048CF001E8B62 /* Request */,
 				C4B14E251B804778001E8B62 /* Parse */,
 				C4B14E231B804755001E8B62 /* DataAccessor.swift */,
-				C4A595B51B7FC79F009E0F24 /* ServiceInvoker.swift */,
+				C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -259,6 +263,7 @@
 		C4B14E251B804778001E8B62 /* Parse */ = {
 			isa = PBXGroup;
 			children = (
+				C437282E1B82F12F009121C9 /* ParseConfiguration.swift */,
 			);
 			name = Parse;
 			sourceTree = "<group>";
@@ -294,6 +299,7 @@
 				C4B14E421B804A75001E8B62 /* PostRequestProtocol.swift */,
 				C4B14E471B805123001E8B62 /* ModelProtocol.swift */,
 				C43728281B815C8F009121C9 /* JSONHelperExtension.swift */,
+				C437282C1B82ED06009121C9 /* HttpRequestProtocol.swift */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -433,6 +439,7 @@
 				C43728191B812176009121C9 /* Favorite.swift in Sources */,
 				C4B14E2B1B804873001E8B62 /* GetDishesResponse.swift in Sources */,
 				C4B14E2D1B80488F001E8B62 /* GetRestaurantByIdResponse.swift in Sources */,
+				C437282F1B82F12F009121C9 /* ParseConfiguration.swift in Sources */,
 				C4B14E241B804755001E8B62 /* DataAccessor.swift in Sources */,
 				C42D9BF81B7267140035C5A6 /* AboutMeViewController.swift in Sources */,
 				C4B14E341B80490C001E8B62 /* GetPromotionsRequest.swift in Sources */,
@@ -448,10 +455,11 @@
 				C42D9C011B726B6A0035C5A6 /* Promotion.swift in Sources */,
 				C4B14E411B804A66001E8B62 /* GetRequestProtocol.swift in Sources */,
 				C437281B1B8121D7009121C9 /* Picture.swift in Sources */,
+				C437282D1B82ED06009121C9 /* HttpRequestProtocol.swift in Sources */,
 				C4B14E291B804867001E8B62 /* GetRestaurantsResponse.swift in Sources */,
 				C42D9BC41B69EF2D0035C5A6 /* AppDelegate.swift in Sources */,
 				C42D9BF61B7266DB0035C5A6 /* NotificationViewController.swift in Sources */,
-				C4A595B61B7FC79F009E0F24 /* ServiceInvoker.swift in Sources */,
+				C4A595B61B7FC79F009E0F24 /* ServiceConfiguration.swift in Sources */,
 				C4B14E2F1B8048A0001E8B62 /* GetDishByIdResponse.swift in Sources */,
 				C43728171B81215E009121C9 /* Coupon.swift in Sources */,
 				C43728291B815C8F009121C9 /* JSONHelperExtension.swift in Sources */,

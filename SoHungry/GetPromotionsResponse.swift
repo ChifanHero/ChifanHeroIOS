@@ -10,8 +10,18 @@ import Foundation
 
 class GetPromotionsResponse : Model {
     
+    var results : [Promotion]
+    var error : Error?
+    
     required init(data: [String : AnyObject]) {
-        //
+        error <-- data["error"]
+        results = [Promotion]()
+        if let resultsJson = data["results"] as? [AnyObject] {
+            for resultJson in resultsJson {
+                let result = Promotion(data: resultJson as! [String : AnyObject])
+                results.append(result)
+            }
+        }
     }
     
 }

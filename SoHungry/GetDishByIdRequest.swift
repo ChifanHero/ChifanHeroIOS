@@ -14,4 +14,8 @@ class GetDishByIdRequest : GetResourceRequestProtocol{
         return ""
     }
     
+    func getRelativeURL() -> String {
+        return ""
+    }
+    
 }

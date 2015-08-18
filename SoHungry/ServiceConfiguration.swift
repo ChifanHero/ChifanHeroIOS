@@ -9,16 +9,9 @@
 import Foundation
 
 
-protocol ServiceInvoker {
+protocol ServiceConfiguration {
     
     func hostEndpoint() -> String
     
 }
 
-extension ServiceInvoker {
-    
-    func work () {
-        
-    }
-    
-}

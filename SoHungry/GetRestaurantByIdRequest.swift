@@ -14,4 +14,8 @@ class GetRestaurantByIdRequest : GetResourceRequestProtocol{
         return ""
     }
     
+    func getRelativeURL() -> String {
+        return ""
+    }
+    
 }
