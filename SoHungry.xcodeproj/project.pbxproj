@@ -33,6 +33,9 @@
 		C437282B1B81668C009121C9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437282A1B81668C009121C9 /* Error.swift */; };
 		C437282D1B82ED06009121C9 /* HttpRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437282C1B82ED06009121C9 /* HttpRequestProtocol.swift */; };
 		C437282F1B82F12F009121C9 /* ParseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437282E1B82F12F009121C9 /* ParseConfiguration.swift */; };
+		C476C5491B843C9D0051B0E5 /* RestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */; };
+		C476C54C1B843F720051B0E5 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C54B1B843F720051B0E5 /* RestaurantTableViewCell.swift */; };
+		C476C54E1B84565F0051B0E5 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C54D1B84565F0051B0E5 /* Queue.swift */; };
 		C4A595B61B7FC79F009E0F24 /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */; };
 		C4B14E211B802D7F001E8B62 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E201B802D7F001E8B62 /* HttpClient.swift */; };
 		C4B14E241B804755001E8B62 /* DataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E231B804755001E8B62 /* DataAccessor.swift */; };
@@ -101,6 +104,9 @@
 		C437282A1B81668C009121C9 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		C437282C1B82ED06009121C9 /* HttpRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequestProtocol.swift; sourceTree = "<group>"; };
 		C437282E1B82F12F009121C9 /* ParseConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConfiguration.swift; sourceTree = "<group>"; };
+		C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell.xib; sourceTree = "<group>"; };
+		C476C54B1B843F720051B0E5 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
+		C476C54D1B84565F0051B0E5 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4B14E1A1B7FD5F2001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
@@ -185,6 +191,8 @@
 		C42D9BC21B69EF2D0035C5A6 /* SoHungry */ = {
 			isa = PBXGroup;
 			children = (
+				C476C54A1B843F2C0051B0E5 /* UIElementsClass */,
+				C476C5471B843C710051B0E5 /* UIElementsXib */,
 				C43728231B812FA9009121C9 /* Util */,
 				C4A595B41B7FC735009E0F24 /* Service */,
 				C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */,
@@ -242,8 +250,25 @@
 				C43728241B812FBA009121C9 /* NSDateExtension.swift */,
 				C43728261B8149A2009121C9 /* JSONHelper.swift */,
 				C4B14E201B802D7F001E8B62 /* HttpClient.swift */,
+				C476C54D1B84565F0051B0E5 /* Queue.swift */,
 			);
 			name = Util;
+			sourceTree = "<group>";
+		};
+		C476C5471B843C710051B0E5 /* UIElementsXib */ = {
+			isa = PBXGroup;
+			children = (
+				C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */,
+			);
+			name = UIElementsXib;
+			sourceTree = "<group>";
+		};
+		C476C54A1B843F2C0051B0E5 /* UIElementsClass */ = {
+			isa = PBXGroup;
+			children = (
+				C476C54B1B843F720051B0E5 /* RestaurantTableViewCell.swift */,
+			);
+			name = UIElementsClass;
 			sourceTree = "<group>";
 		};
 		C4A595B41B7FC735009E0F24 /* Service */ = {
@@ -410,6 +435,7 @@
 			files = (
 				C42D9BD01B69EF2D0035C5A6 /* LaunchScreen.storyboard in Resources */,
 				C42D9BCD1B69EF2D0035C5A6 /* Assets.xcassets in Resources */,
+				C476C5491B843C9D0051B0E5 /* RestaurantCell.xib in Resources */,
 				C42D9BCB1B69EF2D0035C5A6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +465,7 @@
 				C43728191B812176009121C9 /* Favorite.swift in Sources */,
 				C4B14E2B1B804873001E8B62 /* GetDishesResponse.swift in Sources */,
 				C4B14E2D1B80488F001E8B62 /* GetRestaurantByIdResponse.swift in Sources */,
+				C476C54E1B84565F0051B0E5 /* Queue.swift in Sources */,
 				C437282F1B82F12F009121C9 /* ParseConfiguration.swift in Sources */,
 				C4B14E241B804755001E8B62 /* DataAccessor.swift in Sources */,
 				C42D9BF81B7267140035C5A6 /* AboutMeViewController.swift in Sources */,
@@ -459,6 +486,7 @@
 				C4B14E291B804867001E8B62 /* GetRestaurantsResponse.swift in Sources */,
 				C42D9BC41B69EF2D0035C5A6 /* AppDelegate.swift in Sources */,
 				C42D9BF61B7266DB0035C5A6 /* NotificationViewController.swift in Sources */,
+				C476C54C1B843F720051B0E5 /* RestaurantTableViewCell.swift in Sources */,
 				C4A595B61B7FC79F009E0F24 /* ServiceConfiguration.swift in Sources */,
 				C4B14E2F1B8048A0001E8B62 /* GetDishByIdResponse.swift in Sources */,
 				C43728171B81215E009121C9 /* Coupon.swift in Sources */,

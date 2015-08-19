@@ -35,4 +35,6 @@ class DataAccessor {
             responseHandler(getPromotionsResponse)
         }
     }
+    
+    
 }
