@@ -18,6 +18,10 @@ class Review : Model {
     var restaurant : Restaurant?
     var list : List?
     
+    required init() {
+       
+    }
+    
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
         type <-- data["type"]

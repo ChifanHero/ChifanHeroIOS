@@ -10,6 +10,10 @@ import Foundation
 
 class GetDishesResponse : Model{
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         //
     }

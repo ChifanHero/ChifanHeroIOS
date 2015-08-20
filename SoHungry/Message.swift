@@ -16,6 +16,10 @@ class Message: Model {
     var body : String?
     var signature : String?
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
         title <-- data["title"]

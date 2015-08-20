@@ -10,8 +10,12 @@ import Foundation
 
 class GetPromotionsResponse : Model {
     
-    var results : [Promotion]
+    var results : [Promotion] = [Promotion]()
     var error : Error?
+    
+    required init() {
+        
+    }
     
     required init(data: [String : AnyObject]) {
         error <-- data["error"]

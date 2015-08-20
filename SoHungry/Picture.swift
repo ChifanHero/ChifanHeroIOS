@@ -13,6 +13,10 @@ class Picture : Model {
     var thumbnail : String?
     var original : String?
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         thumbnail <-- data["thumbnail"]
         original <-- data["original"]

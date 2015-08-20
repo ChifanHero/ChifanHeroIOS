@@ -20,6 +20,10 @@ class Dish : Model{
     var neutralCount : Int?
     var fromRestaurant : Restaurant?
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
         name <-- data["name"]

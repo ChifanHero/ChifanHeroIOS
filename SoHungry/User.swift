@@ -19,6 +19,10 @@ class User : Model{
     var nickName : String?
     var picture : Picture?
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
         userName <-- data["username"]

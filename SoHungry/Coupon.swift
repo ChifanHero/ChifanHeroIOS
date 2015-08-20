@@ -17,6 +17,10 @@ class Coupon: Model {
     var deadline : NSDate?
     var content : String?
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
         restaurant <-- data["restaurant"]

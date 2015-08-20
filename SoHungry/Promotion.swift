@@ -16,6 +16,10 @@ class Promotion : Model{
     var dish : Dish?
     var coupon : Coupon?
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
         type <-- data["type"]

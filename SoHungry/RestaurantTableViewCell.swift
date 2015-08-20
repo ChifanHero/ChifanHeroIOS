@@ -8,31 +8,24 @@
 
 import UIKit
 
-class RestaurantTableViewCell: UITableViewCell {
+class RestaurantTableViewCell: UITableViewCell, ModelTableViewCell {
     
-    var imageURL : String? {
+    var model : Model? {
         didSet {
-            if (imageURL != nil) {
-                let url = NSURL(string: imageURL!)
-                let data = NSData(contentsOfURL: url!)
-                let image = UIImage(data: data!)
-                restaurantImageView.image = image
+            if let restaurant = model as? Restaurant {
+                nameLabel.text = restaurant.name
+                addressLabel.text = restaurant.address
+                distanceLabel.text = restaurant.distance
+                if let imageURL = restaurant.picture?.original {
+                    let url = NSURL(string: imageURL)
+                    let data = NSData(contentsOfURL: url!)
+                    let image = UIImage(data: data!)
+                    restaurantImageView.image = image
+                }
             }
+            
         }
     }
-    var name : String? {
-        didSet {
-            nameLabel.text = name
-        }
-    }
-    var address : String? {
-        didSet {
-            addressLabel.text = address
-        }
-    }
-    
-    
-    
     
     @IBOutlet weak var restaurantImageView: UIImageView!
     
@@ -40,7 +33,7 @@ class RestaurantTableViewCell: UITableViewCell {
     
     @IBOutlet weak var addressLabel: UILabel!
     
-    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

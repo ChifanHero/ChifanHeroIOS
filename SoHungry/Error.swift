@@ -13,6 +13,10 @@ class Error : Model {
     var code : Int?
     var message : String?
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         code <-- data["code"]
         message <-- data["message"]

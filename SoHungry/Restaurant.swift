@@ -23,6 +23,9 @@ class Restaurant : Model{
     var phone : String?
     var hours : String?
     
+    required init() {
+        
+    }
     
     required init(data: [String : AnyObject]) {
         id <-- data["id"]

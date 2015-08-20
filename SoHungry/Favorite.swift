@@ -17,6 +17,10 @@ class Favorite: Model {
     var list : List?
     var type : String?
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
         user <-- data["user"]

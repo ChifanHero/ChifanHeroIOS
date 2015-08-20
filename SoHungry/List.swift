@@ -16,6 +16,10 @@ class List : Model{
     var likeCount : Int?
     var memberCount : Int?
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
         name <-- data["name"]

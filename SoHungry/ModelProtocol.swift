@@ -10,11 +10,5 @@ import Foundation
 
 protocol Model {
     init(data : [String : AnyObject])
-}
-
-extension Model {
-        
-    init(){
-        self.init()
-    }
+    init()
 }

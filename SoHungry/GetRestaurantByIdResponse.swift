@@ -10,6 +10,10 @@ import Foundation
 
 class GetRestaurantByIdResponse : Model{
     
+    required init() {
+        
+    }
+    
     required init(data: [String : AnyObject]) {
         //
     }
