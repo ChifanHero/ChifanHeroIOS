@@ -10,21 +10,22 @@ import UIKit
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var promotionsTable: UITableView!
     
     var promotions : [Promotion] = []
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if promotions.count == 0 {
-            return 0
-        } else {
-            return promotions.count
-        }
+        return 1
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return promotions.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let type = promotions[indexPath.row].type
+        let type = promotions[indexPath.section].type
         
         if type == PromotionType.Restaurant {
             var cell : RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
@@ -54,17 +55,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        let restaurantCell : RestaurantTableViewCell = cell as! RestaurantTableViewCell
-//        let restaurant : Restaurant = Restaurant()
-//        restaurant.name = "韶山冲"
-//        restaurant.distance = "10.5 mi"
-//        restaurant.address = "222 ddd lane, sss, ddd, 1234"
-//        let picture : Picture = Picture()
-//        picture.original = "http://files.parsetfss.com/c25308ff-6a43-40e0-a09a-2596427b692c/tfss-28c48a2f-70d1-42c4-83d0-4d57bb1b67e9-Shao%20mountain.jpeg"
-//        restaurant.picture = picture
-//        restaurantCell.model = restaurant
         var promotionCell : ModelTableViewCell = cell as! ModelTableViewCell
-        let promotion = promotions[indexPath.row]
+        let promotion = promotions[indexPath.section]
         if promotion.type == PromotionType.Restaurant {
             promotionCell.model = promotion.restaurant
         } else if promotion.type == PromotionType.Dish {
@@ -72,6 +64,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else if promotion.type == PromotionType.Coupon {
             promotionCell.model = promotion.coupon
         }
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clearColor()
+        return headerView
     }
 
     override func viewDidLoad() {
@@ -81,6 +83,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let getPromotionsRequest = GetPromotionsRequest()
         getPromotionsRequest.limit = 10
         getPromotionsRequest.offset = 0
+        
         DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
             //
             self.promotions = (response?.results)!
