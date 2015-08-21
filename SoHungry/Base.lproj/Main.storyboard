@@ -32,6 +32,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
                                         <rect key="frame" x="40" y="91" width="51" height="30"/>
                                         <state key="normal" title="Hottest"/>
+                                        <connections>
+                                            <action selector="showHottestRestaurants:" destination="9pv-A4-QxB" eventType="touchUpInside" id="iLq-aw-gd0"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7a-2D-gQH">
                                         <rect key="frame" x="154" y="91" width="59" height="30"/>
@@ -40,6 +43,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-Lg-ida">
                                         <rect key="frame" x="277" y="91" width="54" height="30"/>
                                         <state key="normal" title="Nearest"/>
+                                        <connections>
+                                            <action selector="showNearstRestaurants:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Fen-Mi-Sqy"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -104,10 +110,10 @@
             </objects>
             <point key="canvasLocation" x="1370.5" y="-338.5"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Restaurants Table View Controller-->
         <scene sceneID="EKt-FB-EKW">
             <objects>
-                <tableViewController id="Yys-Ja-R5f" sceneMemberID="viewController">
+                <tableViewController id="Yys-Ja-R5f" customClass="RestaurantsTableViewController" customModule="SoHungry" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hXm-D8-niK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

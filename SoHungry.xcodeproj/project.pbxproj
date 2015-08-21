@@ -39,6 +39,9 @@
 		C43B397F1B85969E00516248 /* DishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43B397E1B85969E00516248 /* DishCell.xib */; };
 		C43B39811B85A8ED00516248 /* PromotionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39801B85A8ED00516248 /* PromotionType.swift */; };
 		C43B39841B85AB8E00516248 /* ModelTableViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39831B85AB8E00516248 /* ModelTableViewCellProtocol.swift */; };
+		C43B39861B86F09700516248 /* RestaurantsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39851B86F09700516248 /* RestaurantsTableViewController.swift */; };
+		C43B39881B86F2B200516248 /* SortParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39871B86F2B200516248 /* SortParameter.swift */; };
+		C43B398A1B86F48D00516248 /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39891B86F48D00516248 /* SortOrder.swift */; };
 		C476C5491B843C9D0051B0E5 /* RestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */; };
 		C476C54C1B843F720051B0E5 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C54B1B843F720051B0E5 /* RestaurantTableViewCell.swift */; };
 		C476C54E1B84565F0051B0E5 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C54D1B84565F0051B0E5 /* Queue.swift */; };
@@ -116,6 +119,9 @@
 		C43B397E1B85969E00516248 /* DishCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishCell.xib; sourceTree = "<group>"; };
 		C43B39801B85A8ED00516248 /* PromotionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionType.swift; sourceTree = "<group>"; };
 		C43B39831B85AB8E00516248 /* ModelTableViewCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTableViewCellProtocol.swift; sourceTree = "<group>"; };
+		C43B39851B86F09700516248 /* RestaurantsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantsTableViewController.swift; sourceTree = "<group>"; };
+		C43B39871B86F2B200516248 /* SortParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortParameter.swift; sourceTree = "<group>"; };
+		C43B39891B86F48D00516248 /* SortOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortOrder.swift; sourceTree = "<group>"; };
 		C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell.xib; sourceTree = "<group>"; };
 		C476C54B1B843F720051B0E5 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		C476C54D1B84565F0051B0E5 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
@@ -203,12 +209,9 @@
 		C42D9BC21B69EF2D0035C5A6 /* SoHungry */ = {
 			isa = PBXGroup;
 			children = (
-				C476C54A1B843F2C0051B0E5 /* UIElementsClass */,
-				C476C5471B843C710051B0E5 /* UIElementsXib */,
-				C43728231B812FA9009121C9 /* Util */,
-				C4A595B41B7FC735009E0F24 /* Service */,
 				C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */,
 				C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */,
+				C43B39851B86F09700516248 /* RestaurantsTableViewController.swift */,
 				C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */,
 				C42D9BC91B69EF2D0035C5A6 /* Main.storyboard */,
 				C42D9BCC1B69EF2D0035C5A6 /* Assets.xcassets */,
@@ -216,6 +219,10 @@
 				C42D9BD11B69EF2D0035C5A6 /* Info.plist */,
 				C42D9BF51B7266DB0035C5A6 /* NotificationViewController.swift */,
 				C42D9BF71B7267140035C5A6 /* AboutMeViewController.swift */,
+				C476C54A1B843F2C0051B0E5 /* UIElementsClass */,
+				C476C5471B843C710051B0E5 /* UIElementsXib */,
+				C43728231B812FA9009121C9 /* Util */,
+				C4A595B41B7FC735009E0F24 /* Service */,
 			);
 			path = SoHungry;
 			sourceTree = "<group>";
@@ -319,6 +326,8 @@
 				C4B14E371B804927001E8B62 /* GetDishesRequest.swift */,
 				C4B14E391B80493A001E8B62 /* GetRestaurantByIdRequest.swift */,
 				C4B14E3B1B804947001E8B62 /* GetDishByIdRequest.swift */,
+				C43B39871B86F2B200516248 /* SortParameter.swift */,
+				C43B39891B86F48D00516248 /* SortOrder.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -497,6 +506,7 @@
 				C4B14E271B804847001E8B62 /* GetPromotionsResponse.swift in Sources */,
 				C43728251B812FBA009121C9 /* NSDateExtension.swift in Sources */,
 				C42D9BFB1B726B270035C5A6 /* User.swift in Sources */,
+				C43B398A1B86F48D00516248 /* SortOrder.swift in Sources */,
 				C42D9BFF1B726B540035C5A6 /* Restaurant.swift in Sources */,
 				C4B14E361B80491B001E8B62 /* GetRestaurantsRequest.swift in Sources */,
 				C42D9C011B726B6A0035C5A6 /* Promotion.swift in Sources */,
@@ -515,11 +525,13 @@
 				C43728171B81215E009121C9 /* Coupon.swift in Sources */,
 				C43728291B815C8F009121C9 /* JSONHelperExtension.swift in Sources */,
 				C4B14E381B804927001E8B62 /* GetDishesRequest.swift in Sources */,
+				C43B39861B86F09700516248 /* RestaurantsTableViewController.swift in Sources */,
 				C43728221B8122B5009121C9 /* Review.swift in Sources */,
 				C4B14E211B802D7F001E8B62 /* HttpClient.swift in Sources */,
 				C4B14E3C1B804947001E8B62 /* GetDishByIdRequest.swift in Sources */,
 				C43B397D1B85954200516248 /* CouponTableViewCell.swift in Sources */,
 				C43728201B812298009121C9 /* Message.swift in Sources */,
+				C43B39881B86F2B200516248 /* SortParameter.swift in Sources */,
 				C43728271B8149A2009121C9 /* JSONHelper.swift in Sources */,
 				C42D9BC61B69EF2D0035C5A6 /* HomeViewController.swift in Sources */,
 				C437282B1B81668C009121C9 /* Error.swift in Sources */,

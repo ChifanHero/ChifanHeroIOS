@@ -13,6 +13,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var promotionsTable: UITableView!
     
+    @IBAction func showHottestRestaurants(sender: AnyObject) {
+        self.performSegueWithIdentifier("showRestaurants", sender: "hottest")
+    }
+    
+    @IBAction func showNearstRestaurants(sender: AnyObject) {
+        self.performSegueWithIdentifier("showRestaurants", sender: "nearest")
+    }
+    
     var promotions : [Promotion] = []
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -72,32 +80,30 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
-        headerView.backgroundColor = UIColor.clearColor()
+        headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
         return headerView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        print("home view did load")
+        loadTableData()
+    }
+    
+    func loadTableData() {
         let getPromotionsRequest = GetPromotionsRequest()
         getPromotionsRequest.limit = 10
         getPromotionsRequest.offset = 0
-        
         DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
             //
             self.promotions = (response?.results)!
+//            Queue.MainQueue.perform({
+//                
+//            })
             dispatch_async(dispatch_get_main_queue(), {
                 self.promotionsTable.reloadData()
             });
-            Queue.MainQueue.perform({
-                self.promotionsTable.reloadData()
-            })
         }
-
     }
-    
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -106,6 +112,21 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 200
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showRestaurants" {
+            let restaurantsController : RestaurantsTableViewController = segue.destinationViewController as! RestaurantsTableViewController
+            if let s = sender as? String {
+                if s == "hottest" {
+                    restaurantsController.sortParameter = SortParameter.Hotness
+                    restaurantsController.sortOrder = SortOrder.Decrease
+                } else if s == "nearest" {
+                    restaurantsController.sortParameter = SortParameter.Distance
+                    restaurantsController.sortOrder = SortOrder.Increase
+                }
+            }
+        }
     }
 
 }
