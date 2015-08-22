@@ -56,5 +56,25 @@ class DataAccessor {
         }
     }
     
+    func getLists(request : GetListsRequest, responseHandler : (GetListsResponse?) -> Void) {
+        let httpClient = HttpClient()
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        httpClient.get(url, headers: nil, parameters: request.getParameters()) { (data, response, error) -> Void in
+            var getListsResponse : GetListsResponse? = nil
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    getListsResponse = GetListsResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(getListsResponse)
+        }
+    }
+    
     
 }

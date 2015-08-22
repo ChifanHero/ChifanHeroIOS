@@ -10,6 +10,8 @@ import UIKit
 
 class CouponTableViewCell: UITableViewCell, ModelTableViewCell {
     
+    static var height : CGFloat = 200.0
+    
     var model : Model? {
         didSet {
             if let coupon = model as? Coupon {
@@ -30,6 +32,11 @@ class CouponTableViewCell: UITableViewCell, ModelTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        setUp()
+        
+    }
+    
+    func setUp() {
         labelContainer.layer.borderColor = UIColor.blackColor().CGColor
         labelContainer.layer.borderWidth = 0.4
         labelContainer.backgroundColor = UIColor.clearColor()

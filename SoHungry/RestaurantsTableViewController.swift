@@ -9,9 +9,8 @@
 import UIKit
 
 class RestaurantsTableViewController: UITableViewController {
-
-    var sortParameter : SortParameter = SortParameter.Hotness
-    var sortOrder : SortOrder = SortOrder.Decrease
+    
+    var request : GetRestaurantsRequest?
     
     var restaurants : [Restaurant] = []
     
@@ -21,16 +20,13 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     func loadTableData() {
-        let getRestaurantsRequest = GetRestaurantsRequest()
-        getRestaurantsRequest.limit = 10
-        getRestaurantsRequest.offset = 0
-        getRestaurantsRequest.sortParameter = sortParameter
-        getRestaurantsRequest.sortOrder = SortOrder.Decrease
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(getRestaurantsRequest) { (response) -> Void in
-            self.restaurants = (response?.results)!
-            dispatch_async(dispatch_get_main_queue(), {
-                self.tableView.reloadData()
-            });
+        if request != nil {
+            DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request!) { (response) -> Void in
+                self.restaurants = (response?.results)!
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                });
+            }
         }
     }
     

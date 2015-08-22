@@ -10,6 +10,8 @@ import UIKit
 
 class DishTableViewCell: UITableViewCell, ModelTableViewCell {
     
+    static var height : CGFloat = 200.0
+    
     var model : Model? {
         didSet {
             if let dish = model as? Dish {
@@ -38,6 +40,11 @@ class DishTableViewCell: UITableViewCell, ModelTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        setUp()
+        
+    }
+    
+    func setUp() {
         dishImageView.layer.cornerRadius = dishImageView.frame.size.height / 2
         dishImageView.clipsToBounds = true
     }

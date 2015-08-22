@@ -21,6 +21,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.performSegueWithIdentifier("showRestaurants", sender: "nearest")
     }
     
+    @IBAction func showDishLists(sender: AnyObject) {
+        self.performSegueWithIdentifier("showLists", sender: self)
+    }
     var promotions : [Promotion] = []
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -111,21 +114,39 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if promotions[indexPath.section].type == PromotionType.Restaurant {
+            return RestaurantTableViewCell.height
+        } else if promotions[indexPath.section].type == PromotionType.Dish {
+            return DishTableViewCell.height
+        } else if promotions[indexPath.section].type == PromotionType.Coupon {
+            return CouponTableViewCell.height
+        }
         return 200
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRestaurants" {
             let restaurantsController : RestaurantsTableViewController = segue.destinationViewController as! RestaurantsTableViewController
+            let getRestaurantsRequest = GetRestaurantsRequest()
+            getRestaurantsRequest.limit = 10
+            getRestaurantsRequest.offset = 0
             if let s = sender as? String {
                 if s == "hottest" {
-                    restaurantsController.sortParameter = SortParameter.Hotness
-                    restaurantsController.sortOrder = SortOrder.Decrease
+                    getRestaurantsRequest.sortParameter = SortParameter.Hotness
+                    getRestaurantsRequest.sortOrder = SortOrder.Decrease
+                    restaurantsController.request = getRestaurantsRequest
                 } else if s == "nearest" {
-                    restaurantsController.sortParameter = SortParameter.Distance
-                    restaurantsController.sortOrder = SortOrder.Increase
+                    getRestaurantsRequest.sortParameter = SortParameter.Distance
+                    getRestaurantsRequest.sortOrder = SortOrder.Increase
+                    restaurantsController.request = getRestaurantsRequest
                 }
             }
+        } else if segue.identifier == "showLists" {
+            let getListsRequest = GetListsRequest()
+            getListsRequest.limit = 10
+            getListsRequest.offset = 0
+            let listsController : ListsTableViewController = segue.destinationViewController as! ListsTableViewController
+            listsController.request = getListsRequest
         }
     }
 
