@@ -10,7 +10,7 @@ import UIKit
 
 class RestaurantTableViewCell: UITableViewCell, ModelTableViewCell {
     
-    static var height : CGFloat = 200.0
+    static var height : CGFloat = 150
     
     var model : Model? {
         didSet {

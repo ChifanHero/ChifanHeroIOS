@@ -58,6 +58,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 tableView.registerNib(UINib(nibName: "CouponCell", bundle: nil), forCellReuseIdentifier: "couponCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("couponCell") as? CouponTableViewCell
             }
+           // cell?.frame.size.width = tableView.frame.size.width
             return cell!
         } else {
             return UITableViewCell()
