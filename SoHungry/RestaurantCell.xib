@@ -36,21 +36,21 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J0x-vT-CyX">
-                        <rect key="frame" x="13" y="148" width="51" height="30"/>
+                        <rect key="frame" x="13" y="143" width="51" height="30"/>
                         <state key="normal" title="like"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dh8-3t-6H4">
-                        <rect key="frame" x="134" y="148" width="48" height="30"/>
+                        <rect key="frame" x="129" y="143" width="48" height="30"/>
                         <state key="normal" title="neutral"/>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1E-qJ-2cm">
-                        <rect key="frame" x="250" y="151" width="43" height="30"/>
-                        <state key="normal" title="dislike"/>
                     </button>
                     <view contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ic4-Oy-ki8">
                         <rect key="frame" x="0.0" y="134" width="320" height="1"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1E-qJ-2cm">
+                        <rect key="frame" x="250" y="143" width="43" height="30"/>
+                        <state key="normal" title="dislike"/>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" red="0.98737373740000001" green="0.98737373740000001" blue="0.98737373740000001" alpha="1" colorSpace="calibratedRGB"/>
             </tableViewCellContentView>
