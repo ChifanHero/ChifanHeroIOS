@@ -100,10 +100,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             }
             
         } else if tableView == hotDishesTableView {
-            var cell : DishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
+            var cell : NameOnlyDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
             if cell == nil {
-                tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
+                tableView.registerNib(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
+                cell = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
             }
             return cell!
         } else {
@@ -120,7 +120,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             }
         } else if tableView == hotDishesTableView {
             if hotDishes != nil {
-                let dishCell : DishTableViewCell = cell as! DishTableViewCell
+                let dishCell : NameOnlyDishTableViewCell = cell as! NameOnlyDishTableViewCell
                 let hotDish : Dish = (hotDishes![indexPath.section])
                 dishCell.model = hotDish
             }
