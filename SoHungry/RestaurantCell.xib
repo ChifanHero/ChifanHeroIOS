@@ -36,9 +36,12 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ic4-Oy-ki8">
+                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ic4-Oy-ki8">
                         <rect key="frame" x="0.0" y="119" width="320" height="0.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="SjZ-32-QQV"/>
+                        </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOL-s0-UlT">
                         <rect key="frame" x="13" y="119" width="30" height="30"/>
@@ -57,6 +60,7 @@
                 <constraints>
                     <constraint firstItem="Ic4-Oy-ki8" firstAttribute="leading" secondItem="wVX-4q-pIH" secondAttribute="leadingMargin" constant="-8" id="8ht-Cu-ekb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Ic4-Oy-ki8" secondAttribute="trailing" constant="-8" id="JEP-L7-Vbf"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Ic4-Oy-ki8" secondAttribute="bottom" constant="22" id="Z5D-mf-bjy"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

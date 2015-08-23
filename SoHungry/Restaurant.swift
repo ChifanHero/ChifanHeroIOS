@@ -22,6 +22,7 @@ class Restaurant : Model{
     var neutralCount : Int?
     var phone : String?
     var hours : String?
+    var hotDishes : [Dish]?
     
     required init() {
         
@@ -39,5 +40,12 @@ class Restaurant : Model{
         neutralCount <-- data["neutral_count"]
         phone <-- data["phone"]
         hours <-- data["hours"]
+        if let resultsJson = data["hot_dishes"] as? [AnyObject] {
+            hotDishes = [Dish]()
+            for resultJson in resultsJson {
+                let result = Dish(data: resultJson as! [String : AnyObject])
+                hotDishes?.append(result)
+            }
+        }
     }
 }

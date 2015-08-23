@@ -44,7 +44,7 @@ class HttpClient {
         task.resume()
     }
     
-    func get(url:String, headers:[String : String]?, parameters : [String : AnyObject], completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
+    func get(url:String, headers:[String : String]?, parameters : [String : AnyObject]?, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
         let request = NSMutableURLRequest(URL:NSURL(string: url)!)
         request.HTTPMethod = "GET"
         if headers != nil {

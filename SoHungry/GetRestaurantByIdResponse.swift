@@ -10,12 +10,16 @@ import Foundation
 
 class GetRestaurantByIdResponse : Model{
     
+    var result : Restaurant?
+    var error : Error?
+    
     required init() {
         
     }
     
     required init(data: [String : AnyObject]) {
-        //
+        error <-- data["error"]
+        result <-- data["result"]
     }
     
 }

@@ -22,8 +22,8 @@ class RestaurantsTableViewController: UITableViewController {
     func loadTableData() {
         if request != nil {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request!) { (response) -> Void in
-                self.restaurants = (response?.results)!
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.restaurants = (response?.results)!
                     self.tableView.reloadData()
                 });
             }
@@ -36,7 +36,7 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 200
+        return RestaurantTableViewCell.height
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -69,6 +69,18 @@ class RestaurantsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let restaurantCell : RestaurantTableViewCell = cell as! RestaurantTableViewCell
         restaurantCell.model = restaurants[indexPath.section]
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let restaurantSelected : Restaurant = restaurants[indexPath.section]
+        performSegueWithIdentifier("showRestaurant", sender: restaurantSelected.id)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showRestaurant" {
+            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            restaurantController.restaurantId = sender as? String
+        }
     }
     
     

@@ -57,32 +57,6 @@
                                 <rect key="frame" x="-2.5" y="250" width="380" height="368"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="9by-VI-WRK" detailTextLabel="q29-wM-YjM" style="IBUITableViewCellStyleSubtitle" id="sJp-js-vHH">
-                                        <rect key="frame" x="0.0" y="22" width="380" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sJp-js-vHH" id="bjt-o7-Jhy">
-                                            <rect key="frame" x="0.0" y="0.0" width="380" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9by-VI-WRK">
-                                                    <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q29-wM-YjM">
-                                                    <rect key="frame" x="15" y="25.5" width="30.5" height="13.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="9pv-A4-QxB" id="0mI-8R-4RM"/>
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="qyr-po-BYQ"/>
@@ -99,6 +73,7 @@
                         <segue destination="8rJ-Kc-sve" kind="show" identifier="showSearch" id="XyL-3g-JQx"/>
                         <segue destination="Yys-Ja-R5f" kind="show" identifier="showRestaurants" id="cIb-vj-s6h"/>
                         <segue destination="Dor-mB-Ihh" kind="show" identifier="showLists" id="DgF-OE-Zag"/>
+                        <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="SnI-Ci-tXQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -121,16 +96,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="phe-OC-1PV">
-                                <rect key="frame" x="0.0" y="86" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="phe-OC-1PV" id="pJ9-oR-2u3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Yys-Ja-R5f" id="wII-Hs-y3R"/>
                             <outlet property="delegate" destination="Yys-Ja-R5f" id="Zbo-Q6-7H2"/>
@@ -138,17 +103,17 @@
                     </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <segue destination="zJm-Fm-QLl" kind="show" id="eB3-xn-ixp"/>
+                        <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="eB3-xn-ixp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Su-Zi-9qZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1824.5" y="-338.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Restaurant View Controller-->
         <scene sceneID="hbI-cD-Qbc">
             <objects>
-                <viewController id="zJm-Fm-QLl" sceneMemberID="viewController">
+                <viewController id="zJm-Fm-QLl" customClass="RestaurantViewController" customModule="SoHungry" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3Db-jL-lhH"/>
                         <viewControllerLayoutGuide type="bottom" id="Eza-ca-7rH"/>
@@ -157,32 +122,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda">
-                                <rect key="frame" x="-0.5" y="65" width="376" height="144"/>
+                            <view contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="SoHungry" customModuleProvider="target">
+                                <rect key="frame" x="-0.5" y="65" width="376" height="172"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="37" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="y1L-Ab-Xf0">
-                                <rect key="frame" x="0.0" y="209" width="375.5" height="162"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="28" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="y1L-Ab-Xf0">
+                                <rect key="frame" x="0.0" y="239" width="375.5" height="103"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="37" id="vBQ-Cm-af9">
-                                        <rect key="frame" x="0.0" y="22" width="375.5" height="37"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vBQ-Cm-af9" id="tEq-3g-f8X">
-                                            <rect key="frame" x="0.0" y="0.0" width="375.5" height="36.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="zJm-Fm-QLl" id="qRT-ez-dYF"/>
+                                    <outlet property="delegate" destination="zJm-Fm-QLl" id="DOV-rj-ZVR"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7">
+                                <rect key="frame" x="0.0" y="407" width="375" height="211"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="zJm-Fm-QLl" id="W3M-rx-o9o"/>
+                                    <outlet property="delegate" destination="zJm-Fm-QLl" id="BfU-D9-9BS"/>
+                                </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="hotDishesTableView" destination="3wF-uh-jL7" id="z23-Dy-hUl"/>
+                        <outlet property="infoTableView" destination="y1L-Ab-Xf0" id="D8G-h6-g4Z"/>
+                        <outlet property="topViewContainer" destination="eWi-Dd-Kda" id="phL-oe-mEb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ffU-Jy-x38" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2259.5" y="-338.5"/>
+            <point key="canvasLocation" x="2357.5" y="-338.5"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="wg7-f3-ORb">
@@ -232,16 +204,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qug-PO-Zk7">
-                                <rect key="frame" x="0.0" y="86" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qug-PO-Zk7" id="HtT-Zd-sLi">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Dor-mB-Ihh" id="kjm-SO-efW"/>
                             <outlet property="delegate" destination="Dor-mB-Ihh" id="lLc-mn-6nv"/>
@@ -358,5 +320,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XyL-3g-JQx"/>
+        <segue reference="eB3-xn-ixp"/>
     </inferredMetricsTieBreakers>
 </document>

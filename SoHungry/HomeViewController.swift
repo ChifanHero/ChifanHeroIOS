@@ -98,12 +98,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         getPromotionsRequest.limit = 10
         getPromotionsRequest.offset = 0
         DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
-            //
-            self.promotions = (response?.results)!
-//            Queue.MainQueue.perform({
-//                
-//            })
             dispatch_async(dispatch_get_main_queue(), {
+                self.promotions = (response?.results)!
                 self.promotionsTable.reloadData()
             });
         }
@@ -123,6 +119,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return CouponTableViewCell.height
         }
         return 200
+    }
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let type = promotions[indexPath.section].type
+        if type == PromotionType.Restaurant {
+            let restaurant : Restaurant = promotions[indexPath.section].restaurant!
+            self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -148,6 +153,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             getListsRequest.offset = 0
             let listsController : ListsTableViewController = segue.destinationViewController as! ListsTableViewController
             listsController.request = getListsRequest
+        } else if segue.identifier == "showRestaurant" {
+            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            restaurantController.restaurantId = sender as? String
         }
     }
 
