@@ -10,12 +10,16 @@ import Foundation
 
 class GetDishByIdResponse : Model{
     
+    var result : Dish?
+    var error : Error?
+    
     required init() {
         
     }
     
     required init(data: [String : AnyObject]) {
-        //
+        error <-- data["error"]
+        result <-- data["result"]
     }
     
 }

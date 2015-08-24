@@ -10,12 +10,18 @@ import Foundation
 
 class GetDishByIdRequest : GetResourceRequestProtocol{
     
+    var resourceId : String
+    
+    init(id : String) {
+        resourceId = id
+    }
+    
     func getResourceId() -> String {
-        return ""
+        return resourceId
     }
     
     func getRelativeURL() -> String {
-        return ""
+        return "/dishes"
     }
     
 }

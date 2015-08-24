@@ -62,7 +62,11 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         if tableView == infoTableView {
             return info.count + 1
         } else if tableView == hotDishesTableView {
-            return 1
+            if hotDishes != nil {
+                return hotDishes!.count
+            } else {
+                return 0
+            }
         } else {
             return 0
         }
@@ -74,9 +78,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 return 1
             }
         } else {
-            if hotDishes != nil {
-                return hotDishes!.count
-            }
+            return 1
         }
         return 0
     }
@@ -121,11 +123,18 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         } else if tableView == hotDishesTableView {
             if hotDishes != nil {
                 let dishCell : NameOnlyDishTableViewCell = cell as! NameOnlyDishTableViewCell
-                let hotDish : Dish = (hotDishes![indexPath.section])
+                let hotDish : Dish = (hotDishes![indexPath.row])
                 dishCell.model = hotDish
             }
-            
+            cell.addSubview(getSeperatorView(forCell: cell))
         }
+        
+    }
+    
+    func getSeperatorView(forCell cell : UITableViewCell) -> UIView {
+        let seperatorView = UIView(frame: CGRectMake(0, 0, cell.frame.size.width, 10))
+        seperatorView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        return seperatorView
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -136,7 +145,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 return 48
             }
         } else if tableView == hotDishesTableView {
-            return DishTableViewCell.height
+            return DishTableViewCell.height + 10
         } else {
             return 100
         }
@@ -146,15 +155,15 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         if tableView == infoTableView {
             return 0
         } else {
-            return 10
+            return 26
         }
         
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if tableView == hotDishesTableView {
-            let headerView = UIView()
-            headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+            let headerView = AllDishesHeaderView()
+//            headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
             return headerView
         } else {
             return UIView()

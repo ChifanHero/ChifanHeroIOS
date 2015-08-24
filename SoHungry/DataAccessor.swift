@@ -94,8 +94,29 @@ class DataAccessor {
             }
             responseHandler(getRestaurantByIdResponse)
         }
-        
     }
+    
+    func getDishById(request : GetDishByIdRequest, responseHandler : (GetDishByIdResponse?) -> Void) {
+        let httpClient = HttpClient()
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL() + "/" + request.getResourceId()
+        print(url)
+        httpClient.get(url, headers: nil, parameters: nil) { (data, response, error) -> Void in
+            var getDishByIdResponse : GetDishByIdResponse? = nil
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    getDishByIdResponse = GetDishByIdResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(getDishByIdResponse)
+        }
+    }
+    
+    
     
     
 }

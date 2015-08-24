@@ -27,16 +27,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var promotions : [Promotion] = []
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 1
+        return promotions.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return promotions.count
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let type = promotions[indexPath.section].type
+        let type = promotions[indexPath.row].type
         
         if type == PromotionType.Restaurant {
             var cell : RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
@@ -68,7 +68,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         var promotionCell : ModelTableViewCell = cell as! ModelTableViewCell
-        let promotion = promotions[indexPath.section]
+        let promotion = promotions[indexPath.row]
         if promotion.type == PromotionType.Restaurant {
             promotionCell.model = promotion.restaurant
         } else if promotion.type == PromotionType.Dish {
@@ -76,6 +76,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else if promotion.type == PromotionType.Coupon {
             promotionCell.model = promotion.coupon
         }
+        cell.addSubview(getSeperatorView(forCell: cell))
+    }
+    
+    func getSeperatorView(forCell cell : UITableViewCell) -> UIView {
+        let seperatorView = UIView(frame: CGRectMake(0, 0, cell.frame.size.width, 10))
+        seperatorView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        return seperatorView
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -112,21 +119,24 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if promotions[indexPath.section].type == PromotionType.Restaurant {
-            return RestaurantTableViewCell.height
+            return RestaurantTableViewCell.height + 10
         } else if promotions[indexPath.section].type == PromotionType.Dish {
-            return DishTableViewCell.height
+            return DishTableViewCell.height + 10
         } else if promotions[indexPath.section].type == PromotionType.Coupon {
-            return CouponTableViewCell.height
+            return CouponTableViewCell.height + 10
         }
         return 200
     }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let type = promotions[indexPath.section].type
+        let type = promotions[indexPath.row].type
         if type == PromotionType.Restaurant {
             let restaurant : Restaurant = promotions[indexPath.section].restaurant!
             self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
+        } else if type == PromotionType.Dish {
+            let dish : Dish = promotions[indexPath.row].dish!
+            self.performSegueWithIdentifier("showDish", sender: dish.id)
         }
     }
     
@@ -156,6 +166,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else if segue.identifier == "showRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
+        } else if segue.identifier == "showDish" {
+            let dishController : DishViewController = segue.destinationViewController as! DishViewController
+            dishController.dishId = sender as? String
         }
     }
 
