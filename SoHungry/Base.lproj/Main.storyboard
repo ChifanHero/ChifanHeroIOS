@@ -105,6 +105,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="eB3-xn-ixp"/>
+                        <segue destination="KMu-z7-xRM" kind="show" identifier="showDishes" id="UBK-7Q-k1o"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Su-Zi-9qZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -211,6 +212,9 @@
                         </connections>
                     </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <segue destination="KMu-z7-xRM" kind="show" identifier="showDishes" id="MaU-3u-Git"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EGY-Ig-4Pt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -243,6 +247,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seM-Bp-qRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1986.5" y="479.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ssG-0R-xMM">
+            <objects>
+                <viewController id="KMu-z7-xRM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x5O-sn-6NL"/>
+                        <viewControllerLayoutGuide type="bottom" id="gvn-me-Yv6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3E2-ah-2F1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ac-Dd-wxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2434.5" y="604.5"/>
         </scene>
         <!--Notifications-->
         <scene sceneID="0Es-Qe-hLX">
@@ -348,7 +371,8 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eB3-xn-ixp"/>
+        <segue reference="MaU-3u-Git"/>
         <segue reference="XyL-3g-JQx"/>
+        <segue reference="eB3-xn-ixp"/>
     </inferredMetricsTieBreakers>
 </document>
