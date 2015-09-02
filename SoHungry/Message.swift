@@ -15,6 +15,7 @@ class Message: Model {
     var greeting : String?
     var body : String?
     var signature : String?
+    var type : String?
     
     required init() {
         
@@ -26,5 +27,6 @@ class Message: Model {
         greeting <-- data["greeting"]
         body <-- data["body"]
         signature <-- data["signature"]
+        type <-- data["type"]
     }
 }
