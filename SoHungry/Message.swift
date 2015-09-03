@@ -16,6 +16,7 @@ class Message: Model {
     var body : String?
     var signature : String?
     var type : String?
+    var read : Bool?
     
     required init() {
         

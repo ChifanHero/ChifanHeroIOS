@@ -267,6 +267,34 @@
             </objects>
             <point key="canvasLocation" x="3608.5" y="604.5"/>
         </scene>
+        <!--Message Detail View Controller-->
+        <scene sceneID="6Ct-m9-4E4">
+            <objects>
+                <viewController id="Wja-uE-ZzJ" customClass="MessageDetailViewController" customModule="SoHungry" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xwp-CM-dpW"/>
+                        <viewControllerLayoutGuide type="bottom" id="eQW-b4-otc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1SY-sU-cTu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="59Q-T0-Nsc" customClass="MessageDetailView" customModule="SoHungry" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="messageDetailView" destination="59Q-T0-Nsc" id="AOa-us-9Tk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n18-7z-DH8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="884.5" y="785.5"/>
+        </scene>
         <!--About me-->
         <scene sceneID="XlT-D1-1eN">
             <objects>
@@ -351,6 +379,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="hrU-iX-FAt"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <segue destination="Wja-uE-ZzJ" kind="show" identifier="showMessage" id="amH-eO-1Ax"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vrt-e9-6D2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -379,7 +410,7 @@
         <scene sceneID="lyK-in-GX8">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fKg-Mw-Ycx" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Notifications" image="second" badgeValue="2" selectedImage="first" id="WpF-85-ouL"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" image="second" badgeValue="3" selectedImage="first" id="WpF-85-ouL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MtN-uz-sUw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

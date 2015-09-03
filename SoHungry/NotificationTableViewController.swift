@@ -66,6 +66,30 @@ class NotificationTableViewController: UITableViewController {
         messageCell.source = "系统消息"
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let messageSelected : Message = messages[indexPath.row]
+        performSegueWithIdentifier("showMessage", sender: messageSelected)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showMessage" {
+            let messageDetalController : MessageDetailViewController = segue.destinationViewController as! MessageDetailViewController
+            let message = sender as? Message
+            messageDetalController.messageId = message!.id
+            if (message?.read != true) {
+                var badgeValue : Int = Int((self.navigationController?.tabBarItem.badgeValue)!)!
+                badgeValue = badgeValue - 1
+                if badgeValue > 0 {
+                    self.navigationController?.tabBarItem.badgeValue = String(badgeValue)
+                } else {
+                    self.navigationController?.tabBarItem.badgeValue = nil
+                }
+                
+            }
+            
+        }
+    }
+    
     
 
 }
