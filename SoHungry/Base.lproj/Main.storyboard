@@ -336,8 +336,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="vtc-2Z-bjE" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="1Iw-QB-RWH" kind="relationship" relationship="viewControllers" id="cxw-Nc-pHz"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="1Iw-QB-RWH" kind="relationship" relationship="viewControllers" id="cxw-Nc-pHz"/>
                         <segue destination="fKg-Mw-Ycx" kind="relationship" relationship="viewControllers" id="9gI-Cx-CZr"/>
                     </connections>
                 </tabBarController>
@@ -432,7 +432,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="SnI-Ci-tXQ"/>
-        <segue reference="XyL-3g-JQx"/>
+        <segue reference="lzU-1b-eKA"/>
         <segue reference="MaU-3u-Git"/>
     </inferredMetricsTieBreakers>
 </document>
