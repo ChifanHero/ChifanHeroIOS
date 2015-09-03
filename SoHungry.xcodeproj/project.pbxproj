@@ -87,6 +87,8 @@
 		C4BDFC011B96CB3B0065F285 /* GetMessagesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDFC001B96CB3B0065F285 /* GetMessagesRequest.swift */; };
 		C4BDFC031B96CBBF0065F285 /* GetMessagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDFC021B96CBBF0065F285 /* GetMessagesResponse.swift */; };
 		C4BDFC051B96CD0B0065F285 /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDFC041B96CD0B0065F285 /* MessageType.swift */; };
+		C4BDFC091B97C8550065F285 /* MessageDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4BDFC081B97C8550065F285 /* MessageDetail.xib */; };
+		C4BDFC0B1B97C8FB0065F285 /* MessageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDFC0A1B97C8FB0065F285 /* MessageDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,6 +199,8 @@
 		C4BDFC001B96CB3B0065F285 /* GetMessagesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessagesRequest.swift; sourceTree = "<group>"; };
 		C4BDFC021B96CBBF0065F285 /* GetMessagesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessagesResponse.swift; sourceTree = "<group>"; };
 		C4BDFC041B96CD0B0065F285 /* MessageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
+		C4BDFC081B97C8550065F285 /* MessageDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageDetail.xib; sourceTree = "<group>"; };
+		C4BDFC0A1B97C8FB0065F285 /* MessageDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailView.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -346,6 +350,7 @@
 				C43B39AF1B8A806A00516248 /* NameOnlyDishCell.xib */,
 				C43B39B31B8A89A600516248 /* AllDishesHeaderView.xib */,
 				C4BDFBFC1B96C8BD0065F285 /* MessageCell.xib */,
+				C4BDFC081B97C8550065F285 /* MessageDetail.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -366,6 +371,7 @@
 				C43B39B11B8A813300516248 /* NameOnlyDishTableViewCell.swift */,
 				C43B39B51B8A8B0D00516248 /* AllDishesHeaderView.swift */,
 				C4BDFBFE1B96C95B0065F285 /* MessageTableViewCell.swift */,
+				C4BDFC0A1B97C8FB0065F285 /* MessageDetailView.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -539,6 +545,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C43B39B01B8A806A00516248 /* NameOnlyDishCell.xib in Resources */,
+				C4BDFC091B97C8550065F285 /* MessageDetail.xib in Resources */,
 				C42D9BD01B69EF2D0035C5A6 /* LaunchScreen.storyboard in Resources */,
 				C42D9BCD1B69EF2D0035C5A6 /* Assets.xcassets in Resources */,
 				C43B39791B85951900516248 /* CouponCell.xib in Resources */,
@@ -640,6 +647,7 @@
 				C437282B1B81668C009121C9 /* Error.swift in Sources */,
 				C4B14E431B804A75001E8B62 /* PostRequestProtocol.swift in Sources */,
 				C43B39A41B8854AA00516248 /* SimpleCouponTableViewCell.swift in Sources */,
+				C4BDFC0B1B97C8FB0065F285 /* MessageDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
