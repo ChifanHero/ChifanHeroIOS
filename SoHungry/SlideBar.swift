@@ -81,6 +81,8 @@ class SlideBar: UIView {
     }
     
     func setUpScrollView(titles titles : [String], var defaultSelection : Int?) {
+        
+        
         if (titles.count <= 0 ){
             return
         }
