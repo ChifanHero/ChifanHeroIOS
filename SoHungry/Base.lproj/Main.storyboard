@@ -4,11 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="Helvetica.ttc">
-            <string>Helvetica</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
         <!--So Hungry-->
         <scene sceneID="hNz-n2-bh7">
@@ -156,11 +151,48 @@
                         <outlet property="hotDishesTableView" destination="3wF-uh-jL7" id="z23-Dy-hUl"/>
                         <outlet property="infoTableView" destination="y1L-Ab-Xf0" id="D8G-h6-g4Z"/>
                         <outlet property="topViewContainer" destination="eWi-Dd-Kda" id="phL-oe-mEb"/>
+                        <segue destination="Zwu-6d-k1R" kind="show" identifier="showAllDishes" id="zvp-M7-zCu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ffU-Jy-x38" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2357.5" y="-338.5"/>
+        </scene>
+        <!--Restaurant All Dish View Controller-->
+        <scene sceneID="Y3c-bQ-vIU">
+            <objects>
+                <viewController id="Zwu-6d-k1R" customClass="RestaurantAllDishViewController" customModule="SoHungry" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NEG-f2-ZpO"/>
+                        <viewControllerLayoutGuide type="bottom" id="TuO-r1-wfP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Q8B-ue-KhO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MCx-yh-LaH" customClass="SlideBar" customModule="SoHungry" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="38"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="slideDuration">
+                                        <real key="value" value="0.20000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="labelTextSize">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="slideBar" destination="MCx-yh-LaH" id="fLk-uA-Ktf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vFc-Re-jQl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2825.5" y="-338.5"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="wg7-f3-ORb">
@@ -174,19 +206,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="82" y="312" width="209.5" height="41.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="80" y="362" width="215" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cXg-Xv-bE4" customClass="SelectionPanel" customModule="SoHungry" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="375" height="47"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -204,12 +223,6 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="abT-Hp-xXr">
                         <nil key="title"/>
@@ -479,7 +492,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="SnI-Ci-tXQ"/>
-        <segue reference="XyL-3g-JQx"/>
+        <segue reference="lzU-1b-eKA"/>
         <segue reference="MaU-3u-Git"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,12 +9,12 @@
 import UIKit
 
 class SlideBar: UIView {
-
+    
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        // Drawing code
+    // Drawing code
     }
     */
     
@@ -62,11 +62,13 @@ class SlideBar: UIView {
     
     private func Setup(){
         view = LoadViewFromNib()
+        view.backgroundColor = UIColor.redColor()
         addSubview(view)
         view.frame = bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.showsVerticalScrollIndicator = false
+        
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -81,8 +83,9 @@ class SlideBar: UIView {
     }
     
     func setUpScrollView(titles titles : [String], var defaultSelection : Int?) {
-        
-        
+        let label = UILabel(frame: CGRectMake(100, -50, 50, 10))
+        label.text = "test"
+        self.scrollView.addSubview(label)
         if (titles.count <= 0 ){
             return
         }
@@ -107,8 +110,11 @@ class SlideBar: UIView {
             for previousView in barElements {
                 x = x + previousView.frame.size.width + spaceBetweenElements
             }
+            print(view.frame.size.height)
+            print(self.scrollView.frame.size.height)
             let y = (view.frame.size.height - containerViewHeight) / 2
-            containerView.frame = CGRectMake(x, y, containerViewWidth, containerViewHeight)
+            print(y)
+            containerView.frame = CGRectMake(x, 0, containerViewWidth, containerViewHeight)
             containerView.tag = i
             
             let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleElementTap:")
@@ -120,7 +126,7 @@ class SlideBar: UIView {
             
             let alpha : CGFloat = 1.0
             UIView.animateWithDuration(fadeInDuration, delay: fadeInDelay, options: UIViewAnimationOptions.AllowAnimatedContent, animations: { () -> Void in
-                    containerView.alpha = alpha
+                containerView.alpha = alpha
                 }, completion: nil)
         }
         var scrollViewWidth : CGFloat = 0
@@ -157,5 +163,5 @@ class SlideBar: UIView {
                 }, completion: nil)
         }
     }
-
+    
 }

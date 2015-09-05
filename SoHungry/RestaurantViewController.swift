@@ -163,11 +163,16 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if tableView == hotDishesTableView {
             let headerView = AllDishesHeaderView()
-//            headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+            let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "segueToAllDishesView:")
+            headerView.addGestureRecognizer(tapGesture)
             return headerView
         } else {
             return UIView()
         }
+    }
+    
+    func segueToAllDishesView(recognizer: UITapGestureRecognizer) {
+        self.performSegueWithIdentifier("showAllDishes", sender: self)
     }
     
 

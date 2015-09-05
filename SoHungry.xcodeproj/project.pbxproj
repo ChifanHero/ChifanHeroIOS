@@ -94,6 +94,7 @@
 		C4BDFC111B982CA00065F285 /* GetMessageByIdResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDFC101B982CA00065F285 /* GetMessageByIdResponse.swift */; };
 		C4BDFC191B98C5C00065F285 /* SelectionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDFC181B98C5C00065F285 /* SelectionPanel.swift */; };
 		C4F9CB731B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9CB721B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift */; };
+		C4F9CB751B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +212,7 @@
 		C4BDFC101B982CA00065F285 /* GetMessageByIdResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessageByIdResponse.swift; sourceTree = "<group>"; };
 		C4BDFC181B98C5C00065F285 /* SelectionPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanel.swift; sourceTree = "<group>"; };
 		C4F9CB721B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanelDelegateProtocol.swift; sourceTree = "<group>"; };
+		C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantAllDishViewController.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -289,6 +291,7 @@
 				C42D9BF51B7266DB0035C5A6 /* NotificationTableViewController.swift */,
 				C42D9BF71B7267140035C5A6 /* AboutMeViewController.swift */,
 				C4BDFC0C1B9821280065F285 /* MessageDetailViewController.swift */,
+				C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */,
 				C476C54A1B843F2C0051B0E5 /* UIElementsClass */,
 				C476C5471B843C710051B0E5 /* UIElementsXib */,
 				C43728231B812FA9009121C9 /* Util */,
@@ -665,6 +668,7 @@
 				C42D9BC61B69EF2D0035C5A6 /* HomeViewController.swift in Sources */,
 				C437282B1B81668C009121C9 /* Error.swift in Sources */,
 				C4BDFC0D1B9821280065F285 /* MessageDetailViewController.swift in Sources */,
+				C4F9CB751B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift in Sources */,
 				C4B14E431B804A75001E8B62 /* PostRequestProtocol.swift in Sources */,
 				C43B39A41B8854AA00516248 /* SimpleCouponTableViewCell.swift in Sources */,
 				C4BDFC0B1B97C8FB0065F285 /* MessageDetailView.swift in Sources */,
