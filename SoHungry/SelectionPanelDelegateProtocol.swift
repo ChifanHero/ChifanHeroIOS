@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol SelectionPanelDelegateProtocol {
+protocol SelectionPanelDelegate {
     
     func selectionPanel(selectionPanel : SelectionPanel, didSelectElementAtIndex : Int) -> Void
     
