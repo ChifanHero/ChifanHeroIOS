@@ -22,11 +22,14 @@ class SelectionPanel: UIView {
     @IBInspectable var boarderColor : UIColor = UIColor.orangeColor()
     @IBInspectable var leadingSpace : CGFloat = 10
     @IBInspectable var font : UIFont = UIFont.systemFontOfSize(17)
-    @IBInspectable var labelToBoarderHorizontalSpace : CGFloat = 5
-    @IBInspectable var labelToBoarderVerticalSpace : CGFloat = 5
+    @IBInspectable var horizontalMargin : CGFloat = 5
+    @IBInspectable var verticalMargin : CGFloat = 5
+    @IBInspectable var boarderWidth : CGFloat = 1
+    @IBInspectable var boarderRadius : CGFloat = 5
     
     
     private var options : [UILabel] = [UILabel]()
+    private var optionContainers : [UIView] = [UIView]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,7 +44,7 @@ class SelectionPanel: UIView {
     }
     
     private func Setup(){
-        self.backgroundColor = UIColor.redColor()
+        
     }
     
     func setUpSelectionPanel(options options : [String], var defaultSelection : Int?) {
@@ -57,7 +60,7 @@ class SelectionPanel: UIView {
             label.sizeToFit()
             let labelWidth : CGFloat = label.frame.size.width
             let labelHeight : CGFloat = label.frame.size.height
-            label.frame = CGRectMake(labelToBoarderHorizontalSpace, labelToBoarderVerticalSpace, labelWidth, labelHeight)
+            label.frame = CGRectMake(horizontalMargin, verticalMargin, labelWidth, labelHeight)
             self.options.append(label)
             
         }        
@@ -68,22 +71,22 @@ class SelectionPanel: UIView {
             
             let containerView = UIView()
             containerView.alpha = 1
-            let containerViewHeight = self.options[j].frame.size.height + 2 * labelToBoarderVerticalSpace
-            let containerViewWidth = self.options[j].frame.size.width + 2 * labelToBoarderHorizontalSpace
+            let containerViewHeight = self.options[j].frame.size.height + 2 * verticalMargin
+            let containerViewWidth = self.options[j].frame.size.width + 2 * horizontalMargin
             let y = (self.frame.height - containerViewHeight) / 2
             containerView.frame = CGRectMake(x, y, containerViewWidth, containerViewHeight)
             containerView.tag = j
             x = x + containerView.frame.size.width + space
             
-            containerView.layer.cornerRadius = 5
+            containerView.layer.cornerRadius = boarderRadius
             containerView.layer.borderWidth = 0
-            containerView.layer.borderColor = UIColor.blackColor().CGColor
+            containerView.layer.borderColor = boarderColor.CGColor
             
             if defaultSelection == nil || defaultSelection! < 0 && defaultSelection >= self.options.count {
                 defaultSelection = 0
             }
             if j == defaultSelection {
-                containerView.layer.borderWidth = 1
+                containerView.layer.borderWidth = boarderWidth
             }
             
             let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleElementTap:")
@@ -91,6 +94,8 @@ class SelectionPanel: UIView {
             
             
             containerView.addSubview(self.options[j])
+            
+            optionContainers.append(containerView)
             self.addSubview(containerView)
             
             
@@ -102,14 +107,18 @@ class SelectionPanel: UIView {
         let totalWidth = self.frame.size.width
         var widthTakenByElement : CGFloat = 0
         for option in self.options {
-            widthTakenByElement = widthTakenByElement + option.frame.size.width + 2 * labelToBoarderHorizontalSpace
+            widthTakenByElement = widthTakenByElement + option.frame.size.width + 2 * horizontalMargin
         }
         let space : CGFloat = (totalWidth - leadingSpace * 2 - widthTakenByElement) / CGFloat(((self.options.count) - 1))
         return space
     }
     
     @objc private func handleElementTap(recognizer: UITapGestureRecognizer) {
-        print("tapped")
+        let tappedView : UIView? = recognizer.view
+        for container : UIView in self.optionContainers {
+            container.layer.borderWidth = 0
+        }
+        tappedView?.layer.borderWidth = boarderWidth
     }
 
 }
