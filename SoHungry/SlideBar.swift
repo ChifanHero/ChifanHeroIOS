@@ -10,18 +10,11 @@ import UIKit
 
 class SlideBar: UIView {
     
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-    // Drawing code
-    }
-    */
     
     private var view: UIView!
     private var nibName: String  = "SlideBar"
     
-    private var elementCover : UIView?
+    private var selectionBox : UIView = UIView()
     
     private var barElements : [UIView] = []
     
@@ -63,12 +56,24 @@ class SlideBar: UIView {
     private func Setup(){
         view = LoadViewFromNib()
         view.backgroundColor = UIColor.redColor()
-        addSubview(view)
         view.frame = bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        addSubview(view)
+        configScrollView()
+    }
+    
+    private func configScrollView() {
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.showsVerticalScrollIndicator = false
-        
+        setupSelectionBox()
+    }
+    
+    private func setupSelectionBox() {
+        selectionBox.layer.cornerRadius = 5
+        selectionBox.clipsToBounds = true
+        selectionBox.layer.borderColor = boarderColor.CGColor
+        selectionBox.layer.borderWidth = 1
+        self.scrollView.addSubview(selectionBox)
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -76,21 +81,13 @@ class SlideBar: UIView {
         let bundle = NSBundle(forClass: self.dynamicType)
         let nib = UINib(nibName: nibName, bundle: bundle)
         let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
-        
-        
-        
         return view
     }
     
     func setUpScrollView(titles titles : [String], var defaultSelection : Int?) {
-        let label = UILabel(frame: CGRectMake(100, -50, 50, 10))
-        label.text = "test"
-        self.scrollView.addSubview(label)
         if (titles.count <= 0 ){
             return
         }
-        
-        let padding = spaceBetweenElements / 2
         
         for var i = 0; i < titles.count; i++ {
             let label : UILabel = UILabel()
@@ -106,22 +103,27 @@ class SlideBar: UIView {
             containerView.alpha = 0
             let containerViewHeight = labelHeight + 2 * labelTopMargin
             let containerViewWidth = labelWidth + 2 * labelLeftMargin
-            var x = padding
-            for previousView in barElements {
-                x = x + previousView.frame.size.width + spaceBetweenElements
+            let widthConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: containerViewWidth)
+            let heightConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: containerViewHeight)
+            
+            var leadingConstraint : NSLayoutConstraint
+            if i > 0 {
+                let neighbour : UIView = barElements[i - 1]
+                leadingConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: neighbour, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: spaceBetweenElements)
+            } else {
+                leadingConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.scrollView, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: spaceBetweenElements)
             }
-            print(view.frame.size.height)
-            print(self.scrollView.frame.size.height)
-            let y = (view.frame.size.height - containerViewHeight) / 2
-            print(y)
-            containerView.frame = CGRectMake(x, 0, containerViewWidth, containerViewHeight)
+            
             containerView.tag = i
             
             let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleElementTap:")
             containerView.addGestureRecognizer(tapGesture)
             
             containerView.addSubview(label)
+            containerView.translatesAutoresizingMaskIntoConstraints = false
             self.scrollView.addSubview(containerView)
+            let verticalCenterConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
+            self.view.addConstraints([widthConstraint, heightConstraint, leadingConstraint, verticalCenterConstraint])
             barElements.append(containerView)
             
             let alpha : CGFloat = 1.0
@@ -129,25 +131,17 @@ class SlideBar: UIView {
                 containerView.alpha = alpha
                 }, completion: nil)
         }
+        self.view.layoutIfNeeded()
         var scrollViewWidth : CGFloat = 0
         for element in barElements {
             scrollViewWidth = scrollViewWidth + element.frame.size.width + spaceBetweenElements
         }
-        let scrollViewHeight : CGFloat = self.frame.size.height
+        let scrollViewHeight : CGFloat = self.scrollView.frame.size.height
         self.scrollView.contentSize = CGSizeMake(scrollViewWidth, scrollViewHeight)
         if defaultSelection == nil || defaultSelection! < 0 && defaultSelection >= titles.count {
             defaultSelection = 0
         }
-        let firstElement : UIView = barElements[defaultSelection!]
-        
-        elementCover = UIView(frame: firstElement.frame)
-        elementCover!.layer.cornerRadius = 5
-        elementCover!.clipsToBounds = true
-        elementCover!.layer.borderColor = boarderColor.CGColor
-        elementCover!.layer.borderWidth = 1
-        elementCover!.center = firstElement.center
-        self.scrollView.addSubview(elementCover!)
-        
+        selectElement(atIndex: defaultSelection!)
     }
     
     @objc private func handleElementTap(recognizer: UITapGestureRecognizer) {
@@ -159,9 +153,8 @@ class SlideBar: UIView {
     func selectElement(atIndex index : Int){
         if (index < barElements.count) {
             UIView.animateWithDuration(slideDuration, delay: 0.0, options: UIViewAnimationOptions.AllowAnimatedContent, animations: { () -> Void in
-                self.elementCover?.frame = barElements[index].frame
+                self.selectionBox.frame = self.barElements[index].frame
                 }, completion: nil)
         }
     }
-    
 }

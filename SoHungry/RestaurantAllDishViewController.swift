@@ -14,6 +14,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate {
     
     override func viewDidLoad() {
         self.navigationItem.titleView = UISearchBar()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: nil)
         super.viewDidLoad()
         slideBar.delegate = self
         slideBar.setUpScrollView(titles: ["全部","精美凉菜","主厨推荐","韶山经典","铁板干锅","石锅煲仔","私房蒸菜","特色小炒","健康美食","滋补汤羹","主食甜点"], defaultSelection: nil)
