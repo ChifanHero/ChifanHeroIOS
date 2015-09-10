@@ -157,6 +157,26 @@ class DataAccessor {
     }
     
     
+    func getRestaurantMenu(request : GetRestaurantMenuRequest, responseHandler : (GetRestaurantMenuResponse?) -> Void) {
+        let httpClient = HttpClient()
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        httpClient.get(url, headers: nil, parameters: request.getParameters()) { (data, response, error) -> Void in
+            var getRestaurantMenuResponse : GetRestaurantMenuResponse? = nil
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    getRestaurantMenuResponse = GetRestaurantMenuResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(getRestaurantMenuResponse)
+        }
+    }
+    
     
     
 }

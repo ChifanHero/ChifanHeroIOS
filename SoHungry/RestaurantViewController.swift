@@ -172,7 +172,14 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func segueToAllDishesView(recognizer: UITapGestureRecognizer) {
-        self.performSegueWithIdentifier("showAllDishes", sender: self)
+        self.performSegueWithIdentifier("showAllDishes", sender: self.restaurantId)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showAllDishes" {
+            let restaurantAllDishesController : RestaurantAllDishViewController = segue.destinationViewController as! RestaurantAllDishViewController
+            restaurantAllDishesController.restaurantId = sender as? String
+        }
     }
     
 

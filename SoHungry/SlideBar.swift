@@ -138,7 +138,7 @@ class SlideBar: UIView {
         }
         let scrollViewHeight : CGFloat = self.scrollView.frame.size.height
         self.scrollView.contentSize = CGSizeMake(scrollViewWidth, scrollViewHeight)
-        if defaultSelection == nil || defaultSelection! < 0 && defaultSelection >= titles.count {
+        if defaultSelection == nil || (defaultSelection < 0 || defaultSelection >= titles.count) {
             defaultSelection = 0
         }
         selectElement(atIndex: defaultSelection!)

@@ -12,7 +12,6 @@ class MenuItem : Model {
     
     var id : String?
     var name : String?
-    var picture : Picture?
     var dishes : [Dish]?
     
     required init() {
@@ -22,7 +21,6 @@ class MenuItem : Model {
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
         name <-- data["name"]
-        picture <-- data["picture"]
         if let resultsJson = data["dishes"] as? [AnyObject] {
             dishes = [Dish]()
             for resultJson in resultsJson {
