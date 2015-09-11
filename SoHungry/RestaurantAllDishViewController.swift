@@ -16,10 +16,12 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     
     var restaurantId : String?
     
-    private var dishes : [Dish] = []
+//    private var dishes : [Dish] = []
     private var menuItems : [MenuItem] = []
     private var menuNames : [String] = []
     private var dishToMenuDic : Dictionary<String, String> = Dictionary<String, String>()
+    
+    private var slideBarClicked = false
     
     
     override func viewDidLoad() {
@@ -30,8 +32,6 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         dishTableView.delegate = self
         dishTableView.dataSource = self
         dishTableView.hidden = true
-        
-        
     }
     
     private func loadTableData() {
@@ -58,7 +58,6 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
                     for dish : Dish in menuItem.dishes! {
                         dishToMenuDic[dish.name!] = menuItem.name
                     }
-                    dishes += menuItem.dishes!
                 }
             }
         }
@@ -74,26 +73,44 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     
     func slideBar(slideBar : SlideBar, didSelectElementAtIndex index : Int) -> Void {
         // scroll table view
-        if index > 0 && index < dishes.count {
-            let indexPath : NSIndexPath = NSIndexPath(forRow: index, inSection: 0)
+        slideBarClicked = true
+        if index >= 0 && index < menuItems.count {
+            let indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection: index)
             self.dishTableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         }
+        
         
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let indicesForVisibleRows : [NSIndexPath]? = self.dishTableView.indexPathsForVisibleRows {
-            let indexForFirstVisibleRow : NSIndexPath = indicesForVisibleRows![0]
-            let dishCell : SimpleDishTableViewCell = self.dishTableView.cellForRowAtIndexPath(indexForFirstVisibleRow) as! SimpleDishTableViewCell
-            let menuName = dishToMenuDic[dishCell.dishName!]
-            let position = menuNames.indexOf(menuName!)
-            self.slideBar.selectElement(atIndex: position!)
+        if slideBarClicked == false {
+            if let indicesForVisibleRows : [NSIndexPath]? = self.dishTableView.indexPathsForVisibleRows {
+                let indexForFirstVisibleRow : NSIndexPath = indicesForVisibleRows![0]
+                let dishCell : SimpleDishTableViewCell = self.dishTableView.cellForRowAtIndexPath(indexForFirstVisibleRow) as! SimpleDishTableViewCell
+                let menuName = dishToMenuDic[dishCell.dishName!]
+                let position = menuNames.indexOf(menuName!)
+                self.slideBar.markElementAsSelected(atIndex: position!)
+            }
         }
-        
+    }
+    
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        if slideBarClicked {
+            slideBarClicked = false
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dishes.count
+        if section >= 0 && section < menuItems.count {
+            let menuItem : MenuItem = self.menuItems[section]
+            if menuItem.dishes != nil {
+                return menuItem.dishes!.count
+            } else {
+                return 0
+            }
+        } else {
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -102,12 +119,16 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
             tableView.registerNib(UINib(nibName: "SimpleDishCell", bundle: nil), forCellReuseIdentifier: "simpleDishCell")
             cell = tableView.dequeueReusableCellWithIdentifier("simpleDishCell") as? SimpleDishTableViewCell
         }
-        cell?.dishName = dishes[indexPath.row].name
+        cell?.dishName = menuItems[indexPath.section].dishes?[indexPath.row].name
         return cell!
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
+        return 120
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return menuItems.count
     }
     
     

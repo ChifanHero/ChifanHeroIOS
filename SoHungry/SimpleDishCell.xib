@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,12 +16,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="352" height="102.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KKn-cl-g2O">
+                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KKn-cl-g2O">
                         <rect key="frame" x="0.0" y="80.5" width="352" height="0.5"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="etx-PG-fNr">
-                        <rect key="frame" x="16" y="8" width="64" height="64"/>
+                        <rect key="frame" x="16" y="13" width="64" height="64"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="etx-PG-fNr" secondAttribute="height" multiplier="1:1" id="va0-mC-Wdl"/>
                         </constraints>
@@ -37,13 +38,23 @@
                         <rect key="frame" x="291" y="77" width="43" height="30"/>
                         <state key="normal" title="dislike"/>
                     </button>
+                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X5b-qM-f1D">
+                        <rect key="frame" x="0.0" y="0.0" width="352" height="10"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jh-IH-ree">
-                        <rect key="frame" x="111" y="24" width="141" height="31.5"/>
+                        <rect key="frame" x="111" y="29" width="141" height="31.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="KKn-cl-g2O" secondAttribute="trailing" constant="-8" id="9Ou-L1-SUA"/>
+                    <constraint firstItem="KKn-cl-g2O" firstAttribute="leading" secondItem="7Vc-OW-fQF" secondAttribute="leadingMargin" constant="-8" id="K5K-kK-xfo"/>
+                    <constraint firstItem="X5b-qM-f1D" firstAttribute="leading" secondItem="7Vc-OW-fQF" secondAttribute="leadingMargin" constant="-8" id="Qy2-af-kXK"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="X5b-qM-f1D" secondAttribute="trailing" constant="-8" id="UFu-LP-XCG"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="dishImageView" destination="etx-PG-fNr" id="Xrv-Ou-H31"/>

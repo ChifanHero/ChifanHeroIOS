@@ -141,16 +141,16 @@ class SlideBar: UIView {
         if defaultSelection == nil || (defaultSelection < 0 || defaultSelection >= titles.count) {
             defaultSelection = 0
         }
-        selectElement(atIndex: defaultSelection!)
+        markElementAsSelected(atIndex: defaultSelection!)
     }
     
     @objc private func handleElementTap(recognizer: UITapGestureRecognizer) {
         let tappedView : UIView? = recognizer.view
-        selectElement(atIndex: (tappedView?.tag)!)
+        markElementAsSelected(atIndex: (tappedView?.tag)!)
         delegate?.slideBar(self, didSelectElementAtIndex: (tappedView?.tag)!)
     }
     
-    func selectElement(atIndex index : Int){
+    func markElementAsSelected(atIndex index : Int){
         if (index < barElements.count) {
             UIView.animateWithDuration(slideDuration, delay: 0.0, options: UIViewAnimationOptions.AllowAnimatedContent, animations: { () -> Void in
                 self.selectionBox.frame = self.barElements[index].frame
