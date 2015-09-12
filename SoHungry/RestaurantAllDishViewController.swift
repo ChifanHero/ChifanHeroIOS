@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource {
+class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate {
     
     @IBOutlet weak var slideBar: SlideBar!
     
@@ -16,12 +16,17 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     
     var restaurantId : String?
     
-//    private var dishes : [Dish] = []
+    private var dishes : [Dish] = []
     private var menuItems : [MenuItem] = []
     private var menuNames : [String] = []
     private var dishToMenuDic : Dictionary<String, String> = Dictionary<String, String>()
+    private var shouldChangeSlideBarState = true
     
-    private var slideBarClicked = false
+    private var searchResults : [DishWrapper] = []
+    
+    var state : RestaurantAllDishViewControllerState = RestaurantAllDishViewControllerState.REGULAR
+    
+    var slideBarHidden = false
     
     
     override func viewDidLoad() {
@@ -32,6 +37,10 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         dishTableView.delegate = self
         dishTableView.dataSource = self
         dishTableView.hidden = true
+        
+        let searchBar : UISearchBar = UISearchBar()
+        searchBar.delegate = self
+        self.navigationItem.titleView = searchBar
     }
     
     private func loadTableData() {
@@ -58,6 +67,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
                     for dish : Dish in menuItem.dishes! {
                         dishToMenuDic[dish.name!] = menuItem.name
                     }
+                    dishes += menuItem.dishes!
                 }
             }
         }
@@ -73,44 +83,73 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     
     func slideBar(slideBar : SlideBar, didSelectElementAtIndex index : Int) -> Void {
         // scroll table view
-        slideBarClicked = true
+        shouldChangeSlideBarState = false
         if index >= 0 && index < menuItems.count {
             let indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection: index)
             self.dishTableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         }
-        
-        
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if slideBarClicked == false {
-            if let indicesForVisibleRows : [NSIndexPath]? = self.dishTableView.indexPathsForVisibleRows {
-                let indexForFirstVisibleRow : NSIndexPath = indicesForVisibleRows![0]
-                let dishCell : SimpleDishTableViewCell = self.dishTableView.cellForRowAtIndexPath(indexForFirstVisibleRow) as! SimpleDishTableViewCell
-                let menuName = dishToMenuDic[dishCell.dishName!]
-                let position = menuNames.indexOf(menuName!)
-                self.slideBar.markElementAsSelected(atIndex: position!)
+//        if shouldChangeSlideBarState {
+//            changeSlideBarState()
+//        }
+        if state == RestaurantAllDishViewControllerState.REGULAR {
+            if shouldChangeSlideBarState {
+                changeSlideBarState()
             }
+        }
+        
+    }
+    
+    private func changeSlideBarState() {
+        if let indicesForVisibleRows : [NSIndexPath]? = self.dishTableView.indexPathsForVisibleRows {
+            let indexForFirstVisibleRow : NSIndexPath = indicesForVisibleRows![0]
+            let dishCell : SimpleDishTableViewCell = self.dishTableView.cellForRowAtIndexPath(indexForFirstVisibleRow) as! SimpleDishTableViewCell
+            let menuName = dishToMenuDic[dishCell.dishName!]
+            let position = menuNames.indexOf(menuName!)
+            self.slideBar.markElementAsSelected(atIndex: position!)
         }
     }
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        if slideBarClicked {
-            slideBarClicked = false
+//        if !shouldChangeSlideBarState {
+//            shouldChangeSlideBarState = true
+//        }
+        if state == RestaurantAllDishViewControllerState.REGULAR {
+            if !shouldChangeSlideBarState {
+                shouldChangeSlideBarState = true
+            }
         }
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section >= 0 && section < menuItems.count {
-            let menuItem : MenuItem = self.menuItems[section]
-            if menuItem.dishes != nil {
-                return menuItem.dishes!.count
+        if state == RestaurantAllDishViewControllerState.SEARCHING {
+            return searchResults.count
+        } else {
+            if section >= 0 && section < menuItems.count {
+                let menuItem : MenuItem = self.menuItems[section]
+                if menuItem.dishes != nil {
+                    return menuItem.dishes!.count
+                } else {
+                    return 0
+                }
             } else {
                 return 0
             }
-        } else {
-            return 0
         }
+//        if section >= 0 && section < menuItems.count {
+//            let menuItem : MenuItem = self.menuItems[section]
+//            if menuItem.dishes != nil {
+//                return menuItem.dishes!.count
+//            } else {
+//                return 0
+//            }
+//        } else {
+//            return 0
+//        }
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -119,7 +158,13 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
             tableView.registerNib(UINib(nibName: "SimpleDishCell", bundle: nil), forCellReuseIdentifier: "simpleDishCell")
             cell = tableView.dequeueReusableCellWithIdentifier("simpleDishCell") as? SimpleDishTableViewCell
         }
-        cell?.dishName = menuItems[indexPath.section].dishes?[indexPath.row].name
+        if state == RestaurantAllDishViewControllerState.SEARCHING {
+            cell?.dishName = searchResults[indexPath.row].dish.name
+        } else {
+            cell?.dishName = menuItems[indexPath.section].dishes?[indexPath.row].name
+        }
+//        cell?.dishName = menuItems[indexPath.section].dishes?[indexPath.row].name
+        
         return cell!
     }
     
@@ -128,8 +173,102 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return menuItems.count
+        if state == RestaurantAllDishViewControllerState.SEARCHING {
+            return 1
+        } else {
+            return menuItems.count
+        }
+//        return menuItems.count
+        
     }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        print("cancel button clicked")
+        state = RestaurantAllDishViewControllerState.REGULAR
+        self.dishTableView.reloadData()
+        showSlideBar()
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            state = RestaurantAllDishViewControllerState.REGULAR
+            self.dishTableView.reloadData()
+            showSlideBar()
+        } else {
+            state = RestaurantAllDishViewControllerState.SEARCHING
+            searchResults.removeAll()
+            filterContentForSearchText(searchText)
+            self.dishTableView.reloadData()
+            hideSlideBar()
+        }
+    }
+    
+    private func filterContentForSearchText(searchText : String) {
+        for dish : Dish in dishes {
+            let relevanceScore : Float = getRelevanceScore(dish.name, searchText: searchText)
+            if relevanceScore > 0 {
+                let wrapper : DishWrapper = DishWrapper(dish: dish)
+                wrapper.relevanceScore = relevanceScore
+                searchResults.append(wrapper)
+            }
+        }
+        if searchResults.count > 0 {
+            searchResults = searchResults.sort{$0.relevanceScore > $1.relevanceScore}
+        }
+        for elem : DishWrapper in searchResults {
+            print("\(elem.dish.name) score = \(elem.relevanceScore)")
+        }
+    }
+    
+    private func getRelevanceScore(str : String?, searchText : String?) -> Float {
+        var score : Float =  StringUtil.getRelevanceScore(str, searchText: searchText)
+        if str != nil && searchText != nil {
+            if str!.rangeOfString(searchText!) != nil || searchText!.rangeOfString(str!) != nil {
+                score += 1.0
+            }
+        }
+        return score
+    }
+    
+    private func hideSlideBar() {
+        if !slideBarHidden {
+            let slideBarHeight : CGFloat = self.slideBar.frame.size.height
+            UIView.animateWithDuration(0) { () -> Void in
+                self.slideBar.frame.origin.y = self.slideBar.frame.origin.y - slideBarHeight
+                self.dishTableView.frame.origin.y = self.dishTableView.frame.origin.y - slideBarHeight
+                self.slideBarHidden = true
+            }
+        }
+        
+    }
+    
+    private func showSlideBar() {
+        if slideBarHidden {
+            let slideBarHeight : CGFloat = self.slideBar.frame.size.height
+            UIView.animateWithDuration(0) { () -> Void in
+                self.slideBar.frame.origin.y = self.slideBar.frame.origin.y + slideBarHeight
+                self.dishTableView.frame.origin.y = self.dishTableView.frame.origin.y + slideBarHeight
+                self.slideBarHidden = false
+            }
+        }
+        
+    }
+    
+    enum RestaurantAllDishViewControllerState {
+        case REGULAR
+        case SEARCHING
+    }
+    
+    class DishWrapper {
+        
+        var dish : Dish
+        var relevanceScore : Float = 0
+        
+        init(dish : Dish) {
+            self.dish = dish
+        }
+    }
+
     
     
 

@@ -192,9 +192,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="Zlm-pG-XiO" secondAttribute="trailing" constant="-20" id="1kQ-z5-YPL"/>
-                            <constraint firstItem="TuO-r1-wfP" firstAttribute="top" secondItem="Zlm-pG-XiO" secondAttribute="bottom" id="EtN-Yf-dgc"/>
                             <constraint firstItem="Zlm-pG-XiO" firstAttribute="leading" secondItem="Q8B-ue-KhO" secondAttribute="leadingMargin" constant="-20" id="Q3Z-ne-FEM"/>
-                            <constraint firstItem="Zlm-pG-XiO" firstAttribute="top" secondItem="MCx-yh-LaH" secondAttribute="bottom" id="gw0-TU-kxI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MCx-yh-LaH" secondAttribute="trailing" constant="-20" id="XYG-od-bo7"/>
+                            <constraint firstItem="MCx-yh-LaH" firstAttribute="leading" secondItem="Q8B-ue-KhO" secondAttribute="leadingMargin" constant="-20" id="eFF-jz-0lr"/>
+                            <constraint firstItem="TuO-r1-wfP" firstAttribute="top" secondItem="Zlm-pG-XiO" secondAttribute="bottom" id="lla-Af-cBC"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -505,7 +506,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="SnI-Ci-tXQ"/>
-        <segue reference="lzU-1b-eKA"/>
+        <segue reference="XyL-3g-JQx"/>
         <segue reference="MaU-3u-Git"/>
     </inferredMetricsTieBreakers>
 </document>

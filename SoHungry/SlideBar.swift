@@ -11,7 +11,7 @@ import UIKit
 class SlideBar: UIView {
     
     
-    private var view: UIView!
+    var view: UIView!
     private var nibName: String  = "SlideBar"
     
     private var selectionBox : UIView = UIView()
