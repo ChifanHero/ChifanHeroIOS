@@ -10,7 +10,6 @@ import UIKit
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var promotionsTable: UITableView!
     
     @IBAction func showHottestRestaurants(sender: AnyObject) {
@@ -76,24 +75,24 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else if promotion.type == PromotionType.Coupon {
             promotionCell.model = promotion.coupon
         }
-        cell.addSubview(getSeperatorView(forCell: cell))
+//        cell.addSubview(getSeperatorView(forCell: cell))
     }
     
-    func getSeperatorView(forCell cell : UITableViewCell) -> UIView {
-        let seperatorView = UIView(frame: CGRectMake(0, 0, cell.frame.size.width, 10))
-        seperatorView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-        return seperatorView
-    }
+//    func getSeperatorView(forCell cell : UITableViewCell) -> UIView {
+//        let seperatorView = UIView(frame: CGRectMake(0, 0, cell.frame.size.width, 10))
+//        seperatorView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+//        return seperatorView
+//    }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
-    }
+//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 10
+//    }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-        return headerView
-    }
+//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+//        return headerView
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,11 +118,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if promotions[indexPath.section].type == PromotionType.Restaurant {
-            return RestaurantTableViewCell.height + 10
+            return RestaurantTableViewCell.height
         } else if promotions[indexPath.section].type == PromotionType.Dish {
-            return DishTableViewCell.height + 10
+            return DishTableViewCell.height
         } else if promotions[indexPath.section].type == PromotionType.Coupon {
-            return CouponTableViewCell.height + 10
+            return CouponTableViewCell.height
         }
         return 200
     }

@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="347" height="163"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NIO-Yr-7bG">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NIO-Yr-7bG">
                     <rect key="frame" x="0.0" y="0.0" width="347" height="129"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="129" id="Jam-Pm-PZs"/>
@@ -59,7 +59,10 @@
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="NIO-Yr-7bG" secondAttribute="trailing" id="6a6-9g-y10"/>
+                <constraint firstItem="NIO-Yr-7bG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Iq9-eg-Rtd"/>
                 <constraint firstAttribute="bottom" secondItem="NIO-Yr-7bG" secondAttribute="bottom" constant="34" id="n45-Wa-Pk6"/>
+                <constraint firstItem="NIO-Yr-7bG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="y5z-Zb-rei"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
