@@ -75,28 +75,19 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else if promotion.type == PromotionType.Coupon {
             promotionCell.model = promotion.coupon
         }
-//        cell.addSubview(getSeperatorView(forCell: cell))
     }
     
-//    func getSeperatorView(forCell cell : UITableViewCell) -> UIView {
-//        let seperatorView = UIView(frame: CGRectMake(0, 0, cell.frame.size.width, 10))
-//        seperatorView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-//        return seperatorView
-//    }
-    
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 10
-//    }
-    
-//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView()
-//        headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-//        return headerView
-//    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         loadTableData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        let selectedCellIndexPath : NSIndexPath? = self.promotionsTable.indexPathForSelectedRow
+        if selectedCellIndexPath != nil {
+            self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+        }
     }
     
     func loadTableData() {

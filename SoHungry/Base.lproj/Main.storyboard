@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -9,7 +8,7 @@
         <!--So Hungry-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="HomeViewController" customModule="SoHungry" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" customClass="HomeViewController" customModule="SoHungry" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -70,14 +69,14 @@
                             <constraint firstAttribute="trailingMargin" secondItem="G2S-pL-if8" secondAttribute="trailing" constant="-20" id="9g7-yW-U1h"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Cge-rc-BQk" secondAttribute="trailing" constant="-22.5" id="ZGe-e1-h9l"/>
                             <constraint firstItem="Cge-rc-BQk" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-22.5" id="h64-7j-VDe"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="Cge-rc-BQk" secondAttribute="bottom" id="kF4-mK-yHe"/>
                             <constraint firstItem="G2S-pL-if8" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="oY6-gL-Cuo"/>
-                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="Cge-rc-BQk" secondAttribute="bottom" id="qT6-cN-68r"/>
+                            <constraint firstItem="Cge-rc-BQk" firstAttribute="top" secondItem="G2S-pL-if8" secondAttribute="bottom" constant="25" id="yNq-Pc-MNa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="So Hungry" id="Fh2-KO-OO5"/>
                     <connections>
                         <outlet property="promotionsTable" destination="Cge-rc-BQk" id="bmM-iC-LfN"/>
-                        <outlet property="searchDisplayController" destination="kg2-cH-kuI" id="Nd8-AR-KI1"/>
                         <segue destination="oMD-D2-Epy" kind="show" identifier="showSearch" id="XyL-3g-JQx"/>
                         <segue destination="Yys-Ja-R5f" kind="show" identifier="showRestaurants" id="cIb-vj-s6h"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="SnI-Ci-tXQ"/>
@@ -86,14 +85,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="kg2-cH-kuI">
-                    <connections>
-                        <outlet property="delegate" destination="9pv-A4-QxB" id="eI6-Fw-JuZ"/>
-                        <outlet property="searchContentsController" destination="9pv-A4-QxB" id="uXo-Yw-jm7"/>
-                        <outlet property="searchResultsDataSource" destination="9pv-A4-QxB" id="7CS-F5-b6v"/>
-                        <outlet property="searchResultsDelegate" destination="9pv-A4-QxB" id="1dq-yZ-CCb"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1370.5" y="-338.5"/>
         </scene>
