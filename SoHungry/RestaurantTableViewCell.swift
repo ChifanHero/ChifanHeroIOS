@@ -10,7 +10,7 @@ import UIKit
 
 class RestaurantTableViewCell: UITableViewCell, ModelTableViewCell {
     
-    static var height : CGFloat = 150
+    static var height : CGFloat = 109
     
     var model : Model? {
         didSet {
@@ -40,12 +40,14 @@ class RestaurantTableViewCell: UITableViewCell, ModelTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.layer.cornerRadius = 5.0
+        self.clipsToBounds = true
         setUp()
     }
     
     func setUp() {
-        restaurantImageView.layer.cornerRadius = restaurantImageView.frame.size.height / 2
-        restaurantImageView.clipsToBounds = true
+//        restaurantImageView.layer.cornerRadius = 5.0
+//        restaurantImageView.clipsToBounds = true
 //        layout()
     }
     

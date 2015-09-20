@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewItemTopUIView" customModule="SoHungry" customModuleProvider="target">
@@ -17,51 +17,71 @@
             <rect key="frame" x="0.0" y="0.0" width="347" height="163"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NIO-Yr-7bG">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NIO-Yr-7bG">
                     <rect key="frame" x="0.0" y="0.0" width="347" height="129"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="129" id="Jam-Pm-PZs"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="Jam-Pm-PZs"/>
-                        </mask>
-                    </variation>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nuy-jc-qqp">
-                    <rect key="frame" x="22" y="130" width="55" height="30"/>
-                    <state key="normal" title="Favorite"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGc-ej-mMD">
-                    <rect key="frame" x="201" y="130" width="45" height="30"/>
-                    <state key="normal" title="Dislike"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfL-yL-Abo">
-                    <rect key="frame" x="272" y="130" width="51" height="30"/>
-                    <state key="normal" title="Neutral"/>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="中文名称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6K-2e-lFz">
-                    <rect key="frame" x="22" y="66" width="169" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="English name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRK-vC-vIB">
-                    <rect key="frame" x="22" y="95" width="148" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cS0-Nr-obe">
-                    <rect key="frame" x="115" y="130" width="30" height="30"/>
-                    <state key="normal" title="Like"/>
-                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="N4F-yX-uja">
+                    <rect key="frame" x="22" y="66" width="102" height="47"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中文名称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6K-2e-lFz">
+                            <rect key="frame" x="0.0" y="0.0" width="68" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRK-vC-vIB">
+                            <rect key="frame" x="0.0" y="27" width="102" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6TS-Zp-D0Z">
+                    <rect key="frame" x="0.0" y="129" width="347" height="34"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cP3-SB-u63">
+                            <rect key="frame" x="15" y="2" width="301" height="30"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nuy-jc-qqp">
+                                    <rect key="frame" x="0.0" y="0.0" width="55" height="30"/>
+                                    <state key="normal" title="Favorite"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cS0-Nr-obe">
+                                    <rect key="frame" x="95" y="0.0" width="30" height="30"/>
+                                    <state key="normal" title="Like"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGc-ej-mMD">
+                                    <rect key="frame" x="165" y="0.0" width="45" height="30"/>
+                                    <state key="normal" title="Dislike"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfL-yL-Abo">
+                                    <rect key="frame" x="250" y="0.0" width="51" height="30"/>
+                                    <state key="normal" title="Neutral"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="cP3-SB-u63" firstAttribute="centerY" secondItem="6TS-Zp-D0Z" secondAttribute="centerY" id="0Iw-LQ-QVR"/>
+                        <constraint firstItem="cP3-SB-u63" firstAttribute="leading" secondItem="6TS-Zp-D0Z" secondAttribute="leadingMargin" constant="15" id="4MX-VO-pvV"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="cP3-SB-u63" secondAttribute="trailing" constant="15" id="HSO-zs-30P"/>
+                        <constraint firstAttribute="height" constant="34" id="neZ-Y1-liO"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="NIO-Yr-7bG" secondAttribute="trailing" id="6a6-9g-y10"/>
+                <constraint firstItem="N4F-yX-uja" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="22" id="7nO-sl-ABL"/>
                 <constraint firstItem="NIO-Yr-7bG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Iq9-eg-Rtd"/>
+                <constraint firstItem="6TS-Zp-D0Z" firstAttribute="top" secondItem="NIO-Yr-7bG" secondAttribute="bottom" id="Kyu-vy-oa1"/>
+                <constraint firstItem="6TS-Zp-D0Z" firstAttribute="top" secondItem="N4F-yX-uja" secondAttribute="bottom" constant="16" id="NLh-Po-z8z"/>
+                <constraint firstItem="6TS-Zp-D0Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Y2c-B4-k6P"/>
                 <constraint firstAttribute="bottom" secondItem="NIO-Yr-7bG" secondAttribute="bottom" constant="34" id="n45-Wa-Pk6"/>
+                <constraint firstAttribute="trailing" secondItem="6TS-Zp-D0Z" secondAttribute="trailing" id="slc-iC-wac"/>
+                <constraint firstAttribute="bottom" secondItem="6TS-Zp-D0Z" secondAttribute="bottom" id="tN1-EP-LCN"/>
                 <constraint firstItem="NIO-Yr-7bG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="y5z-Zb-rei"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

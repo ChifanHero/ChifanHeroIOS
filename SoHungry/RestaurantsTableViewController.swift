@@ -50,11 +50,11 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 1
+        return restaurants.count
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return restaurants.count
+        return 1
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -68,11 +68,11 @@ class RestaurantsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let restaurantCell : RestaurantTableViewCell = cell as! RestaurantTableViewCell
-        restaurantCell.model = restaurants[indexPath.section]
+        restaurantCell.model = restaurants[indexPath.row]
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let restaurantSelected : Restaurant = restaurants[indexPath.section]
+        let restaurantSelected : Restaurant = restaurants[indexPath.row]
         performSegueWithIdentifier("showRestaurant", sender: restaurantSelected.id)
     }
     

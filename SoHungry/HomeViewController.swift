@@ -26,16 +26,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var promotions : [Promotion] = []
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return promotions.count
+        return 1
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return promotions.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let type = promotions[indexPath.row].type
+        let type = promotions[indexPath.section].type
         
         if type == PromotionType.Restaurant {
             var cell : RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
@@ -67,7 +67,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         var promotionCell : ModelTableViewCell = cell as! ModelTableViewCell
-        let promotion = promotions[indexPath.row]
+        let promotion = promotions[indexPath.section]
         if promotion.type == PromotionType.Restaurant {
             promotionCell.model = promotion.restaurant
         } else if promotion.type == PromotionType.Dish {
@@ -120,13 +120,21 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let type = promotions[indexPath.row].type
+        let type = promotions[indexPath.section].type
         if type == PromotionType.Restaurant {
             let restaurant : Restaurant = promotions[indexPath.section].restaurant!
             self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
         } else if type == PromotionType.Dish {
-            let dish : Dish = promotions[indexPath.row].dish!
+            let dish : Dish = promotions[indexPath.section].dish!
             self.performSegueWithIdentifier("showDish", sender: dish.id)
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        } else {
+            return 10
         }
     }
     

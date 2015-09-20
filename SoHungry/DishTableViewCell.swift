@@ -10,7 +10,7 @@ import UIKit
 
 class DishTableViewCell: UITableViewCell, ModelTableViewCell {
     
-    static var height : CGFloat = 150
+    static var height : CGFloat = 109
     
     var model : Model? {
         didSet {
@@ -40,13 +40,15 @@ class DishTableViewCell: UITableViewCell, ModelTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.layer.cornerRadius = 5.0
+        self.clipsToBounds = true
         setUp()
         
     }
     
     func setUp() {
-        dishImageView.layer.cornerRadius = dishImageView.frame.size.height / 2
-        dishImageView.clipsToBounds = true
+//        dishImageView.layer.cornerRadius = dishImageView.frame.size.height / 2
+//        dishImageView.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

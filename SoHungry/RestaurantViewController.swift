@@ -116,7 +116,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if tableView == infoTableView {
             if indexPath.row <= (info.count - 1) {
-                let key = info.keys.array[indexPath.row] as String
+                let key = Array(info.keys)[indexPath.row] as String
                 let infoCell : IconInfoCellTableViewCell = cell as! IconInfoCellTableViewCell
                 infoCell.info = info[key]
             }
