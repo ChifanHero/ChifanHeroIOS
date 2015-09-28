@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sCD-X7-mNc" id="wVX-4q-pIH">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Uq-gj-95M" userLabel="Picture View">
@@ -29,8 +29,8 @@
                             <constraint firstItem="QyZ-UE-wVz" firstAttribute="leading" secondItem="5Uq-gj-95M" secondAttribute="leading" constant="10" id="rSW-sO-Z1t"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NpB-z5-ofh" userLabel="Action View">
-                        <rect key="frame" x="145" y="76.5" width="230" height="23.5"/>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NpB-z5-ofh" userLabel="Action View">
+                        <rect key="frame" x="145" y="77" width="230" height="24"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="taH-Ww-PSu" userLabel="Top Stack View">
                                 <rect key="frame" x="12" y="2" width="150" height="22"/>
@@ -88,7 +88,7 @@
                             <constraint firstAttribute="height" constant="23.5" id="Fsr-yD-wAo"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRx-Bu-RZr" userLabel="Info View">
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NRx-Bu-RZr" userLabel="Info View">
                         <rect key="frame" x="145" y="0.0" width="230" height="76"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="W0S-Oy-Fge" userLabel="Info Stack View">

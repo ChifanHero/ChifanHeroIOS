@@ -33,7 +33,14 @@ class SlideBar: UIView {
     }
     
     @IBInspectable var slideDuration : Double = 0.3
-    @IBInspectable var boarderColor : UIColor = UIColor.orangeColor()
+    @IBInspectable var boarderColor : UIColor? {
+        get {
+            return self.boarderColor
+        }
+        set(color) {
+            selectionBox.layer.borderColor = color?.CGColor
+        }
+    }
     @IBInspectable var labelTextSize : CGFloat = 15
     @IBInspectable var labelLeftMargin : CGFloat = 5
     @IBInspectable var labelTopMargin : CGFloat = 5
@@ -55,7 +62,7 @@ class SlideBar: UIView {
     
     private func Setup(){
         view = LoadViewFromNib()
-        view.backgroundColor = UIColor.redColor()
+        view.backgroundColor = scrollBackgroundColor
         view.frame = bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         addSubview(view)
@@ -71,7 +78,7 @@ class SlideBar: UIView {
     private func setupSelectionBox() {
         selectionBox.layer.cornerRadius = 5
         selectionBox.clipsToBounds = true
-        selectionBox.layer.borderColor = boarderColor.CGColor
+//        selectionBox.layer.borderColor = boarderColor.CGColor
         selectionBox.layer.borderWidth = 1
         self.scrollView.addSubview(selectionBox)
     }
