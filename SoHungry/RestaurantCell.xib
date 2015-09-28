@@ -7,66 +7,124 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="restaurantCell" rowHeight="109" id="sCD-X7-mNc" customClass="RestaurantTableViewCell" customModule="SoHungry" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="restaurantCell" rowHeight="100" id="sCD-X7-mNc" customClass="RestaurantTableViewCell" customModule="SoHungry" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sCD-X7-mNc" id="wVX-4q-pIH">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="108.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NpB-z5-ofh">
-                        <rect key="frame" x="140" y="79" width="180" height="30"/>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Uq-gj-95M" userLabel="Picture View">
+                        <rect key="frame" x="0.0" y="0.0" width="145" height="100"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VHy-n2-gis">
-                                <rect key="frame" x="10" y="1" width="133" height="26"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QyZ-UE-wVz">
+                                <rect key="frame" x="10" y="0.0" width="135" height="100"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QyZ-UE-wVz" firstAttribute="top" secondItem="5Uq-gj-95M" secondAttribute="top" id="Yib-8P-Q48"/>
+                            <constraint firstAttribute="bottom" secondItem="QyZ-UE-wVz" secondAttribute="bottom" id="cJc-BX-Pgz"/>
+                            <constraint firstAttribute="width" constant="145" id="cbA-5q-Jr8"/>
+                            <constraint firstItem="QyZ-UE-wVz" firstAttribute="leading" secondItem="5Uq-gj-95M" secondAttribute="leading" constant="10" id="rSW-sO-Z1t"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NpB-z5-ofh" userLabel="Action View">
+                        <rect key="frame" x="145" y="76.5" width="230" height="23.5"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="taH-Ww-PSu" userLabel="Top Stack View">
+                                <rect key="frame" x="12" y="2" width="150" height="22"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvS-cs-3re">
-                                        <rect key="frame" x="0.0" y="0.0" width="30" height="26"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <state key="normal" title="like"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tb8-zN-ruu">
-                                        <rect key="frame" x="45" y="0.0" width="39" height="26"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <state key="normal" title="Neutral"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOL-s0-UlT">
-                                        <rect key="frame" x="99" y="0.0" width="34" height="26"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <state key="normal" title="dislike"/>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Lg3-0W-MVk" userLabel="Like Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="36" height="22"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvS-cs-3re" userLabel="Like Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="12" height="22"/>
+                                                <state key="normal" image="like"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="685" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JsN-ei-zO5" userLabel="Like Label">
+                                                <rect key="frame" x="16" y="0.0" width="20" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="LnN-uT-raW" userLabel="Dislike Stack View">
+                                        <rect key="frame" x="59" y="0.0" width="35" height="22"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tb8-zN-ruu" userLabel="Dislike Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="11" height="22"/>
+                                                <state key="normal" image="dislike"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="685" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUj-W9-l0u" userLabel="Dislike Label">
+                                                <rect key="frame" x="15" y="0.0" width="20" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="eV6-nT-pqd" userLabel="Neutral Stack View">
+                                        <rect key="frame" x="116" y="0.0" width="34" height="22"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOL-s0-UlT" userLabel="neutral">
+                                                <rect key="frame" x="0.0" y="0.0" width="10" height="22"/>
+                                                <state key="normal" image="neutral"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="685" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Za-gb-fyM">
+                                                <rect key="frame" x="14" y="0.0" width="20" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="BV9-cM-vs7"/>
-                            <constraint firstItem="VHy-n2-gis" firstAttribute="centerY" secondItem="NpB-z5-ofh" secondAttribute="centerY" id="XfJ-8Z-vtJ"/>
-                            <constraint firstItem="VHy-n2-gis" firstAttribute="leading" secondItem="NpB-z5-ofh" secondAttribute="leading" constant="10" id="v6x-Bc-Nf2"/>
+                            <constraint firstAttribute="height" constant="23.5" id="Fsr-yD-wAo"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NRx-Bu-RZr">
-                        <rect key="frame" x="140" y="0.0" width="180" height="78.5"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRx-Bu-RZr" userLabel="Info View">
+                        <rect key="frame" x="145" y="0.0" width="230" height="76"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="xyv-dd-c4H">
-                                <rect key="frame" x="39" y="10" width="44" height="49"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="W0S-Oy-Fge" userLabel="Info Stack View">
+                                <rect key="frame" x="12" y="10" width="42" height="55"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVl-f0-DzP">
-                                        <rect key="frame" x="0.0" y="0.0" width="44" height="22"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVl-f0-DzP">
+                                        <rect key="frame" x="0.0" y="0.0" width="42" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUj-UJ-3Rt">
-                                        <rect key="frame" x="0.0" y="22" width="29" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUj-UJ-3Rt">
+                                        <rect key="frame" x="0.0" y="23" width="29" height="14"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a02-Xk-BgP">
-                                        <rect key="frame" x="0.0" y="35" width="29" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a02-Xk-BgP">
+                                        <rect key="frame" x="0.0" y="42" width="29" height="14"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="M76-LV-jFk" userLabel="Bookmark Stack View">
+                                <rect key="frame" x="174" y="10" width="40" height="22"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DvD-5o-Wg8" userLabel="Bookmark Button">
+                                        <rect key="frame" x="0.0" y="0.0" width="9" height="22"/>
+                                        <state key="normal" image="bookmark"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1024" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysf-6A-xM8" userLabel="Bookmark Label">
+                                        <rect key="frame" x="14" y="0.0" width="26" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -74,31 +132,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xyv-dd-c4H" firstAttribute="top" secondItem="NRx-Bu-RZr" secondAttribute="top" constant="10" id="G6T-kO-v00"/>
-                            <constraint firstAttribute="bottom" secondItem="xyv-dd-c4H" secondAttribute="bottom" constant="10" id="MS7-Qn-ase"/>
-                            <constraint firstItem="xyv-dd-c4H" firstAttribute="leading" secondItem="NRx-Bu-RZr" secondAttribute="leading" constant="10" id="kMS-Kh-jEA"/>
+                            <constraint firstAttribute="trailing" secondItem="M76-LV-jFk" secondAttribute="trailing" constant="16" id="DPX-nU-qgu"/>
+                            <constraint firstItem="M76-LV-jFk" firstAttribute="top" secondItem="W0S-Oy-Fge" secondAttribute="top" id="bEU-vL-Pex"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QyZ-UE-wVz">
-                        <rect key="frame" x="-5" y="-6" width="145" height="115"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="140" id="3W7-la-gmS"/>
-                            <constraint firstAttribute="height" constant="110" id="sjy-av-aP6"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
-                <color key="backgroundColor" red="0.75757575757575757" green="0.75757575757575757" blue="0.75757575757575757" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" red="0.78282828282828276" green="0.78282828282828276" blue="0.78282828282828276" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="QyZ-UE-wVz" firstAttribute="top" secondItem="wVX-4q-pIH" secondAttribute="topMargin" constant="-13" id="5Vp-8g-iyd"/>
-                    <constraint firstItem="NpB-z5-ofh" firstAttribute="top" secondItem="NRx-Bu-RZr" secondAttribute="bottom" constant="0.5" id="6EF-TB-cgg"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="NRx-Bu-RZr" secondAttribute="trailing" constant="-8" id="Dn8-Mb-odO"/>
-                    <constraint firstItem="QyZ-UE-wVz" firstAttribute="leading" secondItem="wVX-4q-pIH" secondAttribute="leadingMargin" constant="-8" id="Gcl-cC-pr3"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="NpB-z5-ofh" secondAttribute="bottom" constant="-8.5" id="JsR-CR-cJw"/>
-                    <constraint firstItem="NRx-Bu-RZr" firstAttribute="leading" secondItem="QyZ-UE-wVz" secondAttribute="trailing" id="OtB-69-pUr"/>
-                    <constraint firstItem="NRx-Bu-RZr" firstAttribute="top" secondItem="wVX-4q-pIH" secondAttribute="topMargin" constant="-8" id="ROv-bD-V3F"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="QyZ-UE-wVz" secondAttribute="bottom" constant="-8.5" id="UBy-Dm-2X6"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="NpB-z5-ofh" secondAttribute="trailing" constant="-8" id="sPK-Be-Byi"/>
-                    <constraint firstItem="NpB-z5-ofh" firstAttribute="leading" secondItem="QyZ-UE-wVz" secondAttribute="trailing" id="wij-bq-im0"/>
+                    <constraint firstItem="NRx-Bu-RZr" firstAttribute="leading" secondItem="5Uq-gj-95M" secondAttribute="trailing" id="Juk-fH-0lE"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="5Uq-gj-95M" secondAttribute="bottom" constant="-8.5" id="NMQ-q1-b6e"/>
+                    <constraint firstItem="NpB-z5-ofh" firstAttribute="leading" secondItem="5Uq-gj-95M" secondAttribute="trailing" id="ZfX-VI-iRH"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="NpB-z5-ofh" secondAttribute="bottom" constant="-8.5" id="dmQ-sf-dpJ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="NpB-z5-ofh" secondAttribute="trailing" constant="-8" id="inm-VN-yaR"/>
+                    <constraint firstItem="NpB-z5-ofh" firstAttribute="top" secondItem="NRx-Bu-RZr" secondAttribute="bottom" constant="0.5" id="ipE-qX-0Ga"/>
+                    <constraint firstItem="5Uq-gj-95M" firstAttribute="top" secondItem="wVX-4q-pIH" secondAttribute="topMargin" constant="-8" id="m5A-WA-pVE"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="NRx-Bu-RZr" secondAttribute="trailing" constant="-8" id="oGR-ul-u1z"/>
+                    <constraint firstItem="NRx-Bu-RZr" firstAttribute="top" secondItem="wVX-4q-pIH" secondAttribute="topMargin" constant="-8" id="sjX-sq-Dd1"/>
+                    <constraint firstItem="5Uq-gj-95M" firstAttribute="leading" secondItem="wVX-4q-pIH" secondAttribute="leadingMargin" constant="-8" id="vyt-9P-6VL"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -110,4 +160,10 @@
             <point key="canvasLocation" x="635" y="324.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="bookmark" width="9" height="12"/>
+        <image name="dislike" width="11" height="11"/>
+        <image name="like" width="12" height="12"/>
+        <image name="neutral" width="10" height="11"/>
+    </resources>
 </document>

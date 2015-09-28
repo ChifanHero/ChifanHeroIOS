@@ -16,6 +16,7 @@ class RestaurantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.tableView.hidden = true
         loadTableData()
     }
     
@@ -25,6 +26,7 @@ class RestaurantsTableViewController: UITableViewController {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.restaurants = (response?.results)!
                     self.tableView.reloadData()
+//                    self.tableView.hidden = false
                 });
             }
         }
@@ -40,7 +42,12 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
+        if section == 0 {
+            return 0
+        } else {
+            return 10
+        }
+        
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -50,11 +57,11 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return restaurants.count
+        return 1
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return restaurants.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -68,7 +75,7 @@ class RestaurantsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let restaurantCell : RestaurantTableViewCell = cell as! RestaurantTableViewCell
-        restaurantCell.model = restaurants[indexPath.row]
+        restaurantCell.model = restaurants[indexPath.section]
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

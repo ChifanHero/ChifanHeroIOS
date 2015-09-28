@@ -12,6 +12,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var promotionsTable: UITableView!
     
+    @IBOutlet weak var containerView: UIScrollView!
+    
+    @IBOutlet weak var topContainerView: UIView!
+    
     @IBAction func showHottestRestaurants(sender: AnyObject) {
         self.performSegueWithIdentifier("showRestaurants", sender: "hottest")
     }
@@ -98,8 +102,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             dispatch_async(dispatch_get_main_queue(), {
                 self.promotions = (response?.results)!
                 self.promotionsTable.reloadData()
+                self.containerView.contentSize = CGSizeMake(self.view.frame.size.width, self.getContainerViewSize())
             });
         }
+    }
+    
+    private func getContainerViewSize() -> CGFloat {
+        return topContainerView.frame.size.height + 15 + self.promotionsTable.contentSize.height
     }
 
     override func didReceiveMemoryWarning() {
@@ -131,11 +140,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        } else {
-            return 10
-        }
+        return 10
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        return headerView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -168,6 +179,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let dishController : DishViewController = segue.destinationViewController as! DishViewController
             dishController.dishId = sender as? String
         }
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏", handler:{action, indexpath in
+            print("MORE•ACTION");
+            tableView.setEditing(false, animated: true)
+            
+        });
+        bookmarkAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        
+        return [bookmarkAction];
     }
 
 }
