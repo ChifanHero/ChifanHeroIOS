@@ -19,14 +19,14 @@
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTm-TG-0La" userLabel="Button Container View">
                                 <rect key="frame" x="133" y="0.0" width="81" height="35"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="smile" translatesAutoresizingMaskIntoConstraints="NO" id="D0J-3H-sMr">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="smile" translatesAutoresizingMaskIntoConstraints="NO" id="D0J-3H-sMr">
                                         <rect key="frame" x="0.0" y="8" width="19" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="19" id="9QZ-DI-YHR"/>
                                             <constraint firstAttribute="width" constant="19" id="lGK-vB-Nw3"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="碰运气" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfI-Wm-MPY">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="碰运气" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfI-Wm-MPY">
                                         <rect key="frame" x="29" y="8" width="48" height="19"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -53,6 +53,10 @@
                         </constraints>
                     </view>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="bqC-D9-cOq" firstAttribute="centerY" secondItem="jaZ-2I-WRc" secondAttribute="centerY" id="3PR-50-8jK"/>
+                    <constraint firstItem="bqC-D9-cOq" firstAttribute="centerX" secondItem="jaZ-2I-WRc" secondAttribute="centerX" id="Itx-za-yuD"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="tryLuckButton" destination="bqC-D9-cOq" id="fkn-zR-EGX"/>
