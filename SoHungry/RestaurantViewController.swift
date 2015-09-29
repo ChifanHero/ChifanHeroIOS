@@ -14,13 +14,16 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     var restaurant : Restaurant?
     
+    @IBOutlet weak var infoTableView: UITableView!
     var info : [String : String] = [String : String]()
     
     var hotDishes : [Dish]?
+    
+    private let infoToResource : [String : String] = ["address" : "gps", "hours" : "clock", "phone" : "phone"]
 
     @IBOutlet weak var topViewContainer: ViewItemTopUIView!
     
-    @IBOutlet weak var infoTableView: UITableView!
+    
     
     @IBOutlet weak var hotDishesTableView: UITableView!
     
@@ -86,17 +89,20 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if tableView == infoTableView {
             if indexPath.row <= (info.count - 1) {
-                var cell : IconInfoCellTableViewCell? = tableView.dequeueReusableCellWithIdentifier("iconInfoCell") as? IconInfoCellTableViewCell
+                var cell : InfoTableViewCell? = tableView.dequeueReusableCellWithIdentifier("infoCell") as? InfoTableViewCell
                 if cell == nil {
-                    tableView.registerNib(UINib(nibName: "IconInfoCell", bundle: nil), forCellReuseIdentifier: "iconInfoCell")
-                    cell = tableView.dequeueReusableCellWithIdentifier("iconInfoCell") as? IconInfoCellTableViewCell
+                    tableView.registerNib(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "infoCell")
+                    cell = tableView.dequeueReusableCellWithIdentifier("infoCell") as? InfoTableViewCell
                 }
+                let key = Array(info.keys)[indexPath.row] as String
+                cell!.info = info[key]
+                cell!.iconResourceName = infoToResource[key]
                 return cell!
             } else {
-                var cell : SimpleCouponTableViewCell? = tableView.dequeueReusableCellWithIdentifier("simpleCouponCell") as? SimpleCouponTableViewCell
+                var cell : InfoCouponTableViewCell? = tableView.dequeueReusableCellWithIdentifier("infoCouponCell") as? InfoCouponTableViewCell
                 if cell == nil {
-                    tableView.registerNib(UINib(nibName: "SimpleCouponCell", bundle: nil), forCellReuseIdentifier: "simpleCouponCell")
-                    cell = tableView.dequeueReusableCellWithIdentifier("simpleCouponCell") as? SimpleCouponTableViewCell
+                    tableView.registerNib(UINib(nibName: "InfoCouponCell", bundle: nil), forCellReuseIdentifier: "infoCouponCell")
+                    cell = tableView.dequeueReusableCellWithIdentifier("infoCouponCell") as? InfoCouponTableViewCell
                 }
                 return cell!
             }
@@ -113,23 +119,24 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if tableView == infoTableView {
-            if indexPath.row <= (info.count - 1) {
-                let key = Array(info.keys)[indexPath.row] as String
-                let infoCell : IconInfoCellTableViewCell = cell as! IconInfoCellTableViewCell
-                infoCell.info = info[key]
-            }
-        } else if tableView == hotDishesTableView {
-            if hotDishes != nil {
-                let dishCell : NameOnlyDishTableViewCell = cell as! NameOnlyDishTableViewCell
-                let hotDish : Dish = (hotDishes![indexPath.row])
-                dishCell.model = hotDish
-            }
-            cell.addSubview(getSeperatorView(forCell: cell))
-        }
-        
-    }
+//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if tableView == infoTableView {
+//            if indexPath.row <= (info.count - 1) {
+//                let key = Array(info.keys)[indexPath.row] as String
+//                let infoCell : InfoTableViewCell = cell as! InfoTableViewCell
+//                infoCell.info = info[key]
+//                infoCell.iconResourceName = iconResource[indexPath.row]
+//            }
+//        } else if tableView == hotDishesTableView {
+//            if hotDishes != nil {
+//                let dishCell : NameOnlyDishTableViewCell = cell as! NameOnlyDishTableViewCell
+//                let hotDish : Dish = (hotDishes![indexPath.row])
+//                dishCell.model = hotDish
+//            }
+//            cell.addSubview(getSeperatorView(forCell: cell))
+//        }
+//        
+//    }
     
     func getSeperatorView(forCell cell : UITableViewCell) -> UIView {
         let seperatorView = UIView(frame: CGRectMake(0, 0, cell.frame.size.width, 10))
@@ -140,9 +147,9 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if tableView == infoTableView {
             if indexPath.row <= (info.count - 1) {
-                return 30
+                return 35
             } else {
-                return 48
+                return 62
             }
         } else if tableView == hotDishesTableView {
             return DishTableViewCell.height + 10

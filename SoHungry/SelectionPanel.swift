@@ -19,10 +19,10 @@ class SelectionPanel: UIView {
     }
     */
     
-    @IBInspectable var boarderColor : UIColor = UIColor.orangeColor()
-    @IBInspectable var leadingSpace : CGFloat = 10
+    @IBInspectable var boarderColor : UIColor?
+    @IBInspectable var leadingSpace : CGFloat = 15
     @IBInspectable var font : UIFont = UIFont.systemFontOfSize(17)
-    @IBInspectable var horizontalMargin : CGFloat = 5
+    @IBInspectable var horizontalMargin : CGFloat = 40
     @IBInspectable var verticalMargin : CGFloat = 5
     @IBInspectable var boarderWidth : CGFloat = 1
     @IBInspectable var boarderRadius : CGFloat = 5
@@ -80,7 +80,7 @@ class SelectionPanel: UIView {
             
             containerView.layer.cornerRadius = boarderRadius
             containerView.layer.borderWidth = 0
-            containerView.layer.borderColor = boarderColor.CGColor
+            containerView.layer.borderColor = boarderColor?.CGColor
             
             if defaultSelection == nil || defaultSelection! < 0 && defaultSelection >= self.options.count {
                 defaultSelection = 0

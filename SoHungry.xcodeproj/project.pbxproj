@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C414BD2F1BBA600C008C5744 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C414BD2E1BBA600C008C5744 /* InfoCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C414BD311BBA6034008C5744 /* InfoCouponCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C414BD301BBA6034008C5744 /* InfoCouponCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C414BD331BBA6E8E008C5744 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		C414BD351BBA6EA1008C5744 /* InfoCouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		C42D9BC41B69EF2D0035C5A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */; };
 		C42D9BC61B69EF2D0035C5A6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */; };
 		C42D9BC81B69EF2D0035C5A6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */; };
@@ -50,9 +54,7 @@
 		C43B39901B87EDEA00516248 /* GetListsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B398F1B87EDEA00516248 /* GetListsResponse.swift */; };
 		C43B39921B87F03500516248 /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43B39911B87F03500516248 /* ListCell.xib */; };
 		C43B39941B87F08C00516248 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39931B87F08C00516248 /* ListTableViewCell.swift */; };
-		C43B399A1B884FF900516248 /* IconInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43B39991B884FF900516248 /* IconInfoCell.xib */; };
 		C43B399C1B8850B100516248 /* SimpleCouponCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43B399B1B8850B100516248 /* SimpleCouponCell.xib */; };
-		C43B39A21B88545B00516248 /* IconInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39A11B88545B00516248 /* IconInfoCellTableViewCell.swift */; };
 		C43B39A41B8854AA00516248 /* SimpleCouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39A31B8854AA00516248 /* SimpleCouponTableViewCell.swift */; };
 		C43B39AA1B8908EA00516248 /* ViewItemTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43B39A91B8908EA00516248 /* ViewItemTopView.xib */; };
 		C43B39AC1B8909BC00516248 /* ViewItemTopUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39AB1B8909BC00516248 /* ViewItemTopUIView.swift */; };
@@ -120,6 +122,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C414BD2E1BBA600C008C5744 /* InfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
+		C414BD301BBA6034008C5744 /* InfoCouponCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCouponCell.xib; sourceTree = "<group>"; };
+		C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
+		C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCouponTableViewCell.swift; sourceTree = "<group>"; };
 		C42D9BC01B69EF2D0035C5A6 /* SoHungry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoHungry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -169,9 +175,7 @@
 		C43B398F1B87EDEA00516248 /* GetListsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetListsResponse.swift; sourceTree = "<group>"; };
 		C43B39911B87F03500516248 /* ListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 		C43B39931B87F08C00516248 /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
-		C43B39991B884FF900516248 /* IconInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IconInfoCell.xib; sourceTree = "<group>"; };
 		C43B399B1B8850B100516248 /* SimpleCouponCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleCouponCell.xib; sourceTree = "<group>"; };
-		C43B39A11B88545B00516248 /* IconInfoCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconInfoCellTableViewCell.swift; sourceTree = "<group>"; };
 		C43B39A31B8854AA00516248 /* SimpleCouponTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCouponTableViewCell.swift; sourceTree = "<group>"; };
 		C43B39A91B8908EA00516248 /* ViewItemTopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewItemTopView.xib; sourceTree = "<group>"; };
 		C43B39AB1B8909BC00516248 /* ViewItemTopUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewItemTopUIView.swift; sourceTree = "<group>"; };
@@ -369,7 +373,6 @@
 				C43B39781B85951900516248 /* CouponCell.xib */,
 				C43B397E1B85969E00516248 /* DishCell.xib */,
 				C43B39911B87F03500516248 /* ListCell.xib */,
-				C43B39991B884FF900516248 /* IconInfoCell.xib */,
 				C43B399B1B8850B100516248 /* SimpleCouponCell.xib */,
 				C43B39A91B8908EA00516248 /* ViewItemTopView.xib */,
 				C43B39AF1B8A806A00516248 /* NameOnlyDishCell.xib */,
@@ -377,6 +380,8 @@
 				C4BDFBFC1B96C8BD0065F285 /* MessageCell.xib */,
 				C4BDFC081B97C8550065F285 /* MessageDetail.xib */,
 				C46CB8D61BA15AF8000D1006 /* SimpleDishCell.xib */,
+				C414BD2E1BBA600C008C5744 /* InfoCell.xib */,
+				C414BD301BBA6034008C5744 /* InfoCouponCell.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -391,7 +396,6 @@
 				C43B397C1B85954200516248 /* CouponTableViewCell.swift */,
 				C43B39831B85AB8E00516248 /* ModelTableViewCellProtocol.swift */,
 				C43B39931B87F08C00516248 /* ListTableViewCell.swift */,
-				C43B39A11B88545B00516248 /* IconInfoCellTableViewCell.swift */,
 				C43B39A31B8854AA00516248 /* SimpleCouponTableViewCell.swift */,
 				C43B39AB1B8909BC00516248 /* ViewItemTopUIView.swift */,
 				C43B39B11B8A813300516248 /* NameOnlyDishTableViewCell.swift */,
@@ -401,6 +405,8 @@
 				C4BDFC181B98C5C00065F285 /* SelectionPanel.swift */,
 				C4F9CB721B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift */,
 				C46CB8D81BA15CCD000D1006 /* SimpleDishTableViewCell.swift */,
+				C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */,
+				C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -578,17 +584,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C43B39B01B8A806A00516248 /* NameOnlyDishCell.xib in Resources */,
+				C414BD311BBA6034008C5744 /* InfoCouponCell.xib in Resources */,
 				C4BDFC091B97C8550065F285 /* MessageDetail.xib in Resources */,
 				C42D9BD01B69EF2D0035C5A6 /* LaunchScreen.storyboard in Resources */,
 				C42D9BCD1B69EF2D0035C5A6 /* Assets.xcassets in Resources */,
 				C43B39791B85951900516248 /* CouponCell.xib in Resources */,
 				C46CB8D71BA15AF8000D1006 /* SimpleDishCell.xib in Resources */,
-				C43B399A1B884FF900516248 /* IconInfoCell.xib in Resources */,
 				C4BDFBFD1B96C8BD0065F285 /* MessageCell.xib in Resources */,
 				C43B39B41B8A89A600516248 /* AllDishesHeaderView.xib in Resources */,
 				C43B397F1B85969E00516248 /* DishCell.xib in Resources */,
 				C476C5491B843C9D0051B0E5 /* RestaurantCell.xib in Resources */,
 				C43B39AA1B8908EA00516248 /* ViewItemTopView.xib in Resources */,
+				C414BD2F1BBA600C008C5744 /* InfoCell.xib in Resources */,
 				C433BA071B9625490049CB53 /* SlideBar.xib in Resources */,
 				C42D9BCB1B69EF2D0035C5A6 /* Main.storyboard in Resources */,
 				C43B39921B87F03500516248 /* ListCell.xib in Resources */,
@@ -624,12 +631,12 @@
 				C476C54E1B84565F0051B0E5 /* Queue.swift in Sources */,
 				C43B39AC1B8909BC00516248 /* ViewItemTopUIView.swift in Sources */,
 				C437282F1B82F12F009121C9 /* ParseConfiguration.swift in Sources */,
-				C43B39A21B88545B00516248 /* IconInfoCellTableViewCell.swift in Sources */,
 				C4BDFC0F1B9825970065F285 /* GetMessageByIdRequest.swift in Sources */,
 				C433BA091B9625670049CB53 /* SlideBar.swift in Sources */,
 				C4BDFC031B96CBBF0065F285 /* GetMessagesResponse.swift in Sources */,
 				C46CB8D51BA00B5A000D1006 /* GetRestaurantMenuResponse.swift in Sources */,
 				C4B14E241B804755001E8B62 /* DataAccessor.swift in Sources */,
+				C414BD351BBA6EA1008C5744 /* InfoCouponTableViewCell.swift in Sources */,
 				C42D9BF81B7267140035C5A6 /* AboutMeViewController.swift in Sources */,
 				C43B398E1B87EDD800516248 /* GetListsRequest.swift in Sources */,
 				C43B39941B87F08C00516248 /* ListTableViewCell.swift in Sources */,
@@ -666,6 +673,7 @@
 				C4B14E2F1B8048A0001E8B62 /* GetDishByIdResponse.swift in Sources */,
 				C43B39901B87EDEA00516248 /* GetListsResponse.swift in Sources */,
 				C43B39811B85A8ED00516248 /* PromotionType.swift in Sources */,
+				C414BD331BBA6E8E008C5744 /* InfoTableViewCell.swift in Sources */,
 				C46CB8D31BA00B50000D1006 /* GetRestaurantMenuRequest.swift in Sources */,
 				C43728171B81215E009121C9 /* Coupon.swift in Sources */,
 				C43728291B815C8F009121C9 /* JSONHelperExtension.swift in Sources */,

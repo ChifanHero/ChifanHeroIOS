@@ -12,14 +12,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate, SelectionPane
 
     @IBOutlet weak var selectionPanel: SelectionPanel!
     
+    var searchBar : UISearchBar?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("Search view");
-        let searchBar : UISearchBar = UISearchBar()
-        searchBar.placeholder = "大家都在搜：韶山冲"
-        searchBar.delegate = self
+        searchBar = UISearchBar()
+        searchBar!.barTintColor = UIColor.clearColor()
+        searchBar!.placeholder = "大家都在搜：韶山冲"
+        searchBar!.delegate = self
         self.navigationItem.titleView = searchBar
+        
         selectionPanel.setUpSelectionPanel(options: ["餐厅", "菜名", "榜单"], defaultSelection: 0)
     }
 
@@ -30,7 +34,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, SelectionPane
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         searchBar.placeholder = "AAAAA"
+        self.searchBar?.setShowsCancelButton(true, animated: true)
     }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        self.searchBar?.endEditing(true)
+        self.searchBar?.setShowsCancelButton(false, animated: true)
+    }
+    
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchBar.text)

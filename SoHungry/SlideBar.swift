@@ -35,7 +35,7 @@ class SlideBar: UIView {
     @IBInspectable var slideDuration : Double = 0.3
     @IBInspectable var boarderColor : UIColor? {
         get {
-            return self.boarderColor
+            return UIColor(CGColor: selectionBox.layer.borderColor!)
         }
         set(color) {
             selectionBox.layer.borderColor = color?.CGColor
