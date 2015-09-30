@@ -14,11 +14,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="34.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ygM-YV-GYn" userLabel="Icon">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ygM-YV-GYn" userLabel="Icon">
                         <rect key="frame" x="19" y="10" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="R6K-7Y-dhV"/>
+                            <constraint firstAttribute="height" constant="15" id="ecN-xc-0Nf"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sx7-Cv-C4M" userLabel="Info Label">
-                        <rect key="frame" x="58" y="7" width="291" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sx7-Cv-C4M" userLabel="Info Label">
+                        <rect key="frame" x="58" y="10" width="33" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -29,6 +33,7 @@
                     <constraint firstItem="ygM-YV-GYn" firstAttribute="leading" secondItem="mdR-CF-kE6" secondAttribute="leadingMargin" constant="11" id="8Xu-4n-omm"/>
                     <constraint firstItem="sx7-Cv-C4M" firstAttribute="leading" secondItem="ygM-YV-GYn" secondAttribute="trailing" constant="24" id="Ab0-iJ-Uc9"/>
                     <constraint firstItem="sx7-Cv-C4M" firstAttribute="centerY" secondItem="mdR-CF-kE6" secondAttribute="centerY" id="HBH-qf-V2D"/>
+                    <constraint firstItem="ygM-YV-GYn" firstAttribute="centerY" secondItem="mdR-CF-kE6" secondAttribute="centerY" id="f0r-rq-7Yl"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

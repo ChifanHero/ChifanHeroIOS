@@ -20,6 +20,8 @@ class AllDishesHeaderView: UIView {
     
     var view : UIView!
     
+    var delegate: HeaderViewDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         xibSetup()
@@ -44,4 +46,7 @@ class AllDishesHeaderView: UIView {
         return view
     }
 
+    @IBAction func actionButtonPressed(sender: AnyObject) {
+        delegate?.headerViewActionButtonPressed()
+    }
 }

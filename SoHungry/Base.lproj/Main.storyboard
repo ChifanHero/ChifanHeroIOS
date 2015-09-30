@@ -115,7 +115,6 @@
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Cge-rc-BQk" firstAttribute="top" secondItem="G2S-pL-if8" secondAttribute="bottom" constant="5" id="dnN-wy-fVR"/>
-                                    <constraint firstAttribute="trailing" secondItem="Cge-rc-BQk" secondAttribute="trailing" id="ebZ-yL-xiT"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -123,8 +122,9 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="Cge-rc-BQk" secondAttribute="trailing" constant="-20" id="1HK-EZ-5XJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="G2S-pL-if8" secondAttribute="trailing" constant="-20" id="JGc-ZH-WNW"/>
+                            <constraint firstItem="a2O-7a-gxn" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="RGp-R6-y5J"/>
                             <constraint firstItem="Cge-rc-BQk" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="Tnc-ef-z84"/>
-                            <constraint firstItem="a2O-7a-gxn" firstAttribute="width" secondItem="tsR-hK-woN" secondAttribute="width" id="haL-Tw-NQT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="a2O-7a-gxn" secondAttribute="trailing" constant="-20" id="dw4-8T-lPg"/>
                             <constraint firstItem="G2S-pL-if8" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="zmM-3G-nPF"/>
                         </constraints>
                     </view>
@@ -174,22 +174,22 @@
                         <viewControllerLayoutGuide type="top" id="3Db-jL-lhH"/>
                         <viewControllerLayoutGuide type="bottom" id="Eza-ca-7rH"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Big-8G-yxv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="Big-8G-yxv">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            <scrollView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
-                                    <view contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="SoHungry" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
+                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="SoHungry" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="383" height="170"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="170" id="t1F-cl-PsJ"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-pF-gKu" userLabel="Info Table View">
-                                        <rect key="frame" x="0.0" y="171" width="375" height="167"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-pF-gKu" userLabel="Info Table View">
+                                        <rect key="frame" x="0.0" y="171" width="383" height="167"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="167" id="CFA-JP-rLh"/>
@@ -199,8 +199,8 @@
                                             <outlet property="delegate" destination="zJm-Fm-QLl" id="jFT-ur-ANA"/>
                                         </connections>
                                     </tableView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7">
-                                        <rect key="frame" x="0.0" y="363" width="375" height="199"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7">
+                                        <rect key="frame" x="0.0" y="337" width="375" height="221"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="daK-3r-k8Z">
@@ -220,23 +220,29 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="eWi-Dd-Kda" secondAttribute="bottom" constant="1" id="5WM-yH-CAP"/>
+                                    <constraint firstItem="3wF-uh-jL7" firstAttribute="top" secondItem="hqm-pF-gKu" secondAttribute="bottom" constant="-1" id="BO2-4k-Mwb"/>
+                                    <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" id="glo-ER-JCa"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="Eza-ca-7rH" firstAttribute="top" secondItem="3wF-uh-jL7" secondAttribute="bottom" id="0uN-OK-KOs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="3wF-uh-jL7" secondAttribute="trailing" constant="-20" id="2q5-Pe-God"/>
+                            <constraint firstItem="hqm-pF-gKu" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="4MP-yH-zYn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HVe-v4-VBn" secondAttribute="trailing" constant="-20" id="9Ga-vG-VhO"/>
                             <constraint firstItem="HVe-v4-VBn" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="EBa-L4-APJ"/>
-                            <constraint firstItem="HVe-v4-VBn" firstAttribute="bottom" secondItem="Big-8G-yxv" secondAttribute="bottomMargin" id="aGO-5w-cJ5"/>
-                            <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="ep8-PE-eTs"/>
-                            <constraint firstItem="3wF-uh-jL7" firstAttribute="width" secondItem="Big-8G-yxv" secondAttribute="width" id="iJp-DW-acG"/>
-                            <constraint firstItem="eWi-Dd-Kda" firstAttribute="width" secondItem="Big-8G-yxv" secondAttribute="width" id="ty0-hW-vcU"/>
+                            <constraint firstItem="3wF-uh-jL7" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="HXb-rx-L7E"/>
+                            <constraint firstItem="eWi-Dd-Kda" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="Mco-lx-D9A"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eWi-Dd-Kda" secondAttribute="trailing" constant="-20" id="g0w-Ca-jPc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hqm-pF-gKu" secondAttribute="trailing" constant="-20" id="qsa-1G-ggT"/>
                             <constraint firstItem="HVe-v4-VBn" firstAttribute="top" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="v5c-Xx-n8P"/>
-                            <constraint firstItem="hqm-pF-gKu" firstAttribute="width" secondItem="Big-8G-yxv" secondAttribute="width" id="zif-qt-2u8"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="containerScrollView" destination="HVe-v4-VBn" id="VBo-Xl-ouX"/>
                         <outlet property="hotDishesTableView" destination="3wF-uh-jL7" id="z23-Dy-hUl"/>
                         <outlet property="infoTableView" destination="hqm-pF-gKu" id="MJ0-uG-IcN"/>
                         <outlet property="topViewContainer" destination="eWi-Dd-Kda" id="phL-oe-mEb"/>
@@ -262,6 +268,9 @@
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MCx-yh-LaH" customClass="SlideBar" customModule="SoHungry" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="375" height="38"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="Oiq-5E-aCW"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="slideDuration">
                                         <real key="value" value="0.20000000000000001"/>
@@ -287,10 +296,10 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="Zlm-pG-XiO" secondAttribute="trailing" constant="-20" id="1kQ-z5-YPL"/>
                             <constraint firstItem="Zlm-pG-XiO" firstAttribute="top" secondItem="MCx-yh-LaH" secondAttribute="bottom" id="2a4-Gq-WKi"/>
+                            <constraint firstItem="TuO-r1-wfP" firstAttribute="top" secondItem="Zlm-pG-XiO" secondAttribute="bottom" id="34n-Q3-obJ"/>
                             <constraint firstItem="Zlm-pG-XiO" firstAttribute="leading" secondItem="Q8B-ue-KhO" secondAttribute="leadingMargin" constant="-20" id="Q3Z-ne-FEM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MCx-yh-LaH" secondAttribute="trailing" constant="-20" id="XYG-od-bo7"/>
                             <constraint firstItem="MCx-yh-LaH" firstAttribute="leading" secondItem="Q8B-ue-KhO" secondAttribute="leadingMargin" constant="-20" id="eFF-jz-0lr"/>
-                            <constraint firstItem="TuO-r1-wfP" firstAttribute="top" secondItem="Zlm-pG-XiO" secondAttribute="bottom" id="lla-Af-cBC"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -315,7 +324,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iCh-4N-kdO" customClass="SelectionPanel" customModule="SoHungry" customModuleProvider="target">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iCh-4N-kdO" customClass="SelectionPanel" customModule="SoHungry" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -347,6 +356,7 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="iCh-4N-kdO" secondAttribute="trailing" constant="-20" id="DRN-3h-0Tr"/>
                             <constraint firstItem="iCh-4N-kdO" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leadingMargin" constant="-20" id="hic-Ge-a9n"/>
+                            <constraint firstItem="iCh-4N-kdO" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" id="n0R-O7-5gH"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
@@ -422,7 +432,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="59Q-T0-Nsc" customClass="MessageDetailView" customModule="SoHungry" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="383" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>

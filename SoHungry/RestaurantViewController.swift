@@ -8,11 +8,13 @@
 
 import UIKit
 
-class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate{
     
     var restaurantId : String?
     
     var restaurant : Restaurant?
+    
+    @IBOutlet weak var containerScrollView: UIScrollView!
     
     @IBOutlet weak var infoTableView: UITableView!
     var info : [String : String] = [String : String]()
@@ -51,9 +53,42 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                     self.hotDishes = self.restaurant?.hotDishes
                     self.infoTableView.reloadData()
                     self.hotDishesTableView.reloadData()
+                    self.adjustUI()
                 });
             }
         }
+    }
+    
+//    override func viewDidLayoutSubviews() {
+//        
+//        self.view.layoutIfNeeded()
+//    }
+    
+    private func adjustUI() {
+        adjustDishTableViewHeight()
+        adjustContainerViewHeight()
+//        let dishesTableContentHeight : CGFloat = self.hotDishesTableView.contentSize.height
+//        let totalHeight : CGFloat = self.topViewContainer.frame.size.height + self.infoTableView.frame.size.height + dishesTableContentHeight
+//        self.hotDishesTableView.frame.size.height = dishesTableContentHeight
+//        self.containerScrollView.contentSize = CGSizeMake(self.containerScrollView.frame.size.width, 1200)
+//        self.view.layoutIfNeeded()
+//        print(dishesTableContentHeight)
+//        print(totalHeight)
+        
+
+    }
+    
+    private func adjustDishTableViewHeight() {
+        let originalFrame : CGRect = self.hotDishesTableView.frame
+        self.hotDishesTableView.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.hotDishesTableView.contentSize.height)
+    }
+    
+    private func adjustContainerViewHeight() {
+        var contentRect : CGRect = CGRectZero
+        for subView : UIView in self.containerScrollView.subviews {
+            contentRect = CGRectUnion(contentRect, subView.frame)
+        }
+        self.containerScrollView.contentSize = contentRect.size
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,11 +100,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         if tableView == infoTableView {
             return info.count + 1
         } else if tableView == hotDishesTableView {
-            if hotDishes != nil {
-                return hotDishes!.count
-            } else {
-                return 0
-            }
+            return 1
         } else {
             return 0
         }
@@ -81,7 +112,12 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 return 1
             }
         } else {
-            return 1
+            if hotDishes != nil {
+               return (hotDishes?.count)!
+            } else {
+                return 0
+            }
+            
         }
         return 0
     }
@@ -113,6 +149,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 tableView.registerNib(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
             }
+            let hotDish : Dish = (hotDishes![indexPath.section])
+            cell?.model = hotDish
             return cell!
         } else {
             return UITableViewCell()
@@ -138,11 +176,11 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
 //        
 //    }
     
-    func getSeperatorView(forCell cell : UITableViewCell) -> UIView {
-        let seperatorView = UIView(frame: CGRectMake(0, 0, cell.frame.size.width, 10))
-        seperatorView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-        return seperatorView
-    }
+//    func getSeperatorView(forCell cell : UITableViewCell) -> UIView {
+//        let seperatorView = UIView(frame: CGRectMake(0, 0, cell.frame.size.width, 10))
+//        seperatorView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+//        return seperatorView
+//    }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if tableView == infoTableView {
@@ -152,36 +190,39 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 return 62
             }
         } else if tableView == hotDishesTableView {
-            return DishTableViewCell.height + 10
+            return 82
         } else {
-            return 100
+            return 0
         }
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == infoTableView {
             return 0
-        } else {
-            return 26
+        } else if tableView == hotDishesTableView {
+            if section == 0 {
+                return 44
+            } else {
+                return 0
+            }
         }
-        
+        return 0
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if tableView == hotDishesTableView {
-            let headerView = AllDishesHeaderView()
-            let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "segueToAllDishesView:")
-            headerView.addGestureRecognizer(tapGesture)
+            let headerView = AllDishesHeaderView(frame: CGRectMake(0, 0, self.hotDishesTableView.frame.size.width, 44))
+            headerView.delegate = self
             return headerView
         } else {
-            return UIView()
+            return nil
         }
     }
     
-    func segueToAllDishesView(recognizer: UITapGestureRecognizer) {
+    func headerViewActionButtonPressed() {
         self.performSegueWithIdentifier("showAllDishes", sender: self.restaurantId)
     }
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showAllDishes" {
             let restaurantAllDishesController : RestaurantAllDishViewController = segue.destinationViewController as! RestaurantAllDishViewController

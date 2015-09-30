@@ -11,6 +11,7 @@
 		C414BD311BBA6034008C5744 /* InfoCouponCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C414BD301BBA6034008C5744 /* InfoCouponCell.xib */; settings = {ASSET_TAGS = (); }; };
 		C414BD331BBA6E8E008C5744 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		C414BD351BBA6EA1008C5744 /* InfoCouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		C414BD371BBBB04B008C5744 /* HeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C414BD361BBBB04B008C5744 /* HeaderViewDelegate.swift */; settings = {ASSET_TAGS = (); }; };
 		C42D9BC41B69EF2D0035C5A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */; };
 		C42D9BC61B69EF2D0035C5A6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */; };
 		C42D9BC81B69EF2D0035C5A6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */; };
@@ -126,6 +127,7 @@
 		C414BD301BBA6034008C5744 /* InfoCouponCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCouponCell.xib; sourceTree = "<group>"; };
 		C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCouponTableViewCell.swift; sourceTree = "<group>"; };
+		C414BD361BBBB04B008C5744 /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewDelegate.swift; sourceTree = "<group>"; };
 		C42D9BC01B69EF2D0035C5A6 /* SoHungry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoHungry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				C46CB8D81BA15CCD000D1006 /* SimpleDishTableViewCell.swift */,
 				C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */,
 				C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */,
+				C414BD361BBBB04B008C5744 /* HeaderViewDelegate.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -655,6 +658,7 @@
 				C43B39B21B8A813300516248 /* NameOnlyDishTableViewCell.swift in Sources */,
 				C4F9CB731B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift in Sources */,
 				C43B398A1B86F48D00516248 /* SortOrder.swift in Sources */,
+				C414BD371BBBB04B008C5744 /* HeaderViewDelegate.swift in Sources */,
 				C42D9BFF1B726B540035C5A6 /* Restaurant.swift in Sources */,
 				C4B14E361B80491B001E8B62 /* GetRestaurantsRequest.swift in Sources */,
 				C42D9C011B726B6A0035C5A6 /* Promotion.swift in Sources */,

@@ -31,22 +31,25 @@
                         <constraint firstAttribute="trailing" secondItem="NIO-Yr-7bG" secondAttribute="trailing" id="dFf-Gi-yYl"/>
                     </constraints>
                 </view>
-                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="N4F-yX-uja" userLabel="Name Stack View">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="N4F-yX-uja" userLabel="Name Stack View">
                     <rect key="frame" x="22" y="66" width="102" height="47"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="中文名称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6K-2e-lFz">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中文名称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6K-2e-lFz">
                             <rect key="frame" x="0.0" y="0.0" width="68" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="English name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRK-vC-vIB">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRK-vC-vIB">
                             <rect key="frame" x="0.0" y="27" width="102" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="x6K-2e-lFz" firstAttribute="leading" secondItem="N4F-yX-uja" secondAttribute="leading" id="dVF-Co-fiD"/>
+                    </constraints>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6TS-Zp-D0Z" userLabel="Action View">
                     <rect key="frame" x="0.0" y="126" width="375" height="44"/>
@@ -131,10 +134,12 @@
                 <constraint firstItem="6TS-Zp-D0Z" firstAttribute="top" secondItem="EEX-wx-u9E" secondAttribute="bottom" constant="1" id="2t5-wT-y04"/>
                 <constraint firstItem="EEX-wx-u9E" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="LAI-B3-Gx3"/>
                 <constraint firstAttribute="trailing" secondItem="6TS-Zp-D0Z" secondAttribute="trailing" id="M4Z-Aw-E2a"/>
+                <constraint firstItem="6TS-Zp-D0Z" firstAttribute="top" secondItem="N4F-yX-uja" secondAttribute="bottom" constant="13" id="bsa-RG-0MX"/>
                 <constraint firstItem="6TS-Zp-D0Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gAL-fF-zB2"/>
                 <constraint firstAttribute="trailing" secondItem="EEX-wx-u9E" secondAttribute="trailing" id="irh-dZ-AMG"/>
                 <constraint firstAttribute="bottom" secondItem="6TS-Zp-D0Z" secondAttribute="bottom" id="k3t-HL-hVj"/>
                 <constraint firstItem="EEX-wx-u9E" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sbL-bn-OMm"/>
+                <constraint firstItem="N4F-yX-uja" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="22" id="ymo-cC-cTD"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

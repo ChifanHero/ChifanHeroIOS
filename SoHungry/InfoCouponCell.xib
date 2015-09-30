@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,20 +14,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqC-D9-cOq" userLabel="Big Button View">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqC-D9-cOq" userLabel="Big Button View">
                         <rect key="frame" x="14" y="14" width="347" height="35"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTm-TG-0La" userLabel="Button Container View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JTm-TG-0La" userLabel="Button Container View">
                                 <rect key="frame" x="133" y="0.0" width="81" height="35"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="smile" translatesAutoresizingMaskIntoConstraints="NO" id="D0J-3H-sMr">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smile" translatesAutoresizingMaskIntoConstraints="NO" id="D0J-3H-sMr">
                                         <rect key="frame" x="0.0" y="8" width="19" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="19" id="9QZ-DI-YHR"/>
                                             <constraint firstAttribute="width" constant="19" id="lGK-vB-Nw3"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="碰运气" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfI-Wm-MPY">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="碰运气" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfI-Wm-MPY">
                                         <rect key="frame" x="29" y="8" width="48" height="19"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -49,13 +50,18 @@
                             <constraint firstItem="JTm-TG-0La" firstAttribute="centerX" secondItem="bqC-D9-cOq" secondAttribute="centerX" id="0Ci-tM-fFo"/>
                             <constraint firstAttribute="bottom" secondItem="JTm-TG-0La" secondAttribute="bottom" id="HN6-tI-InQ"/>
                             <constraint firstItem="JTm-TG-0La" firstAttribute="top" secondItem="bqC-D9-cOq" secondAttribute="top" id="dH8-hj-pgw"/>
+                            <constraint firstAttribute="height" constant="35" id="ouX-wq-6j4"/>
                             <constraint firstItem="JTm-TG-0La" firstAttribute="centerY" secondItem="bqC-D9-cOq" secondAttribute="centerY" id="ueh-Sf-HeS"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="bqC-D9-cOq" firstAttribute="centerY" secondItem="jaZ-2I-WRc" secondAttribute="centerY" id="3PR-50-8jK"/>
+                    <constraint firstItem="bqC-D9-cOq" firstAttribute="centerY" secondItem="jaZ-2I-WRc" secondAttribute="centerY" id="5RO-DB-IYJ"/>
                     <constraint firstItem="bqC-D9-cOq" firstAttribute="centerX" secondItem="jaZ-2I-WRc" secondAttribute="centerX" id="Itx-za-yuD"/>
+                    <constraint firstItem="bqC-D9-cOq" firstAttribute="leading" secondItem="jaZ-2I-WRc" secondAttribute="leadingMargin" constant="6" id="ZmA-Cb-c58"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="bqC-D9-cOq" secondAttribute="trailing" constant="6" id="Zn2-2I-HMg"/>
+                    <constraint firstItem="bqC-D9-cOq" firstAttribute="centerX" secondItem="jaZ-2I-WRc" secondAttribute="centerX" id="zpW-pU-vAQ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
