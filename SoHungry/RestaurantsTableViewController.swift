@@ -14,22 +14,47 @@ class RestaurantsTableViewController: UITableViewController {
     
     var restaurants : [Restaurant] = []
     
+    var indicatorContainer : UIView?
+    var indicator : UIActivityIndicatorView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.tableView.hidden = true
+        setupIndicator()
         loadTableData()
     }
     
     func loadTableData() {
+        self.showIndicator()
         if request != nil {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request!) { (response) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.restaurants = (response?.results)!
+//                    self.dismissIndicator()
                     self.tableView.reloadData()
 //                    self.tableView.hidden = false
+                    //self.dismissIndicator()
                 });
             }
         }
+    }
+    
+    func setupIndicator() {
+        indicatorContainer = UIView(frame: self.view.frame)
+        indicatorContainer?.opaque = true
+        indicatorContainer?.backgroundColor = UIColor.blackColor()
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
+        indicator?.center = self.view.center
+        indicatorContainer?.addSubview(indicator!)
+        
+    }
+    
+    func showIndicator() {
+        indicator?.startAnimating()
+    }
+    
+    func dismissIndicator() {
+        indicator?.stopAnimating()
+        indicatorContainer?.removeFromSuperview()
     }
     
     override func didReceiveMemoryWarning() {

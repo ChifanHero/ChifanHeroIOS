@@ -10,24 +10,34 @@ import UIKit
 
 class CouponTableViewCell: UITableViewCell, ModelTableViewCell {
     
-    static var height : CGFloat = 200.0
+    static var height : CGFloat = 100
     
     var model : Model? {
         didSet {
             if let coupon = model as? Coupon {
-                restaurantLabel.text = coupon.restaurant?.name
-                addressLabel.text = coupon.restaurant?.address
+                restaurantNameLabel.text = coupon.restaurant?.name
+                restaurantAddressLabel.text = coupon.restaurant?.address
+                restaurantDistanceLabel.text = coupon.restaurant?.distance
+                if let imageURL = coupon.restaurant?.picture?.original {
+                    let url = NSURL(string: imageURL)
+                    let data = NSData(contentsOfURL: url!)
+                    let image = UIImage(data: data!)
+                    restaurantImageView.image = image
+                }
             }
         }
     }
 
-    @IBOutlet weak var labelContainer: UIView!
+    @IBAction func tryLuck(sender: AnyObject) {
+        
+    }
     
-    @IBOutlet weak var tryLuckLabelContainer: UIView!
+    @IBOutlet weak var tryLuckButton: UIButton!
     
-    @IBOutlet weak var restaurantLabel: UILabel!
-    
-    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var restaurantNameLabel: UILabel!
+    @IBOutlet weak var restaurantAddressLabel: UILabel!
+    @IBOutlet weak var restaurantDistanceLabel: UILabel!
+    @IBOutlet weak var restaurantImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,13 +47,7 @@ class CouponTableViewCell: UITableViewCell, ModelTableViewCell {
     }
     
     func setUp() {
-        labelContainer.layer.borderColor = UIColor.blackColor().CGColor
-        labelContainer.layer.borderWidth = 0.4
-        labelContainer.backgroundColor = UIColor.clearColor()
-        
-        tryLuckLabelContainer.layer.borderColor = UIColor.blackColor().CGColor
-        tryLuckLabelContainer.layer.borderWidth = 0.4
-        tryLuckLabelContainer.backgroundColor = UIColor.clearColor()
+        tryLuckButton.layer.cornerRadius = 4
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

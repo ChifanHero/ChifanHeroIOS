@@ -87,6 +87,24 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         loadTableData()
     }
     
+    private func adjustUI() {
+        adjustPromotionTableHeight()
+        adjustContainerViewHeight()
+    }
+    
+    private func adjustPromotionTableHeight() {
+        let originalFrame : CGRect = self.promotionsTable.frame
+        self.promotionsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.promotionsTable.contentSize.height)
+    }
+    
+    private func adjustContainerViewHeight() {
+        var contentRect : CGRect = CGRectZero
+        for subView : UIView in self.containerView.subviews {
+            contentRect = CGRectUnion(contentRect, subView.frame)
+        }
+        self.containerView.contentSize = CGSizeMake(contentRect.width, contentRect.height)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         let selectedCellIndexPath : NSIndexPath? = self.promotionsTable.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
@@ -102,7 +120,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             dispatch_async(dispatch_get_main_queue(), {
                 self.promotions = (response?.results)!
                 self.promotionsTable.reloadData()
-                self.containerView.contentSize = CGSizeMake(self.view.frame.size.width, self.getContainerViewSize())
+                self.adjustUI()
             });
         }
     }

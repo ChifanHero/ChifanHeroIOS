@@ -34,6 +34,7 @@ class DataAccessor {
             }
             responseHandler(getPromotionsResponse)
         }
+        
     }
     
     func getRestaurants(request : GetRestaurantsRequest, responseHandler : (GetRestaurantsResponse?) -> Void) {

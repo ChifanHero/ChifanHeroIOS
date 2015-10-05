@@ -59,23 +59,9 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-//    override func viewDidLayoutSubviews() {
-//        
-//        self.view.layoutIfNeeded()
-//    }
-    
     private func adjustUI() {
         adjustDishTableViewHeight()
         adjustContainerViewHeight()
-//        let dishesTableContentHeight : CGFloat = self.hotDishesTableView.contentSize.height
-//        let totalHeight : CGFloat = self.topViewContainer.frame.size.height + self.infoTableView.frame.size.height + dishesTableContentHeight
-//        self.hotDishesTableView.frame.size.height = dishesTableContentHeight
-//        self.containerScrollView.contentSize = CGSizeMake(self.containerScrollView.frame.size.width, 1200)
-//        self.view.layoutIfNeeded()
-//        print(dishesTableContentHeight)
-//        print(totalHeight)
-        
-
     }
     
     private func adjustDishTableViewHeight() {
@@ -88,7 +74,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         for subView : UIView in self.containerScrollView.subviews {
             contentRect = CGRectUnion(contentRect, subView.frame)
         }
-        self.containerScrollView.contentSize = contentRect.size
+        self.containerScrollView.contentSize = CGSizeMake(contentRect.width, contentRect.height - (self.navigationController?.navigationBar.frame.size.height)!)
     }
 
     override func didReceiveMemoryWarning() {

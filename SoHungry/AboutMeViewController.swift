@@ -10,4 +10,10 @@ import UIKit
 
 class AboutMeViewController: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let username = NSUserDefaults.standardUserDefaults().valueForKey("username")
+        print(username)
+    }
+    
 }
