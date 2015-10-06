@@ -610,10 +610,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFn-3z-1G3" userLabel="Login View" customClass="LoginView" customModule="SoHungry" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="147" width="375" height="280.5"/>
+                                <rect key="frame" x="0.0" y="147" width="375" height="318.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="280" id="Crb-M7-hdD"/>
+                                    <constraint firstAttribute="height" constant="318" id="Crb-M7-hdD"/>
                                 </constraints>
                             </view>
                         </subviews>
