@@ -47,6 +47,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
             }
+            cell?.model = promotions[indexPath.section].restaurant
             return cell!
         } else if type == PromotionType.Dish {
             var cell : DishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
@@ -54,6 +55,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
             }
+            cell?.model = promotions[indexPath.section].dish
             return cell!
         } else if type == PromotionType.Coupon {
             var cell : CouponTableViewCell? = tableView.dequeueReusableCellWithIdentifier("couponCell") as? CouponTableViewCell
@@ -61,25 +63,24 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 tableView.registerNib(UINib(nibName: "CouponCell", bundle: nil), forCellReuseIdentifier: "couponCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("couponCell") as? CouponTableViewCell
             }
-           // cell?.frame.size.width = tableView.frame.size.width
+            cell?.model = promotions[indexPath.section].coupon
             return cell!
         } else {
             return UITableViewCell()
         }
-        
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        var promotionCell : ModelTableViewCell = cell as! ModelTableViewCell
-        let promotion = promotions[indexPath.section]
-        if promotion.type == PromotionType.Restaurant {
-            promotionCell.model = promotion.restaurant
-        } else if promotion.type == PromotionType.Dish {
-            promotionCell.model = promotion.dish
-        } else if promotion.type == PromotionType.Coupon {
-            promotionCell.model = promotion.coupon
-        }
-    }
+//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//        var promotionCell : ModelTableViewCell = cell as! ModelTableViewCell
+//        let promotion = promotions[indexPath.section]
+//        if promotion.type == PromotionType.Restaurant {
+//            promotionCell.model = promotion.restaurant
+//        } else if promotion.type == PromotionType.Dish {
+//            promotionCell.model = promotion.dish
+//        } else if promotion.type == PromotionType.Coupon {
+//            promotionCell.model = promotion.coupon
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
