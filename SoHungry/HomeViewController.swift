@@ -70,18 +70,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        var promotionCell : ModelTableViewCell = cell as! ModelTableViewCell
-//        let promotion = promotions[indexPath.section]
-//        if promotion.type == PromotionType.Restaurant {
-//            promotionCell.model = promotion.restaurant
-//        } else if promotion.type == PromotionType.Dish {
-//            promotionCell.model = promotion.dish
-//        } else if promotion.type == PromotionType.Coupon {
-//            promotionCell.model = promotion.coupon
-//        }
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None

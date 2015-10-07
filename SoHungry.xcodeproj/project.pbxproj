@@ -74,6 +74,8 @@
 		C476C5491B843C9D0051B0E5 /* RestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */; };
 		C476C54C1B843F720051B0E5 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C54B1B843F720051B0E5 /* RestaurantTableViewCell.swift */; };
 		C476C54E1B84565F0051B0E5 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C54D1B84565F0051B0E5 /* Queue.swift */; };
+		C49BF32B1BC4E5050097CBE0 /* SelectionBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49BF32A1BC4E5040097CBE0 /* SelectionBar.xib */; settings = {ASSET_TAGS = (); }; };
+		C49BF32D1BC4EA940097CBE0 /* SelectionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BF32C1BC4EA940097CBE0 /* SelectionBar.swift */; settings = {ASSET_TAGS = (); }; };
 		C4A595B61B7FC79F009E0F24 /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */; };
 		C4B14E211B802D7F001E8B62 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E201B802D7F001E8B62 /* HttpClient.swift */; };
 		C4B14E241B804755001E8B62 /* DataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E231B804755001E8B62 /* DataAccessor.swift */; };
@@ -220,6 +222,8 @@
 		C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell.xib; sourceTree = "<group>"; };
 		C476C54B1B843F720051B0E5 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		C476C54D1B84565F0051B0E5 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		C49BF32A1BC4E5040097CBE0 /* SelectionBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionBar.xib; sourceTree = "<group>"; };
+		C49BF32C1BC4EA940097CBE0 /* SelectionBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionBar.swift; sourceTree = "<group>"; };
 		C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4B14E1A1B7FD5F2001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
@@ -469,6 +473,7 @@
 				C414BD2E1BBA600C008C5744 /* InfoCell.xib */,
 				C414BD301BBA6034008C5744 /* InfoCouponCell.xib */,
 				C4D300061BC09A6100807C4D /* LoginView.xib */,
+				C49BF32A1BC4E5040097CBE0 /* SelectionBar.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 				C414BD361BBBB04B008C5744 /* HeaderViewDelegate.swift */,
 				C4D300081BC0BFEB00807C4D /* LoginView.swift */,
 				C4D3000A1BC1025300807C4D /* LoginDelegate.swift */,
+				C49BF32C1BC4EA940097CBE0 /* SelectionBar.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -710,6 +716,7 @@
 				C433BA071B9625490049CB53 /* SlideBar.xib in Resources */,
 				C42D9BCB1B69EF2D0035C5A6 /* Main.storyboard in Resources */,
 				C43B39921B87F03500516248 /* ListCell.xib in Resources */,
+				C49BF32B1BC4E5050097CBE0 /* SelectionBar.xib in Resources */,
 				C43B399C1B8850B100516248 /* SimpleCouponCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -775,6 +782,7 @@
 				C43B39841B85AB8E00516248 /* ModelTableViewCellProtocol.swift in Sources */,
 				C4D3000F1BC1B10B00807C4D /* AcountManager.swift in Sources */,
 				C4B14E411B804A66001E8B62 /* GetRequestProtocol.swift in Sources */,
+				C49BF32D1BC4EA940097CBE0 /* SelectionBar.swift in Sources */,
 				C437281B1B8121D7009121C9 /* Picture.swift in Sources */,
 				C43B397B1B85953500516248 /* DishTableViewCell.swift in Sources */,
 				C437282D1B82ED06009121C9 /* HttpRequestProtocol.swift in Sources */,

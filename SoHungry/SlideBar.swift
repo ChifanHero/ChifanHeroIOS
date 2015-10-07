@@ -80,7 +80,10 @@ class SlideBar: UIView {
         selectionBox.clipsToBounds = true
 //        selectionBox.layer.borderColor = boarderColor.CGColor
         selectionBox.layer.borderWidth = 1
+        let selectionBoxCenterYConstraint = NSLayoutConstraint(item: selectionBox, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
         self.scrollView.addSubview(selectionBox)
+        self.view.addConstraint(selectionBoxCenterYConstraint)
+        self.view.layoutIfNeeded()
     }
     
     private func LoadViewFromNib() -> UIView {

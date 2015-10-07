@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UISearchBarDelegate, SelectionPanelDelegate{
-
-    @IBOutlet weak var selectionPanel: SelectionPanel!
+class SearchViewController: UIViewController, UISearchBarDelegate{
+    
+    @IBOutlet weak var selectionBar: SelectionBar!
     
     var searchBar : UISearchBar?
     
@@ -23,8 +23,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, SelectionPane
         searchBar!.placeholder = "大家都在搜：韶山冲"
         searchBar!.delegate = self
         self.navigationItem.titleView = searchBar
-        
-        selectionPanel.setUpSelectionPanel(options: ["餐厅", "菜名", "榜单"], defaultSelection: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,10 +45,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, SelectionPane
         print(searchBar.text)
     }
     
-    func selectionPanel(selectionPanel : SelectionPanel, didSelectElementAtIndex : Int) -> Void {
-        
-    }
-
 
 }
 

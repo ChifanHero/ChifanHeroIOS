@@ -184,7 +184,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 100
+        return 0
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {

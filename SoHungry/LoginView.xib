@@ -68,17 +68,17 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cT-aZ-4yO" userLabel="Credential View">
                     <rect key="frame" x="0.0" y="40" width="375" height="93.5"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="R7k-Qg-89K">
-                            <rect key="frame" x="42" y="16" width="291" height="61"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="R7k-Qg-89K">
+                            <rect key="frame" x="42" y="16" width="304" height="61"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eRg-4E-YjF">
-                                    <rect key="frame" x="0.0" y="0.0" width="291" height="20"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eRg-4E-YjF">
+                                    <rect key="frame" x="0.0" y="0.0" width="304" height="20"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="account" translatesAutoresizingMaskIntoConstraints="NO" id="l0h-8I-gb2" userLabel="account icon">
-                                            <rect key="frame" x="0.0" y="2" width="17" height="17"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="account" translatesAutoresizingMaskIntoConstraints="NO" id="l0h-8I-gb2" userLabel="account icon">
+                                            <rect key="frame" x="0.0" y="0.0" width="30" height="20"/>
                                         </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@domain.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Nv-JF-MTT" userLabel="Account Text Field">
-                                            <rect key="frame" x="37" y="0.0" width="254" height="20"/>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@domain.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Nv-JF-MTT" userLabel="Account Text Field">
+                                            <rect key="frame" x="50" y="0.0" width="254" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="253.5" id="voq-cY-MiV"/>
                                             </constraints>
@@ -87,21 +87,21 @@
                                         </textField>
                                     </subviews>
                                 </stackView>
-                                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTg-Pu-5hI" userLabel="separator">
-                                    <rect key="frame" x="37" y="30" width="254" height="1"/>
+                                <view alpha="0.40000000000000002" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tTg-Pu-5hI" userLabel="separator">
+                                    <rect key="frame" x="50" y="30" width="254" height="1"/>
                                     <color key="backgroundColor" red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="253.5" id="NX0-3A-roX"/>
                                         <constraint firstAttribute="height" constant="1" id="lTi-D2-dxU"/>
                                     </constraints>
                                 </view>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cKJ-71-FYM">
-                                    <rect key="frame" x="0.0" y="41" width="291" height="20"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cKJ-71-FYM">
+                                    <rect key="frame" x="13" y="41" width="291" height="20"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="password" translatesAutoresizingMaskIntoConstraints="NO" id="p4n-fF-vie" userLabel="password icon">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="password" translatesAutoresizingMaskIntoConstraints="NO" id="p4n-fF-vie" userLabel="password icon">
                                             <rect key="frame" x="0.0" y="2" width="17" height="16"/>
                                         </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password(required)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wue-kG-c8Y" userLabel="Password Text Field">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password(required)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wue-kG-c8Y" userLabel="Password Text Field">
                                             <rect key="frame" x="37" y="0.0" width="254" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="254" id="rnq-ca-yjc"/>
@@ -134,7 +134,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAP-PE-FcU" userLabel="Error message Container View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                     <subviews>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rar-BM-2L0" userLabel="Error Message">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rar-BM-2L0" userLabel="Error Message">
                             <rect key="frame" x="42" y="10" width="42" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

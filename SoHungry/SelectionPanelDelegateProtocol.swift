@@ -11,6 +11,6 @@ import UIKit
 
 protocol SelectionPanelDelegate {
     
-    func selectionPanel(selectionPanel : SelectionPanel, didSelectElementAtIndex : Int) -> Void
+//    func selectionPanel(selectionPanel : SelectionPanel, didSelectElementAtIndex : Int) -> Void
     
 }
