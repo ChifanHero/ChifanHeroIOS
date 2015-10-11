@@ -10,30 +10,45 @@ import UIKit
 
 class LoginViewController: UIViewController, LoginDelegate {
     
-    @IBOutlet weak var loginView: LoginView!
+    var verticalLoginView: VerticalLoginView?
+    var horizontalLoginView : HorizontalLoginView?
+    var currentLoginView : LoginView?
+    var previousLoginView : LoginView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loginView.delegate = self
+        setUpLoginPanel()
+    }
+    
+    private func setUpLoginPanel() {
+        if view.frame.size.width > view.frame.size.height {
+            horizontalLoginView = HorizontalLoginView(frame: CGRectMake(0, 0, view.frame.size.width, view.frame.size.height))
+            view.addSubview(horizontalLoginView!)
+            currentLoginView = horizontalLoginView
+        } else {
+            verticalLoginView = VerticalLoginView(frame: CGRectMake(0, 0, view.frame.size.width, view.frame.size.height))
+            view.addSubview(verticalLoginView!)
+            currentLoginView = verticalLoginView
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func logIn() {
+    func logIn(account account : String?, password : String?) {
 //        self.performSegueWithIdentifier("showUser", sender: self)
-        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: self.loginView.username, password: self.loginView.password) { (success, user) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                if success == true {
-                    self.replaceLoginViewByAboutMeView()
-                } else {
-                    print("login failed")
-                    self.showErrorMessage()
-                }
-            })
-            
-        }
+//        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: self.loginView!.username, password: self.loginView!.password) { (success, user) -> Void in
+//            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                if success == true {
+//                    self.replaceLoginViewByAboutMeView()
+//                } else {
+//                    print("login failed")
+//                    self.showErrorMessage()
+//                }
+//            })
+//            
+//        }
         
     }
     
@@ -71,13 +86,41 @@ class LoginViewController: UIViewController, LoginDelegate {
         
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "showUser" {
-////            let destinationVC : UIViewController = segue.destinationViewController
-////            self.navigationController?.topViewController = destinationVC
-//            
-//            
-//        }
-//    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({ (transitionCoordinatorContext) -> Void in
+            // Place code here to perform animations during the rotation. Pass nil or leave this block empty if not necessary
+            self.setupNewLoginView(size)
+            }) { (transitionCoordinatorContext) -> Void in
+                // Code here will execute after the rotation has finished
+                
+        }
+    }
+    
+    private func setupNewLoginView(size : CGSize) {
+        previousLoginView = currentLoginView
+        if (size.width > size.height) {
+            
+            if horizontalLoginView == nil {
+                horizontalLoginView = HorizontalLoginView(frame: CGRectMake(0, 0, size.width, size.height))
+            }
+            currentLoginView = horizontalLoginView
+            
+        } else {
+            if verticalLoginView == nil {
+                verticalLoginView = VerticalLoginView(frame: CGRectMake(0, 0, size.width, size.height))
+            }
+            currentLoginView = verticalLoginView
+        }
+        currentLoginView?.account = previousLoginView?.account
+        currentLoginView?.password = previousLoginView?.password
+        currentLoginView?.errorMessage = previousLoginView?.errorMessage
+        currentLoginView?.indicatorActivate = (previousLoginView?.indicatorActivate)!
+        previousLoginView?.removeFromSuperview()
+        self.view.addSubview(currentLoginView!)
+        
+    }
+
 
 }

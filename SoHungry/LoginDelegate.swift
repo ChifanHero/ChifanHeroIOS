@@ -10,7 +10,7 @@ import Foundation
 
 protocol LoginDelegate {
     
-    func logIn()
+    func logIn(account account : String?, password : String?)
     
     func logInWithSina()
     

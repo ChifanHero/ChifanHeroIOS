@@ -579,47 +579,12 @@
                         <viewControllerLayoutGuide type="bottom" id="Dnx-zn-BJi"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9Rl-X4-0qo">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10秒注册享受更多信息和互动" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1st-rg-UZN">
-                                <rect key="frame" x="102" y="76" width="170.5" height="25"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还没有登陆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="172" translatesAutoresizingMaskIntoConstraints="NO" id="vLa-Wk-fp4">
-                                <rect key="frame" x="98" y="40" width="180" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFn-3z-1G3" userLabel="Login View" customClass="LoginView" customModule="SoHungry" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="147" width="375" height="318.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="318" id="Crb-M7-hdD"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="YFn-3z-1G3" firstAttribute="leading" secondItem="9Rl-X4-0qo" secondAttribute="leading" id="1zh-Qn-8A8"/>
-                            <constraint firstItem="1st-rg-UZN" firstAttribute="centerX" secondItem="9Rl-X4-0qo" secondAttribute="centerX" id="2eJ-ss-FBO"/>
-                            <constraint firstItem="YFn-3z-1G3" firstAttribute="top" secondItem="1st-rg-UZN" secondAttribute="bottom" constant="46" id="Bgg-EG-m1y"/>
-                            <constraint firstAttribute="trailing" secondItem="YFn-3z-1G3" secondAttribute="trailing" id="GGg-pt-xKh"/>
-                            <constraint firstItem="vLa-Wk-fp4" firstAttribute="centerX" secondItem="9Rl-X4-0qo" secondAttribute="centerX" id="ljk-gR-gcb"/>
-                            <constraint firstItem="1st-rg-UZN" firstAttribute="top" secondItem="vLa-Wk-fp4" secondAttribute="bottom" id="mD7-QU-k3P"/>
-                            <constraint firstItem="vLa-Wk-fp4" firstAttribute="top" secondItem="EDy-aQ-uVB" secondAttribute="bottom" constant="40" id="twa-lq-gP0"/>
-                            <constraint firstItem="YFn-3z-1G3" firstAttribute="top" secondItem="vLa-Wk-fp4" secondAttribute="bottom" constant="71" id="wZB-LA-K6e"/>
-                        </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="Wrs-Mm-0kx"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="loginView" destination="YFn-3z-1G3" id="vZE-0b-FvG"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6NI-lJ-odv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
