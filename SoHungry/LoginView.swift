@@ -18,7 +18,7 @@ class LoginView : UIView, UITextFieldDelegate{
             getErrorLabel()?.text = errorMessage
         }
     }
-    var indicatorActivate : Bool = false {
+    var indicatorActivate : Bool? {
         didSet {
             if indicatorActivate == true {
                 if getView() != nil {

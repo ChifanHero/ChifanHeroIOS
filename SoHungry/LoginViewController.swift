@@ -116,7 +116,7 @@ class LoginViewController: UIViewController, LoginDelegate {
         currentLoginView?.account = previousLoginView?.account
         currentLoginView?.password = previousLoginView?.password
         currentLoginView?.errorMessage = previousLoginView?.errorMessage
-        currentLoginView?.indicatorActivate = (previousLoginView?.indicatorActivate)!
+        currentLoginView?.indicatorActivate = previousLoginView?.indicatorActivate
         previousLoginView?.removeFromSuperview()
         self.view.addSubview(currentLoginView!)
         

@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
 
@@ -20,7 +20,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId("Z6ND8ho1yR4aY3NSq1zNNU0kPc0GDOD1UZJ5rgxM", clientKey: "t9TxZ7HPgwEl84gH9A2R9qisn8giNIdtKuAyt9Q4")
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         registerForPushNotifications(application, launchOptions: launchOptions)
+        configSplitViewController()
         return true
+    }
+    
+    private func configSplitViewController() {
+        let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
+        var viewControllers = tabBarController.viewControllers!
+        for var index = 0; index < viewControllers.count; index++ {
+            let vc : UIViewController = viewControllers[index]
+            if vc.restorationIdentifier == "splitViewController" {
+                let splitViewController = vc as! UISplitViewController
+                let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+                detailNavigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+                splitViewController.delegate = self
+ //               let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
+ //               let controller = masterNavigationController.topViewController as! NotificationTableViewController
+                break
+            }
+        }
     }
     
     private func registerForPushNotifications(application: UIApplication, launchOptions : [NSObject: AnyObject]?) {
@@ -93,6 +111,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if application.applicationState == UIApplicationState.Inactive {
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
         }
+    }
+    
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+        return true
     }
 
 

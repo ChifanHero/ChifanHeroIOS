@@ -50,8 +50,8 @@
                                 <constraint firstAttribute="width" constant="431" id="ee1-su-uN7"/>
                             </constraints>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="zY7-zD-OLG" userLabel="Credential Stack View">
-                            <rect key="frame" x="17" y="23" width="462" height="63"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="zY7-zD-OLG" userLabel="Credential Stack View">
+                            <rect key="frame" x="17" y="23" width="475" height="63"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="bzh-yp-UWE">
                                     <rect key="frame" x="0.0" y="0.0" width="462" height="25"/>
@@ -70,8 +70,8 @@
                                         </textField>
                                     </subviews>
                                 </stackView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccC-5h-4Ks" userLabel="seperator">
-                                    <rect key="frame" x="0.0" y="31" width="462" height="1"/>
+                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccC-5h-4Ks" userLabel="seperator">
+                                    <rect key="frame" x="0.0" y="31" width="475" height="1"/>
                                     <color key="backgroundColor" red="0.74117647060000003" green="0.74117647060000003" blue="0.74117647060000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="shD-jK-6R4"/>

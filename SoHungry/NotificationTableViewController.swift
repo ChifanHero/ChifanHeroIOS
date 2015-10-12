@@ -73,12 +73,19 @@ class NotificationTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showMessage" {
-            let messageDetalController : MessageDetailViewController = segue.destinationViewController as! MessageDetailViewController
+            let messageDetalController : MessageDetailViewController = (segue.destinationViewController as! UINavigationController).topViewController as! MessageDetailViewController
             let message = sender as? Message
             messageDetalController.messageId = message!.id
+            messageDetalController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+            messageDetalController.navigationItem.leftItemsSupplementBackButton = true
             if (message?.read != true) {
-                var badgeValue : Int = Int((self.navigationController?.tabBarItem.badgeValue)!)!
-                badgeValue = badgeValue - 1
+                var badgeValue : Int?
+                if self.navigationController?.tabBarItem.badgeValue != nil {
+                    badgeValue = Int((self.navigationController?.tabBarItem.badgeValue)!)!
+                } else {
+                    badgeValue = 0
+                }
+                badgeValue = badgeValue! - 1
                 if badgeValue > 0 {
                     self.navigationController?.tabBarItem.badgeValue = String(badgeValue)
                 } else {
