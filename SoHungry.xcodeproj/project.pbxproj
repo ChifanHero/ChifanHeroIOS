@@ -80,6 +80,8 @@
 		C49BF3311BC79F080097CBE0 /* HorizontalLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */; settings = {ASSET_TAGS = (); }; };
 		C49BF3331BC9EEB00097CBE0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BF3321BC9EEB00097CBE0 /* LoginView.swift */; settings = {ASSET_TAGS = (); }; };
 		C4A595B61B7FC79F009E0F24 /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */; };
+		C4A6E03E1BCCDF4B008C0643 /* CouponCellSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A6E03D1BCCDF4B008C0643 /* CouponCellSecondView.xib */; settings = {ASSET_TAGS = (); }; };
+		C4A6E0401BCCDF90008C0643 /* CouponCellSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */; settings = {ASSET_TAGS = (); }; };
 		C4B14E211B802D7F001E8B62 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E201B802D7F001E8B62 /* HttpClient.swift */; };
 		C4B14E241B804755001E8B62 /* DataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E231B804755001E8B62 /* DataAccessor.swift */; };
 		C4B14E271B804847001E8B62 /* GetPromotionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E261B804847001E8B62 /* GetPromotionsResponse.swift */; };
@@ -232,6 +234,8 @@
 		C49BF3321BC9EEB00097CBE0 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
+		C4A6E03D1BCCDF4B008C0643 /* CouponCellSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponCellSecondView.xib; sourceTree = "<group>"; };
+		C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponCellSecondView.swift; sourceTree = "<group>"; };
 		C4B14E1A1B7FD5F2001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		C4B14E1C1B7FD68B001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		C4B14E1D1B7FD68B001E8B62 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
@@ -481,6 +485,7 @@
 				C4D300061BC09A6100807C4D /* VerticalLoginView.xib */,
 				C49BF32A1BC4E5040097CBE0 /* SelectionBar.xib */,
 				C49BF32E1BC6B58D0097CBE0 /* HorizontalLoginView.xib */,
+				C4A6E03D1BCCDF4B008C0643 /* CouponCellSecondView.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -512,6 +517,7 @@
 				C49BF32C1BC4EA940097CBE0 /* SelectionBar.swift */,
 				C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */,
 				C49BF3321BC9EEB00097CBE0 /* LoginView.swift */,
+				C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -717,6 +723,7 @@
 				C49BF32F1BC6B58D0097CBE0 /* HorizontalLoginView.xib in Resources */,
 				C43B39791B85951900516248 /* CouponCell.xib in Resources */,
 				C46CB8D71BA15AF8000D1006 /* SimpleDishCell.xib in Resources */,
+				C4A6E03E1BCCDF4B008C0643 /* CouponCellSecondView.xib in Resources */,
 				C4BDFBFD1B96C8BD0065F285 /* MessageCell.xib in Resources */,
 				C43B39B41B8A89A600516248 /* AllDishesHeaderView.xib in Resources */,
 				C43B397F1B85969E00516248 /* DishCell.xib in Resources */,
@@ -797,6 +804,7 @@
 				C437281B1B8121D7009121C9 /* Picture.swift in Sources */,
 				C43B397B1B85953500516248 /* DishTableViewCell.swift in Sources */,
 				C437282D1B82ED06009121C9 /* HttpRequestProtocol.swift in Sources */,
+				C4A6E0401BCCDF90008C0643 /* CouponCellSecondView.swift in Sources */,
 				C4BDFC191B98C5C00065F285 /* SelectionPanel.swift in Sources */,
 				C4B14E291B804867001E8B62 /* GetRestaurantsResponse.swift in Sources */,
 				C42D9BC41B69EF2D0035C5A6 /* AppDelegate.swift in Sources */,

@@ -17,7 +17,13 @@ class NotificationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("did load")
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         loadTableData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        super.viewWillAppear(animated)
     }
     
     func loadTableData() {
@@ -56,15 +62,12 @@ class NotificationTableViewController: UITableViewController {
             tableView.registerNib(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "messageCell")
             cell = tableView.dequeueReusableCellWithIdentifier("messageCell") as? MessageTableViewCell
         }
+        let message = messages[indexPath.row]
+        cell!.title = message.title
+        cell!.source = "系统消息"
         return cell!
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let messageCell : MessageTableViewCell = cell as! MessageTableViewCell
-        let message = messages[indexPath.row]
-        messageCell.title = message.title
-        messageCell.source = "系统消息"
-    }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let messageSelected : Message = messages[indexPath.row]

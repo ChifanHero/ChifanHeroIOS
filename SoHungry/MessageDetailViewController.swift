@@ -24,7 +24,17 @@ class MessageDetailViewController: UIViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        loadData()
+        if messageId != nil {
+            loadData()
+        } else {
+            self.messageDetailView.hidden = true
+            let blankView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height))
+            let text = UILabel(frame: CGRectMake(blankView.frame.size.width / 2, blankView.frame.size.height/2, 50, 20))
+            text.text = "未选中消息"
+            blankView.addSubview(text)
+            self.view.addSubview(blankView)
+        }
+        
     }
     
     func loadData() {

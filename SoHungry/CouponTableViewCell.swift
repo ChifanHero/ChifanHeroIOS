@@ -12,6 +12,13 @@ class CouponTableViewCell: UITableViewCell, ModelTableViewCell {
     
     static var height : CGFloat = 100
     
+    @IBOutlet weak var firstView: UIView!
+    
+    @IBOutlet weak var secondView: CouponCellSecondView!
+    
+    @IBOutlet weak var rightPanel: UIView!
+    
+    
     var model : Model? {
         didSet {
             if let coupon = model as? Coupon {
@@ -29,7 +36,11 @@ class CouponTableViewCell: UITableViewCell, ModelTableViewCell {
     }
 
     @IBAction func tryLuck(sender: AnyObject) {
-        
+        UIView.transitionWithView(self.rightPanel, duration: 0.6, options: UIViewAnimationOptions.TransitionFlipFromRight, animations: { () -> Void in
+            self.rightPanel.insertSubview(self.secondView, aboveSubview: self.firstView)
+            }) { (finished) -> Void in
+                //
+        }
     }
     
     @IBOutlet weak var tryLuckButton: UIButton!

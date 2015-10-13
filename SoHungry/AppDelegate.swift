@@ -34,8 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
                 detailNavigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
                 splitViewController.delegate = self
- //               let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
- //               let controller = masterNavigationController.topViewController as! NotificationTableViewController
+                let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
+                let controller = masterNavigationController.topViewController as! NotificationTableViewController
+                controller.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
                 break
             }
         }
