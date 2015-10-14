@@ -10,7 +10,7 @@ import UIKit
 
 class MessageTableViewCell: UITableViewCell {
     
-    static var height : CGFloat = 100
+    static var height : CGFloat = 75
     
     @IBOutlet weak var iconImageView: UIImageView!
     
@@ -38,7 +38,12 @@ class MessageTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        UISetup()
         // Initialization code
+    }
+    
+    private func UISetup() {
+        iconImageView.layer.cornerRadius = iconImageView.frame.size.width / 2
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

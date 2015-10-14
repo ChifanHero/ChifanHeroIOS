@@ -66,6 +66,9 @@
 		C43B39B61B8A8B0D00516248 /* AllDishesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39B51B8A8B0D00516248 /* AllDishesHeaderView.swift */; };
 		C43B39B81B8ADD1300516248 /* DishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39B71B8ADD1300516248 /* DishViewController.swift */; };
 		C43B39BA1B8C28F000516248 /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39B91B8C28F000516248 /* StringUtil.swift */; };
+		C454B26F1BCE2ED70091A5BC /* LoadMoreFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C454B26E1BCE2ED70091A5BC /* LoadMoreFooterView.xib */; settings = {ASSET_TAGS = (); }; };
+		C454B2711BCE2F2E0091A5BC /* LoadMoreFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454B2701BCE2F2E0091A5BC /* LoadMoreFooterView.swift */; settings = {ASSET_TAGS = (); }; };
+		C454B2731BCE31320091A5BC /* NestedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454B2721BCE31320091A5BC /* NestedView.swift */; settings = {ASSET_TAGS = (); }; };
 		C46CB8D11BA00978000D1006 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46CB8D01BA00978000D1006 /* MenuItem.swift */; };
 		C46CB8D31BA00B50000D1006 /* GetRestaurantMenuRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46CB8D21BA00B50000D1006 /* GetRestaurantMenuRequest.swift */; };
 		C46CB8D51BA00B5A000D1006 /* GetRestaurantMenuResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46CB8D41BA00B5A000D1006 /* GetRestaurantMenuResponse.swift */; };
@@ -219,6 +222,9 @@
 		C43B39B51B8A8B0D00516248 /* AllDishesHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllDishesHeaderView.swift; sourceTree = "<group>"; };
 		C43B39B71B8ADD1300516248 /* DishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishViewController.swift; sourceTree = "<group>"; };
 		C43B39B91B8C28F000516248 /* StringUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtil.swift; sourceTree = "<group>"; };
+		C454B26E1BCE2ED70091A5BC /* LoadMoreFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreFooterView.xib; sourceTree = "<group>"; };
+		C454B2701BCE2F2E0091A5BC /* LoadMoreFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreFooterView.swift; sourceTree = "<group>"; };
+		C454B2721BCE31320091A5BC /* NestedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedView.swift; sourceTree = "<group>"; };
 		C46CB8D01BA00978000D1006 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		C46CB8D21BA00B50000D1006 /* GetRestaurantMenuRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRestaurantMenuRequest.swift; sourceTree = "<group>"; };
 		C46CB8D41BA00B5A000D1006 /* GetRestaurantMenuResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRestaurantMenuResponse.swift; sourceTree = "<group>"; };
@@ -486,6 +492,7 @@
 				C49BF32A1BC4E5040097CBE0 /* SelectionBar.xib */,
 				C49BF32E1BC6B58D0097CBE0 /* HorizontalLoginView.xib */,
 				C4A6E03D1BCCDF4B008C0643 /* CouponCellSecondView.xib */,
+				C454B26E1BCE2ED70091A5BC /* LoadMoreFooterView.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -518,6 +525,8 @@
 				C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */,
 				C49BF3321BC9EEB00097CBE0 /* LoginView.swift */,
 				C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */,
+				C454B2701BCE2F2E0091A5BC /* LoadMoreFooterView.swift */,
+				C454B2721BCE31320091A5BC /* NestedView.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -714,6 +723,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C454B26F1BCE2ED70091A5BC /* LoadMoreFooterView.xib in Resources */,
 				C43B39B01B8A806A00516248 /* NameOnlyDishCell.xib in Resources */,
 				C414BD311BBA6034008C5744 /* InfoCouponCell.xib in Resources */,
 				C4D300071BC09A6100807C4D /* VerticalLoginView.xib in Resources */,
@@ -781,6 +791,7 @@
 				C42D9BFD1B726B3D0035C5A6 /* Dish.swift in Sources */,
 				C4B14E481B805123001E8B62 /* ModelProtocol.swift in Sources */,
 				C4B14E3A1B80493A001E8B62 /* GetRestaurantByIdRequest.swift in Sources */,
+				C454B2731BCE31320091A5BC /* NestedView.swift in Sources */,
 				C4BDFC111B982CA00065F285 /* GetMessageByIdResponse.swift in Sources */,
 				C42D9C031B726B7B0035C5A6 /* List.swift in Sources */,
 				C4BDFC051B96CD0B0065F285 /* MessageType.swift in Sources */,
@@ -797,6 +808,7 @@
 				C42D9BFF1B726B540035C5A6 /* Restaurant.swift in Sources */,
 				C4B14E361B80491B001E8B62 /* GetRestaurantsRequest.swift in Sources */,
 				C42D9C011B726B6A0035C5A6 /* Promotion.swift in Sources */,
+				C454B2711BCE2F2E0091A5BC /* LoadMoreFooterView.swift in Sources */,
 				C43B39841B85AB8E00516248 /* ModelTableViewCellProtocol.swift in Sources */,
 				C4D3000F1BC1B10B00807C4D /* AcountManager.swift in Sources */,
 				C4B14E411B804A66001E8B62 /* GetRequestProtocol.swift in Sources */,

@@ -17,6 +17,10 @@ class RestaurantsTableViewController: UITableViewController {
     var indicatorContainer : UIView?
     var indicator : UIActivityIndicatorView?
     
+    var loadMoreIndicator : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    
+    let footerView : LoadMoreFooterView = LoadMoreFooterView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupIndicator()
@@ -45,7 +49,6 @@ class RestaurantsTableViewController: UITableViewController {
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
         indicator?.center = self.view.center
         indicatorContainer?.addSubview(indicator!)
-        
     }
     
     func showIndicator() {
@@ -95,12 +98,12 @@ class RestaurantsTableViewController: UITableViewController {
             tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
             cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
         }
+        cell?.model = restaurants[indexPath.section]
         return cell!
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let restaurantCell : RestaurantTableViewCell = cell as! RestaurantTableViewCell
-        restaurantCell.model = restaurants[indexPath.section]
+        // if last row, do: load more data
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -115,5 +118,26 @@ class RestaurantsTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        // if last section, add activity indicator
+        if section == restaurants.count - 1 {
+            footerView.activityIndicator.startAnimating()
+            // load more data
+        }
+    }
     
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        // add footer to last section
+        return footerView
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == restaurants.count - 1 {
+           return 30
+        } else {
+            return 0
+        }
+        
+    }
+
 }
