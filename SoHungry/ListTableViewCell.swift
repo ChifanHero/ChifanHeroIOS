@@ -17,7 +17,7 @@ class ListTableViewCell: UITableViewCell {
             if let list = model as? List {
                 nameLabel.text = list.name
                 if (list.memberCount != nil) {
-                    countLabel.text = String(list.memberCount!)
+                    countLabel.text = String(list.memberCount!) + "道菜"
                 }
             }
         }

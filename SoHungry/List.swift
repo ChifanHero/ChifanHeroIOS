@@ -12,9 +12,8 @@ class List : Model{
     
     var id : String?
     var name : String?
-    var favoriteCount : Int?
-    var likeCount : Int?
     var memberCount : Int?
+    var dishes : [Dish] = [Dish]()
     
     required init() {
         
@@ -23,8 +22,12 @@ class List : Model{
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
         name <-- data["name"]
-        favoriteCount <-- data["favorite_count"]
-        likeCount <-- data["like_count"]
         memberCount <-- data["member_count"]
+        if let members = data["dishes"] as? [AnyObject] {
+            for dish in members {
+                let result = Dish(data: dish as! [String : AnyObject])
+                dishes.append(result)
+            }
+        }
     }
 }

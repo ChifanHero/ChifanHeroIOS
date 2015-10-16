@@ -17,7 +17,7 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gMH-Rn-scu" userLabel="Picture View">
                         <rect key="frame" x="0.0" y="0.0" width="145" height="100"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7XE-Fo-3bS">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="food placeholder2" translatesAutoresizingMaskIntoConstraints="NO" id="7XE-Fo-3bS">
                                 <rect key="frame" x="10" y="0.0" width="135" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="135" id="8pp-EJ-af5"/>
@@ -171,6 +171,7 @@
     <resources>
         <image name="bookmark" width="9" height="12"/>
         <image name="dislike" width="11" height="11"/>
+        <image name="food placeholder2" width="138" height="91"/>
         <image name="like" width="12" height="12"/>
         <image name="neutral" width="10" height="11"/>
     </resources>
