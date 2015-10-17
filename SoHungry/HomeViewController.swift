@@ -8,13 +8,16 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ImageProgressiveTableViewDelegate{
     
-    @IBOutlet weak var promotionsTable: UITableView!
+    @IBOutlet weak var promotionsTable: ImageProgressiveTableView!
     
     @IBOutlet weak var containerView: UIScrollView!
     
     @IBOutlet weak var topContainerView: UIView!
+    
+    var pendingOperations = PendingOperations()
+    var images = [PhotoRecord]()
     
     @IBAction func showHottestRestaurants(sender: AnyObject) {
         self.performSegueWithIdentifier("showRestaurants", sender: "hottest")
@@ -47,7 +50,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
             }
-            cell?.model = promotions[indexPath.section].restaurant
+            let imageDetails = imageForIndexPath(tableView: self.promotionsTable, indexPath: indexPath)
+            cell?.setUp(restaurant: promotions[indexPath.section].restaurant!, image: imageDetails.image!)
+            
+            switch (imageDetails.state){
+            case .New:
+                if (!tableView.dragging && !tableView.decelerating) {
+                    self.promotionsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
+                }
+            default: break
+            }
             return cell!
         } else if type == PromotionType.Dish {
             var cell : DishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
@@ -55,7 +67,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
             }
-            cell?.model = promotions[indexPath.section].dish
+            let imageDetails = imageForIndexPath(tableView: self.promotionsTable, indexPath: indexPath)
+            cell?.setUp(dish: promotions[indexPath.section].dish!, image: imageDetails.image!)
+            
+            switch (imageDetails.state){
+            case .New:
+                if (!tableView.dragging && !tableView.decelerating) {
+                    self.promotionsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
+                }
+            default: break
+            }
             return cell!
         } else if type == PromotionType.Coupon {
             var cell : CouponTableViewCell? = tableView.dequeueReusableCellWithIdentifier("couponCell") as? CouponTableViewCell
@@ -63,7 +84,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 tableView.registerNib(UINib(nibName: "CouponCell", bundle: nil), forCellReuseIdentifier: "couponCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("couponCell") as? CouponTableViewCell
             }
-            cell?.model = promotions[indexPath.section].coupon
+            let imageDetails = imageForIndexPath(tableView: self.promotionsTable, indexPath: indexPath)
+            cell?.setUp(coupon: promotions[indexPath.section].coupon!, image: imageDetails.image!)
+            
+            switch (imageDetails.state){
+            case .New:
+                if (!tableView.dragging && !tableView.decelerating) {
+                    self.promotionsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
+                }
+            default: break
+            }
             return cell!
         } else {
             return UITableViewCell()
@@ -73,6 +103,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.promotionsTable.imageDelegate = self
         loadTableData()
     }
     
@@ -108,9 +139,27 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
                 self.promotions = (response?.results)!
+                self.fetchImageDetails()
                 self.promotionsTable.reloadData()
                 self.adjustUI()
             });
+        }
+    }
+    
+    private func fetchImageDetails() {
+        for promotion : Promotion in self.promotions {
+            var url : String? = ""
+            if promotion.type == PromotionType.Coupon {
+                url = promotion.coupon?.restaurant?.picture?.original
+            } else if promotion.type == PromotionType.Dish {
+                url = promotion.dish?.picture?.original
+            } else if promotion.type == PromotionType.Restaurant {
+                url = promotion.restaurant?.picture?.original
+            }
+            if url != nil {
+                let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+                self.images.append(record)
+            }
         }
     }
     
@@ -198,6 +247,33 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         return [bookmarkAction];
     }
+    
+    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+        return self.images[indexPath.section]
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        self.promotionsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+        self.promotionsTable.loadImageForVisibleCells(&pendingOperations)
+        pendingOperations.downloadQueue.suspended = false
+    }
+    
+    // As soon as the user starts scrolling, suspend all operations
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        pendingOperations.downloadQueue.suspended = true
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            if scrollView == self.promotionsTable {
+                self.promotionsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+                self.promotionsTable.loadImageForVisibleCells(&pendingOperations)
+                pendingOperations.downloadQueue.suspended = false
+            }
+        }
+    }
+    
+    
 
 }
 

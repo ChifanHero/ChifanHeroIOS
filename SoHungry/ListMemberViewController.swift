@@ -8,19 +8,23 @@
 
 import UIKit
 
-class ListMemberViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ListHeaderViewDelegate {
+class ListMemberViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ListHeaderViewDelegate, ImageProgressiveTableViewDelegate {
     
     var listId : String?
     
     var member : [Dish] = [Dish]()
 
-    @IBOutlet weak var memberTable: UITableView!
+    @IBOutlet weak var memberTable: ImageProgressiveTableView!
     
     @IBOutlet weak var headerView: ListHeaderView!
+    
+    var pendingOperations = PendingOperations()
+    var images = [PhotoRecord]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         headerView.delegate = self
+        memberTable.imageDelegate = self
         loadTableData()
         // Do any additional setup after loading the view.
     }
@@ -65,7 +69,16 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
             cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
         }
-        cell?.model = member[indexPath.section]
+        let imageDetails = imageForIndexPath(tableView: self.memberTable, indexPath: indexPath)
+        cell?.setUp(dish: member[indexPath.section], image: imageDetails.image!)
+        
+        switch (imageDetails.state){
+        case PhotoRecordState.New:
+            if (!tableView.dragging && !tableView.decelerating) {
+                self.memberTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
+            }
+        default: break
+        }
         return cell!
     }
     
@@ -87,6 +100,31 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     
     func addCandidate(){
         self.performSegueWithIdentifier("addCandidate", sender: self)
+    }
+    
+    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+        return self.images[indexPath.section]
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        self.memberTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+        self.memberTable.loadImageForVisibleCells(&pendingOperations)
+        pendingOperations.downloadQueue.suspended = false
+    }
+    
+    // As soon as the user starts scrolling, suspend all operations
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        pendingOperations.downloadQueue.suspended = true
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            if scrollView == self.memberTable {
+                self.memberTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+                self.memberTable.loadImageForVisibleCells(&pendingOperations)
+                pendingOperations.downloadQueue.suspended = false
+            }
+        }
     }
 
 }

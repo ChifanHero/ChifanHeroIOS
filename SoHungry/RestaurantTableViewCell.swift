@@ -8,26 +8,26 @@
 
 import UIKit
 
-class RestaurantTableViewCell: UITableViewCell, ModelTableViewCell {
+class RestaurantTableViewCell: UITableViewCell {
     
     static var height : CGFloat = 100
     
-    var model : Model? {
-        didSet {
-            if let restaurant = model as? Restaurant {
-                nameLabel.text = restaurant.name
-                addressLabel.text = restaurant.address
-                distanceLabel.text = restaurant.distance
-                if let imageURL = restaurant.picture?.original {
-                    let url = NSURL(string: imageURL)
-                    let data = NSData(contentsOfURL: url!)
-                    let image = UIImage(data: data!)
-                    restaurantImageView.image = image
-                }
-            }
-            
-        }
-    }
+//    var model : Model? {
+//        didSet {
+//            if let restaurant = model as? Restaurant {
+//                nameLabel.text = restaurant.name
+//                addressLabel.text = restaurant.address
+//                distanceLabel.text = restaurant.distance
+//                if let imageURL = restaurant.picture?.original {
+//                    let url = NSURL(string: imageURL)
+//                    let data = NSData(contentsOfURL: url!)
+//                    let image = UIImage(data: data!)
+//                    restaurantImageView.image = image
+//                }
+//            }
+//            
+//        }
+//    }
     
     @IBOutlet weak var restaurantImageView: UIImageView!
     
@@ -40,31 +40,19 @@ class RestaurantTableViewCell: UITableViewCell, ModelTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-//        self.layer.cornerRadius = 5.0
-//        self.clipsToBounds = true
-        setUp()
     }
-    
-    func setUp() {
-//        restaurantImageView.layer.cornerRadius = 5.0
-//        restaurantImageView.clipsToBounds = true
-//        layout()
-    }
-    
-//    private func layout() {
-//        let leadingConstraintForButton = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: containerViewWidth)
-//        let leadingConstraintForImage = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: containerViewWidth)
-//        let trailingConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: containerViewWidth)
-//        let horizontalCenterConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: containerViewWidth)
-//        let separatorConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: containerViewWidth)
-//        let separatorConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: containerViewWidth)
-//        
-//    }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setUp(restaurant restaurant : Restaurant, image : UIImage) {
+        nameLabel.text = restaurant.name
+        addressLabel.text = restaurant.address
+        distanceLabel.text = restaurant.distance
+        restaurantImageView.image = image
     }
 
 }

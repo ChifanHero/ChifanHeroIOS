@@ -8,25 +8,25 @@
 
 import UIKit
 
-class DishTableViewCell: UITableViewCell, ModelTableViewCell {
+class DishTableViewCell: UITableViewCell {
     
     static var height : CGFloat = 100
     
-    var model : Model? {
-        didSet {
-            if let dish = model as? Dish {
-                nameLabel.text = dish.name
-                restaurantLabel.text = dish.fromRestaurant?.name
-                scoreLabel.text = String(9.99)
-                if let imageURL = dish.picture?.original {
-                    let url = NSURL(string: imageURL)
-                    let data = NSData(contentsOfURL: url!)
-                    let image = UIImage(data: data!)
-                    dishImageView.image = image
-                }
-            }
-        }
-    }
+//    var model : Model? {
+//        didSet {
+//            if let dish = model as? Dish {
+//                nameLabel.text = dish.name
+//                restaurantLabel.text = dish.fromRestaurant?.name
+//                scoreLabel.text = String(9.99)
+//                if let imageURL = dish.picture?.original {
+//                    let url = NSURL(string: imageURL)
+//                    let data = NSData(contentsOfURL: url!)
+//                    let image = UIImage(data: data!)
+//                    dishImageView.image = image
+//                }
+//            }
+//        }
+//    }
     
     
     @IBOutlet weak var dishImageView: UIImageView!
@@ -42,13 +42,14 @@ class DishTableViewCell: UITableViewCell, ModelTableViewCell {
         // Initialization code
 //        self.layer.cornerRadius = 5.0
 //        self.clipsToBounds = true
-        setUp()
         
     }
     
-    func setUp() {
-//        dishImageView.layer.cornerRadius = dishImageView.frame.size.height / 2
-//        dishImageView.clipsToBounds = true
+    func setUp(dish dish : Dish, image : UIImage) {
+        nameLabel.text = dish.name
+        restaurantLabel.text = dish.fromRestaurant?.name
+        scoreLabel.text = String(9.99)
+        dishImageView.image = image
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

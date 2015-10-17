@@ -8,11 +8,16 @@
 
 import UIKit
 
-class RestaurantsTableViewController: UITableViewController {
+class RestaurantsTableViewController: UITableViewController, ImageProgressiveTableViewDelegate {
+    
+    @IBOutlet var restaurantsTable: ImageProgressiveTableView!
     
     var request : GetRestaurantsRequest?
     
     var restaurants : [Restaurant] = []
+    
+    var pendingOperations = PendingOperations()
+    var images = [PhotoRecord]()
     
     var indicatorContainer : UIView?
     var indicator : UIActivityIndicatorView?
@@ -23,6 +28,7 @@ class RestaurantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.restaurantsTable.imageDelegate = self
         setupIndicator()
         loadTableData()
     }
@@ -33,11 +39,22 @@ class RestaurantsTableViewController: UITableViewController {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request!) { (response) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.restaurants = (response?.results)!
+                    self.fetchImageDetails()
 //                    self.dismissIndicator()
                     self.tableView.reloadData()
 //                    self.tableView.hidden = false
                     //self.dismissIndicator()
                 });
+            }
+        }
+    }
+    
+    private func fetchImageDetails() {
+        for restaurant : Restaurant in self.restaurants {
+            let url = restaurant.picture?.original
+            if url != nil {
+                let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+                self.images.append(record)
             }
         }
     }
@@ -98,7 +115,14 @@ class RestaurantsTableViewController: UITableViewController {
             tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
             cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
         }
-        cell?.model = restaurants[indexPath.section]
+        let imageDetails = imageForIndexPath(tableView: self.restaurantsTable, indexPath: indexPath)
+        cell?.setUp(restaurant: restaurants[indexPath.section], image: imageDetails.image!)
+        
+        switch (imageDetails.state){
+        case .New:
+            self.restaurantsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
+        default: break
+        }
         return cell!
     }
     
@@ -138,6 +162,10 @@ class RestaurantsTableViewController: UITableViewController {
             return 0
         }
         
+    }
+    
+    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+        return self.images[indexPath.section]
     }
 
 }

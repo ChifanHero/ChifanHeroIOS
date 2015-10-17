@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CouponTableViewCell: UITableViewCell, ModelTableViewCell {
+class CouponTableViewCell: UITableViewCell {
     
     static var height : CGFloat = 100
     
@@ -19,21 +19,21 @@ class CouponTableViewCell: UITableViewCell, ModelTableViewCell {
     @IBOutlet weak var rightPanel: UIView!
     
     
-    var model : Model? {
-        didSet {
-            if let coupon = model as? Coupon {
-                restaurantNameLabel.text = coupon.restaurant?.name
-                restaurantAddressLabel.text = coupon.restaurant?.address
-                restaurantDistanceLabel.text = coupon.restaurant?.distance
-                if let imageURL = coupon.restaurant?.picture?.original {
-                    let url = NSURL(string: imageURL)
-                    let data = NSData(contentsOfURL: url!)
-                    let image = UIImage(data: data!)
-                    restaurantImageView.image = image
-                }
-            }
-        }
-    }
+//    var model : Model? {
+//        didSet {
+//            if let coupon = model as? Coupon {
+//                restaurantNameLabel.text = coupon.restaurant?.name
+//                restaurantAddressLabel.text = coupon.restaurant?.address
+//                restaurantDistanceLabel.text = coupon.restaurant?.distance
+//                if let imageURL = coupon.restaurant?.picture?.original {
+//                    let url = NSURL(string: imageURL)
+//                    let data = NSData(contentsOfURL: url!)
+//                    let image = UIImage(data: data!)
+//                    restaurantImageView.image = image
+//                }
+//            }
+//        }
+//    }
 
     @IBAction func tryLuck(sender: AnyObject) {
         UIView.transitionWithView(self.rightPanel, duration: 0.6, options: UIViewAnimationOptions.TransitionFlipFromRight, animations: { () -> Void in
@@ -53,12 +53,19 @@ class CouponTableViewCell: UITableViewCell, ModelTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        setUp()
+        UIsetUp()
         
     }
     
-    func setUp() {
+    func UIsetUp() {
         tryLuckButton.layer.cornerRadius = 4
+    }
+    
+    func setUp(coupon coupon : Coupon, image : UIImage) {
+        restaurantNameLabel.text = coupon.restaurant?.name
+        restaurantAddressLabel.text = coupon.restaurant?.address
+        restaurantDistanceLabel.text = coupon.restaurant?.distance
+        restaurantImageView.image = image
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
