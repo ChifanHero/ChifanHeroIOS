@@ -21,10 +21,22 @@ import UIKit
     private var view : UIView!
     private var nibName : String = "ListCandidateTopView"
     
+    
+    @IBOutlet weak var headerView: UIView!
+    
     @IBOutlet weak var subView: ListCandidateSubView!
+    
+    @IBOutlet weak var nextStepButton: UIButton!
+    
+    @IBOutlet weak var contentView: UIView!
+    
+    var contentViewCollapsed = false
+    
+    var subViewTopToHeaderViewBottom : NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         Setup() // Setup when this component is used from Storyboard
     }
     
@@ -34,11 +46,14 @@ import UIKit
         Setup() // Setup when this component is used from Code
     }
     @IBAction func tap(sender: AnyObject) {
-        UIView.animateWithDuration(0.6, animations: { () -> Void in
-            self.subView.frame = CGRectMake(0, 30, self.view.frame.size.width, self.view.frame.size.height)
-            }) { (success) -> Void in
-                //
-        }
+        if contentViewCollapsed {
+            self.subViewTopToHeaderViewBottom.active = false
+            UIView.animateWithDuration(0.6, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+                }) { (success) -> Void in
+                    self.contentViewCollapsed = false
+            }
+        } 
     }
     
     private func Setup(){
@@ -46,6 +61,16 @@ import UIKit
         addSubview(view)
         view.frame = bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        UISetup()
+    }
+    
+    private func UISetup() {
+        subViewTopToHeaderViewBottom = NSLayoutConstraint(item: self.subView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.headerView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
+        subViewTopToHeaderViewBottom.active = false
+        subView.layer.cornerRadius = 15
+        subView.layer.borderWidth = 1
+        subView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        nextStepButton.layer.cornerRadius = 5
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -55,5 +80,13 @@ import UIKit
         return view
     }
     
+    @IBAction func toNextStep(sender: AnyObject) {
+        self.subViewTopToHeaderViewBottom.active = true
+        UIView.animateWithDuration(0.6, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }) { (success) -> Void in
+                self.contentViewCollapsed = true
+        }
+    }
 
 }

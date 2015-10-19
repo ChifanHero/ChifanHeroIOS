@@ -32,7 +32,6 @@ class PendingOperations {
     lazy var downloadQueue : NSOperationQueue = {
         var queue = NSOperationQueue()
         queue.name = "Download queue"
-        queue.maxConcurrentOperationCount = 1
         return queue
     }()
 }

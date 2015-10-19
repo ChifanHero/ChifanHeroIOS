@@ -6,40 +6,108 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ListCandidateTopView" customModule="SoHungry" customModuleProvider="target">
             <connections>
+                <outlet property="contentView" destination="4bt-FO-Yo2" id="KJH-K7-4fm"/>
+                <outlet property="headerView" destination="oJM-YH-pNi" id="RVu-fs-6V3"/>
+                <outlet property="nextStepButton" destination="RXZ-qq-I0A" id="cSU-N1-DPu"/>
                 <outlet property="subView" destination="CYg-mZ-n2f" id="dWZ-dd-xgl"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CYg-mZ-n2f" customClass="ListCandidateSubView" customModule="SoHungry" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="572" width="375" height="95"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oJM-YH-pNi" userLabel="Header View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择餐厅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhb-Af-RdI">
+                            <rect key="frame" x="34" y="22" width="88" height="26"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oJM-YH-pNi">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
-                    <color key="backgroundColor" red="0.5450980392" green="0.76470588240000004" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                     <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="fjF-5p-cNg">
+                            <variation key="heightClass=compact" constant="50"/>
+                            <variation key="heightClass=regular" constant="70"/>
+                        </constraint>
+                        <constraint firstItem="lhb-Af-RdI" firstAttribute="centerY" secondItem="oJM-YH-pNi" secondAttribute="centerY" id="rZa-qL-evL"/>
+                        <constraint firstItem="lhb-Af-RdI" firstAttribute="leading" secondItem="oJM-YH-pNi" secondAttribute="leading" constant="34" id="xZG-e1-rK5"/>
+                    </constraints>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="yYP-JG-blk" appends="YES" id="VuA-um-GyB"/>
                     </connections>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4bt-FO-Yo2" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="70" width="375" height="414"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2jZ-uN-aoQ" userLabel="Restaurant name Text Field">
+                            <rect key="frame" x="34" y="0.0" width="308" height="30"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="308" id="8Jh-6M-Nxq"/>
+                                <constraint firstAttribute="height" constant="30" id="gmc-qb-u40"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXZ-qq-I0A" userLabel="Next Step Button">
+                            <rect key="frame" x="103" y="42" width="169" height="30"/>
+                            <color key="backgroundColor" red="0.1006054371" green="0.3891826542526316" blue="0.87525799790000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="169" id="A6p-hb-LNp"/>
+                                <constraint firstAttribute="height" constant="30" id="xlh-Ev-buC"/>
+                            </constraints>
+                            <state key="normal" title="下一步">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="toNextStep:" destination="-1" eventType="touchUpInside" id="AsQ-6l-tcq"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="2jZ-uN-aoQ" firstAttribute="top" secondItem="4bt-FO-Yo2" secondAttribute="top" id="1tm-i0-mDj"/>
+                        <constraint firstItem="2jZ-uN-aoQ" firstAttribute="centerX" secondItem="4bt-FO-Yo2" secondAttribute="centerX" id="DKa-Vl-gFh"/>
+                        <constraint firstItem="RXZ-qq-I0A" firstAttribute="centerX" secondItem="4bt-FO-Yo2" secondAttribute="centerX" id="NgT-KW-j3A"/>
+                        <constraint firstItem="2jZ-uN-aoQ" firstAttribute="leading" secondItem="4bt-FO-Yo2" secondAttribute="leading" constant="34" id="TMt-AJ-rBD"/>
+                        <constraint firstItem="RXZ-qq-I0A" firstAttribute="top" secondItem="2jZ-uN-aoQ" secondAttribute="bottom" constant="12" id="vBT-4W-CSY"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYg-mZ-n2f" customClass="ListCandidateSubView" customModule="SoHungry" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="484" width="375" height="70"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" priority="750" constant="70" id="z3E-mB-v28">
+                            <variation key="heightClass=compact" constant="50"/>
+                            <variation key="heightClass=regular" constant="70"/>
+                        </constraint>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="CYg-mZ-n2f" secondAttribute="trailing" id="2RF-Y2-4jf"/>
-                <constraint firstItem="oJM-YH-pNi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4Ei-1G-qlK"/>
-                <constraint firstAttribute="trailing" secondItem="oJM-YH-pNi" secondAttribute="trailing" id="4gH-XW-tz5"/>
-                <constraint firstAttribute="bottom" secondItem="CYg-mZ-n2f" secondAttribute="bottom" id="hs2-VS-Ehn"/>
-                <constraint firstItem="CYg-mZ-n2f" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="j9a-PI-L05"/>
-                <constraint firstItem="oJM-YH-pNi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="paN-q3-83w"/>
+                <constraint firstAttribute="trailing" secondItem="oJM-YH-pNi" secondAttribute="trailing" id="4st-wQ-o3D"/>
+                <constraint firstItem="oJM-YH-pNi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="EiM-YF-fGj"/>
+                <constraint firstAttribute="trailing" secondItem="CYg-mZ-n2f" secondAttribute="trailing" id="I1Z-KL-EzR"/>
+                <constraint firstItem="oJM-YH-pNi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="QaY-qV-eUr"/>
+                <constraint firstItem="4bt-FO-Yo2" firstAttribute="top" secondItem="oJM-YH-pNi" secondAttribute="bottom" id="dLn-B9-boA"/>
+                <constraint firstItem="CYg-mZ-n2f" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="frH-f0-jlQ"/>
+                <constraint firstAttribute="trailing" secondItem="4bt-FO-Yo2" secondAttribute="trailing" id="kH8-rp-XAl"/>
+                <constraint firstAttribute="bottom" secondItem="CYg-mZ-n2f" secondAttribute="bottom" id="n0j-eh-b3E"/>
+                <constraint firstAttribute="bottom" secondItem="4bt-FO-Yo2" secondAttribute="bottom" constant="70" id="nQC-aH-d2b"/>
+                <constraint firstItem="4bt-FO-Yo2" firstAttribute="top" secondItem="oJM-YH-pNi" secondAttribute="bottom" id="rWU-bd-snh"/>
+                <constraint firstItem="4bt-FO-Yo2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="va0-rK-dua"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="335.5" y="292"/>
         </view>
         <tapGestureRecognizer id="yYP-JG-blk">
             <connections>

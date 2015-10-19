@@ -49,6 +49,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     if response != nil && response!.result != nil {
                         self.member += response!.result!.dishes
+                        self.fetchImageDetails()
                         self.memberTable.reloadData()
                     }
                 })
@@ -57,6 +58,19 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             
         }
         
+    }
+    
+    private func fetchImageDetails() {
+        for dish : Dish in self.member {
+            var url : String? = dish.picture?.original
+            if url == nil {
+                url = ""
+            }
+            if url != nil {
+                let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+                self.images.append(record)
+            }
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

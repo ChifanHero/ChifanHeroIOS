@@ -21,6 +21,8 @@ import UIKit
     private var view : UIView!
     private var nibName : String = "ListCandidateSubView"
     
+    var contentViewCollapsed = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         Setup() // Setup when this component is used from Storyboard
@@ -37,6 +39,11 @@ import UIKit
         addSubview(view)
         view.frame = bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        UISetup()
+    }
+    
+    private func UISetup() {
+    
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -45,5 +52,13 @@ import UIKit
         let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
         return view
     }
+    
+    
+    @IBAction func confirm(sender: AnyObject) {
+        
+    }
 
+    @IBAction func headerViewTapped(sender: AnyObject) {
+        
+    }
 }

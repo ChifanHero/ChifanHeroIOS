@@ -29,7 +29,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aqd-qO-PjW">
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="58"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
+                                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
                                                                 <rect key="frame" x="17" y="0.0" width="30" height="30"/>
                                                                 <state key="normal" image="hot"/>
                                                                 <connections>
@@ -205,15 +205,15 @@
                                             <outlet property="delegate" destination="zJm-Fm-QLl" id="jFT-ur-ANA"/>
                                         </connections>
                                     </tableView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7">
-                                        <rect key="frame" x="0.0" y="337" width="375" height="221"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7">
+                                        <rect key="frame" x="0.0" y="337" width="383" height="217"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="daK-3r-k8Z">
-                                                <rect key="frame" x="0.0" y="1" width="375" height="44"/>
+                                                <rect key="frame" x="0.0" y="1" width="383" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="daK-3r-k8Z" id="LLl-Nl-8fS">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -272,8 +272,8 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MCx-yh-LaH" customClass="SlideBar" customModule="SoHungry" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="38"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCx-yh-LaH" customClass="SlideBar" customModule="SoHungry" customModuleProvider="target">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="38"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="Oiq-5E-aCW"/>
@@ -293,8 +293,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zlm-pG-XiO">
-                                <rect key="frame" x="0.0" y="38" width="375" height="516"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zlm-pG-XiO">
+                                <rect key="frame" x="-4" y="38" width="383" height="516"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
@@ -304,6 +304,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Zlm-pG-XiO" secondAttribute="trailing" constant="-20" id="1kQ-z5-YPL"/>
                             <constraint firstItem="Zlm-pG-XiO" firstAttribute="top" secondItem="MCx-yh-LaH" secondAttribute="bottom" id="2a4-Gq-WKi"/>
                             <constraint firstItem="TuO-r1-wfP" firstAttribute="top" secondItem="Zlm-pG-XiO" secondAttribute="bottom" id="34n-Q3-obJ"/>
+                            <constraint firstItem="MCx-yh-LaH" firstAttribute="top" secondItem="NEG-f2-ZpO" secondAttribute="bottom" id="Dh0-l6-s6N"/>
                             <constraint firstItem="Zlm-pG-XiO" firstAttribute="leading" secondItem="Q8B-ue-KhO" secondAttribute="leadingMargin" constant="-20" id="Q3Z-ne-FEM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MCx-yh-LaH" secondAttribute="trailing" constant="-20" id="XYG-od-bo7"/>
                             <constraint firstItem="MCx-yh-LaH" firstAttribute="leading" secondItem="Q8B-ue-KhO" secondAttribute="leadingMargin" constant="-20" id="eFF-jz-0lr"/>
@@ -332,9 +333,12 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m9Q-Eu-s73" customClass="SelectionBar" customModule="SoHungry" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9Q-Eu-s73" customClass="SelectionBar" customModule="SoHungry" customModuleProvider="target">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="43"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="xde-wy-P0o"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="boarderColor">
                                         <color key="value" red="0.5450980392" green="0.76470588240000004" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
@@ -421,16 +425,16 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hNn-ud-WaQ" customClass="ImageProgressiveTableView" customModule="SoHungry" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="40" width="375" height="514"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hNn-ud-WaQ" customClass="ImageProgressiveTableView" customModule="SoHungry" customModuleProvider="target">
+                                <rect key="frame" x="-4" y="40" width="383" height="514"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="98Y-kL-NWK" id="qgg-ST-xYq"/>
                                     <outlet property="delegate" destination="98Y-kL-NWK" id="lOe-Va-f9V"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SiA-fu-TPt" customClass="ListHeaderView" customModule="SoHungry" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SiA-fu-TPt" customClass="ListHeaderView" customModule="SoHungry" customModuleProvider="target">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="gwg-Ov-oXV"/>
@@ -473,8 +477,8 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3fz-Di-jlA">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="555"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3fz-Di-jlA">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="VfX-37-xD7" id="VgS-DP-9Rf"/>
@@ -653,8 +657,8 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8N9-A8-yrI" userLabel="Message Detail View" customClass="MessageDetailView" customModule="SoHungry" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8N9-A8-yrI" userLabel="Message Detail View" customClass="MessageDetailView" customModule="SoHungry" customModuleProvider="target">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -805,17 +809,23 @@
                         <viewControllerLayoutGuide type="bottom" id="lwG-C3-mjX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Abm-7l-Ho9">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GG4-zB-GCj" customClass="ListCandidateTopView" customModule="SoHungry" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GG4-zB-GCj" customClass="ListCandidateTopView" customModule="SoHungry" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lwG-C3-mjX" firstAttribute="top" secondItem="GG4-zB-GCj" secondAttribute="bottom" id="Gjx-t1-zAE"/>
+                            <constraint firstAttribute="trailing" secondItem="GG4-zB-GCj" secondAttribute="trailing" id="fwM-CA-g0v"/>
+                            <constraint firstItem="GG4-zB-GCj" firstAttribute="leading" secondItem="Abm-7l-Ho9" secondAttribute="leading" id="wsR-Ef-ks5"/>
+                            <constraint firstItem="GG4-zB-GCj" firstAttribute="top" secondItem="xLe-KL-lgn" secondAttribute="bottom" id="xk0-mR-4FF"/>
+                        </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="daI-J8-vHJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

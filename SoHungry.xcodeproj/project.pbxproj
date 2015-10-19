@@ -93,6 +93,7 @@
 		C49BF32F1BC6B58D0097CBE0 /* HorizontalLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49BF32E1BC6B58D0097CBE0 /* HorizontalLoginView.xib */; settings = {ASSET_TAGS = (); }; };
 		C49BF3311BC79F080097CBE0 /* HorizontalLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */; settings = {ASSET_TAGS = (); }; };
 		C49BF3331BC9EEB00097CBE0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BF3321BC9EEB00097CBE0 /* LoginView.swift */; settings = {ASSET_TAGS = (); }; };
+		C4A087901BD4ADDE002D80D5 /* ListCandidateConfirmationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A0878F1BD4ADDE002D80D5 /* ListCandidateConfirmationView.xib */; settings = {ASSET_TAGS = (); }; };
 		C4A595B61B7FC79F009E0F24 /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */; };
 		C4A6E03E1BCCDF4B008C0643 /* CouponCellSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A6E03D1BCCDF4B008C0643 /* CouponCellSecondView.xib */; settings = {ASSET_TAGS = (); }; };
 		C4A6E0401BCCDF90008C0643 /* CouponCellSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */; settings = {ASSET_TAGS = (); }; };
@@ -260,6 +261,7 @@
 		C49BF32E1BC6B58D0097CBE0 /* HorizontalLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalLoginView.xib; sourceTree = "<group>"; };
 		C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalLoginView.swift; sourceTree = "<group>"; };
 		C49BF3321BC9EEB00097CBE0 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C4A0878F1BD4ADDE002D80D5 /* ListCandidateConfirmationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListCandidateConfirmationView.xib; sourceTree = "<group>"; };
 		C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4A6E03D1BCCDF4B008C0643 /* CouponCellSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponCellSecondView.xib; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 				C41C6C6E1BCF7B8500461257 /* ListCandidateTopView.xib */,
 				C41C6C721BCF7C3100461257 /* ListCandidateSubView.xib */,
 				C461DB7A1BD0D1EF009032C8 /* ListHeaderView.xib */,
+				C4A0878F1BD4ADDE002D80D5 /* ListCandidateConfirmationView.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -777,6 +780,7 @@
 				C46CB8D71BA15AF8000D1006 /* SimpleDishCell.xib in Resources */,
 				C4A6E03E1BCCDF4B008C0643 /* CouponCellSecondView.xib in Resources */,
 				C4BDFBFD1B96C8BD0065F285 /* MessageCell.xib in Resources */,
+				C4A087901BD4ADDE002D80D5 /* ListCandidateConfirmationView.xib in Resources */,
 				C43B39B41B8A89A600516248 /* AllDishesHeaderView.xib in Resources */,
 				C41C6C6F1BCF7B8500461257 /* ListCandidateTopView.xib in Resources */,
 				C43B397F1B85969E00516248 /* DishCell.xib in Resources */,
