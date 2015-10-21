@@ -21,7 +21,13 @@ import UIKit
     private var view : UIView!
     private var nibName : String = "ListCandidateSubView"
     
+    @IBOutlet weak var subView: UIView!
+    @IBOutlet weak var headerView: UIView!
+    
+    @IBOutlet weak var confirmButton: UIButton!
     var contentViewCollapsed = false
+    
+    var subViewTopToHeaderViewBottom : NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,7 +49,13 @@ import UIKit
     }
     
     private func UISetup() {
-    
+        subViewTopToHeaderViewBottom = NSLayoutConstraint(item: self.subView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.headerView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
+        subViewTopToHeaderViewBottom.priority = 1000
+        subViewTopToHeaderViewBottom.active = false
+        subView.layer.cornerRadius = 15
+        subView.layer.borderWidth = 1.5
+        subView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        confirmButton.layer.cornerRadius = 5
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -55,10 +67,22 @@ import UIKit
     
     
     @IBAction func confirm(sender: AnyObject) {
-        
+        self.subViewTopToHeaderViewBottom.active = true
+        UIView.animateWithDuration(0.6, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }) { (success) -> Void in
+                self.contentViewCollapsed = true
+        }
     }
 
     @IBAction func headerViewTapped(sender: AnyObject) {
-        
+        if contentViewCollapsed {
+            self.subViewTopToHeaderViewBottom.active = false
+            UIView.animateWithDuration(0.6, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+                }) { (success) -> Void in
+                    self.contentViewCollapsed = false
+            }
+        }
     }
 }

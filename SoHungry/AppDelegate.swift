@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         Parse.setApplicationId("Z6ND8ho1yR4aY3NSq1zNNU0kPc0GDOD1UZJ5rgxM", clientKey: "t9TxZ7HPgwEl84gH9A2R9qisn8giNIdtKuAyt9Q4")
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         registerForPushNotifications(application, launchOptions: launchOptions)
-        //configSplitViewController()
+        configSplitViewController()
         return true
     }
     

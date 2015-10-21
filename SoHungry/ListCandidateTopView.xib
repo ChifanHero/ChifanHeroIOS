@@ -21,17 +21,23 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择餐厅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhb-Af-RdI">
-                            <rect key="frame" x="34" y="22" width="88" height="26"/>
+                            <rect key="frame" x="34" y="22" width="88" height="26.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
+                            <variation key="heightClass=compact">
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            </variation>
+                            <variation key="heightClass=regular">
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            </variation>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="height" constant="70" id="fjF-5p-cNg">
-                            <variation key="heightClass=compact" constant="50"/>
+                            <variation key="heightClass=compact" constant="40"/>
                             <variation key="heightClass=regular" constant="70"/>
                         </constraint>
                         <constraint firstItem="lhb-Af-RdI" firstAttribute="centerY" secondItem="oJM-YH-pNi" secondAttribute="centerY" id="rZa-qL-evL"/>
@@ -44,45 +50,101 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4bt-FO-Yo2" userLabel="Content View">
                     <rect key="frame" x="0.0" y="70" width="375" height="414"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2jZ-uN-aoQ" userLabel="Restaurant name Text Field">
-                            <rect key="frame" x="34" y="0.0" width="308" height="30"/>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Llk-Zb-xCg" userLabel="Button Container">
+                            <rect key="frame" x="0.0" y="360" width="375" height="54"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXZ-qq-I0A" userLabel="Next Step Button">
+                                    <rect key="frame" x="103" y="12" width="169" height="30"/>
+                                    <color key="backgroundColor" red="0.1006054371" green="0.3891826542526316" blue="0.87525799790000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="169" id="A6p-hb-LNp"/>
+                                        <constraint firstAttribute="height" constant="30" id="xlh-Ev-buC">
+                                            <variation key="heightClass=compact" constant="30"/>
+                                            <variation key="heightClass=regular" constant="30"/>
+                                        </constraint>
+                                    </constraints>
+                                    <state key="normal" title="下一步">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="toNextStep:" destination="-1" eventType="touchUpInside" id="AsQ-6l-tcq"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="308" id="8Jh-6M-Nxq"/>
-                                <constraint firstAttribute="height" constant="30" id="gmc-qb-u40"/>
+                                <constraint firstAttribute="height" constant="54" id="Umy-oA-2Np">
+                                    <variation key="heightClass=compact" constant="40"/>
+                                    <variation key="heightClass=regular" constant="54"/>
+                                </constraint>
+                                <constraint firstItem="RXZ-qq-I0A" firstAttribute="centerX" secondItem="Llk-Zb-xCg" secondAttribute="centerX" id="VDr-LV-JLO"/>
+                                <constraint firstItem="RXZ-qq-I0A" firstAttribute="centerY" secondItem="Llk-Zb-xCg" secondAttribute="centerY" id="VmX-oB-1Sm"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXZ-qq-I0A" userLabel="Next Step Button">
-                            <rect key="frame" x="103" y="42" width="169" height="30"/>
-                            <color key="backgroundColor" red="0.1006054371" green="0.3891826542526316" blue="0.87525799790000003" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0oA-h8-Wcr" userLabel="Text Field Container">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2jZ-uN-aoQ" userLabel="Restaurant name Text Field">
+                                    <rect key="frame" x="33" y="0.0" width="308" height="30"/>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="308" id="8Jh-6M-Nxq"/>
+                                        <constraint firstAttribute="height" constant="30" id="gmc-qb-u40"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <variation key="heightClass=regular">
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    </variation>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="169" id="A6p-hb-LNp"/>
-                                <constraint firstAttribute="height" constant="30" id="xlh-Ev-buC"/>
+                                <constraint firstItem="2jZ-uN-aoQ" firstAttribute="centerX" secondItem="0oA-h8-Wcr" secondAttribute="centerX" id="3L5-b7-NIp"/>
+                                <constraint firstAttribute="bottom" secondItem="2jZ-uN-aoQ" secondAttribute="bottom" id="Ehm-MV-02E"/>
+                                <constraint firstAttribute="height" constant="30" id="atU-XZ-hxF">
+                                    <variation key="heightClass=compact" constant="24"/>
+                                    <variation key="heightClass=regular" constant="30"/>
+                                </constraint>
+                                <constraint firstItem="2jZ-uN-aoQ" firstAttribute="top" secondItem="0oA-h8-Wcr" secondAttribute="top" id="lA2-gr-6qe"/>
                             </constraints>
-                            <state key="normal" title="下一步">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="toNextStep:" destination="-1" eventType="touchUpInside" id="AsQ-6l-tcq"/>
-                            </connections>
-                        </button>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ajU-hF-zvv" userLabel="Results Table Container">
+                            <rect key="frame" x="0.0" y="30" width="375" height="330"/>
+                            <subviews>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eMb-OG-lzy" userLabel="Results Table View">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="330"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </tableView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="eMb-OG-lzy" firstAttribute="top" secondItem="ajU-hF-zvv" secondAttribute="top" id="1ol-hm-EkG"/>
+                                <constraint firstAttribute="bottom" secondItem="eMb-OG-lzy" secondAttribute="bottom" id="dPo-CN-TQ4"/>
+                                <constraint firstItem="eMb-OG-lzy" firstAttribute="leading" secondItem="ajU-hF-zvv" secondAttribute="leading" id="e48-fr-lUI"/>
+                                <constraint firstAttribute="trailing" secondItem="eMb-OG-lzy" secondAttribute="trailing" id="u0C-yH-Vmu"/>
+                            </constraints>
+                        </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="2jZ-uN-aoQ" firstAttribute="top" secondItem="4bt-FO-Yo2" secondAttribute="top" id="1tm-i0-mDj"/>
-                        <constraint firstItem="2jZ-uN-aoQ" firstAttribute="centerX" secondItem="4bt-FO-Yo2" secondAttribute="centerX" id="DKa-Vl-gFh"/>
-                        <constraint firstItem="RXZ-qq-I0A" firstAttribute="centerX" secondItem="4bt-FO-Yo2" secondAttribute="centerX" id="NgT-KW-j3A"/>
-                        <constraint firstItem="2jZ-uN-aoQ" firstAttribute="leading" secondItem="4bt-FO-Yo2" secondAttribute="leading" constant="34" id="TMt-AJ-rBD"/>
-                        <constraint firstItem="RXZ-qq-I0A" firstAttribute="top" secondItem="2jZ-uN-aoQ" secondAttribute="bottom" constant="12" id="vBT-4W-CSY"/>
+                        <constraint firstItem="ajU-hF-zvv" firstAttribute="top" secondItem="0oA-h8-Wcr" secondAttribute="bottom" id="4DH-Ag-aLR"/>
+                        <constraint firstItem="0oA-h8-Wcr" firstAttribute="top" secondItem="4bt-FO-Yo2" secondAttribute="top" id="4bq-If-wZb"/>
+                        <constraint firstItem="Llk-Zb-xCg" firstAttribute="leading" secondItem="4bt-FO-Yo2" secondAttribute="leading" id="6Rr-m2-7pk"/>
+                        <constraint firstItem="ajU-hF-zvv" firstAttribute="leading" secondItem="4bt-FO-Yo2" secondAttribute="leading" id="CvO-VR-uIL"/>
+                        <constraint firstItem="Llk-Zb-xCg" firstAttribute="top" secondItem="ajU-hF-zvv" secondAttribute="bottom" id="Ggc-Vk-6KU"/>
+                        <constraint firstAttribute="trailing" secondItem="0oA-h8-Wcr" secondAttribute="trailing" id="MJw-cg-HEW"/>
+                        <constraint firstItem="0oA-h8-Wcr" firstAttribute="leading" secondItem="4bt-FO-Yo2" secondAttribute="leading" id="ahQ-7t-TSX"/>
+                        <constraint firstAttribute="trailing" secondItem="ajU-hF-zvv" secondAttribute="trailing" id="b2i-TD-5AU"/>
+                        <constraint firstAttribute="trailing" secondItem="Llk-Zb-xCg" secondAttribute="trailing" id="cGu-9A-QXE"/>
+                        <constraint firstAttribute="bottom" secondItem="Llk-Zb-xCg" secondAttribute="bottom" id="zy2-bI-RNg"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYg-mZ-n2f" customClass="ListCandidateSubView" customModule="SoHungry" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="484" width="375" height="70"/>
+                    <rect key="frame" x="0.0" y="484" width="375" height="80"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" priority="750" constant="70" id="z3E-mB-v28">
+                        <constraint firstAttribute="height" priority="999" constant="80" id="z3E-mB-v28">
                             <variation key="heightClass=compact" constant="50"/>
                             <variation key="heightClass=regular" constant="70"/>
                         </constraint>
@@ -95,12 +157,11 @@
                 <constraint firstItem="oJM-YH-pNi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="EiM-YF-fGj"/>
                 <constraint firstAttribute="trailing" secondItem="CYg-mZ-n2f" secondAttribute="trailing" id="I1Z-KL-EzR"/>
                 <constraint firstItem="oJM-YH-pNi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="QaY-qV-eUr"/>
+                <constraint firstItem="CYg-mZ-n2f" firstAttribute="top" secondItem="4bt-FO-Yo2" secondAttribute="bottom" priority="750" id="RIO-ff-JxX"/>
                 <constraint firstItem="4bt-FO-Yo2" firstAttribute="top" secondItem="oJM-YH-pNi" secondAttribute="bottom" id="dLn-B9-boA"/>
                 <constraint firstItem="CYg-mZ-n2f" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="frH-f0-jlQ"/>
+                <constraint firstAttribute="bottom" secondItem="CYg-mZ-n2f" secondAttribute="bottom" constant="-10" id="jvl-nh-YYC"/>
                 <constraint firstAttribute="trailing" secondItem="4bt-FO-Yo2" secondAttribute="trailing" id="kH8-rp-XAl"/>
-                <constraint firstAttribute="bottom" secondItem="CYg-mZ-n2f" secondAttribute="bottom" id="n0j-eh-b3E"/>
-                <constraint firstAttribute="bottom" secondItem="4bt-FO-Yo2" secondAttribute="bottom" constant="70" id="nQC-aH-d2b"/>
-                <constraint firstItem="4bt-FO-Yo2" firstAttribute="top" secondItem="oJM-YH-pNi" secondAttribute="bottom" id="rWU-bd-snh"/>
                 <constraint firstItem="4bt-FO-Yo2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="va0-rK-dua"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

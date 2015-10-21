@@ -66,9 +66,10 @@ import UIKit
     
     private func UISetup() {
         subViewTopToHeaderViewBottom = NSLayoutConstraint(item: self.subView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.headerView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
+        subViewTopToHeaderViewBottom.priority = 1000
         subViewTopToHeaderViewBottom.active = false
         subView.layer.cornerRadius = 15
-        subView.layer.borderWidth = 1
+        subView.layer.borderWidth = 1.5
         subView.layer.borderColor = UIColor.lightGrayColor().CGColor
         nextStepButton.layer.cornerRadius = 5
     }
