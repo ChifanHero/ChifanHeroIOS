@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate{
     
@@ -22,6 +24,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     var hotDishes : [Dish]?
     
     private let infoToResource : [String : String] = ["address" : "gps", "hours" : "clock", "phone" : "phone"]
+    
+    var localSearchResponse:MKLocalSearchResponse!
 
     @IBOutlet weak var topViewContainer: ViewItemTopUIView!
     
@@ -142,6 +146,54 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             return UITableViewCell()
         }
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView == infoTableView {
+            let currentCell = tableView.cellForRowAtIndexPath(indexPath) as! InfoTableViewCell
+            if(currentCell.info == info["address"]){
+                var localSearchRequest:MKLocalSearchRequest!
+                var localSearch:MKLocalSearch!
+                
+                localSearchRequest = MKLocalSearchRequest()
+                localSearchRequest.naturalLanguageQuery = info["address"]
+                localSearch = MKLocalSearch(request: localSearchRequest)
+                localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
+                    
+                    self.localSearchResponse = localSearchResponse
+                    let alert = UIAlertController(title: "打开地图", message: "是否打开地图导航", preferredStyle: .ActionSheet)
+                    
+                    let goAction = UIAlertAction(title: "确定", style: .Destructive, handler: self.doUsingAppleMap)
+                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelUsingAppleMap)
+                    
+                    alert.addAction(goAction)
+                    alert.addAction(cancelAction)
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            }
+            
+        }
+    }
+    
+    func doUsingAppleMap(alertAction: UIAlertAction!) -> Void {
+        let regionDistance:CLLocationDistance = 10000
+        let coordinates = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
+        
+        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+        let options = [
+            MKLaunchOptionsMapCenterKey: NSValue(MKCoordinate: regionSpan.center),
+            MKLaunchOptionsMapSpanKey: NSValue(MKCoordinateSpan: regionSpan.span)
+        ]
+        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = self.info["address"]
+        mapItem.openInMapsWithLaunchOptions(options)
+    }
+    
+    func cancelUsingAppleMap(alertAction: UIAlertAction!) {
+        
+    }
+    
     
 //    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 //        if tableView == infoTableView {
