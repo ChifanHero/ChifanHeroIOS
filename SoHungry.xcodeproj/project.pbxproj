@@ -88,6 +88,8 @@
 		C476C5491B843C9D0051B0E5 /* RestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */; };
 		C476C54C1B843F720051B0E5 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C54B1B843F720051B0E5 /* RestaurantTableViewCell.swift */; };
 		C476C54E1B84565F0051B0E5 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C54D1B84565F0051B0E5 /* Queue.swift */; };
+		C48042B11BDDA920003135D2 /* FloatingBubbleBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48042B01BDDA920003135D2 /* FloatingBubbleBehavior.swift */; settings = {ASSET_TAGS = (); }; };
+		C48042B31BDDA957003135D2 /* BubbleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48042B21BDDA957003135D2 /* BubbleButton.swift */; settings = {ASSET_TAGS = (); }; };
 		C49BF32B1BC4E5050097CBE0 /* SelectionBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49BF32A1BC4E5040097CBE0 /* SelectionBar.xib */; settings = {ASSET_TAGS = (); }; };
 		C49BF32D1BC4EA940097CBE0 /* SelectionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BF32C1BC4EA940097CBE0 /* SelectionBar.swift */; settings = {ASSET_TAGS = (); }; };
 		C49BF32F1BC6B58D0097CBE0 /* HorizontalLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49BF32E1BC6B58D0097CBE0 /* HorizontalLoginView.xib */; settings = {ASSET_TAGS = (); }; };
@@ -256,6 +258,8 @@
 		C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell.xib; sourceTree = "<group>"; };
 		C476C54B1B843F720051B0E5 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		C476C54D1B84565F0051B0E5 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		C48042B01BDDA920003135D2 /* FloatingBubbleBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingBubbleBehavior.swift; sourceTree = "<group>"; };
+		C48042B21BDDA957003135D2 /* BubbleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleButton.swift; sourceTree = "<group>"; };
 		C49BF32A1BC4E5040097CBE0 /* SelectionBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionBar.xib; sourceTree = "<group>"; };
 		C49BF32C1BC4EA940097CBE0 /* SelectionBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionBar.swift; sourceTree = "<group>"; };
 		C49BF32E1BC6B58D0097CBE0 /* HorizontalLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalLoginView.xib; sourceTree = "<group>"; };
@@ -538,6 +542,7 @@
 		C476C54A1B843F2C0051B0E5 /* UIElementsClass */ = {
 			isa = PBXGroup;
 			children = (
+				C48042AF1BDDA8FC003135D2 /* Animation */,
 				C433BA0A1B9625800049CB53 /* SlideBarDelegateProtocol.swift */,
 				C433BA081B9625670049CB53 /* SlideBar.swift */,
 				C476C54B1B843F720051B0E5 /* RestaurantTableViewCell.swift */,
@@ -569,8 +574,17 @@
 				C461DB7C1BD0D654009032C8 /* ListHeaderView.swift */,
 				C461DB821BD0E379009032C8 /* ListHeaderViewDelegate.swift */,
 				C461DB871BD2D9BB009032C8 /* ImageProgressiveTableView.swift */,
+				C48042B21BDDA957003135D2 /* BubbleButton.swift */,
 			);
 			name = UIElementsClass;
+			sourceTree = "<group>";
+		};
+		C48042AF1BDDA8FC003135D2 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				C48042B01BDDA920003135D2 /* FloatingBubbleBehavior.swift */,
+			);
+			name = Animation;
 			sourceTree = "<group>";
 		};
 		C4A595B41B7FC735009E0F24 /* Service */ = {
@@ -844,6 +858,7 @@
 				C4B14E3A1B80493A001E8B62 /* GetRestaurantByIdRequest.swift in Sources */,
 				C4BDFC111B982CA00065F285 /* GetMessageByIdResponse.swift in Sources */,
 				C42D9C031B726B7B0035C5A6 /* List.swift in Sources */,
+				C48042B11BDDA920003135D2 /* FloatingBubbleBehavior.swift in Sources */,
 				C4BDFC051B96CD0B0065F285 /* MessageType.swift in Sources */,
 				C43B39B61B8A8B0D00516248 /* AllDishesHeaderView.swift in Sources */,
 				C461DB7F1BD0D731009032C8 /* GetListByIdRequest.swift in Sources */,
@@ -883,6 +898,7 @@
 				C4D300051BBE5F1A00807C4D /* AboutMeNavigationController.swift in Sources */,
 				C43B39811B85A8ED00516248 /* PromotionType.swift in Sources */,
 				C414BD331BBA6E8E008C5744 /* InfoTableViewCell.swift in Sources */,
+				C48042B31BDDA957003135D2 /* BubbleButton.swift in Sources */,
 				C461DB831BD0E379009032C8 /* ListHeaderViewDelegate.swift in Sources */,
 				C46CB8D31BA00B50000D1006 /* GetRestaurantMenuRequest.swift in Sources */,
 				C43728171B81215E009121C9 /* Coupon.swift in Sources */,

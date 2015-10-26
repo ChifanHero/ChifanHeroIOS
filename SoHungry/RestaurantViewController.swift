@@ -160,7 +160,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
                     
                     self.localSearchResponse = localSearchResponse
-                    let alert = UIAlertController(title: "打开地图", message: "是否打开地图导航", preferredStyle: .ActionSheet)
+                    let alert = UIAlertController(title: "打开地图", message: "是否打开地图导航", preferredStyle: UIAlertControllerStyle.ActionSheet)
                     
                     let goAction = UIAlertAction(title: "确定", style: .Destructive, handler: self.doUsingAppleMap)
                     let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelUsingAppleMap)
@@ -171,6 +171,25 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
             }
+            
+            if currentCell.info == info["phone"] {
+                let alert = UIAlertController(title: "呼叫", message: "呼叫\(currentCell.info!)", preferredStyle: UIAlertControllerStyle.ActionSheet)
+                
+                let goAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                    if let url = NSURL(string: "tel://\(currentCell.info!)") {
+                        UIApplication.sharedApplication().openURL(url)
+                    }
+                })
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                
+                alert.addAction(goAction)
+                alert.addAction(cancelAction)
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+                
+            }
+            print(currentCell.info)
+            print(info["phone"])
             
         }
     }
@@ -194,31 +213,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-    
-//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if tableView == infoTableView {
-//            if indexPath.row <= (info.count - 1) {
-//                let key = Array(info.keys)[indexPath.row] as String
-//                let infoCell : InfoTableViewCell = cell as! InfoTableViewCell
-//                infoCell.info = info[key]
-//                infoCell.iconResourceName = iconResource[indexPath.row]
-//            }
-//        } else if tableView == hotDishesTableView {
-//            if hotDishes != nil {
-//                let dishCell : NameOnlyDishTableViewCell = cell as! NameOnlyDishTableViewCell
-//                let hotDish : Dish = (hotDishes![indexPath.row])
-//                dishCell.model = hotDish
-//            }
-//            cell.addSubview(getSeperatorView(forCell: cell))
-//        }
-//        
-//    }
-    
-//    func getSeperatorView(forCell cell : UITableViewCell) -> UIView {
-//        let seperatorView = UIView(frame: CGRectMake(0, 0, cell.frame.size.width, 10))
-//        seperatorView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-//        return seperatorView
-//    }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if tableView == infoTableView {
