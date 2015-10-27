@@ -8,16 +8,26 @@
 
 import UIKit
 
-class DishViewController: UIViewController {
+class DishViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, ImageProgressiveCollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var dishId : String?
     
     var dish : Dish?
 
+    @IBOutlet weak var addButton: BubbleButton!
     @IBOutlet weak var topViewContainer: ViewItemTopUIView!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var photosCollectionView: ImageProgressiveCollectionView!
+    
+    
+    var pendingOperations = PendingOperations()
+    var images = [PhotoRecord]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addButton.setup(containerView: self.scrollView)
         // Do any additional setup after loading the view.
         loadData()
     }
@@ -53,5 +63,68 @@ class DishViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let reuseIdentifier = "photoCollectionCell"
+        let cell : PhotoCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCollectionViewCell
+        // Configure the cell
+        let imageDetails = imageForIndexPath(collectionView: self.photosCollectionView, indexPath: indexPath)
+        cell.addPhoto(imageDetails.image!)
+        
+        switch (imageDetails.state){
+        case .New:
+            self.photosCollectionView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
+        default: break
+        }
+        return cell
+    }
+    
+    func imageForIndexPath(collectionView collectionView : UICollectionView, indexPath : NSIndexPath) -> PhotoRecord {
+        return images[indexPath.row]
+    }
+    
+    
+    @IBAction func addPhoto(sender: AnyObject) {
+        let alertActionVC : UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let chooseFromLibraryAction : UIAlertAction = UIAlertAction(title: "Choose from Library", style: UIAlertActionStyle.Default) { (action) -> Void in
+            let imageController = UIImagePickerController()
+            imageController.delegate = self
+            imageController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            imageController.allowsEditing = false
+            self.presentViewController(imageController, animated: true, completion: nil)
+        }
+        let takePhotoAction : UIAlertAction = UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default) { (action) -> Void in
+            let imageController = UIImagePickerController()
+            imageController.delegate = self
+            imageController.sourceType = UIImagePickerControllerSourceType.Camera
+            imageController.allowsEditing = false
+            self.presentViewController(imageController, animated: true, completion: nil)
+        }
+        
+        let cancelAction : UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+            alertActionVC.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        alertActionVC.addAction(chooseFromLibraryAction)
+        alertActionVC.addAction(takePhotoAction)
+        alertActionVC.addAction(cancelAction)
+        self.presentViewController(alertActionVC, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        addImageToCollectionView(image)
+        saveImageInBackground(image)
+    }
+    
+    private func addImageToCollectionView(image: UIImage) {
+        
+    }
+    
+    private func saveImageInBackground(image: UIImage) {
+        
+    }
 }

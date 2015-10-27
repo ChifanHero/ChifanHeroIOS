@@ -9,5 +9,7 @@
 import Foundation
 
 protocol ModelTableViewCell {
+    
+    //TODO:  Delege it
     var model : Model? {get set}
 }

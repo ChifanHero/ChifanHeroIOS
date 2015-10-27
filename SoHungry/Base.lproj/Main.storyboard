@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -375,24 +375,80 @@
                         <viewControllerLayoutGuide type="bottom" id="8Uf-wn-Ftu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lJH-vs-5Ni">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hek-p5-eU6" customClass="ViewItemTopUIView" customModule="SoHungry" customModuleProvider="target">
-                                <rect key="frame" x="-2" y="63" width="376" height="172"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xVW-9e-ofr">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <subviews>
+                                    <view clipsSubviews="YES" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hek-p5-eU6" customClass="ViewItemTopUIView" customModule="SoHungry" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="170" id="NYP-6V-f5i"/>
+                                        </constraints>
+                                    </view>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TiW-HB-pqs" customClass="ImageProgressiveCollectionView" customModule="SoHungry" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="180" width="375" height="374"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cCp-QD-Wx6">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Fk6-o4-mbF">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="uuc-Vv-HgM" id="d9k-aw-yCE"/>
+                                            <outlet property="delegate" destination="uuc-Vv-HgM" id="6iD-vp-5kP"/>
+                                        </connections>
+                                    </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFj-HI-sKn" customClass="BubbleButton" customModule="SoHungry" customModuleProvider="target">
+                                        <rect key="frame" x="83" y="470" width="37" height="39"/>
+                                        <state key="normal" title="Button" image="button bubble"/>
+                                        <connections>
+                                            <action selector="addPhoto:" destination="uuc-Vv-HgM" eventType="touchUpInside" id="Xvb-Vf-EJd"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="hek-p5-eU6" firstAttribute="top" secondItem="xVW-9e-ofr" secondAttribute="top" id="15a-lm-XQD"/>
+                                    <constraint firstAttribute="trailing" secondItem="hek-p5-eU6" secondAttribute="trailing" id="LEM-HW-bh0"/>
+                                    <constraint firstItem="hek-p5-eU6" firstAttribute="leading" secondItem="xVW-9e-ofr" secondAttribute="leading" id="xsE-Ep-eDy"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8Uf-wn-Ftu" firstAttribute="top" secondItem="xVW-9e-ofr" secondAttribute="bottom" id="9Nv-dt-1SN"/>
+                            <constraint firstItem="xVW-9e-ofr" firstAttribute="leading" secondItem="lJH-vs-5Ni" secondAttribute="leadingMargin" constant="-20" id="Gw3-zw-XOI"/>
+                            <constraint firstItem="8Uf-wn-Ftu" firstAttribute="top" secondItem="TiW-HB-pqs" secondAttribute="bottom" id="szz-iE-JMe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xVW-9e-ofr" secondAttribute="trailing" constant="-20" id="y0Z-2Z-juV"/>
+                            <constraint firstItem="xVW-9e-ofr" firstAttribute="top" secondItem="NlJ-V2-DJz" secondAttribute="bottom" id="zwI-IW-hsK"/>
+                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="addButton" destination="gFj-HI-sKn" id="lfs-c2-CNB"/>
+                        <outlet property="photosCollectionView" destination="TiW-HB-pqs" id="Ndr-ge-4e7"/>
+                        <outlet property="scrollView" destination="xVW-9e-ofr" id="R0T-mi-qax"/>
                         <outlet property="topViewContainer" destination="hek-p5-eU6" id="VQH-hr-2lD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seM-Bp-qRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="186.5" y="-1164.5"/>
+            <point key="canvasLocation" x="182.5" y="-1220.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ssG-0R-xMM">
@@ -874,6 +930,7 @@
     </scenes>
     <resources>
         <image name="about me" width="25" height="25"/>
+        <image name="button bubble" width="111" height="113"/>
         <image name="home" width="25" height="24"/>
         <image name="hot" width="30" height="30"/>
         <image name="hotList" width="30" height="30"/>
