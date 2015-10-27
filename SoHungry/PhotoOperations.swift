@@ -9,7 +9,7 @@
 import UIKit
 
 enum PhotoRecordState {
-    case New, Downloaded, Failed
+    case New, Downloaded, Failed, Native
 }
 
 class PhotoRecord {

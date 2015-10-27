@@ -8,6 +8,9 @@
 
 import UIKit
 
+let reuseIdentifier = "photoCollectionCell"
+let nib = "PhotoCollectionCell"
+
 class DishViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, ImageProgressiveCollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var dishId : String?
@@ -28,8 +31,13 @@ class DishViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         addButton.setup(containerView: self.scrollView)
+        registerNib()
         // Do any additional setup after loading the view.
         loadData()
+    }
+    
+    private func registerNib() {
+        photosCollectionView.registerNib(UINib(nibName: nib, bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
     }
     
     func loadData() {
@@ -69,8 +77,8 @@ class DishViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let reuseIdentifier = "photoCollectionCell"
-        let cell : PhotoCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCollectionViewCell
+        
+        var cell : PhotoCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCollectionViewCell
         // Configure the cell
         let imageDetails = imageForIndexPath(collectionView: self.photosCollectionView, indexPath: indexPath)
         cell.addPhoto(imageDetails.image!)
@@ -121,7 +129,13 @@ class DishViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     private func addImageToCollectionView(image: UIImage) {
-        
+        let newPhoto : PhotoRecord = PhotoRecord(name: "", url: NSURL())
+        newPhoto.image = image
+        newPhoto.state = .Native
+        images.append(newPhoto)
+        let newIndexPath : NSIndexPath = NSIndexPath(forItem: images.count - 1, inSection: 0)
+        self.photosCollectionView.insertItemsAtIndexPaths([newIndexPath])
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     private func saveImageInBackground(image: UIImage) {

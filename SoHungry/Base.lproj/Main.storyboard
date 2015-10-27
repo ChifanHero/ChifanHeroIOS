@@ -423,16 +423,18 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="hek-p5-eU6" firstAttribute="top" secondItem="xVW-9e-ofr" secondAttribute="top" id="15a-lm-XQD"/>
-                                    <constraint firstAttribute="trailing" secondItem="hek-p5-eU6" secondAttribute="trailing" id="LEM-HW-bh0"/>
-                                    <constraint firstItem="hek-p5-eU6" firstAttribute="leading" secondItem="xVW-9e-ofr" secondAttribute="leading" id="xsE-Ep-eDy"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="hek-p5-eU6" secondAttribute="trailing" constant="-20" id="0hW-lW-aNH"/>
                             <constraint firstItem="8Uf-wn-Ftu" firstAttribute="top" secondItem="xVW-9e-ofr" secondAttribute="bottom" id="9Nv-dt-1SN"/>
                             <constraint firstItem="xVW-9e-ofr" firstAttribute="leading" secondItem="lJH-vs-5Ni" secondAttribute="leadingMargin" constant="-20" id="Gw3-zw-XOI"/>
+                            <constraint firstItem="TiW-HB-pqs" firstAttribute="leading" secondItem="lJH-vs-5Ni" secondAttribute="leadingMargin" constant="-20" id="ca5-Ql-xJ2"/>
                             <constraint firstItem="8Uf-wn-Ftu" firstAttribute="top" secondItem="TiW-HB-pqs" secondAttribute="bottom" id="szz-iE-JMe"/>
+                            <constraint firstItem="hek-p5-eU6" firstAttribute="leading" secondItem="lJH-vs-5Ni" secondAttribute="leadingMargin" constant="-20" id="ueh-PF-xQe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TiW-HB-pqs" secondAttribute="trailing" constant="-20" id="xyq-xm-VA8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xVW-9e-ofr" secondAttribute="trailing" constant="-20" id="y0Z-2Z-juV"/>
                             <constraint firstItem="xVW-9e-ofr" firstAttribute="top" secondItem="NlJ-V2-DJz" secondAttribute="bottom" id="zwI-IW-hsK"/>
                         </constraints>
@@ -938,7 +940,7 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eB3-xn-ixp"/>
         <segue reference="tIf-c0-cls"/>
+        <segue reference="SnI-Ci-tXQ"/>
     </inferredMetricsTieBreakers>
 </document>
