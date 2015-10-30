@@ -14,17 +14,14 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var request : GetListsRequest?
     
-//    @IBOutlet weak var filterBlurView: UIVisualEffectView!
-    
     @IBOutlet weak var tableView: UITableView!
     
-//    private var filterPanelHeight : CGFloat = 128
-//    
-//    var filterPanelOpening = false
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        filterBlurView.frame.size.height = 0
+        refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
         loadTableData()
     }
     
@@ -33,41 +30,16 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
             DataAccessor(serviceConfiguration: ParseConfiguration()).getLists(request!) { (response) -> Void in
                 self.lists = (response?.results)!
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.refreshControl.endRefreshing()
                     self.tableView.reloadData()
                 });
             }
         }
     }
     
-    
-//    @IBAction func toggleFilterPanel(sender: AnyObject) {
-//        if !filterPanelOpening {
-//            openFilterPanel()
-//        } else {
-//            closeFilterPanel()
-//        }
-//        
-//    }
-    
-//    @IBAction func confirmFilterOptions(sender: AnyObject) {
-//        closeFilterPanel()
-//    }
-    
-//    private func closeFilterPanel() {
-//        UIView.animateWithDuration(0.2, animations: { () -> Void in
-//            self.filterBlurView.frame.size.height = 0
-//            }) { (finish) -> Void in
-//                self.filterPanelOpening = false
-//        }
-//    }
-    
-//    private func openFilterPanel() {
-//        UIView.animateWithDuration(0.4, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.4, options: UIViewAnimationOptions.AllowAnimatedContent, animations: { () -> Void in
-//            self.filterBlurView.frame.size.height = self.filterPanelHeight
-//            }) { (finish) -> Void in
-//                self.filterPanelOpening = true
-//        }
-//    }
+    func refresh(sender:AnyObject) {
+        loadTableData()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -77,16 +49,6 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 50
     }
-    
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 10
-//    }
-    
-//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView()
-//        headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-//        return headerView
-//    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return lists.count

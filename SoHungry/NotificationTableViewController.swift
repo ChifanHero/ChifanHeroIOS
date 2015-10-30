@@ -16,7 +16,9 @@ class NotificationTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("did load")
+        self.refreshControl = UIRefreshControl()
+        refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl!)
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         loadTableData()
     }
@@ -34,10 +36,15 @@ class NotificationTableViewController: UITableViewController {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getMessages(request!) { (response) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.messages = (response?.results)!
+                    self.refreshControl?.endRefreshing()
                     self.tableView.reloadData()
                 });
             }
         }
+    }
+    
+    func refresh(sender:AnyObject) {
+        loadTableData()
     }
     
     override func didReceiveMemoryWarning() {

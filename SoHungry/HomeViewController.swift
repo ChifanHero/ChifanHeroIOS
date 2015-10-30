@@ -8,13 +8,15 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ImageProgressiveTableViewDelegate{
+class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     
     @IBOutlet weak var promotionsTable: ImageProgressiveTableView!
     
     @IBOutlet weak var containerView: UIScrollView!
     
     @IBOutlet weak var topContainerView: UIView!
+    
+    let refreshControl = UIRefreshControl()
     
     var pendingOperations = PendingOperations()
     var images = [PhotoRecord]()
@@ -32,6 +34,116 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     var promotions : [Promotion] = []
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.containerView.addSubview(refreshControl)
+        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.promotionsTable.imageDelegate = self
+        loadTableData()
+    }
+    
+    func refresh(sender:AnyObject) {
+        loadTableData()
+    }
+    
+    private func adjustUI() {
+        adjustPromotionTableHeight()
+        adjustContainerViewHeight()
+    }
+    
+    private func adjustPromotionTableHeight() {
+        let originalFrame : CGRect = self.promotionsTable.frame
+        self.promotionsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.promotionsTable.contentSize.height)
+    }
+    
+    private func adjustContainerViewHeight() {
+        var contentRect : CGRect = CGRectZero
+        for subView : UIView in self.containerView.subviews {
+            contentRect = CGRectUnion(contentRect, subView.frame)
+        }
+        self.containerView.contentSize = CGSizeMake(contentRect.width, contentRect.height)
+    }
+    
+    
+    
+    func loadTableData() {
+        let getPromotionsRequest = GetPromotionsRequest()
+        getPromotionsRequest.limit = 10
+        getPromotionsRequest.offset = 0
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.promotions = (response?.results)!
+                self.fetchImageDetails()
+                self.promotionsTable.reloadData()
+                self.adjustUI()
+                self.refreshControl.endRefreshing()
+            });
+        }
+    }
+    
+    private func fetchImageDetails() {
+        for promotion : Promotion in self.promotions {
+            var url : String? = ""
+            if promotion.type == PromotionType.Coupon {
+                url = promotion.coupon?.restaurant?.picture?.original
+            } else if promotion.type == PromotionType.Dish {
+                url = promotion.dish?.picture?.original
+            } else if promotion.type == PromotionType.Restaurant {
+                url = promotion.restaurant?.picture?.original
+            }
+            if url == nil {
+                url = ""
+            }
+            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+            self.images.append(record)
+        }
+    }
+    
+    private func getContainerViewSize() -> CGFloat {
+        return topContainerView.frame.size.height + 15 + self.promotionsTable.contentSize.height
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showRestaurants" {
+            let restaurantsController : RestaurantsTableViewController = segue.destinationViewController as! RestaurantsTableViewController
+            let getRestaurantsRequest = GetRestaurantsRequest()
+            getRestaurantsRequest.limit = 10
+            getRestaurantsRequest.offset = 0
+            if let s = sender as? String {
+                if s == "hottest" {
+                    getRestaurantsRequest.sortParameter = SortParameter.Hotness
+                    getRestaurantsRequest.sortOrder = SortOrder.Decrease
+                    restaurantsController.request = getRestaurantsRequest
+                } else if s == "nearest" {
+                    getRestaurantsRequest.sortParameter = SortParameter.Distance
+                    getRestaurantsRequest.sortOrder = SortOrder.Increase
+                    restaurantsController.request = getRestaurantsRequest
+                }
+            }
+        } else if segue.identifier == "showLists" {
+            let getListsRequest = GetListsRequest()
+            getListsRequest.limit = 10
+            getListsRequest.offset = 0
+            let listsController : ListsTableViewController = segue.destinationViewController as! ListsTableViewController
+            listsController.request = getListsRequest
+        } else if segue.identifier == "showRestaurant" {
+            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            restaurantController.restaurantId = sender as? String
+        }
+    }
+    
+    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+        return self.images[indexPath.section]
+    }
+}
+
+extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return 1
     }
@@ -100,77 +212,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
-        self.promotionsTable.imageDelegate = self
-        loadTableData()
-    }
-    
-    private func adjustUI() {
-        adjustPromotionTableHeight()
-        adjustContainerViewHeight()
-    }
-    
-    private func adjustPromotionTableHeight() {
-        let originalFrame : CGRect = self.promotionsTable.frame
-        self.promotionsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.promotionsTable.contentSize.height)
-    }
-    
-    private func adjustContainerViewHeight() {
-        var contentRect : CGRect = CGRectZero
-        for subView : UIView in self.containerView.subviews {
-            contentRect = CGRectUnion(contentRect, subView.frame)
-        }
-        self.containerView.contentSize = CGSizeMake(contentRect.width, contentRect.height)
-    }
-    
     override func viewWillAppear(animated: Bool) {
         let selectedCellIndexPath : NSIndexPath? = self.promotionsTable.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
             self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
-    }
-    
-    func loadTableData() {
-        let getPromotionsRequest = GetPromotionsRequest()
-        getPromotionsRequest.limit = 10
-        getPromotionsRequest.offset = 0
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                self.promotions = (response?.results)!
-                self.fetchImageDetails()
-                self.promotionsTable.reloadData()
-                self.adjustUI()
-            });
-        }
-    }
-    
-    private func fetchImageDetails() {
-        for promotion : Promotion in self.promotions {
-            var url : String? = ""
-            if promotion.type == PromotionType.Coupon {
-                url = promotion.coupon?.restaurant?.picture?.original
-            } else if promotion.type == PromotionType.Dish {
-                url = promotion.dish?.picture?.original
-            } else if promotion.type == PromotionType.Restaurant {
-                url = promotion.restaurant?.picture?.original
-            }
-            if url == nil {
-                url = ""
-            }
-            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-            self.images.append(record)
-        }
-    }
-    
-    private func getContainerViewSize() -> CGFloat {
-        return topContainerView.frame.size.height + 15 + self.promotionsTable.contentSize.height
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -190,7 +236,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if type == PromotionType.Restaurant {
             let restaurant : Restaurant = promotions[indexPath.section].restaurant!
             self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
-        } 
+        }
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -213,35 +259,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showRestaurants" {
-            let restaurantsController : RestaurantsTableViewController = segue.destinationViewController as! RestaurantsTableViewController
-            let getRestaurantsRequest = GetRestaurantsRequest()
-            getRestaurantsRequest.limit = 10
-            getRestaurantsRequest.offset = 0
-            if let s = sender as? String {
-                if s == "hottest" {
-                    getRestaurantsRequest.sortParameter = SortParameter.Hotness
-                    getRestaurantsRequest.sortOrder = SortOrder.Decrease
-                    restaurantsController.request = getRestaurantsRequest
-                } else if s == "nearest" {
-                    getRestaurantsRequest.sortParameter = SortParameter.Distance
-                    getRestaurantsRequest.sortOrder = SortOrder.Increase
-                    restaurantsController.request = getRestaurantsRequest
-                }
-            }
-        } else if segue.identifier == "showLists" {
-            let getListsRequest = GetListsRequest()
-            getListsRequest.limit = 10
-            getListsRequest.offset = 0
-            let listsController : ListsTableViewController = segue.destinationViewController as! ListsTableViewController
-            listsController.request = getListsRequest
-        } else if segue.identifier == "showRestaurant" {
-            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
-            restaurantController.restaurantId = sender as? String
-        }
-    }
-    
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏", handler:{action, indexpath in
             print("MORE•ACTION");
@@ -251,10 +268,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         bookmarkAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
         return [bookmarkAction];
-    }
-    
-    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        return self.images[indexPath.section]
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
@@ -277,8 +290,5 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     }
-    
-    
-
 }
 

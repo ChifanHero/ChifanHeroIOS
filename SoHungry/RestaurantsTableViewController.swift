@@ -28,6 +28,9 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.refreshControl = UIRefreshControl()
+        refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.restaurantsTable.addSubview(refreshControl!)
         self.restaurantsTable.imageDelegate = self
         setupIndicator()
         loadTableData()
@@ -40,13 +43,15 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
                 dispatch_async(dispatch_get_main_queue(), {
                     self.restaurants = (response?.results)!
                     self.fetchImageDetails()
-//                    self.dismissIndicator()
+                    self.refreshControl!.endRefreshing()
                     self.tableView.reloadData()
-//                    self.tableView.hidden = false
-                    //self.dismissIndicator()
                 });
             }
         }
+    }
+    
+    func refresh(sender:AnyObject) {
+        loadTableData()
     }
     
     private func fetchImageDetails() {
@@ -189,5 +194,5 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
             }
         }
     }
-
 }
+
