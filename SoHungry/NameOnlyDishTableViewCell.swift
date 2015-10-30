@@ -8,24 +8,9 @@
 
 import UIKit
 
-class NameOnlyDishTableViewCell: UITableViewCell, ModelTableViewCell {
+class NameOnlyDishTableViewCell: UITableViewCell {
     
-    static var height : CGFloat = 150
-    
-    var model : Model? {
-        didSet {
-            if let dish = model as? Dish {
-                nameLabel.text = dish.name
-                if let imageURL = dish.picture?.original {
-                    let url = NSURL(string: imageURL)
-                    let data = NSData(contentsOfURL: url!)
-                    let image = UIImage(data: data!)
-                    dishImageView.image = image
-                }
-            }
-        }
-    }
-    
+    static var height : CGFloat = 150    
     
     @IBOutlet weak var dishImageView: UIImageView!
     
@@ -35,13 +20,18 @@ class NameOnlyDishTableViewCell: UITableViewCell, ModelTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        setUp()
+        UIsetUp()
         
     }
     
-    func setUp() {
+    func UIsetUp() {
         dishImageView.layer.cornerRadius = dishImageView.frame.size.height / 2
         dishImageView.clipsToBounds = true
+    }
+    
+    func setUp(dish dish : Dish, image : UIImage) {
+        nameLabel.text = dish.name
+        dishImageView.image = image
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

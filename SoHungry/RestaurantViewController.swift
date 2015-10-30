@@ -10,18 +10,21 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate{
+class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, ImageProgressiveTableViewDelegate{
     
     var restaurantId : String?
     
     var restaurant : Restaurant?
+    
+    var pendingOperations = PendingOperations()
+    var images = [PhotoRecord]()
     
     @IBOutlet weak var containerScrollView: UIScrollView!
     
     @IBOutlet weak var infoTableView: UITableView!
     var info : [String : String] = [String : String]()
     
-    var hotDishes : [Dish]?
+    var hotDishes : [Dish] = [Dish]()
     
     private let infoToResource : [String : String] = ["address" : "gps", "hours" : "clock", "phone" : "phone"]
     
@@ -31,7 +34,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     
     
-    @IBOutlet weak var hotDishesTableView: UITableView!
+    @IBOutlet weak var hotDishesTableView: ImageProgressiveTableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +57,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                     self.info["address"] = self.restaurant?.address
                     self.info["hours"] = self.restaurant?.hours
                     self.info["phone"] = self.restaurant?.phone
-                    self.hotDishes = self.restaurant?.hotDishes
+                    if self.restaurant != nil && self.restaurant!.hotDishes != nil {
+                        self.hotDishes += (self.restaurant?.hotDishes)!
+                    }
+                    self.fetchImageDetails()
                     self.infoTableView.reloadData()
                     self.hotDishesTableView.reloadData()
                     self.adjustUI()
@@ -66,6 +72,17 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     private func adjustUI() {
         adjustDishTableViewHeight()
         adjustContainerViewHeight()
+    }
+    
+    private func fetchImageDetails() {
+        for dish : Dish in self.hotDishes {
+            var url = dish.picture?.original
+            if url == nil {
+                url = ""
+            }
+            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+            self.images.append(record)
+        }
     }
     
     private func adjustDishTableViewHeight() {
@@ -90,26 +107,14 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         if tableView == infoTableView {
             return info.count + 1
         } else if tableView == hotDishesTableView {
-            return 1
+            return hotDishes.count
         } else {
             return 0
         }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if tableView == infoTableView {
-            if info.count > 0 {
-                return 1
-            }
-        } else {
-            if hotDishes != nil {
-               return (hotDishes?.count)!
-            } else {
-                return 0
-            }
-            
-        }
-        return 0
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -139,8 +144,16 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 tableView.registerNib(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
             }
-            let hotDish : Dish = (hotDishes![indexPath.section])
-            cell?.model = hotDish
+            let hotDish : Dish = (hotDishes[indexPath.row])
+            let imageDetails = imageForIndexPath(tableView: self.hotDishesTableView, indexPath: indexPath)
+            cell?.setUp(dish: hotDish, image: imageDetails.image!)
+            switch (imageDetails.state){
+                case .New:
+                    if (!tableView.dragging && !tableView.decelerating) {
+                        self.hotDishesTableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
+                    }
+                default: break
+            }
             return cell!
         } else {
             return UITableViewCell()
@@ -232,11 +245,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         if tableView == infoTableView {
             return 0
         } else if tableView == hotDishesTableView {
-            if section == 0 {
-                return 44
-            } else {
-                return 0
-            }
+            return 44
         }
         return 0
     }
@@ -262,15 +271,31 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+        return self.images[indexPath.row]
     }
-    */
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        self.hotDishesTableView.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+        self.hotDishesTableView.loadImageForVisibleCells(&pendingOperations)
+        pendingOperations.downloadQueue.suspended = false
+    }
+    
+    // As soon as the user starts scrolling, suspend all operations
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        pendingOperations.downloadQueue.suspended = true
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            if scrollView == self.hotDishesTableView {
+                self.hotDishesTableView.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+                self.hotDishesTableView.loadImageForVisibleCells(&pendingOperations)
+                pendingOperations.downloadQueue.suspended = false
+            }
+        }
+    }
+    
 
+    
 }

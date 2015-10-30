@@ -156,10 +156,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             } else if promotion.type == PromotionType.Restaurant {
                 url = promotion.restaurant?.picture?.original
             }
-            if url != nil {
-                let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-                self.images.append(record)
+            if url == nil {
+                url = ""
             }
+            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+            self.images.append(record)
         }
     }
     
@@ -189,20 +190,27 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if type == PromotionType.Restaurant {
             let restaurant : Restaurant = promotions[indexPath.section].restaurant!
             self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
-        } else if type == PromotionType.Dish {
-            let dish : Dish = promotions[indexPath.section].dish!
-            self.performSegueWithIdentifier("showDish", sender: dish.id)
-        }
+        } 
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
+        if section == 0 {
+            return 30
+        } else {
+            return 10
+        }
+        
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-        return headerView
+        if section == 0 {
+            let headerView = RecommendationsHeaderView()
+            return headerView
+        } else {
+            let headerView = UIView()
+            headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+            return headerView
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -231,9 +239,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else if segue.identifier == "showRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
-        } else if segue.identifier == "showDish" {
-            let dishController : DishViewController = segue.destinationViewController as! DishViewController
-            dishController.dishId = sender as? String
         }
     }
     

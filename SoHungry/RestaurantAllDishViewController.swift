@@ -8,11 +8,11 @@
 
 import UIKit
 
-class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate {
+class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate, ImageProgressiveTableViewDelegate {
     
     @IBOutlet weak var slideBar: SlideBar!
     
-    @IBOutlet weak var dishTableView: UITableView!
+    @IBOutlet weak var dishTableView: ImageProgressiveTableView!
     
     var restaurantId : String?
     
@@ -23,6 +23,11 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     private var shouldChangeSlideBarState = true
     
     private var searchResults : [DishWrapper] = []
+    
+    var pendingOperations = PendingOperations()
+//    var images = [PhotoRecord]()
+//    var imagesForSearch = [PhotoRecord]()
+    var dishImages : [String : PhotoRecord] = [String : PhotoRecord]()
     
     var state : RestaurantAllDishViewControllerState = RestaurantAllDishViewControllerState.REGULAR
     
@@ -51,12 +56,24 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
                     self.menuItems = (response?.results)!
                     self.retriveMenuAndDishInformation()
                     self.dishTableView.hidden = false
+                    self.fetchImageDetails()
                     self.dishTableView.reloadData()
                     self.slideBar.setUpScrollView(titles: self.menuNames, defaultSelection: nil)
                 });
             })
         }
         
+    }
+    
+    private func fetchImageDetails() {
+        for dish : Dish in self.dishes {
+            var url = dish.picture?.original
+            if url == nil {
+                url = ""
+            }
+            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+            self.dishImages[dish.id!] = record
+        }
     }
     
     private func retriveMenuAndDishInformation() {
@@ -106,8 +123,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         if let indicesForVisibleRows : [NSIndexPath]? = self.dishTableView.indexPathsForVisibleRows {
             let indexForFirstVisibleRow : NSIndexPath = indicesForVisibleRows![0]
             let dishCell : NameOnlyDishTableViewCell = self.dishTableView.cellForRowAtIndexPath(indexForFirstVisibleRow) as! NameOnlyDishTableViewCell
-            let dish : Dish = dishCell.model as! Dish
-            let menuName = dishToMenuDic[dish.name!]
+            let menuName = dishToMenuDic[dishCell.nameLabel.text!]
             let position = menuNames.indexOf(menuName!)
             self.slideBar.markElementAsSelected(atIndex: position!)
         }
@@ -140,16 +156,6 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
                 return 0
             }
         }
-//        if section >= 0 && section < menuItems.count {
-//            let menuItem : MenuItem = self.menuItems[section]
-//            if menuItem.dishes != nil {
-//                return menuItem.dishes!.count
-//            } else {
-//                return 0
-//            }
-//        } else {
-//            return 0
-//        }
         
     }
     
@@ -159,12 +165,22 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
             tableView.registerNib(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
             cell = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
         }
-        if state == RestaurantAllDishViewControllerState.SEARCHING {
-            cell?.model = searchResults[indexPath.row].dish
+        let imageDetails = imageForIndexPath(tableView: self.dishTableView, indexPath: indexPath)
+        let dish : Dish?
+        if state == RestaurantAllDishViewControllerState.REGULAR {
+            dish = self.dishes[indexPath.row]
         } else {
-            cell?.model = menuItems[indexPath.section].dishes?[indexPath.row]
+            dish = self.searchResults[indexPath.row].dish
         }
-//        cell?.dishName = menuItems[indexPath.section].dishes?[indexPath.row].name
+        cell?.setUp(dish: dish!, image: imageDetails.image!)
+        switch (imageDetails.state){
+        case .New:
+            if (!tableView.dragging && !tableView.decelerating) {
+                self.dishTableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
+            }
+        default: break
+        }
+        
         
         return cell!
     }
@@ -257,6 +273,16 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
             }
         }
         
+    }
+    
+    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+        let dish : Dish?
+        if state == RestaurantAllDishViewControllerState.REGULAR {
+            dish = self.dishes[indexPath.row]
+        } else {
+            dish = self.searchResults[indexPath.row].dish
+        }
+        return self.dishImages[(dish?.id)!]!
     }
     
     enum RestaurantAllDishViewControllerState {

@@ -67,7 +67,6 @@
 		C43B39B21B8A813300516248 /* NameOnlyDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39B11B8A813300516248 /* NameOnlyDishTableViewCell.swift */; };
 		C43B39B41B8A89A600516248 /* AllDishesHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43B39B31B8A89A600516248 /* AllDishesHeaderView.xib */; };
 		C43B39B61B8A8B0D00516248 /* AllDishesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39B51B8A8B0D00516248 /* AllDishesHeaderView.swift */; };
-		C43B39B81B8ADD1300516248 /* DishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39B71B8ADD1300516248 /* DishViewController.swift */; };
 		C43B39BA1B8C28F000516248 /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39B91B8C28F000516248 /* StringUtil.swift */; };
 		C43B9A461BDEBE8F00FD50FF /* PhotoCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43B9A451BDEBE8F00FD50FF /* PhotoCollectionCell.xib */; };
 		C43B9A481BDEBFC300FD50FF /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B9A471BDEBFC300FD50FF /* PhotoCollectionViewCell.swift */; };
@@ -102,6 +101,8 @@
 		C4A595B61B7FC79F009E0F24 /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */; };
 		C4A6E03E1BCCDF4B008C0643 /* CouponCellSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A6E03D1BCCDF4B008C0643 /* CouponCellSecondView.xib */; };
 		C4A6E0401BCCDF90008C0643 /* CouponCellSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */; };
+		C4A821E01BE324A400D1D4B7 /* RecommendationsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A821DF1BE324A300D1D4B7 /* RecommendationsHeaderView.xib */; };
+		C4A821E21BE3257000D1D4B7 /* RecommendationsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A821E11BE3257000D1D4B7 /* RecommendationsHeaderView.swift */; };
 		C4B14E211B802D7F001E8B62 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E201B802D7F001E8B62 /* HttpClient.swift */; };
 		C4B14E241B804755001E8B62 /* DataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E231B804755001E8B62 /* DataAccessor.swift */; };
 		C4B14E271B804847001E8B62 /* GetPromotionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E261B804847001E8B62 /* GetPromotionsResponse.swift */; };
@@ -240,7 +241,6 @@
 		C43B39B11B8A813300516248 /* NameOnlyDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameOnlyDishTableViewCell.swift; sourceTree = "<group>"; };
 		C43B39B31B8A89A600516248 /* AllDishesHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllDishesHeaderView.xib; sourceTree = "<group>"; };
 		C43B39B51B8A8B0D00516248 /* AllDishesHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllDishesHeaderView.swift; sourceTree = "<group>"; };
-		C43B39B71B8ADD1300516248 /* DishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishViewController.swift; sourceTree = "<group>"; };
 		C43B39B91B8C28F000516248 /* StringUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtil.swift; sourceTree = "<group>"; };
 		C43B9A451BDEBE8F00FD50FF /* PhotoCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoCollectionCell.xib; sourceTree = "<group>"; };
 		C43B9A471BDEBFC300FD50FF /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -276,6 +276,8 @@
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4A6E03D1BCCDF4B008C0643 /* CouponCellSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponCellSecondView.xib; sourceTree = "<group>"; };
 		C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponCellSecondView.swift; sourceTree = "<group>"; };
+		C4A821DF1BE324A300D1D4B7 /* RecommendationsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecommendationsHeaderView.xib; sourceTree = "<group>"; };
+		C4A821E11BE3257000D1D4B7 /* RecommendationsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationsHeaderView.swift; sourceTree = "<group>"; };
 		C4B14E1A1B7FD5F2001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		C4B14E1C1B7FD68B001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		C4B14E1D1B7FD68B001E8B62 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
@@ -427,27 +429,15 @@
 		C42D9BC21B69EF2D0035C5A6 /* SoHungry */ = {
 			isa = PBXGroup;
 			children = (
+				C4A821E31BE325D200D1D4B7 /* Controllers */,
 				C43B9A541BDF04A900FD50FF /* OperationQueue */,
 				C4D300161BC2478200807C4D /* KeychainWrapper */,
 				C4D300141BC2449F00807C4D /* BridgeHeader */,
 				C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */,
-				C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */,
-				C43B39851B86F09700516248 /* RestaurantsTableViewController.swift */,
-				C43B39AD1B890B6000516248 /* RestaurantViewController.swift */,
-				C43B39B71B8ADD1300516248 /* DishViewController.swift */,
-				C43B398B1B8703C800516248 /* ListsTableViewController.swift */,
-				C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */,
 				C42D9BC91B69EF2D0035C5A6 /* Main.storyboard */,
 				C42D9BCC1B69EF2D0035C5A6 /* Assets.xcassets */,
 				C42D9BCE1B69EF2D0035C5A6 /* LaunchScreen.storyboard */,
 				C42D9BD11B69EF2D0035C5A6 /* Info.plist */,
-				C42D9BF51B7266DB0035C5A6 /* NotificationTableViewController.swift */,
-				C42D9BF71B7267140035C5A6 /* AboutMeViewController.swift */,
-				C4BDFC0C1B9821280065F285 /* MessageDetailViewController.swift */,
-				C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */,
-				C4D300041BBE5F1A00807C4D /* AboutMeNavigationController.swift */,
-				C4D3000C1BC1037B00807C4D /* LoginViewController.swift */,
-				C461DB781BD0CA18009032C8 /* ListMemberViewController.swift */,
 				C476C54A1B843F2C0051B0E5 /* UIElementsClass */,
 				C476C5471B843C710051B0E5 /* UIElementsXib */,
 				C43728231B812FA9009121C9 /* Util */,
@@ -596,6 +586,7 @@
 				C461DB7A1BD0D1EF009032C8 /* ListHeaderView.xib */,
 				C4A0878F1BD4ADDE002D80D5 /* ListCandidateConfirmationView.xib */,
 				C43B9A451BDEBE8F00FD50FF /* PhotoCollectionCell.xib */,
+				C4A821DF1BE324A300D1D4B7 /* RecommendationsHeaderView.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -624,6 +615,7 @@
 				C461DB7C1BD0D654009032C8 /* ListHeaderView.swift */,
 				C461DB821BD0E379009032C8 /* ListHeaderViewDelegate.swift */,
 				C48042B21BDDA957003135D2 /* BubbleButton.swift */,
+				C4A821E11BE3257000D1D4B7 /* RecommendationsHeaderView.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -649,6 +641,25 @@
 				C4D3000E1BC1B10B00807C4D /* AcountManager.swift */,
 			);
 			name = Service;
+			sourceTree = "<group>";
+		};
+		C4A821E31BE325D200D1D4B7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */,
+				C43B39851B86F09700516248 /* RestaurantsTableViewController.swift */,
+				C43B39AD1B890B6000516248 /* RestaurantViewController.swift */,
+				C43B398B1B8703C800516248 /* ListsTableViewController.swift */,
+				C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */,
+				C42D9BF51B7266DB0035C5A6 /* NotificationTableViewController.swift */,
+				C42D9BF71B7267140035C5A6 /* AboutMeViewController.swift */,
+				C4BDFC0C1B9821280065F285 /* MessageDetailViewController.swift */,
+				C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */,
+				C4D300041BBE5F1A00807C4D /* AboutMeNavigationController.swift */,
+				C4D3000C1BC1037B00807C4D /* LoginViewController.swift */,
+				C461DB781BD0CA18009032C8 /* ListMemberViewController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		C4B14E251B804778001E8B62 /* Parse */ = {
@@ -840,6 +851,7 @@
 				C42D9BCD1B69EF2D0035C5A6 /* Assets.xcassets in Resources */,
 				C49BF32F1BC6B58D0097CBE0 /* HorizontalLoginView.xib in Resources */,
 				C43B39791B85951900516248 /* CouponCell.xib in Resources */,
+				C4A821E01BE324A400D1D4B7 /* RecommendationsHeaderView.xib in Resources */,
 				C46CB8D71BA15AF8000D1006 /* SimpleDishCell.xib in Resources */,
 				C4A6E03E1BCCDF4B008C0643 /* CouponCellSecondView.xib in Resources */,
 				C4BDFBFD1B96C8BD0065F285 /* MessageCell.xib in Resources */,
@@ -890,6 +902,7 @@
 				C476C54E1B84565F0051B0E5 /* Queue.swift in Sources */,
 				C43B39AC1B8909BC00516248 /* ViewItemTopUIView.swift in Sources */,
 				C437282F1B82F12F009121C9 /* ParseConfiguration.swift in Sources */,
+				C4A821E21BE3257000D1D4B7 /* RecommendationsHeaderView.swift in Sources */,
 				C4BDFC0F1B9825970065F285 /* GetMessageByIdRequest.swift in Sources */,
 				C433BA091B9625670049CB53 /* SlideBar.swift in Sources */,
 				C4BDFC031B96CBBF0065F285 /* GetMessagesResponse.swift in Sources */,
@@ -970,7 +983,6 @@
 				C4D3000B1BC1025300807C4D /* LoginDelegate.swift in Sources */,
 				C43728201B812298009121C9 /* Message.swift in Sources */,
 				C43B39881B86F2B200516248 /* SortParameter.swift in Sources */,
-				C43B39B81B8ADD1300516248 /* DishViewController.swift in Sources */,
 				C43B9A481BDEBFC300FD50FF /* PhotoCollectionViewCell.swift in Sources */,
 				C43728271B8149A2009121C9 /* JSONHelper.swift in Sources */,
 				C43B39AE1B890B6000516248 /* RestaurantViewController.swift in Sources */,

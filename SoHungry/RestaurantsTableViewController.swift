@@ -51,11 +51,12 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     
     private func fetchImageDetails() {
         for restaurant : Restaurant in self.restaurants {
-            let url = restaurant.picture?.original
-            if url != nil {
-                let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-                self.images.append(record)
+            var url = restaurant.picture?.original
+            if url == nil {
+                url = ""
             }
+            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+            self.images.append(record)
         }
     }
     
@@ -166,6 +167,27 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     
     func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
         return self.images[indexPath.section]
+    }
+    
+    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        self.restaurantsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+        self.restaurantsTable.loadImageForVisibleCells(&pendingOperations)
+        pendingOperations.downloadQueue.suspended = false
+    }
+    
+    // As soon as the user starts scrolling, suspend all operations
+    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        pendingOperations.downloadQueue.suspended = true
+    }
+    
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            if scrollView == self.restaurantsTable {
+                self.restaurantsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+                self.restaurantsTable.loadImageForVisibleCells(&pendingOperations)
+                pendingOperations.downloadQueue.suspended = false
+            }
+        }
     }
 
 }
