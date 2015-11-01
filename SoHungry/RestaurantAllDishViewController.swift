@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate, ImageProgressiveTableViewDelegate {
+class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, ImageProgressiveTableViewDelegate {
     
     @IBOutlet weak var slideBar: SlideBar!
     
@@ -25,27 +25,39 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     private var searchResults : [DishWrapper] = []
     
     var pendingOperations = PendingOperations()
-//    var images = [PhotoRecord]()
-//    var imagesForSearch = [PhotoRecord]()
     var dishImages : [String : PhotoRecord] = [String : PhotoRecord]()
     
     var state : RestaurantAllDishViewControllerState = RestaurantAllDishViewControllerState.REGULAR
     
     var slideBarHidden = false
     
+    var searchController: UISearchController!
     
     override func viewDidLoad() {
-        self.navigationItem.titleView = UISearchBar()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: nil)
         super.viewDidLoad()
         slideBar.delegate = self
         dishTableView.delegate = self
         dishTableView.dataSource = self
         dishTableView.hidden = true
         
-        let searchBar : UISearchBar = UISearchBar()
-        searchBar.delegate = self
-        self.navigationItem.titleView = searchBar
+        searchController = UISearchController(searchResultsController: nil)
+        
+        // The object responsible for updating the contents of the search results controller.
+        searchController.searchResultsUpdater = self
+        
+        // Determines whether the underlying content is dimmed during a search.
+        // if we are presenting the display results in the same view, this should be false
+        searchController.dimsBackgroundDuringPresentation = true
+        
+        searchController.hidesNavigationBarDuringPresentation = false
+        
+        searchController.delegate = self
+        
+        // Make sure the that the search bar is visible within the navigation bar.
+        searchController.searchBar.sizeToFit()
+        self.navigationItem.titleView = searchController.searchBar
+        definesPresentationContext = true
+        loadTableData()
     }
     
     private func loadTableData() {
@@ -90,14 +102,6 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-//        slideBar.setUpScrollView(titles: ["精美凉菜","主厨推荐","韶山经典","铁板干锅","石锅煲仔","私房蒸菜","特色小炒","健康美食","滋补汤羹","主食甜点"], defaultSelection: nil)
-        loadTableData()
-        
-    }
-    
-    
-    
     func slideBar(slideBar : SlideBar, didSelectElementAtIndex index : Int) -> Void {
         // scroll table view
         shouldChangeSlideBarState = false
@@ -108,9 +112,6 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-//        if shouldChangeSlideBarState {
-//            changeSlideBarState()
-//        }
         if state == RestaurantAllDishViewControllerState.REGULAR {
             if shouldChangeSlideBarState {
                 changeSlideBarState()
@@ -129,17 +130,13 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         }
     }
     
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-//        if !shouldChangeSlideBarState {
-//            shouldChangeSlideBarState = true
+//    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+//        if state == RestaurantAllDishViewControllerState.REGULAR {
+//            if !shouldChangeSlideBarState {
+//                shouldChangeSlideBarState = true
+//            }
 //        }
-        if state == RestaurantAllDishViewControllerState.REGULAR {
-            if !shouldChangeSlideBarState {
-                shouldChangeSlideBarState = true
-            }
-        }
-        
-    }
+//    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if state == RestaurantAllDishViewControllerState.SEARCHING {
@@ -168,7 +165,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         let imageDetails = imageForIndexPath(tableView: self.dishTableView, indexPath: indexPath)
         let dish : Dish?
         if state == RestaurantAllDishViewControllerState.REGULAR {
-            dish = self.dishes[indexPath.row]
+            dish = menuItems[indexPath.section].dishes?[indexPath.row]
         } else {
             dish = self.searchResults[indexPath.row].dish
         }
@@ -283,6 +280,20 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
             dish = self.searchResults[indexPath.row].dish
         }
         return self.dishImages[(dish?.id)!]!
+    }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        if !searchController.active {
+            return
+        }
+    }
+    
+    func willPresentSearchController(searchController: UISearchController) {
+        hideSlideBar()
+    }
+    
+    func willDismissSearchController(searchController: UISearchController) {
+        showSlideBar()
     }
     
     enum RestaurantAllDishViewControllerState {
