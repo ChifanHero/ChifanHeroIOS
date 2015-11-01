@@ -27,7 +27,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     var pendingOperations = PendingOperations()
     var dishImages : [String : PhotoRecord] = [String : PhotoRecord]()
     
-    var state : RestaurantAllDishViewControllerState = RestaurantAllDishViewControllerState.REGULAR
+//    var state : RestaurantAllDishViewControllerState = RestaurantAllDishViewControllerState.REGULAR
     
     var slideBarHidden = false
     
@@ -47,7 +47,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         
         // Determines whether the underlying content is dimmed during a search.
         // if we are presenting the display results in the same view, this should be false
-        searchController.dimsBackgroundDuringPresentation = true
+        searchController.dimsBackgroundDuringPresentation = false
         
         searchController.hidesNavigationBarDuringPresentation = false
         
@@ -112,7 +112,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if state == RestaurantAllDishViewControllerState.REGULAR {
+        if !searchController.active {
             if shouldChangeSlideBarState {
                 changeSlideBarState()
             }
@@ -130,16 +130,8 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         }
     }
     
-//    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-//        if state == RestaurantAllDishViewControllerState.REGULAR {
-//            if !shouldChangeSlideBarState {
-//                shouldChangeSlideBarState = true
-//            }
-//        }
-//    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if state == RestaurantAllDishViewControllerState.SEARCHING {
+        if searchController.active {
             return searchResults.count
         } else {
             if section >= 0 && section < menuItems.count {
@@ -164,7 +156,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         }
         let imageDetails = imageForIndexPath(tableView: self.dishTableView, indexPath: indexPath)
         let dish : Dish?
-        if state == RestaurantAllDishViewControllerState.REGULAR {
+        if searchController.active == false {
             dish = menuItems[indexPath.section].dishes?[indexPath.row]
         } else {
             dish = self.searchResults[indexPath.row].dish
@@ -187,7 +179,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if state == RestaurantAllDishViewControllerState.SEARCHING {
+        if searchController.active {
             return 1
         } else {
             return menuItems.count
@@ -198,27 +190,6 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
-    }
-    
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        print("cancel button clicked")
-        state = RestaurantAllDishViewControllerState.REGULAR
-        self.dishTableView.reloadData()
-        showSlideBar()
-    }
-    
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == "" {
-            state = RestaurantAllDishViewControllerState.REGULAR
-            self.dishTableView.reloadData()
-            showSlideBar()
-        } else {
-            state = RestaurantAllDishViewControllerState.SEARCHING
-            searchResults.removeAll()
-            filterContentForSearchText(searchText)
-            self.dishTableView.reloadData()
-            hideSlideBar()
-        }
     }
     
     private func filterContentForSearchText(searchText : String) {
@@ -274,8 +245,8 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     
     func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
         let dish : Dish?
-        if state == RestaurantAllDishViewControllerState.REGULAR {
-            dish = self.dishes[indexPath.row]
+        if !searchController.active {
+            dish = menuItems[indexPath.section].dishes?[indexPath.row]
         } else {
             dish = self.searchResults[indexPath.row].dish
         }
@@ -286,19 +257,25 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         if !searchController.active {
             return
         }
+        print(searchController.searchBar.text)
+        let searchText = searchController.searchBar.text
+        searchResults.removeAll()
+        if searchText != nil {
+           filterContentForSearchText(searchText!)
+        }
+        self.dishTableView.reloadData()
     }
     
-    func willPresentSearchController(searchController: UISearchController) {
+    func didPresentSearchController(searchController: UISearchController) {
         hideSlideBar()
+        dishTableView.reloadData()
     }
     
-    func willDismissSearchController(searchController: UISearchController) {
+    func didDismissSearchController(searchController: UISearchController) {
         showSlideBar()
-    }
-    
-    enum RestaurantAllDishViewControllerState {
-        case REGULAR
-        case SEARCHING
+        // clear search results
+        searchResults.removeAll()
+        dishTableView.reloadData()
     }
     
     class DishWrapper {
@@ -310,8 +287,5 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
             self.dish = dish
         }
     }
-
-    
-    
 
 }
