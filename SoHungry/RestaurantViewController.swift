@@ -38,6 +38,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hotDishesTableView.allowsSelection = false
 //        restaurantId = "sbXAe8QCye"
         loadData()
         // Do any additional setup after loading the view.

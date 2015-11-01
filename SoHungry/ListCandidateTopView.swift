@@ -34,6 +34,10 @@ import UIKit
     
     var subViewTopToHeaderViewBottom : NSLayoutConstraint!
     
+    var submitButton : UIButton {
+        return self.subView.submitButton
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

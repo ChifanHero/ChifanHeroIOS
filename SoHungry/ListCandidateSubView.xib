@@ -22,7 +22,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择菜品" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kwb-Kc-n28">
                             <rect key="frame" x="34" y="22" width="88" height="26.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <variation key="heightClass=compact">
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -115,7 +115,7 @@
                         <constraint firstItem="izS-Th-AaN" firstAttribute="leading" secondItem="mwU-FN-ziC" secondAttribute="leading" id="y4R-Eu-JJ2"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FH9-sW-fUI" userLabel="Sub View">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FH9-sW-fUI" userLabel="Sub View" customClass="ListCandidateConfirmationView" customModule="SoHungry" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="494" width="375" height="0.0"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>

@@ -25,6 +25,13 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
         loadTableData()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        let selectedCellIndexPath : NSIndexPath? = self.tableView.indexPathForSelectedRow
+        if selectedCellIndexPath != nil {
+            self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+        }
+    }
+    
     func loadTableData() {
         if request != nil {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getLists(request!) { (response) -> Void in

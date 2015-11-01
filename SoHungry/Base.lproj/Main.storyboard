@@ -154,7 +154,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hXm-D8-niK" userLabel="restaurantsTable" customClass="ImageProgressiveTableView" customModule="SoHungry" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <outlet property="dataSource" destination="Yys-Ja-R5f" id="wII-Hs-y3R"/>
                             <outlet property="delegate" destination="Yys-Ja-R5f" id="Zbo-Q6-7H2"/>
@@ -398,7 +398,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hNn-ud-WaQ" customClass="ImageProgressiveTableView" customModule="SoHungry" customModuleProvider="target">
                                 <rect key="frame" x="-4" y="40" width="383" height="514"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="98Y-kL-NWK" id="qgg-ST-xYq"/>
                                     <outlet property="delegate" destination="98Y-kL-NWK" id="lOe-Va-f9V"/>
@@ -412,7 +412,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="hNn-ud-WaQ" secondAttribute="trailing" constant="-20" id="2r4-nz-t6q"/>
                             <constraint firstItem="QnF-By-T1k" firstAttribute="top" secondItem="hNn-ud-WaQ" secondAttribute="bottom" id="4EE-ac-toq"/>
@@ -429,7 +429,7 @@
                     <connections>
                         <outlet property="headerView" destination="SiA-fu-TPt" id="UIb-Wn-QC5"/>
                         <outlet property="memberTable" destination="hNn-ud-WaQ" id="jVg-11-04W"/>
-                        <segue destination="Qxo-IV-jWH" kind="show" identifier="addCandidate" id="4GH-Z8-m31"/>
+                        <segue destination="Qxo-IV-jWH" kind="presentation" identifier="addCandidate" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="4GH-Z8-m31"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s0w-FP-qzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -771,19 +771,19 @@
             </objects>
             <point key="canvasLocation" x="218.5" y="776.5"/>
         </scene>
-        <!--View Controller-->
+        <!--List Candidate View Controller-->
         <scene sceneID="GFp-Dp-cDd">
             <objects>
-                <viewController id="Qxo-IV-jWH" sceneMemberID="viewController">
+                <viewController id="Qxo-IV-jWH" customClass="ListCandidateViewController" customModule="SoHungry" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xLe-KL-lgn"/>
                         <viewControllerLayoutGuide type="bottom" id="lwG-C3-mjX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Abm-7l-Ho9">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GG4-zB-GCj" customClass="ListCandidateTopView" customModule="SoHungry" customModuleProvider="target">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GG4-zB-GCj" customClass="ListCandidateTopView" customModule="SoHungry" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -798,6 +798,9 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="mainView" destination="GG4-zB-GCj" id="480-70-S0K"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="daI-J8-vHJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

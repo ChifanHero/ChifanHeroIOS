@@ -39,6 +39,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         dishTableView.delegate = self
         dishTableView.dataSource = self
         dishTableView.hidden = true
+        dishTableView.allowsSelection = false
         
         searchController = UISearchController(searchResultsController: nil)
         

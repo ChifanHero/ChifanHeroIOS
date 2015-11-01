@@ -21,11 +21,15 @@ import UIKit
     private var view : UIView!
     private var nibName : String = "ListCandidateSubView"
     
-    @IBOutlet weak var subView: UIView!
+    @IBOutlet weak var subView: ListCandidateConfirmationView!
     @IBOutlet weak var headerView: UIView!
     
     @IBOutlet weak var confirmButton: UIButton!
     var contentViewCollapsed = false
+    
+    var submitButton : UIButton {
+        return self.subView.confirmButton
+    }
     
     var subViewTopToHeaderViewBottom : NSLayoutConstraint!
     
