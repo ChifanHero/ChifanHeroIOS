@@ -24,10 +24,14 @@ class LoginViewController: UIViewController, LoginDelegate {
         if view.frame.size.width > view.frame.size.height {
             horizontalLoginView = HorizontalLoginView(frame: CGRectMake(0, 0, view.frame.size.width, view.frame.size.height))
             view.addSubview(horizontalLoginView!)
+            horizontalLoginView?.delegate = self
+            
             currentLoginView = horizontalLoginView
         } else {
             verticalLoginView = VerticalLoginView(frame: CGRectMake(0, 0, view.frame.size.width, view.frame.size.height))
             view.addSubview(verticalLoginView!)
+            verticalLoginView?.delegate = self
+            
             currentLoginView = verticalLoginView
         }
     }
@@ -83,7 +87,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     func signUp() {
-        
+        performSegueWithIdentifier("signUp", sender: nil)
     }
     
     
@@ -120,6 +124,13 @@ class LoginViewController: UIViewController, LoginDelegate {
         previousLoginView?.removeFromSuperview()
         self.view.addSubview(currentLoginView!)
         
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "signUp"){
+            let signUpViewController: SignUpViewController = segue.destinationViewController as! SignUpViewController
+            signUpViewController.loginViewController = self;
+        }
     }
 
 

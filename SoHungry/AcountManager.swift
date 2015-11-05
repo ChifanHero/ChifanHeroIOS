@@ -61,7 +61,36 @@ class AccountManager {
         myKenChainWrapper.writeToKeychain()
     }
     
-    func signUp(username username : String, password : String) {
+    func signUp(username username : String, password : String, responseHandler : (Bool?) -> Void){
+        let httpClient = HttpClient()
+        let request : SignUpRequest = SignUpRequest()
+        request.username = username
+        request.password = password
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        
+        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
+            
+            var signUpResponse : SignUpResponse? = nil
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    signUpResponse = SignUpResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            
+            self.logIn(username: username, password: password){_,_ in
+                
+            }
+            
+            responseHandler(signUpResponse?.success)
+
+        }
+        
         
     }
     

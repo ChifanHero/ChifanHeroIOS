@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -145,7 +145,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1122.5" y="-202.5"/>
+            <point key="canvasLocation" x="1128.5" y="-208.5"/>
         </scene>
         <!--Restaurants Table View Controller-->
         <scene sceneID="EKt-FB-EKW">
@@ -257,7 +257,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ffU-Jy-x38" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1661.5" y="-194.5"/>
+            <point key="canvasLocation" x="1661.5" y="-208.5"/>
         </scene>
         <!--Restaurant All Dish View Controller-->
         <scene sceneID="Y3c-bQ-vIU">
@@ -318,7 +318,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vFc-Re-jQl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2185.5" y="-218.5"/>
+            <point key="canvasLocation" x="2185.5" y="-208.5"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="wg7-f3-ORb">
@@ -372,7 +372,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1230.5" y="762.5"/>
+            <point key="canvasLocation" x="-1270.5" y="768.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ssG-0R-xMM">
@@ -391,7 +391,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ac-Dd-wxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2850.5" y="-227.5"/>
+            <point key="canvasLocation" x="2850.5" y="-208.5"/>
         </scene>
         <!--List Member View Controller-->
         <scene sceneID="tbI-NG-u1f">
@@ -559,7 +559,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-63.5" y="-194.5"/>
+            <point key="canvasLocation" x="-63.5" y="-208.5"/>
         </scene>
         <!--Home-->
         <scene sceneID="vBJ-0Q-xaf">
@@ -587,16 +587,18 @@
         <!--Sign Up View Controller-->
         <scene sceneID="267-7w-Y0g">
             <objects>
-                <viewController title="Sign Up View Controller" id="MAG-6V-m3r" sceneMemberID="viewController">
+                <viewController title="Sign Up View Controller" id="MAG-6V-m3r" customClass="SignUpViewController" customModule="SoHungry" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qg7-NA-96F"/>
                         <viewControllerLayoutGuide type="bottom" id="EOi-rh-J3f"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="efL-N0-5vr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="X0H-En-VoX"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <segue destination="dSX-B0-Yoq" kind="show" id="0vi-8i-O9h"/>
@@ -623,7 +625,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZU-bW-05V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1842.5" y="768.5"/>
+            <point key="canvasLocation" x="1872.5" y="784.5"/>
         </scene>
         <!--Message Detail View Controller-->
         <scene sceneID="aOZ-7e-NtV">
@@ -778,7 +780,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nW-N0-zFo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="218.5" y="776.5"/>
+            <point key="canvasLocation" x="154.5" y="784.5"/>
         </scene>
         <!--List Candidate View Controller-->
         <scene sceneID="GFp-Dp-cDd">
