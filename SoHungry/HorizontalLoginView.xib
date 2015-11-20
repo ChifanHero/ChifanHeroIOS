@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HorizontalLoginView" customModule="SoHungry" customModuleProvider="target">
@@ -53,14 +53,14 @@
                         <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="zY7-zD-OLG" userLabel="Credential Stack View">
                             <rect key="frame" x="17" y="23" width="475" height="63"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="bzh-yp-UWE">
-                                    <rect key="frame" x="0.0" y="0.0" width="462" height="25"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="bzh-yp-UWE">
+                                    <rect key="frame" x="0.0" y="0.0" width="457" height="25"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="account" translatesAutoresizingMaskIntoConstraints="NO" id="ac0-xX-m48">
-                                            <rect key="frame" x="0.0" y="4" width="17" height="17"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="account" translatesAutoresizingMaskIntoConstraints="NO" id="ac0-xX-m48">
+                                            <rect key="frame" x="0.0" y="7" width="12" height="12"/>
                                         </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="account" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@domain.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgF-se-8Ju" userLabel="Account Text Field">
-                                            <rect key="frame" x="31" y="0.0" width="431" height="25"/>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="account" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@domain.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgF-se-8Ju" userLabel="Account Text Field">
+                                            <rect key="frame" x="26" y="0.0" width="431" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="431" id="G15-cG-cyB"/>
                                                 <constraint firstAttribute="height" constant="25" id="p3L-0v-isL"/>

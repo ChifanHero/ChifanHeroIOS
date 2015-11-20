@@ -20,7 +20,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注册新用户" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpG-ei-mdn">
                     <rect key="frame" x="225" y="40" width="150" height="36"/>
                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r2I-eJ-uot" userLabel="Action View">
@@ -29,17 +29,17 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="69C-UK-bWU" userLabel="Credential View">
                             <rect key="frame" x="0.0" y="10" width="600" height="90"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cAE-CJ-qHy">
-                                    <rect key="frame" x="155" y="15" width="290" height="61"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cAE-CJ-qHy">
+                                    <rect key="frame" x="155" y="15" width="303" height="61"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="67D-mN-RMc">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="20"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="67D-mN-RMc">
+                                            <rect key="frame" x="0.0" y="0.0" width="303" height="21"/>
                                             <subviews>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="account" translatesAutoresizingMaskIntoConstraints="NO" id="Ozh-RO-CFj">
-                                                    <rect key="frame" x="0.0" y="2" width="17" height="17"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" misplaced="YES" image="account" translatesAutoresizingMaskIntoConstraints="NO" id="Ozh-RO-CFj">
+                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="21"/>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@domain.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bVZ-zO-gEz">
-                                                    <rect key="frame" x="37" y="0.0" width="253" height="20"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@domain.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bVZ-zO-gEz">
+                                                    <rect key="frame" x="50" y="1" width="253" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="253" id="VcS-sy-e7M"/>
                                                     </constraints>
@@ -48,14 +48,14 @@
                                                 </textField>
                                             </subviews>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pEx-kb-qdx">
-                                            <rect key="frame" x="0.0" y="41" width="290" height="20"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pEx-kb-qdx">
+                                            <rect key="frame" x="0.0" y="31" width="303" height="30"/>
                                             <subviews>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="account" translatesAutoresizingMaskIntoConstraints="NO" id="1rP-go-6OL">
-                                                    <rect key="frame" x="0.0" y="2" width="17" height="17"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" misplaced="YES" image="account" translatesAutoresizingMaskIntoConstraints="NO" id="1rP-go-6OL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password(required)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hEj-8O-caH">
-                                                    <rect key="frame" x="37" y="0.0" width="253" height="20"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password(required)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hEj-8O-caH">
+                                                    <rect key="frame" x="50" y="5" width="253" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="253" id="kDm-W8-SOD"/>
                                                     </constraints>
