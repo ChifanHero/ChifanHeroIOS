@@ -44,7 +44,7 @@ class HttpClient {
         task.resume()
     }
     
-    func get(url:String, headers:[String : String]?, parameters : [String : AnyObject]?, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
+    func get(url:String, headers:[String : String]?, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
         let request = NSMutableURLRequest(URL:NSURL(string: url)!)
         request.HTTPMethod = "GET"
         if headers != nil {
@@ -57,7 +57,7 @@ class HttpClient {
         for (header, value) in self.headers {
             request.addValue(value, forHTTPHeaderField: header)
         }
-        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: url)!) { (data, response, error) -> Void in
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) -> Void in
             completionHandler(data, response, error)
         }
         task.resume()

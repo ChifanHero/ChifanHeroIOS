@@ -39,7 +39,7 @@ class AccountManager {
                     jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
                     loginResponse = LoginResponse(data: jsonData)
                     if loginResponse != nil && loginResponse!.success == true && loginResponse!.user != nil {
-                        self.saveUser(username: username, userId :loginResponse?.user?.id, password: password, sessionToken: loginResponse?.sessionToken)
+                        self.saveUser(loginResponse?.user, username: username, password: password, sessionToken: loginResponse?.sessionToken)
                     }
                     
                 } catch {
@@ -51,11 +51,17 @@ class AccountManager {
         
     }
     
-    private func saveUser(username username : String?, userId : String?, password : String?, sessionToken : String?) {
+    private func saveUser(user: User?, username: String?, password: String?, sessionToken: String?) {
         let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        defaults.setValue(username, forKey: "username")
+        
         defaults.setValue(sessionToken, forKey: "sessionToken")
-        defaults.setValue(userId, forKey: "userId")
+        
+        defaults.setValue(user!.id, forKey: "userId")
+        defaults.setValue(username, forKey: "username")
+        defaults.setValue(user!.favoriteCuisine, forKey: "userFavoriteCuisine")
+        defaults.setValue(user!.level, forKey: "userLevel")
+        defaults.setObject(user!.nickName, forKey: "userNickName")
+        defaults.setValue(user!.picture?.thumbnail, forKey: "userPicURL")
         defaults.synchronize()
         myKenChainWrapper.mySetObject(password, forKey: kSecValueData)
         myKenChainWrapper.writeToKeychain()

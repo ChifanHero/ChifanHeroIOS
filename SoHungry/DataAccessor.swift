@@ -20,7 +20,7 @@ class DataAccessor {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
-        httpClient.get(url, headers: nil, parameters: request.getParameters()) { (data, response, error) -> Void in
+        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
             var getPromotionsResponse : GetPromotionsResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
@@ -41,7 +41,7 @@ class DataAccessor {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
-        httpClient.get(url, headers: nil, parameters: request.getParameters()) { (data, response, error) -> Void in
+        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
             var getRestaurantsResponse : GetRestaurantsResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
@@ -61,7 +61,7 @@ class DataAccessor {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
-        httpClient.get(url, headers: nil, parameters: request.getParameters()) { (data, response, error) -> Void in
+        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
             var getListsResponse : GetListsResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
@@ -81,7 +81,7 @@ class DataAccessor {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL() + "/" + request.getResourceId()
         print(url)
-        httpClient.get(url, headers: nil, parameters: nil) { (data, response, error) -> Void in
+        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
             var getRestaurantByIdResponse : GetRestaurantByIdResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
@@ -101,7 +101,7 @@ class DataAccessor {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL() + "/" + request.getResourceId()
         print(url)
-        httpClient.get(url, headers: nil, parameters: nil) { (data, response, error) -> Void in
+        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
             var getDishByIdResponse : GetDishByIdResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
@@ -121,7 +121,7 @@ class DataAccessor {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
-        httpClient.get(url, headers: nil, parameters: request.getParameters()) { (data, response, error) -> Void in
+        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
             var getMessagesResponse : GetMessagesResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
@@ -141,7 +141,7 @@ class DataAccessor {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL() + "/" + request.getResourceId()
         print(url)
-        httpClient.get(url, headers: nil, parameters: nil) { (data, response, error) -> Void in
+        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
             var getMessageByIdResponse : GetMessageByIdResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
@@ -162,7 +162,7 @@ class DataAccessor {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
-        httpClient.get(url, headers: nil, parameters: request.getParameters()) { (data, response, error) -> Void in
+        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
             var getRestaurantMenuResponse : GetRestaurantMenuResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
@@ -182,7 +182,7 @@ class DataAccessor {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL() + "/" + request.getResourceId()
         print(url)
-        httpClient.get(url, headers: nil, parameters: nil) { (data, response, error) -> Void in
+        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
             var getListByIdResponse : GetListByIdResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
@@ -196,6 +196,32 @@ class DataAccessor {
             }
             responseHandler(getListByIdResponse)
         }
+    }
+    
+    func getFavorites(request: GetFavoritesRequest, responseHandler: (GetFavoritesResponse?) -> Void){
+        let httpClient = HttpClient()
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        print(defaults.stringForKey("sessionToken"))
+        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
+        
+        httpClient.get(url, headers: httpHeaders) { (data, response, error) -> Void in
+            var getFavoritesResponse: GetFavoritesResponse?
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    getFavoritesResponse = GetFavoritesResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(getFavoritesResponse)
+        }
+
     }
     
     

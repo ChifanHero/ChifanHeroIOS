@@ -41,18 +41,17 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     func logIn(account account : String?, password : String?) {
-//        self.performSegueWithIdentifier("showUser", sender: self)
-//        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: self.loginView!.username, password: self.loginView!.password) { (success, user) -> Void in
-//            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                if success == true {
-//                    self.replaceLoginViewByAboutMeView()
-//                } else {
-//                    print("login failed")
-//                    self.showErrorMessage()
-//                }
-//            })
-//            
-//        }
+        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: self.currentLoginView!.getAccountTextField()!.text, password: self.currentLoginView!.getPasswordTextField()!.text) { (success, user) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                if success == true {
+                    self.replaceLoginViewByAboutMeView()
+                } else {
+                    print("login failed")
+                    self.showErrorMessage()
+                }
+            })
+            
+        }
         
     }
     
