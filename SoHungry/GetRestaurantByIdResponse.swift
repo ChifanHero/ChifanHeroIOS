@@ -10,8 +10,8 @@ import Foundation
 
 class GetRestaurantByIdResponse : Model{
     
-    var result : Restaurant?
-    var error : Error?
+    var result: Restaurant?
+    var error: Error?
     
     required init() {
         

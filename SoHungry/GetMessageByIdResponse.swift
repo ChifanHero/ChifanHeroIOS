@@ -10,8 +10,8 @@ import Foundation
 
 class GetMessageByIdResponse : Model {
     
-    var result : Message?
-    var error : Error?
+    var result: Message?
+    var error: Error?
     
     required init() {
         

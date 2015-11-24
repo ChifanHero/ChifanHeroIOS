@@ -10,8 +10,8 @@ import Foundation
 
 class GetPromotionsResponse : Model {
     
-    var results : [Promotion] = [Promotion]()
-    var error : Error?
+    var results: [Promotion] = [Promotion]()
+    var error: Error?
     
     required init() {
         

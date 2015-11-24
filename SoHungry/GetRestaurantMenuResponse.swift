@@ -10,8 +10,8 @@ import Foundation
 
 class GetRestaurantMenuResponse :  Model{
     
-    var results : [MenuItem] = [MenuItem]()
-    var error : Error?
+    var results: [MenuItem] = [MenuItem]()
+    var error: Error?
     
     required init() {
         

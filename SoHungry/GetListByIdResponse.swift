@@ -10,8 +10,8 @@ import Foundation
 
 class GetListByIdResponse: Model {
     
-    var result : List?
-    var error : Error?
+    var result: List?
+    var error: Error?
     
     required init() {
         

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AboutMeTableViewController: UITableViewController {
+class AboutMeTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
 
     @IBOutlet weak var userImageView: UIImageView!
@@ -19,6 +19,7 @@ class AboutMeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadUserInfo()
+        setUserProfileImageProperty()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -30,6 +31,13 @@ class AboutMeTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func setUserProfileImageProperty(){
+        self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width / 2
+        self.userImageView.clipsToBounds = true
+        self.userImageView.layer.borderWidth = 3.0
+        self.userImageView.layer.borderColor = UIColor.whiteColor().CGColor
     }
     
     private func loadUserInfo(){
@@ -57,7 +65,7 @@ class AboutMeTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         if indexPath.section == 0 && indexPath.row == 0 {
-            
+            self.popUpImageSourceOption()
         } else if indexPath.section == 1 && indexPath.row == 0 {
             self.performSegueWithIdentifier("showNickNameChange", sender: indexPath)
         } else if indexPath.section == 2 && indexPath.row == 0 {
@@ -81,6 +89,58 @@ class AboutMeTableViewController: UITableViewController {
         } else if sender!.section == 3 && sender!.row == 2 {
             let destinationVC = segue.destinationViewController as! AboutMeDetailTableViewController
             destinationVC.detailType = FavoriteTypeEnum.List
+        }
+    }
+    
+    private func popUpImageSourceOption(){
+        let alert = UIAlertController(title: "更换头像", message: "选取图片来源", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let takePhotoAction = UIAlertAction(title: "相机", style: .Default, handler: self.takePhotoFromCamera)
+        let chooseFromPhotosAction = UIAlertAction(title: "照片", style: .Default, handler: self.chooseFromPhotoRoll)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelChoosingImage)
+        
+        alert.addAction(takePhotoAction)
+        alert.addAction(chooseFromPhotosAction)
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func takePhotoFromCamera(alertAction: UIAlertAction!) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera;
+            imagePicker.allowsEditing = false
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    private func chooseFromPhotoRoll(alertAction: UIAlertAction!) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+            imagePicker.allowsEditing = true
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    private func cancelChoosingImage(alertAction: UIAlertAction!) {
+        
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        userImageView.image = image
+        self.dismissViewControllerAnimated(true, completion: nil);
+        
+        let imageData = UIImageJPEGRepresentation(image, 1.0)
+        let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
+        let request : UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
+        DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                
+            });
         }
     }
 

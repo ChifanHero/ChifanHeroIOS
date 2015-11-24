@@ -10,8 +10,8 @@ import Foundation
 
 class GetRestaurantsResponse : Model {
     
-    var results : [Restaurant] = [Restaurant]()
-    var error : Error?
+    var results: [Restaurant] = [Restaurant]()
+    var error: Error?
     
     required init() {
         

@@ -10,8 +10,8 @@ import Foundation
 
 class GetMessagesResponse : Model {
     
-    var results : [Message] = [Message]()
-    var error : Error?
+    var results: [Message] = [Message]()
+    var error: Error?
     
     required init() {
         

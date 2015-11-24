@@ -1,16 +1,16 @@
 //
-//  GetDishByIdResponse.swift
+//  UploadPictureResponse.swift
 //  SoHungry
 //
-//  Created by Shi Yan on 8/15/15.
+//  Created by Zhang, Alex on 11/23/15.
 //  Copyright © 2015 Shi Yan. All rights reserved.
 //
 
 import Foundation
 
-class GetDishByIdResponse : Model{
+class UploadPictureResponse: Model{
     
-    var result: Dish?
+    var result: Picture?
     var error: Error?
     
     required init() {
@@ -21,5 +21,4 @@ class GetDishByIdResponse : Model{
         error <-- data["error"]
         result <-- data["result"]
     }
-    
 }

@@ -529,10 +529,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="about me" translatesAutoresizingMaskIntoConstraints="NO" id="uSM-Ry-HrB">
-                                                    <rect key="frame" x="111" y="10" width="152" height="79"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about me" translatesAutoresizingMaskIntoConstraints="NO" id="uSM-Ry-HrB">
+                                                    <rect key="frame" x="147" y="10" width="80" height="80"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="80" id="1TE-V5-v9p"/>
+                                                        <constraint firstAttribute="width" constant="80" id="4rx-UC-I2r"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="uSM-Ry-HrB" firstAttribute="centerY" secondItem="uqt-xC-cbP" secondAttribute="centerY" id="KHF-LQ-YDO"/>
+                                                <constraint firstItem="uSM-Ry-HrB" firstAttribute="centerX" secondItem="uqt-xC-cbP" secondAttribute="centerX" id="O7K-Xe-y2Q"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -707,6 +715,7 @@
                         <outlet property="userLevelLabel" destination="uCR-mm-pnS" id="ABw-Si-JhH"/>
                         <segue destination="bYl-Lv-yVt" kind="show" identifier="showNickNameChange" id="jdq-ow-0sp"/>
                         <segue destination="6Ud-7T-snx" kind="show" identifier="showAboutMeDetail" id="0dZ-yJ-BxY"/>
+                        <segue destination="KFs-1x-TRz" kind="show" id="z9t-ci-lDe"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JBw-sd-q8k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -746,7 +755,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Xq-0E-0Eu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1451.5" y="1554.5"/>
+            <point key="canvasLocation" x="1403.5" y="2404.5"/>
         </scene>
         <!--AboutMeDetail-->
         <scene sceneID="kWE-vX-a3t">
@@ -778,7 +787,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zy2-5u-aCR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1451.5" y="2401.5"/>
+            <point key="canvasLocation" x="867.5" y="2404.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Uo4-HH-vc7">
+            <objects>
+                <viewController id="KFs-1x-TRz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pI5-Ur-xaz"/>
+                        <viewControllerLayoutGuide type="bottom" id="pWy-F0-NGJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7cp-yR-FCc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iGO-Jc-C2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1403.5" y="1554.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">

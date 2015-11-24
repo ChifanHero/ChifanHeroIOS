@@ -10,9 +10,9 @@ import Foundation
 
 class LoginResponse: Model {
     
-    var success : Bool?
-    var sessionToken : String?
-    var user : User?
+    var success: Bool?
+    var sessionToken: String?
+    var user: User?
     
     required init() {
         
