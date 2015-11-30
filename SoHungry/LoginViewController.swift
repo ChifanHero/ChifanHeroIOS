@@ -17,7 +17,20 @@ class LoginViewController: UIViewController, LoginDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpLoginPanel()
+        if isLoggedIn(){
+            replaceLoginViewByAboutMeView()
+        } else{
+            setUpLoginPanel()
+        }
+    }
+    
+    private func isLoggedIn() -> Bool{
+        let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if let result: Bool? = defaults.boolForKey("isLoggedIn"){
+            return result!
+        } else{
+            return false
+        }
     }
     
     private func setUpLoginPanel() {
@@ -44,6 +57,8 @@ class LoginViewController: UIViewController, LoginDelegate {
         AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: self.currentLoginView!.getAccountTextField()!.text, password: self.currentLoginView!.getPasswordTextField()!.text) { (success, user) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if success == true {
+                    let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setBool(true, forKey: "isLoggedIn")
                     self.replaceLoginViewByAboutMeView()
                 } else {
                     print("login failed")
@@ -64,7 +79,7 @@ class LoginViewController: UIViewController, LoginDelegate {
         var viewControllers = tabBarController.viewControllers!
         for var index = 0; index < viewControllers.count; index++ {
             let vc : UIViewController = viewControllers[index]
-            if vc.restorationIdentifier == "LoginNavigationController" {
+            if vc.restorationIdentifier == "LogInNavigationController" {
                 viewControllers.removeAtIndex(index)
                 let aboutMeNC = getAboutMeNavigationController()
                 viewControllers.insert(aboutMeNC, atIndex: index)

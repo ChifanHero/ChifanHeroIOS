@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -36,17 +36,17 @@
                         <rect key="frame" x="145" y="76" width="230" height="23.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="taH-Ww-PSu" userLabel="Top Stack View">
-                                <rect key="frame" x="12" y="1" width="150" height="22"/>
+                                <rect key="frame" x="12" y="1" width="157" height="22"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Lg3-0W-MVk" userLabel="Like Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="36" height="22"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="43" height="22"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvS-cs-3re" userLabel="Like Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="12" height="22"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="19" height="22"/>
                                                 <state key="normal" image="like"/>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="685" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JsN-ei-zO5" userLabel="Like Label">
-                                                <rect key="frame" x="16" y="0.0" width="20" height="22"/>
+                                                <rect key="frame" x="23" y="0.0" width="20" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="LnN-uT-raW" userLabel="Dislike Stack View">
-                                        <rect key="frame" x="59" y="0.0" width="35" height="22"/>
+                                        <rect key="frame" x="66" y="0.0" width="35" height="22"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tb8-zN-ruu" userLabel="Dislike Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="11" height="22"/>
@@ -69,7 +69,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="eV6-nT-pqd" userLabel="Neutral Stack View">
-                                        <rect key="frame" x="116" y="0.0" width="34" height="22"/>
+                                        <rect key="frame" x="123" y="0.0" width="34" height="22"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOL-s0-UlT" userLabel="neutral">
                                                 <rect key="frame" x="0.0" y="0.0" width="10" height="22"/>

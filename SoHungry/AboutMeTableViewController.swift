@@ -68,8 +68,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             self.popUpImageSourceOption()
         } else if indexPath.section == 1 && indexPath.row == 0 {
             self.performSegueWithIdentifier("showNickNameChange", sender: indexPath)
-        } else {
+        } else if indexPath.section == 2 {
             self.performSegueWithIdentifier("showAboutMeDetail", sender: indexPath)
+        } else {
+            self.logOutAction()
         }
         
     }
@@ -151,9 +153,58 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             });
         }
     }
-
-    @IBAction func logOutAction(sender: AnyObject) {
-        print("hello")
+    
+    private func logOutAction(){
+        let alert = UIAlertController(title: "退出登录", message: "登出当前用户", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let confirmAction = UIAlertAction(title: "确认", style: .Destructive, handler: self.confirmLogOut)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelLogOut)
+        
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func confirmLogOut(alertAction: UIAlertAction!) {
+        AccountManager(serviceConfiguration: ParseConfiguration()).logOut() { (success) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                if success == true {
+                    let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setBool(false, forKey: "isLoggedIn")
+                    self.replaceAboutMeViewByLogInView()
+                } else {
+                    print("Log out failed")
+                }
+            })
+            
+        }
+    }
+    
+    private func cancelLogOut(alertAction: UIAlertAction!) {
+        
+    }
+    
+    private func replaceAboutMeViewByLogInView(){
+        let tabBarController : UITabBarController = UIApplication.sharedApplication().keyWindow?.rootViewController as! UITabBarController
+        var viewControllers = tabBarController.viewControllers!
+        for var index = 0; index < viewControllers.count; index++ {
+            let vc : UIViewController = viewControllers[index]
+            if vc.restorationIdentifier == "AboutMeNavigationController" {
+                viewControllers.removeAtIndex(index)
+                let logInNC = getLogInNavigationController()
+                viewControllers.insert(logInNC, atIndex: index)
+                break
+            }
+        }
+        tabBarController.setViewControllers(viewControllers, animated: false)
+    }
+    
+    private func getLogInNavigationController() -> UINavigationController{
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let logInNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("LogInNavigationController") as! UINavigationController
+        logInNC.tabBarItem = UITabBarItem(title: "About me", image: UIImage(named: "about me"), tag: 3)
+        return logInNC
     }
     
     // MARK: - Table view data source
