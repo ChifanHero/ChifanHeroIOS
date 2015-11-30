@@ -204,7 +204,6 @@ class DataAccessor {
         print(url)
         
         let defaults = NSUserDefaults.standardUserDefaults()
-        print(defaults.stringForKey("sessionToken"))
         let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
         
         httpClient.get(url, headers: httpHeaders) { (data, response, error) -> Void in

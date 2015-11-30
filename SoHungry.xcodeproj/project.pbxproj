@@ -170,6 +170,10 @@
 		CA7A4F721BF179980016BC56 /* AboutMeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */; };
 		CA850AE01C03CF6800D497D4 /* UploadPictureRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850ADF1C03CF6800D497D4 /* UploadPictureRequest.swift */; };
 		CA850AE21C03D0FD00D497D4 /* UploadPictureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE11C03D0FD00D497D4 /* UploadPictureResponse.swift */; };
+		CA850AE41C04188A00D497D4 /* UpdateInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE31C04188A00D497D4 /* UpdateInfoRequest.swift */; };
+		CA850AE61C0419D300D497D4 /* UpdateInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE51C0419D300D497D4 /* UpdateInfoResponse.swift */; };
+		CA850AE81C066FF200D497D4 /* LogOutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE71C066FF200D497D4 /* LogOutRequest.swift */; };
+		CA850AEA1C06702D00D497D4 /* LogOutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE91C06702D00D497D4 /* LogOutResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -365,6 +369,10 @@
 		CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeTableViewController.swift; sourceTree = "<group>"; };
 		CA850ADF1C03CF6800D497D4 /* UploadPictureRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPictureRequest.swift; sourceTree = "<group>"; };
 		CA850AE11C03D0FD00D497D4 /* UploadPictureResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPictureResponse.swift; sourceTree = "<group>"; };
+		CA850AE31C04188A00D497D4 /* UpdateInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateInfoRequest.swift; sourceTree = "<group>"; };
+		CA850AE51C0419D300D497D4 /* UpdateInfoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateInfoResponse.swift; sourceTree = "<group>"; };
+		CA850AE71C066FF200D497D4 /* LogOutRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogOutRequest.swift; sourceTree = "<group>"; };
+		CA850AE91C06702D00D497D4 /* LogOutResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogOutResponse.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -723,11 +731,13 @@
 				C4BDFC001B96CB3B0065F285 /* GetMessagesRequest.swift */,
 				C4BDFC0E1B9825970065F285 /* GetMessageByIdRequest.swift */,
 				C46CB8D21BA00B50000D1006 /* GetRestaurantMenuRequest.swift */,
-				C4D300101BC1B4FC00807C4D /* LoginRequest.swift */,
 				C461DB7E1BD0D731009032C8 /* GetListByIdRequest.swift */,
-				CA7A4F691BE939BB0016BC56 /* SignUpRequest.swift */,
 				CA37EE5E1BF6A29500DA3071 /* GetFavoritesRequest.swift */,
 				CA850ADF1C03CF6800D497D4 /* UploadPictureRequest.swift */,
+				CA7A4F691BE939BB0016BC56 /* SignUpRequest.swift */,
+				C4D300101BC1B4FC00807C4D /* LoginRequest.swift */,
+				CA850AE31C04188A00D497D4 /* UpdateInfoRequest.swift */,
+				CA850AE71C066FF200D497D4 /* LogOutRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -744,11 +754,13 @@
 				C4BDFC021B96CBBF0065F285 /* GetMessagesResponse.swift */,
 				C4BDFC101B982CA00065F285 /* GetMessageByIdResponse.swift */,
 				C46CB8D41BA00B5A000D1006 /* GetRestaurantMenuResponse.swift */,
-				C4D300121BC1B57B00807C4D /* LoginResponse.swift */,
 				C461DB801BD0D747009032C8 /* GetListByIdResponse.swift */,
-				CA7A4F6B1BE9C95D0016BC56 /* SignUpResponse.swift */,
 				CA37EE601BF6A44300DA3071 /* GetFavoritesResponse.swift */,
 				CA850AE11C03D0FD00D497D4 /* UploadPictureResponse.swift */,
+				CA7A4F6B1BE9C95D0016BC56 /* SignUpResponse.swift */,
+				C4D300121BC1B57B00807C4D /* LoginResponse.swift */,
+				CA850AE51C0419D300D497D4 /* UpdateInfoResponse.swift */,
+				CA850AE91C06702D00D497D4 /* LogOutResponse.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -949,6 +961,7 @@
 			files = (
 				C4D3000D1BC1037B00807C4D /* LoginViewController.swift in Sources */,
 				C42D9BC81B69EF2D0035C5A6 /* SearchViewController.swift in Sources */,
+				CA850AEA1C06702D00D497D4 /* LogOutResponse.swift in Sources */,
 				C43728191B812176009121C9 /* Favorite.swift in Sources */,
 				C4DB3E251BE67F7500076A57 /* ListCandidateViewController.swift in Sources */,
 				C4DB3E231BE6717A00076A57 /* ListCandidateConfirmationView.swift in Sources */,
@@ -971,6 +984,7 @@
 				C43B39941B87F08C00516248 /* ListTableViewCell.swift in Sources */,
 				CA850AE21C03D0FD00D497D4 /* UploadPictureResponse.swift in Sources */,
 				C4B14E341B80490C001E8B62 /* GetPromotionsRequest.swift in Sources */,
+				CA850AE41C04188A00D497D4 /* UpdateInfoRequest.swift in Sources */,
 				CA7A4F681BE875140016BC56 /* SignUpDelegate.swift in Sources */,
 				C42D9BFD1B726B3D0035C5A6 /* Dish.swift in Sources */,
 				C41C6C711BCF7BDC00461257 /* ListCandidateTopView.swift in Sources */,
@@ -987,6 +1001,7 @@
 				C4BDFC011B96CB3B0065F285 /* GetMessagesRequest.swift in Sources */,
 				C43728251B812FBA009121C9 /* NSDateExtension.swift in Sources */,
 				C42D9BFB1B726B270035C5A6 /* User.swift in Sources */,
+				CA850AE81C066FF200D497D4 /* LogOutRequest.swift in Sources */,
 				C49BF3331BC9EEB00097CBE0 /* LoginView.swift in Sources */,
 				C43B39B21B8A813300516248 /* NameOnlyDishTableViewCell.swift in Sources */,
 				C4F9CB731B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift in Sources */,
@@ -1041,6 +1056,7 @@
 				C461DB811BD0D747009032C8 /* GetListByIdResponse.swift in Sources */,
 				C4D300131BC1B57B00807C4D /* LoginResponse.swift in Sources */,
 				C4D300091BC0BFEB00807C4D /* VerticalLoginView.swift in Sources */,
+				CA850AE61C0419D300D497D4 /* UpdateInfoResponse.swift in Sources */,
 				C46CB8D91BA15CCD000D1006 /* SimpleDishTableViewCell.swift in Sources */,
 				C43728221B8122B5009121C9 /* Review.swift in Sources */,
 				C43B39BA1B8C28F000516248 /* StringUtil.swift in Sources */,

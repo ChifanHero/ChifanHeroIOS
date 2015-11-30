@@ -10,6 +10,27 @@ import UIKit
 
 class NickNameChangeViewController: UIViewController {
 
+    @IBOutlet weak var nickNameTextField: UITextField!
+    
+    @IBAction func nickNameChangeDone(sender: AnyObject) {
+        
+        if nickNameTextField.text != nil {
+            
+            AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nickNameTextField.text, pictureId: nil) { (success, user) -> Void in
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    if success == true {
+                        print("Update nick name succeed")
+                    } else {
+                        print("Update nick name failed")
+                    }
+                    self.navigationController?.popViewControllerAnimated(true)
+                })
+                
+            }
+        } else {
+            navigationController?.popViewControllerAnimated(true)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

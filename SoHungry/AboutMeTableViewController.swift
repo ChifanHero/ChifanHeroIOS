@@ -13,12 +13,11 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
 
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var nickNameLabel: UILabel!
-    @IBOutlet weak var favoriteCuisineTypeLabel: UILabel!
-    @IBOutlet weak var userLevelLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadUserInfo()
+        loadUserNickName()
+        loadUserPicture()
         setUserProfileImageProperty()
         
         // Uncomment the following line to preserve selection between presentations
@@ -26,6 +25,11 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        loadUserNickName()
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,14 +44,8 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         self.userImageView.layer.borderColor = UIColor.whiteColor().CGColor
     }
     
-    private func loadUserInfo(){
+    private func loadUserNickName(){
         let defaults = NSUserDefaults.standardUserDefaults()
-        
-        favoriteCuisineTypeLabel.hidden = true
-        
-        if let userPicURL = defaults.stringForKey("userPicURL"){
-            userImageView.image = UIImage(data: NSData(contentsOfURL: NSURL(string: userPicURL)!)!)
-        }
         
         if let nickname = defaults.stringForKey("userNickName"){
             nickNameLabel.text = nickname
@@ -55,12 +53,14 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             nickNameLabel.text = "未设定"
         }
         
-        if let userLevel = defaults.stringForKey("userLevel"){
-            userLevelLabel.text = userLevel
-        } else{
-            userLevelLabel.text = "1"
-        }
+    }
+    
+    private func loadUserPicture(){
+        let defaults = NSUserDefaults.standardUserDefaults()
         
+        if let userPicURL = defaults.stringForKey("userPicURL"){
+            userImageView.image = UIImage(data: NSData(contentsOfURL: NSURL(string: userPicURL)!)!)
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
@@ -68,8 +68,6 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             self.popUpImageSourceOption()
         } else if indexPath.section == 1 && indexPath.row == 0 {
             self.performSegueWithIdentifier("showNickNameChange", sender: indexPath)
-        } else if indexPath.section == 2 && indexPath.row == 0 {
-            
         } else {
             self.performSegueWithIdentifier("showAboutMeDetail", sender: indexPath)
         }
@@ -77,16 +75,13 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if sender!.section == 1 && sender!.row == 1 {
-            let destinationVC = segue.destinationViewController as! AboutMeDetailTableViewController
-            //destinationVC.detailType = "favoriteCuisineType"
-        } else if sender!.section == 3 && sender!.row == 0 {
+        if sender!.section == 2 && sender!.row == 0 {
             let destinationVC = segue.destinationViewController as! AboutMeDetailTableViewController
             destinationVC.detailType = FavoriteTypeEnum.Dish
-        } else if sender!.section == 3 && sender!.row == 1 {
+        } else if sender!.section == 2 && sender!.row == 1 {
             let destinationVC = segue.destinationViewController as! AboutMeDetailTableViewController
             destinationVC.detailType = FavoriteTypeEnum.Restaurant
-        } else if sender!.section == 3 && sender!.row == 2 {
+        } else if sender!.section == 2 && sender!.row == 2 {
             let destinationVC = segue.destinationViewController as! AboutMeDetailTableViewController
             destinationVC.detailType = FavoriteTypeEnum.List
         }
@@ -134,16 +129,33 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         userImageView.image = image
         self.dismissViewControllerAnimated(true, completion: nil);
         
-        let imageData = UIImageJPEGRepresentation(image, 1.0)
+        let imageData = UIImageJPEGRepresentation(image, 0.1) //0.1 is compression ratio
         let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
         let request : UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
         DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 
+                if response?.result != nil{
+                    AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: response?.result?.id) { (success, user) -> Void in
+                        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                            if success == true {
+                                print("Update profile picture succeed")
+                            } else {
+                                print("Update profile picture failed")
+                            }
+                        })
+                        
+                    }
+                }
+                
             });
         }
     }
 
+    @IBAction func logOutAction(sender: AnyObject) {
+        print("hello")
+    }
+    
     // MARK: - Table view data source
 
 //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

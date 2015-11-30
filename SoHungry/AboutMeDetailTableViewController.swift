@@ -13,7 +13,6 @@ class AboutMeDetailTableViewController: UITableViewController {
     @IBOutlet var AboutMeDetailTableView: UITableView!
     
     var detailType: FavoriteTypeEnum?
-    var favoriteCuisineType: [String] = ["川菜", "粤菜", "鲁菜"]
     
     var favorites: [Favorite]?
     var restaurants: [Restaurant] = [Restaurant]()
