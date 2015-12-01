@@ -8,28 +8,25 @@
 
 import Foundation
 
-
 class AccountManager {
     
     var serviceConfiguration : ServiceConfiguration
     
-    let myKenChainWrapper = KeychainWrapper()
+    let myKeyChainWrapper = KeychainWrapper()
     
     init (serviceConfiguration : ServiceConfiguration) {
         self.serviceConfiguration = serviceConfiguration
     }
     
-    static func isLoggedIn() -> Bool {
-        return false
-    }
-    
     func logIn(username username: String?, password: String?, responseHandler: (Bool?, User?) -> Void) {
-        let httpClient = HttpClient()
+        
         let request : LoginRequest = LoginRequest()
         request.username = username
         request.password = password
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
+        
+        let httpClient = HttpClient()
         httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
             var loginResponse : LoginResponse? = nil
             if data != nil {
@@ -52,13 +49,14 @@ class AccountManager {
     }
     
     func signUp(username username: String, password: String, responseHandler: (Bool?) -> Void){
-        let httpClient = HttpClient()
+        
         let request : SignUpRequest = SignUpRequest()
         request.username = username
         request.password = password
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
         
+        let httpClient = HttpClient()
         httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
             
             var signUpResponse : SignUpResponse? = nil
@@ -81,7 +79,7 @@ class AccountManager {
     }
     
     func updateInfo(nickName nickName: String?, pictureId: String?, responseHandler : (Bool?, User?) -> Void) {
-        let httpClient = HttpClient()
+        
         let request : UpdateInfoRequest = UpdateInfoRequest()
         request.nickName = nickName
         request.pictureId = pictureId
@@ -90,6 +88,7 @@ class AccountManager {
         
         let defaults = NSUserDefaults.standardUserDefaults()
         let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
+        let httpClient = HttpClient()
         httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
             var updateInfoResponse: UpdateInfoResponse?
             if data != nil {
@@ -113,13 +112,14 @@ class AccountManager {
     }
     
     func logOut(responseHandler responseHandler : (Bool?) -> Void) {
-        let httpClient = HttpClient()
+        
         let request : LogOutRequest = LogOutRequest()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
         
         let defaults = NSUserDefaults.standardUserDefaults()
         let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
+        let httpClient = HttpClient()
         httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
             var logOutResponse: LogOutResponse?
             if data != nil {
@@ -149,8 +149,8 @@ class AccountManager {
         defaults.setObject(user!.nickName, forKey: "userNickName")
         defaults.setValue(user!.picture?.thumbnail, forKey: "userPicURL")
         defaults.synchronize()
-        myKenChainWrapper.mySetObject(password, forKey: kSecValueData)
-        myKenChainWrapper.writeToKeychain()
+        myKeyChainWrapper.mySetObject(password, forKey: kSecValueData)
+        myKeyChainWrapper.writeToKeychain()
     }
     
     private func saveUser(nickName nickName: String?, userPicURL: String?){
@@ -169,7 +169,7 @@ class AccountManager {
         defaults.setObject(nil, forKey: "userNickName")
         defaults.setValue(nil, forKey: "userPicURL")
         defaults.synchronize()
-        myKenChainWrapper.mySetObject(nil, forKey: kSecValueData)
-        myKenChainWrapper.writeToKeychain()
+        myKeyChainWrapper.mySetObject(nil, forKey: kSecValueData)
+        myKeyChainWrapper.writeToKeychain()
     }
 }

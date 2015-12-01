@@ -54,6 +54,10 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     func logIn(account account : String?, password : String?) {
+        
+        currentLoginView?.indicator?.startAnimating()
+        currentLoginView?.getView()?.addSubview((currentLoginView?.indicator)!)
+        
         AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: self.currentLoginView!.getAccountTextField()!.text, password: self.currentLoginView!.getPasswordTextField()!.text) { (success, user) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if success == true {
@@ -62,6 +66,8 @@ class LoginViewController: UIViewController, LoginDelegate {
                     self.replaceLoginViewByAboutMeView()
                 } else {
                     print("login failed")
+                    self.currentLoginView?.indicator?.stopAnimating()
+                    self.currentLoginView?.indicator?.removeFromSuperview()
                     self.showErrorMessage()
                 }
             })
@@ -71,7 +77,17 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     private func showErrorMessage() {
+        let alert = UIAlertController(title: "输入错误", message: "请输入有效用户名和密码", preferredStyle: UIAlertControllerStyle.Alert)
         
+        let dismissAction = UIAlertAction(title: "知道了", style: .Default, handler: self.resetLogInInput)
+        alert.addAction(dismissAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func resetLogInInput(alertAction: UIAlertAction!){
+        currentLoginView?.getAccountTextField()!.text = nil
+        currentLoginView?.getPasswordTextField()!.text = nil
     }
     
     func replaceLoginViewByAboutMeView() {
@@ -134,7 +150,6 @@ class LoginViewController: UIViewController, LoginDelegate {
         currentLoginView?.account = previousLoginView?.account
         currentLoginView?.password = previousLoginView?.password
         currentLoginView?.errorMessage = previousLoginView?.errorMessage
-        currentLoginView?.indicatorActivate = previousLoginView?.indicatorActivate
         previousLoginView?.removeFromSuperview()
         self.view.addSubview(currentLoginView!)
         

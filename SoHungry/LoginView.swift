@@ -18,25 +18,6 @@ class LoginView : UIView, UITextFieldDelegate{
             getErrorLabel()?.text = errorMessage
         }
     }
-    var indicatorActivate : Bool? {
-        didSet {
-            if indicatorActivate == true {
-                if getView() != nil {
-                    if indicator == nil {
-                        indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-                        indicator!.center = getView()!.center
-                    }
-                    indicator!.startAnimating()
-                    getView()!.addSubview(indicator!)
-                }
-            } else {
-                if indicator != nil {
-                    indicator?.stopAnimating()
-                    indicator?.removeFromSuperview()
-                }
-            }
-        }
-    }
     
     var account : String? {
         get {
@@ -91,7 +72,12 @@ class LoginView : UIView, UITextFieldDelegate{
     }
     
     func startLogin() {
-        indicatorActivate = true
+        if getView() != nil {
+            if indicator == nil {
+                indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+                indicator!.center = getView()!.center
+            }
+        }
         delegate?.logIn(account: getAccountTextField()?.text!, password: getPasswordTextField()?.text!)
     }
     
