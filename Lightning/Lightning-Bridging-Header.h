@@ -6,10 +6,10 @@
 //  Copyright © 2015 Shi Yan. All rights reserved.
 //
 
-#ifndef SoHungry_Bridging_Header_h
-#define SoHungry_Bridging_Header_h
+#ifndef Lightning_Bridging_Header_h
+#define Lightning_Bridging_Header_h
 
 
-#endif /* SoHungry_Bridging_Header_h */
+#endif /* Lightning_Bridging_Header_h */
 
 #import "KeychainWrapper.h"
