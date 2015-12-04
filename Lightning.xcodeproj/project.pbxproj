@@ -868,7 +868,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0710;
-				ORGANIZATIONNAME = "Shi Yan";
+				ORGANIZATIONNAME = Lightning;
 				TargetAttributes = {
 					C42D9BBF1B69EF2D0035C5A6 = {
 						CreatedOnToolsVersion = 7.0;
@@ -1232,7 +1232,7 @@
 				INFOPLIST_FILE = SoHungry/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.so.hungry.SoHungry;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lightning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SoHungry/SoHungry-Bridging-Header.h";
@@ -1252,7 +1252,7 @@
 				INFOPLIST_FILE = SoHungry/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.so.hungry.SoHungry;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lightning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SoHungry/SoHungry-Bridging-Header.h";
