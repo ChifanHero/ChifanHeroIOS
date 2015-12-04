@@ -9,6 +9,19 @@
 /* Begin PBXBuildFile section */
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */; };
+		C4A0D5501C11746100BAE246 /* CustomUIRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5431C11746100BAE246 /* CustomUIRefreshControl.swift */; };
+		C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */; };
+		C4A0D5521C11746100BAE246 /* DishSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */; };
+		C4A0D5531C11746100BAE246 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5461C11746100BAE246 /* Distance.swift */; };
+		C4A0D5541C11746100BAE246 /* DistanceUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5471C11746100BAE246 /* DistanceUnit.swift */; };
+		C4A0D5551C11746100BAE246 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5481C11746100BAE246 /* Location.swift */; };
+		C4A0D5561C11746100BAE246 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5491C11746100BAE246 /* Output.swift */; };
+		C4A0D5571C11746100BAE246 /* OutputParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D54A1C11746100BAE246 /* OutputParams.swift */; };
+		C4A0D5581C11746100BAE246 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D54B1C11746100BAE246 /* Range.swift */; };
+		C4A0D5591C11746100BAE246 /* RestaurantSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D54C1C11746100BAE246 /* RestaurantSearchRequest.swift */; };
+		C4A0D55A1C11746100BAE246 /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D54D1C11746100BAE246 /* Serializable.swift */; };
+		C4A0D55B1C11746100BAE246 /* SortBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D54E1C11746100BAE246 /* SortBy.swift */; };
+		C4A0D55C1C11746100BAE246 /* TuningParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D54F1C11746100BAE246 /* TuningParams.swift */; };
 		CA203DA21C111EEA00D6F32C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3000C1BC1037B00807C4D /* LoginViewController.swift */; };
 		CA203DA31C111EEA00D6F32C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */; };
 		CA203DA41C111EEA00D6F32C /* LogOutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE91C06702D00D497D4 /* LogOutResponse.swift */; };
@@ -273,6 +286,19 @@
 		C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalLoginView.swift; sourceTree = "<group>"; };
 		C49BF3321BC9EEB00097CBE0 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C4A0878F1BD4ADDE002D80D5 /* ListCandidateConfirmationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListCandidateConfirmationView.xib; sourceTree = "<group>"; };
+		C4A0D5431C11746100BAE246 /* CustomUIRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIRefreshControl.swift; sourceTree = "<group>"; };
+		C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishListSearchRequest.swift; sourceTree = "<group>"; };
+		C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishSearchRequest.swift; sourceTree = "<group>"; };
+		C4A0D5461C11746100BAE246 /* Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
+		C4A0D5471C11746100BAE246 /* DistanceUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceUnit.swift; sourceTree = "<group>"; };
+		C4A0D5481C11746100BAE246 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		C4A0D5491C11746100BAE246 /* Output.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
+		C4A0D54A1C11746100BAE246 /* OutputParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputParams.swift; sourceTree = "<group>"; };
+		C4A0D54B1C11746100BAE246 /* Range.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Range.swift; sourceTree = "<group>"; };
+		C4A0D54C1C11746100BAE246 /* RestaurantSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantSearchRequest.swift; sourceTree = "<group>"; };
+		C4A0D54D1C11746100BAE246 /* Serializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
+		C4A0D54E1C11746100BAE246 /* SortBy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortBy.swift; sourceTree = "<group>"; };
+		C4A0D54F1C11746100BAE246 /* TuningParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuningParams.swift; sourceTree = "<group>"; };
 		C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4A6E03D1BCCDF4B008C0643 /* CouponCellSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponCellSecondView.xib; sourceTree = "<group>"; };
@@ -704,6 +730,19 @@
 		C4B14E311B8048CF001E8B62 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				C4A0D5431C11746100BAE246 /* CustomUIRefreshControl.swift */,
+				C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */,
+				C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */,
+				C4A0D5461C11746100BAE246 /* Distance.swift */,
+				C4A0D5471C11746100BAE246 /* DistanceUnit.swift */,
+				C4A0D5481C11746100BAE246 /* Location.swift */,
+				C4A0D5491C11746100BAE246 /* Output.swift */,
+				C4A0D54A1C11746100BAE246 /* OutputParams.swift */,
+				C4A0D54B1C11746100BAE246 /* Range.swift */,
+				C4A0D54C1C11746100BAE246 /* RestaurantSearchRequest.swift */,
+				C4A0D54D1C11746100BAE246 /* Serializable.swift */,
+				C4A0D54E1C11746100BAE246 /* SortBy.swift */,
+				C4A0D54F1C11746100BAE246 /* TuningParams.swift */,
 				C4B14E331B80490C001E8B62 /* GetPromotionsRequest.swift */,
 				C4B14E351B80491B001E8B62 /* GetRestaurantsRequest.swift */,
 				C4B14E371B804927001E8B62 /* GetDishesRequest.swift */,
@@ -977,6 +1016,8 @@
 				CA203DB51C111EEA00D6F32C /* ListCandidateSubView.swift in Sources */,
 				CA203DB61C111EEA00D6F32C /* ListMemberViewController.swift in Sources */,
 				CA203DB71C111EEA00D6F32C /* GetListsRequest.swift in Sources */,
+				C4A0D5571C11746100BAE246 /* OutputParams.swift in Sources */,
+				C4A0D5561C11746100BAE246 /* Output.swift in Sources */,
 				CA203DB81C111EEA00D6F32C /* ListTableViewCell.swift in Sources */,
 				CA203DB91C111EEA00D6F32C /* UploadPictureResponse.swift in Sources */,
 				CA203DBA1C111EEA00D6F32C /* GetPromotionsRequest.swift in Sources */,
@@ -989,6 +1030,7 @@
 				CA203DC11C111EEA00D6F32C /* GetMessageByIdResponse.swift in Sources */,
 				CA203DC21C111EEA00D6F32C /* List.swift in Sources */,
 				CA203DC31C111EEA00D6F32C /* FloatingBubbleBehavior.swift in Sources */,
+				C4A0D5551C11746100BAE246 /* Location.swift in Sources */,
 				CA203DC41C111EEA00D6F32C /* MessageType.swift in Sources */,
 				CA203DC51C111EEA00D6F32C /* SignUpViewController.swift in Sources */,
 				CA203DC61C111EEA00D6F32C /* AllDishesHeaderView.swift in Sources */,
@@ -998,6 +1040,7 @@
 				CA203DCA1C111EEA00D6F32C /* NSDateExtension.swift in Sources */,
 				CA203DCB1C111EEA00D6F32C /* User.swift in Sources */,
 				CA203DCC1C111EEA00D6F32C /* LogOutRequest.swift in Sources */,
+				C4A0D55B1C11746100BAE246 /* SortBy.swift in Sources */,
 				CA203DCD1C111EEA00D6F32C /* LoginView.swift in Sources */,
 				CA203DCE1C111EEA00D6F32C /* NameOnlyDishTableViewCell.swift in Sources */,
 				CA203DCF1C111EEA00D6F32C /* SelectionPanelDelegateProtocol.swift in Sources */,
@@ -1009,6 +1052,7 @@
 				CA203DD51C111EEA00D6F32C /* GetRestaurantsRequest.swift in Sources */,
 				CA203DD61C111EEA00D6F32C /* Promotion.swift in Sources */,
 				CA203DD71C111EEA00D6F32C /* LoadMoreFooterView.swift in Sources */,
+				C4A0D5541C11746100BAE246 /* DistanceUnit.swift in Sources */,
 				CA203DD81C111EEA00D6F32C /* AcountManager.swift in Sources */,
 				CA203DD91C111EEA00D6F32C /* UploadPictureRequest.swift in Sources */,
 				CA203DDA1C111EEA00D6F32C /* GetRequestProtocol.swift in Sources */,
@@ -1024,11 +1068,14 @@
 				CA203DE41C111EEA00D6F32C /* SignUpResponse.swift in Sources */,
 				CA203DE51C111EEA00D6F32C /* SelectionPanel.swift in Sources */,
 				CA203DE61C111EEA00D6F32C /* GetRestaurantsResponse.swift in Sources */,
+				C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */,
 				CA203DE71C111EEA00D6F32C /* AppDelegate.swift in Sources */,
 				CA203DE81C111EEA00D6F32C /* ImageProgressiveTableView.swift in Sources */,
+				C4A0D5531C11746100BAE246 /* Distance.swift in Sources */,
 				CA203DE91C111EEA00D6F32C /* NickNameChangeViewController.swift in Sources */,
 				CA203DEA1C111EEA00D6F32C /* NotificationTableViewController.swift in Sources */,
 				CA203DEB1C111EEA00D6F32C /* LoginRequest.swift in Sources */,
+				C4A0D5501C11746100BAE246 /* CustomUIRefreshControl.swift in Sources */,
 				CA203DEC1C111EEA00D6F32C /* RestaurantTableViewCell.swift in Sources */,
 				CA203DED1C111EEA00D6F32C /* SlideBarDelegateProtocol.swift in Sources */,
 				CA203DEE1C111EEA00D6F32C /* ServiceConfiguration.swift in Sources */,
@@ -1044,6 +1091,7 @@
 				CA203DF81C111EEA00D6F32C /* Coupon.swift in Sources */,
 				CA203DF91C111EEA00D6F32C /* JSONHelperExtension.swift in Sources */,
 				CA203DFA1C111EEA00D6F32C /* AboutMeTableViewController.swift in Sources */,
+				C4A0D5591C11746100BAE246 /* RestaurantSearchRequest.swift in Sources */,
 				CA203DFB1C111EEA00D6F32C /* GetDishesRequest.swift in Sources */,
 				CA203DFC1C111EEA00D6F32C /* RestaurantsTableViewController.swift in Sources */,
 				CA203DFD1C111EEA00D6F32C /* FavoriteTypeEnum.swift in Sources */,
@@ -1053,12 +1101,14 @@
 				CA203E011C111EEA00D6F32C /* GetListByIdResponse.swift in Sources */,
 				CA203E021C111EEA00D6F32C /* LoginResponse.swift in Sources */,
 				CA203E031C111EEA00D6F32C /* VerticalLoginView.swift in Sources */,
+				C4A0D55C1C11746100BAE246 /* TuningParams.swift in Sources */,
 				CA203E041C111EEA00D6F32C /* UpdateInfoResponse.swift in Sources */,
 				CA203E051C111EEA00D6F32C /* SimpleDishTableViewCell.swift in Sources */,
 				CA203E061C111EEA00D6F32C /* Review.swift in Sources */,
 				CA203E071C111EEA00D6F32C /* StringUtil.swift in Sources */,
 				CA203E081C111EEA00D6F32C /* HttpClient.swift in Sources */,
 				CA203E091C111EEA00D6F32C /* GetDishByIdRequest.swift in Sources */,
+				C4A0D55A1C11746100BAE246 /* Serializable.swift in Sources */,
 				CA203E0A1C111EEA00D6F32C /* CouponTableViewCell.swift in Sources */,
 				CA203E0B1C111EEA00D6F32C /* LoginDelegate.swift in Sources */,
 				CA203E0C1C111EEA00D6F32C /* Message.swift in Sources */,
@@ -1070,6 +1120,8 @@
 				CA203E121C111EEA00D6F32C /* Error.swift in Sources */,
 				CA203E131C111EEA00D6F32C /* HorizontalLoginView.swift in Sources */,
 				CA203E141C111EEA00D6F32C /* MessageDetailViewController.swift in Sources */,
+				C4A0D5521C11746100BAE246 /* DishSearchRequest.swift in Sources */,
+				C4A0D5581C11746100BAE246 /* Range.swift in Sources */,
 				CA203E151C111EEA00D6F32C /* RestaurantAllDishViewController.swift in Sources */,
 				CA203E161C111EEA00D6F32C /* SignUpView.swift in Sources */,
 				CA203E171C111EEA00D6F32C /* PostRequestProtocol.swift in Sources */,
