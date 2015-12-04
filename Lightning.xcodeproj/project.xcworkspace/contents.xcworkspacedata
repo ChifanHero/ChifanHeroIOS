@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:SoHungry.xcodeproj">
+      location = "self:/Users/xnzhang/Documents/iOS Development/LightningIOS/Lightning.xcodeproj">
    </FileRef>
 </Workspace>

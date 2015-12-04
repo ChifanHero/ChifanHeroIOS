@@ -10,11 +10,10 @@ import Foundation
 
 class Promotion : Model{
     
-    var id : String?
-    var type : String?
-    var restaurant : Restaurant?
-    var dish : Dish?
-    var coupon : Coupon?
+    var id: String?
+    var type: String?
+    var restaurant: Restaurant?
+    var dish: Dish?
     
     required init() {
         
@@ -25,6 +24,5 @@ class Promotion : Model{
         type <-- data["type"]
         restaurant <-- data["restaurant"]
         dish <-- data["dish"]
-        coupon <-- data["coupon"]
     }
 }

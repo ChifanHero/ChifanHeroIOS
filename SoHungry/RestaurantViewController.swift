@@ -204,8 +204,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             }
             print(currentCell.info)
             print(info["phone"])
-            
+        
+        self.infoTableView.deselectRowAtIndexPath(indexPath, animated: true)    
         }
+        
     }
     
     func doUsingAppleMap(alertAction: UIAlertAction!) -> Void {

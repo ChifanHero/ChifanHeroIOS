@@ -16,10 +16,6 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     
     @IBOutlet weak var topContainerView: UIView!
     
-    let refreshControl = UIRefreshControl()
-    
-    var pendingOperations = PendingOperations()
-    var images = [PhotoRecord]()
     
     @IBAction func showHottestRestaurants(sender: AnyObject) {
         self.performSegueWithIdentifier("showRestaurants", sender: "hottest")
@@ -32,27 +28,67 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     @IBAction func showDishLists(sender: AnyObject) {
         self.performSegueWithIdentifier("showLists", sender: self)
     }
-    var promotions : [Promotion] = []
+    
+    let PROMOTIONS_LIMIT = 10
+    let PROMOTIONS_OFFSET = 0
+    let RESTAURANTS_LIMIT = 10
+    let RESTAURANTS_OFFSET = 0
+    let LISTS_LIMIT = 10
+    let LISTS_OFFSET = 0
+    
+    
+    let refreshControl = UIRefreshControl()
+    var pendingOperations = PendingOperations()
+    var images = [PhotoRecord]()
+    var promotions: [Promotion] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.containerView.addSubview(refreshControl)
-        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
-        self.promotionsTable.imageDelegate = self
-        loadTableData()
+        configurePullRefresh()
+        initPromotionsTable()
     }
     
-    func refresh(sender:AnyObject) {
-        loadTableData()
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    private func configurePullRefresh(){
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.containerView.addSubview(refreshControl)
+    }
+    
+    private func initPromotionsTable(){
+        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.promotionsTable.imageDelegate = self
+        loadPromotionsTableData()
+    }
+    
+    private func refresh(sender:AnyObject) {
+        loadPromotionsTableData()
+    }
+    
+    private func loadPromotionsTableData() {
+        let getPromotionsRequest = GetPromotionsRequest()
+        getPromotionsRequest.limit = PROMOTIONS_LIMIT
+        getPromotionsRequest.offset = PROMOTIONS_OFFSET
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.promotions = (response?.results)!
+                self.fetchImageDetails()
+                self.promotionsTable.reloadData()
+                self.adjustUI()
+                self.refreshControl.endRefreshing()
+            });
+        }
     }
     
     private func adjustUI() {
-        adjustPromotionTableHeight()
+        adjustPromotionsTableHeight()
         adjustContainerViewHeight()
     }
     
-    private func adjustPromotionTableHeight() {
+    private func adjustPromotionsTableHeight() {
         let originalFrame : CGRect = self.promotionsTable.frame
         self.promotionsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.promotionsTable.contentSize.height)
     }
@@ -65,29 +101,10 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
         self.containerView.contentSize = CGSizeMake(contentRect.width, contentRect.height)
     }
     
-    
-    
-    func loadTableData() {
-        let getPromotionsRequest = GetPromotionsRequest()
-        getPromotionsRequest.limit = 10
-        getPromotionsRequest.offset = 0
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                self.promotions = (response?.results)!
-                self.fetchImageDetails()
-                self.promotionsTable.reloadData()
-                self.adjustUI()
-                self.refreshControl.endRefreshing()
-            });
-        }
-    }
-    
     private func fetchImageDetails() {
-        for promotion : Promotion in self.promotions {
-            var url : String? = ""
-            if promotion.type == PromotionType.Coupon {
-                url = promotion.coupon?.restaurant?.picture?.original
-            } else if promotion.type == PromotionType.Dish {
+        for promotion: Promotion in self.promotions {
+            var url: String?
+            if promotion.type == PromotionType.Dish {
                 url = promotion.dish?.picture?.original
             } else if promotion.type == PromotionType.Restaurant {
                 url = promotion.restaurant?.picture?.original
@@ -99,22 +116,13 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
             self.images.append(record)
         }
     }
-    
-    private func getContainerViewSize() -> CGFloat {
-        return topContainerView.frame.size.height + 15 + self.promotionsTable.contentSize.height
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRestaurants" {
             let restaurantsController : RestaurantsTableViewController = segue.destinationViewController as! RestaurantsTableViewController
             let getRestaurantsRequest = GetRestaurantsRequest()
-            getRestaurantsRequest.limit = 10
-            getRestaurantsRequest.offset = 0
+            getRestaurantsRequest.limit = RESTAURANTS_LIMIT
+            getRestaurantsRequest.offset = RESTAURANTS_OFFSET
             if let s = sender as? String {
                 if s == "hottest" {
                     getRestaurantsRequest.sortParameter = SortParameter.Hotness
@@ -128,8 +136,8 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
             }
         } else if segue.identifier == "showLists" {
             let getListsRequest = GetListsRequest()
-            getListsRequest.limit = 10
-            getListsRequest.offset = 0
+            getListsRequest.limit = LISTS_LIMIT
+            getListsRequest.offset = LISTS_OFFSET
             let listsController : ListsTableViewController = segue.destinationViewController as! ListsTableViewController
             listsController.request = getListsRequest
         } else if segue.identifier == "showRestaurant" {
@@ -138,12 +146,12 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
         }
     }
     
-    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+    internal func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
         return self.images[indexPath.section]
     }
 }
 
-extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return 1
     }
@@ -190,23 +198,6 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
             default: break
             }
             return cell!
-        } else if type == PromotionType.Coupon {
-            var cell : CouponTableViewCell? = tableView.dequeueReusableCellWithIdentifier("couponCell") as? CouponTableViewCell
-            if cell == nil {
-                tableView.registerNib(UINib(nibName: "CouponCell", bundle: nil), forCellReuseIdentifier: "couponCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("couponCell") as? CouponTableViewCell
-            }
-            let imageDetails = imageForIndexPath(tableView: self.promotionsTable, indexPath: indexPath)
-            cell?.setUp(coupon: promotions[indexPath.section].coupon!, image: imageDetails.image!)
-            
-            switch (imageDetails.state){
-            case .New:
-                if (!tableView.dragging && !tableView.decelerating) {
-                    self.promotionsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-                }
-            default: break
-            }
-            return cell!
         } else {
             return UITableViewCell()
         }
@@ -224,8 +215,6 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
             return RestaurantTableViewCell.height
         } else if promotions[indexPath.section].type == PromotionType.Dish {
             return DishTableViewCell.height
-        } else if promotions[indexPath.section].type == PromotionType.Coupon {
-            return CouponTableViewCell.height
         }
         return 200
     }
@@ -237,6 +226,8 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
             let restaurant : Restaurant = promotions[indexPath.section].restaurant!
             self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
         }
+        
+        self.promotionsTable.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -245,7 +236,6 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
         } else {
             return 10
         }
-        
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -11,9 +11,9 @@ import UIKit
 class LoginViewController: UIViewController, LoginDelegate {
     
     var verticalLoginView: VerticalLoginView?
-    var horizontalLoginView : HorizontalLoginView?
-    var currentLoginView : LoginView?
-    var previousLoginView : LoginView?
+    var horizontalLoginView: HorizontalLoginView?
+    var currentLoginView: LoginView?
+    var previousLoginView: LoginView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     private func isLoggedIn() -> Bool{
-        let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if let result: Bool? = defaults.boolForKey("isLoggedIn"){
             return result!
         } else{
@@ -105,7 +105,7 @@ class LoginViewController: UIViewController, LoginDelegate {
         tabBarController.setViewControllers(viewControllers, animated: false)
     }
     
-    func getAboutMeNavigationController() -> UINavigationController {
+    private func getAboutMeNavigationController() -> UINavigationController {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let aboutMeNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("AboutMeNavigationController") as! UINavigationController
         aboutMeNC.tabBarItem = UITabBarItem(title: "About me", image: UIImage(named: "about me"), tag: 3)
@@ -132,7 +132,7 @@ class LoginViewController: UIViewController, LoginDelegate {
         }
     }
     
-    private func setupNewLoginView(size : CGSize) {
+    private func setupNewLoginView(size: CGSize) {
         previousLoginView = currentLoginView
         if (size.width > size.height) {
             

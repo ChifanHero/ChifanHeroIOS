@@ -9,8 +9,6 @@
 import Foundation
 
 class PromotionType {
-    
     static let Restaurant = "restaurant"
     static let Dish = "dish"
-    static let Coupon = "coupon"
 }

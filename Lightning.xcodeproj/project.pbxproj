@@ -174,6 +174,7 @@
 		CA850AE61C0419D300D497D4 /* UpdateInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE51C0419D300D497D4 /* UpdateInfoResponse.swift */; };
 		CA850AE81C066FF200D497D4 /* LogOutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE71C066FF200D497D4 /* LogOutRequest.swift */; };
 		CA850AEA1C06702D00D497D4 /* LogOutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE91C06702D00D497D4 /* LogOutResponse.swift */; };
+		CA850AEE1C0F834400D497D4 /* CommentRestaurantRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AED1C0F834400D497D4 /* CommentRestaurantRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -373,6 +374,7 @@
 		CA850AE51C0419D300D497D4 /* UpdateInfoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateInfoResponse.swift; sourceTree = "<group>"; };
 		CA850AE71C066FF200D497D4 /* LogOutRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogOutRequest.swift; sourceTree = "<group>"; };
 		CA850AE91C06702D00D497D4 /* LogOutResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogOutResponse.swift; sourceTree = "<group>"; };
+		CA850AED1C0F834400D497D4 /* CommentRestaurantRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentRestaurantRequest.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -517,7 +519,6 @@
 				C42D9BFE1B726B540035C5A6 /* Restaurant.swift */,
 				C43728211B8122B5009121C9 /* Review.swift */,
 				C437282A1B81668C009121C9 /* Error.swift */,
-				C43B39801B85A8ED00516248 /* PromotionType.swift */,
 				C4BDFC041B96CD0B0065F285 /* MessageType.swift */,
 				C46CB8D01BA00978000D1006 /* MenuItem.swift */,
 			);
@@ -738,6 +739,7 @@
 				C4D300101BC1B4FC00807C4D /* LoginRequest.swift */,
 				CA850AE31C04188A00D497D4 /* UpdateInfoRequest.swift */,
 				CA850AE71C066FF200D497D4 /* LogOutRequest.swift */,
+				CA850AED1C0F834400D497D4 /* CommentRestaurantRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -798,6 +800,7 @@
 			isa = PBXGroup;
 			children = (
 				CA37EE631BF6A86700DA3071 /* FavoriteTypeEnum.swift */,
+				C43B39801B85A8ED00516248 /* PromotionType.swift */,
 			);
 			name = Enum;
 			sourceTree = "<group>";
@@ -881,7 +884,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42D9BBB1B69EF2D0035C5A6 /* Build configuration list for PBXProject "SoHungry" */;
+			buildConfigurationList = C42D9BBB1B69EF2D0035C5A6 /* Build configuration list for PBXProject "Lightning" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1017,6 +1020,7 @@
 				CA850AE01C03CF6800D497D4 /* UploadPictureRequest.swift in Sources */,
 				C4B14E411B804A66001E8B62 /* GetRequestProtocol.swift in Sources */,
 				C43B9A4A1BDED0EC00FD50FF /* ImageProgressiveCollectionView.swift in Sources */,
+				CA850AEE1C0F834400D497D4 /* CommentRestaurantRequest.swift in Sources */,
 				C49BF32D1BC4EA940097CBE0 /* SelectionBar.swift in Sources */,
 				C437281B1B8121D7009121C9 /* Picture.swift in Sources */,
 				C461DB861BD2CE7D009032C8 /* PhotoOperations.swift in Sources */,
@@ -1306,7 +1310,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42D9BBB1B69EF2D0035C5A6 /* Build configuration list for PBXProject "SoHungry" */ = {
+		C42D9BBB1B69EF2D0035C5A6 /* Build configuration list for PBXProject "Lightning" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42D9BE81B69EF2D0035C5A6 /* Debug */,
