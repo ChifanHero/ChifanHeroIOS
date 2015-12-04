@@ -1,9 +1,9 @@
 //
 //  SignUpRequest.swift
-//  SoHungry
+//  Lightning
 //
 //  Created by Zhang, Alex on 11/3/15.
-//  Copyright © 2015 Shi Yan. All rights reserved.
+//  Copyright © 2015 Lightning. All rights reserved.
 //
 
 import Foundation

@@ -1093,7 +1093,7 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SnI-Ci-tXQ"/>
         <segue reference="tIf-c0-cls"/>
+        <segue reference="eB3-xn-ixp"/>
     </inferredMetricsTieBreakers>
 </document>
