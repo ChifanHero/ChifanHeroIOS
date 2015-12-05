@@ -64,7 +64,7 @@ class CouponTableViewCell: UITableViewCell {
     func setUp(coupon coupon : Coupon, image : UIImage) {
         restaurantNameLabel.text = coupon.restaurant?.name
         restaurantAddressLabel.text = coupon.restaurant?.address
-        restaurantDistanceLabel.text = coupon.restaurant?.distance
+        restaurantDistanceLabel.text = String(coupon.restaurant?.distance?.value)
         restaurantImageView.image = image
     }
 

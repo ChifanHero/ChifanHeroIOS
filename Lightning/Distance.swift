@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Distance: Serializable {
+class Distance: Serializable, Model{
     
     var value : Double?
     var unit : String?
@@ -18,5 +18,14 @@ class Distance: Serializable {
         parameters["value"] = value
         parameters["unit"] = unit
         return parameters
+    }
+    
+    required init() {
+        
+    }
+    
+    required init(data: [String : AnyObject]) {
+        value <-- data["value"]
+        unit <-- data["unit"]
     }
 }

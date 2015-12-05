@@ -51,7 +51,15 @@ class RestaurantTableViewCell: UITableViewCell {
     func setUp(restaurant restaurant : Restaurant, image : UIImage) {
         nameLabel.text = restaurant.name
         addressLabel.text = restaurant.address
-        distanceLabel.text = restaurant.distance
+//        if let distance = restaurant.distance?.value && unit = restaurant.distance?.unit{
+//            distanceLabel.text = String(restaurant.distance?.value!) + " " + unit
+//        }
+        if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
+            let value = restaurant.distance?.value
+            let unit = restaurant.distance?.unit
+            distanceLabel.text = String(value!) + " " + unit!
+        }
+        
         restaurantImageView.image = image
     }
 

@@ -29,6 +29,8 @@ import UIKit
     private var view : UIView!
     private var nibName : String = "SelectionBar"
     
+    var scope : String = "restaurant"
+    
     
     @IBOutlet var buttons: [UIButton]!
     
@@ -70,15 +72,18 @@ import UIKit
     }
 
     @IBAction func restaurantButtonClicked(sender: AnyObject) {
+        scope = "restaurant"
         toggleButtonStatus(sender)
     }
 
     @IBAction func dishButtonPressed(sender: AnyObject) {
+        scope = "dish"
         toggleButtonStatus(sender)
     }
     
     
     @IBAction func listButtonPressed(sender: AnyObject) {
+        scope = "list"
         toggleButtonStatus(sender)
     }
     

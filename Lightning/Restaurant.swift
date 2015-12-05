@@ -15,7 +15,7 @@ class Restaurant : Model{
     var englishName : String?
     var picture : Picture?
     var address : String?
-    var distance : String?
+    var distance : Distance?
     var favoriteCount : Int?
     var likeCount : Int?
     var dislikeCount : Int?
