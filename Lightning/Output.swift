@@ -12,4 +12,11 @@ class Output: Serializable {
     
     var fields : [String]?
     var params : OutputParams?
+    
+    func getProperties() -> [String : AnyObject] {
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["fields"] = fields
+        parameters["params"] = params?.getProperties()
+        return parameters
+    }
 }

@@ -17,7 +17,13 @@ class DishListSearchRequest : PostRequestProtocol{
     var sortOrder : String?
     
     func getRequestBody() -> [String : AnyObject] {
-        
+        let requestBody = Dictionary<String, AnyObject>()
+        return requestBody
     }
+    
+    func getRelativeURL() -> String {
+        return "/search/list"
+    }
+    
     
 }

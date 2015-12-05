@@ -11,4 +11,10 @@ import Foundation
 class TuningParams: Serializable {
     
     var relevanceScoreThreshold : Float?
+    
+    func getProperties() -> [String : AnyObject] {
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["relevance_score_threshold"] = relevanceScoreThreshold
+        return parameters
+    }
 }

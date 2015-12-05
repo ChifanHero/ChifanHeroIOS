@@ -35,9 +35,12 @@ class NotificationTableViewController: UITableViewController {
         if request != nil {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getMessages(request!) { (response) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.messages = (response?.results)!
-                    self.refreshControl?.endRefreshing()
-                    self.tableView.reloadData()
+                    if let results = response?.results {
+                        self.messages = results
+                        self.refreshControl?.endRefreshing()
+                        self.tableView.reloadData()
+                    }
+                    
                 });
             }
         }

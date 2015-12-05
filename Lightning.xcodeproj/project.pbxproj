@@ -740,7 +740,6 @@
 				C4A0D54A1C11746100BAE246 /* OutputParams.swift */,
 				C4A0D54B1C11746100BAE246 /* Range.swift */,
 				C4A0D54C1C11746100BAE246 /* RestaurantSearchRequest.swift */,
-				C4A0D54D1C11746100BAE246 /* Serializable.swift */,
 				C4A0D54E1C11746100BAE246 /* SortBy.swift */,
 				C4A0D54F1C11746100BAE246 /* TuningParams.swift */,
 				C4B14E331B80490C001E8B62 /* GetPromotionsRequest.swift */,
@@ -797,6 +796,7 @@
 				C4B14E471B805123001E8B62 /* ModelProtocol.swift */,
 				C43728281B815C8F009121C9 /* JSONHelperExtension.swift */,
 				C437282C1B82ED06009121C9 /* HttpRequestProtocol.swift */,
+				C4A0D54D1C11746100BAE246 /* Serializable.swift */,
 			);
 			name = Base;
 			sourceTree = "<group>";

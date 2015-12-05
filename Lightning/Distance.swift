@@ -12,4 +12,11 @@ class Distance: Serializable {
     
     var value : Double?
     var unit : String?
+    
+    func getProperties() -> [String : AnyObject] {
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["value"] = value
+        parameters["unit"] = unit
+        return parameters
+    }
 }
