@@ -30,7 +30,7 @@ class DishListSearchRequest : PostRequestProtocol{
         requestBody["parameters"] = parameters?.getProperties()
         requestBody["output"] = output?.getProperties()
         requestBody["user_location"] = userLocation?.getProperties()
-        requestBody["range"] = range!.getProperties()
+        requestBody["range"] = range?.getProperties()
         return requestBody
     }
     

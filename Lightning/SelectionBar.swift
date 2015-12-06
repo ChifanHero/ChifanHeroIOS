@@ -18,6 +18,8 @@ import UIKit
     }
     */
     
+    var delegate : SelectionBarDelegate?
+    
     @IBInspectable var boarderColor : UIColor? {
         didSet {
             for button in buttons {
@@ -74,17 +76,20 @@ import UIKit
     @IBAction func restaurantButtonClicked(sender: AnyObject) {
         scope = "restaurant"
         toggleButtonStatus(sender)
+        delegate?.restaurantButtonClicked()
     }
 
     @IBAction func dishButtonPressed(sender: AnyObject) {
         scope = "dish"
         toggleButtonStatus(sender)
+        delegate?.dishButtonPressed()
     }
     
     
     @IBAction func listButtonPressed(sender: AnyObject) {
         scope = "list"
         toggleButtonStatus(sender)
+        delegate?.listButtonPressed()
     }
     
     private func toggleButtonStatus(sender: AnyObject) {

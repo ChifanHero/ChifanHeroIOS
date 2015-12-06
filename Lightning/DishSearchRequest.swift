@@ -34,7 +34,7 @@ class DishSearchRequest : PostRequestProtocol{
         requestBody["user_location"] = userLocation?.getProperties()
         requestBody["restaurant_id"] = restaurantId
         requestBody["menu_id"] = menuId
-        requestBody["range"] = range!.getProperties()
+        requestBody["range"] = range?.getProperties()
         return requestBody
     }
     

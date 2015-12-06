@@ -267,6 +267,48 @@ class DataAccessor {
         
     }
     
+    func searchDishes(request: DishSearchRequest, responseHandler : (DishSearchResponse?) -> Void) {
+        let httpClient = HttpClient()
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        
+        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
+            var dishSearchResponse: DishSearchResponse?
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    dishSearchResponse = DishSearchResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(dishSearchResponse)
+        }
+    }
+    
+    func searchLists(request: DishListSearchRequest, responseHandler : (DishListSearchResponse?) -> Void) {
+        let httpClient = HttpClient()
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        
+        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
+            var dishListSearchResponse: DishListSearchResponse?
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    dishListSearchResponse = DishListSearchResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(dishListSearchResponse)
+        }
+    }
+    
     
     
 }

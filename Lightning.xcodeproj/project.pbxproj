@@ -26,6 +26,7 @@
 		C4A0D5651C137DEA00BAE246 /* DishListSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5641C137DEA00BAE246 /* DishListSearchResponse.swift */; };
 		C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5671C138B9700BAE246 /* SearchServiceConfiguration.swift */; };
 		C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BC1C13A1060024C287 /* UserContext.swift */; };
+		C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */; };
 		CA203DA21C111EEA00D6F32C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3000C1BC1037B00807C4D /* LoginViewController.swift */; };
 		CA203DA31C111EEA00D6F32C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */; };
 		CA203DA41C111EEA00D6F32C /* LogOutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE91C06702D00D497D4 /* LogOutResponse.swift */; };
@@ -370,6 +371,7 @@
 		C4F039E11BC347B500183AC2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C4F039E31BC347C100183AC2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C4F207BC1C13A1060024C287 /* UserContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserContext.swift; sourceTree = "<group>"; };
+		C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionBarDelegate.swift; sourceTree = "<group>"; };
 		C4F9CB721B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanelDelegateProtocol.swift; sourceTree = "<group>"; };
 		C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantAllDishViewController.swift; sourceTree = "<group>"; };
 		CA203E4D1C111EEA00D6F32C /* Lightning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lightning.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -678,6 +680,7 @@
 				C48042B21BDDA957003135D2 /* BubbleButton.swift */,
 				C4A821E11BE3257000D1D4B7 /* RecommendationsHeaderView.swift */,
 				C4DB3E221BE6717A00076A57 /* ListCandidateConfirmationView.swift */,
+				C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -1129,6 +1132,7 @@
 				CA203DF01C111EEA00D6F32C /* GetDishByIdResponse.swift in Sources */,
 				CA203DF11C111EEA00D6F32C /* GetListsResponse.swift in Sources */,
 				C4A0D5631C137DDB00BAE246 /* DishSearchResponse.swift in Sources */,
+				C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */,
 				CA203DF21C111EEA00D6F32C /* AboutMeNavigationController.swift in Sources */,
 				CA203DF31C111EEA00D6F32C /* PromotionType.swift in Sources */,
 				CA203DF41C111EEA00D6F32C /* InfoTableViewCell.swift in Sources */,
