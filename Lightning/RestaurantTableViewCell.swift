@@ -44,7 +44,7 @@ class RestaurantTableViewCell: UITableViewCell {
             let unit = restaurant.distance?.unit
             distanceLabel.text = String(value!) + " " + unit!
         }
-        
+        ratingLabel.text = computePositiveRatingRate(positive: restaurant.likeCount!, negative: restaurant.dislikeCount!, neutral: restaurant.neutralCount!)
         restaurantImageView.image = image
     }
     
