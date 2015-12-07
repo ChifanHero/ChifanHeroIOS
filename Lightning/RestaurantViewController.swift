@@ -263,6 +263,45 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        if tableView == hotDishesTableView{
+            let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏", handler:{(action, indexpath) -> Void in
+                self.addToFavorites(indexPath)
+                tableView.setEditing(false, animated: true)
+            });
+            bookmarkAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+            
+            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好评", handler:{(action, indexpath) -> Void in
+                self.rateDish(indexPath, ratingType: RatingTypeEnum.like)
+                tableView.setEditing(false, animated: true)
+            });
+            likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+            
+            let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般", handler:{(action, indexpath) -> Void in
+                self.rateDish(indexPath, ratingType: RatingTypeEnum.neutral)
+                tableView.setEditing(false, animated: true)
+            });
+            neutralAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+            
+            let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "差评", handler:{(action, indexpath) -> Void in
+                self.rateDish(indexPath, ratingType: RatingTypeEnum.dislike)
+                tableView.setEditing(false, animated: true)
+            });
+            dislikeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+            
+            return [bookmarkAction, dislikeAction, neutralAction, likeAction];
+        }
+        return [];
+    }
+    
+    private func addToFavorites(indexPath: NSIndexPath){
+        
+    }
+    
+    private func rateDish(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
+        
+    }
+    
     func headerViewActionButtonPressed() {
         self.performSegueWithIdentifier("showAllDishes", sender: self.restaurantId)
     }

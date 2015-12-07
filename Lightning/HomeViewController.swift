@@ -250,14 +250,61 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏", handler:{action, indexpath in
-            print("MORE•ACTION");
+        let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏", handler:{(action, indexpath) -> Void in
+            self.addToFavorites(indexPath)
             tableView.setEditing(false, animated: true)
-            
         });
         bookmarkAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
-        return [bookmarkAction];
+        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好评", handler:{(action, indexpath) -> Void in
+            self.ratePromotion(indexPath, ratingType: RatingTypeEnum.like)
+            tableView.setEditing(false, animated: true)
+        });
+        likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        
+        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般", handler:{(action, indexpath) -> Void in
+            self.ratePromotion(indexPath, ratingType: RatingTypeEnum.neutral)
+            tableView.setEditing(false, animated: true)
+        });
+        neutralAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        
+        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "差评", handler:{(action, indexpath) -> Void in
+            self.ratePromotion(indexPath, ratingType: RatingTypeEnum.dislike)
+            tableView.setEditing(false, animated: true)
+        });
+        dislikeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        
+        return [bookmarkAction, dislikeAction, neutralAction, likeAction];
+    }
+    
+    private func addToFavorites(indexPath: NSIndexPath){
+        
+    }
+    
+    private func ratePromotion(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
+        var request: RateRequest = RateRequest()
+        if ratingType == RatingTypeEnum.like {
+            request.action = "like"
+        } else if ratingType == RatingTypeEnum.dislike {
+            request.action = "dislike"
+        } else {
+            request.action = "neutral"
+        }
+        request.type = promotions[indexPath.row].type
+        if request.type == "dish" {
+            request.objectId = promotions[indexPath.row].dish?.id
+        } else if request.type == "restaurant" {
+            request.objectId = promotions[indexPath.row].restaurant?.id
+        }
+        request.objectId = promotions[indexPath.row].id
+        DataAccessor(serviceConfiguration: ParseConfiguration()).rate(request) { (response) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                
+                print("hello")
+                
+                
+            });
+        }
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

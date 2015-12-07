@@ -37,6 +37,7 @@ class Restaurant : Model{
         distance <-- data["distance"]
         favoriteCount <-- data["favorite_count"]
         likeCount <-- data["like_count"]
+        dislikeCount <-- data["dislike_count"]
         neutralCount <-- data["neutral_count"]
         phone <-- data["phone"]
         hours <-- data["hours"]

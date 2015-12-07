@@ -10,24 +10,7 @@ import UIKit
 
 class RestaurantTableViewCell: UITableViewCell {
     
-    static var height : CGFloat = 100
-    
-//    var model : Model? {
-//        didSet {
-//            if let restaurant = model as? Restaurant {
-//                nameLabel.text = restaurant.name
-//                addressLabel.text = restaurant.address
-//                distanceLabel.text = restaurant.distance
-//                if let imageURL = restaurant.picture?.original {
-//                    let url = NSURL(string: imageURL)
-//                    let data = NSData(contentsOfURL: url!)
-//                    let image = UIImage(data: data!)
-//                    restaurantImageView.image = image
-//                }
-//            }
-//            
-//        }
-//    }
+    static var height: CGFloat = 100
     
     @IBOutlet weak var restaurantImageView: UIImageView!
     
@@ -36,6 +19,8 @@ class RestaurantTableViewCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     
     @IBOutlet weak var distanceLabel: UILabel!
+    
+    @IBOutlet weak var ratingLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,7 +33,7 @@ class RestaurantTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setUp(restaurant restaurant : Restaurant, image : UIImage) {
+    func setUp(restaurant restaurant: Restaurant, image: UIImage) {
         nameLabel.text = restaurant.name
         addressLabel.text = restaurant.address
 //        if let distance = restaurant.distance?.value && unit = restaurant.distance?.unit{
@@ -61,6 +46,18 @@ class RestaurantTableViewCell: UITableViewCell {
         }
         
         restaurantImageView.image = image
+    }
+    
+    private func computePositiveRatingRate(positive positive: Int, negative: Int, neutral: Int) -> String{
+        if (positive + negative + neutral) == 0{
+            return "尚未评价"
+        }
+        
+        let pos = Double(positive)
+        let neg = Double(negative)
+        let neu = Double(neutral)
+        let result:Double = (pos * 1.0 + neu * 0.7) / (pos + neg + neu) * 100.00
+        return String(format:"%.1f", result) + "%"
     }
 
 }

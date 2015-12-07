@@ -8,15 +8,15 @@
 
 import Foundation
 
-class Review : Model {
+class Rating: Model {
     
-    var id : String?
-    var type : String?
-    var action : String?
-    var user : User?
-    var dish : Dish?
-    var restaurant : Restaurant?
-    var list : List?
+    var id: String?
+    var type: String?
+    var action: String?
+    var user: User?
+    var dish: Dish?
+    var restaurant: Restaurant?
+    var list: List?
     
     required init() {
        

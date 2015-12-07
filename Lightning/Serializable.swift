@@ -10,5 +10,5 @@ import Foundation
 
 protocol Serializable {
     
-    func getProperties() -> [String : AnyObject]
+    //func getProperties() -> [String : AnyObject]
 }
