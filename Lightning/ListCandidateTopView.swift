@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable class ListCandidateTopView: UIView {
+@IBDesignable class ListCandidateTopView: UIView, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -38,6 +38,13 @@ import UIKit
         return self.subView.submitButton
     }
     
+    @IBOutlet weak var searchTextField: UITextField!
+    
+    var restaurants : [Restaurant] = [Restaurant]()
+    
+    @IBOutlet weak var searchResultsTable: UITableView!
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -65,6 +72,10 @@ import UIKit
         addSubview(view)
         view.frame = bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        searchTextField.delegate = self
+        searchTextField.addTarget(self, action: "textFieldDidChange:", forControlEvents: UIControlEvents.EditingChanged)
+        searchResultsTable.delegate = self
+        searchResultsTable.dataSource = self
         UISetup()
     }
     
@@ -76,6 +87,7 @@ import UIKit
         subView.layer.borderWidth = 1.5
         subView.layer.borderColor = UIColor.lightGrayColor().CGColor
         nextStepButton.layer.cornerRadius = 5
+        searchResultsTable.hidden = true
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -92,6 +104,73 @@ import UIKit
             }) { (success) -> Void in
                 self.contentViewCollapsed = true
         }
+    }
+    
+    func textFieldDidChange(textField: UITextField) {
+        if let keyword = textField.text {
+            if keyword == "" {
+                self.restaurants.removeAll()
+                self.searchResultsTable.reloadData()
+            } else {
+                searchRestaurant(keyword: keyword)
+            }
+        }
+    }
+    
+    func searchRestaurant(keyword keyword : String) {
+        cleanStates()
+        let request : RestaurantSearchRequest = RestaurantSearchRequest()
+        request.keyword = keyword
+        //TODO : get range from list properties and set in the request.
+        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                if let results = searchResponse?.results {
+                    self.cleanStates()
+                    self.restaurants += results
+                    self.searchResultsTable.hidden = false
+                    self.searchResultsTable.reloadData()
+                    self.adjustSearchResultsTableHeight()
+                }
+                
+            })
+        }
+    }
+    
+    func cleanStates() {
+        self.restaurants.removeAll()
+    }
+    
+    func adjustSearchResultsTableHeight() {
+        let originalFrame : CGRect = self.searchResultsTable.frame
+        self.searchResultsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.searchResultsTable.contentSize.height)
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.restaurants.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell : RestaurantNameAddressTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameAddressRestaurantCell") as? RestaurantNameAddressTableViewCell
+        if cell == nil {
+            tableView.registerNib(UINib(nibName: "NameAddressRestaurantCell", bundle: nil), forCellReuseIdentifier: "nameAddressRestaurantCell")
+            cell = tableView.dequeueReusableCellWithIdentifier("nameAddressRestaurantCell") as? RestaurantNameAddressTableViewCell
+        }
+        let restaurant : Restaurant = self.restaurants[indexPath.row]
+        cell?.setUp(restaurant: restaurant)
+        return cell!
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return RestaurantNameAddressTableViewCell.height
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {   //delegate method
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.subView.restaurantId = restaurants[indexPath.row].id
     }
 
 }

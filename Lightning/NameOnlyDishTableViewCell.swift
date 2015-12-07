@@ -10,7 +10,7 @@ import UIKit
 
 class NameOnlyDishTableViewCell: UITableViewCell {
     
-    static var height : CGFloat = 150    
+    static var height : CGFloat = 82
     
     @IBOutlet weak var dishImageView: UIImageView!
     

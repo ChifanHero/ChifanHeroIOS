@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable class ListCandidateSubView: UIView {
+@IBDesignable class ListCandidateSubView: UIView, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, ImageProgressiveTableViewDelegate {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -33,6 +33,21 @@ import UIKit
     
     var subViewTopToHeaderViewBottom : NSLayoutConstraint!
     
+    var restaurantId : String? {
+        didSet {
+            searchDish(restaurantId: restaurantId!)
+        }
+    }
+    
+    var dishes : [Dish] = [Dish]()
+    
+    var pendingOperations = PendingOperations()
+    var dishImages : [PhotoRecord] = [PhotoRecord]()
+    
+    @IBOutlet weak var searchResultsTable: ImageProgressiveTableView!
+    
+    @IBOutlet weak var searchTextField: UITextField!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         Setup() // Setup when this component is used from Storyboard
@@ -49,6 +64,9 @@ import UIKit
         addSubview(view)
         view.frame = bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        searchTextField.delegate = self
+        searchResultsTable.delegate = self
+        searchResultsTable.dataSource = self
         UISetup()
     }
     
@@ -60,6 +78,7 @@ import UIKit
         subView.layer.borderWidth = 1.5
         subView.layer.borderColor = UIColor.lightGrayColor().CGColor
         confirmButton.layer.cornerRadius = 5
+        searchResultsTable.hidden = true
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -88,5 +107,75 @@ import UIKit
                     self.contentViewCollapsed = false
             }
         }
+    }
+    
+    func searchDish(restaurantId restaurantId : String) {
+        let request : DishSearchRequest = DishSearchRequest()
+        request.restaurantId = restaurantId
+        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchDishes(request) { (searchResponse) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                if let results = searchResponse?.results {
+                    self.cleanStates()
+                    self.dishes += results
+                    for dish : Dish in results {
+                        var url = dish.picture?.original
+                        if url == nil {
+                            url = ""
+                        }
+                        let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+                        self.dishImages.append(record)
+                    }
+                    self.searchResultsTable.hidden = false
+                    self.searchResultsTable.reloadData()
+                    self.adjustSearchResultsTableHeight()
+                }
+                
+            })
+        }
+    }
+    
+    func cleanStates() {
+        self.dishImages.removeAll()
+        self.dishes.removeAll()
+    }
+    
+    func adjustSearchResultsTableHeight() {
+        let originalFrame : CGRect = self.searchResultsTable.frame
+        self.searchResultsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.searchResultsTable.contentSize.height)
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.dishes.count
+    }
+    
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell : NameOnlyDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
+        if cell == nil {
+            tableView.registerNib(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
+            cell = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
+        }
+        let imageDetails = imageForIndexPath(tableView: self.searchResultsTable, indexPath: indexPath)
+        let dish : Dish?
+        dish = self.dishes[indexPath.row]
+        cell?.setUp(dish: dish!, image: imageDetails.image!)
+        switch (imageDetails.state){
+        case .New:
+            if (!tableView.dragging && !tableView.decelerating) {
+                self.searchResultsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
+            }
+        default: break
+        }
+        
+        
+        return cell!
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return NameOnlyDishTableViewCell.height
+    }
+    
+    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+        return dishImages[indexPath.row]
     }
 }

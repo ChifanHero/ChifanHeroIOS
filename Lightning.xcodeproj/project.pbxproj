@@ -27,6 +27,8 @@
 		C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5671C138B9700BAE246 /* SearchServiceConfiguration.swift */; };
 		C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BC1C13A1060024C287 /* UserContext.swift */; };
 		C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */; };
+		C4F207C11C14E5550024C287 /* NameAddressRestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */; };
+		C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */; };
 		CA203DA21C111EEA00D6F32C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3000C1BC1037B00807C4D /* LoginViewController.swift */; };
 		CA203DA31C111EEA00D6F32C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */; };
 		CA203DA41C111EEA00D6F32C /* LogOutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE91C06702D00D497D4 /* LogOutResponse.swift */; };
@@ -372,6 +374,8 @@
 		C4F039E31BC347C100183AC2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C4F207BC1C13A1060024C287 /* UserContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserContext.swift; sourceTree = "<group>"; };
 		C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionBarDelegate.swift; sourceTree = "<group>"; };
+		C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NameAddressRestaurantCell.xib; sourceTree = "<group>"; };
+		C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantNameAddressTableViewCell.swift; sourceTree = "<group>"; };
 		C4F9CB721B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanelDelegateProtocol.swift; sourceTree = "<group>"; };
 		C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantAllDishViewController.swift; sourceTree = "<group>"; };
 		CA203E4D1C111EEA00D6F32C /* Lightning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lightning.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -580,6 +584,7 @@
 				C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */,
 				C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */,
 				C43B9A471BDEBFC300FD50FF /* PhotoCollectionViewCell.swift */,
+				C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -650,6 +655,7 @@
 				C43B9A451BDEBE8F00FD50FF /* PhotoCollectionCell.xib */,
 				C4A821DF1BE324A300D1D4B7 /* RecommendationsHeaderView.xib */,
 				CA7A4F631BE73F550016BC56 /* SignUpView.xib */,
+				C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -1010,6 +1016,7 @@
 				CA203E421C111EEA00D6F32C /* SignUpView.xib in Resources */,
 				CA203E431C111EEA00D6F32C /* InfoCell.xib in Resources */,
 				CA203E441C111EEA00D6F32C /* PhotoCollectionCell.xib in Resources */,
+				C4F207C11C14E5550024C287 /* NameAddressRestaurantCell.xib in Resources */,
 				CA203E451C111EEA00D6F32C /* SlideBar.xib in Resources */,
 				CA203E461C111EEA00D6F32C /* Main.storyboard in Resources */,
 				CA203E471C111EEA00D6F32C /* ListCell.xib in Resources */,
@@ -1141,6 +1148,7 @@
 				CA203DF71C111EEA00D6F32C /* GetRestaurantMenuRequest.swift in Sources */,
 				CA203DF81C111EEA00D6F32C /* Coupon.swift in Sources */,
 				CA203DF91C111EEA00D6F32C /* JSONHelperExtension.swift in Sources */,
+				C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */,
 				CA203DFA1C111EEA00D6F32C /* AboutMeTableViewController.swift in Sources */,
 				C4A0D5591C11746100BAE246 /* RestaurantSearchRequest.swift in Sources */,
 				CA203DFB1C111EEA00D6F32C /* GetDishesRequest.swift in Sources */,
