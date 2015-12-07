@@ -1121,7 +1121,7 @@
 				CA203DDA1C111EEA00D6F32C /* GetRequestProtocol.swift in Sources */,
 				CA203DDB1C111EEA00D6F32C /* ImageProgressiveCollectionView.swift in Sources */,
 				C4A0D5611C137DCC00BAE246 /* RestaurantSearchResponse.swift in Sources */,
-				CA203DDC1C111EEA00D6F32C /* CommentRestaurantRequest.swift in Sources */,
+				CA203DDC1C111EEA00D6F32C /* RateRequest.swift in Sources */,
 				CA203DDD1C111EEA00D6F32C /* SelectionBar.swift in Sources */,
 				CA203DDE1C111EEA00D6F32C /* Picture.swift in Sources */,
 				CA203DDF1C111EEA00D6F32C /* PhotoOperations.swift in Sources */,
