@@ -197,6 +197,8 @@
 		CA203E491C111EEA00D6F32C /* SimpleCouponCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43B399B1B8850B100516248 /* SimpleCouponCell.xib */; };
 		CA203E521C124AF900D6F32C /* RatingTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E511C124AF900D6F32C /* RatingTypeEnum.swift */; };
 		CA203E541C12732600D6F32C /* RateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E531C12732600D6F32C /* RateResponse.swift */; };
+		CA203E561C1655D800D6F32C /* AddToFavoritesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */; };
+		CA203E581C16561500D6F32C /* AddToFavoritesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E571C16561500D6F32C /* AddToFavoritesResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -383,6 +385,8 @@
 		CA203E4D1C111EEA00D6F32C /* Lightning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lightning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA203E511C124AF900D6F32C /* RatingTypeEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingTypeEnum.swift; sourceTree = "<group>"; };
 		CA203E531C12732600D6F32C /* RateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateResponse.swift; sourceTree = "<group>"; };
+		CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToFavoritesRequest.swift; sourceTree = "<group>"; };
+		CA203E571C16561500D6F32C /* AddToFavoritesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToFavoritesResponse.swift; sourceTree = "<group>"; };
 		CA37EE5E1BF6A29500DA3071 /* GetFavoritesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFavoritesRequest.swift; sourceTree = "<group>"; };
 		CA37EE601BF6A44300DA3071 /* GetFavoritesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFavoritesResponse.swift; sourceTree = "<group>"; };
 		CA37EE631BF6A86700DA3071 /* FavoriteTypeEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTypeEnum.swift; sourceTree = "<group>"; };
@@ -817,6 +821,7 @@
 				CA850AE31C04188A00D497D4 /* UpdateInfoRequest.swift */,
 				CA850AE71C066FF200D497D4 /* LogOutRequest.swift */,
 				CA850AED1C0F834400D497D4 /* RateRequest.swift */,
+				CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -842,6 +847,7 @@
 				CA850AE51C0419D300D497D4 /* UpdateInfoResponse.swift */,
 				CA850AE91C06702D00D497D4 /* LogOutResponse.swift */,
 				CA203E531C12732600D6F32C /* RateResponse.swift */,
+				CA203E571C16561500D6F32C /* AddToFavoritesResponse.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -1101,6 +1107,7 @@
 				CA203DC81C111EEA00D6F32C /* GetPromotionsResponse.swift in Sources */,
 				CA203DC91C111EEA00D6F32C /* GetMessagesRequest.swift in Sources */,
 				CA203DCA1C111EEA00D6F32C /* NSDateExtension.swift in Sources */,
+				CA203E581C16561500D6F32C /* AddToFavoritesResponse.swift in Sources */,
 				CA203DCB1C111EEA00D6F32C /* User.swift in Sources */,
 				CA203DCC1C111EEA00D6F32C /* LogOutRequest.swift in Sources */,
 				C4A0D55B1C11746100BAE246 /* SortBy.swift in Sources */,
@@ -1132,6 +1139,7 @@
 				CA203DE41C111EEA00D6F32C /* SignUpResponse.swift in Sources */,
 				CA203DE51C111EEA00D6F32C /* SelectionPanel.swift in Sources */,
 				CA203DE61C111EEA00D6F32C /* GetRestaurantsResponse.swift in Sources */,
+				CA203E561C1655D800D6F32C /* AddToFavoritesRequest.swift in Sources */,
 				C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */,
 				CA203DE71C111EEA00D6F32C /* AppDelegate.swift in Sources */,
 				CA203DE81C111EEA00D6F32C /* ImageProgressiveTableView.swift in Sources */,

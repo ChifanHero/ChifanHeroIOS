@@ -42,6 +42,8 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     var images = [PhotoRecord]()
     var promotions: [Promotion] = []
     
+    var popUpView=UILabel(frame: CGRectMake(0, 0, 100, 60))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configurePullRefresh()
@@ -250,11 +252,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏", handler:{(action, indexpath) -> Void in
+        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏", handler:{(action, indexpath) -> Void in
             self.addToFavorites(indexPath)
             tableView.setEditing(false, animated: true)
         });
-        bookmarkAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        addBookmarkAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
         let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好评", handler:{(action, indexpath) -> Void in
             self.ratePromotion(indexPath, ratingType: RatingTypeEnum.like)
@@ -274,11 +276,50 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         });
         dislikeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
-        return [bookmarkAction, dislikeAction, neutralAction, likeAction];
+        
+        return [addBookmarkAction, dislikeAction, neutralAction, likeAction];
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
+        var request: AddToFavoritesRequest = AddToFavoritesRequest()
+        request.type = promotions[indexPath.row].type
+        if request.type == "dish" {
+            request.objectId = promotions[indexPath.row].dish?.id
+        } else if request.type == "restaurant" {
+            request.objectId = promotions[indexPath.row].restaurant?.id
+        }
         
+        self.view.userInteractionEnabled = false
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let sessionToken = defaults.stringForKey("sessionToken")
+        
+        if sessionToken == nil {
+            self.configurePopUpView("请登录")
+            self.view.addSubview(self.popUpView)
+            var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
+        } else{
+            DataAccessor(serviceConfiguration: ParseConfiguration()).addToFavorites(request) { (response) -> Void in
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    
+                    self.configurePopUpView("收藏成功")
+                    self.view.addSubview(self.popUpView)
+                    var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
+                });
+            }
+        }
+    }
+    
+    private func configurePopUpView(popUpText: String){
+        self.popUpView.center = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
+        self.popUpView.text = popUpText
+        self.popUpView.textAlignment = NSTextAlignment.Center
+        self.popUpView.backgroundColor=UIColor.grayColor()
+    }
+    
+    func popUpDismiss(){
+        self.popUpView.removeFromSuperview()
+        self.view.userInteractionEnabled = true
     }
     
     private func ratePromotion(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
@@ -296,15 +337,27 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         } else if request.type == "restaurant" {
             request.objectId = promotions[indexPath.row].restaurant?.id
         }
-        request.objectId = promotions[indexPath.row].id
-        DataAccessor(serviceConfiguration: ParseConfiguration()).rate(request) { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                
-                print("hello")
-                
-                
-            });
+        
+        self.view.userInteractionEnabled = false
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let sessionToken = defaults.stringForKey("sessionToken")
+        
+        if sessionToken == nil {
+            self.configurePopUpView("请登录")
+            self.view.addSubview(self.popUpView)
+            var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
+        } else{
+            DataAccessor(serviceConfiguration: ParseConfiguration()).rate(request) { (response) -> Void in
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    
+                    self.configurePopUpView("评论成功")
+                    self.view.addSubview(self.popUpView)
+                    var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
+                });
+            }
         }
+        
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
