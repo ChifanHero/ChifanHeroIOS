@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, ImageProgressiveTableViewDelegate{
+class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, ImageProgressiveTableViewDelegate {
     
     var restaurantId : String?
     
@@ -32,15 +32,13 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
 
     @IBOutlet weak var topViewContainer: ViewItemTopUIView!
     
-    
-    
     @IBOutlet weak var hotDishesTableView: ImageProgressiveTableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         hotDishesTableView.allowsSelection = false
-//        restaurantId = "sbXAe8QCye"
         loadData()
+        topViewContainer.delegate = RatingAndFavoriteImpl(baseVC: self)
         // Do any additional setup after loading the view.
     }
     
@@ -51,6 +49,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 dispatch_async(dispatch_get_main_queue(), {
                     self.restaurant = (response?.result)!
                     if self.restaurant != nil {
+                        self.topViewContainer.restaurantId = self.restaurant?.id
                         self.topViewContainer.name = self.restaurant?.name
                         self.topViewContainer.englishName = self.restaurant?.englishName
                         self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
@@ -337,7 +336,5 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
     }
-    
-
     
 }

@@ -26,6 +26,8 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     
     let footerView : LoadMoreFooterView = LoadMoreFooterView()
     
+    var ratingAndFavoriteDelegate: RatingAndFavoriteDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.refreshControl = UIRefreshControl()
@@ -34,6 +36,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         self.restaurantsTable.imageDelegate = self
         setupIndicator()
         loadTableData()
+        ratingAndFavoriteDelegate = RatingAndFavoriteImpl(baseVC: self)
     }
     
     func loadTableData() {
@@ -199,11 +202,20 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
-        
+        ratingAndFavoriteDelegate?.addToFavorites("restaurant", objectId: (restaurants[indexPath.section].id)!)
     }
     
     private func rateRestaurant(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
         
+        let objectId: String? = restaurants[indexPath.section].id
+        
+        if ratingType == RatingTypeEnum.like {
+            ratingAndFavoriteDelegate?.like("restaurant", objectId: objectId!)
+        } else if ratingType == RatingTypeEnum.dislike {
+            ratingAndFavoriteDelegate?.dislike("restaurant", objectId: objectId!)
+        } else {
+            ratingAndFavoriteDelegate?.neutral("restaurant", objectId: objectId!)
+        }
     }
     
     func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {

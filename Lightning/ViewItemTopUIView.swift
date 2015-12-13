@@ -24,21 +24,25 @@ import UIKit
 
     @IBOutlet weak var englishNameLabel: UILabel!
     
-    var view : UIView!
+    var delegate: RatingAndFavoriteDelegate?
     
-    var name : String? {
+    var restaurantId: String?
+    
+    var view: UIView!
+    
+    var name: String? {
         didSet {
             nameLabel.text = name
         }
     }
     
-    var englishName : String? {
+    var englishName: String? {
         didSet {
             englishNameLabel.text = englishName
         }
     }
     
-    @IBInspectable var backgroundImageURL : String? {
+    @IBInspectable var backgroundImageURL: String? {
         didSet {
             if let imageURL = backgroundImageURL {
                 let url = NSURL(string: imageURL)
@@ -71,6 +75,22 @@ import UIKit
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         xibSetup()
+    }
+    
+    @IBAction func likeAction(sender: AnyObject) {
+        delegate?.like("restaurant", objectId: restaurantId!)
+    }
+    
+    @IBAction func dislikeAction(sender: AnyObject) {
+        delegate?.dislike("restaurant", objectId: restaurantId!)
+    }
+    
+    @IBAction func neutralAction(sender: AnyObject) {
+        delegate?.neutral("restaurant", objectId: restaurantId!)
+    }
+    
+    @IBAction func bookmarkAction(sender: AnyObject) {
+        delegate?.addToFavorites("restaurant", objectId: restaurantId!)
     }
     
     

@@ -42,12 +42,13 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     var images = [PhotoRecord]()
     var promotions: [Promotion] = []
     
-    var popUpView=UILabel(frame: CGRectMake(0, 0, 100, 60))
+    var ratingAndFavoriteDelegate: RatingAndFavoriteDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configurePullRefresh()
         initPromotionsTable()
+        ratingAndFavoriteDelegate = RatingAndFavoriteImpl(baseVC: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -281,83 +282,32 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
-        var request: AddToFavoritesRequest = AddToFavoritesRequest()
-        request.type = promotions[indexPath.row].type
-        if request.type == "dish" {
-            request.objectId = promotions[indexPath.row].dish?.id
-        } else if request.type == "restaurant" {
-            request.objectId = promotions[indexPath.row].restaurant?.id
+        if promotions[indexPath.row].type == "dish" {
+            ratingAndFavoriteDelegate?.addToFavorites("dish", objectId: (promotions[indexPath.row].dish?.id)!)
+        } else if promotions[indexPath.row].type == "restaurant" {
+            ratingAndFavoriteDelegate?.addToFavorites("restaurant", objectId: (promotions[indexPath.row].restaurant?.id)!)
         }
-        
-        self.view.userInteractionEnabled = false
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let sessionToken = defaults.stringForKey("sessionToken")
-        
-        if sessionToken == nil {
-            self.configurePopUpView("请登录")
-            self.view.addSubview(self.popUpView)
-            var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
-        } else{
-            DataAccessor(serviceConfiguration: ParseConfiguration()).addToFavorites(request) { (response) -> Void in
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    
-                    self.configurePopUpView("收藏成功")
-                    self.view.addSubview(self.popUpView)
-                    var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
-                });
-            }
-        }
-    }
-    
-    private func configurePopUpView(popUpText: String){
-        self.popUpView.center = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
-        self.popUpView.text = popUpText
-        self.popUpView.textAlignment = NSTextAlignment.Center
-        self.popUpView.backgroundColor=UIColor.grayColor()
-    }
-    
-    func popUpDismiss(){
-        self.popUpView.removeFromSuperview()
-        self.view.userInteractionEnabled = true
     }
     
     private func ratePromotion(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
-        var request: RateRequest = RateRequest()
+        var type: String?
+        var objectId: String?
+        
+        if promotions[indexPath.row].type == "dish" {
+            type = "dish"
+            objectId = promotions[indexPath.row].dish?.id
+        } else if promotions[indexPath.row].type == "restaurant" {
+            type = "restaurant"
+            objectId = promotions[indexPath.row].restaurant?.id
+        }
+        
         if ratingType == RatingTypeEnum.like {
-            request.action = "like"
+            ratingAndFavoriteDelegate?.like(type!, objectId: objectId!)
         } else if ratingType == RatingTypeEnum.dislike {
-            request.action = "dislike"
+            ratingAndFavoriteDelegate?.dislike(type!, objectId: objectId!)
         } else {
-            request.action = "neutral"
-        }
-        request.type = promotions[indexPath.row].type
-        if request.type == "dish" {
-            request.objectId = promotions[indexPath.row].dish?.id
-        } else if request.type == "restaurant" {
-            request.objectId = promotions[indexPath.row].restaurant?.id
-        }
-        
-        self.view.userInteractionEnabled = false
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let sessionToken = defaults.stringForKey("sessionToken")
-        
-        if sessionToken == nil {
-            self.configurePopUpView("请登录")
-            self.view.addSubview(self.popUpView)
-            var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
-        } else{
-            DataAccessor(serviceConfiguration: ParseConfiguration()).rate(request) { (response) -> Void in
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    
-                    self.configurePopUpView("评论成功")
-                    self.view.addSubview(self.popUpView)
-                    var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
-                });
-            }
-        }
-        
+            ratingAndFavoriteDelegate?.neutral(type!, objectId: objectId!)
+        }        
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
