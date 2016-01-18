@@ -24,7 +24,7 @@ import UIKit
 
     @IBOutlet weak var englishNameLabel: UILabel!
     
-    var delegate: RatingAndFavoriteDelegate?
+    var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
     var restaurantId: String?
     
@@ -78,19 +78,19 @@ import UIKit
     }
     
     @IBAction func likeAction(sender: AnyObject) {
-        delegate?.like("restaurant", objectId: restaurantId!)
+        rateAndBookmarkExecutor?.like("restaurant", objectId: restaurantId!, failureHandler: nil)
     }
     
     @IBAction func dislikeAction(sender: AnyObject) {
-        delegate?.dislike("restaurant", objectId: restaurantId!)
+        rateAndBookmarkExecutor?.dislike("restaurant", objectId: restaurantId!, failureHandler: nil)
     }
     
     @IBAction func neutralAction(sender: AnyObject) {
-        delegate?.neutral("restaurant", objectId: restaurantId!)
+        rateAndBookmarkExecutor?.neutral("restaurant", objectId: restaurantId!, failureHandler: nil)
     }
     
     @IBAction func bookmarkAction(sender: AnyObject) {
-        delegate?.addToFavorites("restaurant", objectId: restaurantId!)
+        rateAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurantId!, failureHandler: nil)
     }
     
     

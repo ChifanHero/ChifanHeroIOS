@@ -38,7 +38,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         hotDishesTableView.allowsSelection = false
         loadData()
-        topViewContainer.delegate = RatingAndFavoriteImpl(baseVC: self)
+        topViewContainer.rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         // Do any additional setup after loading the view.
     }
     

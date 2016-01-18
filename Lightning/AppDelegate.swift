@@ -10,10 +10,13 @@ import UIKit
 import Parse
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
 
+    let locationManager = CLLocationManager()
+    
+    var currentLocation : Location = Location()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -21,7 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         registerForPushNotifications(application, launchOptions: launchOptions)
         configSplitViewController()
+        startGettingLocation()
         return true
+    }
+    
+    private func startGettingLocation() {
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     private func configSplitViewController() {
@@ -116,6 +127,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         return true
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        currentLocation.lat = locValue.latitude
+        currentLocation.lon = locValue.longitude
     }
 
 

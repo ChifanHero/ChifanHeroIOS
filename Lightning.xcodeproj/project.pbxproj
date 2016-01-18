@@ -200,8 +200,7 @@
 		CA203E541C12732600D6F32C /* RateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E531C12732600D6F32C /* RateResponse.swift */; };
 		CA203E561C1655D800D6F32C /* AddToFavoritesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */; };
 		CA203E581C16561500D6F32C /* AddToFavoritesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E571C16561500D6F32C /* AddToFavoritesResponse.swift */; };
-		CA203E5B1C18E68800D6F32C /* RatingAndFavoriteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E5A1C18E68800D6F32C /* RatingAndFavoriteDelegate.swift */; };
-		CA203E5F1C18F34600D6F32C /* RatingAndFavoriteImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E5E1C18F34600D6F32C /* RatingAndFavoriteImpl.swift */; };
+		CA203E5F1C18F34600D6F32C /* RatingAndBookmarkExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E5E1C18F34600D6F32C /* RatingAndBookmarkExecutor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -391,8 +390,7 @@
 		CA203E531C12732600D6F32C /* RateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateResponse.swift; sourceTree = "<group>"; };
 		CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToFavoritesRequest.swift; sourceTree = "<group>"; };
 		CA203E571C16561500D6F32C /* AddToFavoritesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToFavoritesResponse.swift; sourceTree = "<group>"; };
-		CA203E5A1C18E68800D6F32C /* RatingAndFavoriteDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingAndFavoriteDelegate.swift; sourceTree = "<group>"; };
-		CA203E5E1C18F34600D6F32C /* RatingAndFavoriteImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingAndFavoriteImpl.swift; sourceTree = "<group>"; };
+		CA203E5E1C18F34600D6F32C /* RatingAndBookmarkExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingAndBookmarkExecutor.swift; sourceTree = "<group>"; };
 		CA37EE5E1BF6A29500DA3071 /* GetFavoritesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFavoritesRequest.swift; sourceTree = "<group>"; };
 		CA37EE601BF6A44300DA3071 /* GetFavoritesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFavoritesResponse.swift; sourceTree = "<group>"; };
 		CA37EE631BF6A86700DA3071 /* FavoriteTypeEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTypeEnum.swift; sourceTree = "<group>"; };
@@ -893,8 +891,7 @@
 		CA203E591C18E62B00D6F32C /* RatingAndFavorite */ = {
 			isa = PBXGroup;
 			children = (
-				CA203E5A1C18E68800D6F32C /* RatingAndFavoriteDelegate.swift */,
-				CA203E5E1C18F34600D6F32C /* RatingAndFavoriteImpl.swift */,
+				CA203E5E1C18F34600D6F32C /* RatingAndBookmarkExecutor.swift */,
 			);
 			name = RatingAndFavorite;
 			sourceTree = "<group>";
@@ -1135,7 +1132,7 @@
 				CA203DCD1C111EEA00D6F32C /* LoginView.swift in Sources */,
 				CA203DCE1C111EEA00D6F32C /* NameOnlyDishTableViewCell.swift in Sources */,
 				CA203DCF1C111EEA00D6F32C /* SelectionPanelDelegateProtocol.swift in Sources */,
-				CA203E5F1C18F34600D6F32C /* RatingAndFavoriteImpl.swift in Sources */,
+				CA203E5F1C18F34600D6F32C /* RatingAndBookmarkExecutor.swift in Sources */,
 				CA203DD01C111EEA00D6F32C /* SortOrder.swift in Sources */,
 				CA203DD11C111EEA00D6F32C /* AboutMeDetailTableViewController.swift in Sources */,
 				CA203DD21C111EEA00D6F32C /* HeaderViewDelegate.swift in Sources */,
@@ -1213,7 +1210,6 @@
 				CA203E0E1C111EEA00D6F32C /* PhotoCollectionViewCell.swift in Sources */,
 				CA203E0F1C111EEA00D6F32C /* JSONHelper.swift in Sources */,
 				CA203E101C111EEA00D6F32C /* RestaurantViewController.swift in Sources */,
-				CA203E5B1C18E68800D6F32C /* RatingAndFavoriteDelegate.swift in Sources */,
 				C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */,
 				CA203E111C111EEA00D6F32C /* HomeViewController.swift in Sources */,
 				CA203E121C111EEA00D6F32C /* Error.swift in Sources */,

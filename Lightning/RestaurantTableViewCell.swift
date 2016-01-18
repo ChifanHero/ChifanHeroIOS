@@ -36,10 +36,6 @@ class RestaurantTableViewCell: UITableViewCell {
     func setUp(restaurant restaurant: Restaurant, image: UIImage) {
         nameLabel.text = restaurant.name
         addressLabel.text = restaurant.address
-//        addressLabel.adjustsFontSizeToFitWidth = true
-//        if let distance = restaurant.distance?.value && unit = restaurant.distance?.unit{
-//            distanceLabel.text = String(restaurant.distance?.value!) + " " + unit
-//        }
         if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
             let value = restaurant.distance?.value
             let unit = restaurant.distance?.unit
@@ -60,7 +56,7 @@ class RestaurantTableViewCell: UITableViewCell {
             neutral = 0
         }
         if (positive! + negative! + neutral!) == 0{
-            return "尚未评价"
+            return "尚未评价(向左滑动以打分)"
         }
         
         let pos = Double(positive!)

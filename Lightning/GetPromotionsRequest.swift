@@ -8,13 +8,21 @@
 
 import Foundation
 
-class GetPromotionsRequest : GetRequestProtocol{
+class GetPromotionsRequest : PostRequestProtocol{
     
     var limit : Int?
     var offset : Int?
+    var userLocation : Location?
     
-    func getParameters() -> [String:String] {
-        var parameters = Dictionary<String, String>()
+    func getRelativeURL() -> String {
+        return "/promotions"
+    }
+    
+    func getRequestBody() -> [String : AnyObject] {
+        var parameters = Dictionary<String, AnyObject>()
+        if (userLocation != nil) {
+            parameters["user_location"] = userLocation?.getProperties()
+        }
         if limit != nil {
             parameters["limit"] = String(limit!)
         }
@@ -22,9 +30,5 @@ class GetPromotionsRequest : GetRequestProtocol{
             parameters["offset"] = String(offset!)
         }
         return parameters
-    }
-    
-    func getRelativeURL() -> String {
-        return "/promotions"
     }
 }

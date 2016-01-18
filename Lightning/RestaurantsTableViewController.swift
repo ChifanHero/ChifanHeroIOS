@@ -26,7 +26,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     
     let footerView : LoadMoreFooterView = LoadMoreFooterView()
     
-    var ratingAndFavoriteDelegate: RatingAndFavoriteDelegate?
+    var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         self.restaurantsTable.imageDelegate = self
         setupIndicator()
         loadTableData()
-        ratingAndFavoriteDelegate = RatingAndFavoriteImpl(baseVC: self)
+        ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
     }
     
     func loadTableData() {
@@ -202,7 +202,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
-        ratingAndFavoriteDelegate?.addToFavorites("restaurant", objectId: (restaurants[indexPath.section].id)!)
+        ratingAndFavoriteExecutor?.addToFavorites("restaurant", objectId: (restaurants[indexPath.section].id)!, failureHandler: nil)
     }
     
     private func rateRestaurant(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
@@ -210,11 +210,11 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         let objectId: String? = restaurants[indexPath.section].id
         
         if ratingType == RatingTypeEnum.like {
-            ratingAndFavoriteDelegate?.like("restaurant", objectId: objectId!)
+            ratingAndFavoriteExecutor?.like("restaurant", objectId: objectId!, failureHandler: nil)
         } else if ratingType == RatingTypeEnum.dislike {
-            ratingAndFavoriteDelegate?.dislike("restaurant", objectId: objectId!)
+            ratingAndFavoriteExecutor?.dislike("restaurant", objectId: objectId!, failureHandler: nil)
         } else {
-            ratingAndFavoriteDelegate?.neutral("restaurant", objectId: objectId!)
+            ratingAndFavoriteExecutor?.neutral("restaurant", objectId: objectId!, failureHandler: nil)
         }
     }
     

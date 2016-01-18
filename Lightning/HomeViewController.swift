@@ -36,19 +36,21 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     let LISTS_LIMIT = 10
     let LISTS_OFFSET = 0
     
+    let RATE_MINUTES_INTERVAL = 10
+    
     
     let refreshControl = UIRefreshControl()
     var pendingOperations = PendingOperations()
     var images = [PhotoRecord]()
     var promotions: [Promotion] = []
     
-    var ratingAndFavoriteDelegate: RatingAndFavoriteDelegate?
+    var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configurePullRefresh()
         initPromotionsTable()
-        ratingAndFavoriteDelegate = RatingAndFavoriteImpl(baseVC: self)
+        ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,17 +66,26 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     private func initPromotionsTable(){
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         self.promotionsTable.imageDelegate = self
-        loadPromotionsTableData()
+        NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: Selector("loadPromotionsTableData"), userInfo: nil, repeats: false)
     }
     
     @objc private func refresh(sender:AnyObject) {
+        self.images.removeAll()
+        self.promotions.removeAll()
         loadPromotionsTableData()
     }
     
-    private func loadPromotionsTableData() {
+    @objc private func loadPromotionsTableData() {
         let getPromotionsRequest = GetPromotionsRequest()
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let location = appDelegate.currentLocation
+        if (location.lat == nil || location.lon == nil) {
+           return
+        }
+        getPromotionsRequest.userLocation = location
         getPromotionsRequest.limit = PROMOTIONS_LIMIT
         getPromotionsRequest.offset = PROMOTIONS_OFFSET
+        print(getPromotionsRequest.getRequestBody())
         DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
                 self.loadResults(response?.results)
@@ -268,6 +279,17 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    private func isRatingTooFrequent(objectId : String) -> Bool{
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let now : Int = Int(NSDate().timeIntervalSince1970 * 1000)
+        let lastRateTime = defaults.integerForKey(objectId)
+        if (now - lastRateTime < self.RATE_MINUTES_INTERVAL * 60 * 60) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) ->
         [UITableViewRowAction]? {
             
@@ -276,7 +298,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         var likeCount : Int = 0
         var neutralCount : Int = 0
         var dislikeCount : Int = 0
+        var objectId = ""
         if promotion.dish != nil {
+            objectId = promotion.dish!.id!
             if promotion.dish!.favoriteCount != nil {
                 favoriteCount = promotion.dish!.favoriteCount!
             }
@@ -291,41 +315,144 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
         } else if promotion.restaurant != nil {
+            objectId = promotion.restaurant!.id!
             if promotion.restaurant!.favoriteCount != nil {
-                favoriteCount = promotion.dish!.favoriteCount!
+                favoriteCount = promotion.restaurant!.favoriteCount!
             }
             if promotion.restaurant!.likeCount != nil {
-                likeCount = promotion.dish!.likeCount!
+                likeCount = promotion.restaurant!.likeCount!
             }
             if promotion.restaurant!.neutralCount != nil {
-                neutralCount = promotion.dish!.neutralCount!
+                neutralCount = promotion.restaurant!.neutralCount!
             }
             if promotion.restaurant!.dislikeCount != nil {
-                dislikeCount = promotion.dish!.dislikeCount!
+                dislikeCount = promotion.restaurant!.dislikeCount!
             }
         }
             
         let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
-            self.addToFavorites(indexPath)
-            tableView.setEditing(false, animated: true)
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let sessionToken = defaults.stringForKey("sessionToken")
+            if sessionToken == nil {
+                self.popupSigninAlert()
+            } else {
+                favoriteCount++
+                if promotion.dish != nil {
+                    if promotion.dish?.favoriteCount == nil {
+                        promotion.dish?.favoriteCount = 1
+                    } else {
+                        promotion.dish?.favoriteCount!++
+                    }
+                } else {
+                    if promotion.restaurant?.favoriteCount == nil {
+                        promotion.restaurant?.favoriteCount = 1
+                    } else {
+                        promotion.restaurant?.favoriteCount!++
+                    }
+                }
+                action.title = "收藏\n\(favoriteCount)"
+                self.addToFavorites(indexPath)
+            }
+            self.dismissActionViewWithDelay()
         });
         addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
         
         let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好吃\n\(likeCount)", handler:{(action, indexpath) -> Void in
-            self.ratePromotion(indexPath, ratingType: RatingTypeEnum.like)
-            tableView.setEditing(false, animated: true)
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let sessionToken = defaults.stringForKey("sessionToken")
+            if sessionToken == nil {
+                self.popupSigninAlert()
+            } else {
+                if (self.isRatingTooFrequent(objectId)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    likeCount++
+                    if promotion.dish != nil {
+                        if promotion.dish?.likeCount == nil {
+                            promotion.dish?.likeCount = 1
+                        } else {
+                            promotion.dish?.likeCount!++
+                        }
+                    } else {
+                        if promotion.restaurant?.likeCount == nil {
+                            promotion.restaurant?.likeCount = 1
+                        } else {
+                            promotion.restaurant?.likeCount!++
+                        }
+                    }
+//                    action.title = "好吃\n\(likeCount)"
+                    action.title = "some random title"
+                    self.ratePromotion(indexPath, ratingType: RatingTypeEnum.like)
+                }
+                
+            }
+            self.dismissActionViewWithDelay()
         });
         likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
         let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般\n\(neutralCount)", handler:{(action, indexpath) -> Void in
-            self.ratePromotion(indexPath, ratingType: RatingTypeEnum.neutral)
-            tableView.setEditing(false, animated: true)
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let sessionToken = defaults.stringForKey("sessionToken")
+            if sessionToken == nil {
+                self.popupSigninAlert()
+            } else {
+                if (self.isRatingTooFrequent(objectId)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    neutralCount++
+                    if promotion.dish != nil {
+                        if promotion.dish?.neutralCount == nil {
+                            promotion.dish?.neutralCount = 1
+                        } else {
+                            promotion.dish?.neutralCount!++
+                        }
+                    } else {
+                        if promotion.restaurant?.neutralCount == nil {
+                            promotion.restaurant?.neutralCount = 1
+                        } else {
+                            promotion.restaurant?.neutralCount!++
+                        }
+                    }
+                    action.title = "一般\n\(neutralCount)"
+                    self.ratePromotion(indexPath, ratingType: RatingTypeEnum.neutral)
+                }
+                
+            }
+            
+            self.dismissActionViewWithDelay()
         });
         neutralAction.backgroundColor = UIColor(red: 1, green: 0.501, blue: 0, alpha: 1.0);
         
         let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "难吃\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
-            self.ratePromotion(indexPath, ratingType: RatingTypeEnum.dislike)
-            tableView.setEditing(false, animated: true)
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let sessionToken = defaults.stringForKey("sessionToken")
+            if sessionToken == nil {
+                self.popupSigninAlert()
+            } else {
+                if (self.isRatingTooFrequent(objectId)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    dislikeCount++
+                    if promotion.dish != nil {
+                        if promotion.dish?.dislikeCount == nil {
+                            promotion.dish?.dislikeCount = 1
+                        } else {
+                            promotion.dish?.dislikeCount!++
+                        }
+                    } else {
+                        if promotion.restaurant?.dislikeCount == nil {
+                            promotion.restaurant?.dislikeCount = 1
+                        } else {
+                            promotion.restaurant?.dislikeCount!++
+                        }
+                    }
+                    action.title = "难吃\n\(dislikeCount)"
+                    self.ratePromotion(indexPath, ratingType: RatingTypeEnum.dislike)
+                }
+                
+            }
+            
+            self.dismissActionViewWithDelay()
         });
         dislikeAction.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
         
@@ -333,13 +460,39 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return [addBookmarkAction, dislikeAction, neutralAction, likeAction];
     }
     
+    private func dismissActionViewWithDelay() {
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func dismissActionView() {
+        self.promotionsTable.setEditing(false, animated: true)
+    }
+    
     private func addToFavorites(indexPath: NSIndexPath){
+        
         let promotion : Promotion = self.promotions[indexPath.section]
         if promotion.dish != nil {
-            ratingAndFavoriteDelegate?.addToFavorites("dish", objectId: (promotions[indexPath.row].dish?.id)!)
+            ratingAndBookmarkExecutor?.addToFavorites("dish", objectId: (promotion.dish?.id)!, failureHandler: { (objectId) -> Void in
+                for promotion : Promotion in self.promotions {
+                    if promotion.dish?.id == objectId {
+                        if promotion.dish?.favoriteCount != nil {
+                            promotion.dish?.favoriteCount!--
+                        }
+                    }
+                }
+            })
         } else if promotion.restaurant != nil {
-            ratingAndFavoriteDelegate?.addToFavorites("restaurant", objectId: (promotions[indexPath.row].restaurant?.id)!)
+            ratingAndBookmarkExecutor?.addToFavorites("restaurant", objectId: (promotion.restaurant?.id)!, failureHandler: { (objectId) -> Void in
+                for promotion : Promotion in self.promotions {
+                    if promotion.restaurant?.id == objectId {
+                        if promotion.restaurant?.favoriteCount != nil {
+                            promotion.restaurant?.favoriteCount!--
+                        }
+                    }
+                }
+            })
         }
+        
     }
     
     private func ratePromotion(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
@@ -349,19 +502,62 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let promotion : Promotion = self.promotions[indexPath.section]
         if promotion.dish != nil {
             type = "dish"
-            objectId = promotions[indexPath.row].dish?.id
+            objectId = promotion.dish?.id
         } else if promotion.restaurant != nil {
             type = "restaurant"
-            objectId = promotions[indexPath.row].restaurant?.id
+            objectId = promotion.restaurant?.id
         }
         
         if ratingType == RatingTypeEnum.like {
-            ratingAndFavoriteDelegate?.like(type!, objectId: objectId!)
+            ratingAndBookmarkExecutor?.like(type!, objectId: objectId!, failureHandler: { (objectId) -> Void in
+                for promotion : Promotion in self.promotions {
+                    if promotion.dish?.id == objectId {
+                        if promotion.dish?.likeCount != nil {
+                            promotion.dish?.likeCount!--
+                        }
+                    } else if promotion.restaurant?.id == objectId {
+                        if promotion.restaurant?.likeCount != nil {
+                            promotion.restaurant?.likeCount!--
+                        }
+                    }
+                }
+            })
         } else if ratingType == RatingTypeEnum.dislike {
-            ratingAndFavoriteDelegate?.dislike(type!, objectId: objectId!)
+            ratingAndBookmarkExecutor?.dislike(type!, objectId: objectId!,failureHandler: { (objectId) -> Void in
+                for promotion : Promotion in self.promotions {
+                    if promotion.dish?.id == objectId {
+                        if promotion.dish?.dislikeCount != nil {
+                            promotion.dish?.dislikeCount!--
+                        }
+                    } else if promotion.restaurant?.id == objectId {
+                        if promotion.restaurant?.dislikeCount != nil {
+                            promotion.restaurant?.dislikeCount!--
+                        }
+                    }
+                }
+            })
         } else {
-            ratingAndFavoriteDelegate?.neutral(type!, objectId: objectId!)
-        }        
+            ratingAndBookmarkExecutor?.neutral(type!, objectId: objectId!,failureHandler: { (objectId) -> Void in
+                for promotion : Promotion in self.promotions {
+                    if promotion.dish?.id == objectId {
+                        if promotion.dish?.neutralCount != nil {
+                            promotion.dish?.neutralCount!--
+                        }
+                    } else if promotion.restaurant?.id == objectId {
+                        if promotion.restaurant?.neutralCount != nil {
+                            promotion.restaurant?.neutralCount!--
+                        }
+                    }
+                }
+            })
+        }
+        
+        
+    }
+    
+    private func popupSigninAlert() {
+        let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
+        alertview.setTextTheme(.Dark)
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

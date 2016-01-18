@@ -10,7 +10,7 @@ import Foundation
 
 class Distance: Serializable, Model{
     
-    var value : Double?
+    var value : String?
     var unit : String?
     
     func getProperties() -> [String : AnyObject] {

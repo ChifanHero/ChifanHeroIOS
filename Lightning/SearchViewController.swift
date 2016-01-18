@@ -94,10 +94,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         cleanStates()
         let request : RestaurantSearchRequest = RestaurantSearchRequest()
         request.keyword = keyword
-        let location : (Double, Double) = UserContext.getUserLocation()
-        let userLocation = Location()
-        userLocation.lat = location.0
-        userLocation.lon = location.1
+//        let location : (Double, Double) = UserContext.getUserLocation()
+        let userLocation = UserContext.instance.userLocation
+//        userLocation.lat = location.0
+//        userLocation.lon = location.1
         request.userLocation = userLocation
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -123,11 +123,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     func searchDish(keyword keyword : String) {
         cleanStates()
         let request : DishSearchRequest = DishSearchRequest()
-        request.keyword = keyword
-        let location : (Double, Double) = UserContext.getUserLocation()
-        let userLocation = Location()
-        userLocation.lat = location.0
-        userLocation.lon = location.1
+        let userLocation = UserContext.instance.userLocation
+        //        userLocation.lat = location.0
+        //        userLocation.lon = location.1
         request.userLocation = userLocation
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchDishes(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -154,10 +152,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         cleanStates()
         let request : DishListSearchRequest = DishListSearchRequest()
         request.keyword = keyword
-        let location : (Double, Double) = UserContext.getUserLocation()
-        let userLocation = Location()
-        userLocation.lat = location.0
-        userLocation.lon = location.1
+        let userLocation = UserContext.instance.userLocation
+        //        userLocation.lat = location.0
+        //        userLocation.lon = location.1
         request.userLocation = userLocation
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchLists(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in

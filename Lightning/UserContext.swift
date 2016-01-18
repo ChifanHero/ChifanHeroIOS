@@ -10,9 +10,11 @@ import Foundation
 
 class UserContext {
     
-    class func getUserLocation() -> (Double, Double){
-        let lat = 37.29545969999999
-        let lon = -121.92755119999998
-        return (lat, lon)
+    static let instance = UserContext()
+    
+    var userLocation = Location()
+    
+    func getUserLocation() -> Location{
+        return userLocation
     }
 }
