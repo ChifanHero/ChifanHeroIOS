@@ -16,8 +16,7 @@ class ImageProgressiveCollectionView : UICollectionView {
         switch (photoDetails.state) {
         case .New:
             startDownloadForRecord(&pendingOperations, photoDetails: photoDetails, indexPath : indexPath)
-        default:
-            print("do nothing")
+        default: break
         }
         
     }

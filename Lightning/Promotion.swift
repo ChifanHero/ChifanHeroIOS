@@ -11,7 +11,6 @@ import Foundation
 class Promotion : Model{
     
     var id: String?
-    var type: String?
     var restaurant: Restaurant?
     var dish: Dish?
     
@@ -21,7 +20,6 @@ class Promotion : Model{
     
     required init(data: [String : AnyObject]) {
         id <-- data["id"]
-        type <-- data["type"]
         restaurant <-- data["restaurant"]
         dish <-- data["dish"]
     }

@@ -36,6 +36,7 @@ class RestaurantTableViewCell: UITableViewCell {
     func setUp(restaurant restaurant: Restaurant, image: UIImage) {
         nameLabel.text = restaurant.name
         addressLabel.text = restaurant.address
+//        addressLabel.adjustsFontSizeToFitWidth = true
 //        if let distance = restaurant.distance?.value && unit = restaurant.distance?.unit{
 //            distanceLabel.text = String(restaurant.distance?.value!) + " " + unit
 //        }
@@ -44,18 +45,27 @@ class RestaurantTableViewCell: UITableViewCell {
             let unit = restaurant.distance?.unit
             distanceLabel.text = String(value!) + " " + unit!
         }
-        ratingLabel.text = computePositiveRatingRate(positive: restaurant.likeCount!, negative: restaurant.dislikeCount!, neutral: restaurant.neutralCount!)
+        ratingLabel.text = computePositiveRatingRate(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
         restaurantImageView.image = image
     }
     
-    private func computePositiveRatingRate(positive positive: Int, negative: Int, neutral: Int) -> String{
-        if (positive + negative + neutral) == 0{
+    private func computePositiveRatingRate(var positive positive: Int?, var negative: Int?, var neutral: Int?) -> String{
+        if (positive == nil) {
+            positive = 0
+        }
+        if (negative == nil) {
+            negative = 0
+        }
+        if (neutral == nil) {
+            neutral = 0
+        }
+        if (positive! + negative! + neutral!) == 0{
             return "尚未评价"
         }
         
-        let pos = Double(positive)
-        let neg = Double(negative)
-        let neu = Double(neutral)
+        let pos = Double(positive!)
+        let neg = Double(negative!)
+        let neu = Double(neutral!)
         let result:Double = (pos * 1.0 + neu * 0.7) / (pos + neg + neu) * 100.00
         return String(format:"%.1f", result) + "%"
     }

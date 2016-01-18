@@ -33,25 +33,22 @@ class RatingAndFavoriteImpl: NSObject, RatingAndFavoriteDelegate {
     }
     
     private func rate(type: String, action: String, objectId: String){
-        var request: RateRequest = RateRequest()
+        let request: RateRequest = RateRequest()
         request.action = action
         request.type = type
         request.objectId = objectId
-        
-        self.baseViewController!.view.userInteractionEnabled = false
         
         let defaults = NSUserDefaults.standardUserDefaults()
         let sessionToken = defaults.stringForKey("sessionToken")
         
         if sessionToken == nil {
             self.configurePopUpView("请登录")
-            self.baseViewController!.view.addSubview(self.popUpView)
-            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
         } else{
+            self.baseViewController!.view.userInteractionEnabled = false
             DataAccessor(serviceConfiguration: ParseConfiguration()).rate(request) { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     
-                    self.configurePopUpView("评论成功")
+                    self.configureSuccessPopup("评论成功")
                     self.baseViewController!.view.addSubview(self.popUpView)
                     NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
                 });
@@ -60,11 +57,11 @@ class RatingAndFavoriteImpl: NSObject, RatingAndFavoriteDelegate {
     }
     
     func addToFavorites(type: String, objectId: String){
-        var request: AddToFavoritesRequest = AddToFavoritesRequest()
+        let request: AddToFavoritesRequest = AddToFavoritesRequest()
         request.type = type
         request.objectId = objectId
         
-        self.baseViewController!.view.userInteractionEnabled = false
+        
         
         let defaults = NSUserDefaults.standardUserDefaults()
         let sessionToken = defaults.stringForKey("sessionToken")
@@ -72,12 +69,12 @@ class RatingAndFavoriteImpl: NSObject, RatingAndFavoriteDelegate {
         if sessionToken == nil {
             self.configurePopUpView("请登录")
             self.baseViewController!.view.addSubview(self.popUpView)
-            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
         } else{
+            self.baseViewController!.view.userInteractionEnabled = false
             DataAccessor(serviceConfiguration: ParseConfiguration()).addToFavorites(request) { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     
-                    self.configurePopUpView("收藏成功")
+                    self.configureSuccessPopup("收藏成功")
                     self.baseViewController!.view.addSubview(self.popUpView)
                     NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
                 });
@@ -86,6 +83,12 @@ class RatingAndFavoriteImpl: NSObject, RatingAndFavoriteDelegate {
     }
     
     private func configurePopUpView(popUpText: String){
+        let alertview = JSSAlertView().show(self.baseViewController!, title: popUpText, text: nil, buttonText: "我知道了")
+        alertview.setTextTheme(.Dark)
+    }
+
+    
+    private func configureSuccessPopup(popUpText: String) {
         self.popUpView.center = CGPoint(x: self.baseViewController!.view.frame.width / 2, y: self.baseViewController!.view.frame.height / 2)
         self.popUpView.text = popUpText
         self.popUpView.textAlignment = NSTextAlignment.Center

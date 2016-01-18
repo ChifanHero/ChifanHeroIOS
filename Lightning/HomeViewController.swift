@@ -67,7 +67,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
         loadPromotionsTableData()
     }
     
-    private func refresh(sender:AnyObject) {
+    @objc private func refresh(sender:AnyObject) {
         loadPromotionsTableData()
     }
     
@@ -77,12 +77,26 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
         getPromotionsRequest.offset = PROMOTIONS_OFFSET
         DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
-                self.promotions = (response?.results)!
+                self.loadResults(response?.results)
                 self.fetchImageDetails()
                 self.promotionsTable.reloadData()
                 self.adjustUI()
                 self.refreshControl.endRefreshing()
             });
+        }
+    }
+    
+    private func loadResults(results : [Promotion]?) {
+        if results != nil {
+            for promotion : Promotion in results! {
+                if promotion.restaurant == nil && promotion.dish == nil {
+                    continue;
+                }
+                if promotion.restaurant != nil && promotion.dish != nil {
+                    continue;
+                }
+                self.promotions.append(promotion)
+            }
         }
     }
     
@@ -107,9 +121,9 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     private func fetchImageDetails() {
         for promotion: Promotion in self.promotions {
             var url: String?
-            if promotion.type == PromotionType.Dish {
+            if promotion.dish != nil {
                 url = promotion.dish?.picture?.original
-            } else if promotion.type == PromotionType.Restaurant {
+            } else if promotion.restaurant != nil {
                 url = promotion.restaurant?.picture?.original
             }
             if url == nil {
@@ -165,9 +179,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let type = promotions[indexPath.section].type
         
-        if type == PromotionType.Restaurant {
+        let promotion : Promotion = self.promotions[indexPath.section]
+        
+        if promotion.restaurant != nil {
             var cell : RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
             if cell == nil {
                 tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
@@ -184,7 +199,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             default: break
             }
             return cell!
-        } else if type == PromotionType.Dish {
+        } else if promotion.dish != nil {
             var cell : DishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
             if cell == nil {
                 tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
@@ -214,9 +229,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if promotions[indexPath.section].type == PromotionType.Restaurant {
+        let promotion : Promotion = self.promotions[indexPath.section]
+        if promotion.restaurant != nil {
             return RestaurantTableViewCell.height
-        } else if promotions[indexPath.section].type == PromotionType.Dish {
+        } else if promotion.dish != nil {
             return DishTableViewCell.height
         }
         return 200
@@ -224,8 +240,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let type = promotions[indexPath.section].type
-        if type == PromotionType.Restaurant {
+        let promotion : Promotion = self.promotions[indexPath.section]
+        if promotion.restaurant != nil {
             let restaurant : Restaurant = promotions[indexPath.section].restaurant!
             self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
         }
@@ -252,39 +268,76 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏", handler:{(action, indexpath) -> Void in
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) ->
+        [UITableViewRowAction]? {
+            
+        let promotion : Promotion = self.promotions[indexPath.section]
+        var favoriteCount : Int = 0
+        var likeCount : Int = 0
+        var neutralCount : Int = 0
+        var dislikeCount : Int = 0
+        if promotion.dish != nil {
+            if promotion.dish!.favoriteCount != nil {
+                favoriteCount = promotion.dish!.favoriteCount!
+            }
+            if promotion.dish!.likeCount != nil {
+                likeCount = promotion.dish!.likeCount!
+            }
+            if promotion.dish!.neutralCount != nil {
+                neutralCount = promotion.dish!.neutralCount!
+            }
+            if promotion.dish!.dislikeCount != nil {
+                dislikeCount = promotion.dish!.dislikeCount!
+            }
+            
+        } else if promotion.restaurant != nil {
+            if promotion.restaurant!.favoriteCount != nil {
+                favoriteCount = promotion.dish!.favoriteCount!
+            }
+            if promotion.restaurant!.likeCount != nil {
+                likeCount = promotion.dish!.likeCount!
+            }
+            if promotion.restaurant!.neutralCount != nil {
+                neutralCount = promotion.dish!.neutralCount!
+            }
+            if promotion.restaurant!.dislikeCount != nil {
+                dislikeCount = promotion.dish!.dislikeCount!
+            }
+        }
+            
+        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
             self.addToFavorites(indexPath)
             tableView.setEditing(false, animated: true)
         });
-        addBookmarkAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
         
-        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好评", handler:{(action, indexpath) -> Void in
+        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好吃\n\(likeCount)", handler:{(action, indexpath) -> Void in
             self.ratePromotion(indexPath, ratingType: RatingTypeEnum.like)
             tableView.setEditing(false, animated: true)
         });
         likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
-        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般", handler:{(action, indexpath) -> Void in
+        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般\n\(neutralCount)", handler:{(action, indexpath) -> Void in
             self.ratePromotion(indexPath, ratingType: RatingTypeEnum.neutral)
             tableView.setEditing(false, animated: true)
         });
-        neutralAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        neutralAction.backgroundColor = UIColor(red: 1, green: 0.501, blue: 0, alpha: 1.0);
         
-        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "差评", handler:{(action, indexpath) -> Void in
+        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "难吃\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
             self.ratePromotion(indexPath, ratingType: RatingTypeEnum.dislike)
             tableView.setEditing(false, animated: true)
         });
-        dislikeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        dislikeAction.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
         
         
         return [addBookmarkAction, dislikeAction, neutralAction, likeAction];
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
-        if promotions[indexPath.row].type == "dish" {
+        let promotion : Promotion = self.promotions[indexPath.section]
+        if promotion.dish != nil {
             ratingAndFavoriteDelegate?.addToFavorites("dish", objectId: (promotions[indexPath.row].dish?.id)!)
-        } else if promotions[indexPath.row].type == "restaurant" {
+        } else if promotion.restaurant != nil {
             ratingAndFavoriteDelegate?.addToFavorites("restaurant", objectId: (promotions[indexPath.row].restaurant?.id)!)
         }
     }
@@ -293,10 +346,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         var type: String?
         var objectId: String?
         
-        if promotions[indexPath.row].type == "dish" {
+        let promotion : Promotion = self.promotions[indexPath.section]
+        if promotion.dish != nil {
             type = "dish"
             objectId = promotions[indexPath.row].dish?.id
-        } else if promotions[indexPath.row].type == "restaurant" {
+        } else if promotion.restaurant != nil {
             type = "restaurant"
             objectId = promotions[indexPath.row].restaurant?.id
         }

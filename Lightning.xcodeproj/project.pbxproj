@@ -29,6 +29,7 @@
 		C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */; };
 		C4F207C11C14E5550024C287 /* NameAddressRestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */; };
 		C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */; };
+		C4F5B6F41C4C56B400DD1EBF /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */; };
 		CA203DA21C111EEA00D6F32C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3000C1BC1037B00807C4D /* LoginViewController.swift */; };
 		CA203DA31C111EEA00D6F32C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */; };
 		CA203DA41C111EEA00D6F32C /* LogOutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE91C06702D00D497D4 /* LogOutResponse.swift */; };
@@ -382,6 +383,7 @@
 		C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionBarDelegate.swift; sourceTree = "<group>"; };
 		C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NameAddressRestaurantCell.xib; sourceTree = "<group>"; };
 		C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantNameAddressTableViewCell.swift; sourceTree = "<group>"; };
+		C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
 		C4F9CB721B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanelDelegateProtocol.swift; sourceTree = "<group>"; };
 		C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantAllDishViewController.swift; sourceTree = "<group>"; };
 		CA203E4D1C111EEA00D6F32C /* Lightning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lightning.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -569,6 +571,7 @@
 				C476C54D1B84565F0051B0E5 /* Queue.swift */,
 				C43B39B91B8C28F000516248 /* StringUtil.swift */,
 				C4F207BC1C13A1060024C287 /* UserContext.swift */,
+				C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -977,6 +980,9 @@
 						CreatedOnToolsVersion = 7.0;
 						TestTargetID = C42D9BBF1B69EF2D0035C5A6;
 					};
+					CA203DA01C111EEA00D6F32C = {
+						DevelopmentTeam = 43JBA7Z8PB;
+					};
 				};
 			};
 			buildConfigurationList = C42D9BBB1B69EF2D0035C5A6 /* Build configuration list for PBXProject "Lightning" */;
@@ -1098,6 +1104,7 @@
 				CA203DB51C111EEA00D6F32C /* ListCandidateSubView.swift in Sources */,
 				CA203E541C12732600D6F32C /* RateResponse.swift in Sources */,
 				CA203DB61C111EEA00D6F32C /* ListMemberViewController.swift in Sources */,
+				C4F5B6F41C4C56B400DD1EBF /* JSSAlertView.swift in Sources */,
 				CA203DB71C111EEA00D6F32C /* GetListsRequest.swift in Sources */,
 				C4A0D5571C11746100BAE246 /* OutputParams.swift in Sources */,
 				C4A0D5561C11746100BAE246 /* Output.swift in Sources */,
