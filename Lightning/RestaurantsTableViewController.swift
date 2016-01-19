@@ -61,6 +61,8 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         request?.userLocation = location
         DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request!) { (response) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
+                self.restaurants.removeAll()
+                self.images.removeAll()
                 if response != nil && (response?.results) != nil {
                     self.restaurants = (response?.results)!
                     self.fetchImageDetails()
@@ -73,8 +75,8 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     func refresh(sender:AnyObject) {
-        self.restaurants.removeAll()
-        self.images.removeAll()
+        request?.limit = 50
+        request?.skip = 0
         loadTableData()
     }
     
