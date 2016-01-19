@@ -12,7 +12,9 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     
     @IBOutlet var restaurantsTable: ImageProgressiveTableView!
     
-    var request : GetRestaurantsRequest?
+    private var request : GetRestaurantsRequest?
+    
+    var sortBy : String?
     
     var restaurants : [Restaurant] = []
     
@@ -34,26 +36,45 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.restaurantsTable.addSubview(refreshControl!)
         self.restaurantsTable.imageDelegate = self
-        setupIndicator()
         loadTableData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
     }
     
     func loadTableData() {
-        self.showIndicator()
-        if request != nil {
-            DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request!) { (response) -> Void in
-                dispatch_async(dispatch_get_main_queue(), {
+        if request == nil {
+            request = GetRestaurantsRequest()
+            if sortBy == "hottest" {
+                request?.sortBy = SortParameter.Hotness
+                request?.sortOrder = SortOrder.Descend
+            } else if sortBy == "nearest" {
+                request?.sortBy = SortParameter.Distance
+                request?.sortOrder = SortOrder.Ascend
+            }
+            request?.limit = 50
+            request?.skip = 0
+        }
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let location = appDelegate.currentLocation
+        if (location.lat == nil || location.lon == nil) {
+            return
+        }
+        request?.userLocation = location
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request!) { (response) -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                if response != nil && (response?.results) != nil {
                     self.restaurants = (response?.results)!
                     self.fetchImageDetails()
-                    self.refreshControl!.endRefreshing()
-                    self.tableView.reloadData()
-                });
-            }
+                }
+                self.refreshControl!.endRefreshing()
+                self.tableView.reloadData()
+            });
         }
+        
     }
     
     func refresh(sender:AnyObject) {
+        self.restaurants.removeAll()
+        self.images.removeAll()
         loadTableData()
     }
     
@@ -66,24 +87,6 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
             let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
             self.images.append(record)
         }
-    }
-    
-    func setupIndicator() {
-        indicatorContainer = UIView(frame: self.view.frame)
-        indicatorContainer?.opaque = true
-        indicatorContainer?.backgroundColor = UIColor.blackColor()
-        indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
-        indicator?.center = self.view.center
-        indicatorContainer?.addSubview(indicator!)
-    }
-    
-    func showIndicator() {
-        indicator?.startAnimating()
-    }
-    
-    func dismissIndicator() {
-        indicator?.stopAnimating()
-        indicatorContainer?.removeFromSuperview()
     }
     
     override func didReceiveMemoryWarning() {
@@ -155,12 +158,32 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         // if last section, add activity indicator
         if section == restaurants.count - 1 {
             footerView.activityIndicator.startAnimating()
-            // load more data
+            loadMore()
+        }
+    }
+    
+    private func loadMore() {
+        request?.skip = (request?.skip)! + (request?.limit)!
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request!) { (response) -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                if response != nil && (response?.results) != nil {
+                    for restaurant : Restaurant in (response?.results)! {
+                        var url = restaurant.picture?.original
+                        if url == nil {
+                            url = ""
+                        }
+                        let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+                        self.images.append(record)
+                        self.restaurants.append(restaurant)
+                    }
+                }
+                self.footerView.activityIndicator.stopAnimating()
+                self.tableView.reloadData()
+            });
         }
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        // add footer to last section
         return footerView
     }
     
@@ -174,48 +197,197 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏", handler:{(action, indexpath) -> Void in
-            self.addToFavorites(indexPath)
-            tableView.setEditing(false, animated: true)
-        });
-        bookmarkAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        let restaurant : Restaurant = self.restaurants[indexPath.section]
+        var favoriteCount : Int = 0
+        var likeCount : Int = 0
+        var neutralCount : Int = 0
+        var dislikeCount : Int = 0
+        let objectId = restaurant.id
+        if restaurant.favoriteCount != nil {
+            favoriteCount = restaurant.favoriteCount!
+        }
+        if restaurant.likeCount != nil {
+            likeCount = restaurant.likeCount!
+        }
+        if restaurant.neutralCount != nil {
+            neutralCount = restaurant.neutralCount!
+        }
+        if restaurant.dislikeCount != nil {
+            dislikeCount = restaurant.dislikeCount!
+        }
         
-        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好评", handler:{(action, indexpath) -> Void in
-            self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.like)
-            tableView.setEditing(false, animated: true)
+        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let sessionToken = defaults.stringForKey("sessionToken")
+            if sessionToken == nil {
+                self.popupSigninAlert()
+            } else {
+                favoriteCount++
+                if restaurant.favoriteCount == nil {
+                    restaurant.favoriteCount = 1
+                } else {
+                    restaurant.favoriteCount!++
+                }
+                
+                action.title = "收藏\n\(favoriteCount)"
+                self.addToFavorites(indexPath)
+            }
+            self.dismissActionViewWithDelay()
+        });
+        addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
+        
+        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好吃\n\(likeCount)", handler:{(action, indexpath) -> Void in
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let sessionToken = defaults.stringForKey("sessionToken")
+            if sessionToken == nil {
+                self.popupSigninAlert()
+            } else {
+                if (self.isRatingTooFrequent(objectId!)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    likeCount++
+                    if restaurant.likeCount == nil {
+                        restaurant.likeCount = 1
+                    } else {
+                        restaurant.likeCount!++
+                    }
+                    action.title = "好吃\n\(likeCount)"
+                    self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.like)
+                }
+                
+            }
+            self.dismissActionViewWithDelay()
         });
         likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
-        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般", handler:{(action, indexpath) -> Void in
-            self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.neutral)
-            tableView.setEditing(false, animated: true)
+        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般\n\(neutralCount)", handler:{(action, indexpath) -> Void in
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let sessionToken = defaults.stringForKey("sessionToken")
+            if sessionToken == nil {
+                self.popupSigninAlert()
+            } else {
+                if (self.isRatingTooFrequent(objectId!)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    neutralCount++
+                    if restaurant.neutralCount == nil {
+                        restaurant.neutralCount = 1
+                    } else {
+                        restaurant.neutralCount!++
+                    }
+                    action.title = "一般\n\(neutralCount)"
+                    self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.neutral)
+                }
+                
+            }
+            
+            self.dismissActionViewWithDelay()
         });
-        neutralAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        neutralAction.backgroundColor = UIColor(red: 1, green: 0.501, blue: 0, alpha: 1.0);
         
-        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "差评", handler:{(action, indexpath) -> Void in
-            self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.dislike)
-            tableView.setEditing(false, animated: true)
+        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "难吃\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let sessionToken = defaults.stringForKey("sessionToken")
+            if sessionToken == nil {
+                self.popupSigninAlert()
+            } else {
+                if (self.isRatingTooFrequent(objectId!)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    dislikeCount++
+                    if restaurant.dislikeCount == nil {
+                        restaurant.dislikeCount = 1
+                    } else {
+                        restaurant.dislikeCount!++
+                    }
+                    action.title = "难吃\n\(dislikeCount)"
+                    self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.dislike)
+                }
+                
+            }
+            
+            self.dismissActionViewWithDelay()
         });
-        dislikeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        dislikeAction.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
         
-        return [bookmarkAction, dislikeAction, neutralAction, likeAction];
+        
+        return [addBookmarkAction, dislikeAction, neutralAction, likeAction];
+    }
+    
+    private func isRatingTooFrequent(objectId : String) -> Bool{
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let now : Int = Int(NSDate().timeIntervalSince1970 * 1000)
+        let lastRateTime = defaults.integerForKey(objectId)
+        if (now - lastRateTime < HomeViewController.RATE_MINUTES_INTERVAL * 60 * 60) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    private func popupSigninAlert() {
+        let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
+        alertview.setTextTheme(.Dark)
+    }
+    
+    private func dismissActionViewWithDelay() {
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func dismissActionView() {
+        self.restaurantsTable.setEditing(false, animated: true)
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
-        ratingAndFavoriteExecutor?.addToFavorites("restaurant", objectId: (restaurants[indexPath.section].id)!, failureHandler: nil)
+        let restaurant = self.restaurants[indexPath.section]
+        ratingAndFavoriteExecutor?.addToFavorites("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
+            for restaurant : Restaurant in self.restaurants {
+                if restaurant.id == objectId {
+                    if restaurant.favoriteCount != nil {
+                        restaurant.favoriteCount!--
+                    }
+                }
+            }
+        })
     }
     
     private func rateRestaurant(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
         
         let objectId: String? = restaurants[indexPath.section].id
+        let type = "restaurant"
         
         if ratingType == RatingTypeEnum.like {
-            ratingAndFavoriteExecutor?.like("restaurant", objectId: objectId!, failureHandler: nil)
+            ratingAndFavoriteExecutor?.like(type, objectId: objectId!, failureHandler: { (objectId) -> Void in
+                for restaurant : Restaurant in self.restaurants {
+                    if restaurant.id == objectId {
+                        if restaurant.likeCount != nil {
+                            restaurant.likeCount!--
+                        }
+                    }
+                }
+            })
         } else if ratingType == RatingTypeEnum.dislike {
-            ratingAndFavoriteExecutor?.dislike("restaurant", objectId: objectId!, failureHandler: nil)
+            ratingAndFavoriteExecutor?.dislike(type, objectId: objectId!,failureHandler: { (objectId) -> Void in
+                for restaurant : Restaurant in self.restaurants {
+                    if restaurant.id == objectId {
+                        if restaurant.dislikeCount != nil {
+                            restaurant.dislikeCount!--
+                        }
+                    }
+                }
+            })
         } else {
-            ratingAndFavoriteExecutor?.neutral("restaurant", objectId: objectId!, failureHandler: nil)
+            ratingAndFavoriteExecutor?.neutral(type, objectId: objectId!,failureHandler: { (objectId) -> Void in
+                for restaurant : Restaurant in self.restaurants {
+                    if restaurant.id == objectId {
+                        if restaurant.neutralCount != nil {
+                            restaurant.neutralCount!--
+                        }
+                    }
+                }
+            })
         }
+
     }
     
     func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {

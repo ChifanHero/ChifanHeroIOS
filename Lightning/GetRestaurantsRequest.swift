@@ -8,25 +8,30 @@
 
 import Foundation
 
-class GetRestaurantsRequest : GetRequestProtocol{
+class GetRestaurantsRequest : PostRequestProtocol{
     
     var limit : Int?
-    var offset : Int?
-    var sortParameter : SortParameter?
+    var skip : Int?
+    var sortBy : SortParameter?
     var sortOrder : SortOrder?
+    var userLocation : Location?
     
-    func getParameters() -> [String:String] {
-        var parameters = Dictionary<String, String>()
+    func getRequestBody() -> [String : AnyObject] {
+        var parameters = Dictionary<String, AnyObject>()
+        if (userLocation != nil) {
+            parameters["user_location"] = userLocation?.getProperties()
+        }
         if limit != nil {
-            parameters["limit"] = String(limit!)
+            parameters["limit"] = limit!
         }
-        if offset != nil {
-            parameters["offset"] = String(offset!)
+        if skip != nil {
+            parameters["skip"] = skip!
         }
-        if sortParameter != nil && sortOrder != nil{
-            parameters["sp"] = sortParameter!.description
-            parameters["so"] = sortOrder!.description
+        if sortBy != nil && sortOrder != nil{
+            parameters["sort_by"] = sortBy!.description
+            parameters["sort_order"] = sortOrder?.description
         }
+        
         return parameters
     }
     

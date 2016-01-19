@@ -36,7 +36,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     let LISTS_LIMIT = 10
     let LISTS_OFFSET = 0
     
-    let RATE_MINUTES_INTERVAL = 10
+    static let RATE_MINUTES_INTERVAL = 10
     
     
     let refreshControl = UIRefreshControl()
@@ -148,19 +148,8 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRestaurants" {
             let restaurantsController : RestaurantsTableViewController = segue.destinationViewController as! RestaurantsTableViewController
-            let getRestaurantsRequest = GetRestaurantsRequest()
-            getRestaurantsRequest.limit = RESTAURANTS_LIMIT
-            getRestaurantsRequest.offset = RESTAURANTS_OFFSET
             if let s = sender as? String {
-                if s == "hottest" {
-                    getRestaurantsRequest.sortParameter = SortParameter.Hotness
-                    getRestaurantsRequest.sortOrder = SortOrder.Decrease
-                    restaurantsController.request = getRestaurantsRequest
-                } else if s == "nearest" {
-                    getRestaurantsRequest.sortParameter = SortParameter.Distance
-                    getRestaurantsRequest.sortOrder = SortOrder.Increase
-                    restaurantsController.request = getRestaurantsRequest
-                }
+                restaurantsController.sortBy = s
             }
         } else if segue.identifier == "showLists" {
             let getListsRequest = GetListsRequest()
@@ -283,7 +272,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let defaults = NSUserDefaults.standardUserDefaults()
         let now : Int = Int(NSDate().timeIntervalSince1970 * 1000)
         let lastRateTime = defaults.integerForKey(objectId)
-        if (now - lastRateTime < self.RATE_MINUTES_INTERVAL * 60 * 60) {
+        if (now - lastRateTime < HomeViewController.RATE_MINUTES_INTERVAL * 60 * 60) {
             return true
         } else {
             return false

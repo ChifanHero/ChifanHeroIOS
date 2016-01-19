@@ -10,13 +10,13 @@ import Foundation
 
 enum SortOrder {
     
-    case Increase
-    case Decrease
+    case Ascend
+    case Descend
     
     var description : String {
         switch self {
-        case .Increase : return "increase"
-        case .Decrease : return "decrease"
+        case .Ascend : return "ascend"
+        case .Descend : return "descend"
         }
     }
     
