@@ -18,7 +18,9 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     var pendingOperations = PendingOperations()
     var images = [PhotoRecord]()
+    @IBOutlet weak var messageView: UIView!
     
+    @IBOutlet weak var waitingView: UIView!
     @IBOutlet weak var containerScrollView: UIScrollView!
     
     @IBOutlet weak var infoTableView: UITableView!
@@ -30,13 +32,19 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     var localSearchResponse:MKLocalSearchResponse!
 
+    @IBOutlet weak var hotDishesContainerView: UIView!
     @IBOutlet weak var topViewContainer: ViewItemTopUIView!
     
     @IBOutlet weak var hotDishesTableView: ImageProgressiveTableView!
+    @IBOutlet weak var message: UILabel!
+    
+    static let INFO_ROW_HEIGHT : CGFloat = 35
     
     override func viewDidLoad() {
         super.viewDidLoad()
         hotDishesTableView.allowsSelection = false
+        self.waitingView.hidden = false
+        self.hotDishesTableView.imageDelegate = self
         loadData()
         topViewContainer.rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         // Do any additional setup after loading the view.
@@ -47,31 +55,59 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             let request : GetRestaurantByIdRequest = GetRestaurantByIdRequest(id: restaurantId!)
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request) { (response) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.restaurant = (response?.result)!
-                    if self.restaurant != nil {
-                        self.topViewContainer.restaurantId = self.restaurant?.id
-                        self.topViewContainer.name = self.restaurant?.name
-                        self.topViewContainer.englishName = self.restaurant?.englishName
-                        self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+                    if response?.result != nil {
+                        self.restaurant = (response?.result)!
+                        if self.restaurant != nil {
+                            self.topViewContainer.restaurantId = self.restaurant?.id
+                            self.topViewContainer.name = self.restaurant?.name
+                            self.topViewContainer.englishName = self.restaurant?.englishName
+                            self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+                            if self.restaurant?.address != nil {
+                                self.info["address"] = self.restaurant?.address
+                            }
+                            if self.restaurant?.hours != nil {
+                                self.info["hours"] = self.restaurant?.hours
+                            }
+                            if self.restaurant?.phone != nil {
+                                self.info["phone"] = self.restaurant?.phone
+                            }
+                            if self.restaurant != nil && self.restaurant!.hotDishes != nil {
+                                self.hotDishes += (self.restaurant?.hotDishes)!
+                            }
+                            if self.hotDishes.count == 0 {
+                                self.hotDishesTableView.hidden = true
+                                self.messageView.hidden = false
+                                self.message.text = "此餐厅还未开通菜单功能"
+                                
+                            } else {
+                                self.hotDishesTableView.hidden = false
+                            }
+                            self.fetchImageDetails()
+                        }
+                        
                     }
-                    self.info["address"] = self.restaurant?.address
-                    self.info["hours"] = self.restaurant?.hours
-                    self.info["phone"] = self.restaurant?.phone
-                    if self.restaurant != nil && self.restaurant!.hotDishes != nil {
-                        self.hotDishes += (self.restaurant?.hotDishes)!
-                    }
-                    self.fetchImageDetails()
+                    
                     self.infoTableView.reloadData()
                     self.hotDishesTableView.reloadData()
                     self.adjustUI()
+                    self.waitingView.hidden = true
                 });
             }
         }
     }
     
     private func adjustUI() {
+        adjustInfoTableViewHeight()
         adjustDishTableViewHeight()
         adjustContainerViewHeight()
+    }
+    
+    private func adjustInfoTableViewHeight() {
+        let height : CGFloat = CGFloat(self.info.count) * RestaurantViewController.INFO_ROW_HEIGHT
+        let heightConstraint:NSLayoutConstraint = NSLayoutConstraint(item: self.infoTableView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute:NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: height);
+        heightConstraint.priority = 1000
+        self.infoTableView.addConstraint(heightConstraint);
+        self.view.layoutIfNeeded()
     }
     
     private func fetchImageDetails() {
@@ -86,8 +122,16 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     private func adjustDishTableViewHeight() {
-        let originalFrame : CGRect = self.hotDishesTableView.frame
-        self.hotDishesTableView.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.hotDishesTableView.contentSize.height)
+        if self.hotDishesTableView.hidden == false {
+//            let originalFrame : CGRect = self.hotDishesTableView.frame
+//            self.hotDishesTableView.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.hotDishesTableView.contentSize.height)
+            let heightConstraint:NSLayoutConstraint = NSLayoutConstraint(item: self.hotDishesTableView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute:NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.hotDishesTableView.contentSize.height);
+            heightConstraint.priority = 1000
+            self.hotDishesTableView.addConstraint(heightConstraint);
+            self.view.layoutIfNeeded()
+
+        }
+        
     }
     
     private func adjustContainerViewHeight() {
@@ -105,7 +149,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         if tableView == infoTableView {
-            return info.count + 1
+            return info.count
         } else if tableView == hotDishesTableView {
             return hotDishes.count
         } else {
@@ -119,24 +163,23 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if tableView == infoTableView {
-            if indexPath.row <= (info.count - 1) {
-                var cell : InfoTableViewCell? = tableView.dequeueReusableCellWithIdentifier("infoCell") as? InfoTableViewCell
-                if cell == nil {
-                    tableView.registerNib(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "infoCell")
-                    cell = tableView.dequeueReusableCellWithIdentifier("infoCell") as? InfoTableViewCell
-                }
-                let key = Array(info.keys)[indexPath.row] as String
-                cell!.info = info[key]
-                cell!.iconResourceName = infoToResource[key]
-                return cell!
-            } else {
-                var cell : InfoCouponTableViewCell? = tableView.dequeueReusableCellWithIdentifier("infoCouponCell") as? InfoCouponTableViewCell
-                if cell == nil {
-                    tableView.registerNib(UINib(nibName: "InfoCouponCell", bundle: nil), forCellReuseIdentifier: "infoCouponCell")
-                    cell = tableView.dequeueReusableCellWithIdentifier("infoCouponCell") as? InfoCouponTableViewCell
-                }
-                return cell!
+            var cell : InfoTableViewCell? = tableView.dequeueReusableCellWithIdentifier("infoCell") as? InfoTableViewCell
+            if cell == nil {
+                tableView.registerNib(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "infoCell")
+                cell = tableView.dequeueReusableCellWithIdentifier("infoCell") as? InfoTableViewCell
             }
+            let key = Array(info.keys)[indexPath.row] as String
+            cell!.info = info[key]
+            cell!.iconResourceName = infoToResource[key]
+            return cell!
+//            else {
+//                var cell : InfoCouponTableViewCell? = tableView.dequeueReusableCellWithIdentifier("infoCouponCell") as? InfoCouponTableViewCell
+//                if cell == nil {
+//                    tableView.registerNib(UINib(nibName: "InfoCouponCell", bundle: nil), forCellReuseIdentifier: "infoCouponCell")
+//                    cell = tableView.dequeueReusableCellWithIdentifier("infoCouponCell") as? InfoCouponTableViewCell
+//                }
+//                return cell!
+//            }
             
         } else if tableView == hotDishesTableView {
             var cell : NameOnlyDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
@@ -232,7 +275,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if tableView == infoTableView {
             if indexPath.row <= (info.count - 1) {
-                return 35
+                return RestaurantViewController.INFO_ROW_HEIGHT
             } else {
                 return 62
             }

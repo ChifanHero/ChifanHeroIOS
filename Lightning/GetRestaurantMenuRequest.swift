@@ -21,6 +21,6 @@ class GetRestaurantMenuRequest : GetRequestProtocol{
     }
     
     func getRelativeURL() -> String {
-        return "/restaurants/" + restaurantId + "/menu"
+        return "/restaurants/" + restaurantId + "/menus"
     }
 }

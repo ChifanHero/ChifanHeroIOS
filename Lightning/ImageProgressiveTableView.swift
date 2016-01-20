@@ -77,6 +77,8 @@ class ImageProgressiveTableView : UITableView {
             
             for indexPath : NSIndexPath in toBeStarted {
                 let recordToProcess = imageDelegate?.imageForIndexPath(tableView: self, indexPath: indexPath)
+                let row = indexPath.row
+                let section = indexPath.section
                 startOperationsForPhotoRecord(&pendingOperations, photoDetails: recordToProcess!, indexPath: indexPath)
             }
         }

@@ -49,6 +49,9 @@ import UIKit
                 let data = NSData(contentsOfURL: url!)
                 let image = UIImage(data: data!)
                 backgroundImageView.image = image
+            } else {
+                let defaultImage = UIImage(named: "restaurant_default_background")
+                backgroundImageView.image = defaultImage
             }
         }
     }
