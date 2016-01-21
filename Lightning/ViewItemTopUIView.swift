@@ -24,7 +24,9 @@ import UIKit
 
     @IBOutlet weak var englishNameLabel: UILabel!
     
-    var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
+    private var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
+    
+    var baseVC : UIViewController?
     
     var restaurantId: String?
     
@@ -41,6 +43,58 @@ import UIKit
             englishNameLabel.text = englishName
         }
     }
+    
+    var likeCount : Int? {
+        didSet {
+            if likeCount != nil {
+                likeButtonView.actionCount = likeCount!
+            } else {
+                likeButtonView.actionCount = 0
+            }
+            
+        }
+    }
+    var dislikeCount : Int? {
+        didSet {
+            if dislikeCount != nil {
+                dislikeButtonView.actionCount = dislikeCount!
+            } else {
+                dislikeButtonView.actionCount = 0
+            }
+            
+        }
+    }
+    var neutralCount : Int? {
+        didSet {
+            if neutralCount != nil {
+                neutralButtonView.actionCount = neutralCount!
+            } else {
+                neutralButtonView.actionCount = 0
+            }
+            
+        }
+    }
+    var bookmarkCount : Int? {
+        didSet {
+            if bookmarkCount != nil {
+                bookmarkButtonView.actionCount = bookmarkCount!
+            } else {
+                bookmarkButtonView.actionCount = 0
+            }
+            
+        }
+    }
+    
+    
+    @IBOutlet weak var neutralButtonView: ActionButtonView!
+    
+    @IBOutlet weak var likeButtonView: ActionButtonView!
+    
+    @IBOutlet weak var dislikeButtonView: ActionButtonView!
+    
+    @IBOutlet weak var bookmarkButtonView: ActionButtonView!
+    
+    
     
     @IBInspectable var backgroundImageURL: String? {
         didSet {
@@ -80,20 +134,67 @@ import UIKit
         xibSetup()
     }
     
+    
     @IBAction func likeAction(sender: AnyObject) {
-        rateAndBookmarkExecutor?.like("restaurant", objectId: restaurantId!, failureHandler: nil)
+        if self.baseVC == nil {
+            return
+        }
+        rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self.baseVC!)
+        if UserContext.isRatingTooFrequent(restaurantId!) {
+            JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
+        } else {
+            likeButtonView.actionCount = likeButtonView.actionCount! + 1
+            rateAndBookmarkExecutor?.like("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
+                self.likeButtonView.actionCount = self.likeButtonView.actionCount! - 1
+            })
+        }
     }
-    
+
     @IBAction func dislikeAction(sender: AnyObject) {
-        rateAndBookmarkExecutor?.dislike("restaurant", objectId: restaurantId!, failureHandler: nil)
+        if self.baseVC == nil {
+            return
+        }
+        rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self.baseVC!)
+        if UserContext.isRatingTooFrequent(restaurantId!) {
+            JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
+        } else {
+            dislikeButtonView.actionCount = dislikeButtonView.actionCount! + 1
+            rateAndBookmarkExecutor?.dislike("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
+                self.dislikeButtonView.actionCount = self.dislikeButtonView.actionCount! - 1
+            })
+        }
     }
     
+
     @IBAction func neutralAction(sender: AnyObject) {
-        rateAndBookmarkExecutor?.neutral("restaurant", objectId: restaurantId!, failureHandler: nil)
+        if self.baseVC == nil {
+            return
+        }
+        rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self.baseVC!)
+        if UserContext.isRatingTooFrequent(restaurantId!) {
+            JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
+        } else {
+            neutralButtonView.actionCount = neutralButtonView.actionCount! + 1
+            rateAndBookmarkExecutor?.neutral("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
+                self.neutralButtonView.actionCount = self.neutralButtonView.actionCount! - 1
+            })
+        }
     }
+    
     
     @IBAction func bookmarkAction(sender: AnyObject) {
-        rateAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurantId!, failureHandler: nil)
+        if self.baseVC == nil {
+            return
+        }
+        rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self.baseVC!)
+        if UserContext.isRatingTooFrequent(restaurantId!) {
+            JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
+        } else {
+            bookmarkButtonView.actionCount = bookmarkButtonView.actionCount! + 1
+            rateAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
+                self.bookmarkButtonView.actionCount = self.bookmarkButtonView.actionCount! - 1
+            })
+        }
     }
     
     

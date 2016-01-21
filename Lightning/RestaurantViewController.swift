@@ -46,7 +46,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         self.waitingView.hidden = false
         self.hotDishesTableView.imageDelegate = self
         loadData()
-        topViewContainer.rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
+        topViewContainer.baseVC = self
         // Do any additional setup after loading the view.
     }
     
@@ -81,6 +81,18 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                                 
                             } else {
                                 self.hotDishesTableView.hidden = false
+                            }
+                            if self.restaurant?.likeCount != nil {
+                                self.topViewContainer.likeCount = self.restaurant?.likeCount
+                            }
+                            if self.restaurant?.dislikeCount != nil {
+                                self.topViewContainer.dislikeCount = self.restaurant?.dislikeCount
+                            }
+                            if self.restaurant?.neutralCount != nil {
+                                self.topViewContainer.neutralCount = self.restaurant?.neutralCount
+                            }
+                            if self.restaurant?.favoriteCount != nil {
+                                self.topViewContainer.bookmarkCount = self.restaurant?.favoriteCount
                             }
                             self.fetchImageDetails()
                         }

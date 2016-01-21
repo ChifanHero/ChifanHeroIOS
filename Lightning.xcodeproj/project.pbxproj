@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */; };
+		C44C257E1C50B88300A345D8 /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C257D1C50B88300A345D8 /* UITableViewCellExtension.swift */; };
+		C44C25801C50C62D00A345D8 /* ActionButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */; };
+		C44C25821C50C97200A345D8 /* ActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25811C50C97200A345D8 /* ActionButtonView.swift */; };
 		C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */; };
 		C4A0D5521C11746100BAE246 /* DishSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */; };
 		C4A0D5531C11746100BAE246 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5461C11746100BAE246 /* Distance.swift */; };
@@ -273,6 +276,9 @@
 		C43B9A471BDEBFC300FD50FF /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		C43B9A491BDED0EC00FD50FF /* ImageProgressiveCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProgressiveCollectionView.swift; sourceTree = "<group>"; };
 		C43B9A4E1BDED5FE00FD50FF /* ModelTableViewCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTableViewCellProtocol.swift; sourceTree = "<group>"; };
+		C44C257D1C50B88300A345D8 /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
+		C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionButtonView.xib; sourceTree = "<group>"; };
+		C44C25811C50C97200A345D8 /* ActionButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionButtonView.swift; sourceTree = "<group>"; };
 		C454B26E1BCE2ED70091A5BC /* LoadMoreFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreFooterView.xib; sourceTree = "<group>"; };
 		C454B2701BCE2F2E0091A5BC /* LoadMoreFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreFooterView.swift; sourceTree = "<group>"; };
 		C461DB781BD0CA18009032C8 /* ListMemberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMemberViewController.swift; sourceTree = "<group>"; };
@@ -631,6 +637,14 @@
 			name = UploadPhotoQueue;
 			sourceTree = "<group>";
 		};
+		C44C257C1C50B86300A345D8 /* Local Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C44C257D1C50B88300A345D8 /* UITableViewCellExtension.swift */,
+			);
+			name = "Local Extensions";
+			sourceTree = "<group>";
+		};
 		C461DB841BD2CE44009032C8 /* DownloadPhotoQueue */ = {
 			isa = PBXGroup;
 			children = (
@@ -669,6 +683,7 @@
 				C4A821DF1BE324A300D1D4B7 /* RecommendationsHeaderView.xib */,
 				CA7A4F631BE73F550016BC56 /* SignUpView.xib */,
 				C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */,
+				C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -676,6 +691,7 @@
 		C476C54A1B843F2C0051B0E5 /* UIElementsClass */ = {
 			isa = PBXGroup;
 			children = (
+				C44C257C1C50B86300A345D8 /* Local Extensions */,
 				CA203E591C18E62B00D6F32C /* RatingAndFavorite */,
 				C43B9A4D1BDED52000FD50FF /* AboutMe */,
 				C43B9A4C1BDED4CB00FD50FF /* Cells */,
@@ -701,6 +717,7 @@
 				C4A821E11BE3257000D1D4B7 /* RecommendationsHeaderView.swift */,
 				C4DB3E221BE6717A00076A57 /* ListCandidateConfirmationView.swift */,
 				C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */,
+				C44C25811C50C97200A345D8 /* ActionButtonView.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -1033,6 +1050,7 @@
 				CA203E361C111EEA00D6F32C /* CouponCell.xib in Resources */,
 				CA203E371C111EEA00D6F32C /* RecommendationsHeaderView.xib in Resources */,
 				CA203E381C111EEA00D6F32C /* SimpleDishCell.xib in Resources */,
+				C44C25801C50C62D00A345D8 /* ActionButtonView.xib in Resources */,
 				CA203E391C111EEA00D6F32C /* CouponCellSecondView.xib in Resources */,
 				CA203E3A1C111EEA00D6F32C /* MessageCell.xib in Resources */,
 				CA203E3B1C111EEA00D6F32C /* ListCandidateConfirmationView.xib in Resources */,
@@ -1108,6 +1126,7 @@
 				CA203DB81C111EEA00D6F32C /* ListTableViewCell.swift in Sources */,
 				CA203DB91C111EEA00D6F32C /* UploadPictureResponse.swift in Sources */,
 				CA203DBA1C111EEA00D6F32C /* GetPromotionsRequest.swift in Sources */,
+				C44C257E1C50B88300A345D8 /* UITableViewCellExtension.swift in Sources */,
 				CA203DBB1C111EEA00D6F32C /* UpdateInfoRequest.swift in Sources */,
 				CA203DBC1C111EEA00D6F32C /* SignUpDelegate.swift in Sources */,
 				CA203DBD1C111EEA00D6F32C /* Dish.swift in Sources */,
@@ -1168,6 +1187,7 @@
 				CA203DEA1C111EEA00D6F32C /* NotificationTableViewController.swift in Sources */,
 				CA203DEB1C111EEA00D6F32C /* LoginRequest.swift in Sources */,
 				CA203DEC1C111EEA00D6F32C /* RestaurantTableViewCell.swift in Sources */,
+				C44C25821C50C97200A345D8 /* ActionButtonView.swift in Sources */,
 				CA203DED1C111EEA00D6F32C /* SlideBarDelegateProtocol.swift in Sources */,
 				CA203DEE1C111EEA00D6F32C /* ServiceConfiguration.swift in Sources */,
 				CA203DEF1C111EEA00D6F32C /* SignUpRequest.swift in Sources */,

@@ -35,10 +35,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     let RESTAURANTS_OFFSET = 0
     let LISTS_LIMIT = 10
     let LISTS_OFFSET = 0
-    
-    static let RATE_MINUTES_INTERVAL = 10
-    
-    
+
     let refreshControl = UIRefreshControl()
     var pendingOperations = PendingOperations()
     var images = [PhotoRecord]()
@@ -66,7 +63,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     private func initPromotionsTable(){
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         self.promotionsTable.imageDelegate = self
-        NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: Selector("loadPromotionsTableData"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("loadPromotionsTableData"), userInfo: nil, repeats: false)
     }
     
     @objc private func refresh(sender:AnyObject) {
@@ -268,17 +265,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    private func isRatingTooFrequent(objectId : String) -> Bool{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let now : Int = Int(NSDate().timeIntervalSince1970 * 1000)
-        let lastRateTime = defaults.integerForKey(objectId)
-        if (now - lastRateTime < HomeViewController.RATE_MINUTES_INTERVAL * 60 * 60) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) ->
         [UITableViewRowAction]? {
             
@@ -320,127 +306,99 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
             
         let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
-            let defaults = NSUserDefaults.standardUserDefaults()
-            let sessionToken = defaults.stringForKey("sessionToken")
-            if sessionToken == nil {
-                self.popupSigninAlert()
-            } else {
-                favoriteCount++
-                if promotion.dish != nil {
-                    if promotion.dish?.favoriteCount == nil {
-                        promotion.dish?.favoriteCount = 1
-                    } else {
-                        promotion.dish?.favoriteCount!++
-                    }
+            favoriteCount++
+            if promotion.dish != nil {
+                if promotion.dish?.favoriteCount == nil {
+                    promotion.dish?.favoriteCount = 1
                 } else {
-                    if promotion.restaurant?.favoriteCount == nil {
-                        promotion.restaurant?.favoriteCount = 1
-                    } else {
-                        promotion.restaurant?.favoriteCount!++
-                    }
+                    promotion.dish?.favoriteCount!++
                 }
-                action.title = "收藏\n\(favoriteCount)"
-                self.addToFavorites(indexPath)
+            } else {
+                if promotion.restaurant?.favoriteCount == nil {
+                    promotion.restaurant?.favoriteCount = 1
+                } else {
+                    promotion.restaurant?.favoriteCount!++
+                }
             }
+            self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
+            self.addToFavorites(indexPath)
             self.dismissActionViewWithDelay()
         });
         addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
         
         let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好吃\n\(likeCount)", handler:{(action, indexpath) -> Void in
-            let defaults = NSUserDefaults.standardUserDefaults()
-            let sessionToken = defaults.stringForKey("sessionToken")
-            if sessionToken == nil {
-                self.popupSigninAlert()
+            if (UserContext.isRatingTooFrequent(objectId)) {
+                JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                if (self.isRatingTooFrequent(objectId)) {
-                    JSSAlertView().warning(self, title: "评价太频繁")
-                } else {
-                    likeCount++
-                    if promotion.dish != nil {
-                        if promotion.dish?.likeCount == nil {
-                            promotion.dish?.likeCount = 1
-                        } else {
-                            promotion.dish?.likeCount!++
-                        }
+                likeCount++
+                if promotion.dish != nil {
+                    if promotion.dish?.likeCount == nil {
+                        promotion.dish?.likeCount = 1
                     } else {
-                        if promotion.restaurant?.likeCount == nil {
-                            promotion.restaurant?.likeCount = 1
-                        } else {
-                            promotion.restaurant?.likeCount!++
-                        }
+                        promotion.dish?.likeCount!++
                     }
-//                    action.title = "好吃\n\(likeCount)"
-                    action.title = "some random title"
-                    self.ratePromotion(indexPath, ratingType: RatingTypeEnum.like)
+                } else {
+                    if promotion.restaurant?.likeCount == nil {
+                        promotion.restaurant?.likeCount = 1
+                    } else {
+                        promotion.restaurant?.likeCount!++
+                    }
                 }
                 
+                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("好吃\n\(likeCount)", index: 3)
+                
+                self.ratePromotion(indexPath, ratingType: RatingTypeEnum.like)
             }
             self.dismissActionViewWithDelay()
         });
         likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
         let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般\n\(neutralCount)", handler:{(action, indexpath) -> Void in
-            let defaults = NSUserDefaults.standardUserDefaults()
-            let sessionToken = defaults.stringForKey("sessionToken")
-            if sessionToken == nil {
-                self.popupSigninAlert()
+            if (UserContext.isRatingTooFrequent(objectId)) {
+                JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                if (self.isRatingTooFrequent(objectId)) {
-                    JSSAlertView().warning(self, title: "评价太频繁")
-                } else {
-                    neutralCount++
-                    if promotion.dish != nil {
-                        if promotion.dish?.neutralCount == nil {
-                            promotion.dish?.neutralCount = 1
-                        } else {
-                            promotion.dish?.neutralCount!++
-                        }
+                neutralCount++
+                if promotion.dish != nil {
+                    if promotion.dish?.neutralCount == nil {
+                        promotion.dish?.neutralCount = 1
                     } else {
-                        if promotion.restaurant?.neutralCount == nil {
-                            promotion.restaurant?.neutralCount = 1
-                        } else {
-                            promotion.restaurant?.neutralCount!++
-                        }
+                        promotion.dish?.neutralCount!++
                     }
-                    action.title = "一般\n\(neutralCount)"
-                    self.ratePromotion(indexPath, ratingType: RatingTypeEnum.neutral)
+                } else {
+                    if promotion.restaurant?.neutralCount == nil {
+                        promotion.restaurant?.neutralCount = 1
+                    } else {
+                        promotion.restaurant?.neutralCount!++
+                    }
                 }
-                
+                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("一般\n\(neutralCount)", index: 2)
+                self.ratePromotion(indexPath, ratingType: RatingTypeEnum.neutral)
             }
-            
             self.dismissActionViewWithDelay()
         });
         neutralAction.backgroundColor = UIColor(red: 1, green: 0.501, blue: 0, alpha: 1.0);
         
         let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "难吃\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
-            let defaults = NSUserDefaults.standardUserDefaults()
-            let sessionToken = defaults.stringForKey("sessionToken")
-            if sessionToken == nil {
-                self.popupSigninAlert()
+            if (UserContext.isRatingTooFrequent(objectId)) {
+                JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                if (self.isRatingTooFrequent(objectId)) {
-                    JSSAlertView().warning(self, title: "评价太频繁")
-                } else {
-                    dislikeCount++
-                    if promotion.dish != nil {
-                        if promotion.dish?.dislikeCount == nil {
-                            promotion.dish?.dislikeCount = 1
-                        } else {
-                            promotion.dish?.dislikeCount!++
-                        }
+                dislikeCount++
+                if promotion.dish != nil {
+                    if promotion.dish?.dislikeCount == nil {
+                        promotion.dish?.dislikeCount = 1
                     } else {
-                        if promotion.restaurant?.dislikeCount == nil {
-                            promotion.restaurant?.dislikeCount = 1
-                        } else {
-                            promotion.restaurant?.dislikeCount!++
-                        }
+                        promotion.dish?.dislikeCount!++
                     }
-                    action.title = "难吃\n\(dislikeCount)"
-                    self.ratePromotion(indexPath, ratingType: RatingTypeEnum.dislike)
+                } else {
+                    if promotion.restaurant?.dislikeCount == nil {
+                        promotion.restaurant?.dislikeCount = 1
+                    } else {
+                        promotion.restaurant?.dislikeCount!++
+                    }
                 }
-                
+                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("难吃\n\(dislikeCount)", index: 1)
+                self.ratePromotion(indexPath, ratingType: RatingTypeEnum.dislike)
             }
-            
             self.dismissActionViewWithDelay()
         });
         dislikeAction.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
@@ -455,6 +413,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     @objc private func dismissActionView() {
         self.promotionsTable.setEditing(false, animated: true)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func reloadTable() {
+        self.promotionsTable.reloadData()
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
