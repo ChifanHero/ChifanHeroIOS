@@ -306,23 +306,28 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
             
         let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
-            favoriteCount++
-            if promotion.dish != nil {
-                if promotion.dish?.favoriteCount == nil {
-                    promotion.dish?.favoriteCount = 1
-                } else {
-                    promotion.dish?.favoriteCount!++
-                }
+            if (!UserContext.isValidUser()) {
+                self.popupSigninAlert()
             } else {
-                if promotion.restaurant?.favoriteCount == nil {
-                    promotion.restaurant?.favoriteCount = 1
+                favoriteCount++
+                if promotion.dish != nil {
+                    if promotion.dish?.favoriteCount == nil {
+                        promotion.dish?.favoriteCount = 1
+                    } else {
+                        promotion.dish?.favoriteCount!++
+                    }
                 } else {
-                    promotion.restaurant?.favoriteCount!++
+                    if promotion.restaurant?.favoriteCount == nil {
+                        promotion.restaurant?.favoriteCount = 1
+                    } else {
+                        promotion.restaurant?.favoriteCount!++
+                    }
                 }
+                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
+                self.addToFavorites(indexPath)
             }
-            self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
-            self.addToFavorites(indexPath)
             self.dismissActionViewWithDelay()
+            
         });
         addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
         

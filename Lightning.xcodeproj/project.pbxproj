@@ -12,6 +12,7 @@
 		C44C257E1C50B88300A345D8 /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C257D1C50B88300A345D8 /* UITableViewCellExtension.swift */; };
 		C44C25801C50C62D00A345D8 /* ActionButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */; };
 		C44C25821C50C97200A345D8 /* ActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25811C50C97200A345D8 /* ActionButtonView.swift */; };
+		C44C25841C52022900A345D8 /* ScoreComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25831C52022900A345D8 /* ScoreComputer.swift */; };
 		C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */; };
 		C4A0D5521C11746100BAE246 /* DishSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */; };
 		C4A0D5531C11746100BAE246 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5461C11746100BAE246 /* Distance.swift */; };
@@ -279,6 +280,7 @@
 		C44C257D1C50B88300A345D8 /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
 		C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionButtonView.xib; sourceTree = "<group>"; };
 		C44C25811C50C97200A345D8 /* ActionButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionButtonView.swift; sourceTree = "<group>"; };
+		C44C25831C52022900A345D8 /* ScoreComputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreComputer.swift; sourceTree = "<group>"; };
 		C454B26E1BCE2ED70091A5BC /* LoadMoreFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreFooterView.xib; sourceTree = "<group>"; };
 		C454B2701BCE2F2E0091A5BC /* LoadMoreFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreFooterView.swift; sourceTree = "<group>"; };
 		C461DB781BD0CA18009032C8 /* ListMemberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMemberViewController.swift; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 				C43B39B91B8C28F000516248 /* StringUtil.swift */,
 				C4F207BC1C13A1060024C287 /* UserContext.swift */,
 				C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */,
+				C44C25831C52022900A345D8 /* ScoreComputer.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -1224,6 +1227,7 @@
 				CA203E091C111EEA00D6F32C /* GetDishByIdRequest.swift in Sources */,
 				C4A0D55A1C11746100BAE246 /* Serializable.swift in Sources */,
 				CA203E0A1C111EEA00D6F32C /* CouponTableViewCell.swift in Sources */,
+				C44C25841C52022900A345D8 /* ScoreComputer.swift in Sources */,
 				CA203E0B1C111EEA00D6F32C /* LoginDelegate.swift in Sources */,
 				CA203E0C1C111EEA00D6F32C /* Message.swift in Sources */,
 				CA203E0D1C111EEA00D6F32C /* SortParameter.swift in Sources */,

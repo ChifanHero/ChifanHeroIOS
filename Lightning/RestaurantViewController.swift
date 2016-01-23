@@ -37,6 +37,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var hotDishesTableView: ImageProgressiveTableView!
     @IBOutlet weak var message: UILabel!
+    var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
     static let INFO_ROW_HEIGHT : CGFloat = 35
     
@@ -47,6 +48,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         self.hotDishesTableView.imageDelegate = self
         loadData()
         topViewContainer.baseVC = self
+        ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         // Do any additional setup after loading the view.
     }
     
@@ -184,14 +186,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             cell!.info = info[key]
             cell!.iconResourceName = infoToResource[key]
             return cell!
-//            else {
-//                var cell : InfoCouponTableViewCell? = tableView.dequeueReusableCellWithIdentifier("infoCouponCell") as? InfoCouponTableViewCell
-//                if cell == nil {
-//                    tableView.registerNib(UINib(nibName: "InfoCouponCell", bundle: nil), forCellReuseIdentifier: "infoCouponCell")
-//                    cell = tableView.dequeueReusableCellWithIdentifier("infoCouponCell") as? InfoCouponTableViewCell
-//                }
-//                return cell!
-//            }
             
         } else if tableView == hotDishesTableView {
             var cell : NameOnlyDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
@@ -318,30 +312,96 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let dish : Dish = self.hotDishes[indexPath.row]
+        var favoriteCount : Int = 0
+        var likeCount : Int = 0
+        var neutralCount : Int = 0
+        var dislikeCount : Int = 0
+        let objectId = dish.id!
+        
+        if dish.favoriteCount != nil {
+            favoriteCount = dish.favoriteCount!
+        }
+        if dish.likeCount != nil {
+            likeCount = dish.likeCount!
+        }
+        if dish.neutralCount != nil {
+            neutralCount = dish.neutralCount!
+        }
+        if dish.dislikeCount != nil {
+            dislikeCount = dish.dislikeCount!
+        }
+        
         if tableView == hotDishesTableView{
-            let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏", handler:{(action, indexpath) -> Void in
-                self.addToFavorites(indexPath)
-                tableView.setEditing(false, animated: true)
+            let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
+                if (!UserContext.isValidUser()) {
+                    self.popupSigninAlert()
+                } else {
+                    favoriteCount++
+                    if dish.favoriteCount == nil {
+                        dish.favoriteCount = 1
+                    } else {
+                        dish.favoriteCount!++
+                    }
+                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
+                    self.addToFavorites(indexPath)
+                }
+                self.dismissActionViewWithDelay()
             });
-            bookmarkAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+            bookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0)
             
-            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好评", handler:{(action, indexpath) -> Void in
-                self.rateDish(indexPath, ratingType: RatingTypeEnum.like)
-                tableView.setEditing(false, animated: true)
+            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好吃\n\(likeCount)", handler:{(action, indexpath) -> Void in
+                if (UserContext.isRatingTooFrequent(objectId)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    likeCount++
+                    if dish.likeCount == nil {
+                        dish.likeCount = 1
+                    } else {
+                        dish.likeCount!++
+                    }
+                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("好吃\n\(likeCount)", index: 3)
+                    self.rateDish(indexPath, ratingType: RatingTypeEnum.like)
+                }
+                self.dismissActionViewWithDelay()
             });
-            likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+            likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0)
             
-            let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般", handler:{(action, indexpath) -> Void in
-                self.rateDish(indexPath, ratingType: RatingTypeEnum.neutral)
-                tableView.setEditing(false, animated: true)
+            let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般\n\(neutralCount)", handler:{(action, indexpath) -> Void in
+                if (UserContext.isRatingTooFrequent(objectId)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    neutralCount++
+                    if dish.neutralCount == nil {
+                        dish.neutralCount = 1
+                    } else {
+                        dish.neutralCount!++
+                    }
+                    action.title = "一般\n\(neutralCount)"
+                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("一般\n\(neutralCount)", index: 2)
+                    self.rateDish(indexPath, ratingType: RatingTypeEnum.neutral)
+                }
+                self.dismissActionViewWithDelay()
             });
-            neutralAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+            neutralAction.backgroundColor = UIColor(red: 1, green: 0.501, blue: 0, alpha: 1.0)
             
-            let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "差评", handler:{(action, indexpath) -> Void in
-                self.rateDish(indexPath, ratingType: RatingTypeEnum.dislike)
-                tableView.setEditing(false, animated: true)
+            let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "难吃\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
+                if (UserContext.isRatingTooFrequent(objectId)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    dislikeCount++
+                    if dish.dislikeCount == nil {
+                        dish.dislikeCount = 1
+                    } else {
+                        dish.dislikeCount!++
+                    }
+                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("难吃\n\(dislikeCount)", index: 1)
+                    self.rateDish(indexPath, ratingType: RatingTypeEnum.dislike)
+                }
+                self.dismissActionViewWithDelay()
             });
-            dislikeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+            dislikeAction.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
             
             return [bookmarkAction, dislikeAction, neutralAction, likeAction];
         }
@@ -349,11 +409,71 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
-        
+        let dish = self.hotDishes[indexPath.row]
+        ratingAndFavoriteExecutor?.addToFavorites("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
+            for dish : Dish in self.hotDishes {
+                if dish.id == objectId {
+                    if dish.favoriteCount != nil {
+                        dish.favoriteCount!--
+                    }
+                }
+            }
+        })
     }
     
     private func rateDish(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
+        let objectId: String? = self.hotDishes[indexPath.row].id
+        let type = "dish"
         
+        if ratingType == RatingTypeEnum.like {
+            ratingAndFavoriteExecutor?.like(type, objectId: objectId!, failureHandler: { (objectId) -> Void in
+                for dish : Dish in self.hotDishes {
+                    if dish.id == objectId {
+                        if dish.likeCount != nil {
+                            dish.likeCount!--
+                        }
+                    }
+                }
+            })
+        } else if ratingType == RatingTypeEnum.dislike {
+            ratingAndFavoriteExecutor?.dislike(type, objectId: objectId!,failureHandler: { (objectId) -> Void in
+                for dish : Dish in self.hotDishes {
+                    if dish.id == objectId {
+                        if dish.dislikeCount != nil {
+                            dish.dislikeCount!--
+                        }
+                    }
+                }
+            })
+        } else {
+            ratingAndFavoriteExecutor?.neutral(type, objectId: objectId!,failureHandler: { (objectId) -> Void in
+                for dish : Dish in self.hotDishes {
+                    if dish.id == objectId {
+                        if dish.neutralCount != nil {
+                            dish.neutralCount!--
+                        }
+                    }
+                }
+            })
+        }
+    }
+    
+    private func popupSigninAlert() {
+        let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
+        alertview.setTextTheme(.Dark)
+    }
+    
+    private func dismissActionViewWithDelay() {
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func dismissActionView() {
+        self.hotDishesTableView.setEditing(false, animated: true)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func reloadTable() {
+        self.hotDishesTableView.reloadData()
     }
     
     func headerViewActionButtonPressed() {

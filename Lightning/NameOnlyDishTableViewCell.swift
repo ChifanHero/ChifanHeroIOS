@@ -16,6 +16,7 @@ class NameOnlyDishTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var rateLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +33,7 @@ class NameOnlyDishTableViewCell: UITableViewCell {
     func setUp(dish dish : Dish, image : UIImage) {
         nameLabel.text = dish.name
         dishImageView.image = image
+        rateLabel.text = ScoreComputer.getScore(positive: dish.likeCount, negative: dish.dislikeCount, neutral: dish.neutralCount)
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

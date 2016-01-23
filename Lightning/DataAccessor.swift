@@ -280,8 +280,15 @@ class DataAccessor {
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
         
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
         let defaults = NSUserDefaults.standardUserDefaults()
-        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
+        //        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
+        var httpHeaders = [String : String]()
+        if defaults.stringForKey("sessionToken") != nil {
+            httpHeaders["User-Session"] = defaults.stringForKey("sessionToken")!
+            //            httpHeaders.setValue(defaults.stringForKey("sessionToken")!, forKey: "User-Session")
+        }
         
         httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
             var addToFavoritesResponse: AddToFavoritesResponse?
