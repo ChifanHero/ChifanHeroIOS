@@ -137,8 +137,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     private func adjustDishTableViewHeight() {
         if self.hotDishesTableView.hidden == false {
-//            let originalFrame : CGRect = self.hotDishesTableView.frame
-//            self.hotDishesTableView.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.hotDishesTableView.contentSize.height)
             let heightConstraint:NSLayoutConstraint = NSLayoutConstraint(item: self.hotDishesTableView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute:NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.hotDishesTableView.contentSize.height);
             heightConstraint.priority = 1000
             self.hotDishesTableView.addConstraint(heightConstraint);
@@ -151,7 +149,9 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     private func adjustContainerViewHeight() {
         var contentRect : CGRect = CGRectZero
         for subView : UIView in self.containerScrollView.subviews {
-            contentRect = CGRectUnion(contentRect, subView.frame)
+            if subView.hidden == false {
+                contentRect = CGRectUnion(contentRect, subView.frame)
+            }
         }
         self.containerScrollView.contentSize = CGSizeMake(contentRect.width, contentRect.height - (self.navigationController?.navigationBar.frame.size.height)!)
     }
@@ -510,6 +510,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 pendingOperations.downloadQueue.suspended = false
             }
         }
+    }
+    
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        adjustContainerViewHeight()
     }
     
 }
