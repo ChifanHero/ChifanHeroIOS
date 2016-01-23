@@ -206,6 +206,11 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="170" id="t1F-cl-PsJ"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="t1F-cl-PsJ"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-pF-gKu" userLabel="Info Table View">
                                         <rect key="frame" x="0.0" y="171" width="383" height="126"/>
@@ -238,6 +243,7 @@
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" constant="171" id="3u1-2A-dXU"/>
                                     <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="eWi-Dd-Kda" secondAttribute="bottom" constant="1" id="5WM-yH-CAP"/>
                                     <constraint firstItem="3wF-uh-jL7" firstAttribute="top" secondItem="hqm-pF-gKu" secondAttribute="bottom" constant="-1" id="VRk-Zc-BLA"/>
                                     <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" id="glo-ER-JCa"/>
@@ -282,6 +288,7 @@
                             <constraint firstItem="v0q-pe-yVa" firstAttribute="bottom" secondItem="Big-8G-yxv" secondAttribute="bottomMargin" id="RuZ-QQ-2xK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3wF-uh-jL7" secondAttribute="trailing" constant="-20" id="eHJ-oJ-W0B"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eWi-Dd-Kda" secondAttribute="trailing" constant="-20" id="g0w-Ca-jPc"/>
+                            <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="h23-h0-dfQ"/>
                             <constraint firstItem="Eza-ca-7rH" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="bottom" id="j04-pa-7Sr"/>
                             <constraint firstItem="Eza-ca-7rH" firstAttribute="top" secondItem="3wF-uh-jL7" secondAttribute="bottom" id="jj3-la-myT"/>
                             <constraint firstItem="v0q-pe-yVa" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="l3S-3s-D4P"/>
