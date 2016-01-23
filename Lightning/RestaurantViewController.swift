@@ -18,7 +18,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     var pendingOperations = PendingOperations()
     var images = [PhotoRecord]()
-    @IBOutlet weak var messageView: UIView!
+
+    @IBOutlet weak var messageView: NotAvailableMessageView!
     
     @IBOutlet weak var waitingView: UIView!
     @IBOutlet weak var containerScrollView: UIScrollView!
@@ -36,7 +37,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var topViewContainer: ViewItemTopUIView!
     
     @IBOutlet weak var hotDishesTableView: ImageProgressiveTableView!
-    @IBOutlet weak var message: UILabel!
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
     static let INFO_ROW_HEIGHT : CGFloat = 35
@@ -79,7 +79,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                             if self.hotDishes.count == 0 {
                                 self.hotDishesTableView.hidden = true
                                 self.messageView.hidden = false
-                                self.message.text = "此餐厅还未开通菜单功能"
+                                self.messageView.votes = self.restaurant?.votes
+                                self.messageView.restaurantId = self.restaurant?.id
                                 
                             } else {
                                 self.hotDishesTableView.hidden = false

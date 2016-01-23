@@ -371,6 +371,33 @@ class DataAccessor {
         }
     }
     
+    func voteRestaurant(request: VoteRestaurantRequest, responseHandler: (VoteRestaurantResponse?) -> Void) {
+        let httpClient = HttpClient()
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var httpHeaders = [String : String]()
+        if defaults.stringForKey("sessionToken") != nil {
+            httpHeaders["User-Session"] = defaults.stringForKey("sessionToken")!
+        }
+        
+        httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
+            var rateResponse: VoteRestaurantResponse?
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    rateResponse = VoteRestaurantResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(rateResponse)
+        }
+    }
+    
     
     
 }

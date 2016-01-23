@@ -13,6 +13,9 @@
 		C44C25801C50C62D00A345D8 /* ActionButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */; };
 		C44C25821C50C97200A345D8 /* ActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25811C50C97200A345D8 /* ActionButtonView.swift */; };
 		C44C25841C52022900A345D8 /* ScoreComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25831C52022900A345D8 /* ScoreComputer.swift */; };
+		C44C25861C53610B00A345D8 /* RestaurantCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25851C53610B00A345D8 /* RestaurantCandidate.swift */; };
+		C44C25881C5361C900A345D8 /* VoteRestaurantRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */; };
+		C44C258A1C53627700A345D8 /* VoteRestaurantResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25891C53627700A345D8 /* VoteRestaurantResponse.swift */; };
 		C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */; };
 		C4A0D5521C11746100BAE246 /* DishSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */; };
 		C4A0D5531C11746100BAE246 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5461C11746100BAE246 /* Distance.swift */; };
@@ -29,6 +32,8 @@
 		C4A0D5631C137DDB00BAE246 /* DishSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5621C137DDB00BAE246 /* DishSearchResponse.swift */; };
 		C4A0D5651C137DEA00BAE246 /* DishListSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5641C137DEA00BAE246 /* DishListSearchResponse.swift */; };
 		C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5671C138B9700BAE246 /* SearchServiceConfiguration.swift */; };
+		C4CC99E01C5405BA007CBF64 /* NotAvailableMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CC99DF1C5405BA007CBF64 /* NotAvailableMessageView.xib */; };
+		C4CC99E21C5407A1007CBF64 /* NotAvailableMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */; };
 		C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BC1C13A1060024C287 /* UserContext.swift */; };
 		C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */; };
 		C4F207C11C14E5550024C287 /* NameAddressRestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */; };
@@ -281,6 +286,9 @@
 		C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionButtonView.xib; sourceTree = "<group>"; };
 		C44C25811C50C97200A345D8 /* ActionButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionButtonView.swift; sourceTree = "<group>"; };
 		C44C25831C52022900A345D8 /* ScoreComputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreComputer.swift; sourceTree = "<group>"; };
+		C44C25851C53610B00A345D8 /* RestaurantCandidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantCandidate.swift; sourceTree = "<group>"; };
+		C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteRestaurantRequest.swift; sourceTree = "<group>"; };
+		C44C25891C53627700A345D8 /* VoteRestaurantResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteRestaurantResponse.swift; sourceTree = "<group>"; };
 		C454B26E1BCE2ED70091A5BC /* LoadMoreFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreFooterView.xib; sourceTree = "<group>"; };
 		C454B2701BCE2F2E0091A5BC /* LoadMoreFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreFooterView.swift; sourceTree = "<group>"; };
 		C461DB781BD0CA18009032C8 /* ListMemberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMemberViewController.swift; sourceTree = "<group>"; };
@@ -358,6 +366,8 @@
 		C4BDFC0E1B9825970065F285 /* GetMessageByIdRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessageByIdRequest.swift; sourceTree = "<group>"; };
 		C4BDFC101B982CA00065F285 /* GetMessageByIdResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessageByIdResponse.swift; sourceTree = "<group>"; };
 		C4BDFC181B98C5C00065F285 /* SelectionPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanel.swift; sourceTree = "<group>"; };
+		C4CC99DF1C5405BA007CBF64 /* NotAvailableMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotAvailableMessageView.xib; sourceTree = "<group>"; };
+		C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAvailableMessageView.swift; sourceTree = "<group>"; };
 		C4D300041BBE5F1A00807C4D /* AboutMeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeNavigationController.swift; sourceTree = "<group>"; };
 		C4D300061BC09A6100807C4D /* VerticalLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerticalLoginView.xib; sourceTree = "<group>"; };
 		C4D300081BC0BFEB00807C4D /* VerticalLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalLoginView.swift; sourceTree = "<group>"; };
@@ -564,6 +574,7 @@
 				C437282A1B81668C009121C9 /* Error.swift */,
 				C4BDFC041B96CD0B0065F285 /* MessageType.swift */,
 				C46CB8D01BA00978000D1006 /* MenuItem.swift */,
+				C44C25851C53610B00A345D8 /* RestaurantCandidate.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -687,6 +698,7 @@
 				CA7A4F631BE73F550016BC56 /* SignUpView.xib */,
 				C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */,
 				C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */,
+				C4CC99DF1C5405BA007CBF64 /* NotAvailableMessageView.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -721,6 +733,7 @@
 				C4DB3E221BE6717A00076A57 /* ListCandidateConfirmationView.swift */,
 				C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */,
 				C44C25811C50C97200A345D8 /* ActionButtonView.swift */,
+				C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -848,6 +861,7 @@
 				CA850AE71C066FF200D497D4 /* LogOutRequest.swift */,
 				CA850AED1C0F834400D497D4 /* RateRequest.swift */,
 				CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */,
+				C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -874,6 +888,7 @@
 				CA850AE91C06702D00D497D4 /* LogOutResponse.swift */,
 				CA203E531C12732600D6F32C /* RateResponse.swift */,
 				CA203E571C16561500D6F32C /* AddToFavoritesResponse.swift */,
+				C44C25891C53627700A345D8 /* VoteRestaurantResponse.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -1071,6 +1086,7 @@
 				CA203E461C111EEA00D6F32C /* Main.storyboard in Resources */,
 				CA203E471C111EEA00D6F32C /* ListCell.xib in Resources */,
 				CA203E481C111EEA00D6F32C /* SelectionBar.xib in Resources */,
+				C4CC99E01C5405BA007CBF64 /* NotAvailableMessageView.xib in Resources */,
 				CA203E491C111EEA00D6F32C /* SimpleCouponCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1124,6 +1140,7 @@
 				CA203DB61C111EEA00D6F32C /* ListMemberViewController.swift in Sources */,
 				C4F5B6F41C4C56B400DD1EBF /* JSSAlertView.swift in Sources */,
 				CA203DB71C111EEA00D6F32C /* GetListsRequest.swift in Sources */,
+				C44C258A1C53627700A345D8 /* VoteRestaurantResponse.swift in Sources */,
 				C4A0D5571C11746100BAE246 /* OutputParams.swift in Sources */,
 				C4A0D5561C11746100BAE246 /* Output.swift in Sources */,
 				CA203DB81C111EEA00D6F32C /* ListTableViewCell.swift in Sources */,
@@ -1160,6 +1177,8 @@
 				CA203DD21C111EEA00D6F32C /* HeaderViewDelegate.swift in Sources */,
 				CA203DD31C111EEA00D6F32C /* GetFavoritesResponse.swift in Sources */,
 				CA203DD41C111EEA00D6F32C /* Restaurant.swift in Sources */,
+				C44C25881C5361C900A345D8 /* VoteRestaurantRequest.swift in Sources */,
+				C4CC99E21C5407A1007CBF64 /* NotAvailableMessageView.swift in Sources */,
 				CA203DD51C111EEA00D6F32C /* GetRestaurantsRequest.swift in Sources */,
 				CA203DD61C111EEA00D6F32C /* Promotion.swift in Sources */,
 				CA203DD71C111EEA00D6F32C /* LoadMoreFooterView.swift in Sources */,
@@ -1168,6 +1187,7 @@
 				CA203DD91C111EEA00D6F32C /* UploadPictureRequest.swift in Sources */,
 				CA203DDA1C111EEA00D6F32C /* GetRequestProtocol.swift in Sources */,
 				CA203DDB1C111EEA00D6F32C /* ImageProgressiveCollectionView.swift in Sources */,
+				C44C25861C53610B00A345D8 /* RestaurantCandidate.swift in Sources */,
 				C4A0D5611C137DCC00BAE246 /* RestaurantSearchResponse.swift in Sources */,
 				CA203DDC1C111EEA00D6F32C /* RateRequest.swift in Sources */,
 				CA203DDD1C111EEA00D6F32C /* SelectionBar.swift in Sources */,
