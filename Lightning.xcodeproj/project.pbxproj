@@ -34,6 +34,8 @@
 		C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5671C138B9700BAE246 /* SearchServiceConfiguration.swift */; };
 		C4CC99E01C5405BA007CBF64 /* NotAvailableMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CC99DF1C5405BA007CBF64 /* NotAvailableMessageView.xib */; };
 		C4CC99E21C5407A1007CBF64 /* NotAvailableMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */; };
+		C4CC99E41C541861007CBF64 /* OwnerInfoDishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CC99E31C541861007CBF64 /* OwnerInfoDishCell.xib */; };
+		C4CC99E61C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */; };
 		C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BC1C13A1060024C287 /* UserContext.swift */; };
 		C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */; };
 		C4F207C11C14E5550024C287 /* NameAddressRestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */; };
@@ -368,6 +370,8 @@
 		C4BDFC181B98C5C00065F285 /* SelectionPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanel.swift; sourceTree = "<group>"; };
 		C4CC99DF1C5405BA007CBF64 /* NotAvailableMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotAvailableMessageView.xib; sourceTree = "<group>"; };
 		C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAvailableMessageView.swift; sourceTree = "<group>"; };
+		C4CC99E31C541861007CBF64 /* OwnerInfoDishCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OwnerInfoDishCell.xib; sourceTree = "<group>"; };
+		C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerInfoDishTableViewCell.swift; sourceTree = "<group>"; };
 		C4D300041BBE5F1A00807C4D /* AboutMeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeNavigationController.swift; sourceTree = "<group>"; };
 		C4D300061BC09A6100807C4D /* VerticalLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerticalLoginView.xib; sourceTree = "<group>"; };
 		C4D300081BC0BFEB00807C4D /* VerticalLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalLoginView.swift; sourceTree = "<group>"; };
@@ -618,6 +622,7 @@
 				C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */,
 				C43B9A471BDEBFC300FD50FF /* PhotoCollectionViewCell.swift */,
 				C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */,
+				C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -699,6 +704,7 @@
 				C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */,
 				C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */,
 				C4CC99DF1C5405BA007CBF64 /* NotAvailableMessageView.xib */,
+				C4CC99E31C541861007CBF64 /* OwnerInfoDishCell.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -1076,6 +1082,7 @@
 				CA203E3D1C111EEA00D6F32C /* ListCandidateTopView.xib in Resources */,
 				CA203E3E1C111EEA00D6F32C /* DishCell.xib in Resources */,
 				CA203E3F1C111EEA00D6F32C /* ListCandidateSubView.xib in Resources */,
+				C4CC99E41C541861007CBF64 /* OwnerInfoDishCell.xib in Resources */,
 				CA203E401C111EEA00D6F32C /* RestaurantCell.xib in Resources */,
 				CA203E411C111EEA00D6F32C /* ViewItemTopView.xib in Resources */,
 				CA203E421C111EEA00D6F32C /* SignUpView.xib in Resources */,
@@ -1123,6 +1130,7 @@
 				CA203DA71C111EEA00D6F32C /* ListCandidateConfirmationView.swift in Sources */,
 				CA203DA81C111EEA00D6F32C /* GetDishesResponse.swift in Sources */,
 				C4A0D5651C137DEA00BAE246 /* DishListSearchResponse.swift in Sources */,
+				C4CC99E61C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift in Sources */,
 				CA203DA91C111EEA00D6F32C /* KeychainWrapper.m in Sources */,
 				CA203DAA1C111EEA00D6F32C /* GetRestaurantByIdResponse.swift in Sources */,
 				CA203DAB1C111EEA00D6F32C /* Queue.swift in Sources */,

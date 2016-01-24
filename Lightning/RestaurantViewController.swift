@@ -155,6 +155,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         self.containerScrollView.contentSize = CGSizeMake(contentRect.width, contentRect.height - (self.navigationController?.navigationBar.frame.size.height)!)
+        self.view.layoutIfNeeded()
     }
 
     override func didReceiveMemoryWarning() {

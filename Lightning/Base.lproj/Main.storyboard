@@ -163,7 +163,7 @@
                                     <rect key="frame" x="178" y="267" width="20" height="20"/>
                                 </activityIndicatorView>
                             </subviews>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="hQ3-BY-2kl" firstAttribute="centerY" secondItem="pcx-Zl-HAd" secondAttribute="centerY" id="RUG-EA-e5S"/>
                                 <constraint firstItem="hQ3-BY-2kl" firstAttribute="centerX" secondItem="pcx-Zl-HAd" secondAttribute="centerX" id="kfV-3w-8oR"/>
@@ -225,21 +225,21 @@
                                     </tableView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvc-Bv-eKm" userLabel="Message View" customClass="NotAvailableMessageView" customModule="Lightning" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="296" width="383" height="258"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="258" id="jBW-EQ-ASk">
-                                                <variation key="heightClass=compact" constant="200"/>
+                                                <variation key="heightClass=compact" constant="100"/>
                                             </constraint>
                                         </constraints>
                                     </view>
                                     <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="296" width="383" height="255"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="750" constant="255" placeholder="YES" id="qRd-sd-BZ6"/>
                                         </constraints>
-                                        <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <color key="sectionIndexTrackingBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="sectionIndexTrackingBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="daK-3r-k8Z">
                                                 <rect key="frame" x="0.0" y="1" width="383" height="44"/>
@@ -256,7 +256,7 @@
                                         </connections>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" constant="171" id="3u1-2A-dXU"/>
                                     <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="eWi-Dd-Kda" secondAttribute="bottom" constant="1" id="5WM-yH-CAP"/>
@@ -278,10 +278,10 @@
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0q-pe-yVa" userLabel="Waiting View">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="603"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="hqm-pF-gKu" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="4MP-yH-zYn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HVe-v4-VBn" secondAttribute="trailing" constant="-20" id="9Ga-vG-VhO"/>
@@ -411,7 +411,10 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eb0-n8-VQj" userLabel="Search results tableView" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
                                 <rect key="frame" x="-4" y="43" width="383" height="511"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="511" placeholder="YES" id="2Tv-9s-oKj"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="8rJ-Kc-sve" id="9k5-WD-SEW"/>
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="E86-CI-dAb"/>
@@ -423,11 +426,19 @@
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leadingMargin" constant="-20" id="0J3-lN-1Ko"/>
                             <constraint firstItem="XZD-6s-Tzc" firstAttribute="top" secondItem="eb0-n8-VQj" secondAttribute="bottom" id="BU1-yR-JWr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eb0-n8-VQj" secondAttribute="trailing" constant="-20" id="D93-nw-3qO"/>
+                            <constraint firstItem="XZD-6s-Tzc" firstAttribute="top" relation="greaterThanOrEqual" secondItem="eb0-n8-VQj" secondAttribute="bottom" id="Mrk-Xf-oTn"/>
                             <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" id="O9f-Pe-2HM"/>
                             <constraint firstItem="eb0-n8-VQj" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leadingMargin" constant="-20" id="ak8-om-eza"/>
+                            <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" constant="43" id="bOp-c6-9d3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="m9Q-Eu-s73" secondAttribute="trailing" constant="-20" id="ujF-GT-IFY"/>
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" id="zMH-dW-sU2"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="O9f-Pe-2HM"/>
+                                <exclude reference="BU1-yR-JWr"/>
+                            </mask>
+                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="abT-Hp-xXr">

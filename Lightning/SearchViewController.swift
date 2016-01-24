@@ -26,6 +26,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     var restaurantImages = [PhotoRecord]()
     var dishImages = [PhotoRecord]()
     
+    private var heightConstraint:NSLayoutConstraint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -123,6 +125,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     func searchDish(keyword keyword : String) {
         cleanStates()
         let request : DishSearchRequest = DishSearchRequest()
+        request.keyword = keyword
         let userLocation = UserContext.instance.userLocation
         //        userLocation.lat = location.0
         //        userLocation.lon = location.1
@@ -270,9 +273,17 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     private func adjustSearchResultsTableHeight() {
-        let originalFrame : CGRect = self.searchResultsTableView.frame
-        self.searchResultsTableView.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.searchResultsTableView.contentSize.height)
+        if self.searchResultsTableView.hidden == false {
+            if self.heightConstraint != nil {
+                self.searchResultsTableView.removeConstraint(heightConstraint!)
+            }
+            heightConstraint = NSLayoutConstraint(item: self.searchResultsTableView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute:NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.searchResultsTableView.contentSize.height);
+            heightConstraint!.priority = 1000
+            self.searchResultsTableView.addConstraint(heightConstraint!);
+            self.view.layoutIfNeeded()
+        }
     }
+    
     
     func restaurantButtonClicked() {
         self.searchResultsTableView.hidden = true
