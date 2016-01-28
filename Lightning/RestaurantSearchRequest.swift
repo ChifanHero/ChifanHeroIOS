@@ -19,6 +19,7 @@ class RestaurantSearchRequest : PostRequestProtocol{
     var output : Output?
     var userLocation : Location?
     var range : Range?
+    var highlightInField : Bool?
     
     func getRequestBody() -> [String : AnyObject] {
         var requestBody = Dictionary<String, AnyObject>()
@@ -31,6 +32,7 @@ class RestaurantSearchRequest : PostRequestProtocol{
         requestBody["output"] = output?.getProperties()
         requestBody["user_location"] = userLocation?.getProperties()
         requestBody["range"] = range?.getProperties()
+        requestBody["highlight_in_field"] = highlightInField
         return requestBody
     }
     

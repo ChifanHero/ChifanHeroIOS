@@ -24,6 +24,7 @@ class Restaurant : Model{
     var hours : String?
     var hotDishes : [Dish]?
     var votes : Int?
+    var dishes : [String]?
     
     required init() {
         
@@ -49,6 +50,7 @@ class Restaurant : Model{
                 hotDishes?.append(result)
             }
         }
+        dishes <-- data["dishes"]
         votes <-- data["votes"]
     }
 }

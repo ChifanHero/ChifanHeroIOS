@@ -312,7 +312,9 @@ class DataAccessor {
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
         
-        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
+        var httpHeaders = [String : String]()
+        httpHeaders["Accept-Language"] = "zh-CN"
+        httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
             var restaurantSearchResponse: RestaurantSearchResponse?
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
@@ -334,7 +336,9 @@ class DataAccessor {
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
         
-        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
+        var httpHeaders = [String : String]()
+        httpHeaders["Accept-Language"] = "zh-CN"
+        httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
             var dishSearchResponse: DishSearchResponse?
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)

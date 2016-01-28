@@ -95,6 +95,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     func searchRestaurant(keyword keyword : String) {
         cleanStates()
         let request : RestaurantSearchRequest = RestaurantSearchRequest()
+        request.highlightInField = true
         request.keyword = keyword
 //        let location : (Double, Double) = UserContext.getUserLocation()
         let userLocation = UserContext.instance.userLocation
@@ -130,6 +131,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         //        userLocation.lat = location.0
         //        userLocation.lon = location.1
         request.userLocation = userLocation
+        request.highlightInField = true
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchDishes(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let results = searchResponse?.results {
@@ -210,10 +212,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             cell!.model = lists[indexPath.row]
             return cell!
         } else if selectionBar.scope == "dish" {
-            var cell : DishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
+            var cell : OwnerInfoDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
             if cell == nil {
-                tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
+                tableView.registerNib(UINib(nibName: "OwnerInfoDishCell", bundle: nil), forCellReuseIdentifier: "ownerInfoDishCell")
+                cell = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
             }
             let imageDetails = imageForIndexPath(tableView: self.searchResultsTableView, indexPath: indexPath)
             cell?.setUp(dish: self.dishes[indexPath.section], image: imageDetails.image!)
@@ -227,10 +229,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             }
             return cell!
         } else {
-            var cell : RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+            var cell : RestaurantSearchTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantSearchCell") as? RestaurantSearchTableViewCell
             if cell == nil {
-                tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+                tableView.registerNib(UINib(nibName: "RestaurantSearchCell", bundle: nil), forCellReuseIdentifier: "restaurantSearchCell")
+                cell = tableView.dequeueReusableCellWithIdentifier("restaurantSearchCell") as? RestaurantSearchTableViewCell
             }
             let imageDetails = imageForIndexPath(tableView: tableView, indexPath: indexPath)
             cell?.setUp(restaurant: restaurants[indexPath.section], image: imageDetails.image!)
@@ -249,7 +251,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         if selectionBar.scope == "list" {
             return ListTableViewCell.height
         } else if selectionBar.scope == "dish" {
-            return DishTableViewCell.height
+            return 82
         } else {
             return RestaurantTableViewCell.height
         }
@@ -286,15 +288,41 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     
     func restaurantButtonClicked() {
+        clearStates()
+        let keyword = self.searchController.searchBar.text
+        print(keyword)
+        if keyword != nil && keyword != "" {
+            searchRestaurant(keyword: keyword!)
+        }
         self.searchResultsTableView.hidden = true
     }
     
     func dishButtonPressed() {
+        clearStates()
+        let keyword = self.searchController.searchBar.text
+        print(keyword)
+        if keyword != nil && keyword != "" {
+            searchDish(keyword: keyword!)
+        }
         self.searchResultsTableView.hidden = true
     }
     
     func listButtonPressed() {
+        clearStates()
+        let keyword = self.searchController.searchBar.text
+        print(keyword)
+        if keyword != nil && keyword != "" {
+             searchList(keyword: keyword!)
+        }
         self.searchResultsTableView.hidden = true
+    }
+    
+    func clearStates() {
+        self.dishes.removeAll()
+        self.restaurants.removeAll()
+        self.lists.removeAll()
+        self.restaurantImages.removeAll()
+        self.dishImages.removeAll()
     }
     
 }

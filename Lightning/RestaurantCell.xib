@@ -32,55 +32,68 @@
                             <constraint firstItem="QyZ-UE-wVz" firstAttribute="leading" secondItem="5Uq-gj-95M" secondAttribute="leading" constant="10" id="rSW-sO-Z1t"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NRx-Bu-RZr" userLabel="Info View">
-                        <rect key="frame" x="145" y="0.0" width="230" height="99.5"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRx-Bu-RZr" userLabel="Info View">
+                        <rect key="frame" x="145" y="0.0" width="230" height="100"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="W0S-Oy-Fge" userLabel="Info Stack View">
-                                <rect key="frame" x="12" y="10" width="208" height="75"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="Ydl-0F-R6l">
+                                <rect key="frame" x="10" y="10" width="210" height="80"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="餐厅名称未知" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVl-f0-DzP">
-                                        <rect key="frame" x="0.0" y="0.0" width="90" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址未知" lineBreakMode="clip" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vUj-UJ-3Rt">
-                                        <rect key="frame" x="0.0" y="23" width="208" height="14"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距离未知" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a02-Xk-BgP">
-                                        <rect key="frame" x="0.0" y="42" width="44" height="14"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="des-Ae-tIG">
-                                        <rect key="frame" x="0.0" y="60" width="66" height="15"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5LL-ki-xph">
+                                        <rect key="frame" x="0.0" y="0.0" width="210" height="18"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="好评率" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhD-Ll-f2S">
-                                                <rect key="frame" x="0.0" y="0.0" width="36" height="15"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="餐厅名称未知" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVl-f0-DzP">
+                                                <rect key="frame" x="0.0" y="0.0" width="155" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="15"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6L-d4-T6B" userLabel="Rating Label">
-                                                <rect key="frame" x="42" y="0.0" width="24" height="15"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="距离未知" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a02-Xk-BgP">
+                                                <rect key="frame" x="155" y="0.0" width="55" height="18"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="55" id="vzo-JV-Wyk"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                    </stackView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址未知" lineBreakMode="clip" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vUj-UJ-3Rt">
+                                        <rect key="frame" x="0.0" y="34" width="210" height="13.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="des-Ae-tIG">
+                                        <rect key="frame" x="0.0" y="65" width="210" height="14.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="好评率" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhD-Ll-f2S">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="14.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="UEV-Zq-w6d"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6L-d4-T6B" userLabel="Rating Label">
+                                                <rect key="frame" x="46" y="0.0" width="164" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="t6L-d4-T6B" firstAttribute="leading" secondItem="uhD-Ll-f2S" secondAttribute="trailing" constant="6" id="xdZ-cE-9LB"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="vUj-UJ-3Rt" secondAttribute="trailing" constant="10" id="dqu-ve-VOh"/>
-                            <constraint firstItem="W0S-Oy-Fge" firstAttribute="top" secondItem="NRx-Bu-RZr" secondAttribute="top" constant="10" id="mbY-Df-Blr"/>
-                            <constraint firstItem="W0S-Oy-Fge" firstAttribute="leading" secondItem="NRx-Bu-RZr" secondAttribute="leading" constant="12" id="wTw-4i-ddZ"/>
+                            <constraint firstAttribute="trailing" secondItem="5LL-ki-xph" secondAttribute="trailing" constant="10" id="5KS-C5-P5j"/>
+                            <constraint firstAttribute="bottom" secondItem="Ydl-0F-R6l" secondAttribute="bottom" constant="10" id="Zqt-gA-JXs"/>
+                            <constraint firstItem="Ydl-0F-R6l" firstAttribute="top" secondItem="NRx-Bu-RZr" secondAttribute="top" constant="10" id="x7W-Bk-Fxt"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -88,10 +101,12 @@
                 <constraints>
                     <constraint firstItem="NRx-Bu-RZr" firstAttribute="leading" secondItem="5Uq-gj-95M" secondAttribute="trailing" id="Juk-fH-0lE"/>
                     <constraint firstAttribute="bottomMargin" secondItem="5Uq-gj-95M" secondAttribute="bottom" constant="-8.5" id="NMQ-q1-b6e"/>
+                    <constraint firstItem="NRx-Bu-RZr" firstAttribute="bottom" secondItem="5Uq-gj-95M" secondAttribute="bottom" id="dTS-k4-sTc"/>
                     <constraint firstItem="5Uq-gj-95M" firstAttribute="top" secondItem="wVX-4q-pIH" secondAttribute="topMargin" constant="-8" id="m5A-WA-pVE"/>
                     <constraint firstAttribute="trailingMargin" secondItem="NRx-Bu-RZr" secondAttribute="trailing" constant="-8" id="oGR-ul-u1z"/>
                     <constraint firstItem="NRx-Bu-RZr" firstAttribute="top" secondItem="wVX-4q-pIH" secondAttribute="topMargin" constant="-8" id="sjX-sq-Dd1"/>
                     <constraint firstItem="5Uq-gj-95M" firstAttribute="leading" secondItem="wVX-4q-pIH" secondAttribute="leadingMargin" constant="-8" id="vyt-9P-6VL"/>
+                    <constraint firstItem="Ydl-0F-R6l" firstAttribute="leading" secondItem="5Uq-gj-95M" secondAttribute="trailing" constant="10" id="zx7-rR-2na"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

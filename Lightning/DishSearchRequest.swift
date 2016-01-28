@@ -21,6 +21,7 @@ class DishSearchRequest : PostRequestProtocol{
     var restaurantId : String?
     var menuId : String?
     var range : Range?
+    var highlightInField : Bool?
     
     func getRequestBody() -> [String : AnyObject] {
         var requestBody = Dictionary<String, AnyObject>()
@@ -35,6 +36,7 @@ class DishSearchRequest : PostRequestProtocol{
         requestBody["restaurant_id"] = restaurantId
         requestBody["menu_id"] = menuId
         requestBody["range"] = range?.getProperties()
+        requestBody["highlight_in_field"] = highlightInField
         return requestBody
     }
     

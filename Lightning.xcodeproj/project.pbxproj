@@ -32,6 +32,8 @@
 		C4A0D5631C137DDB00BAE246 /* DishSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5621C137DDB00BAE246 /* DishSearchResponse.swift */; };
 		C4A0D5651C137DEA00BAE246 /* DishListSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5641C137DEA00BAE246 /* DishListSearchResponse.swift */; };
 		C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5671C138B9700BAE246 /* SearchServiceConfiguration.swift */; };
+		C4BCB3561C54B9D00049D74A /* RestaurantSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4BCB3551C54B9D00049D74A /* RestaurantSearchCell.xib */; };
+		C4BCB3581C54BAC70049D74A /* RestaurantSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BCB3571C54BAC70049D74A /* RestaurantSearchTableViewCell.swift */; };
 		C4CC99E01C5405BA007CBF64 /* NotAvailableMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CC99DF1C5405BA007CBF64 /* NotAvailableMessageView.xib */; };
 		C4CC99E21C5407A1007CBF64 /* NotAvailableMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */; };
 		C4CC99E41C541861007CBF64 /* OwnerInfoDishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CC99E31C541861007CBF64 /* OwnerInfoDishCell.xib */; };
@@ -357,6 +359,8 @@
 		C4B14E401B804A66001E8B62 /* GetRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRequestProtocol.swift; sourceTree = "<group>"; };
 		C4B14E421B804A75001E8B62 /* PostRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostRequestProtocol.swift; sourceTree = "<group>"; };
 		C4B14E471B805123001E8B62 /* ModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelProtocol.swift; sourceTree = "<group>"; };
+		C4BCB3551C54B9D00049D74A /* RestaurantSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantSearchCell.xib; sourceTree = "<group>"; };
+		C4BCB3571C54BAC70049D74A /* RestaurantSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantSearchTableViewCell.swift; sourceTree = "<group>"; };
 		C4BDFBFC1B96C8BD0065F285 /* MessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		C4BDFBFE1B96C95B0065F285 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		C4BDFC001B96CB3B0065F285 /* GetMessagesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessagesRequest.swift; sourceTree = "<group>"; };
@@ -623,6 +627,7 @@
 				C43B9A471BDEBFC300FD50FF /* PhotoCollectionViewCell.swift */,
 				C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */,
 				C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */,
+				C4BCB3571C54BAC70049D74A /* RestaurantSearchTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -705,6 +710,7 @@
 				C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */,
 				C4CC99DF1C5405BA007CBF64 /* NotAvailableMessageView.xib */,
 				C4CC99E31C541861007CBF64 /* OwnerInfoDishCell.xib */,
+				C4BCB3551C54B9D00049D74A /* RestaurantSearchCell.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -1094,6 +1100,7 @@
 				CA203E471C111EEA00D6F32C /* ListCell.xib in Resources */,
 				CA203E481C111EEA00D6F32C /* SelectionBar.xib in Resources */,
 				C4CC99E01C5405BA007CBF64 /* NotAvailableMessageView.xib in Resources */,
+				C4BCB3561C54B9D00049D74A /* RestaurantSearchCell.xib in Resources */,
 				CA203E491C111EEA00D6F32C /* SimpleCouponCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1237,6 +1244,7 @@
 				C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */,
 				CA203DFA1C111EEA00D6F32C /* AboutMeTableViewController.swift in Sources */,
 				C4A0D5591C11746100BAE246 /* RestaurantSearchRequest.swift in Sources */,
+				C4BCB3581C54BAC70049D74A /* RestaurantSearchTableViewCell.swift in Sources */,
 				CA203DFB1C111EEA00D6F32C /* GetDishesRequest.swift in Sources */,
 				CA203DFC1C111EEA00D6F32C /* RestaurantsTableViewController.swift in Sources */,
 				CA203DFD1C111EEA00D6F32C /* FavoriteTypeEnum.swift in Sources */,
