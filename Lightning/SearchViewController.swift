@@ -18,6 +18,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     var searchController: UISearchController!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    let refreshControl = UIRefreshControl()
+    
     var restaurants : [Restaurant] = [Restaurant]()
     var dishes : [Dish] = [Dish]()
     var lists : [List] = [List]()
@@ -32,6 +35,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("Search view");
+        selectionBar.hidden = false
+        configurePullRefresh()
         
         searchController = UISearchController(searchResultsController: nil)
         
@@ -59,6 +64,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         definesPresentationContext = true
         searchResultsTableView.hidden = true
     }
+    
+    private func configurePullRefresh(){
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.scrollView.addSubview(refreshControl)
+    }
+    
+    @objc private func refresh(sender:AnyObject) {
+        self.cleanStates()
+        search(self.searchController.searchBar)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -77,8 +92,26 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     // For now, search only when the search buttion gets clicked
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+//        let keyword = searchBar.text
+//        print(keyword)
+//        if keyword != nil && keyword != "" {
+//            let scope = selectionBar.scope
+//            if scope == "restaurant" {
+//                searchRestaurant(keyword: keyword!)
+//            } else if scope == "list" {
+//                searchList(keyword: keyword!)
+//            } else if scope == "dish" {
+//                searchDish(keyword: keyword!)
+//            }
+//            
+//        }
+        search(searchBar)
+    }
+    
+    func search(searchBar: UISearchBar) {
         let keyword = searchBar.text
         print(keyword)
+//        self.searchResultsTableView.hidden = true
         if keyword != nil && keyword != "" {
             let scope = selectionBar.scope
             if scope == "restaurant" {
@@ -115,8 +148,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                         self.restaurantImages.append(record)
                     }
                     self.searchResultsTableView.hidden = false
+                    self.searchResultsTableView.allowsSelection = true
+                    self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
                     self.adjustSearchResultsTableHeight()
+                    self.adjustScrollViewContentHeight()
                 }
                 
             })
@@ -145,8 +181,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                         self.dishImages.append(record)
                     }
                     self.searchResultsTableView.hidden = false
+                    self.searchResultsTableView.allowsSelection = false
+                    self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
                     self.adjustSearchResultsTableHeight()
+                    self.adjustScrollViewContentHeight()
                 }
                 
             })
@@ -166,8 +205,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 if let results = searchResponse?.results {
                     self.lists += results
                     self.searchResultsTableView.hidden = false
+                    self.searchResultsTableView.allowsSelection = true
+                    self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
                     self.adjustSearchResultsTableHeight()
+                    self.adjustScrollViewContentHeight()
                 }
                 
             })
@@ -183,17 +225,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if selectionBar.scope == "list" {
-            return self.lists.count
-        } else {
-            return 1
-        }
+        return 1
         
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if selectionBar.scope == "list" {
-            return 1
+            return self.lists.count
         } else if selectionBar.scope == "dish" {
             return self.dishes.count
         } else {
@@ -209,7 +247,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
             }
-            cell!.model = lists[indexPath.row]
+            cell!.model = lists[indexPath.section]
             return cell!
         } else if selectionBar.scope == "dish" {
             var cell : OwnerInfoDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
@@ -286,6 +324,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         }
     }
     
+    private func adjustScrollViewContentHeight () {
+        if self.searchResultsTableView.contentSize.height > self.scrollView.frame.height {
+            self.scrollView.contentSize.height = self.searchResultsTableView.contentSize.height
+        }
+    }
+    
     
     func restaurantButtonClicked() {
         clearStates()
@@ -323,6 +367,29 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         self.lists.removeAll()
         self.restaurantImages.removeAll()
         self.dishImages.removeAll()
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let scope = selectionBar.scope
+        if scope == "restaurant" {
+            let restaurant : Restaurant = self.restaurants[indexPath.section]
+            self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
+            self.searchResultsTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        } else if scope == "list" {
+            let list : List = self.lists[indexPath.section]
+            self.performSegueWithIdentifier("showList", sender: list.id)
+            self.searchResultsTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showRestaurant" {
+            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            restaurantController.restaurantId = sender as? String
+        } else if segue.identifier == "showList" {
+            let listMemberController : ListMemberViewController = segue.destinationViewController as! ListMemberViewController
+            listMemberController.listId = sender as? String
+        }
     }
     
 }

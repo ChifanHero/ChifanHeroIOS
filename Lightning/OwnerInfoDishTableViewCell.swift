@@ -10,6 +10,8 @@ import UIKit
 
 class OwnerInfoDishTableViewCell: UITableViewCell {
     
+    var dish : Dish?
+    
     @IBOutlet weak var dishImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -31,10 +33,15 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
     }
 
     @IBAction func gotoRestaurant(sender: AnyObject) {
-        baseVC?.performSegueWithIdentifier("showRestaurant", sender: nil)
+        print("clicked")
+        if self.dish != nil {
+            baseVC?.performSegueWithIdentifier("showRestaurant", sender: self.dish?.fromRestaurant?.id)
+        }
+        
     }
     
     func setUp(dish dish: Dish, image: UIImage) {
+        self.dish = dish
     
         do {
             

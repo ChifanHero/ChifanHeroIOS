@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4215A971C62FE600052A613 /* DishListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4215A961C62FE600052A613 /* DishListCell.xib */; };
+		C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4215A981C63009A0052A613 /* DishListTableViewCell.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */; };
 		C44C257E1C50B88300A345D8 /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C257D1C50B88300A345D8 /* UITableViewCellExtension.swift */; };
@@ -226,6 +228,8 @@
 		C41C6C701BCF7BDC00461257 /* ListCandidateTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCandidateTopView.swift; sourceTree = "<group>"; };
 		C41C6C721BCF7C3100461257 /* ListCandidateSubView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListCandidateSubView.xib; sourceTree = "<group>"; };
 		C41C6C761BCF7C8000461257 /* ListCandidateSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCandidateSubView.swift; sourceTree = "<group>"; };
+		C4215A961C62FE600052A613 /* DishListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishListCell.xib; sourceTree = "<group>"; };
+		C4215A981C63009A0052A613 /* DishListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishListTableViewCell.swift; sourceTree = "<group>"; };
 		C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -628,6 +632,7 @@
 				C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */,
 				C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */,
 				C4BCB3571C54BAC70049D74A /* RestaurantSearchTableViewCell.swift */,
+				C4215A981C63009A0052A613 /* DishListTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -711,6 +716,7 @@
 				C4CC99DF1C5405BA007CBF64 /* NotAvailableMessageView.xib */,
 				C4CC99E31C541861007CBF64 /* OwnerInfoDishCell.xib */,
 				C4BCB3551C54B9D00049D74A /* RestaurantSearchCell.xib */,
+				C4215A961C62FE600052A613 /* DishListCell.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -1097,6 +1103,7 @@
 				C4F207C11C14E5550024C287 /* NameAddressRestaurantCell.xib in Resources */,
 				CA203E451C111EEA00D6F32C /* SlideBar.xib in Resources */,
 				CA203E461C111EEA00D6F32C /* Main.storyboard in Resources */,
+				C4215A971C62FE600052A613 /* DishListCell.xib in Resources */,
 				CA203E471C111EEA00D6F32C /* ListCell.xib in Resources */,
 				CA203E481C111EEA00D6F32C /* SelectionBar.xib in Resources */,
 				C4CC99E01C5405BA007CBF64 /* NotAvailableMessageView.xib in Resources */,
@@ -1245,6 +1252,7 @@
 				CA203DFA1C111EEA00D6F32C /* AboutMeTableViewController.swift in Sources */,
 				C4A0D5591C11746100BAE246 /* RestaurantSearchRequest.swift in Sources */,
 				C4BCB3581C54BAC70049D74A /* RestaurantSearchTableViewCell.swift in Sources */,
+				C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */,
 				CA203DFB1C111EEA00D6F32C /* GetDishesRequest.swift in Sources */,
 				CA203DFC1C111EEA00D6F32C /* RestaurantsTableViewController.swift in Sources */,
 				CA203DFD1C111EEA00D6F32C /* FavoriteTypeEnum.swift in Sources */,
