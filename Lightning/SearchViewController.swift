@@ -29,12 +29,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     var restaurantImages = [PhotoRecord]()
     var dishImages = [PhotoRecord]()
     
+    
+    @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
+    
     private var heightConstraint:NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("Search view");
+        waitingIndicator.hidden = true
         selectionBar.hidden = false
         configurePullRefresh()
         
@@ -72,7 +76,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     @objc private func refresh(sender:AnyObject) {
         self.cleanStates()
-        search(self.searchController.searchBar)
+        search()
     }
 
     override func didReceiveMemoryWarning() {
@@ -105,11 +109,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
 //            }
 //            
 //        }
-        search(searchBar)
+        search()
     }
     
-    func search(searchBar: UISearchBar) {
-        let keyword = searchBar.text
+    func search() {
+        if self.searchResultsTableView.hidden == true {
+            waitingIndicator.hidden = false
+            waitingIndicator.startAnimating()
+        }
+        
+        let keyword = self.searchController.searchBar.text
         print(keyword)
 //        self.searchResultsTableView.hidden = true
         if keyword != nil && keyword != "" {
@@ -148,6 +157,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                         self.restaurantImages.append(record)
                     }
                     self.searchResultsTableView.hidden = false
+                    self.waitingIndicator.hidden = true
+                    self.waitingIndicator.stopAnimating()
                     self.searchResultsTableView.allowsSelection = true
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
@@ -181,6 +192,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                         self.dishImages.append(record)
                     }
                     self.searchResultsTableView.hidden = false
+                    self.waitingIndicator.hidden = true
+                    self.waitingIndicator.stopAnimating()
                     self.searchResultsTableView.allowsSelection = false
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
@@ -205,6 +218,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 if let results = searchResponse?.results {
                     self.lists += results
                     self.searchResultsTableView.hidden = false
+                    self.waitingIndicator.hidden = true
+                    self.waitingIndicator.stopAnimating()
                     self.searchResultsTableView.allowsSelection = true
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
@@ -333,32 +348,35 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     func restaurantButtonClicked() {
         clearStates()
-        let keyword = self.searchController.searchBar.text
-        print(keyword)
-        if keyword != nil && keyword != "" {
-            searchRestaurant(keyword: keyword!)
-        }
+//        let keyword = self.searchController.searchBar.text
+//        print(keyword)
+//        if keyword != nil && keyword != "" {
+//            searchRestaurant(keyword: keyword!)
+//        }
         self.searchResultsTableView.hidden = true
+        search()
     }
     
     func dishButtonPressed() {
         clearStates()
-        let keyword = self.searchController.searchBar.text
-        print(keyword)
-        if keyword != nil && keyword != "" {
-            searchDish(keyword: keyword!)
-        }
+//        let keyword = self.searchController.searchBar.text
+//        print(keyword)
+//        if keyword != nil && keyword != "" {
+//            searchDish(keyword: keyword!)
+//        }
         self.searchResultsTableView.hidden = true
+        search()
     }
     
     func listButtonPressed() {
         clearStates()
-        let keyword = self.searchController.searchBar.text
-        print(keyword)
-        if keyword != nil && keyword != "" {
-             searchList(keyword: keyword!)
-        }
+//        let keyword = self.searchController.searchBar.text
+//        print(keyword)
+//        if keyword != nil && keyword != "" {
+//             searchList(keyword: keyword!)
+//        }
         self.searchResultsTableView.hidden = true
+        search()
     }
     
     func clearStates() {

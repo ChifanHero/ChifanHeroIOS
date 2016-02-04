@@ -166,8 +166,9 @@
                             <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hQ3-BY-2kl">
-                                    <rect key="frame" x="178" y="267" width="20" height="20"/>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="hQ3-BY-2kl">
+                                    <rect key="frame" x="169" y="258" width="37" height="37"/>
+                                    <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -184,6 +185,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="restaurantsTable" destination="hXm-D8-niK" id="k57-h5-kyU"/>
+                        <outlet property="waitingIndicator" destination="hQ3-BY-2kl" id="1fJ-cL-Zfx"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="eB3-xn-ixp"/>
                         <segue destination="KMu-z7-xRM" kind="show" identifier="showDishes" id="UBK-7Q-k1o"/>
                     </connections>
@@ -431,10 +433,17 @@
                                             <outlet property="delegate" destination="8rJ-Kc-sve" id="E86-CI-dAb"/>
                                         </connections>
                                     </tableView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gAO-Cm-LSJ">
+                                        <rect key="frame" x="173" y="237" width="37" height="37"/>
+                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
                                 </subviews>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="eb0-n8-VQj" firstAttribute="leading" secondItem="vH8-kg-PVw" secondAttribute="leading" id="9L7-b6-Wog"/>
+                                    <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerX" secondItem="vH8-kg-PVw" secondAttribute="centerX" id="AOq-IJ-0oD"/>
                                     <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="vH8-kg-PVw" secondAttribute="top" id="n3P-Dh-ttC"/>
+                                    <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerY" secondItem="vH8-kg-PVw" secondAttribute="centerY" id="oUs-Ix-COL"/>
                                     <constraint firstAttribute="trailing" secondItem="eb0-n8-VQj" secondAttribute="trailing" id="xDL-z8-I03"/>
                                 </constraints>
                             </scrollView>
@@ -459,6 +468,7 @@
                         <outlet property="scrollView" destination="vH8-kg-PVw" id="n9J-mV-nM9"/>
                         <outlet property="searchResultsTableView" destination="eb0-n8-VQj" id="QIU-6Y-jds"/>
                         <outlet property="selectionBar" destination="m9Q-Eu-s73" id="TJb-AZ-zY3"/>
+                        <outlet property="waitingIndicator" destination="gAO-Cm-LSJ" id="XN0-O9-zlg"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="dDa-I7-4We"/>
                         <segue destination="98Y-kL-NWK" kind="show" identifier="showList" id="cRp-Bb-PSh"/>
                     </connections>
@@ -1187,7 +1197,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="tIf-c0-cls"/>
+        <segue reference="dDa-I7-4We"/>
         <segue reference="cRp-Bb-PSh"/>
-        <segue reference="SnI-Ci-tXQ"/>
     </inferredMetricsTieBreakers>
 </document>

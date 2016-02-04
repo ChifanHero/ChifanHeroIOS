@@ -21,8 +21,10 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     var pendingOperations = PendingOperations()
     var images = [PhotoRecord]()
     
-    var indicatorContainer : UIView?
-    var indicator : UIActivityIndicatorView?
+//    var indicatorContainer : UIView?
+//    var indicator : UIActivityIndicatorView?
+    
+    @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
     
     var loadMoreIndicator : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     
@@ -41,6 +43,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     func loadTableData() {
+        waitingIndicator.startAnimating()
         if request == nil {
             request = GetRestaurantsRequest()
             if sortBy == "hottest" {
@@ -68,6 +71,8 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
                     self.fetchImageDetails()
                 }
                 self.refreshControl!.endRefreshing()
+                self.waitingIndicator.stopAnimating()
+                self.waitingIndicator.hidden = true
                 self.tableView.reloadData()
             });
         }
