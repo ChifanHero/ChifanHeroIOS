@@ -16,6 +16,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     
     @IBOutlet weak var topContainerView: UIView!
     
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     @IBAction func showHottestRestaurants(sender: AnyObject) {
         self.performSegueWithIdentifier("showRestaurants", sender: "hottest")
@@ -45,6 +46,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadingIndicator.hidden = false
         configurePullRefresh()
         initPromotionsTable()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -63,7 +65,10 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     private func initPromotionsTable(){
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         self.promotionsTable.imageDelegate = self
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("loadPromotionsTableData"), userInfo: nil, repeats: false)
+        loadingIndicator.startAnimating()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadPromotionsTableData", name:"UserLocationAvailable", object: nil)
+        
+//        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("loadPromotionsTableData"), userInfo: nil, repeats: false)
     }
     
     @objc private func refresh(sender:AnyObject) {
@@ -73,6 +78,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     }
     
     @objc private func loadPromotionsTableData() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
         let getPromotionsRequest = GetPromotionsRequest()
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location = appDelegate.currentLocation
@@ -87,6 +93,8 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
             dispatch_async(dispatch_get_main_queue(), {
                 self.loadResults(response?.results)
                 self.fetchImageDetails()
+                self.loadingIndicator.stopAnimating()
+                self.loadingIndicator.hidden = true
                 self.promotionsTable.reloadData()
                 self.adjustUI()
                 self.refreshControl.endRefreshing()

@@ -133,6 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         currentLocation.lat = locValue.latitude
         currentLocation.lon = locValue.longitude
+    NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: currentLocation)
     }
 
 
