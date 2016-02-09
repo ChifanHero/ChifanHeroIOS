@@ -158,7 +158,7 @@
         <scene sceneID="EKt-FB-EKW">
             <objects>
                 <tableViewController id="Yys-Ja-R5f" customClass="RestaurantsTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hXm-D8-niK" userLabel="restaurantsTable" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hXm-D8-niK" userLabel="restaurantsTable" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -419,43 +419,29 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vH8-kg-PVw">
-                                <rect key="frame" x="-4" y="43" width="383" height="511"/>
-                                <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eb0-n8-VQj" userLabel="Search results tableView" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="511"/>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="511" placeholder="YES" id="fCV-Df-bdW"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="dataSource" destination="8rJ-Kc-sve" id="9k5-WD-SEW"/>
-                                            <outlet property="delegate" destination="8rJ-Kc-sve" id="E86-CI-dAb"/>
-                                        </connections>
-                                    </tableView>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gAO-Cm-LSJ">
-                                        <rect key="frame" x="173" y="237" width="37" height="37"/>
-                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    </activityIndicatorView>
-                                </subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eb0-n8-VQj" userLabel="Search results tableView" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="43" width="375" height="511"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="eb0-n8-VQj" firstAttribute="leading" secondItem="vH8-kg-PVw" secondAttribute="leading" id="9L7-b6-Wog"/>
-                                    <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerX" secondItem="vH8-kg-PVw" secondAttribute="centerX" id="AOq-IJ-0oD"/>
-                                    <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="vH8-kg-PVw" secondAttribute="top" id="n3P-Dh-ttC"/>
-                                    <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerY" secondItem="vH8-kg-PVw" secondAttribute="centerY" id="oUs-Ix-COL"/>
-                                    <constraint firstAttribute="trailing" secondItem="eb0-n8-VQj" secondAttribute="trailing" id="xDL-z8-I03"/>
-                                </constraints>
-                            </scrollView>
+                                <connections>
+                                    <outlet property="dataSource" destination="8rJ-Kc-sve" id="9k5-WD-SEW"/>
+                                    <outlet property="delegate" destination="8rJ-Kc-sve" id="E86-CI-dAb"/>
+                                </connections>
+                            </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gAO-Cm-LSJ">
+                                <rect key="frame" x="169" y="283" width="37" height="37"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leadingMargin" constant="-20" id="0J3-lN-1Ko"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="vH8-kg-PVw" secondAttribute="trailing" constant="-20" id="Lht-5l-yTs"/>
-                            <constraint firstItem="vH8-kg-PVw" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" id="bFj-DM-Mao"/>
-                            <constraint firstItem="vH8-kg-PVw" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leadingMargin" constant="-20" id="hcd-S6-stg"/>
+                            <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" id="IVs-n4-ceA"/>
+                            <constraint firstItem="XZD-6s-Tzc" firstAttribute="top" secondItem="eb0-n8-VQj" secondAttribute="bottom" id="Ntk-MR-pVw"/>
+                            <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="ifc-Dd-Dgo"/>
+                            <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="opU-ss-fwO"/>
+                            <constraint firstAttribute="trailing" secondItem="eb0-n8-VQj" secondAttribute="trailing" id="qo6-BZ-l3p"/>
                             <constraint firstAttribute="trailingMargin" secondItem="m9Q-Eu-s73" secondAttribute="trailing" constant="-20" id="ujF-GT-IFY"/>
-                            <constraint firstItem="XZD-6s-Tzc" firstAttribute="top" secondItem="vH8-kg-PVw" secondAttribute="bottom" id="wZE-c1-BZk"/>
+                            <constraint firstItem="eb0-n8-VQj" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leading" id="wb3-KU-NnV"/>
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" id="zMH-dW-sU2"/>
                         </constraints>
                     </view>
@@ -465,7 +451,6 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="scrollView" destination="vH8-kg-PVw" id="n9J-mV-nM9"/>
                         <outlet property="searchResultsTableView" destination="eb0-n8-VQj" id="QIU-6Y-jds"/>
                         <outlet property="selectionBar" destination="m9Q-Eu-s73" id="TJb-AZ-zY3"/>
                         <outlet property="waitingIndicator" destination="gAO-Cm-LSJ" id="XN0-O9-zlg"/>

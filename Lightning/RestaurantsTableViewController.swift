@@ -129,6 +129,18 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.section == 1 {
+            print("section == 1")
+        }
+        if indexPath.section == 0 {
+            print("section == 0")
+        }
+        if indexPath.section == 2 {
+            print("section == 2")
+        }
+        if indexPath.section == 3 {
+            print("section == 3")
+        }
         var cell : RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
         if cell == nil {
             tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")

@@ -29,10 +29,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     var restaurantImages = [PhotoRecord]()
     var dishImages = [PhotoRecord]()
     
+    let footerView : LoadMoreFooterView = LoadMoreFooterView()
     
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
     
     private var heightConstraint:NSLayoutConstraint?
+    
+    let LIMIT = 50
+    var offset = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,12 +75,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     private func configurePullRefresh(){
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.scrollView.addSubview(refreshControl)
+        self.searchResultsTableView.addSubview(refreshControl)
     }
     
     @objc private func refresh(sender:AnyObject) {
-        self.cleanStates()
-        search()
+        self.clearStates()
+        search(0, limit: LIMIT)
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,49 +100,38 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     // For now, search only when the search buttion gets clicked
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-//        let keyword = searchBar.text
-//        print(keyword)
-//        if keyword != nil && keyword != "" {
-//            let scope = selectionBar.scope
-//            if scope == "restaurant" {
-//                searchRestaurant(keyword: keyword!)
-//            } else if scope == "list" {
-//                searchList(keyword: keyword!)
-//            } else if scope == "dish" {
-//                searchDish(keyword: keyword!)
-//            }
-//            
-//        }
-        search()
+        clearStates()
+        search(0, limit: LIMIT)
     }
     
-    func search() {
-        if self.searchResultsTableView.hidden == true {
-            waitingIndicator.hidden = false
-            waitingIndicator.startAnimating()
-        }
+    func search(offset : Int, limit : Int) {
         
         let keyword = self.searchController.searchBar.text
         print(keyword)
-//        self.searchResultsTableView.hidden = true
         if keyword != nil && keyword != "" {
+            if self.searchResultsTableView.hidden == true {
+                waitingIndicator.hidden = false
+                waitingIndicator.startAnimating()
+            }
             let scope = selectionBar.scope
             if scope == "restaurant" {
-                searchRestaurant(keyword: keyword!)
+                searchRestaurant(keyword: keyword!, offset: offset, limit: limit)
             } else if scope == "list" {
-                searchList(keyword: keyword!)
+                searchList(keyword: keyword!, offset: offset, limit: limit)
             } else if scope == "dish" {
-                searchDish(keyword: keyword!)
+                searchDish(keyword: keyword!, offset: offset, limit: limit)
             }
             
         }
     }
     
-    func searchRestaurant(keyword keyword : String) {
-        cleanStates()
+    func searchRestaurant(keyword keyword : String, offset : Int, limit : Int) {
+//        cleanStates()
         let request : RestaurantSearchRequest = RestaurantSearchRequest()
         request.highlightInField = true
         request.keyword = keyword
+        request.offset = offset
+        request.limit = limit
 //        let location : (Double, Double) = UserContext.getUserLocation()
         let userLocation = UserContext.instance.userLocation
 //        userLocation.lat = location.0
@@ -162,18 +155,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     self.searchResultsTableView.allowsSelection = true
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
-                    self.adjustSearchResultsTableHeight()
-                    self.adjustScrollViewContentHeight()
+//                    self.adjustSearchResultsTableHeight()
+//                    self.adjustScrollViewContentHeight()
                 }
                 
             })
         }
     }
     
-    func searchDish(keyword keyword : String) {
-        cleanStates()
+    func searchDish(keyword keyword : String, offset : Int, limit : Int) {
+//        cleanStates()
         let request : DishSearchRequest = DishSearchRequest()
         request.keyword = keyword
+        request.offset = offset
+        request.limit = limit
         let userLocation = UserContext.instance.userLocation
         //        userLocation.lat = location.0
         //        userLocation.lon = location.1
@@ -197,18 +192,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     self.searchResultsTableView.allowsSelection = false
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
-                    self.adjustSearchResultsTableHeight()
-                    self.adjustScrollViewContentHeight()
                 }
                 
             })
         }
     }
     
-    func searchList(keyword keyword : String) {
-        cleanStates()
+    func searchList(keyword keyword : String, offset : Int, limit : Int) {
+//        cleanStates()
         let request : DishListSearchRequest = DishListSearchRequest()
         request.keyword = keyword
+        request.offset = offset
+        request.limit = limit
         let userLocation = UserContext.instance.userLocation
         //        userLocation.lat = location.0
         //        userLocation.lon = location.1
@@ -223,20 +218,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     self.searchResultsTableView.allowsSelection = true
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
-                    self.adjustSearchResultsTableHeight()
-                    self.adjustScrollViewContentHeight()
+//                    self.adjustSearchResultsTableHeight()
+//                    self.adjustScrollViewContentHeight()
                 }
                 
             })
         }
-    }
-    
-    func cleanStates () {
-        self.restaurants.removeAll()
-        self.restaurantImages.removeAll()
-        self.dishes.removeAll()
-        self.dishImages.removeAll()
-        self.lists.removeAll()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -256,6 +243,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.section == 1 {
+            print("section == 1")
+        }
+        if indexPath.section == 0 {
+            print("section == 0")
+        }
+        if indexPath.section == 2 {
+            print("section == 2")
+        }
+        if indexPath.section == 3 {
+            print("section == 3")
+        }
         if selectionBar.scope == "list" {
             var cell : ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
             if cell == nil {
@@ -265,6 +264,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             cell!.model = lists[indexPath.section]
             return cell!
         } else if selectionBar.scope == "dish" {
+            
             var cell : OwnerInfoDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
             if cell == nil {
                 tableView.registerNib(UINib(nibName: "OwnerInfoDishCell", bundle: nil), forCellReuseIdentifier: "ownerInfoDishCell")
@@ -275,9 +275,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             
             switch (imageDetails.state){
             case PhotoRecordState.New:
-                if (!tableView.dragging && !tableView.decelerating) {
-                    self.searchResultsTableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-                }
+                self.searchResultsTableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
             default: break
             }
             return cell!
@@ -327,64 +325,52 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         
     }
     
-    private func adjustSearchResultsTableHeight() {
-        if self.searchResultsTableView.hidden == false {
-            if self.heightConstraint != nil {
-                self.searchResultsTableView.removeConstraint(heightConstraint!)
-            }
-            heightConstraint = NSLayoutConstraint(item: self.searchResultsTableView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute:NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.searchResultsTableView.contentSize.height);
-            heightConstraint!.priority = 1000
-            self.searchResultsTableView.addConstraint(heightConstraint!);
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    private func adjustScrollViewContentHeight () {
-        if self.searchResultsTableView.contentSize.height > self.scrollView.frame.height {
-            self.scrollView.contentSize.height = self.searchResultsTableView.contentSize.height
-        }
-    }
+//    private func adjustSearchResultsTableHeight() {
+//        if self.searchResultsTableView.hidden == false {
+//            if self.heightConstraint != nil {
+//                self.searchResultsTableView.removeConstraint(heightConstraint!)
+//            }
+//            heightConstraint = NSLayoutConstraint(item: self.searchResultsTableView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute:NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.searchResultsTableView.contentSize.height);
+//            heightConstraint!.priority = 1000
+//            self.searchResultsTableView.addConstraint(heightConstraint!);
+//            self.layoutComplete = false
+//            self.view.layoutIfNeeded()
+//            self.layoutComplete = true
+//        }
+//    }
+//    
+//    private func adjustScrollViewContentHeight () {
+//        if self.searchResultsTableView.contentSize.height > self.scrollView.frame.height {
+//            self.scrollView.contentSize.height = self.searchResultsTableView.contentSize.height
+//        }
+//    }
     
     
     func restaurantButtonClicked() {
         clearStates()
-//        let keyword = self.searchController.searchBar.text
-//        print(keyword)
-//        if keyword != nil && keyword != "" {
-//            searchRestaurant(keyword: keyword!)
-//        }
-        self.searchResultsTableView.hidden = true
-        search()
+        search(0, limit: LIMIT)
     }
     
     func dishButtonPressed() {
         clearStates()
-//        let keyword = self.searchController.searchBar.text
-//        print(keyword)
-//        if keyword != nil && keyword != "" {
-//            searchDish(keyword: keyword!)
-//        }
-        self.searchResultsTableView.hidden = true
-        search()
+//        self.searchResultsTableView.hidden = true
+        search(0, limit: LIMIT)
     }
     
     func listButtonPressed() {
         clearStates()
-//        let keyword = self.searchController.searchBar.text
-//        print(keyword)
-//        if keyword != nil && keyword != "" {
-//             searchList(keyword: keyword!)
-//        }
-        self.searchResultsTableView.hidden = true
-        search()
+//        self.searchResultsTableView.hidden = true
+        search(0, limit: LIMIT)
     }
     
     func clearStates() {
+        self.offset = 0
         self.dishes.removeAll()
         self.restaurants.removeAll()
         self.lists.removeAll()
         self.restaurantImages.removeAll()
         self.dishImages.removeAll()
+        self.searchResultsTableView.reloadData()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -408,6 +394,69 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             let listMemberController : ListMemberViewController = segue.destinationViewController as! ListMemberViewController
             listMemberController.listId = sender as? String
         }
+    }
+    
+    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        // if last section, add activity indicator
+        var resultsCount = 0
+        let scope = selectionBar.scope
+        if scope == "restaurant" {
+            resultsCount = self.restaurants.count
+        } else if scope == "list" {
+            resultsCount = self.lists.count
+        } else if scope == "dish" {
+            resultsCount = self.dishes.count
+        }
+//        print("section = \(section), resultsCount = \(resultsCount)")
+        if section == resultsCount - 1 {
+            footerView.activityIndicator.startAnimating()
+            loadMore()
+        }
+    }
+    
+    func loadMore() {
+        var resultsCount = 0
+        let scope = selectionBar.scope
+        if scope == "restaurant" {
+            resultsCount = self.restaurants.count
+        } else if scope == "list" {
+            resultsCount = self.lists.count
+        } else if scope == "dish" {
+            resultsCount = self.dishes.count
+        }
+        if resultsCount == offset + LIMIT {
+            offset += LIMIT
+            search(offset, limit: LIMIT)
+        } else {
+            footerView.activityIndicator.stopAnimating()
+            footerView.activityIndicator.hidden = true
+        }
+        
+    }
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        return footerView
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        
+        var resultsCount = 0
+        let scope = selectionBar.scope
+        if scope == "restaurant" {
+            resultsCount = self.restaurants.count
+        } else if scope == "list" {
+            resultsCount = self.lists.count
+        } else if scope == "dish" {
+            resultsCount = self.dishes.count
+        }
+        if section == resultsCount - 1 {
+            return 30
+        } else {
+            return 0
+        }
+
+        
     }
     
 }
