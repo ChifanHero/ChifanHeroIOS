@@ -111,8 +111,8 @@
                                             <outlet property="delegate" destination="9pv-A4-QxB" id="qyr-po-BYQ"/>
                                         </connections>
                                     </tableView>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Jsp-bl-2dP">
-                                        <rect key="frame" x="169" y="259" width="37" height="37"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Jsp-bl-2dP">
+                                        <rect key="frame" x="173" y="259" width="37" height="37"/>
                                         <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>

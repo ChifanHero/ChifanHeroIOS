@@ -35,57 +35,55 @@ class RestaurantSearchTableViewCell: UITableViewCell {
     }
     
     func setUp(restaurant restaurant: Restaurant, image: UIImage) {
-        if restaurant.name != nil {
-//            var attributedName = NSAttributedString(
-//                data: restaurant.name!.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true),
-//                options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
-//                documentAttributes: nil,
-//                error: nil)
-            do {
+        dispatch_async(dispatch_get_main_queue(), {
+            if restaurant.name != nil {
+                do {
+                    
+                    let nameWithSize = NSString(format:"<span style=\"font-size: 15\">%@</span>", restaurant.name!) as String
+                    let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+                    self.nameLabel.attributedText = attributedName
+                } catch {
+                    
+                }
                 
-                let nameWithSize = NSString(format:"<span style=\"font-size: 15\">%@</span>", restaurant.name!) as String
-                let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-                nameLabel.attributedText = attributedName
-            } catch {
-                
+            }
+            if restaurant.address != nil {
+                do {
+                    let addressWithSize = NSString(format:"<span style=\"font-size: 12\">%@</span>", restaurant.address!) as String
+                    let attributedAddress = try NSMutableAttributedString(data: addressWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+                    self.addressLabel.attributedText = attributedAddress
+                } catch {
+                    
+                }
             }
             
-        }
-        if restaurant.address != nil {
-            do {
-                let addressWithSize = NSString(format:"<span style=\"font-size: 12\">%@</span>", restaurant.address!) as String
-                let attributedAddress = try NSMutableAttributedString(data: addressWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-                addressLabel.attributedText = attributedAddress
-            } catch {
-                
+            //        addressLabel.text = restaurant.address
+            if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
+                let value = restaurant.distance?.value
+                let unit = restaurant.distance?.unit
+                self.distanceLabel.text = String(value!) + " " + unit!
             }
-        }
+            self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
+            self.restaurantImageView.image = image
+            var dishNames = ""
+            if restaurant.dishes != nil && restaurant.dishes!.count > 0 {
+                
+                for dish in restaurant.dishes! {
+                    dishNames += dish
+                    dishNames += "  "
+                }
+                dishNames = NSString(format:"<span style=\"font-size: 12\">%@</span>", dishNames) as String
+                do {
+                    let attributedDishNames = try NSMutableAttributedString(data: dishNames.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+                    self.dishesLabel.attributedText = attributedDishNames
+                    self.dishesLabel.adjustsFontSizeToFitWidth = false
+                    self.dishesLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
+                } catch {
+                    
+                }
+            }
+        })
         
-//        addressLabel.text = restaurant.address
-        if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
-            let value = restaurant.distance?.value
-            let unit = restaurant.distance?.unit
-            distanceLabel.text = String(value!) + " " + unit!
-        }
-        ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
-        restaurantImageView.image = image
-        var dishNames = ""
-        if restaurant.dishes != nil && restaurant.dishes!.count > 0 {
-            
-            for dish in restaurant.dishes! {
-                dishNames += dish
-                dishNames += "  "
-            }
-            dishNames = NSString(format:"<span style=\"font-size: 12\">%@</span>", dishNames) as String
-            do {
-                let attributedDishNames = try NSMutableAttributedString(data: dishNames.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-                dishesLabel.attributedText = attributedDishNames
-                dishesLabel.adjustsFontSizeToFitWidth = false
-                dishesLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
-            } catch {
-                
-            }
-        }
         
         
     }

@@ -35,10 +35,14 @@ class ImageProgressiveTableView : UITableView {
             if downloader.cancelled {
                 return
             }
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                pendingOperations.downloadsInProgress.removeValueForKey(indexPath)
+//                self.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//            })
+            dispatch_async(dispatch_get_main_queue(), {
                 pendingOperations.downloadsInProgress.removeValueForKey(indexPath)
                 self.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            })
+            });
         }
         
         // Keep track of the downloader for the indexPath
@@ -77,8 +81,8 @@ class ImageProgressiveTableView : UITableView {
             
             for indexPath : NSIndexPath in toBeStarted {
                 let recordToProcess = imageDelegate?.imageForIndexPath(tableView: self, indexPath: indexPath)
-                let row = indexPath.row
-                let section = indexPath.section
+//                let row = indexPath.row
+//                let section = indexPath.section
                 startOperationsForPhotoRecord(&pendingOperations, photoDetails: recordToProcess!, indexPath: indexPath)
             }
         }
