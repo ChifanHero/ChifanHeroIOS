@@ -5,7 +5,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--So Hungry-->
+        <!--Lightning-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" customClass="HomeViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,17 +17,17 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a2O-7a-gxn">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="555"/>
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a2O-7a-gxn">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="555"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G2S-pL-if8">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G2S-pL-if8">
+                                        <rect key="frame" x="0.0" y="0.0" width="383" height="90"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="63" translatesAutoresizingMaskIntoConstraints="NO" id="4OT-lP-E0r">
-                                                <rect key="frame" x="25" y="18" width="333" height="58"/>
+                                                <rect key="frame" x="25" y="18" width="333" height="57.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aqd-qO-PjW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="58"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="57.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
                                                                 <rect key="frame" x="17" y="0.0" width="30" height="30"/>
@@ -37,7 +37,7 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门餐厅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="re1-JV-HBL">
-                                                                <rect key="frame" x="0.0" y="38" width="64" height="20"/>
+                                                                <rect key="frame" x="0.0" y="38" width="64" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -45,7 +45,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-Dd-Yxb">
-                                                        <rect key="frame" x="135" y="0.0" width="64" height="58"/>
+                                                        <rect key="frame" x="134" y="0.0" width="64" height="57.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7a-2D-gQH">
                                                                 <rect key="frame" x="17" y="0.0" width="30" height="30"/>
@@ -55,7 +55,7 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="菜品榜单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rz-3p-Vkv">
-                                                                <rect key="frame" x="0.0" y="38" width="64" height="20"/>
+                                                                <rect key="frame" x="0.0" y="38" width="64" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -63,7 +63,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wJY-B6-7QL">
-                                                        <rect key="frame" x="269" y="0.0" width="64" height="58"/>
+                                                        <rect key="frame" x="269" y="0.0" width="64" height="57.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-Lg-ida">
                                                                 <rect key="frame" x="17" y="0.0" width="30" height="30"/>
@@ -73,7 +73,7 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="离我最近" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NY3-im-GGj">
-                                                                <rect key="frame" x="0.0" y="38" width="64" height="20"/>
+                                                                <rect key="frame" x="0.0" y="38" width="64" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -87,21 +87,22 @@
                                         <constraints>
                                             <constraint firstItem="4OT-lP-E0r" firstAttribute="top" secondItem="G2S-pL-if8" secondAttribute="top" constant="17.5" id="2ME-z9-QqU"/>
                                             <constraint firstItem="4OT-lP-E0r" firstAttribute="centerX" secondItem="G2S-pL-if8" secondAttribute="centerX" id="Dm7-Zu-tLc"/>
+                                            <constraint firstAttribute="height" constant="90" id="Yca-dI-0b9"/>
                                             <constraint firstItem="4OT-lP-E0r" firstAttribute="leading" secondItem="G2S-pL-if8" secondAttribute="leading" constant="25" id="o50-wf-42u"/>
                                             <constraint firstAttribute="trailing" secondItem="4OT-lP-E0r" secondAttribute="trailing" constant="25" id="vKK-bC-u0o"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Cge-rc-BQk" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="95" width="375" height="460"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Cge-rc-BQk" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="95" width="383" height="460"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="sectionIndexTrackingBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="FMG-Ga-5VZ">
-                                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                                <rect key="frame" x="0.0" y="22" width="383" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FMG-Ga-5VZ" id="H9N-7P-WSE">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -118,6 +119,8 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Cge-rc-BQk" secondAttribute="trailing" id="PdM-bI-wzF"/>
+                                    <constraint firstAttribute="bottom" secondItem="Cge-rc-BQk" secondAttribute="bottom" id="QKP-Ny-bBz"/>
                                     <constraint firstItem="Jsp-bl-2dP" firstAttribute="centerX" secondItem="a2O-7a-gxn" secondAttribute="centerX" id="Wkm-2g-cMc"/>
                                     <constraint firstItem="G2S-pL-if8" firstAttribute="top" secondItem="a2O-7a-gxn" secondAttribute="top" id="XXk-2l-DGX"/>
                                     <constraint firstItem="Cge-rc-BQk" firstAttribute="top" secondItem="G2S-pL-if8" secondAttribute="bottom" constant="5" id="dnN-wy-fVR"/>
@@ -139,7 +142,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="So Hungry" id="Fh2-KO-OO5"/>
+                    <navigationItem key="navigationItem" title="Lightning" id="Fh2-KO-OO5" userLabel="Lightning Order"/>
                     <connections>
                         <outlet property="containerView" destination="a2O-7a-gxn" id="Gjo-GS-CNs"/>
                         <outlet property="loadingIndicator" destination="Jsp-bl-2dP" id="VzW-md-Lyn"/>
@@ -526,17 +529,17 @@
                     <connections>
                         <outlet property="headerView" destination="SiA-fu-TPt" id="UIb-Wn-QC5"/>
                         <outlet property="memberTable" destination="hNn-ud-WaQ" id="jVg-11-04W"/>
-                        <segue destination="Qxo-IV-jWH" kind="presentation" identifier="addCandidate" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="4GH-Z8-m31"/>
+                        <segue destination="fBm-Hz-slj" kind="presentation" identifier="addCandidate" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="4GH-Z8-m31"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s0w-FP-qzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="821.5" y="-1920.5"/>
         </scene>
-        <!--热门榜单-->
+        <!--Hot list-->
         <scene sceneID="8aM-Rc-1UP">
             <objects>
-                <viewController id="VfX-37-xD7" customClass="ListsTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="VfX-37-xD7" userLabel="Hot list" customClass="ListsTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UW9-nx-Dwj"/>
                         <viewControllerLayoutGuide type="bottom" id="LZ1-Rw-ZR7"/>
@@ -545,17 +548,24 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3fz-Di-jlA">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3fz-Di-jlA">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="VfX-37-xD7" id="VgS-DP-9Rf"/>
                                     <outlet property="delegate" destination="VfX-37-xD7" id="6bL-H9-Tv2"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="vqt-eU-mRD">
+                                <rect key="frame" x="169" y="283" width="37" height="37"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="vqt-eU-mRD" firstAttribute="centerY" secondItem="3Kd-rR-lqD" secondAttribute="centerY" id="ENH-aS-fWc"/>
+                            <constraint firstItem="vqt-eU-mRD" firstAttribute="centerX" secondItem="3Kd-rR-lqD" secondAttribute="centerX" id="GSA-Bh-cOY"/>
                             <constraint firstItem="3fz-Di-jlA" firstAttribute="top" secondItem="UW9-nx-Dwj" secondAttribute="bottom" id="UQH-KN-wHw"/>
                             <constraint firstItem="LZ1-Rw-ZR7" firstAttribute="top" secondItem="3fz-Di-jlA" secondAttribute="bottom" id="ZF4-v7-KmH"/>
                             <constraint firstItem="3fz-Di-jlA" firstAttribute="leading" secondItem="3Kd-rR-lqD" secondAttribute="leadingMargin" constant="-20" id="hXK-QH-x0b"/>
@@ -563,12 +573,12 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="热门榜单" id="dAJ-8e-dDd">
-                        <barButtonItem key="rightBarButtonItem" title="筛选" id="9H0-ta-1o1"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="热门榜单" id="dAJ-8e-dDd"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="resultsTableView" destination="3fz-Di-jlA" id="tfq-gX-glx"/>
                         <outlet property="tableView" destination="3fz-Di-jlA" id="PCm-BA-U0s"/>
+                        <outlet property="waitingIndicator" destination="vqt-eU-mRD" id="Sm6-4d-UlA"/>
                         <segue destination="98Y-kL-NWK" kind="show" identifier="showList" id="vSQ-ka-XUm"/>
                     </connections>
                 </viewController>
@@ -776,10 +786,10 @@
             </objects>
             <point key="canvasLocation" x="867.5" y="1554.5"/>
         </scene>
-        <!--昵称-->
+        <!--Nickname -->
         <scene sceneID="RAX-XR-y9y">
             <objects>
-                <viewController id="bYl-Lv-yVt" customClass="NickNameChangeViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bYl-Lv-yVt" userLabel="Nickname " customClass="NickNameChangeViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bqb-lb-MTd"/>
                         <viewControllerLayoutGuide type="bottom" id="JeH-0a-jZE"/>
@@ -1106,11 +1116,11 @@
                         <viewControllerLayoutGuide type="bottom" id="lwG-C3-mjX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Abm-7l-Ho9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GG4-zB-GCj" customClass="ListCandidateTopView" customModule="Lightning" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -1123,6 +1133,14 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="KeW-o3-m2A">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="gdZ-6T-UCh">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancel:" destination="Qxo-IV-jWH" id="FWR-P4-65g"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="mainView" destination="GG4-zB-GCj" id="480-70-S0K"/>
@@ -1130,7 +1148,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="daI-J8-vHJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1395.5" y="-1920.5"/>
+            <point key="canvasLocation" x="1932.5" y="-1920.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DB4-FS-Iva">
@@ -1171,6 +1189,25 @@
             </objects>
             <point key="canvasLocation" x="3396.5" y="1226.5"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qja-Kx-9sU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fBm-Hz-slj" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0iR-u6-tQL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.5450980392" green="0.76470588240000004" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Qxo-IV-jWH" kind="relationship" relationship="rootViewController" id="qfo-C0-Uqg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oCV-Gf-wIq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1345.5" y="-1920.5"/>
+        </scene>
     </scenes>
     <resources>
         <image name="about me" width="25" height="25"/>
@@ -1182,7 +1219,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="tIf-c0-cls"/>
-        <segue reference="dDa-I7-4We"/>
-        <segue reference="cRp-Bb-PSh"/>
+        <segue reference="SnI-Ci-tXQ"/>
+        <segue reference="vSQ-ka-XUm"/>
     </inferredMetricsTieBreakers>
 </document>

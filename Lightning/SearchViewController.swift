@@ -243,18 +243,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 1 {
-            print("section == 1")
-        }
-        if indexPath.section == 0 {
-            print("section == 0")
-        }
-        if indexPath.section == 2 {
-            print("section == 2")
-        }
-        if indexPath.section == 3 {
-            print("section == 3")
-        }
+//        if indexPath.section == 1 {
+//            print("section == 1")
+//        }
+//        if indexPath.section == 0 {
+//            print("section == 0")
+//        }
+//        if indexPath.section == 2 {
+//            print("section == 2")
+//        }
+//        if indexPath.section == 3 {
+//            print("section == 3")
+//        }
         if selectionBar.scope == "list" {
             var cell : ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
             if cell == nil {
@@ -376,7 +376,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         self.lists.removeAll()
         self.restaurantImages.removeAll()
         self.dishImages.removeAll()
-        self.searchResultsTableView.reloadData()
+//        self.searchResultsTableView.reloadData()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

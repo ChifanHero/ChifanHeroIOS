@@ -21,6 +21,7 @@ import UIKit
     private var view : UIView!
     private var nibName : String = "ListCandidateTopView"
     
+    @IBOutlet weak var restaurantNameLabel: UILabel!
     
     @IBOutlet weak var headerView: UIView!
     
@@ -29,6 +30,9 @@ import UIKit
     @IBOutlet weak var nextStepButton: UIButton!
     
     @IBOutlet weak var contentView: UIView!
+    
+    @IBOutlet weak var textField: UITextField!
+    
     
     var contentViewCollapsed = false
     
@@ -43,6 +47,8 @@ import UIKit
     var restaurants : [Restaurant] = [Restaurant]()
     
     @IBOutlet weak var searchResultsTable: UITableView!
+    
+    var currentSelectedCell : UITableViewCell?
     
     
     override init(frame: CGRect) {
@@ -59,7 +65,7 @@ import UIKit
     @IBAction func tap(sender: AnyObject) {
         if contentViewCollapsed {
             self.subViewTopToHeaderViewBottom.active = false
-            UIView.animateWithDuration(0.6, animations: { () -> Void in
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
                 self.view.layoutIfNeeded()
                 }) { (success) -> Void in
                     self.contentViewCollapsed = false
@@ -88,6 +94,7 @@ import UIKit
         subView.layer.borderColor = UIColor.lightGrayColor().CGColor
         nextStepButton.layer.cornerRadius = 5
         searchResultsTable.hidden = true
+        disableNextButton()
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -108,6 +115,7 @@ import UIKit
     
     func textFieldDidChange(textField: UITextField) {
         if let keyword = textField.text {
+            
             if keyword == "" {
                 self.restaurants.removeAll()
                 self.searchResultsTable.reloadData()
@@ -115,12 +123,14 @@ import UIKit
                 searchRestaurant(keyword: keyword)
             }
         }
+        
     }
     
     func searchRestaurant(keyword keyword : String) {
         cleanStates()
         let request : RestaurantSearchRequest = RestaurantSearchRequest()
         request.keyword = keyword
+        print(keyword)
         //TODO : get range from list properties and set in the request.
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -129,7 +139,7 @@ import UIKit
                     self.restaurants += results
                     self.searchResultsTable.hidden = false
                     self.searchResultsTable.reloadData()
-                    self.adjustSearchResultsTableHeight()
+//                    self.adjustSearchResultsTableHeight()
                 }
                 
             })
@@ -140,10 +150,10 @@ import UIKit
         self.restaurants.removeAll()
     }
     
-    func adjustSearchResultsTableHeight() {
-        let originalFrame : CGRect = self.searchResultsTable.frame
-        self.searchResultsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.searchResultsTable.contentSize.height)
-    }
+//    func adjustSearchResultsTableHeight() {
+//        let originalFrame : CGRect = self.searchResultsTable.frame
+//        self.searchResultsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.searchResultsTable.contentSize.height)
+//    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.restaurants.count
@@ -157,6 +167,7 @@ import UIKit
         }
         let restaurant : Restaurant = self.restaurants[indexPath.row]
         cell?.setUp(restaurant: restaurant)
+        cell!.selectionStyle = UITableViewCellSelectionStyle.None
         return cell!
     }
     
@@ -170,7 +181,37 @@ import UIKit
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.subView.restaurantId = restaurants[indexPath.row].id
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        if cell != nil {
+            if cell?.accessoryType == UITableViewCellAccessoryType.Checkmark {
+                cell!.accessoryType = UITableViewCellAccessoryType.None
+                currentSelectedCell = nil
+                restaurantNameLabel.text = ""
+                self.subView.cleanStates()
+                disableNextButton()
+            } else {
+                restaurantNameLabel.text = restaurants[indexPath.row].name
+                cell!.accessoryType = UITableViewCellAccessoryType.Checkmark
+                self.subView.cleanStates()
+                self.subView.restaurantId = restaurants[indexPath.row].id
+                currentSelectedCell?.accessoryType = UITableViewCellAccessoryType.None
+                currentSelectedCell = cell
+                enableNextButton()
+                textField.resignFirstResponder()
+            }
+            
+        }
+        
+    }
+    
+    func enableNextButton() {
+        nextStepButton.enabled = true
+        nextStepButton.backgroundColor = UIColor(red: 26/255, green: 99/255, blue: 223/255, alpha: 1.0)
+    }
+    
+    func disableNextButton() {
+        nextStepButton.enabled = false
+        nextStepButton.backgroundColor = UIColor.grayColor()
     }
 
 }

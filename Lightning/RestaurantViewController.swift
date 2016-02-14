@@ -190,10 +190,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             return cell!
             
         } else if tableView == hotDishesTableView {
-            var cell : NameOnlyDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
+            var cell : NameImageDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
             if cell == nil {
-                tableView.registerNib(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
+                tableView.registerNib(UINib(nibName: "NameImageDishCell", bundle: nil), forCellReuseIdentifier: "nameImageDishCell")
+                cell = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
             }
             let hotDish : Dish = (hotDishes[indexPath.row])
             let imageDetails = imageForIndexPath(tableView: self.hotDishesTableView, indexPath: indexPath)

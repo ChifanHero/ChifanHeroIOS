@@ -46,10 +46,15 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationController()
         loadingIndicator.hidden = false
         configurePullRefresh()
         initPromotionsTable()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
+    }
+    
+    func configureNavigationController() {
+        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
     }
     
     override func didReceiveMemoryWarning() {
@@ -151,6 +156,10 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
+//        self.navigationItem.backBarButtonItem = barButtonItem;
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
         if segue.identifier == "showRestaurants" {
             let restaurantsController : RestaurantsTableViewController = segue.destinationViewController as! RestaurantsTableViewController
             if let s = sender as? String {

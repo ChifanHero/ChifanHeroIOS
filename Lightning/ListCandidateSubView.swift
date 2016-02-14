@@ -31,6 +31,14 @@ import UIKit
         return self.subView.confirmButton
     }
     
+    @IBOutlet weak var dishNameLabel: UILabel!
+    
+    
+    @IBOutlet weak var textField: UITextField!
+    
+    
+    var currentSelectedCell : UITableViewCell?
+    
     var subViewTopToHeaderViewBottom : NSLayoutConstraint!
     
     var restaurantId : String? {
@@ -79,6 +87,7 @@ import UIKit
         subView.layer.borderColor = UIColor.lightGrayColor().CGColor
         confirmButton.layer.cornerRadius = 5
         searchResultsTable.hidden = true
+        disableConfirmButton()
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -89,9 +98,10 @@ import UIKit
     }
     
     
+    
     @IBAction func confirm(sender: AnyObject) {
         self.subViewTopToHeaderViewBottom.active = true
-        UIView.animateWithDuration(0.6, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
             }) { (success) -> Void in
                 self.contentViewCollapsed = true
@@ -135,8 +145,10 @@ import UIKit
     }
     
     func cleanStates() {
+        self.dishNameLabel.text = ""
         self.dishImages.removeAll()
         self.dishes.removeAll()
+        self.searchResultsTable.reloadData()
     }
     
     func adjustSearchResultsTableHeight() {
@@ -158,7 +170,8 @@ import UIKit
         let imageDetails = imageForIndexPath(tableView: self.searchResultsTable, indexPath: indexPath)
         let dish : Dish?
         dish = self.dishes[indexPath.row]
-        cell?.setUp(dish: dish!, image: imageDetails.image!)
+        cell?.setUp(dish: dish!)
+        cell!.selectionStyle = UITableViewCellSelectionStyle.None
         switch (imageDetails.state){
         case .New:
             if (!tableView.dragging && !tableView.decelerating) {
@@ -171,11 +184,42 @@ import UIKit
         return cell!
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        if cell != nil {
+            if cell?.accessoryType == UITableViewCellAccessoryType.Checkmark {
+                cell!.accessoryType = UITableViewCellAccessoryType.None
+                currentSelectedCell = nil
+                dishNameLabel.text = ""
+                disableConfirmButton()
+            } else {
+                dishNameLabel.text = dishes[indexPath.row].name
+                cell!.accessoryType = UITableViewCellAccessoryType.Checkmark
+//                self.subView.restaurantId = dishes[indexPath.row].id
+                currentSelectedCell?.accessoryType = UITableViewCellAccessoryType.None
+                currentSelectedCell = cell
+                enableConfirmButton()
+                textField.resignFirstResponder()
+            }
+            
+        }
+    }
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return NameOnlyDishTableViewCell.height
+        return 49
     }
     
     func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
         return dishImages[indexPath.row]
+    }
+    
+    func enableConfirmButton() {
+        confirmButton.enabled = true
+        confirmButton.backgroundColor = UIColor(red: 26/255, green: 99/255, blue: 223/255, alpha: 1.0)
+    }
+    
+    func disableConfirmButton() {
+        confirmButton.enabled = false
+        confirmButton.backgroundColor = UIColor.grayColor()
     }
 }

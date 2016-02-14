@@ -20,8 +20,8 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2065 Hamilton Ave, San Jose, CA, 95126" textAlignment="natural" lineBreakMode="wordWrap" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCR-2O-z1S" userLabel="Address Label">
-                        <rect key="frame" x="138" y="15" width="232" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="2065 Hamilton Ave, San Jose, CA, 95126" lineBreakMode="clip" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="TCR-2O-z1S" userLabel="Address Label">
+                        <rect key="frame" x="138" y="15" width="229" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -30,6 +30,7 @@
                 <constraints>
                     <constraint firstItem="TCR-2O-z1S" firstAttribute="leading" secondItem="SBE-sL-0NN" secondAttribute="trailing" constant="7" id="JPr-yN-XiU"/>
                     <constraint firstItem="TCR-2O-z1S" firstAttribute="centerY" secondItem="AG8-WT-Hw3" secondAttribute="centerY" id="MOl-lF-sRu"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="TCR-2O-z1S" secondAttribute="trailing" id="UzC-vl-fDg"/>
                     <constraint firstItem="SBE-sL-0NN" firstAttribute="centerY" secondItem="AG8-WT-Hw3" secondAttribute="centerY" id="p4g-v6-q9o"/>
                     <constraint firstItem="SBE-sL-0NN" firstAttribute="leading" secondItem="AG8-WT-Hw3" secondAttribute="leadingMargin" constant="15" id="xcz-Er-hVH"/>
                 </constraints>
