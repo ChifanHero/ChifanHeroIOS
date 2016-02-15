@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		C4066F0F1C6F4A2800BBF0E8 /* NameOnlyDishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4066F0E1C6F4A2800BBF0E8 /* NameOnlyDishCell.xib */; };
 		C4066F111C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */; };
-		C4066F131C7046CA00BBF0E8 /* ListCandidateNoDishSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4066F121C7046CA00BBF0E8 /* ListCandidateNoDishSubView.xib */; };
+		C4066F131C7046CA00BBF0E8 /* ListCandidateNoDishContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4066F121C7046CA00BBF0E8 /* ListCandidateNoDishContentView.xib */; };
+		C4066F151C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4066F141C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift */; };
 		C4215A971C62FE600052A613 /* DishListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4215A961C62FE600052A613 /* DishListCell.xib */; };
 		C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4215A981C63009A0052A613 /* DishListTableViewCell.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
@@ -224,7 +225,8 @@
 /* Begin PBXFileReference section */
 		C4066F0E1C6F4A2800BBF0E8 /* NameOnlyDishCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NameOnlyDishCell.xib; sourceTree = "<group>"; };
 		C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameOnlyDishTableViewCell.swift; sourceTree = "<group>"; };
-		C4066F121C7046CA00BBF0E8 /* ListCandidateNoDishSubView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListCandidateNoDishSubView.xib; sourceTree = "<group>"; };
+		C4066F121C7046CA00BBF0E8 /* ListCandidateNoDishContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListCandidateNoDishContentView.xib; sourceTree = "<group>"; };
+		C4066F141C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCandidateNoDishContentView.swift; sourceTree = "<group>"; };
 		C414BD2E1BBA600C008C5744 /* InfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
 		C414BD301BBA6034008C5744 /* InfoCouponCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCouponCell.xib; sourceTree = "<group>"; };
 		C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -725,7 +727,7 @@
 				C4BCB3551C54B9D00049D74A /* RestaurantSearchCell.xib */,
 				C4215A961C62FE600052A613 /* DishListCell.xib */,
 				C4066F0E1C6F4A2800BBF0E8 /* NameOnlyDishCell.xib */,
-				C4066F121C7046CA00BBF0E8 /* ListCandidateNoDishSubView.xib */,
+				C4066F121C7046CA00BBF0E8 /* ListCandidateNoDishContentView.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -761,6 +763,7 @@
 				C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */,
 				C44C25811C50C97200A345D8 /* ActionButtonView.swift */,
 				C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */,
+				C4066F141C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -1111,7 +1114,7 @@
 				CA203E431C111EEA00D6F32C /* InfoCell.xib in Resources */,
 				CA203E441C111EEA00D6F32C /* PhotoCollectionCell.xib in Resources */,
 				C4F207C11C14E5550024C287 /* NameAddressRestaurantCell.xib in Resources */,
-				C4066F131C7046CA00BBF0E8 /* ListCandidateNoDishSubView.xib in Resources */,
+				C4066F131C7046CA00BBF0E8 /* ListCandidateNoDishContentView.xib in Resources */,
 				CA203E451C111EEA00D6F32C /* SlideBar.xib in Resources */,
 				CA203E461C111EEA00D6F32C /* Main.storyboard in Resources */,
 				C4215A971C62FE600052A613 /* DishListCell.xib in Resources */,
@@ -1237,6 +1240,7 @@
 				CA203E561C1655D800D6F32C /* AddToFavoritesRequest.swift in Sources */,
 				C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */,
 				CA203DE71C111EEA00D6F32C /* AppDelegate.swift in Sources */,
+				C4066F151C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift in Sources */,
 				CA203DE81C111EEA00D6F32C /* ImageProgressiveTableView.swift in Sources */,
 				C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */,
 				C4A0D5531C11746100BAE246 /* Distance.swift in Sources */,

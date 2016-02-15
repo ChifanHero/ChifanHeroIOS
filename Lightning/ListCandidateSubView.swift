@@ -27,6 +27,9 @@ import UIKit
     @IBOutlet weak var confirmButton: UIButton!
     var contentViewCollapsed = false
     
+    var previousView : ListCandidateTopView?
+    var parentVC : UIViewController?
+    
     var submitButton : UIButton {
         return self.subView.confirmButton
     }
@@ -37,7 +40,12 @@ import UIKit
     @IBOutlet weak var textField: UITextField!
     
     
+    @IBOutlet weak var noDishView: ListCandidateNoDishContentView!
+    
+    
     var currentSelectedCell : UITableViewCell?
+    
+    @IBOutlet weak var contentView: UIView!
     
     var subViewTopToHeaderViewBottom : NSLayoutConstraint!
     
@@ -56,6 +64,10 @@ import UIKit
     
     @IBOutlet weak var searchTextField: UITextField!
     
+    @IBOutlet weak var goBackButton: UIButton!
+    
+    
+    @IBOutlet weak var quitButton: UIButton!
     override init(frame: CGRect) {
         super.init(frame: frame)
         Setup() // Setup when this component is used from Storyboard
@@ -88,6 +100,9 @@ import UIKit
         confirmButton.layer.cornerRadius = 5
         searchResultsTable.hidden = true
         disableConfirmButton()
+        noDishView.hidden = true
+        goBackButton.layer.cornerRadius = 5
+        quitButton.layer.cornerRadius = 5
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -125,19 +140,25 @@ import UIKit
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchDishes(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let results = searchResponse?.results {
-                    self.cleanStates()
-                    self.dishes += results
-                    for dish : Dish in results {
-                        var url = dish.picture?.original
-                        if url == nil {
-                            url = ""
+                    if searchResponse?.results.count > 0 {
+                        self.noDishView.hidden = true
+                        self.cleanStates()
+                        self.dishes += results
+                        for dish : Dish in results {
+                            var url = dish.picture?.original
+                            if url == nil {
+                                url = ""
+                            }
+                            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+                            self.dishImages.append(record)
                         }
-                        let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-                        self.dishImages.append(record)
+                        self.searchResultsTable.hidden = false
+                        self.searchResultsTable.reloadData()
+                        self.adjustSearchResultsTableHeight()
+                    } else {
+                        self.noDishView.hidden = false
                     }
-                    self.searchResultsTable.hidden = false
-                    self.searchResultsTable.reloadData()
-                    self.adjustSearchResultsTableHeight()
+                    
                 }
                 
             })
@@ -155,6 +176,16 @@ import UIKit
         let originalFrame : CGRect = self.searchResultsTable.frame
         self.searchResultsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.searchResultsTable.contentSize.height)
     }
+    
+    
+    @IBAction func goBack(sender: AnyObject) {
+        self.previousView?.expand()
+    }
+    
+    @IBAction func quit(sender: AnyObject) {
+        self.parentVC?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dishes.count

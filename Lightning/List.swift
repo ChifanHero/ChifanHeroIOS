@@ -14,6 +14,9 @@ class List : Model{
     var name : String?
     var memberCount : Int?
     var dishes : [Dish] = [Dish]()
+    var likeCount : Int?
+    var favoriteCount : Int?
+    
     
     required init() {
         
@@ -29,5 +32,7 @@ class List : Model{
                 dishes.append(result)
             }
         }
+        likeCount <-- data["like_count"]
+        favoriteCount <-- data["favorite_count"]
     }
 }

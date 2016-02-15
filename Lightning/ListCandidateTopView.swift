@@ -33,6 +33,12 @@ import UIKit
     
     @IBOutlet weak var textField: UITextField!
     
+    var parentVC : UIViewController? {
+        didSet {
+            self.subView.parentVC = parentVC
+        }
+    }
+    
     
     var contentViewCollapsed = false
     
@@ -63,6 +69,10 @@ import UIKit
         Setup() // Setup when this component is used from Code
     }
     @IBAction func tap(sender: AnyObject) {
+        expand()
+    }
+    
+    func expand() {
         if contentViewCollapsed {
             self.subViewTopToHeaderViewBottom.active = false
             UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -70,7 +80,7 @@ import UIKit
                 }) { (success) -> Void in
                     self.contentViewCollapsed = false
             }
-        } 
+        }
     }
     
     private func Setup(){
@@ -95,6 +105,7 @@ import UIKit
         nextStepButton.layer.cornerRadius = 5
         searchResultsTable.hidden = true
         disableNextButton()
+        self.subView.previousView = self
     }
     
     private func LoadViewFromNib() -> UIView {

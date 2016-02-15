@@ -7,8 +7,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ListCandidateSubView" customModule="Lightning" customModuleProvider="target">
             <connections>
                 <outlet property="confirmButton" destination="eHb-uW-0vC" id="gar-OA-Gwq"/>
+                <outlet property="contentView" destination="mwU-FN-ziC" id="tqq-w4-pYu"/>
                 <outlet property="dishNameLabel" destination="diz-Jq-Kyj" id="ZXd-kg-JoD"/>
+                <outlet property="goBackButton" destination="l2f-ak-7I4" id="1O8-ag-5cf"/>
                 <outlet property="headerView" destination="Cnh-2P-PDS" id="XAa-Yz-krr"/>
+                <outlet property="noDishView" destination="ajt-Pd-9UU" id="nCs-Ff-qFx"/>
+                <outlet property="quitButton" destination="Y3F-Z7-3ZR" id="0mg-G8-lqj"/>
                 <outlet property="searchResultsTable" destination="1zw-Kx-bEZ" id="bDM-4A-D3h"/>
                 <outlet property="searchTextField" destination="4DC-hs-wXJ" id="0C8-0M-lwH"/>
                 <outlet property="subView" destination="FH9-sW-fUI" id="3xP-ze-Zmf"/>
@@ -134,17 +138,70 @@
                                 <constraint firstAttribute="trailing" secondItem="1zw-Kx-bEZ" secondAttribute="trailing" id="gBu-ic-p9l"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ajt-Pd-9UU" userLabel="No Dish View Container">
+                            <rect key="frame" x="0.0" y="0.0" width="342" height="414"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="此餐厅菜单信息暂时未知" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QxQ-KB-txf">
+                                    <rect key="frame" x="25" y="54" width="292" height="26.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l2f-ak-7I4">
+                                    <rect key="frame" x="87" y="314" width="169" height="30"/>
+                                    <color key="backgroundColor" red="0.5450980392" green="0.76470588240000004" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="169" id="FXq-WI-M9n"/>
+                                    </constraints>
+                                    <state key="normal" title="返回">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="goBack:" destination="-1" eventType="touchUpInside" id="KZr-3D-tbE"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3F-Z7-3ZR">
+                                    <rect key="frame" x="87" y="352" width="169" height="30"/>
+                                    <color key="backgroundColor" red="0.1006054371" green="0.38918265429999999" blue="0.87525799790000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="169" id="L21-0t-1Iz"/>
+                                    </constraints>
+                                    <state key="normal" title="确定">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="quit:" destination="-1" eventType="touchUpInside" id="A0l-Fc-8Gf"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="Y3F-Z7-3ZR" secondAttribute="bottom" constant="32" id="CXF-iE-EPe"/>
+                                <constraint firstAttribute="trailing" secondItem="QxQ-KB-txf" secondAttribute="trailing" constant="25" id="MRs-NA-3n4"/>
+                                <constraint firstItem="QxQ-KB-txf" firstAttribute="top" secondItem="ajt-Pd-9UU" secondAttribute="top" constant="54" id="RYq-8G-Ysx"/>
+                                <constraint firstItem="Y3F-Z7-3ZR" firstAttribute="top" secondItem="l2f-ak-7I4" secondAttribute="bottom" constant="8" id="Xna-sG-MZb"/>
+                                <constraint firstItem="QxQ-KB-txf" firstAttribute="centerX" secondItem="ajt-Pd-9UU" secondAttribute="centerX" id="aay-1e-d95"/>
+                                <constraint firstItem="Y3F-Z7-3ZR" firstAttribute="centerX" secondItem="ajt-Pd-9UU" secondAttribute="centerX" id="cSD-Fg-sbe"/>
+                                <constraint firstItem="QxQ-KB-txf" firstAttribute="leading" secondItem="ajt-Pd-9UU" secondAttribute="leading" constant="25" id="eHS-4p-7f1"/>
+                                <constraint firstItem="l2f-ak-7I4" firstAttribute="centerX" secondItem="ajt-Pd-9UU" secondAttribute="centerX" id="eoT-uT-ZJu"/>
+                                <constraint firstItem="l2f-ak-7I4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="QxQ-KB-txf" secondAttribute="bottom" id="zrw-ZT-SU6"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstAttribute="bottom" secondItem="ajt-Pd-9UU" secondAttribute="bottom" id="6h0-Qn-PCE"/>
                         <constraint firstAttribute="bottom" secondItem="izS-Th-AaN" secondAttribute="bottom" id="7dC-bb-YKt"/>
                         <constraint firstAttribute="trailing" secondItem="cr0-Wf-49U" secondAttribute="trailing" id="Ho5-m7-S4t"/>
                         <constraint firstItem="cr0-Wf-49U" firstAttribute="top" secondItem="Mp2-bZ-xqW" secondAttribute="bottom" constant="7" id="SQ3-BZ-S5v"/>
                         <constraint firstAttribute="trailing" secondItem="Mp2-bZ-xqW" secondAttribute="trailing" id="SqS-Hc-wAD"/>
                         <constraint firstItem="Mp2-bZ-xqW" firstAttribute="top" secondItem="mwU-FN-ziC" secondAttribute="top" id="VJG-Cg-KGx"/>
                         <constraint firstItem="cr0-Wf-49U" firstAttribute="leading" secondItem="mwU-FN-ziC" secondAttribute="leading" id="bDC-tn-nqM"/>
+                        <constraint firstAttribute="trailing" secondItem="ajt-Pd-9UU" secondAttribute="trailing" id="d2V-kX-GJf"/>
                         <constraint firstItem="Mp2-bZ-xqW" firstAttribute="leading" secondItem="mwU-FN-ziC" secondAttribute="leading" id="exy-dT-FN2"/>
+                        <constraint firstItem="ajt-Pd-9UU" firstAttribute="leading" secondItem="mwU-FN-ziC" secondAttribute="leading" id="jak-Q8-9Ru"/>
                         <constraint firstItem="izS-Th-AaN" firstAttribute="top" secondItem="cr0-Wf-49U" secondAttribute="bottom" id="tzf-Wk-ed4"/>
+                        <constraint firstItem="ajt-Pd-9UU" firstAttribute="top" secondItem="mwU-FN-ziC" secondAttribute="top" id="vAr-O2-huW"/>
                         <constraint firstAttribute="trailing" secondItem="izS-Th-AaN" secondAttribute="trailing" id="xS4-y9-eZy"/>
                         <constraint firstItem="izS-Th-AaN" firstAttribute="leading" secondItem="mwU-FN-ziC" secondAttribute="leading" id="y4R-Eu-JJ2"/>
                     </constraints>

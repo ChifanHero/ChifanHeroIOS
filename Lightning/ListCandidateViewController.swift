@@ -17,6 +17,8 @@ class ListCandidateViewController: UIViewController {
         super.viewDidLoad()
         mainView.submitButton.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
         // Do any additional setup after loading the view.
+        mainView.parentVC = self
+        
     }
 
     override func didReceiveMemoryWarning() {

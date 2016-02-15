@@ -18,6 +18,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     var searchController: UISearchController!
     
+    var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
+    
     @IBOutlet weak var scrollView: UIScrollView!
     let refreshControl = UIRefreshControl()
     
@@ -35,6 +37,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     private var heightConstraint:NSLayoutConstraint?
     
+//    let footerView : LoadMoreFooterView = LoadMoreFooterView()
+    
     let LIMIT = 50
     var offset = 0
     
@@ -45,6 +49,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         waitingIndicator.hidden = true
         selectionBar.hidden = false
         configurePullRefresh()
+        configureNavigationController()
         
         searchController = UISearchController(searchResultsController: nil)
         
@@ -71,6 +76,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
 
         definesPresentationContext = true
         searchResultsTableView.hidden = true
+        ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
     }
     
     private func configurePullRefresh(){
@@ -78,8 +84,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         self.searchResultsTableView.addSubview(refreshControl)
     }
     
+    func configureNavigationController() {
+        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
+    }
+    
     @objc private func refresh(sender:AnyObject) {
-        self.clearStates()
         search(0, limit: LIMIT)
     }
 
@@ -139,6 +148,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         request.userLocation = userLocation
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                if offset == 0 {
+                    self.clearStates()
+                }
                 if let results = searchResponse?.results {
                     self.restaurants += results
                     for restaurant : Restaurant in results {
@@ -393,6 +405,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
         if segue.identifier == "showRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
@@ -464,6 +478,286 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
 
         
     }
+    
+    private func popupSigninAlert() {
+        let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
+        alertview.setTextTheme(.Dark)
+    }
+    
+    private func dismissActionViewWithDelay() {
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func dismissActionView() {
+        self.searchResultsTableView.setEditing(false, animated: true)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func reloadTable() {
+        self.searchResultsTableView.reloadData()
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        var favoriteCount = 0
+        var likeCount = 0
+        var neutralCount = 0
+        var dislikeCount = 0
+        var positiveText = "好吃"
+        let favoriteText = "收藏"
+        let scope = selectionBar.scope
+        var objectId : String = ""
+        if scope == "restaurant" {
+            objectId = self.restaurants[indexPath.section].id!
+            if self.restaurants[indexPath.section].favoriteCount != nil {
+                favoriteCount = self.restaurants[indexPath.section].favoriteCount!
+            }
+            if self.restaurants[indexPath.section].likeCount != nil {
+                likeCount = self.restaurants[indexPath.section].likeCount!
+            }
+            if self.restaurants[indexPath.section].dislikeCount != nil {
+                dislikeCount = self.restaurants[indexPath.section].dislikeCount!
+            }
+            if self.restaurants[indexPath.section].neutralCount != nil {
+                neutralCount = self.restaurants[indexPath.section].neutralCount!
+            }
+            
+        } else if scope == "list" {
+            positiveText = "喜欢"
+            objectId = self.lists[indexPath.section].id!
+            if self.lists[indexPath.section].favoriteCount != nil {
+                favoriteCount = self.lists[indexPath.section].favoriteCount!
+            }
+            if self.lists[indexPath.section].likeCount != nil {
+                likeCount = self.lists[indexPath.section].likeCount!
+            }
+        } else if scope == "dish" {
+            objectId = self.dishes[indexPath.section].id!
+            if self.dishes[indexPath.section].favoriteCount != nil {
+                favoriteCount = self.dishes[indexPath.section].favoriteCount!
+            }
+            if self.dishes[indexPath.section].likeCount != nil {
+                likeCount = self.dishes[indexPath.section].likeCount!
+            }
+            if self.dishes[indexPath.section].dislikeCount != nil {
+                dislikeCount = self.dishes[indexPath.section].dislikeCount!
+            }
+            if self.dishes[indexPath.section].neutralCount != nil {
+                neutralCount = self.dishes[indexPath.section].neutralCount!
+            }
+        }
+        
+        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: favoriteText + "\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
+            if (!UserContext.isValidUser()) {
+                self.popupSigninAlert()
+            } else {
+                favoriteCount++
+                if scope == "restaurant" {
+                    if self.restaurants[indexPath.section].favoriteCount == nil {
+                       self.restaurants[indexPath.section].favoriteCount = 1
+                    } else {
+                        self.restaurants[indexPath.section].favoriteCount!++
+                    }
+                } else if scope == "list" {
+                    if self.lists[indexPath.section].favoriteCount == nil {
+                        self.lists[indexPath.section].favoriteCount = 1
+                    } else {
+                        self.lists[indexPath.section].favoriteCount!++
+                    }
+                } else if scope == "dish" {
+                    if self.dishes[indexPath.section].favoriteCount == nil {
+                        self.dishes[indexPath.section].favoriteCount = 1
+                    } else {
+                        self.dishes[indexPath.section].favoriteCount!++
+                    }
+                }
+                self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
+                self.addToFavorites(indexPath)
+            }
+            self.dismissActionViewWithDelay()
+            
+        });
+        addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
+        
+        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: positiveText + "\n\(likeCount)", handler:{(action, indexpath) -> Void in
+            
+            if (UserContext.isRatingTooFrequent(objectId)) {
+                JSSAlertView().warning(self, title: "评价太频繁")
+            } else {
+                likeCount++
+                if scope == "restaurant" {
+                    if self.restaurants[indexPath.section].likeCount == nil {
+                        self.restaurants[indexPath.section].likeCount = 1
+                    } else {
+                        self.restaurants[indexPath.section].likeCount!++
+                    }
+                } else if scope == "list" {
+                    if self.lists[indexPath.section].likeCount == nil {
+                        self.lists[indexPath.section].likeCount = 1
+                    } else {
+                        self.lists[indexPath.section].likeCount!++
+                    }
+                } else if scope == "dish" {
+                    if self.dishes[indexPath.section].likeCount == nil {
+                        self.dishes[indexPath.section].likeCount = 1
+                    } else {
+                        self.dishes[indexPath.section].likeCount!++
+                    }
+                }
+                
+                self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(positiveText + "\n\(likeCount)", index: 3)
+                
+                self.rate(indexPath, ratingType: RatingTypeEnum.like)
+            }
+            self.dismissActionViewWithDelay()
+        });
+        likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        
+        if scope != "list" {
+            let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般\n\(neutralCount)", handler:{(action, indexpath) -> Void in
+                if (UserContext.isRatingTooFrequent(objectId)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    neutralCount++
+                    if scope == "restaurant" {
+                        if self.restaurants[indexPath.section].neutralCount == nil {
+                            self.restaurants[indexPath.section].neutralCount = 1
+                        } else {
+                            self.restaurants[indexPath.section].neutralCount!++
+                        }
+                    } else if scope == "dish" {
+                        if self.dishes[indexPath.section].neutralCount == nil {
+                            self.dishes[indexPath.section].neutralCount = 1
+                        } else {
+                            self.dishes[indexPath.section].neutralCount!++
+                        }
+                    }
+                    self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("一般\n\(neutralCount)", index: 2)
+                    self.rate(indexPath, ratingType: RatingTypeEnum.neutral)
+                }
+                self.dismissActionViewWithDelay()
+            });
+            neutralAction.backgroundColor = UIColor(red: 1, green: 0.501, blue: 0, alpha: 1.0);
+            
+            let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "难吃\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
+                if (UserContext.isRatingTooFrequent(objectId)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    dislikeCount++
+                    if scope == "restaurant" {
+                        if self.restaurants[indexPath.section].dislikeCount == nil {
+                            self.restaurants[indexPath.section].dislikeCount = 1
+                        } else {
+                            self.restaurants[indexPath.section].dislikeCount!++
+                        }
+                    } else if scope == "dish" {
+                        if self.dishes[indexPath.section].dislikeCount == nil {
+                            self.dishes[indexPath.section].dislikeCount = 1
+                        } else {
+                            self.dishes[indexPath.section].dislikeCount!++
+                        }
+                    }
+                    self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("难吃\n\(dislikeCount)", index: 1)
+                    self.rate(indexPath, ratingType: RatingTypeEnum.dislike)
+                }
+                self.dismissActionViewWithDelay()
+            });
+            dislikeAction.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
+            return [addBookmarkAction, dislikeAction, neutralAction, likeAction];
+        } else {
+            return [addBookmarkAction, likeAction]
+        }
+    }
+    
+    private func addToFavorites(indexPath: NSIndexPath){
+        let scope = selectionBar.scope
+        if scope == "restaurant" {
+            let restaurant = self.restaurants[indexPath.section]
+            ratingAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
+                if restaurant.favoriteCount != nil {
+                    restaurant.favoriteCount!--
+                }
+            })
+            
+        } else if scope == "list" {
+            let list = self.lists[indexPath.section]
+            ratingAndBookmarkExecutor?.addToFavorites("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
+                if list.favoriteCount != nil {
+                    list.favoriteCount!--
+                }
+            })
+            
+        } else if scope == "dish" {
+            let dish = self.dishes[indexPath.section]
+            ratingAndBookmarkExecutor?.addToFavorites("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
+                if dish.favoriteCount != nil {
+                    dish.favoriteCount!--
+                }
+            })
+        }
+    }
+    
+    private func rate(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
+        let scope = selectionBar.scope
+        if ratingType == RatingTypeEnum.like {
+            if scope == "restaurant" {
+                let restaurant = self.restaurants[indexPath.section]
+                ratingAndBookmarkExecutor?.like("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
+                    if restaurant.likeCount != nil {
+                        restaurant.likeCount!--
+                    }
+                })
+            } else if scope == "dish" {
+                let dish = self.dishes[indexPath.section]
+                ratingAndBookmarkExecutor?.like("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
+                    if dish.likeCount != nil {
+                        dish.likeCount!--
+                    }
+                })
+            } else if scope == "list" {
+                let list = self.lists[indexPath.section]
+                ratingAndBookmarkExecutor?.like("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
+                    if list.likeCount != nil {
+                        list.likeCount!--
+                    }
+                })
+            }
+            
+        } else if ratingType == RatingTypeEnum.dislike {
+            if scope == "restaurant" {
+                let restaurant = self.restaurants[indexPath.section]
+                ratingAndBookmarkExecutor?.dislike("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
+                    if restaurant.likeCount != nil {
+                        restaurant.likeCount!--
+                    }
+                })
+            } else if scope == "dish" {
+                let dish = self.dishes[indexPath.section]
+                ratingAndBookmarkExecutor?.dislike("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
+                    if dish.likeCount != nil {
+                        dish.likeCount!--
+                    }
+                })
+            }
+        } else if ratingType == RatingTypeEnum.neutral{
+            if scope == "restaurant" {
+                let restaurant = self.restaurants[indexPath.section]
+                ratingAndBookmarkExecutor?.neutral("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
+                    if restaurant.likeCount != nil {
+                        restaurant.likeCount!--
+                    }
+                })
+            } else if scope == "dish" {
+                let dish = self.dishes[indexPath.section]
+                ratingAndBookmarkExecutor?.neutral("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
+                    if dish.likeCount != nil {
+                        dish.likeCount!--
+                    }
+                })
+            }
+        }
+        
+    }
+
     
 }
 

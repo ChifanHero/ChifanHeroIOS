@@ -483,6 +483,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
         if segue.identifier == "showAllDishes" {
             let restaurantAllDishesController : RestaurantAllDishViewController = segue.destinationViewController as! RestaurantAllDishViewController
             restaurantAllDishesController.restaurantId = sender as? String

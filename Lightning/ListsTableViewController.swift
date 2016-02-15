@@ -141,6 +141,8 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
         if segue.identifier == "showList" {
             let listMemberController : ListMemberViewController = segue.destinationViewController as! ListMemberViewController
             listMemberController.listId = (sender as! List).id
