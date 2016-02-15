@@ -20,6 +20,19 @@ import UIKit
     
     var view : UIView!
     private var nibName : String = "ListCandidateConfirmationView"
+    var message : String? {
+        didSet {
+            messageLabel.text = message
+        }
+    }
+    
+    @IBOutlet weak var confirmButtonBottomConstraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var messageLabel: UILabel!
+    var parentVC : UIViewController?
+    
+    var context : ListCandidateContext?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +49,13 @@ import UIKit
         view.frame = bounds
         view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         addSubview(view)
+        UISetup()
+    }
+    
+    func UISetup() {
+        confirmButton.layer.cornerRadius = 5
+        confirmButtonBottomConstraint.active = false
+        self.layoutIfNeeded()
     }
     
     func loadViewFromNib() -> UIView{
@@ -44,7 +64,22 @@ import UIKit
         let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
         return view
     }
+    
+    func prepareToShow() {
+        confirmButtonBottomConstraint.active = true
+        self.layoutIfNeeded()
+    }
+    
+    func prepareToHide() {
+        confirmButtonBottomConstraint.active = false
+        self.layoutIfNeeded()
+    }
 
     @IBOutlet weak var confirmButton: UIButton!
+    
+  
+    @IBAction func confirm(sender: AnyObject) {
+        self.parentVC?.dismissViewControllerAnimated(true, completion: nil)
+    }
 
 }

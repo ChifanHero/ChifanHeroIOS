@@ -116,6 +116,23 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
         self.performSegueWithIdentifier("addCandidate", sender: self)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
+        if segue.identifier == "addCandidate" {
+            let navigationController : UINavigationController = segue.destinationViewController as! UINavigationController
+            
+            let listCandidateController : ListCandidateViewController = navigationController.childViewControllers[0] as! ListCandidateViewController
+            var memberIds = [String]()
+            for dish : Dish in self.member {
+                if dish.id != nil {
+                    memberIds.append(dish.id!)
+                }
+            }
+            listCandidateController.memberIds = memberIds
+        }
+    }
+    
     func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
         return self.images[indexPath.section]
     }

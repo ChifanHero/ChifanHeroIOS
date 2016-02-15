@@ -36,7 +36,10 @@ import UIKit
         view.frame = bounds
         view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         addSubview(view)
+        
     }
+    
+    
     
     func loadViewFromNib() -> UIView{
         let bundle = NSBundle(forClass: self.dynamicType)

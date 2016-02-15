@@ -10,14 +10,19 @@ import UIKit
 
 class ListCandidateViewController: UIViewController {
     
+    var memberIds : [String]?
+    
     
     @IBOutlet weak var mainView: ListCandidateTopView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainView.submitButton.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
+//        mainView.submitButton.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
         // Do any additional setup after loading the view.
         mainView.parentVC = self
+        let context = ListCandidateContext()
+        context.memberIds = self.memberIds
+        mainView.context = context
         
     }
 
@@ -26,9 +31,9 @@ class ListCandidateViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func submit() {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+//    func submit() {
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//    }
     
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -44,4 +49,9 @@ class ListCandidateViewController: UIViewController {
     }
     */
 
+}
+
+class ListCandidateContext {
+    
+    var memberIds : [String]?
 }

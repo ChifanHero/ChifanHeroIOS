@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable class ListCandidateSubView: UIView, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, ImageProgressiveTableViewDelegate {
+@IBDesignable class ListCandidateSubView: UIView, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -28,11 +28,23 @@ import UIKit
     var contentViewCollapsed = false
     
     var previousView : ListCandidateTopView?
-    var parentVC : UIViewController?
-    
-    var submitButton : UIButton {
-        return self.subView.confirmButton
+    var parentVC : UIViewController? {
+        didSet {
+            self.subView.parentVC = parentVC
+        }
     }
+    
+    var context : ListCandidateContext? {
+        didSet {
+            self.subView.context = context
+        }
+    }
+    
+//    var submitButton : UIButton {
+//        return self.subView.confirmButton
+//    }
+    
+    var filtering : Bool = false
     
     @IBOutlet weak var dishNameLabel: UILabel!
     
@@ -56,9 +68,10 @@ import UIKit
     }
     
     var dishes : [Dish] = [Dish]()
+    var filteredResults : [DishWrapper] = [DishWrapper]()
     
-    var pendingOperations = PendingOperations()
-    var dishImages : [PhotoRecord] = [PhotoRecord]()
+//    var pendingOperations = PendingOperations()
+//    var dishImages : [PhotoRecord] = [PhotoRecord]()
     
     @IBOutlet weak var searchResultsTable: ImageProgressiveTableView!
     
@@ -85,6 +98,7 @@ import UIKit
         view.frame = bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         searchTextField.delegate = self
+        searchTextField.addTarget(self, action: "textFieldDidChange:", forControlEvents: UIControlEvents.EditingChanged)
         searchResultsTable.delegate = self
         searchResultsTable.dataSource = self
         UISetup()
@@ -116,6 +130,7 @@ import UIKit
     
     @IBAction func confirm(sender: AnyObject) {
         self.subViewTopToHeaderViewBottom.active = true
+        self.subView.prepareToShow()
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
             }) { (success) -> Void in
@@ -126,6 +141,7 @@ import UIKit
     @IBAction func headerViewTapped(sender: AnyObject) {
         if contentViewCollapsed {
             self.subViewTopToHeaderViewBottom.active = false
+            self.subView.prepareToHide()
             UIView.animateWithDuration(0.6, animations: { () -> Void in
                 self.view.layoutIfNeeded()
                 }) { (success) -> Void in
@@ -144,14 +160,14 @@ import UIKit
                         self.noDishView.hidden = true
                         self.cleanStates()
                         self.dishes += results
-                        for dish : Dish in results {
-                            var url = dish.picture?.original
-                            if url == nil {
-                                url = ""
-                            }
-                            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-                            self.dishImages.append(record)
-                        }
+//                        for dish : Dish in results {
+//                            var url = dish.picture?.original
+//                            if url == nil {
+//                                url = ""
+//                            }
+//                            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+//                            self.dishImages.append(record)
+//                        }
                         self.searchResultsTable.hidden = false
                         self.searchResultsTable.reloadData()
                         self.adjustSearchResultsTableHeight()
@@ -167,14 +183,58 @@ import UIKit
     
     func cleanStates() {
         self.dishNameLabel.text = ""
-        self.dishImages.removeAll()
+//        self.dishImages.removeAll()
         self.dishes.removeAll()
+        self.filteredResults.removeAll()
         self.searchResultsTable.reloadData()
     }
     
     func adjustSearchResultsTableHeight() {
         let originalFrame : CGRect = self.searchResultsTable.frame
         self.searchResultsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.searchResultsTable.contentSize.height)
+    }
+    
+    func textFieldDidChange(textField: UITextField) {
+        if let keyword = textField.text {
+            if keyword == "" {
+                filtering = false
+                self.searchResultsTable.reloadData()
+            } else {
+                filtering = true
+                self.filteredResults.removeAll()
+                for dish : Dish in dishes {
+                    let relevanceScore : Float = getRelevanceScore(dish.name, searchText: keyword)
+                    if relevanceScore > 0 {
+                        let wrapper : DishWrapper = DishWrapper(dish: dish)
+                        wrapper.relevanceScore = relevanceScore
+                        self.filteredResults.append(wrapper)
+                    }
+                }
+                if self.filteredResults.count > 0 {
+                    filteredResults = self.filteredResults.sort{$0.relevanceScore > $1.relevanceScore}
+                }
+                for elem : DishWrapper in self.filteredResults {
+                    print("\(elem.dish.name) score = \(elem.relevanceScore)")
+                }
+                self.searchResultsTable.reloadData()
+            }
+        }
+        
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {   //delegate method
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    private func getRelevanceScore(str : String?, searchText : String?) -> Float {
+        var score : Float =  StringUtil.getRelevanceScore(str, searchText: searchText)
+        if str != nil && searchText != nil {
+            if str!.rangeOfString(searchText!) != nil || searchText!.rangeOfString(str!) != nil {
+                score += 1.0
+            }
+        }
+        return score
     }
     
     
@@ -188,7 +248,12 @@ import UIKit
     
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dishes.count
+        if filtering {
+            return self.filteredResults.count
+        } else {
+            return self.dishes.count
+        }
+        
     }
     
 
@@ -198,18 +263,22 @@ import UIKit
             tableView.registerNib(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
             cell = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
         }
-        let imageDetails = imageForIndexPath(tableView: self.searchResultsTable, indexPath: indexPath)
+//        let imageDetails = imageForIndexPath(tableView: self.searchResultsTable, indexPath: indexPath)
         let dish : Dish?
-        dish = self.dishes[indexPath.row]
+        if filtering {
+            dish = self.filteredResults[indexPath.row].dish
+        } else {
+            dish = self.dishes[indexPath.row]
+        }
         cell?.setUp(dish: dish!)
         cell!.selectionStyle = UITableViewCellSelectionStyle.None
-        switch (imageDetails.state){
-        case .New:
-            if (!tableView.dragging && !tableView.decelerating) {
-                self.searchResultsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-            }
-        default: break
-        }
+//        switch (imageDetails.state){
+//        case .New:
+//            if (!tableView.dragging && !tableView.decelerating) {
+//                self.searchResultsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
+//            }
+//        default: break
+//        }
         
         
         return cell!
@@ -230,6 +299,12 @@ import UIKit
                 currentSelectedCell?.accessoryType = UITableViewCellAccessoryType.None
                 currentSelectedCell = cell
                 enableConfirmButton()
+                if self.context?.memberIds != nil && self.context?.memberIds!.contains(dishes[indexPath.row].id!) == true
+                {
+                    self.subView.message = "\(dishes[indexPath.row].name)已经在榜单中"
+                } else {
+                    self.subView.message = "您的投票已成功。当\(dishes[indexPath.row].name!)获得足够推荐时将会自动出现在榜单中"
+                }
                 textField.resignFirstResponder()
             }
             
@@ -240,9 +315,9 @@ import UIKit
         return 49
     }
     
-    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        return dishImages[indexPath.row]
-    }
+//    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+//        return dishImages[indexPath.row]
+//    }
     
     func enableConfirmButton() {
         confirmButton.enabled = true
@@ -253,4 +328,16 @@ import UIKit
         confirmButton.enabled = false
         confirmButton.backgroundColor = UIColor.grayColor()
     }
+    
+    class DishWrapper {
+        
+        var dish : Dish
+        var relevanceScore : Float = 0
+        
+        init(dish : Dish) {
+            self.dish = dish
+        }
+    }
 }
+
+

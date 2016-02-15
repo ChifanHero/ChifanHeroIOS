@@ -39,14 +39,20 @@ import UIKit
         }
     }
     
+    var context : ListCandidateContext? {
+        didSet {
+            self.subView.context = context
+        }
+    }
+    
     
     var contentViewCollapsed = false
     
     var subViewTopToHeaderViewBottom : NSLayoutConstraint!
     
-    var submitButton : UIButton {
-        return self.subView.submitButton
-    }
+//    var submitButton : UIButton {
+//        return self.subView.submitButton
+//    }
     
     @IBOutlet weak var searchTextField: UITextField!
     
