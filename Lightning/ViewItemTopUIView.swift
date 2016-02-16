@@ -187,8 +187,8 @@ import UIKit
             return
         }
         rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self.baseVC!)
-        if UserContext.isRatingTooFrequent(restaurantId!) {
-            JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
+        if !UserContext.isValidUser() {
+            JSSAlertView().show(self.baseVC!, title: "请登录", text: nil, buttonText: "我知道了")
         } else {
             bookmarkButtonView.actionCount = bookmarkButtonView.actionCount! + 1
             rateAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in

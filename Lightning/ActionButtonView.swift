@@ -34,6 +34,16 @@ import UIKit
         }
     }
     
+    
+    @IBInspectable var backgroundColour : UIColor? {
+        didSet {
+//            self.backgroundColor = backgroundColour
+            self.containerView.backgroundColor = backgroundColour
+        }
+    }
+    
+    @IBOutlet weak var containerView: UIView!
+    
     @IBOutlet weak var actionIcon: UIImageView!
     
     @IBOutlet weak var actionCountLabel: UILabel!

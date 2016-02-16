@@ -16,6 +16,8 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     let footerView : LoadMoreFooterView = LoadMoreFooterView()
     
+    var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
+    
     let LIMIT = 50
     var offset = 0
     
@@ -32,6 +34,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
         resultsTableView.hidden = true
+        ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         loadTableData()
     }
     
@@ -93,7 +96,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50
+        return ListTableViewCell.height
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -148,5 +151,99 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
             listMemberController.listId = (sender as! List).id
         }
     }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) ->
+        [UITableViewRowAction]? {
+            
+            var favoriteCount : Int = 0
+            var likeCount : Int = 0
+            var objectId = ""
+            let list = self.lists[indexPath.section]
+            if list.likeCount != nil {
+                likeCount = list.likeCount!
+            }
+            if list.favoriteCount != nil {
+                favoriteCount = list.favoriteCount!
+            }
+            if list.id != nil {
+                objectId = list.id!
+            }
+            
+            let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
+                if (!UserContext.isValidUser()) {
+                    self.popupSigninAlert()
+                } else {
+                    favoriteCount++
+                    if list.favoriteCount == nil {
+                        list.favoriteCount = 1
+                    } else {
+                        list.favoriteCount!++
+                    }
+                    self.tableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
+                    self.addToFavorites(indexPath)
+                }
+                self.dismissActionViewWithDelay()
+                
+            });
+            addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
+            
+            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "喜欢\n\(likeCount)", handler:{(action, indexpath) -> Void in
+                if (UserContext.isRatingTooFrequent(objectId)) {
+                    JSSAlertView().warning(self, title: "评价太频繁")
+                } else {
+                    likeCount++
+                    if list.likeCount == nil {
+                        list.likeCount = 1
+                    } else {
+                        list.likeCount!++
+                    }
+                    self.tableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("喜欢\n\(likeCount)", index: 3)
+                    
+                    self.rateList(indexPath, ratingType: RatingTypeEnum.like)
+                }
+                self.dismissActionViewWithDelay()
+            });
+            likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+            return [addBookmarkAction, likeAction];
+    }
+    
+    private func addToFavorites(indexPath: NSIndexPath){
+        
+        let list = self.lists[indexPath.section]
+        ratingAndBookmarkExecutor?.addToFavorites("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
+            if list.favoriteCount != nil {
+                list.favoriteCount!--
+            }
+        })
+    }
+    
+    private func rateList(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
+        let type: String = "list"
+        let list = self.lists[indexPath.section]
+        let objectId = list.id
+        
+        if ratingType == RatingTypeEnum.like {
+            ratingAndBookmarkExecutor?.like(type, objectId: objectId!, failureHandler: { (objectId) -> Void in
+                if list.likeCount != nil {
+                    list.likeCount!--
+                }
+            })
+        }
+    }
+    
+    private func popupSigninAlert() {
+        let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
+        alertview.setTextTheme(.Dark)
+    }
+    
+    private func dismissActionViewWithDelay() {
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func dismissActionView() {
+        self.tableView.setEditing(false, animated: true)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
+    }
+
 
 }

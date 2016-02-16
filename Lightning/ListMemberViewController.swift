@@ -24,6 +24,8 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         headerView.delegate = self
+        headerView.baseVC = self
+        headerView.listId = listId
         memberTable.imageDelegate = self
         loadTableData()
         // Do any additional setup after loading the view.
@@ -49,6 +51,8 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     if response != nil && response!.result != nil {
                         self.member += response!.result!.dishes
+                        self.headerView.likeCount = response?.result?.likeCount
+                        self.headerView.bookmarkCount = response?.result?.favoriteCount
                         self.fetchImageDetails()
                         self.memberTable.reloadData()
                     }

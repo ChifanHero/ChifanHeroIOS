@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="actionCountLabel" destination="obS-EC-4Gp" id="8e0-0S-pRL"/>
                 <outlet property="actionIcon" destination="u7t-Qm-TOy" id="cpn-eZ-gjo"/>
+                <outlet property="containerView" destination="XmD-sZ-Jpd" id="Yfq-a7-gnY"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -17,13 +18,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XmD-sZ-Jpd" userLabel="Action Container View">
-                    <rect key="frame" x="37" y="6" width="75" height="28"/>
+                    <rect key="frame" x="22" y="6" width="105" height="28"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="like_large" translatesAutoresizingMaskIntoConstraints="NO" id="u7t-Qm-TOy" userLabel="Action Icon">
-                            <rect key="frame" x="0.0" y="4" width="25" height="20"/>
+                            <rect key="frame" x="40" y="4" width="25" height="20"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obS-EC-4Gp" userLabel="Action Count">
-                            <rect key="frame" x="64" y="4" width="10.5" height="20.5"/>
+                            <rect key="frame" x="94" y="4" width="10.5" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
@@ -35,14 +36,19 @@
                         <constraint firstAttribute="trailing" secondItem="obS-EC-4Gp" secondAttribute="trailing" id="4yX-tS-pZx"/>
                         <constraint firstItem="u7t-Qm-TOy" firstAttribute="height" secondItem="XmD-sZ-Jpd" secondAttribute="height" multiplier="0.7" id="a1C-1t-Y3b"/>
                         <constraint firstItem="u7t-Qm-TOy" firstAttribute="leading" secondItem="XmD-sZ-Jpd" secondAttribute="leading" id="cON-Rf-81y"/>
+                        <constraint firstItem="u7t-Qm-TOy" firstAttribute="centerX" secondItem="XmD-sZ-Jpd" secondAttribute="centerX" id="iRU-Td-zMy"/>
                         <constraint firstItem="obS-EC-4Gp" firstAttribute="centerY" secondItem="XmD-sZ-Jpd" secondAttribute="centerY" id="j6l-yg-FT6"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="cON-Rf-81y"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="XmD-sZ-Jpd" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.7" id="51s-ge-v6X"/>
-                <constraint firstItem="XmD-sZ-Jpd" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="bgs-Rh-d2O"/>
+                <constraint firstItem="XmD-sZ-Jpd" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.7" id="bgs-Rh-d2O"/>
                 <constraint firstItem="XmD-sZ-Jpd" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nCK-Xl-Z08"/>
                 <constraint firstItem="XmD-sZ-Jpd" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="p0s-WJ-6ic"/>
             </constraints>

@@ -10,7 +10,7 @@ import UIKit
 
 class ListTableViewCell: UITableViewCell {
     
-    static var height : CGFloat = 50.0
+    static var height : CGFloat = 65.0
     
     var model : Model? {
         didSet {
