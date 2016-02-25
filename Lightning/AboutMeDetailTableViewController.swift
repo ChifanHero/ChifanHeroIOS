@@ -91,6 +91,24 @@ class AboutMeDetailTableViewController: UITableViewController {
 
         return cell
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.favorites![indexPath.row].type == "restaurant" {
+            let restaurantSelected : Restaurant = restaurants[indexPath.row]
+            performSegueWithIdentifier("AboutMeDetailToRestaurant", sender: restaurantSelected.id)
+        } else if self.favorites![indexPath.row].type == "dish" {
+            
+        } else {
+            
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "AboutMeDetailToRestaurant" {
+            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            restaurantController.restaurantId = sender as? String
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
