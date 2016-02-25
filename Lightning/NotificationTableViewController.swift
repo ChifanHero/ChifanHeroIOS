@@ -7,42 +7,76 @@
 //
 
 import UIKit
+import CoreData
 
-class NotificationTableViewController: UITableViewController {
+protocol NotificationSelectionDelegate {
+    func notificationSelected(notification : NSManagedObject)
+}
+
+class NotificationTableViewController: UITableViewController, UISplitViewControllerDelegate {
     
-    var request : GetMessagesRequest?
+    var notifications = [NSManagedObject]()
+    private var foregroundNotification: NSObjectProtocol!
     
-    var messages = [Message]()
+    var delegate : NotificationSelectionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.refreshControl = UIRefreshControl()
-        refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.addSubview(refreshControl!)
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-        loadTableData()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "notificationArrived", name:"NotificationArrived", object: nil)
+        let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "edit")
+        editBarButton.tintColor = UIColor.whiteColor()
+        self.navigationItem.leftBarButtonItem = editBarButton
+        self.splitViewController?.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
+        clearTableViewSelection()
+        loadTableData()
+        
+    }
+    
+    private func clearTableViewSelection() {
+        let selectedCellIndexPath : NSIndexPath? = self.tableView.indexPathForSelectedRow
+        if selectedCellIndexPath != nil {
+            self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    func notificationArrived() {
+        loadTableData()
+        recalculateBadgeValue()
+//        let indexPath : NSIndexPath = NSIndexPath(forRow: self.notifications.count - 1, inSection: 0)
+//        self.tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.Top)
+    }
+    
+    func recalculateBadgeValue() {
+        let badgeValue : Int = countNumberOfUnreadItems()
+        if badgeValue > 0 {
+            self.navigationController?.splitViewController?.tabBarItem.badgeValue = "\(badgeValue)"
+            UIApplication.sharedApplication().applicationIconBadgeNumber = badgeValue;
+        } else {
+            self.navigationController?.splitViewController?.tabBarItem.badgeValue = nil
+            UIApplication.sharedApplication().applicationIconBadgeNumber = 0;
+        }
     }
     
     func loadTableData() {
-        request = GetMessagesRequest()
-        request?.limit = 10
-        request?.offset = 0
-        if request != nil {
-            DataAccessor(serviceConfiguration: ParseConfiguration()).getMessages(request!) { (response) -> Void in
-                dispatch_async(dispatch_get_main_queue(), {
-                    if let results = response?.results {
-                        self.messages = results
-                        self.refreshControl?.endRefreshing()
-                        self.tableView.reloadData()
-                    }
-                    
-                });
-            }
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: "Notification")
+        do {
+            let results =
+            try managedContext.executeFetchRequest(fetchRequest)
+            notifications = results as! [NSManagedObject]
+            print(notifications.count)
+            self.tableView.reloadData()
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
         }
     }
     
@@ -55,11 +89,11 @@ class NotificationTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return MessageTableViewCell.height
+        return 80
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return notifications.count
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -67,48 +101,98 @@ class NotificationTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : MessageTableViewCell? = tableView.dequeueReusableCellWithIdentifier("messageCell") as? MessageTableViewCell
+        var cell : NotificationTableViewCell? = tableView.dequeueReusableCellWithIdentifier("notificationCell") as? NotificationTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "messageCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("messageCell") as? MessageTableViewCell
+            tableView.registerNib(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "notificationCell")
+            cell = tableView.dequeueReusableCellWithIdentifier("notificationCell") as? NotificationTableViewCell
         }
-        let message = messages[indexPath.row]
-        cell!.title = message.title
-        cell!.source = "系统消息"
+        let notification = notifications[indexPath.row]
+        let title = notification.valueForKey("title") as! String
+        let body = notification.valueForKey("body") as! String
+        let read = notification.valueForKey("read") as! Bool
+        cell?.setUp(title: title, body: body, read: read)
         return cell!
     }
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let messageSelected : Message = messages[indexPath.row]
-        performSegueWithIdentifier("showMessage", sender: messageSelected)
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showMessage" {
-            let messageDetalController : MessageDetailViewController = (segue.destinationViewController as! UINavigationController).topViewController as! MessageDetailViewController
-            let message = sender as? Message
-            messageDetalController.messageId = message!.id
-            messageDetalController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-            messageDetalController.navigationItem.leftItemsSupplementBackButton = true
-            if (message?.read != true) {
-                var badgeValue : Int?
-                if self.navigationController?.tabBarItem.badgeValue != nil {
-                    badgeValue = Int((self.navigationController?.tabBarItem.badgeValue)!)!
-                } else {
-                    badgeValue = 0
-                }
-                badgeValue = badgeValue! - 1
-                if badgeValue > 0 {
-                    self.navigationController?.tabBarItem.badgeValue = String(badgeValue)
-                } else {
-                    self.navigationController?.tabBarItem.badgeValue = nil
-                }
-                
-            }
+        let notificationSelected : NSManagedObject = notifications[indexPath.row]
+        self.delegate?.notificationSelected(notificationSelected)
+        if let detailViewController = self.delegate as? NotificationDetailViewController {
+            self.navigationController?.splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
+            markNotificationAsRead(notificationSelected)
             
         }
+//        performSegueWithIdentifier("showMessage", sender: notificationSelected)
     }
+    
+    private func markNotificationAsRead(notification : NSManagedObject) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        if (notification.valueForKey("read"))! as! Bool == false {
+            notification.setValue(true, forKey: "read")
+            do {
+                try managedContext.save()
+            } catch let error as NSError  {
+                print("Could not save \(error), \(error.userInfo)")
+            }
+            recalculateBadgeValue()
+        }
+    }
+    
+    private func countNumberOfUnreadItems() -> Int{
+        var count = 0
+        for item : NSManagedObject in self.notifications {
+            let read : Bool = item.valueForKey("read") as! Bool
+            if read == false {
+                count++
+            }
+        }
+        return count
+    }
+    
+    func edit() {
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "done")
+        doneBarButton.tintColor = UIColor.whiteColor()
+        self.navigationItem.leftBarButtonItem = doneBarButton
+        self.tableView.editing = true
+        
+    }
+    
+    func done() {
+        let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "edit")
+        editBarButton.tintColor = UIColor.whiteColor()
+        self.navigationItem.leftBarButtonItem = editBarButton
+        self.tableView.editing = false
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let deletedObject : NSManagedObject = self.notifications.removeAtIndex(indexPath.row)
+            deleteFromCoreData(deletedObject)
+            self.tableView.beginUpdates()
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Top)
+            self.tableView.endUpdates()
+        }
+    }
+    
+    private func deleteFromCoreData(object : NSManagedObject) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        managedContext.deleteObject(object)
+        do {
+            try managedContext.save()
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+    }
+    
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+        clearTableViewSelection()
+        return true
+    }
+    
+    
     
     
 

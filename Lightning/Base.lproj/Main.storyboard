@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a2O-7a-gxn">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2O-7a-gxn">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="555"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G2S-pL-if8">
@@ -92,7 +92,7 @@
                                             <constraint firstAttribute="trailing" secondItem="4OT-lP-E0r" secondAttribute="trailing" constant="25" id="vKK-bC-u0o"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Cge-rc-BQk" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Cge-rc-BQk" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="95" width="383" height="460"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -937,10 +937,10 @@
             </objects>
             <point key="canvasLocation" x="1872.5" y="784.5"/>
         </scene>
-        <!--Message Detail View Controller-->
+        <!--Notification Detail View Controller-->
         <scene sceneID="aOZ-7e-NtV">
             <objects>
-                <viewController id="X4e-Bw-Xol" customClass="MessageDetailViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="X4e-Bw-Xol" customClass="NotificationDetailViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eiV-Xd-GjX"/>
                         <viewControllerLayoutGuide type="bottom" id="yiV-12-fHa"/>
@@ -949,7 +949,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8N9-A8-yrI" userLabel="Message Detail View" customClass="MessageDetailView" customModule="Lightning" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8N9-A8-yrI" userLabel="Message Detail View" customClass="NotificationDetailView" customModule="Lightning" customModuleProvider="target">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -965,7 +965,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="6QA-ln-BNd"/>
                     <connections>
-                        <outlet property="messageDetailView" destination="8N9-A8-yrI" id="WtM-f6-UwQ"/>
+                        <outlet property="notificationDetailView" destination="8N9-A8-yrI" id="1PV-hc-7Uy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="th0-hK-pz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -976,10 +976,10 @@
         <scene sceneID="wpP-wB-S2c">
             <objects>
                 <tableViewController title="Notifications Table View Controller" clearsSelectionOnViewWillAppear="NO" id="yTn-ho-gAS" customClass="NotificationTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="51" sectionHeaderHeight="22" sectionFooterHeight="22" id="FfP-7Q-HTZ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="51" sectionHeaderHeight="22" sectionFooterHeight="22" id="FfP-7Q-HTZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
                             <outlet property="dataSource" destination="yTn-ho-gAS" id="V8V-7t-6QB"/>
                             <outlet property="delegate" destination="yTn-ho-gAS" id="idn-TB-0WT"/>
@@ -1016,11 +1016,11 @@
             </objects>
             <point key="canvasLocation" x="3390.5" y="365.5"/>
         </scene>
-        <!--Item-->
+        <!--Notification-->
         <scene sceneID="k1m-mH-zun">
             <objects>
                 <splitViewController restorationIdentifier="splitViewController" id="USD-Zz-VZI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="notification" id="HCZ-rN-enm"/>
+                    <tabBarItem key="tabBarItem" title="Notification" image="notification" id="HCZ-rN-enm"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <segue destination="vNO-c2-1WZ" kind="relationship" relationship="masterViewController" id="KyY-DU-tnX"/>
@@ -1183,8 +1183,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="eB3-xn-ixp"/>
         <segue reference="cRp-Bb-PSh"/>
         <segue reference="tIf-c0-cls"/>
-        <segue reference="pAS-ML-arH"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -29,6 +29,7 @@
                     <rect key="frame" x="143" y="325" width="89" height="30"/>
                     <color key="backgroundColor" red="0.1006054371" green="0.38918265429999999" blue="0.87525799790000003" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstAttribute="height" constant="30" id="8ng-xj-XiA"/>
                         <constraint firstAttribute="width" constant="89" id="qdP-Ne-cRh"/>
                     </constraints>
                     <state key="normal" title="确定">
