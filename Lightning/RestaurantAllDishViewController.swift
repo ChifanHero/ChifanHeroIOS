@@ -26,6 +26,10 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     
     private var searchResults : [DishWrapper] = []
     
+    @IBOutlet weak var waitingView: UIView!
+    
+    @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
+    
     var pendingOperations = PendingOperations()
     var dishImages : [String : PhotoRecord] = [String : PhotoRecord]()
     
@@ -61,6 +65,8 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         self.navigationItem.titleView = searchController.searchBar
         definesPresentationContext = true
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
+        waitingView.hidden = false
+        waitingIndicator.startAnimating()
         loadTableData()
     }
     
@@ -73,6 +79,8 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
                     self.retriveMenuAndDishInformation()
                     self.dishTableView.hidden = false
                     self.fetchImageDetails()
+                    self.waitingIndicator.stopAnimating()
+                    self.waitingView.hidden = true
                     self.dishTableView.reloadData()
                     self.slideBar.setUpScrollView(titles: self.menuNames, defaultSelection: nil)
                 });
@@ -289,7 +297,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
     private func changeSlideBarState() {
         if let indicesForVisibleRows : [NSIndexPath]? = self.dishTableView.indexPathsForVisibleRows {
             let indexForFirstVisibleRow : NSIndexPath = indicesForVisibleRows![0]
-            let dishCell : NameOnlyDishTableViewCell = self.dishTableView.cellForRowAtIndexPath(indexForFirstVisibleRow) as! NameOnlyDishTableViewCell
+            let dishCell : NameImageDishTableViewCell = self.dishTableView.cellForRowAtIndexPath(indexForFirstVisibleRow) as! NameImageDishTableViewCell
             let menuName = dishToMenuDic[dishCell.nameLabel.text!]
             let position = menuNames.indexOf(menuName!)
             self.slideBar.markElementAsSelected(atIndex: position!)

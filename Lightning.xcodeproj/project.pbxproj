@@ -526,6 +526,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C41297821C809A3F0062BC7D /* TutorialControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = TutorialControllers;
+			sourceTree = "<group>";
+		};
+		C41297831C809A4F0062BC7D /* TutorialScreens */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = TutorialScreens;
+			sourceTree = "<group>";
+		};
 		C42D9BB71B69EF2D0035C5A6 = {
 			isa = PBXGroup;
 			children = (
@@ -705,6 +719,7 @@
 		C476C5471B843C710051B0E5 /* UIElementsXib */ = {
 			isa = PBXGroup;
 			children = (
+				C41297831C809A4F0062BC7D /* TutorialScreens */,
 				C433BA061B9625490049CB53 /* SlideBar.xib */,
 				C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */,
 				C43B39781B85951900516248 /* CouponCell.xib */,
@@ -853,6 +868,7 @@
 		C4A821E31BE325D200D1D4B7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C41297821C809A3F0062BC7D /* TutorialControllers */,
 				C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */,
 				C43B39851B86F09700516248 /* RestaurantsTableViewController.swift */,
 				C43B39AD1B890B6000516248 /* RestaurantViewController.swift */,

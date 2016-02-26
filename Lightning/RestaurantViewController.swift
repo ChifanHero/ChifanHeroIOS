@@ -29,6 +29,9 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     var hotDishes : [Dish] = [Dish]()
     
+    @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
+    
+    
     private let infoToResource : [String : String] = ["address" : "gps", "hours" : "clock", "phone" : "phone"]
     
     var localSearchResponse:MKLocalSearchResponse!
@@ -45,6 +48,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         hotDishesTableView.allowsSelection = false
         self.waitingView.hidden = false
+        self.waitingIndicator.startAnimating()
         self.hotDishesTableView.imageDelegate = self
         loadData()
         topViewContainer.baseVC = self
@@ -105,6 +109,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                     self.infoTableView.reloadData()
                     self.hotDishesTableView.reloadData()
                     self.adjustUI()
+                    self.waitingIndicator.stopAnimating()
                     self.waitingView.hidden = true
                 });
             }
