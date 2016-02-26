@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -213,7 +213,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="Lightning" customModuleProvider="target">
@@ -874,6 +874,8 @@
                     <navigationItem key="navigationItem" title="Title" id="WwA-0t-IuG"/>
                     <connections>
                         <outlet property="AboutMeDetailTableView" destination="kLZ-JZ-b3v" id="nKQ-iM-exa"/>
+                        <outlet property="aboutMeDetailTableView" destination="kLZ-JZ-b3v" id="OvY-Uk-mGE"/>
+                        <outlet property="aboutMeDetailViewTitle" destination="WwA-0t-IuG" id="NQD-EQ-Hjy"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="AboutMeDetailToRestaurant" id="pAS-ML-arH"/>
                     </connections>
                 </tableViewController>
@@ -936,12 +938,25 @@
                     <view key="view" contentMode="scaleToFill" id="efL-N0-5vr">
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m2F-Kz-QPy" customClass="SignUpView" customModule="Lightning" customModuleProvider="target">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="m2F-Kz-QPy" secondAttribute="trailing" constant="-20" id="1ca-Rx-833"/>
+                            <constraint firstItem="EOi-rh-J3f" firstAttribute="top" secondItem="m2F-Kz-QPy" secondAttribute="bottom" id="4zF-On-bUJ"/>
+                            <constraint firstItem="m2F-Kz-QPy" firstAttribute="leading" secondItem="efL-N0-5vr" secondAttribute="leadingMargin" constant="-20" id="DIa-uZ-wma"/>
+                            <constraint firstItem="m2F-Kz-QPy" firstAttribute="top" secondItem="qg7-NA-96F" secondAttribute="bottom" id="YN4-gK-5KS"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="X0H-En-VoX"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="signUpView" destination="m2F-Kz-QPy" id="qoM-bl-AsE"/>
                         <segue destination="dSX-B0-Yoq" kind="show" identifier="showMorePersonalInfo" id="0vi-8i-O9h"/>
                     </connections>
                 </viewController>
@@ -1214,8 +1229,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eB3-xn-ixp"/>
         <segue reference="cRp-Bb-PSh"/>
         <segue reference="tIf-c0-cls"/>
+        <segue reference="pAS-ML-arH"/>
     </inferredMetricsTieBreakers>
 </document>
