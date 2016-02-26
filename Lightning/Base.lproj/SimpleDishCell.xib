@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="simpleDishCell" rowHeight="103" id="4Wf-qS-sor" customClass="SimpleDishTableViewCell" customModule="Lightning" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="352" height="103"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Wf-qS-sor" id="7Vc-OW-fQF">
+                <rect key="frame" x="0.0" y="0.0" width="352" height="102.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KKn-cl-g2O">
+                        <rect key="frame" x="0.0" y="80.5" width="352" height="0.5"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="etx-PG-fNr">
+                        <rect key="frame" x="16" y="13" width="64" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="etx-PG-fNr" secondAttribute="height" multiplier="1:1" id="va0-mC-Wdl"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HBj-Yw-X0X">
+                        <rect key="frame" x="18" y="77" width="46" height="30"/>
+                        <state key="normal" title="like"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vZ-Fv-A9W">
+                        <rect key="frame" x="153" y="77" width="48" height="30"/>
+                        <state key="normal" title="neutral"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAH-ch-Txj">
+                        <rect key="frame" x="291" y="77" width="43" height="30"/>
+                        <state key="normal" title="dislike"/>
+                    </button>
+                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X5b-qM-f1D">
+                        <rect key="frame" x="0.0" y="0.0" width="352" height="10"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jh-IH-ree">
+                        <rect key="frame" x="111" y="29" width="141" height="31.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="KKn-cl-g2O" secondAttribute="trailing" constant="-8" id="9Ou-L1-SUA"/>
+                    <constraint firstItem="KKn-cl-g2O" firstAttribute="leading" secondItem="7Vc-OW-fQF" secondAttribute="leadingMargin" constant="-8" id="K5K-kK-xfo"/>
+                    <constraint firstItem="X5b-qM-f1D" firstAttribute="leading" secondItem="7Vc-OW-fQF" secondAttribute="leadingMargin" constant="-8" id="Qy2-af-kXK"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="X5b-qM-f1D" secondAttribute="trailing" constant="-8" id="UFu-LP-XCG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dishImageView" destination="etx-PG-fNr" id="Xrv-Ou-H31"/>
+                <outlet property="nameLabel" destination="3Jh-IH-ree" id="sPY-1e-zI6"/>
+            </connections>
+            <point key="canvasLocation" x="296" y="200.5"/>
+        </tableViewCell>
+    </objects>
+</document>

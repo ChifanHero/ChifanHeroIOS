@@ -185,7 +185,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="3964E12F-013C-4A55-9BAD-81D55E56DB0C" width="17" height="25"/>
+        <image name="3964E12F-013C-4A55-9BAD-81D55E56DB0C" width="18" height="25"/>
         <image name="bookmark_large" width="18" height="25"/>
         <image name="dislike_large" width="25" height="24"/>
         <image name="neutral_large" width="25" height="25"/>
