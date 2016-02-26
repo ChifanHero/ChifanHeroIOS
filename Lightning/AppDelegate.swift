@@ -18,14 +18,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     let locationManager = CLLocationManager()
     
     var currentLocation : Location = Location()
+    
+    var application : UIApplication?
+    var launchOptions : [NSObject: AnyObject]?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        self.application = application
+        self.launchOptions = launchOptions
         // Override point for customization after application launch.
         Parse.setApplicationId("Z6ND8ho1yR4aY3NSq1zNNU0kPc0GDOD1UZJ5rgxM", clientKey: "t9TxZ7HPgwEl84gH9A2R9qisn8giNIdtKuAyt9Q4")
 //        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-        registerForPushNotifications(application, launchOptions: launchOptions)
+//        registerForPushNotifications()
         configSplitViewController()
-        startGettingLocation()
+//        startGettingLocation()
         if launchOptions != nil && launchOptions![UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
             print("Did receive push notification in launching") // Will be called when app is not active in background
             // show notification page
@@ -33,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             handleNotification(notification)
         }
         handleFirstLaunch()
-        setBadgeValue()
         
         return true
     }
@@ -42,9 +46,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let defaults = NSUserDefaults.standardUserDefaults()
         if !defaults.boolForKey("hasLaunchedOnce") {
             createFirstNotification()
+            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            let storyboard = UIStoryboard(name: "Tutorial", bundle: nil)
+            let tutorialViewController = storyboard.instantiateViewControllerWithIdentifier("tutorialInitial")
+            self.window?.rootViewController = tutorialViewController
+            self.window?.makeKeyAndVisible()
             defaults.setBool(true, forKey: "hasLaunchedOnce")
             defaults.synchronize()
+        } else {
+            setBadgeValue()
         }
+        
     }
     
     private func createFirstNotification() {
@@ -78,9 +90,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let save = parameter["save"] as! Int
             if save == 1 {
                 saveNotifications(title: title, body: body)
-                let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
-                let splitViewController : UISplitViewController = tabBarController.viewControllers![3] as! UISplitViewController
-                tabBarController.selectedViewController = splitViewController
+                if application!.applicationState != UIApplicationState.Active {
+                    let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
+                    let splitViewController : UISplitViewController = tabBarController.viewControllers![3] as! UISplitViewController
+                    tabBarController.selectedViewController = splitViewController
+                }
+                
             }
         } else {
             title = aps!["alert"] as! String
@@ -123,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    private func startGettingLocation() {
+    func startGettingLocation() {
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -154,7 +169,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    private func registerForPushNotifications(application: UIApplication, launchOptions : [NSObject: AnyObject]?) {
+    func registerForPushNotifications() {
         // Register for Push Notitications
 //        if application.applicationState != UIApplicationState.Background {
 //            // Track an app open here if we launch with a push, unless
@@ -171,13 +186,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //                PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
 //            }
 //        }
-        if application.respondsToSelector("registerUserNotificationSettings:") {
+        if application!.respondsToSelector("registerUserNotificationSettings:") {
             //view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
             let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-            application.registerForRemoteNotifications()
+            application!.registerUserNotificationSettings(settings)
+            application!.registerForRemoteNotifications()
         } else {
-            application.registerForRemoteNotifications()
+            application!.registerForRemoteNotifications()
         }
     }
 

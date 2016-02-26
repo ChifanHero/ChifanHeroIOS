@@ -44,10 +44,15 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
+    var appDelegate : AppDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationController()
         loadingIndicator.hidden = false
+        appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        appDelegate!.startGettingLocation()
+        appDelegate!.registerForPushNotifications()
         configurePullRefresh()
         initPromotionsTable()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -85,8 +90,8 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     @objc private func loadPromotionsTableData() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
         let getPromotionsRequest = GetPromotionsRequest()
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.currentLocation
+        
+        let location = appDelegate!.currentLocation
         if (location.lat == nil || location.lon == nil) {
            return
         }

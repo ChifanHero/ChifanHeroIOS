@@ -11,6 +11,10 @@
 		C4066F111C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */; };
 		C4066F131C7046CA00BBF0E8 /* ListCandidateNoDishContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4066F121C7046CA00BBF0E8 /* ListCandidateNoDishContentView.xib */; };
 		C4066F151C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4066F141C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift */; };
+		C41297861C809AE60062BC7D /* TutorialChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41297841C809AE60062BC7D /* TutorialChildViewController.swift */; };
+		C41297871C809AE60062BC7D /* TutorialChildViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297851C809AE60062BC7D /* TutorialChildViewController.xib */; };
+		C41297891C809D880062BC7D /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41297881C809D880062BC7D /* Tutorial.storyboard */; };
+		C412978B1C809E420062BC7D /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C412978A1C809E420062BC7D /* TutorialViewController.swift */; };
 		C4215A971C62FE600052A613 /* DishListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4215A961C62FE600052A613 /* DishListCell.xib */; };
 		C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4215A981C63009A0052A613 /* DishListTableViewCell.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
@@ -231,6 +235,10 @@
 		C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameOnlyDishTableViewCell.swift; sourceTree = "<group>"; };
 		C4066F121C7046CA00BBF0E8 /* ListCandidateNoDishContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListCandidateNoDishContentView.xib; sourceTree = "<group>"; };
 		C4066F141C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCandidateNoDishContentView.swift; sourceTree = "<group>"; };
+		C41297841C809AE60062BC7D /* TutorialChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialChildViewController.swift; sourceTree = "<group>"; };
+		C41297851C809AE60062BC7D /* TutorialChildViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TutorialChildViewController.xib; sourceTree = "<group>"; };
+		C41297881C809D880062BC7D /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
+		C412978A1C809E420062BC7D /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		C414BD2E1BBA600C008C5744 /* InfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
 		C414BD301BBA6034008C5744 /* InfoCouponCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCouponCell.xib; sourceTree = "<group>"; };
 		C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -529,6 +537,8 @@
 		C41297821C809A3F0062BC7D /* TutorialControllers */ = {
 			isa = PBXGroup;
 			children = (
+				C41297841C809AE60062BC7D /* TutorialChildViewController.swift */,
+				C412978A1C809E420062BC7D /* TutorialViewController.swift */,
 			);
 			name = TutorialControllers;
 			sourceTree = "<group>";
@@ -536,6 +546,7 @@
 		C41297831C809A4F0062BC7D /* TutorialScreens */ = {
 			isa = PBXGroup;
 			children = (
+				C41297851C809AE60062BC7D /* TutorialChildViewController.xib */,
 			);
 			name = TutorialScreens;
 			sourceTree = "<group>";
@@ -570,6 +581,7 @@
 				C4D300141BC2449F00807C4D /* BridgeHeader */,
 				C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */,
 				C42D9BC91B69EF2D0035C5A6 /* Main.storyboard */,
+				C41297881C809D880062BC7D /* Tutorial.storyboard */,
 				C42D9BCC1B69EF2D0035C5A6 /* Assets.xcassets */,
 				C42D9BCE1B69EF2D0035C5A6 /* LaunchScreen.storyboard */,
 				C42D9BD11B69EF2D0035C5A6 /* Info.plist */,
@@ -1119,6 +1131,7 @@
 				CA203E2F1C111EEA00D6F32C /* InfoCouponCell.xib in Resources */,
 				CA203E301C111EEA00D6F32C /* VerticalLoginView.xib in Resources */,
 				CA203E311C111EEA00D6F32C /* NotificationDetailView.xib in Resources */,
+				C41297871C809AE60062BC7D /* TutorialChildViewController.xib in Resources */,
 				CA203E321C111EEA00D6F32C /* LaunchScreen.storyboard in Resources */,
 				CA203E331C111EEA00D6F32C /* ListHeaderView.xib in Resources */,
 				CA203E341C111EEA00D6F32C /* Assets.xcassets in Resources */,
@@ -1143,6 +1156,7 @@
 				CA203E431C111EEA00D6F32C /* InfoCell.xib in Resources */,
 				CA203E441C111EEA00D6F32C /* PhotoCollectionCell.xib in Resources */,
 				C4F207C11C14E5550024C287 /* NameAddressRestaurantCell.xib in Resources */,
+				C41297891C809D880062BC7D /* Tutorial.storyboard in Resources */,
 				C4066F131C7046CA00BBF0E8 /* ListCandidateNoDishContentView.xib in Resources */,
 				CA203E451C111EEA00D6F32C /* SlideBar.xib in Resources */,
 				CA203E461C111EEA00D6F32C /* Main.storyboard in Resources */,
@@ -1244,6 +1258,7 @@
 				CA203DD41C111EEA00D6F32C /* Restaurant.swift in Sources */,
 				C44C25881C5361C900A345D8 /* VoteRestaurantRequest.swift in Sources */,
 				C4CC99E21C5407A1007CBF64 /* NotAvailableMessageView.swift in Sources */,
+				C412978B1C809E420062BC7D /* TutorialViewController.swift in Sources */,
 				CA203DD51C111EEA00D6F32C /* GetRestaurantsRequest.swift in Sources */,
 				CA203DD61C111EEA00D6F32C /* Promotion.swift in Sources */,
 				CA203DD71C111EEA00D6F32C /* LoadMoreFooterView.swift in Sources */,
@@ -1298,6 +1313,7 @@
 				CA203DFA1C111EEA00D6F32C /* AboutMeTableViewController.swift in Sources */,
 				C4A0D5591C11746100BAE246 /* RestaurantSearchRequest.swift in Sources */,
 				C4BCB3581C54BAC70049D74A /* RestaurantSearchTableViewCell.swift in Sources */,
+				C41297861C809AE60062BC7D /* TutorialChildViewController.swift in Sources */,
 				C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */,
 				CA203DFB1C111EEA00D6F32C /* GetDishesRequest.swift in Sources */,
 				CA203DFC1C111EEA00D6F32C /* RestaurantsTableViewController.swift in Sources */,
