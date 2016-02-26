@@ -12,11 +12,10 @@ class SignUpViewController: UIViewController, SignUpDelegate{
     
     var loginViewController: LoginViewController?
     
-    var signUpView: SignUpView?
+    @IBOutlet weak var signUpView: SignUpView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        signUpView = SignUpView(frame: CGRectMake(0, 0, view.frame.size.width, view.frame.size.height))
         signUpView?.delegate = self
         view.addSubview(signUpView!)
         
@@ -51,11 +50,26 @@ class SignUpViewController: UIViewController, SignUpDelegate{
             });
             
         }
-        
     }
     
     func cancel() {
         
     }
+    
+    private func showErrorMessage() {
+        let alert = UIAlertController(title: "输入错误", message: "请输入有效用户名和密码", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let dismissAction = UIAlertAction(title: "知道了", style: .Default, handler: self.resetLogInInput)
+        alert.addAction(dismissAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func resetLogInInput(alertAction: UIAlertAction!){
+        //currentLoginView?.getAccountTextField()!.text = nil
+        //currentLoginView?.getPasswordTextField()!.text = nil
+    }
+    
+    
 
 }

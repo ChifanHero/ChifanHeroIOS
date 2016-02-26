@@ -43,6 +43,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     func loadTableData() {
+        
         waitingIndicator.startAnimating()
         if request == nil {
             request = GetRestaurantsRequest()
@@ -76,7 +77,6 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
                 self.tableView.reloadData()
             });
         }
-        
     }
     
     func refresh(sender:AnyObject) {

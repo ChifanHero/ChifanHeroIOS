@@ -10,18 +10,34 @@ import UIKit
 
 class AboutMeDetailTableViewController: UITableViewController {
 
-    @IBOutlet var AboutMeDetailTableView: UITableView!
     
-    var detailType: FavoriteTypeEnum?
+    @IBOutlet var aboutMeDetailTableView: UITableView!
+    @IBOutlet weak var aboutMeDetailViewTitle: UINavigationItem!
+    
+    var detailType: FavoriteTypeEnum? {
+        didSet {
+            if self.detailType == FavoriteTypeEnum.Restaurant{
+                aboutMeDetailViewTitle.title = "我想去的"
+            } else if self.detailType == FavoriteTypeEnum.Dish {
+                aboutMeDetailViewTitle.title = "我想吃的"
+            } else {
+                aboutMeDetailViewTitle.title = "我的榜单"
+            }
+            
+        }
+    }
     
     var favorites: [Favorite]?
     var restaurants: [Restaurant] = [Restaurant]()
     var dishes: [Dish] = [Dish]()
     var lists: [List] = [List]()
     
+    var restaurantImages = [PhotoRecord]()
+    var dishImages = [PhotoRecord]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        registerCell()
         loadData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -33,6 +49,12 @@ class AboutMeDetailTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func registerCell(){
+        tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
+        tableView.registerNib(UINib(nibName: "NameImageDishCell", bundle: nil), forCellReuseIdentifier: "nameImageDishCell")
+        tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
     }
     
     private func loadData(){
@@ -50,24 +72,39 @@ class AboutMeDetailTableViewController: UITableViewController {
                         self.lists.append(self.favorites![index].list!)
                     }
                 }
-                self.AboutMeDetailTableView.reloadData()
+                self.fetchRestaurantImageDetails()
+                self.fetchDishImageDetails()
+                self.aboutMeDetailTableView.reloadData()
             });
         }
     }
     
+    private func fetchRestaurantImageDetails() {
+        for restaurant: Restaurant in self.restaurants {
+            var url = restaurant.picture?.original
+            if url == nil {
+                url = ""
+            }
+            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+            self.restaurantImages.append(record)
+        }
+    }
     
-    
-    
+    private func fetchDishImageDetails() {
+        for dish: Dish in self.dishes {
+            var url = dish.picture?.original
+            if url == nil {
+                url = ""
+            }
+            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+            self.dishImages.append(record)
+        }
+    }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if self.detailType == FavoriteTypeEnum.Restaurant{
             return self.restaurants.count
         } else if self.detailType == FavoriteTypeEnum.Dish {
@@ -77,29 +114,49 @@ class AboutMeDetailTableViewController: UITableViewController {
         }
     }
 
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 1
+    }
+
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-
-        if self.detailType == FavoriteTypeEnum.Restaurant{
-            cell.textLabel!.text = restaurants[indexPath.row].name
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        
+        if detailType == FavoriteTypeEnum.Restaurant {
+            let cell: RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+            cell?.setUp(restaurant: restaurants[indexPath.section], image: restaurantImages[indexPath.section].image!)
+            return cell!
         } else if self.detailType == FavoriteTypeEnum.Dish {
-            cell.textLabel!.text = dishes[indexPath.row].name
+            let cell: NameImageDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
+            cell?.setUp(dish: dishes[indexPath.section], image: dishImages[indexPath.section].image!)
+            return cell!
         } else {
-            cell.textLabel!.text = lists[indexPath.row].name
+            let cell: ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
+            cell?.model = lists[indexPath.section]
+            return cell!
         }
-
-        return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.favorites![indexPath.row].type == "restaurant" {
-            let restaurantSelected : Restaurant = restaurants[indexPath.row]
+            let restaurantSelected : Restaurant = restaurants[indexPath.section]
             performSegueWithIdentifier("AboutMeDetailToRestaurant", sender: restaurantSelected.id)
         } else if self.favorites![indexPath.row].type == "dish" {
             
         } else {
-            
+            let listSelected : List = lists[indexPath.section]
+            performSegueWithIdentifier("AboutMeDetailToList", sender: listSelected.id)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if detailType == FavoriteTypeEnum.Restaurant {
+            return RestaurantTableViewCell.height
+        } else if self.detailType == FavoriteTypeEnum.Dish {
+            return NameImageDishTableViewCell.height
+        } else {
+            return ListTableViewCell.height
         }
     }
     
@@ -107,6 +164,9 @@ class AboutMeDetailTableViewController: UITableViewController {
         if segue.identifier == "AboutMeDetailToRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
+        } else if segue.identifier == "AboutMeDetailToList" {
+            let listMemberController: ListMemberViewController = segue.destinationViewController as! ListMemberViewController
+            listMemberController.listId = sender as? String
         }
     }
 
