@@ -686,10 +686,10 @@
 		C43B9A4D1BDED52000FD50FF /* AboutMe */ = {
 			isa = PBXGroup;
 			children = (
-				C49BF3321BC9EEB00097CBE0 /* LoginView.swift */,
-				C4D3000A1BC1025300807C4D /* LoginDelegate.swift */,
 				C4D300081BC0BFEB00807C4D /* VerticalLoginView.swift */,
+				C49BF3321BC9EEB00097CBE0 /* LoginView.swift */,
 				C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */,
+				C4D3000A1BC1025300807C4D /* LoginDelegate.swift */,
 				CA7A4F651BE863F80016BC56 /* SignUpView.swift */,
 				CA7A4F671BE875140016BC56 /* SignUpDelegate.swift */,
 			);
@@ -731,39 +731,42 @@
 		C476C5471B843C710051B0E5 /* UIElementsXib */ = {
 			isa = PBXGroup;
 			children = (
-				CA882D1C1C7F922900D04696 /* AboutMeXib */,
-				C433BA061B9625490049CB53 /* SlideBar.xib */,
-				C476C5481B843C9D0051B0E5 /* RestaurantCell.xib */,
-				C43B39781B85951900516248 /* CouponCell.xib */,
-				C43B397E1B85969E00516248 /* DishCell.xib */,
-				C43B39911B87F03500516248 /* ListCell.xib */,
-				C43B399B1B8850B100516248 /* SimpleCouponCell.xib */,
-				C43B39A91B8908EA00516248 /* ViewItemTopView.xib */,
-				C43B39AF1B8A806A00516248 /* NameImageDishCell.xib */,
-				C43B39B31B8A89A600516248 /* AllDishesHeaderView.xib */,
-				C4BDFBFC1B96C8BD0065F285 /* MessageCell.xib */,
-				C4BDFC081B97C8550065F285 /* NotificationDetailView.xib */,
-				C46CB8D61BA15AF8000D1006 /* SimpleDishCell.xib */,
-				C414BD2E1BBA600C008C5744 /* InfoCell.xib */,
-				C414BD301BBA6034008C5744 /* InfoCouponCell.xib */,
-				C49BF32A1BC4E5040097CBE0 /* SelectionBar.xib */,
-				C4A6E03D1BCCDF4B008C0643 /* CouponCellSecondView.xib */,
-				C454B26E1BCE2ED70091A5BC /* LoadMoreFooterView.xib */,
-				C41C6C6E1BCF7B8500461257 /* ListCandidateTopView.xib */,
-				C41C6C721BCF7C3100461257 /* ListCandidateSubView.xib */,
-				C461DB7A1BD0D1EF009032C8 /* ListHeaderView.xib */,
-				C4A0878F1BD4ADDE002D80D5 /* ListCandidateConfirmationView.xib */,
-				C43B9A451BDEBE8F00FD50FF /* PhotoCollectionCell.xib */,
-				C4A821DF1BE324A300D1D4B7 /* RecommendationsHeaderView.xib */,
-				C4F207C01C14E5550024C287 /* NameAddressRestaurantCell.xib */,
-				C44C257F1C50C62D00A345D8 /* ActionButtonView.xib */,
-				C4CC99DF1C5405BA007CBF64 /* NotAvailableMessageView.xib */,
-				C4CC99E31C541861007CBF64 /* OwnerInfoDishCell.xib */,
-				C4BCB3551C54B9D00049D74A /* RestaurantSearchCell.xib */,
-				C4215A961C62FE600052A613 /* DishListCell.xib */,
-				C4066F0E1C6F4A2800BBF0E8 /* NameOnlyDishCell.xib */,
-				C4066F121C7046CA00BBF0E8 /* ListCandidateNoDishContentView.xib */,
-				C47A1C881C7DF17300E0DF3A /* NotificationCell.xib */,
+				C41297831C809A4F0062BC7D /* TutorialScreens */,
+				C41297AA1C80B85F0062BC7D /* SlideBar.xib */,
+				C41297AD1C80B8630062BC7D /* RestaurantCell.xib */,
+				C41297A41C80B8510062BC7D /* CouponCell.xib */,
+				C41297B01C80B8720062BC7D /* DishCell.xib */,
+				C41297B31C80B8780062BC7D /* ListCell.xib */,
+				C41297B61C80B87B0062BC7D /* SimpleCouponCell.xib */,
+				C41297B91C80B8800062BC7D /* ViewItemTopView.xib */,
+				C41297BC1C80B8850062BC7D /* NameImageDishCell.xib */,
+				C41297BF1C80B88A0062BC7D /* AllDishesHeaderView.xib */,
+				C41297C21C80B88F0062BC7D /* MessageCell.xib */,
+				C41297C51C80B8950062BC7D /* NotificationDetailView.xib */,
+				C41297C81C80B89A0062BC7D /* SimpleDishCell.xib */,
+				C41297CB1C80B89E0062BC7D /* InfoCell.xib */,
+				C41297CE1C80B8A40062BC7D /* InfoCouponCell.xib */,
+				C41297D11C80B8A80062BC7D /* VerticalLoginView.xib */,
+				C41297D41C80B8AC0062BC7D /* SelectionBar.xib */,
+				C41297D71C80B8B10062BC7D /* HorizontalLoginView.xib */,
+				C41297DA1C80B8B50062BC7D /* CouponCellSecondView.xib */,
+				C41297DD1C80B8BA0062BC7D /* LoadMoreFooterView.xib */,
+				C41297E01C80B8BF0062BC7D /* ListCandidateTopView.xib */,
+				C41297E31C80B8C30062BC7D /* ListCandidateSubView.xib */,
+				C41297E61C80B8C80062BC7D /* ListHeaderView.xib */,
+				C41297E91C80B8CD0062BC7D /* ListCandidateConfirmationView.xib */,
+				C41297EC1C80B8D10062BC7D /* PhotoCollectionCell.xib */,
+				C41297EF1C80B8D90062BC7D /* RecommendationsHeaderView.xib */,
+				C41297F21C80B8DF0062BC7D /* SignUpView.xib */,
+				C41297F51C80B9310062BC7D /* NameAddressRestaurantCell.xib */,
+				C41297F81C80B9390062BC7D /* ActionButtonView.xib */,
+				C41297FB1C80B93F0062BC7D /* NotAvailableMessageView.xib */,
+				C41297FE1C80B9430062BC7D /* OwnerInfoDishCell.xib */,
+				C41298011C80B94A0062BC7D /* RestaurantSearchCell.xib */,
+				C41298041C80B94F0062BC7D /* DishListCell.xib */,
+				C41298071C80B9590062BC7D /* NameOnlyDishCell.xib */,
+				C412980A1C80B95E0062BC7D /* ListCandidateNoDishContentView.xib */,
+				C412980D1C80B9620062BC7D /* NotificationCell.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -1006,16 +1009,6 @@
 				CA203E511C124AF900D6F32C /* RatingTypeEnum.swift */,
 			);
 			name = Enum;
-			sourceTree = "<group>";
-		};
-		CA882D1C1C7F922900D04696 /* AboutMeXib */ = {
-			isa = PBXGroup;
-			children = (
-				C4D300061BC09A6100807C4D /* VerticalLoginView.xib */,
-				C49BF32E1BC6B58D0097CBE0 /* HorizontalLoginView.xib */,
-				CA7A4F631BE73F550016BC56 /* SignUpView.xib */,
-			);
-			name = AboutMeXib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

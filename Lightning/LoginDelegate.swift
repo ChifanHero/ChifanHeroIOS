@@ -15,4 +15,5 @@ protocol LoginDelegate {
     func logInWithSina()
     
     func signUp()
+    
 }
