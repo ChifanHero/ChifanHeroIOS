@@ -160,6 +160,20 @@ class AboutMeDetailTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        } else {
+            return 10
+        }
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        return headerView
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "AboutMeDetailToRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
