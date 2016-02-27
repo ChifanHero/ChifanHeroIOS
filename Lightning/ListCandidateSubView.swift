@@ -46,6 +46,9 @@ import UIKit
     
     var filtering : Bool = false
     
+    var currentListId : String?
+    var selectedDishId : String?
+    
     @IBOutlet weak var dishNameLabel: UILabel!
     
     
@@ -135,6 +138,19 @@ import UIKit
             self.view.layoutIfNeeded()
             }) { (success) -> Void in
                 self.contentViewCollapsed = true
+        }
+        nominateDish()
+    }
+    
+    private func nominateDish() {
+        let request : NominateDishListCandidateRequest = NominateDishListCandidateRequest()
+        request.dishId = self.selectedDishId
+        request.listId = self.currentListId
+        DataAccessor(serviceConfiguration: ParseConfiguration()).nominateDishListCandidate(request) { (response) -> Void in
+            print(response?.error?.message)
+            print(response?.result?.id)
+            print(response?.result?.count)
+//            <#code#>
         }
     }
 
@@ -291,9 +307,11 @@ import UIKit
                 cell!.accessoryType = UITableViewCellAccessoryType.None
                 currentSelectedCell = nil
                 dishNameLabel.text = ""
+                selectedDishId = nil
                 disableConfirmButton()
             } else {
                 dishNameLabel.text = dishes[indexPath.row].name
+                selectedDishId = dishes[indexPath.row].id
                 cell!.accessoryType = UITableViewCellAccessoryType.Checkmark
 //                self.subView.restaurantId = dishes[indexPath.row].id
                 currentSelectedCell?.accessoryType = UITableViewCellAccessoryType.None

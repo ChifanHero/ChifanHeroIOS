@@ -155,11 +155,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                         self.restaurantImages.append(record)
                     }
                     self.searchResultsTableView.hidden = false
-                    self.waitingIndicator.hidden = true
-                    self.waitingIndicator.stopAnimating()
+                    
                     self.searchResultsTableView.allowsSelection = true
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
+                    self.waitingIndicator.hidden = true
+                    self.waitingIndicator.stopAnimating()
 //                    self.adjustSearchResultsTableHeight()
 //                    self.adjustScrollViewContentHeight()
                 }
@@ -192,11 +193,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                         self.dishImages.append(record)
                     }
                     self.searchResultsTableView.hidden = false
-                    self.waitingIndicator.hidden = true
-                    self.waitingIndicator.stopAnimating()
+                    
                     self.searchResultsTableView.allowsSelection = false
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
+                    self.waitingIndicator.hidden = true
+                    self.waitingIndicator.stopAnimating()
                 }
                 
             })
@@ -218,11 +220,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 if let results = searchResponse?.results {
                     self.lists += results
                     self.searchResultsTableView.hidden = false
-                    self.waitingIndicator.hidden = true
-                    self.waitingIndicator.stopAnimating()
+                    
                     self.searchResultsTableView.allowsSelection = true
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
+                    self.waitingIndicator.hidden = true
+                    self.waitingIndicator.stopAnimating()
 //                    self.adjustSearchResultsTableHeight()
 //                    self.adjustScrollViewContentHeight()
                 }

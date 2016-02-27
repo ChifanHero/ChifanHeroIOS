@@ -11,6 +11,7 @@ import UIKit
 class ListCandidateViewController: UIViewController {
     
     var memberIds : [String]?
+    var currentListId : String?
     
     
     @IBOutlet weak var mainView: ListCandidateTopView!
@@ -23,6 +24,7 @@ class ListCandidateViewController: UIViewController {
         let context = ListCandidateContext()
         context.memberIds = self.memberIds
         mainView.context = context
+        mainView.currentListId = currentListId
         
     }
 

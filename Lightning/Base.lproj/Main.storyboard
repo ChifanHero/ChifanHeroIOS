@@ -537,6 +537,20 @@
                                     <constraint firstAttribute="height" constant="50" id="gwg-Ov-oXV"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fF1-PG-SI9" userLabel="Waiting View">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0L7-sL-8lX">
+                                        <rect key="frame" x="173" y="259" width="37" height="37"/>
+                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="0L7-sL-8lX" firstAttribute="centerY" secondItem="fF1-PG-SI9" secondAttribute="centerY" id="ErJ-Kl-olI"/>
+                                    <constraint firstItem="0L7-sL-8lX" firstAttribute="centerX" secondItem="fF1-PG-SI9" secondAttribute="centerX" id="liN-jf-hND"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -544,17 +558,23 @@
                             <constraint firstItem="QnF-By-T1k" firstAttribute="top" secondItem="hNn-ud-WaQ" secondAttribute="bottom" id="4EE-ac-toq"/>
                             <constraint firstItem="hNn-ud-WaQ" firstAttribute="leading" secondItem="Xj1-zJ-qzQ" secondAttribute="leadingMargin" constant="-20" id="IRM-7a-IF4"/>
                             <constraint firstItem="SiA-fu-TPt" firstAttribute="leading" secondItem="Xj1-zJ-qzQ" secondAttribute="leadingMargin" constant="-20" id="OTU-mO-vel"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fF1-PG-SI9" secondAttribute="trailing" constant="-20" id="PKq-Qh-2Xb"/>
                             <constraint firstItem="hNn-ud-WaQ" firstAttribute="top" secondItem="SiA-fu-TPt" secondAttribute="bottom" id="SMb-JS-kqk"/>
                             <constraint firstItem="hNn-ud-WaQ" firstAttribute="top" secondItem="SiA-fu-TPt" secondAttribute="bottom" id="atO-wc-l3u"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SiA-fu-TPt" secondAttribute="trailing" constant="-20" id="bQq-Pb-PzK"/>
+                            <constraint firstItem="fF1-PG-SI9" firstAttribute="leading" secondItem="Xj1-zJ-qzQ" secondAttribute="leadingMargin" constant="-20" id="cXW-zp-0LH"/>
+                            <constraint firstItem="fF1-PG-SI9" firstAttribute="top" secondItem="qdI-In-ITW" secondAttribute="bottom" id="lGP-Oh-EgR"/>
+                            <constraint firstItem="QnF-By-T1k" firstAttribute="top" secondItem="fF1-PG-SI9" secondAttribute="bottom" id="pkD-AR-TMw"/>
                             <constraint firstItem="SiA-fu-TPt" firstAttribute="top" secondItem="qdI-In-ITW" secondAttribute="bottom" id="uhS-V7-z4q"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="0L7-sL-8lX" id="Qya-Do-Qgh"/>
                         <outlet property="headerView" destination="SiA-fu-TPt" id="UIb-Wn-QC5"/>
                         <outlet property="memberTable" destination="hNn-ud-WaQ" id="jVg-11-04W"/>
+                        <outlet property="waitingView" destination="fF1-PG-SI9" id="pbM-9K-JyO"/>
                         <segue destination="fBm-Hz-slj" kind="presentation" identifier="addCandidate" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="4GH-Z8-m31"/>
                     </connections>
                 </viewController>

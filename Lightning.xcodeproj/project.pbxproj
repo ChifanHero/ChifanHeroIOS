@@ -50,6 +50,7 @@
 		C412980B1C80B9620062BC7D /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C412980D1C80B9620062BC7D /* NotificationCell.xib */; };
 		C412980F1C82282D0062BC7D /* NominateDishListCandidateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */; };
 		C41298111C82294A0062BC7D /* NominateDishListCandidateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41298101C82294A0062BC7D /* NominateDishListCandidateResponse.swift */; };
+		C41298131C822B1B0062BC7D /* DishListCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41298121C822B1B0062BC7D /* DishListCandidate.swift */; };
 		C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4215A981C63009A0052A613 /* DishListTableViewCell.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */; };
@@ -276,6 +277,7 @@
 		C412980C1C80B9620062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NotificationCell.xib; sourceTree = "<group>"; };
 		C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NominateDishListCandidateRequest.swift; sourceTree = "<group>"; };
 		C41298101C82294A0062BC7D /* NominateDishListCandidateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NominateDishListCandidateResponse.swift; sourceTree = "<group>"; };
+		C41298121C822B1B0062BC7D /* DishListCandidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishListCandidate.swift; sourceTree = "<group>"; };
 		C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCouponTableViewCell.swift; sourceTree = "<group>"; };
 		C414BD361BBBB04B008C5744 /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewDelegate.swift; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 				C4BDFC041B96CD0B0065F285 /* MessageType.swift */,
 				C46CB8D01BA00978000D1006 /* MenuItem.swift */,
 				C44C25851C53610B00A345D8 /* RestaurantCandidate.swift */,
+				C41298121C822B1B0062BC7D /* DishListCandidate.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1327,6 +1330,7 @@
 				C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */,
 				CA203DFA1C111EEA00D6F32C /* AboutMeTableViewController.swift in Sources */,
 				C4A0D5591C11746100BAE246 /* RestaurantSearchRequest.swift in Sources */,
+				C41298131C822B1B0062BC7D /* DishListCandidate.swift in Sources */,
 				C4BCB3581C54BAC70049D74A /* RestaurantSearchTableViewCell.swift in Sources */,
 				C41297861C809AE60062BC7D /* TutorialChildViewController.swift in Sources */,
 				C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */,

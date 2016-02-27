@@ -402,6 +402,30 @@ class DataAccessor {
         }
     }
     
+    func nominateDishListCandidate(request: NominateDishListCandidateRequest, responseHandler: (NominateDishListCandidateResponse?) -> Void) {
+        let httpClient = HttpClient()
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        
+//        let defaults = NSUserDefaults.standardUserDefaults()
+        let httpHeaders = [String : String]()
+        
+        httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
+            var nominateResponse: NominateDishListCandidateResponse?
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    nominateResponse = NominateDishListCandidateResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(nominateResponse)
+        }
+    }
+    
     
     
 }

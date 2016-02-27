@@ -13,7 +13,11 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     var listId : String?
     
     var member : [Dish] = [Dish]()
+    
+    
+    @IBOutlet weak var waitingView: UIView!
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var memberTable: ImageProgressiveTableView!
     
     @IBOutlet weak var headerView: ListHeaderView!
@@ -31,12 +35,15 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
         // Do any additional setup after loading the view.
     }
     
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        print("list member view will appear")
         let selectedCellIndexPath : NSIndexPath? = self.memberTable.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
             self.memberTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
+        loadTableData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,16 +52,22 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     private func loadTableData() {
+        self.waitingView.hidden = false
+        self.activityIndicator.startAnimating()
         if listId != nil {
             let request : GetListByIdRequest = GetListByIdRequest(id: listId!)
             DataAccessor(serviceConfiguration: ParseConfiguration()).getListById(request, responseHandler: { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     if response != nil && response!.result != nil {
+                        self.member.removeAll()
                         self.member += response!.result!.dishes
                         self.headerView.likeCount = response?.result?.likeCount
                         self.headerView.bookmarkCount = response?.result?.favoriteCount
                         self.fetchImageDetails()
                         self.memberTable.reloadData()
+                        self.activityIndicator.stopAnimating()
+                        self.waitingView.hidden = true
+                        
                     }
                 })
                 
@@ -134,6 +147,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
                 }
             }
             listCandidateController.memberIds = memberIds
+            listCandidateController.currentListId = listId
         }
     }
     

@@ -7,3 +7,19 @@
 //
 
 import Foundation
+
+class NominateDishListCandidateResponse : Model{
+    
+    var result: DishListCandiate?
+    var error: Error?
+    
+    required init() {
+        
+    }
+    
+    required init(data: [String : AnyObject]) {
+        result <-- data["result"]
+        error <-- data["error"]
+    }
+    
+}

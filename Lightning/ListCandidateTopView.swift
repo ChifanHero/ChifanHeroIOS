@@ -21,6 +21,12 @@ import UIKit
     private var view : UIView!
     private var nibName : String = "ListCandidateTopView"
     
+    var currentListId : String? {
+        didSet {
+            self.subView.currentListId = currentListId
+        }
+    }
+    
     @IBOutlet weak var restaurantNameLabel: UILabel!
     
     @IBOutlet weak var headerView: UIView!
