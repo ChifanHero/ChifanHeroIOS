@@ -39,7 +39,7 @@ class RestaurantSearchTableViewCell: UITableViewCell {
             if restaurant.name != nil {
                 do {
                     
-                    let nameWithSize = NSString(format:"<span style=\"font-size: 15\">%@</span>", restaurant.name!) as String
+                    let nameWithSize = NSString(format:"<span style=\"font-size: 18\">%@</span>", restaurant.name!) as String
                     let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
                     self.nameLabel.attributedText = attributedName
                 } catch {

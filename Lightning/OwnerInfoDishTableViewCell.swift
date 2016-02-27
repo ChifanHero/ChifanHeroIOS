@@ -50,7 +50,7 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
             if dish.name != nil {
                 do {
                     
-                    let nameWithSize = NSString(format:"<span style=\"font-size: 15\">%@</span>", dish.name!) as String
+                    let nameWithSize = NSString(format:"<span style=\"font-size: 18\">%@</span>", dish.name!) as String
                     let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: false)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
                     
                     self.nameLabel.attributedText = attributedName

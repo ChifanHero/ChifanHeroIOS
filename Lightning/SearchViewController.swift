@@ -69,7 +69,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         searchController.searchBar.sizeToFit()
         self.navigationItem.titleView = searchController.searchBar
         searchController.searchBar.barTintColor = UIColor.clearColor()
-        searchController.searchBar.placeholder = "大家都在搜：韶山冲"
+//        searchController.searchBar.placeholder = "大家都在搜：韶山冲"
 
         definesPresentationContext = true
         searchResultsTableView.hidden = true
@@ -285,6 +285,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
 //            }
 
             let imageDetails = imageForIndexPath(tableView: self.searchResultsTableView, indexPath: indexPath)
+            cell?.baseVC = self
             cell?.setUp(dish: self.dishes[indexPath.section], image: imageDetails.image!)
             
             switch (imageDetails.state){
@@ -316,7 +317,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         if selectionBar.scope == "list" {
             return ListTableViewCell.height
         } else if selectionBar.scope == "dish" {
-            return 82
+            return 90
         } else {
             return RestaurantTableViewCell.height
         }
@@ -405,6 +406,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             let listMemberController : ListMemberViewController = segue.destinationViewController as! ListMemberViewController
             listMemberController.listId = sender as? String
         }
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        clearStates()
     }
     
     func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
