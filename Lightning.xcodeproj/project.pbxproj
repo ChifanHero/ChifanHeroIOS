@@ -231,6 +231,9 @@
 		CA203E561C1655D800D6F32C /* AddToFavoritesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */; };
 		CA203E581C16561500D6F32C /* AddToFavoritesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E571C16561500D6F32C /* AddToFavoritesResponse.swift */; };
 		CA203E5F1C18F34600D6F32C /* RatingAndBookmarkExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E5E1C18F34600D6F32C /* RatingAndBookmarkExecutor.swift */; };
+		CA882D1F1C82619500D04696 /* RemoveFavoriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D1E1C82619500D04696 /* RemoveFavoriteRequest.swift */; };
+		CA882D211C82632800D04696 /* DeleteRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D201C82632800D04696 /* DeleteRequestProtocol.swift */; };
+		CA882D231C8263AE00D04696 /* RemoveFavoriteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D221C8263AE00D04696 /* RemoveFavoriteResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -470,6 +473,9 @@
 		CA850AE71C066FF200D497D4 /* LogOutRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogOutRequest.swift; sourceTree = "<group>"; };
 		CA850AE91C06702D00D497D4 /* LogOutResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogOutResponse.swift; sourceTree = "<group>"; };
 		CA850AED1C0F834400D497D4 /* RateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateRequest.swift; sourceTree = "<group>"; };
+		CA882D1E1C82619500D04696 /* RemoveFavoriteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveFavoriteRequest.swift; sourceTree = "<group>"; };
+		CA882D201C82632800D04696 /* DeleteRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteRequestProtocol.swift; sourceTree = "<group>"; };
+		CA882D221C8263AE00D04696 /* RemoveFavoriteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveFavoriteResponse.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -937,6 +943,7 @@
 				CA850AE71C066FF200D497D4 /* LogOutRequest.swift */,
 				CA850AED1C0F834400D497D4 /* RateRequest.swift */,
 				CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */,
+				CA882D1E1C82619500D04696 /* RemoveFavoriteRequest.swift */,
 				C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */,
 			);
 			name = Request;
@@ -964,6 +971,7 @@
 				CA850AE91C06702D00D497D4 /* LogOutResponse.swift */,
 				CA203E531C12732600D6F32C /* RateResponse.swift */,
 				CA203E571C16561500D6F32C /* AddToFavoritesResponse.swift */,
+				CA882D221C8263AE00D04696 /* RemoveFavoriteResponse.swift */,
 				C44C25891C53627700A345D8 /* VoteRestaurantResponse.swift */,
 				C41298101C82294A0062BC7D /* NominateDishListCandidateResponse.swift */,
 			);
@@ -975,6 +983,7 @@
 			children = (
 				C4B14E401B804A66001E8B62 /* GetRequestProtocol.swift */,
 				C4B14E421B804A75001E8B62 /* PostRequestProtocol.swift */,
+				CA882D201C82632800D04696 /* DeleteRequestProtocol.swift */,
 				C4B14E471B805123001E8B62 /* ModelProtocol.swift */,
 				C43728281B815C8F009121C9 /* JSONHelperExtension.swift */,
 				C437282C1B82ED06009121C9 /* HttpRequestProtocol.swift */,
@@ -1243,6 +1252,7 @@
 				CA203DB91C111EEA00D6F32C /* UploadPictureResponse.swift in Sources */,
 				CA203DBA1C111EEA00D6F32C /* GetPromotionsRequest.swift in Sources */,
 				C44C257E1C50B88300A345D8 /* UITableViewCellExtension.swift in Sources */,
+				CA882D1F1C82619500D04696 /* RemoveFavoriteRequest.swift in Sources */,
 				CA203DBB1C111EEA00D6F32C /* UpdateInfoRequest.swift in Sources */,
 				CA203DBC1C111EEA00D6F32C /* SignUpDelegate.swift in Sources */,
 				CA203DBD1C111EEA00D6F32C /* Dish.swift in Sources */,
@@ -1314,6 +1324,7 @@
 				CA203DED1C111EEA00D6F32C /* SlideBarDelegateProtocol.swift in Sources */,
 				CA203DEE1C111EEA00D6F32C /* ServiceConfiguration.swift in Sources */,
 				CA203DEF1C111EEA00D6F32C /* SignUpRequest.swift in Sources */,
+				CA882D231C8263AE00D04696 /* RemoveFavoriteResponse.swift in Sources */,
 				CA203DF01C111EEA00D6F32C /* GetDishByIdResponse.swift in Sources */,
 				CA203DF11C111EEA00D6F32C /* GetListsResponse.swift in Sources */,
 				C4A0D5631C137DDB00BAE246 /* DishSearchResponse.swift in Sources */,
@@ -1349,6 +1360,7 @@
 				CA203E061C111EEA00D6F32C /* Rating.swift in Sources */,
 				CA203E071C111EEA00D6F32C /* StringUtil.swift in Sources */,
 				CA203E081C111EEA00D6F32C /* HttpClient.swift in Sources */,
+				CA882D211C82632800D04696 /* DeleteRequestProtocol.swift in Sources */,
 				CA203E091C111EEA00D6F32C /* GetDishByIdRequest.swift in Sources */,
 				C4A0D55A1C11746100BAE246 /* Serializable.swift in Sources */,
 				CA203E0A1C111EEA00D6F32C /* CouponTableViewCell.swift in Sources */,

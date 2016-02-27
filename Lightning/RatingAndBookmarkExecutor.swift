@@ -83,6 +83,27 @@ class RatingAndBookmarkExecutor {
         
     }
     
+    func removeFavorite(type: String, objectId: String, successHandler: (() -> Void)?){
+        let request: RemoveFavoriteRequest = RemoveFavoriteRequest()
+        request.type = type
+        request.objectId = objectId
+        
+        DataAccessor(serviceConfiguration: ParseConfiguration()).removeFavorite(request) { (response) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                
+                if response?.error == nil {
+                    if successHandler != nil {
+                        successHandler!()
+                    }
+                } else {
+                    
+                }
+                
+            });
+        }
+        
+    }
+    
     
     private func configureSuccessPopup(popUpText: String) {
         self.popUpView.center = CGPoint(x: self.baseViewController!.view.frame.width / 2, y: self.baseViewController!.view.frame.height / 2)

@@ -20,6 +20,30 @@ class HttpClient {
         setDefaultHeaders()
     }
     
+    func delete(url:String, headers:[String : String]?, parameters : [String : AnyObject], completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
+        let request = NSMutableURLRequest(URL:NSURL(string: url)!)
+        request.HTTPMethod = "DELETE"
+        if headers != nil {
+            for (header, value) in headers! {
+                if self.headers[header] != value {
+                    self.headers[header] = value
+                }
+            }
+        }
+        for (header, value) in self.headers {
+            request.addValue(value, forHTTPHeaderField: header)
+        }
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parameters, options: NSJSONWritingOptions.PrettyPrinted)
+        } catch {
+            print(error)
+        }
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) -> Void in
+            completionHandler(data, response, error)
+        }
+        task.resume()
+    }
+    
     func post(url:String, headers:[String : String]?, parameters : [String : AnyObject], completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
         let request = NSMutableURLRequest(URL:NSURL(string: url)!)
         request.HTTPMethod = "POST"

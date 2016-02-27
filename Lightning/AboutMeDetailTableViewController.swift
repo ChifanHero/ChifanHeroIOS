@@ -35,8 +35,14 @@ class AboutMeDetailTableViewController: UITableViewController {
     var restaurantImages = [PhotoRecord]()
     var dishImages = [PhotoRecord]()
     
+    var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        if detailType == FavoriteTypeEnum.Dish {
+            self.tableView.allowsSelection = false
+        }
+        ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         registerCell()
         loadData()
         // Uncomment the following line to preserve selection between presentations
@@ -172,6 +178,42 @@ class AboutMeDetailTableViewController: UITableViewController {
         let headerView = UIView()
         headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
         return headerView
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "取消收藏", handler:{(action, indexpath) -> Void in
+            
+            self.removeFavorite(indexPath)
+            
+        });
+        addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
+        
+        return [addBookmarkAction];
+    }
+    
+    private func removeFavorite(indexPath: NSIndexPath){
+        if detailType == FavoriteTypeEnum.Restaurant{
+            let restaurant = self.restaurants[indexPath.section]
+            ratingAndFavoriteExecutor?.removeFavorite("restaurant", objectId: restaurant.id!, successHandler: { () -> Void in
+                self.restaurants.removeAtIndex(indexPath.section)
+                self.restaurantImages.removeAtIndex(indexPath.section)
+                self.tableView.reloadData()
+            })
+        } else if detailType == FavoriteTypeEnum.Dish{
+            let dish = self.dishes[indexPath.section]
+            ratingAndFavoriteExecutor?.removeFavorite("dish", objectId: dish.id!, successHandler: { () -> Void in
+                self.dishes.removeAtIndex(indexPath.section)
+                self.dishImages.removeAtIndex(indexPath.section)
+                self.tableView.reloadData()
+            })
+        } else {
+            let lish = self.lists[indexPath.section]
+            ratingAndFavoriteExecutor?.removeFavorite("lish", objectId: lish.id!, successHandler: { () -> Void in
+                self.lists.removeAtIndex(indexPath.section)
+                self.tableView.reloadData()
+            })
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

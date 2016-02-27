@@ -519,11 +519,11 @@
                         <viewControllerLayoutGuide type="bottom" id="QnF-By-T1k"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xj1-zJ-qzQ">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hNn-ud-WaQ" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
-                                <rect key="frame" x="-4" y="50" width="383" height="504"/>
+                                <rect key="frame" x="-4" y="50" width="383" height="553"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="98Y-kL-NWK" id="qgg-ST-xYq"/>
@@ -877,6 +877,7 @@
                         <outlet property="aboutMeDetailTableView" destination="kLZ-JZ-b3v" id="OvY-Uk-mGE"/>
                         <outlet property="aboutMeDetailViewTitle" destination="WwA-0t-IuG" id="NQD-EQ-Hjy"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="AboutMeDetailToRestaurant" id="pAS-ML-arH"/>
+                        <segue destination="98Y-kL-NWK" kind="show" identifier="AboutMeDetailToList" id="wgF-Yw-Ofl"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zy2-5u-aCR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1107,6 +1108,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JpX-m4-a5C">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.5450980392" green="0.76470588240000004" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1231,7 +1233,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ejM-wk-Qba"/>
-        <segue reference="cRp-Bb-PSh"/>
         <segue reference="pAS-ML-arH"/>
+        <segue reference="wgF-Yw-Ofl"/>
     </inferredMetricsTieBreakers>
 </document>

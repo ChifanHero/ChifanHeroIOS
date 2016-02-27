@@ -307,6 +307,38 @@ class DataAccessor {
         
     }
     
+    func removeFavorite(request: RemoveFavoriteRequest, responseHandler: (RemoveFavoriteResponse?) -> Void) {
+        let httpClient = HttpClient()
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        
+        //        let defaults = NSUserDefaults.standardUserDefaults()
+        //        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
+        let defaults = NSUserDefaults.standardUserDefaults()
+        //        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
+        var httpHeaders = [String : String]()
+        if defaults.stringForKey("sessionToken") != nil {
+            httpHeaders["User-Session"] = defaults.stringForKey("sessionToken")!
+            //            httpHeaders.setValue(defaults.stringForKey("sessionToken")!, forKey: "User-Session")
+        }
+        
+        httpClient.delete(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
+            var removeFavoriteResponse: RemoveFavoriteResponse?
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    removeFavoriteResponse = RemoveFavoriteResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(removeFavoriteResponse)
+        }
+        
+    }
+    
     func searchRestaurants(request: RestaurantSearchRequest, responseHandler : (RestaurantSearchResponse?) -> Void) {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
