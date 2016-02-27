@@ -48,6 +48,8 @@
 		C41298051C80B9590062BC7D /* NameOnlyDishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41298071C80B9590062BC7D /* NameOnlyDishCell.xib */; };
 		C41298081C80B95E0062BC7D /* ListCandidateNoDishContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C412980A1C80B95E0062BC7D /* ListCandidateNoDishContentView.xib */; };
 		C412980B1C80B9620062BC7D /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C412980D1C80B9620062BC7D /* NotificationCell.xib */; };
+		C412980F1C82282D0062BC7D /* NominateDishListCandidateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */; };
+		C41298111C82294A0062BC7D /* NominateDishListCandidateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41298101C82294A0062BC7D /* NominateDishListCandidateResponse.swift */; };
 		C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4215A981C63009A0052A613 /* DishListTableViewCell.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */; };
@@ -272,6 +274,8 @@
 		C41298061C80B9590062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NameOnlyDishCell.xib; sourceTree = "<group>"; };
 		C41298091C80B95E0062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ListCandidateNoDishContentView.xib; sourceTree = "<group>"; };
 		C412980C1C80B9620062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NotificationCell.xib; sourceTree = "<group>"; };
+		C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NominateDishListCandidateRequest.swift; sourceTree = "<group>"; };
+		C41298101C82294A0062BC7D /* NominateDishListCandidateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NominateDishListCandidateResponse.swift; sourceTree = "<group>"; };
 		C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCouponTableViewCell.swift; sourceTree = "<group>"; };
 		C414BD361BBBB04B008C5744 /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewDelegate.swift; sourceTree = "<group>"; };
@@ -913,6 +917,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A0D55E1C137DA800BAE246 /* Search */,
+				C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */,
 				C4B14E331B80490C001E8B62 /* GetPromotionsRequest.swift */,
 				C4B14E351B80491B001E8B62 /* GetRestaurantsRequest.swift */,
 				C4B14E371B804927001E8B62 /* GetDishesRequest.swift */,
@@ -959,6 +964,7 @@
 				CA203E531C12732600D6F32C /* RateResponse.swift */,
 				CA203E571C16561500D6F32C /* AddToFavoritesResponse.swift */,
 				C44C25891C53627700A345D8 /* VoteRestaurantResponse.swift */,
+				C41298101C82294A0062BC7D /* NominateDishListCandidateResponse.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -1277,6 +1283,7 @@
 				CA203DE11C111EEA00D6F32C /* HttpRequestProtocol.swift in Sources */,
 				CA203DE21C111EEA00D6F32C /* GetFavoritesRequest.swift in Sources */,
 				CA203DE31C111EEA00D6F32C /* CouponCellSecondView.swift in Sources */,
+				C41298111C82294A0062BC7D /* NominateDishListCandidateResponse.swift in Sources */,
 				C4066F111C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift in Sources */,
 				CA203DE41C111EEA00D6F32C /* SignUpResponse.swift in Sources */,
 				CA203DE51C111EEA00D6F32C /* SelectionPanel.swift in Sources */,
@@ -1352,6 +1359,7 @@
 				C47A1C8B1C7DF2A100E0DF3A /* NotificationTableViewCell.swift in Sources */,
 				CA203E161C111EEA00D6F32C /* SignUpView.swift in Sources */,
 				CA203E171C111EEA00D6F32C /* PostRequestProtocol.swift in Sources */,
+				C412980F1C82282D0062BC7D /* NominateDishListCandidateRequest.swift in Sources */,
 				CA203E181C111EEA00D6F32C /* MenuItem.swift in Sources */,
 				CA203E191C111EEA00D6F32C /* SimpleCouponTableViewCell.swift in Sources */,
 				CA203E1A1C111EEA00D6F32C /* NotificationDetailView.swift in Sources */,
