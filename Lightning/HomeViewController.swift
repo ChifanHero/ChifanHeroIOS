@@ -559,5 +559,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
+    
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        adjustUI()
+    }
 }
 

@@ -24,6 +24,9 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.nameLabel.hidden = true
+        dishImageView.layer.cornerRadius = dishImageView.frame.size.height / 2
+        dishImageView.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -51,6 +54,7 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
                     let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: false)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
                     
                     self.nameLabel.attributedText = attributedName
+                    self.nameLabel.hidden = false
                 } catch {
                     
                 }
@@ -61,24 +65,6 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
             
             self.restaurantButton.setTitle(dish.fromRestaurant?.name, forState: UIControlState.Normal)
         });
-//        if dish.name != nil {
-//            do {
-//                
-//                let nameWithSize = NSString(format:"<span style=\"font-size: 15\">%@</span>", dish.name!) as String
-//                let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: false)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-//                
-//                nameLabel.attributedText = attributedName
-//            } catch {
-//                
-//            }
-//        }
-//        
-//        rateLabel.text = ScoreComputer.getScore(positive: dish.likeCount, negative: dish.dislikeCount, neutral: dish.neutralCount)
-//        dishImageView.image = image
-//        
-//        restaurantButton.setTitle(dish.fromRestaurant?.name, forState: UIControlState.Normal)
-        
-
     }
     
     

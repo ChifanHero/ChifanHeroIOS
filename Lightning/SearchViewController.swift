@@ -37,14 +37,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     private var heightConstraint:NSLayoutConstraint?
     
-//    let footerView : LoadMoreFooterView = LoadMoreFooterView()
-    
     let LIMIT = 50
     var offset = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         print("Search view");
         waitingIndicator.hidden = true
         selectionBar.hidden = false
@@ -135,16 +132,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     func searchRestaurant(keyword keyword : String, offset : Int, limit : Int) {
-//        cleanStates()
         let request : RestaurantSearchRequest = RestaurantSearchRequest()
         request.highlightInField = true
         request.keyword = keyword
         request.offset = offset
         request.limit = limit
-//        let location : (Double, Double) = UserContext.getUserLocation()
         let userLocation = UserContext.instance.userLocation
-//        userLocation.lat = location.0
-//        userLocation.lon = location.1
         request.userLocation = userLocation
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -327,11 +320,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
-        
-    }
-    
     func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
         if selectionBar.scope == "dish" {
             return self.dishImages[indexPath.section]
@@ -388,7 +376,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         self.lists.removeAll()
         self.restaurantImages.removeAll()
         self.dishImages.removeAll()
-//        self.searchResultsTableView.reloadData()
+        self.searchResultsTableView.hidden = true
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -756,6 +744,17 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             }
         }
         
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+        
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        return headerView
     }
 
     
