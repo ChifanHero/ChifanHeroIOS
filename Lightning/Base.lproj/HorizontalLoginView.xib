@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HorizontalLoginView" customModule="Lightning" customModuleProvider="target">
             <connections>
                 <outlet property="accountTextField" destination="mgF-se-8Ju" id="4Sp-Fg-akq"/>
                 <outlet property="errorLabel" destination="ABo-lt-tXc" id="L57-ee-VhS"/>
-                <outlet property="loginButton" destination="vFx-k8-OlF" id="D3I-xL-dJZ"/>
+                <outlet property="loginButton" destination="vFx-k8-OlF" id="vi3-6y-4aM"/>
                 <outlet property="passwordTextField" destination="WNG-M1-g7T" id="x6a-tt-C9p"/>
-                <outlet property="signupButton" destination="Cm3-re-HlS" id="gkb-xL-OaZ"/>
+                <outlet property="signupButton" destination="Cm3-re-HlS" id="zSi-cg-J7T"/>
                 <outlet property="sinaLoginButton" destination="O4v-Qf-p7a" id="NGA-fN-mpi"/>
             </connections>
         </placeholder>
@@ -44,6 +44,9 @@
                                     <state key="normal" title="注册新用户">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="signUp:" destination="-1" eventType="touchUpInside" id="V1x-hb-WhD"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>
@@ -53,13 +56,13 @@
                         <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="zY7-zD-OLG" userLabel="Credential Stack View">
                             <rect key="frame" x="17" y="23" width="475" height="68"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="bzh-yp-UWE">
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="bzh-yp-UWE">
                                     <rect key="frame" x="0.0" y="0.0" width="475" height="30"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="account" translatesAutoresizingMaskIntoConstraints="NO" id="ac0-xX-m48">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="account" translatesAutoresizingMaskIntoConstraints="NO" id="ac0-xX-m48">
                                             <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                         </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="account" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@domain.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgF-se-8Ju" userLabel="Account Text Field">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="account" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@domain.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgF-se-8Ju" userLabel="Account Text Field">
                                             <rect key="frame" x="44" y="3" width="431" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="431" id="G15-cG-cyB"/>
@@ -70,14 +73,14 @@
                                         </textField>
                                     </subviews>
                                 </stackView>
-                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccC-5h-4Ks" userLabel="seperator">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccC-5h-4Ks" userLabel="seperator">
                                     <rect key="frame" x="0.0" y="36" width="475" height="1"/>
                                     <color key="backgroundColor" red="0.74117647060000003" green="0.74117647060000003" blue="0.74117647060000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="shD-jK-6R4"/>
                                     </constraints>
                                 </view>
-                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="6SM-3l-uBE">
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="6SM-3l-uBE">
                                     <rect key="frame" x="0.0" y="43" width="462" height="25"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="password" translatesAutoresizingMaskIntoConstraints="NO" id="FP9-s1-9bf">
@@ -109,6 +112,9 @@
                             <state key="normal" title="登录">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="logIn:" destination="-1" eventType="touchUpInside" id="aHe-mD-vNz"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M1n-vZ-jBL" userLabel="Error message View">
                             <rect key="frame" x="17" y="0.0" width="462" height="23"/>
@@ -154,13 +160,13 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还没有登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZM-Ob-Vgl">
                     <rect key="frame" x="243" y="204" width="180" height="36"/>
                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10秒注册享受更多信息和互动" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kto-g6-m7W">
                     <rect key="frame" x="248" y="247" width="170.5" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>

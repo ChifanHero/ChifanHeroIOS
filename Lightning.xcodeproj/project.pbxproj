@@ -690,8 +690,8 @@
 		C43B9A4D1BDED52000FD50FF /* AboutMe */ = {
 			isa = PBXGroup;
 			children = (
-				C4D300081BC0BFEB00807C4D /* VerticalLoginView.swift */,
 				C49BF3321BC9EEB00097CBE0 /* LoginView.swift */,
+				C4D300081BC0BFEB00807C4D /* VerticalLoginView.swift */,
 				C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */,
 				C4D3000A1BC1025300807C4D /* LoginDelegate.swift */,
 				CA7A4F651BE863F80016BC56 /* SignUpView.swift */,
@@ -735,6 +735,7 @@
 		C476C5471B843C710051B0E5 /* UIElementsXib */ = {
 			isa = PBXGroup;
 			children = (
+				CA882D1D1C811BB700D04696 /* AboutMe */,
 				C41297831C809A4F0062BC7D /* TutorialScreens */,
 				C41297AA1C80B85F0062BC7D /* SlideBar.xib */,
 				C41297AD1C80B8630062BC7D /* RestaurantCell.xib */,
@@ -750,9 +751,7 @@
 				C41297C81C80B89A0062BC7D /* SimpleDishCell.xib */,
 				C41297CB1C80B89E0062BC7D /* InfoCell.xib */,
 				C41297CE1C80B8A40062BC7D /* InfoCouponCell.xib */,
-				C41297D11C80B8A80062BC7D /* VerticalLoginView.xib */,
 				C41297D41C80B8AC0062BC7D /* SelectionBar.xib */,
-				C41297D71C80B8B10062BC7D /* HorizontalLoginView.xib */,
 				C41297DA1C80B8B50062BC7D /* CouponCellSecondView.xib */,
 				C41297DD1C80B8BA0062BC7D /* LoadMoreFooterView.xib */,
 				C41297E01C80B8BF0062BC7D /* ListCandidateTopView.xib */,
@@ -761,7 +760,6 @@
 				C41297E91C80B8CD0062BC7D /* ListCandidateConfirmationView.xib */,
 				C41297EC1C80B8D10062BC7D /* PhotoCollectionCell.xib */,
 				C41297EF1C80B8D90062BC7D /* RecommendationsHeaderView.xib */,
-				C41297F21C80B8DF0062BC7D /* SignUpView.xib */,
 				C41297F51C80B9310062BC7D /* NameAddressRestaurantCell.xib */,
 				C41297F81C80B9390062BC7D /* ActionButtonView.xib */,
 				C41297FB1C80B93F0062BC7D /* NotAvailableMessageView.xib */,
@@ -1015,6 +1013,16 @@
 				CA203E511C124AF900D6F32C /* RatingTypeEnum.swift */,
 			);
 			name = Enum;
+			sourceTree = "<group>";
+		};
+		CA882D1D1C811BB700D04696 /* AboutMe */ = {
+			isa = PBXGroup;
+			children = (
+				C41297D11C80B8A80062BC7D /* VerticalLoginView.xib */,
+				C41297D71C80B8B10062BC7D /* HorizontalLoginView.xib */,
+				C41297F21C80B8DF0062BC7D /* SignUpView.xib */,
+			);
+			name = AboutMe;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

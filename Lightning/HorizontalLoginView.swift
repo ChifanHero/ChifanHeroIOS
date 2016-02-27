@@ -87,9 +87,13 @@ class HorizontalLoginView: LoginView {
     override func getErrorLabel() -> UILabel {
         return self.errorLabel
     }
-    
-    func signIn() {
-        //
-    }
 
+    @IBAction func logIn(sender: AnyObject) {
+        startLogin()
+    }
+    
+    @IBAction func signUp(sender: AnyObject) {
+        delegate?.signUp()
+    }
+    
 }
