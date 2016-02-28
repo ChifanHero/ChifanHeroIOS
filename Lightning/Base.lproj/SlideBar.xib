@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SlideBar" customModule="Lightning" customModuleProvider="target">
             <connections>
                 <outlet property="scrollView" destination="3oH-ZH-RtE" id="dac-gc-CVM"/>
+                <outlet property="selectionBox" destination="kWE-QW-M20" id="DDa-AY-cCq"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -14,8 +15,23 @@
             <rect key="frame" x="0.0" y="0.0" width="342" height="103"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3oH-ZH-RtE">
+                <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3oH-ZH-RtE">
                     <rect key="frame" x="0.0" y="0.0" width="342" height="103"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWE-QW-M20">
+                            <rect key="frame" x="66" y="35" width="63" height="34"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="63" placeholder="YES" id="pbS-7h-Xjq"/>
+                                <constraint firstAttribute="height" constant="34" placeholder="YES" id="u63-ku-vL1"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="kWE-QW-M20" secondAttribute="trailing" constant="213" placeholder="YES" id="f2d-OK-Fu2"/>
+                        <constraint firstAttribute="bottom" secondItem="kWE-QW-M20" secondAttribute="bottom" constant="34" placeholder="YES" id="mw0-1S-5lV"/>
+                        <constraint firstItem="kWE-QW-M20" firstAttribute="leading" secondItem="3oH-ZH-RtE" secondAttribute="leading" constant="66" placeholder="YES" id="ok9-cr-apu"/>
+                    </constraints>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -23,6 +39,7 @@
                 <constraint firstItem="3oH-ZH-RtE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1JH-dj-Xrh"/>
                 <constraint firstItem="3oH-ZH-RtE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="80v-mG-H4h"/>
                 <constraint firstAttribute="trailing" secondItem="3oH-ZH-RtE" secondAttribute="trailing" id="AM5-22-gvd"/>
+                <constraint firstItem="kWE-QW-M20" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="eCN-Zf-iV8"/>
                 <constraint firstAttribute="bottom" secondItem="3oH-ZH-RtE" secondAttribute="bottom" id="sum-L7-I2B"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

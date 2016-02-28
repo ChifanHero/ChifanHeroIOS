@@ -20,7 +20,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XmD-sZ-Jpd" userLabel="Action Container View">
                     <rect key="frame" x="22" y="6" width="105" height="28"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="like_large" translatesAutoresizingMaskIntoConstraints="NO" id="u7t-Qm-TOy" userLabel="Action Icon">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="like_large" translatesAutoresizingMaskIntoConstraints="NO" id="u7t-Qm-TOy" userLabel="Action Icon">
                             <rect key="frame" x="40" y="4" width="25" height="20"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obS-EC-4Gp" userLabel="Action Count">

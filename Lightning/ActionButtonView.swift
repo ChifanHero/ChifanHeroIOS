@@ -28,8 +28,11 @@ import UIKit
         }
     }
     
-    @IBInspectable var actionCount : Int? = 0 {
+    @IBInspectable var actionCount : Int? {
         didSet {
+            if actionCount == nil {
+                actionCount = 0
+            }
             actionCountLabel.text = "\(actionCount!)"
         }
     }

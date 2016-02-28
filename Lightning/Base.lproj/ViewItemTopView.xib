@@ -64,12 +64,7 @@
                             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             <gestureRecognizers/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="image" keyPath="action" value="3964E12F-013C-4A55-9BAD-81D55E56DB0C"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="neutral_large"/>
                                 <userDefinedRuntimeAttribute type="image" keyPath="icon" value="neutral_large"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="actionCount">
-                                    <integer key="value" value="0"/>
-                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="qKu-Mc-g3h" appends="YES" id="eRN-tc-Dah"/>
@@ -79,11 +74,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="94" height="44"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <gestureRecognizers/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="actionCount">
-                                    <integer key="value" value="0"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="mtc-M6-Edk" appends="YES" id="ASy-17-jx1"/>
                             </connections>
@@ -93,11 +83,7 @@
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <gestureRecognizers/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="action" value="like"/>
                                 <userDefinedRuntimeAttribute type="image" keyPath="icon" value="dislike_large"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="actionCount">
-                                    <integer key="value" value="0"/>
-                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="Rtd-53-yFf" appends="YES" id="M7W-65-Q8Z"/>
@@ -108,7 +94,6 @@
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <gestureRecognizers/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="action" value="bookmark"/>
                                 <userDefinedRuntimeAttribute type="image" keyPath="icon" value="bookmark_large"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
@@ -185,7 +170,6 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="3964E12F-013C-4A55-9BAD-81D55E56DB0C" width="18" height="25"/>
         <image name="bookmark_large" width="18" height="25"/>
         <image name="dislike_large" width="25" height="24"/>
         <image name="neutral_large" width="25" height="25"/>

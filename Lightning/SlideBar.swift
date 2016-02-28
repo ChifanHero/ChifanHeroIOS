@@ -13,8 +13,9 @@ class SlideBar: UIView {
     
     var view: UIView!
     private var nibName: String  = "SlideBar"
+    @IBOutlet weak var selectionBox: UIView!
     
-    private var selectionBox : UIView = UIView()
+//    private var selectionBox : UIView = UIView()
     
     private var barElements : [UIView] = []
     
@@ -42,6 +43,7 @@ class SlideBar: UIView {
         }
     }
     @IBInspectable var labelTextSize : CGFloat = 15
+    
     @IBInspectable var labelLeftMargin : CGFloat = 5
     @IBInspectable var labelTopMargin : CGFloat = 5
     @IBInspectable var spaceBetweenElements : CGFloat = 20
@@ -53,6 +55,9 @@ class SlideBar: UIView {
         
         Setup() // Setup when this component is used from Storyboard
     }
+    
+    var selectionBoxWidthConstraint : NSLayoutConstraint?
+    var selectionBoxCenterXConstraint : NSLayoutConstraint?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -67,6 +72,8 @@ class SlideBar: UIView {
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         addSubview(view)
         configScrollView()
+        print(view.frame.size.height)
+        print(scrollView.frame.size.height)
     }
     
     private func configScrollView() {
@@ -80,10 +87,8 @@ class SlideBar: UIView {
         selectionBox.clipsToBounds = true
 //        selectionBox.layer.borderColor = boarderColor.CGColor
         selectionBox.layer.borderWidth = 1
-        let selectionBoxCenterYConstraint = NSLayoutConstraint(item: selectionBox, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
-        self.scrollView.addSubview(selectionBox)
-        self.view.addConstraint(selectionBoxCenterYConstraint)
-        self.view.layoutIfNeeded()
+        selectionBox.backgroundColor = UIColor.clearColor()
+        
     }
     
     private func LoadViewFromNib() -> UIView {
@@ -99,6 +104,7 @@ class SlideBar: UIView {
             return
         }
         
+        var selectionBarHeight : CGFloat?
         for var i = 0; i < titles.count; i++ {
             let label : UILabel = UILabel()
             label.text = titles[i]
@@ -112,6 +118,7 @@ class SlideBar: UIView {
             let containerView = UIView()
             containerView.alpha = 0
             let containerViewHeight = labelHeight + 2 * labelTopMargin
+            selectionBarHeight = containerViewHeight
             let containerViewWidth = labelWidth + 2 * labelLeftMargin
             let widthConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: containerViewWidth)
             let heightConstraint = NSLayoutConstraint(item: containerView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: containerViewHeight)
@@ -141,6 +148,13 @@ class SlideBar: UIView {
                 containerView.alpha = alpha
                 }, completion: nil)
         }
+//        let selectionBoxCenterYConstraint = NSLayoutConstraint(item: selectionBox, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
+        let selectionBoxHeightConstraint = NSLayoutConstraint(item: selectionBox, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: selectionBarHeight!)
+        self.scrollView.addSubview(selectionBox)
+//        self.view.addConstraint(selectionBoxCenterYConstraint)
+        self.selectionBox.addConstraint(selectionBoxHeightConstraint)
+        selectionBox.translatesAutoresizingMaskIntoConstraints = false
+        self.selectionBox.layoutIfNeeded()
         self.view.layoutIfNeeded()
         var scrollViewWidth : CGFloat = 0
         for element in barElements {
@@ -162,8 +176,21 @@ class SlideBar: UIView {
     
     func markElementAsSelected(atIndex index : Int){
         if (index < barElements.count) {
+            if selectionBoxWidthConstraint == nil {
+                selectionBoxWidthConstraint = NSLayoutConstraint(item: selectionBox, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.barElements[index].frame.width)
+            } else {
+                selectionBoxWidthConstraint!.constant = self.barElements[index].frame.width
+            }
+            if selectionBoxCenterXConstraint != nil {
+                self.scrollView.removeConstraint(selectionBoxCenterXConstraint!)
+            }
+            selectionBoxCenterXConstraint = NSLayoutConstraint(item: selectionBox, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.barElements[index], attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
+            self.scrollView.addConstraint(selectionBoxCenterXConstraint!)
+            
+            self.selectionBox.addConstraint(selectionBoxWidthConstraint!)
             UIView.animateWithDuration(slideDuration, delay: 0.0, options: UIViewAnimationOptions.AllowAnimatedContent, animations: { () -> Void in
-                self.selectionBox.frame = self.barElements[index].frame
+                self.scrollView.layoutIfNeeded()
+                self.selectionBox.layoutIfNeeded()
                 }, completion: nil)
         }
     }
