@@ -51,6 +51,7 @@
 		C412980F1C82282D0062BC7D /* NominateDishListCandidateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */; };
 		C41298111C82294A0062BC7D /* NominateDishListCandidateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41298101C82294A0062BC7D /* NominateDishListCandidateResponse.swift */; };
 		C41298131C822B1B0062BC7D /* DishListCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41298121C822B1B0062BC7D /* DishListCandidate.swift */; };
+		C41298161C83CDA40062BC7D /* UIImageEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41298151C83CDA40062BC7D /* UIImageEffects.swift */; };
 		C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4215A981C63009A0052A613 /* DishListTableViewCell.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */; };
@@ -281,6 +282,7 @@
 		C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NominateDishListCandidateRequest.swift; sourceTree = "<group>"; };
 		C41298101C82294A0062BC7D /* NominateDishListCandidateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NominateDishListCandidateResponse.swift; sourceTree = "<group>"; };
 		C41298121C822B1B0062BC7D /* DishListCandidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishListCandidate.swift; sourceTree = "<group>"; };
+		C41298151C83CDA40062BC7D /* UIImageEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageEffects.swift; sourceTree = "<group>"; };
 		C414BD321BBA6E8E008C5744 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		C414BD341BBA6EA1008C5744 /* InfoCouponTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCouponTableViewCell.swift; sourceTree = "<group>"; };
 		C414BD361BBBB04B008C5744 /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewDelegate.swift; sourceTree = "<group>"; };
@@ -563,6 +565,14 @@
 			name = TutorialScreens;
 			sourceTree = "<group>";
 		};
+		C41298141C83CD7D0062BC7D /* OpenSource */ = {
+			isa = PBXGroup;
+			children = (
+				C41298151C83CDA40062BC7D /* UIImageEffects.swift */,
+			);
+			name = OpenSource;
+			sourceTree = "<group>";
+		};
 		C42D9BB71B69EF2D0035C5A6 = {
 			isa = PBXGroup;
 			children = (
@@ -602,6 +612,7 @@
 				C43728231B812FA9009121C9 /* Util */,
 				CA37EE621BF6A81600DA3071 /* Enum */,
 				C4A595B41B7FC735009E0F24 /* Service */,
+				C41298141C83CD7D0062BC7D /* OpenSource */,
 				C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */,
 			);
 			path = Lightning;
@@ -1301,6 +1312,7 @@
 				CA203DDE1C111EEA00D6F32C /* Picture.swift in Sources */,
 				CA203DDF1C111EEA00D6F32C /* PhotoOperations.swift in Sources */,
 				CA203DE01C111EEA00D6F32C /* DishTableViewCell.swift in Sources */,
+				C41298161C83CDA40062BC7D /* UIImageEffects.swift in Sources */,
 				CA203DE11C111EEA00D6F32C /* HttpRequestProtocol.swift in Sources */,
 				CA203DE21C111EEA00D6F32C /* GetFavoritesRequest.swift in Sources */,
 				CA203DE31C111EEA00D6F32C /* CouponCellSecondView.swift in Sources */,

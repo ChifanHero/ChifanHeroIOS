@@ -32,6 +32,8 @@ import UIKit
     
     var view: UIView!
     
+    var backgroundImage : UIImage?
+    
     var name: String? {
         didSet {
             nameLabel.text = name
@@ -101,13 +103,16 @@ import UIKit
             if let imageURL = backgroundImageURL {
                 let url = NSURL(string: imageURL)
                 let data = NSData(contentsOfURL: url!)
-                let image = UIImage(data: data!)
-                backgroundImageView.image = image
+                backgroundImage = UIImage(data: data!)
             } else {
-                let defaultImage = UIImage(named: "restaurant_default_background")
-                backgroundImageView.image = defaultImage
+                backgroundImage = UIImage(named: "restaurant_default_background")
             }
+            self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
         }
+    }
+    
+    private func blurWithEffects(image : UIImage, factor : CGFloat) -> UIImage{
+        return image.applyBlurWithRadius(10 * factor, tintColor: UIColor(white: 1.0, alpha: 0.7 * factor), saturationDeltaFactor: 1.8)!
     }
     
     func xibSetup() {
@@ -115,6 +120,25 @@ import UIKit
         view.frame = bounds
         view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         addSubview(view)
+        UISetup()
+    }
+
+    
+    func changeBackgroundImageBlurEffect(offSet : CGFloat) {
+        let max : CGFloat = 60.0
+        let current = fabs(offSet)
+        let factor = (max - current) / max
+        if factor < 0.6 {
+            self.nameLabel.hidden = true
+            self.englishNameLabel.hidden = true
+        } else {
+            self.nameLabel.hidden = false
+            self.englishNameLabel.hidden = false
+        }
+        if self.backgroundImage != nil {
+            self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: factor)
+        }
+        
     }
     
     func loadViewFromNib() -> UIView{
@@ -122,6 +146,13 @@ import UIKit
         let nib = UINib(nibName: "ViewItemTopView", bundle: bundle)
         let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
         return view
+    }
+    
+    func UISetup() {
+//        let blur = UIBlurEffect(style: .ExtraLight)
+//        let effectView = UIVisualEffectView(effect: blur)
+//        effectView.frame = CGRectMake(0, 0, self.backgroundImageView.frame.width, self.backgroundImageView.frame.height)
+//        self.backgroundImageView.addSubview(effectView)
     }
     
     override init(frame: CGRect) {

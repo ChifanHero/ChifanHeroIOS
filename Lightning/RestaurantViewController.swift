@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, ImageProgressiveTableViewDelegate {
+class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, ImageProgressiveTableViewDelegate, UIScrollViewDelegate {
     
     var restaurantId : String?
     
@@ -50,6 +50,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         self.waitingView.hidden = false
         self.waitingIndicator.startAnimating()
         self.hotDishesTableView.imageDelegate = self
+        self.containerScrollView.delegate = self
+        self.containerScrollView.showsVerticalScrollIndicator = false
         loadData()
         topViewContainer.baseVC = self
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -100,6 +102,9 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                             }
                             if self.restaurant?.favoriteCount != nil {
                                 self.topViewContainer.bookmarkCount = self.restaurant?.favoriteCount
+                            }
+                            if self.restaurant?.picture != nil {
+                                self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
                             }
                             self.fetchImageDetails()
                         }
@@ -519,10 +524,21 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 pendingOperations.downloadQueue.suspended = false
             }
         }
+        
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         adjustContainerViewHeight()
     }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        print(scrollView.contentOffset.y)
+        self.topViewContainer.changeBackgroundImageBlurEffect(scrollView.contentOffset.y)
+    }
+
+    
+//    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+//        
+//    }
     
 }
