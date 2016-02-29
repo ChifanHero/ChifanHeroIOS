@@ -34,6 +34,8 @@ import UIKit
     
     var backgroundImage : UIImage?
     
+    var fullBlurEffectApplied = false
+    
     var name: String? {
         didSet {
             nameLabel.text = name
@@ -108,6 +110,7 @@ import UIKit
                 backgroundImage = UIImage(named: "restaurant_default_background")
             }
             self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
+            self.fullBlurEffectApplied = true
         }
     }
     
@@ -122,12 +125,39 @@ import UIKit
         addSubview(view)
         UISetup()
     }
-
+    
+//    func applyBlurEffectToBackgroundImage() {
+//        if !blurEffectApplied {
+//            if self.backgroundImage != nil {
+//                self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
+//                self.nameLabel.hidden = false
+//                self.englishNameLabel.hidden = false
+//                self.blurEffectApplied = true
+//            }
+//        }
+//        
+//    }
+//
+//    func clearBlurEffectToBackgroundImage() {
+//        if blurEffectApplied {
+//            if self.backgroundImage != nil {
+//                self.backgroundImageView.image = self.backgroundImage
+//                self.nameLabel.hidden = true
+//                self.englishNameLabel.hidden = true
+//                self.blurEffectApplied = false
+//            }
+//        }
+//    }
     
     func changeBackgroundImageBlurEffect(offSet : CGFloat) {
         let max : CGFloat = 60.0
-        let current = fabs(offSet)
+        let threshold : CGFloat = 100.0
+        var current = fabs(offSet) - threshold
+        if current < 0.0 {
+            current = 0.0
+        }
         let factor = (max - current) / max
+        
         if factor < 0.6 {
             self.nameLabel.hidden = true
             self.englishNameLabel.hidden = true
@@ -136,7 +166,15 @@ import UIKit
             self.englishNameLabel.hidden = false
         }
         if self.backgroundImage != nil {
-            self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: factor)
+            if factor < 1.0 {
+                self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: factor)
+                fullBlurEffectApplied = false
+            }
+            if factor == 1.0 && fullBlurEffectApplied == false {
+                self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: factor)
+                fullBlurEffectApplied = true
+            }
+            
         }
         
     }

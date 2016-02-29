@@ -533,7 +533,17 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         print(scrollView.contentOffset.y)
-        self.topViewContainer.changeBackgroundImageBlurEffect(scrollView.contentOffset.y)
+        let offset = scrollView.contentOffset.y
+        if offset < 0 {
+            self.topViewContainer.changeBackgroundImageBlurEffect(scrollView.contentOffset.y)
+        }
+//        if offset > -100 {
+//            self.topViewContainer.applyBlurEffectToBackgroundImage()
+//        } else {
+//            self.topViewContainer.clearBlurEffectToBackgroundImage()
+//        }
+        
+        
     }
 
     
