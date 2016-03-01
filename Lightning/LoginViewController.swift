@@ -163,8 +163,8 @@ class LoginViewController: UIViewController, LoginDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "signUp"){
-            let signUpViewController: SignUpViewController = segue.destinationViewController as! SignUpViewController
-            signUpViewController.loginViewController = self;
+            let signUpTableViewController: SignUpTableViewController = segue.destinationViewController as! SignUpTableViewController
+            signUpTableViewController.loginViewController = self;
         }
     }
 
