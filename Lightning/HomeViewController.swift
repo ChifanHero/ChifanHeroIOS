@@ -137,11 +137,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     }
     
     private func adjustContainerViewHeight() {
-        var contentRect : CGRect = CGRectZero
-        for subView : UIView in self.containerView.subviews {
-            contentRect = CGRectUnion(contentRect, subView.frame)
-        }
-        self.containerView.contentSize = CGSizeMake(contentRect.width, contentRect.height)
+        self.containerView.contentSize.height = self.topContainerView.frame.height + 10 + self.promotionsTable.frame.height
     }
     
     private func fetchImageDetails() {
