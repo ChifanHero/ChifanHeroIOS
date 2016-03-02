@@ -1,29 +1,30 @@
 //
-//  SignUpTableViewController.swift
+//  LogInTableViewController.swift
 //  Lightning
 //
-//  Created by Zhang, Alex on 2/29/16.
+//  Created by Zhang, Alex on 3/1/16.
 //  Copyright © 2016 Lightning. All rights reserved.
 //
 
 import UIKit
 
-class SignUpTableViewController: UITableViewController {
+class LogInTableViewController: UITableViewController {
 
-    var loginViewController: LogInTableViewController?
-    
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var createButton: UIButton!
+    
+    var logInIndicator: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if isLoggedIn(){
+            replaceLoginViewByAboutMeView()
+        }
         
-        // Do additional setup after loading the view.
-        UISetup()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -40,25 +41,69 @@ class SignUpTableViewController: UITableViewController {
         view.endEditing(true)
     }
     
-    private func UISetup(){
-        createButton.layer.cornerRadius = 5
+    private func isLoggedIn() -> Bool{
+        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if let result: Bool? = defaults.boolForKey("isLoggedIn"){
+            return result!
+        } else{
+            return false
+        }
     }
     
-    @IBAction func createButtonTouched(sender: AnyObject) {
-        createAccount()
+    func replaceLoginViewByAboutMeView() {
+        let tabBarController : UITabBarController = UIApplication.sharedApplication().keyWindow?.rootViewController as! UITabBarController
+        var viewControllers = tabBarController.viewControllers!
+        for var index = 0; index < viewControllers.count; index++ {
+            let vc : UIViewController = viewControllers[index]
+            if vc.restorationIdentifier == "LogInNavigationController" {
+                viewControllers.removeAtIndex(index)
+                let aboutMeNC = getAboutMeNavigationController()
+                viewControllers.insert(aboutMeNC, atIndex: index)
+                break
+            }
+        }
+        tabBarController.setViewControllers(viewControllers, animated: false)
     }
     
-    private func createAccount() {
-        AccountManager(serviceConfiguration: ParseConfiguration()).signUp(username: usernameTextField.text!, password: passwordTextField.text!){(success) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
+    private func getAboutMeNavigationController() -> UINavigationController {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let aboutMeNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("AboutMeNavigationController") as! UINavigationController
+        aboutMeNC.tabBarItem = UITabBarItem(title: "About me", image: UIImage(named: "about me"), tag: 3)
+        return aboutMeNC
+    }
+    
+    @IBAction func signUpButtonTouched(sender: AnyObject) {
+        performSegueWithIdentifier("signUp", sender: nil)
+    }
+    
+    @IBAction func logInButtonTouched(sender: AnyObject) {
+        startLogIn()
+    }
+    
+    private func startLogIn() {
+        logInIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        logInIndicator!.center = self.view.center
+        logIn(username: usernameTextField.text, password: passwordTextField.text)
+    }
+    
+    func logIn(username username: String?, password: String?) {
+        
+        logInIndicator?.startAnimating()
+        self.view.addSubview(logInIndicator!)
+        
+        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, password: password) { (success, user) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if success == true {
-                    self.loginViewController?.replaceLoginViewByAboutMeView()
-                    self.navigationController?.popViewControllerAnimated(true)
-                } else{
-                    print("fail")
+                    let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setBool(true, forKey: "isLoggedIn")
+                    self.replaceLoginViewByAboutMeView()
+                } else {
+                    print("login failed")
+                    self.logInIndicator?.stopAnimating()
+                    self.logInIndicator?.removeFromSuperview()
+                    self.showErrorMessage()
                 }
-            });
-            
+            })
         }
     }
     
@@ -72,8 +117,15 @@ class SignUpTableViewController: UITableViewController {
     }
     
     private func resetLogInInput(alertAction: UIAlertAction!){
-        //currentLoginView?.getAccountTextField()!.text = nil
-        //currentLoginView?.getPasswordTextField()!.text = nil
+        usernameTextField.text = nil
+        passwordTextField.text = nil
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "signUp"){
+            let signUpTableViewController: SignUpTableViewController = segue.destinationViewController as! SignUpTableViewController
+            signUpTableViewController.loginViewController = self;
+        }
     }
 
     // MARK: - Table view data source

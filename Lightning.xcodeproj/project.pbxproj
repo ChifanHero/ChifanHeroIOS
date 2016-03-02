@@ -27,9 +27,7 @@
 		C41297C61C80B89A0062BC7D /* SimpleDishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297C81C80B89A0062BC7D /* SimpleDishCell.xib */; };
 		C41297C91C80B89E0062BC7D /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297CB1C80B89E0062BC7D /* InfoCell.xib */; };
 		C41297CC1C80B8A40062BC7D /* InfoCouponCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297CE1C80B8A40062BC7D /* InfoCouponCell.xib */; };
-		C41297CF1C80B8A80062BC7D /* VerticalLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297D11C80B8A80062BC7D /* VerticalLoginView.xib */; };
 		C41297D21C80B8AC0062BC7D /* SelectionBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297D41C80B8AC0062BC7D /* SelectionBar.xib */; };
-		C41297D51C80B8B10062BC7D /* HorizontalLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297D71C80B8B10062BC7D /* HorizontalLoginView.xib */; };
 		C41297D81C80B8B50062BC7D /* CouponCellSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297DA1C80B8B50062BC7D /* CouponCellSecondView.xib */; };
 		C41297DB1C80B8BA0062BC7D /* LoadMoreFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297DD1C80B8BA0062BC7D /* LoadMoreFooterView.xib */; };
 		C41297DE1C80B8BF0062BC7D /* ListCandidateTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297E01C80B8BF0062BC7D /* ListCandidateTopView.xib */; };
@@ -86,7 +84,6 @@
 		C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */; };
 		C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */; };
 		C4F5B6F41C4C56B400DD1EBF /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */; };
-		CA203DA21C111EEA00D6F32C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3000C1BC1037B00807C4D /* LoginViewController.swift */; };
 		CA203DA31C111EEA00D6F32C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */; };
 		CA203DA41C111EEA00D6F32C /* LogOutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE91C06702D00D497D4 /* LogOutResponse.swift */; };
 		CA203DA51C111EEA00D6F32C /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43728181B812176009121C9 /* Favorite.swift */; };
@@ -127,7 +124,6 @@
 		CA203DCA1C111EEA00D6F32C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43728241B812FBA009121C9 /* NSDateExtension.swift */; };
 		CA203DCB1C111EEA00D6F32C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BFA1B726B270035C5A6 /* User.swift */; };
 		CA203DCC1C111EEA00D6F32C /* LogOutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE71C066FF200D497D4 /* LogOutRequest.swift */; };
-		CA203DCD1C111EEA00D6F32C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BF3321BC9EEB00097CBE0 /* LoginView.swift */; };
 		CA203DCE1C111EEA00D6F32C /* NameImageDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39B11B8A813300516248 /* NameImageDishTableViewCell.swift */; };
 		CA203DCF1C111EEA00D6F32C /* SelectionPanelDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9CB721B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift */; };
 		CA203DD01C111EEA00D6F32C /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39891B86F48D00516248 /* SortOrder.swift */; };
@@ -181,7 +177,6 @@
 		CA203E001C111EEA00D6F32C /* ListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B398B1B8703C800516248 /* ListsTableViewController.swift */; };
 		CA203E011C111EEA00D6F32C /* GetListByIdResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C461DB801BD0D747009032C8 /* GetListByIdResponse.swift */; };
 		CA203E021C111EEA00D6F32C /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D300121BC1B57B00807C4D /* LoginResponse.swift */; };
-		CA203E031C111EEA00D6F32C /* VerticalLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D300081BC0BFEB00807C4D /* VerticalLoginView.swift */; };
 		CA203E041C111EEA00D6F32C /* UpdateInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE51C0419D300D497D4 /* UpdateInfoResponse.swift */; };
 		CA203E051C111EEA00D6F32C /* SimpleDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46CB8D81BA15CCD000D1006 /* SimpleDishTableViewCell.swift */; };
 		CA203E061C111EEA00D6F32C /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43728211B8122B5009121C9 /* Rating.swift */; };
@@ -189,7 +184,6 @@
 		CA203E081C111EEA00D6F32C /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E201B802D7F001E8B62 /* HttpClient.swift */; };
 		CA203E091C111EEA00D6F32C /* GetDishByIdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E3B1B804947001E8B62 /* GetDishByIdRequest.swift */; };
 		CA203E0A1C111EEA00D6F32C /* CouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B397C1B85954200516248 /* CouponTableViewCell.swift */; };
-		CA203E0B1C111EEA00D6F32C /* LoginDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3000A1BC1025300807C4D /* LoginDelegate.swift */; };
 		CA203E0C1C111EEA00D6F32C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437281F1B812298009121C9 /* Message.swift */; };
 		CA203E0D1C111EEA00D6F32C /* SortParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39871B86F2B200516248 /* SortParameter.swift */; };
 		CA203E0E1C111EEA00D6F32C /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B9A471BDEBFC300FD50FF /* PhotoCollectionViewCell.swift */; };
@@ -197,7 +191,6 @@
 		CA203E101C111EEA00D6F32C /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39AD1B890B6000516248 /* RestaurantViewController.swift */; };
 		CA203E111C111EEA00D6F32C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */; };
 		CA203E121C111EEA00D6F32C /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437282A1B81668C009121C9 /* Error.swift */; };
-		CA203E131C111EEA00D6F32C /* HorizontalLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */; };
 		CA203E141C111EEA00D6F32C /* NotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDFC0C1B9821280065F285 /* NotificationDetailViewController.swift */; };
 		CA203E151C111EEA00D6F32C /* RestaurantAllDishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */; };
 		CA203E171C111EEA00D6F32C /* PostRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B14E421B804A75001E8B62 /* PostRequestProtocol.swift */; };
@@ -221,7 +214,6 @@
 		CA203E2A1C111EEA00D6F32C /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039C91BC3471400183AC2 /* ParseCrashReporting.framework */; };
 		CA203E2B1C111EEA00D6F32C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039C71BC3471400183AC2 /* Bolts.framework */; };
 		CA203E321C111EEA00D6F32C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42D9BCE1B69EF2D0035C5A6 /* LaunchScreen.storyboard */; };
-		CA203E341C111EEA00D6F32C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42D9BCC1B69EF2D0035C5A6 /* Assets.xcassets */; };
 		CA203E461C111EEA00D6F32C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42D9BC91B69EF2D0035C5A6 /* Main.storyboard */; };
 		CA203E521C124AF900D6F32C /* RatingTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E511C124AF900D6F32C /* RatingTypeEnum.swift */; };
 		CA203E541C12732600D6F32C /* RateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA203E531C12732600D6F32C /* RateResponse.swift */; };
@@ -232,6 +224,8 @@
 		CA882D211C82632800D04696 /* DeleteRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D201C82632800D04696 /* DeleteRequestProtocol.swift */; };
 		CA882D231C8263AE00D04696 /* RemoveFavoriteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D221C8263AE00D04696 /* RemoveFavoriteResponse.swift */; };
 		CA882D271C85181200D04696 /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D261C85181200D04696 /* SignUpTableViewController.swift */; };
+		CA882D291C8556E300D04696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42D9BCC1B69EF2D0035C5A6 /* Assets.xcassets */; };
+		CA882D2D1C86790200D04696 /* LogInTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D2C1C86790200D04696 /* LogInTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -255,9 +249,7 @@
 		C41297C71C80B89A0062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SimpleDishCell.xib; sourceTree = "<group>"; };
 		C41297CA1C80B89E0062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoCell.xib; sourceTree = "<group>"; };
 		C41297CD1C80B8A40062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoCouponCell.xib; sourceTree = "<group>"; };
-		C41297D01C80B8A80062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VerticalLoginView.xib; sourceTree = "<group>"; };
 		C41297D31C80B8AC0062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SelectionBar.xib; sourceTree = "<group>"; };
-		C41297D61C80B8B10062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HorizontalLoginView.xib; sourceTree = "<group>"; };
 		C41297D91C80B8B50062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CouponCellSecondView.xib; sourceTree = "<group>"; };
 		C41297DC1C80B8BA0062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoadMoreFooterView.xib; sourceTree = "<group>"; };
 		C41297DF1C80B8BF0062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ListCandidateTopView.xib; sourceTree = "<group>"; };
@@ -362,8 +354,6 @@
 		C48042B01BDDA920003135D2 /* FloatingBubbleBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingBubbleBehavior.swift; sourceTree = "<group>"; };
 		C48042B21BDDA957003135D2 /* BubbleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleButton.swift; sourceTree = "<group>"; };
 		C49BF32C1BC4EA940097CBE0 /* SelectionBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionBar.swift; sourceTree = "<group>"; };
-		C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalLoginView.swift; sourceTree = "<group>"; };
-		C49BF3321BC9EEB00097CBE0 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishListSearchRequest.swift; sourceTree = "<group>"; };
 		C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishSearchRequest.swift; sourceTree = "<group>"; };
 		C4A0D5461C11746100BAE246 /* Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
@@ -415,9 +405,6 @@
 		C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAvailableMessageView.swift; sourceTree = "<group>"; };
 		C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerInfoDishTableViewCell.swift; sourceTree = "<group>"; };
 		C4D300041BBE5F1A00807C4D /* AboutMeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeNavigationController.swift; sourceTree = "<group>"; };
-		C4D300081BC0BFEB00807C4D /* VerticalLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalLoginView.swift; sourceTree = "<group>"; };
-		C4D3000A1BC1025300807C4D /* LoginDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginDelegate.swift; sourceTree = "<group>"; };
-		C4D3000C1BC1037B00807C4D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C4D3000E1BC1B10B00807C4D /* AcountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcountManager.swift; sourceTree = "<group>"; };
 		C4D300101BC1B4FC00807C4D /* LoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		C4D300121BC1B57B00807C4D /* LoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
@@ -472,6 +459,7 @@
 		CA882D201C82632800D04696 /* DeleteRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteRequestProtocol.swift; sourceTree = "<group>"; };
 		CA882D221C8263AE00D04696 /* RemoveFavoriteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveFavoriteResponse.swift; sourceTree = "<group>"; };
 		CA882D261C85181200D04696 /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
+		CA882D2C1C86790200D04696 /* LogInTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInTableViewController.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -701,17 +689,6 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
-		C43B9A4D1BDED52000FD50FF /* AboutMe */ = {
-			isa = PBXGroup;
-			children = (
-				C49BF3321BC9EEB00097CBE0 /* LoginView.swift */,
-				C4D300081BC0BFEB00807C4D /* VerticalLoginView.swift */,
-				C49BF3301BC79F080097CBE0 /* HorizontalLoginView.swift */,
-				C4D3000A1BC1025300807C4D /* LoginDelegate.swift */,
-			);
-			name = AboutMe;
-			sourceTree = "<group>";
-		};
 		C43B9A541BDF04A900FD50FF /* OperationQueue */ = {
 			isa = PBXGroup;
 			children = (
@@ -747,7 +724,6 @@
 		C476C5471B843C710051B0E5 /* UIElementsXib */ = {
 			isa = PBXGroup;
 			children = (
-				CA882D1D1C811BB700D04696 /* AboutMe */,
 				C41297831C809A4F0062BC7D /* TutorialScreens */,
 				C41297AA1C80B85F0062BC7D /* SlideBar.xib */,
 				C41297AD1C80B8630062BC7D /* RestaurantCell.xib */,
@@ -790,7 +766,6 @@
 			children = (
 				C44C257C1C50B86300A345D8 /* Local Extensions */,
 				CA203E591C18E62B00D6F32C /* RatingAndFavorite */,
-				C43B9A4D1BDED52000FD50FF /* AboutMe */,
 				C43B9A4C1BDED4CB00FD50FF /* Cells */,
 				C43B9A4B1BDED15C00FD50FF /* ProgressiveImagesView */,
 				C48042AF1BDDA8FC003135D2 /* Animation */,
@@ -904,9 +879,9 @@
 				C4BDFC0C1B9821280065F285 /* NotificationDetailViewController.swift */,
 				C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */,
 				C4D300041BBE5F1A00807C4D /* AboutMeNavigationController.swift */,
-				C4D3000C1BC1037B00807C4D /* LoginViewController.swift */,
 				C461DB781BD0CA18009032C8 /* ListMemberViewController.swift */,
 				C4DB3E241BE67F7500076A57 /* ListCandidateViewController.swift */,
+				CA882D2C1C86790200D04696 /* LogInTableViewController.swift */,
 				CA882D261C85181200D04696 /* SignUpTableViewController.swift */,
 				CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */,
 				CA4A29861BF3C34400BAD7CC /* NickNameChangeViewController.swift */,
@@ -1030,15 +1005,6 @@
 			name = Enum;
 			sourceTree = "<group>";
 		};
-		CA882D1D1C811BB700D04696 /* AboutMe */ = {
-			isa = PBXGroup;
-			children = (
-				C41297D11C80B8A80062BC7D /* VerticalLoginView.xib */,
-				C41297D71C80B8B10062BC7D /* HorizontalLoginView.xib */,
-			);
-			name = AboutMe;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1157,13 +1123,10 @@
 				C41297DB1C80B8BA0062BC7D /* LoadMoreFooterView.xib in Resources */,
 				C41297BA1C80B8850062BC7D /* NameImageDishCell.xib in Resources */,
 				C41297CC1C80B8A40062BC7D /* InfoCouponCell.xib in Resources */,
-				C41297CF1C80B8A80062BC7D /* VerticalLoginView.xib in Resources */,
 				C41297C31C80B8950062BC7D /* NotificationDetailView.xib in Resources */,
 				C41297A51C80B85A0062BC7D /* TutorialChildViewController.xib in Resources */,
 				CA203E321C111EEA00D6F32C /* LaunchScreen.storyboard in Resources */,
 				C41297E41C80B8C80062BC7D /* ListHeaderView.xib in Resources */,
-				CA203E341C111EEA00D6F32C /* Assets.xcassets in Resources */,
-				C41297D51C80B8B10062BC7D /* HorizontalLoginView.xib in Resources */,
 				C41297A21C80B8510062BC7D /* CouponCell.xib in Resources */,
 				C41297ED1C80B8D90062BC7D /* RecommendationsHeaderView.xib in Resources */,
 				C41297C61C80B89A0062BC7D /* SimpleDishCell.xib in Resources */,
@@ -1174,6 +1137,7 @@
 				C41297BD1C80B88A0062BC7D /* AllDishesHeaderView.xib in Resources */,
 				C41297DE1C80B8BF0062BC7D /* ListCandidateTopView.xib in Resources */,
 				C41297AE1C80B8720062BC7D /* DishCell.xib in Resources */,
+				CA882D291C8556E300D04696 /* Assets.xcassets in Resources */,
 				C41297E11C80B8C30062BC7D /* ListCandidateSubView.xib in Resources */,
 				C41298051C80B9590062BC7D /* NameOnlyDishCell.xib in Resources */,
 				C41297FC1C80B9430062BC7D /* OwnerInfoDishCell.xib in Resources */,
@@ -1219,7 +1183,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA203DA21C111EEA00D6F32C /* LoginViewController.swift in Sources */,
 				CA203DA31C111EEA00D6F32C /* SearchViewController.swift in Sources */,
 				CA203E521C124AF900D6F32C /* RatingTypeEnum.swift in Sources */,
 				CA203DA41C111EEA00D6F32C /* LogOutResponse.swift in Sources */,
@@ -1273,7 +1236,6 @@
 				CA203DCB1C111EEA00D6F32C /* User.swift in Sources */,
 				CA203DCC1C111EEA00D6F32C /* LogOutRequest.swift in Sources */,
 				C4A0D55B1C11746100BAE246 /* SortBy.swift in Sources */,
-				CA203DCD1C111EEA00D6F32C /* LoginView.swift in Sources */,
 				CA203DCE1C111EEA00D6F32C /* NameImageDishTableViewCell.swift in Sources */,
 				CA203DCF1C111EEA00D6F32C /* SelectionPanelDelegateProtocol.swift in Sources */,
 				CA203E5F1C18F34600D6F32C /* RatingAndBookmarkExecutor.swift in Sources */,
@@ -1330,6 +1292,7 @@
 				CA203DF11C111EEA00D6F32C /* GetListsResponse.swift in Sources */,
 				C4A0D5631C137DDB00BAE246 /* DishSearchResponse.swift in Sources */,
 				C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */,
+				CA882D2D1C86790200D04696 /* LogInTableViewController.swift in Sources */,
 				CA203DF21C111EEA00D6F32C /* AboutMeNavigationController.swift in Sources */,
 				CA203DF31C111EEA00D6F32C /* PromotionType.swift in Sources */,
 				CA203DF41C111EEA00D6F32C /* InfoTableViewCell.swift in Sources */,
@@ -1354,7 +1317,6 @@
 				CA203E001C111EEA00D6F32C /* ListsTableViewController.swift in Sources */,
 				CA203E011C111EEA00D6F32C /* GetListByIdResponse.swift in Sources */,
 				CA203E021C111EEA00D6F32C /* LoginResponse.swift in Sources */,
-				CA203E031C111EEA00D6F32C /* VerticalLoginView.swift in Sources */,
 				C4A0D55C1C11746100BAE246 /* TuningParams.swift in Sources */,
 				CA203E041C111EEA00D6F32C /* UpdateInfoResponse.swift in Sources */,
 				CA203E051C111EEA00D6F32C /* SimpleDishTableViewCell.swift in Sources */,
@@ -1366,7 +1328,6 @@
 				C4A0D55A1C11746100BAE246 /* Serializable.swift in Sources */,
 				CA203E0A1C111EEA00D6F32C /* CouponTableViewCell.swift in Sources */,
 				C44C25841C52022900A345D8 /* ScoreComputer.swift in Sources */,
-				CA203E0B1C111EEA00D6F32C /* LoginDelegate.swift in Sources */,
 				CA203E0C1C111EEA00D6F32C /* Message.swift in Sources */,
 				CA203E0D1C111EEA00D6F32C /* SortParameter.swift in Sources */,
 				CA203E0E1C111EEA00D6F32C /* PhotoCollectionViewCell.swift in Sources */,
@@ -1375,7 +1336,6 @@
 				C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */,
 				CA203E111C111EEA00D6F32C /* HomeViewController.swift in Sources */,
 				CA203E121C111EEA00D6F32C /* Error.swift in Sources */,
-				CA203E131C111EEA00D6F32C /* HorizontalLoginView.swift in Sources */,
 				CA203E141C111EEA00D6F32C /* NotificationDetailViewController.swift in Sources */,
 				C47A1C8D1C7EC66500E0DF3A /* FirstNotification.swift in Sources */,
 				C4A0D5521C11746100BAE246 /* DishSearchRequest.swift in Sources */,
@@ -1514,28 +1474,12 @@
 			name = InfoCouponCell.xib;
 			sourceTree = "<group>";
 		};
-		C41297D11C80B8A80062BC7D /* VerticalLoginView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C41297D01C80B8A80062BC7D /* Base */,
-			);
-			name = VerticalLoginView.xib;
-			sourceTree = "<group>";
-		};
 		C41297D41C80B8AC0062BC7D /* SelectionBar.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C41297D31C80B8AC0062BC7D /* Base */,
 			);
 			name = SelectionBar.xib;
-			sourceTree = "<group>";
-		};
-		C41297D71C80B8B10062BC7D /* HorizontalLoginView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C41297D61C80B8B10062BC7D /* Base */,
-			);
-			name = HorizontalLoginView.xib;
 			sourceTree = "<group>";
 		};
 		C41297DA1C80B8B50062BC7D /* CouponCellSecondView.xib */ = {
