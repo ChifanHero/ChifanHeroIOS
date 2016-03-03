@@ -56,6 +56,13 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
         configurePullRefresh()
         initPromotionsTable()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
+        generateNavigationItemTitle()
+    }
+    
+    private func generateNavigationItemTitle() {
+        let logo = UIImage(named: "Lightning_Title.png")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
     }
     
     func configureNavigationController() {
@@ -75,7 +82,6 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     }
     
     private func initPromotionsTable(){
-        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         self.promotionsTable.imageDelegate = self
         loadingIndicator.startAnimating()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadPromotionsTableData", name:"UserLocationAvailable", object: nil)
@@ -182,32 +188,35 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     }
     
     internal func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        return self.images[indexPath.section]
+        return self.images[indexPath.row]
     }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 1
+        return promotions.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return promotions.count
+        if promotions.isEmpty {
+            return 0
+        }
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         
-        let promotion : Promotion = self.promotions[indexPath.section]
+        let promotion: Promotion = self.promotions[indexPath.row]
         
         if promotion.restaurant != nil {
-            var cell : RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+            var cell: RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
             if cell == nil {
                 tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
             }
             let imageDetails = imageForIndexPath(tableView: self.promotionsTable, indexPath: indexPath)
-            cell?.setUp(restaurant: promotions[indexPath.section].restaurant!, image: imageDetails.image!)
+            cell?.setUp(restaurant: promotions[indexPath.row].restaurant!, image: imageDetails.image!)
             
             switch (imageDetails.state){
             case .New:
@@ -224,7 +233,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
             }
             let imageDetails = imageForIndexPath(tableView: self.promotionsTable, indexPath: indexPath)
-            cell?.setUp(dish: promotions[indexPath.section].dish!, image: imageDetails.image!)
+            cell?.setUp(dish: promotions[indexPath.row].dish!, image: imageDetails.image!)
             
             switch (imageDetails.state){
             case .New:
@@ -247,7 +256,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let promotion : Promotion = self.promotions[indexPath.section]
+        let promotion: Promotion = self.promotions[indexPath.row]
         if promotion.restaurant != nil {
             return RestaurantTableViewCell.height
         } else if promotion.dish != nil {
@@ -258,9 +267,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let promotion : Promotion = self.promotions[indexPath.section]
+        let promotion : Promotion = self.promotions[indexPath.row]
         if promotion.restaurant != nil {
-            let restaurant : Restaurant = promotions[indexPath.section].restaurant!
+            let restaurant : Restaurant = promotions[indexPath.row].restaurant!
             self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
         }
         
@@ -276,20 +285,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            let headerView = RecommendationsHeaderView()
-            return headerView
-        } else {
-            let headerView = UIView()
-            headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-            return headerView
-        }
+        let headerView = RecommendationsHeaderView()
+        return headerView
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) ->
         [UITableViewRowAction]? {
             
-        let promotion : Promotion = self.promotions[indexPath.section]
+        let promotion : Promotion = self.promotions[indexPath.row]
         var favoriteCount : Int = 0
         var likeCount : Int = 0
         var neutralCount : Int = 0
@@ -448,7 +451,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     private func addToFavorites(indexPath: NSIndexPath){
         
-        let promotion : Promotion = self.promotions[indexPath.section]
+        let promotion : Promotion = self.promotions[indexPath.row]
         if promotion.dish != nil {
             ratingAndBookmarkExecutor?.addToFavorites("dish", objectId: (promotion.dish?.id)!, failureHandler: { (objectId) -> Void in
                 for promotion : Promotion in self.promotions {
@@ -477,7 +480,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         var type: String?
         var objectId: String?
         
-        let promotion : Promotion = self.promotions[indexPath.section]
+        let promotion : Promotion = self.promotions[indexPath.row]
         if promotion.dish != nil {
             type = "dish"
             objectId = promotion.dish?.id
