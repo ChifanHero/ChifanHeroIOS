@@ -10,7 +10,7 @@ import UIKit
 
 class RestaurantTableViewCell: UITableViewCell {
     
-    static var height: CGFloat = 110
+    static var height: CGFloat = 80
     
     @IBOutlet weak var restaurantImageView: UIImageView!
     
