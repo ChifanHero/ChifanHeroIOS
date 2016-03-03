@@ -8,12 +8,18 @@
 
 import UIKit
 
-class NickNameChangeViewController: UIViewController {
+class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
+    
+    var nickName : String?
 
     @IBOutlet weak var nickNameTextField: UITextField!
     
     @IBAction func nickNameChangeDone(sender: AnyObject) {
         
+        changeNickName()
+    }
+    
+    func changeNickName() {
         if nickNameTextField.text != nil {
             
             AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nickNameTextField.text, pictureId: nil) { (success, user) -> Void in
@@ -31,15 +37,28 @@ class NickNameChangeViewController: UIViewController {
             navigationController?.popViewControllerAnimated(true)
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.nickNameTextField.text = self.nickName
+        self.nickNameTextField.delegate = self
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        print(self.nickNameTextField.text)
+        if self.nickNameTextField.text == "" || self.nickNameTextField.text == nil {
+            return false
+        } else {
+            changeNickName()
+            return true
+        }
+        
     }
     
 

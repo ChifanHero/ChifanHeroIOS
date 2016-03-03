@@ -88,6 +88,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             let destinationVC = segue.destinationViewController as! AboutMeDetailTableViewController
             destinationVC.detailType = FavoriteTypeEnum.List
         }
+        if segue.identifier == "showNickNameChange" {
+            let destinationVC = segue.destinationViewController as! NickNameChangeViewController
+            destinationVC.nickName = self.nickNameLabel.text
+        }
     }
     
     private func popUpImageSourceOption(){
