@@ -70,6 +70,8 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     private func configurePullRefresh(){
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.containerView.addSubview(refreshControl)
+        self.refreshControl.beginRefreshing()
+        self.refreshControl.endRefreshing()
     }
     
     private func initPromotionsTable(){
@@ -78,12 +80,9 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
         loadingIndicator.startAnimating()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadPromotionsTableData", name:"UserLocationAvailable", object: nil)
         
-//        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("loadPromotionsTableData"), userInfo: nil, repeats: false)
     }
     
     @objc private func refresh(sender:AnyObject) {
-        self.images.removeAll()
-        self.promotions.removeAll()
         loadPromotionsTableData()
     }
     
@@ -101,13 +100,17 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
         print(getPromotionsRequest.getRequestBody())
         DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
+                self.images.removeAll()
+                self.promotions.removeAll()
                 self.loadResults(response?.results)
                 self.fetchImageDetails()
                 self.loadingIndicator.stopAnimating()
                 self.loadingIndicator.hidden = true
+                self.refreshControl.endRefreshing()
+                
                 self.promotionsTable.reloadData()
                 self.adjustUI()
-                self.refreshControl.endRefreshing()
+                
             });
         }
     }
@@ -554,6 +557,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 pendingOperations.downloadQueue.suspended = false
             }
         }
+        print(self.refreshControl.refreshing)
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {

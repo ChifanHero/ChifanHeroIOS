@@ -13,10 +13,13 @@ class LogInTableViewController: UITableViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var signInButton: UIButton!
     var logInIndicator: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UISetup()
 
         if isLoggedIn(){
             replaceLoginViewByAboutMeView()
@@ -30,6 +33,10 @@ class LogInTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func UISetup() {
+        self.signInButton.layer.cornerRadius = 5
     }
 
     override func didReceiveMemoryWarning() {

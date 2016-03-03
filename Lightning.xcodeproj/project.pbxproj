@@ -1077,7 +1077,7 @@
 						TestTargetID = C42D9BBF1B69EF2D0035C5A6;
 					};
 					CA203DA01C111EEA00D6F32C = {
-						DevelopmentTeam = DCSM79KF66;
+						DevelopmentTeam = 43JBA7Z8PB;
 					};
 				};
 			};
