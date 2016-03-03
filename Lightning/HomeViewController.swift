@@ -50,6 +50,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
         super.viewDidLoad()
         configureNavigationController()
         loadingIndicator.hidden = false
+        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         appDelegate!.startGettingLocation()
         appDelegate!.registerForPushNotifications()
@@ -113,7 +114,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
                 self.loadingIndicator.stopAnimating()
                 self.loadingIndicator.hidden = true
                 self.refreshControl.endRefreshing()
-                
+                self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
                 self.promotionsTable.reloadData()
                 self.adjustUI()
                 
