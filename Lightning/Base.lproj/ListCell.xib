@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="listCell" rowHeight="50" id="uod-5R-P5T" customClass="ListTableViewCell" customModule="Lightning" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="listCell" rowHeight="263" id="uod-5R-P5T" customClass="ListTableViewCell" customModule="Lightning" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="263"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uod-5R-P5T" id="GsA-wD-mwY">
-                <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="262.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="干锅手撕包菜" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1JT-lA-YEf">
-                        <rect key="frame" x="24" y="15" width="122" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="List_Badge" translatesAutoresizingMaskIntoConstraints="NO" id="Bve-Z7-OoY">
+                        <rect key="frame" x="257" y="8" width="100" height="80"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Sample" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1JT-lA-YEf">
+                        <rect key="frame" x="287" y="33" width="40" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100道菜" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpN-1D-Nb7">
-                        <rect key="frame" x="230" y="18" width="42" height="14"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="100道菜" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpN-1D-Nb7">
+                        <rect key="frame" x="292" y="55" width="30" height="9"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sO0-cE-wgY" userLabel="List_Image">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="262.5"/>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="1JT-lA-YEf" firstAttribute="leading" secondItem="GsA-wD-mwY" secondAttribute="leadingMargin" constant="16" id="4C6-Lp-rRN"/>
-                    <constraint firstItem="dpN-1D-Nb7" firstAttribute="centerY" secondItem="GsA-wD-mwY" secondAttribute="centerY" id="IsI-s1-GBB"/>
-                    <constraint firstAttribute="trailing" secondItem="dpN-1D-Nb7" secondAttribute="trailing" constant="15.4" id="VQh-PA-M8C"/>
-                    <constraint firstItem="1JT-lA-YEf" firstAttribute="centerY" secondItem="GsA-wD-mwY" secondAttribute="centerY" id="rgh-4q-NLN"/>
+                    <constraint firstItem="1JT-lA-YEf" firstAttribute="centerX" secondItem="Bve-Z7-OoY" secondAttribute="centerX" id="NEZ-Hc-TM8"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Bve-Z7-OoY" secondAttribute="trailing" constant="10" id="VWh-iG-7fg"/>
+                    <constraint firstItem="1JT-lA-YEf" firstAttribute="top" secondItem="GsA-wD-mwY" secondAttribute="topMargin" constant="25" id="bFp-8C-DN4"/>
+                    <constraint firstItem="dpN-1D-Nb7" firstAttribute="top" secondItem="1JT-lA-YEf" secondAttribute="bottom" constant="5" id="ePd-wf-rTC"/>
+                    <constraint firstItem="dpN-1D-Nb7" firstAttribute="centerX" secondItem="Bve-Z7-OoY" secondAttribute="centerX" id="nNZ-cI-t6H"/>
+                    <constraint firstItem="Bve-Z7-OoY" firstAttribute="top" secondItem="GsA-wD-mwY" secondAttribute="topMargin" id="qgo-Gl-6C6"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="countLabel" destination="dpN-1D-Nb7" id="QKB-gB-aDA"/>
                 <outlet property="nameLabel" destination="1JT-lA-YEf" id="j45-U8-Z3y"/>
             </connections>
-            <point key="canvasLocation" x="383" y="323"/>
+            <point key="canvasLocation" x="348.5" y="326.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="List_Badge" width="91" height="78"/>
+    </resources>
 </document>

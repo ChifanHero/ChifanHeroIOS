@@ -21,9 +21,6 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     var pendingOperations = PendingOperations()
     var images = [PhotoRecord]()
     
-//    var indicatorContainer : UIView?
-//    var indicator : UIActivityIndicatorView?
-    
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
     
     var loadMoreIndicator : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
@@ -105,49 +102,26 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         return RestaurantTableViewCell.height
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        } else {
-            return 10
-        }
-        
-    }
-    
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-        return headerView
-    }
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 1
-    }
-    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return restaurants.count
     }
     
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if restaurants.isEmpty {
+            return 0
+        }
+        return 1
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 1 {
-            print("section == 1")
-        }
-        if indexPath.section == 0 {
-            print("section == 0")
-        }
-        if indexPath.section == 2 {
-            print("section == 2")
-        }
-        if indexPath.section == 3 {
-            print("section == 3")
-        }
+        
         var cell : RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
         if cell == nil {
             tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
             cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
         }
         let imageDetails = imageForIndexPath(tableView: self.restaurantsTable, indexPath: indexPath)
-        cell?.setUp(restaurant: restaurants[indexPath.section], image: imageDetails.image!)
+        cell?.setUp(restaurant: restaurants[indexPath.row], image: imageDetails.image!)
         
         switch (imageDetails.state){
         case .New:
@@ -158,7 +132,10 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        // if last row, do: load more data
+        if indexPath.row == restaurants.count - 1 {
+            footerView.activityIndicator.startAnimating()
+            loadMore()
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -170,14 +147,6 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         if segue.identifier == "showRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
-        }
-    }
-    
-    override func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        // if last section, add activity indicator
-        if section == restaurants.count - 1 {
-            footerView.activityIndicator.startAnimating()
-            loadMore()
         }
     }
     
@@ -216,7 +185,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let restaurant : Restaurant = self.restaurants[indexPath.section]
+        let restaurant : Restaurant = self.restaurants[indexPath.row]
         var favoriteCount : Int = 0
         var likeCount : Int = 0
         var neutralCount : Int = 0
@@ -318,7 +287,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
-        let restaurant = self.restaurants[indexPath.section]
+        let restaurant = self.restaurants[indexPath.row]
         ratingAndFavoriteExecutor?.addToFavorites("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
             for restaurant : Restaurant in self.restaurants {
                 if restaurant.id == objectId {
@@ -332,7 +301,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     
     private func rateRestaurant(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
         
-        let objectId: String? = restaurants[indexPath.section].id
+        let objectId: String? = restaurants[indexPath.row].id
         let type = "restaurant"
         
         if ratingType == RatingTypeEnum.like {
@@ -370,7 +339,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     }
     
     func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        return self.images[indexPath.section]
+        return self.images[indexPath.row]
     }
     
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

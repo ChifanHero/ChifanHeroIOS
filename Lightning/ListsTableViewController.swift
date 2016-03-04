@@ -65,9 +65,8 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        // if last section, add activity indicator
-        if section == lists.count - 1 {
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == lists.count - 1 {
             footerView.activityIndicator.startAnimating()
             loadMore()
         }
@@ -100,11 +99,14 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 1
+        return lists.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return lists.count
+        if lists.isEmpty {
+            return 0
+        }
+        return 1
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -112,12 +114,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == lists.count - 1 {
-            return 30
-        } else {
-            return 0
-        }
-        
+        return 30
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -126,21 +123,12 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
             tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
             cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
         }
-        cell?.model = lists[indexPath.section]
+        cell?.model = lists[indexPath.row]
         return cell!
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("showList", sender: lists[indexPath.section])
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        } else {
-            return 10
-        }
-        
+        self.performSegueWithIdentifier("showList", sender: lists[indexPath.row])
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -158,7 +146,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
             var favoriteCount : Int = 0
             var likeCount : Int = 0
             var objectId = ""
-            let list = self.lists[indexPath.section]
+            let list = self.lists[indexPath.row]
             if list.likeCount != nil {
                 likeCount = list.likeCount!
             }
@@ -209,7 +197,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     private func addToFavorites(indexPath: NSIndexPath){
         
-        let list = self.lists[indexPath.section]
+        let list = self.lists[indexPath.row]
         ratingAndBookmarkExecutor?.addToFavorites("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
             if list.favoriteCount != nil {
                 list.favoriteCount!--
@@ -219,7 +207,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     private func rateList(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
         let type: String = "list"
-        let list = self.lists[indexPath.section]
+        let list = self.lists[indexPath.row]
         let objectId = list.id
         
         if ratingType == RatingTypeEnum.like {
