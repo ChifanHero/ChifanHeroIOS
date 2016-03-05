@@ -120,6 +120,7 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         if index >= 0 && index < menuItems.count {
             let indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection: index)
             self.dishTableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+            
         }
     }
     
@@ -130,6 +131,10 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
             }
         }
         
+    }
+    
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        shouldChangeSlideBarState = true
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {

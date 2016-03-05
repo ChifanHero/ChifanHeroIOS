@@ -192,6 +192,23 @@ class SlideBar: UIView {
                 self.scrollView.layoutIfNeeded()
                 self.selectionBox.layoutIfNeeded()
                 }, completion: nil)
+            scrollToElementIfNecessary(self.barElements[index])
         }
+    }
+    
+    func scrollToElementIfNecessary(selectedElement : UIView) {
+        let globalPoint = selectedElement.superview?.convertPoint(selectedElement.frame.origin, toView: nil)
+        if (globalPoint?.x)!  > self.superview?.frame.width || (globalPoint?.x)! + selectedElement.frame.size.width < 0 {
+            UIView.animateWithDuration(slideDuration, animations: { () -> Void in
+                if selectedElement.tag == 0 {
+                    self.scrollView.contentOffset.x = 0
+                } else {
+                    self.scrollView.contentOffset.x = self.selectionBox.frame.origin.x - 1/2 * self.spaceBetweenElements
+                }
+                
+            })
+            
+        }
+        
     }
 }
