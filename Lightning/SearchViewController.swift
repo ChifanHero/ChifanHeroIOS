@@ -137,8 +137,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         request.keyword = keyword
         request.offset = offset
         request.limit = limit
-        let userLocation = UserContext.instance.userLocation
+        let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        let userLocation = appDelegate!.currentLocation
         request.userLocation = userLocation
+        print(request.getRequestBody())
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if offset == 0 {

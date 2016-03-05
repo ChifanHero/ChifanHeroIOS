@@ -13,8 +13,8 @@ class Location: Serializable {
     var lat : Double?
     var lon : Double?
     
-    func getProperties() -> [String : AnyObject] {
-        var parameters = Dictionary<String, AnyObject>()
+    func getProperties() -> [String : Double] {
+        var parameters = Dictionary<String, Double>()
         parameters["lat"] = lat
         parameters["lon"] = lon
         return parameters
