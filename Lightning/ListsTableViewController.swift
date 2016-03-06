@@ -84,7 +84,11 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    func refresh(sender:AnyObject) {
+    @objc private func refresh(sender:AnyObject) {
+        refresh()
+    }
+    
+    func refresh() {
         lists.removeAll()
         loadTableData()
     }

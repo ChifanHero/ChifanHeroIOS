@@ -77,6 +77,10 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
+    func refresh() {
+        
+    }
+    
     private func fetchImageDetails() {
         for dish : Dish in self.member {
             var url : String? = dish.picture?.original

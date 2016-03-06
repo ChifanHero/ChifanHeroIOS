@@ -77,6 +77,10 @@
 		C4A0D5631C137DDB00BAE246 /* DishSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5621C137DDB00BAE246 /* DishSearchResponse.swift */; };
 		C4A0D5651C137DEA00BAE246 /* DishListSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5641C137DEA00BAE246 /* DishListSearchResponse.swift */; };
 		C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5671C138B9700BAE246 /* SearchServiceConfiguration.swift */; };
+		C4B0A3931C8C0B4B00D05408 /* NoNetworkDefaultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4B0A3921C8C0B4B00D05408 /* NoNetworkDefaultView.xib */; };
+		C4B0A3951C8CB52500D05408 /* NoNetworkDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */; };
+		C4B0A3991C8CCD8D00D05408 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0A3981C8CCD8D00D05408 /* Reachability.swift */; };
+		C4B0A39B1C8CE69500D05408 /* RefreshableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0A39A1C8CE69500D05408 /* RefreshableViewController.swift */; };
 		C4BCB3581C54BAC70049D74A /* RestaurantSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BCB3571C54BAC70049D74A /* RestaurantSearchTableViewCell.swift */; };
 		C4CC99E21C5407A1007CBF64 /* NotAvailableMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */; };
 		C4CC99E61C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */; };
@@ -374,6 +378,10 @@
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponCellSecondView.swift; sourceTree = "<group>"; };
 		C4A821E11BE3257000D1D4B7 /* RecommendationsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationsHeaderView.swift; sourceTree = "<group>"; };
+		C4B0A3921C8C0B4B00D05408 /* NoNetworkDefaultView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoNetworkDefaultView.xib; sourceTree = "<group>"; };
+		C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNetworkDefaultView.swift; sourceTree = "<group>"; };
+		C4B0A3981C8CCD8D00D05408 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		C4B0A39A1C8CE69500D05408 /* RefreshableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableViewController.swift; sourceTree = "<group>"; };
 		C4B14E1A1B7FD5F2001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		C4B14E1C1B7FD68B001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		C4B14E1D1B7FD68B001E8B62 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
@@ -652,6 +660,7 @@
 				C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */,
 				C44C25831C52022900A345D8 /* ScoreComputer.swift */,
 				C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */,
+				C4B0A3981C8CCD8D00D05408 /* Reachability.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -757,6 +766,7 @@
 				C41298071C80B9590062BC7D /* NameOnlyDishCell.xib */,
 				C412980A1C80B95E0062BC7D /* ListCandidateNoDishContentView.xib */,
 				C412980D1C80B9620062BC7D /* NotificationCell.xib */,
+				C4B0A3921C8C0B4B00D05408 /* NoNetworkDefaultView.xib */,
 			);
 			name = UIElementsXib;
 			sourceTree = "<group>";
@@ -792,6 +802,7 @@
 				C44C25811C50C97200A345D8 /* ActionButtonView.swift */,
 				C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */,
 				C4066F141C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift */,
+				C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -886,6 +897,7 @@
 				CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */,
 				CA4A29861BF3C34400BAD7CC /* NickNameChangeViewController.swift */,
 				CA4A29881BF3C3D400BAD7CC /* AboutMeDetailViewController.swift */,
+				C4B0A39A1C8CE69500D05408 /* RefreshableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1132,6 +1144,7 @@
 				C41297C61C80B89A0062BC7D /* SimpleDishCell.xib in Resources */,
 				C41297F61C80B9390062BC7D /* ActionButtonView.xib in Resources */,
 				C41297D81C80B8B50062BC7D /* CouponCellSecondView.xib in Resources */,
+				C4B0A3931C8C0B4B00D05408 /* NoNetworkDefaultView.xib in Resources */,
 				C41297C01C80B88F0062BC7D /* MessageCell.xib in Resources */,
 				C41297E71C80B8CD0062BC7D /* ListCandidateConfirmationView.xib in Resources */,
 				C41297BD1C80B88A0062BC7D /* AllDishesHeaderView.xib in Resources */,
@@ -1197,6 +1210,7 @@
 				CA203DAB1C111EEA00D6F32C /* Queue.swift in Sources */,
 				CA203DAC1C111EEA00D6F32C /* ViewItemTopUIView.swift in Sources */,
 				CA203DAD1C111EEA00D6F32C /* ParseConfiguration.swift in Sources */,
+				C4B0A3991C8CCD8D00D05408 /* Reachability.swift in Sources */,
 				CA203DAE1C111EEA00D6F32C /* RecommendationsHeaderView.swift in Sources */,
 				CA203DAF1C111EEA00D6F32C /* GetMessageByIdRequest.swift in Sources */,
 				CA203DB01C111EEA00D6F32C /* SlideBar.swift in Sources */,
@@ -1285,6 +1299,7 @@
 				CA203DEC1C111EEA00D6F32C /* RestaurantTableViewCell.swift in Sources */,
 				C44C25821C50C97200A345D8 /* ActionButtonView.swift in Sources */,
 				CA203DED1C111EEA00D6F32C /* SlideBarDelegateProtocol.swift in Sources */,
+				C4B0A39B1C8CE69500D05408 /* RefreshableViewController.swift in Sources */,
 				CA203DEE1C111EEA00D6F32C /* ServiceConfiguration.swift in Sources */,
 				CA203DEF1C111EEA00D6F32C /* SignUpRequest.swift in Sources */,
 				CA882D231C8263AE00D04696 /* RemoveFavoriteResponse.swift in Sources */,
@@ -1305,6 +1320,7 @@
 				C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */,
 				CA203DFA1C111EEA00D6F32C /* AboutMeTableViewController.swift in Sources */,
 				C4A0D5591C11746100BAE246 /* RestaurantSearchRequest.swift in Sources */,
+				C4B0A3951C8CB52500D05408 /* NoNetworkDefaultView.swift in Sources */,
 				C41298131C822B1B0062BC7D /* DishListCandidate.swift in Sources */,
 				C4BCB3581C54BAC70049D74A /* RestaurantSearchTableViewCell.swift in Sources */,
 				C41297861C809AE60062BC7D /* TutorialChildViewController.swift in Sources */,

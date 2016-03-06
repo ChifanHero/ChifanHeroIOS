@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
+class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDelegate {
     
     @IBOutlet weak var promotionsTable: ImageProgressiveTableView!
     
@@ -86,15 +86,25 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     private func initPromotionsTable(){
         self.promotionsTable.imageDelegate = self
         loadingIndicator.startAnimating()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadPromotionsTableData", name:"UserLocationAvailable", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData", name:"UserLocationAvailable", object: nil)
         
     }
     
     @objc private func refresh(sender:AnyObject) {
-        loadPromotionsTableData()
+        loadPromotionsTableData(nil)
     }
     
-    @objc private func loadPromotionsTableData() {
+    func refreshData() {
+        loadPromotionsTableData(nil)
+    }
+    
+    override func refreshView(refreshHandler : (success : Bool) -> Void) {
+        self.loadPromotionsTableData { (success) -> Void in
+            refreshHandler(success: success)
+        }
+    }
+    
+    func loadPromotionsTableData(refreshHandler : ((success : Bool) -> Void)?) {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
         let getPromotionsRequest = GetPromotionsRequest()
         
@@ -108,17 +118,29 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
         print(getPromotionsRequest.getRequestBody())
         DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
-                self.images.removeAll()
-                self.promotions.removeAll()
-                self.loadResults(response?.results)
-                self.fetchImageDetails()
+                if response == nil {
+                    if refreshHandler != nil {
+                        refreshHandler!(success: false)
+                    }
+                } else {
+                    self.images.removeAll()
+                    self.promotions.removeAll()
+                    self.loadResults(response!.results)
+                    self.fetchImageDetails()
+                    
+                    if self.promotions.count > 0 {
+                        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+                    }
+                    self.promotionsTable.reloadData()
+                    self.adjustUI()
+                    if refreshHandler != nil {
+                        refreshHandler!(success: true)
+                    }
+                }
                 self.loadingIndicator.stopAnimating()
                 self.loadingIndicator.hidden = true
                 self.refreshControl.endRefreshing()
-                self.refreshControl.hidden = true
-                self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-                self.promotionsTable.reloadData()
-                self.adjustUI()
+                
                 
             });
         }

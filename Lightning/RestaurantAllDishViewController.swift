@@ -89,6 +89,10 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         
     }
     
+    func refresh() {
+        
+    }
+    
     private func fetchImageDetails() {
         for dish : Dish in self.dishes {
             var url = dish.picture?.original

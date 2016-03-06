@@ -88,7 +88,11 @@ class RestaurantsViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
     
-    func refresh(sender:AnyObject) {
+    @objc private func refresh(sender:AnyObject) {
+        refresh()
+    }
+    
+    func refresh() {
         request?.limit = 50
         request?.skip = 0
         loadTableData()

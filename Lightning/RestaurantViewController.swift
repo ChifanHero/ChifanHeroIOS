@@ -127,6 +127,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         adjustContainerViewHeight()
     }
     
+    func refresh() {
+        
+    }
+    
     private func adjustInfoTableViewHeight() {
         let height : CGFloat = CGFloat(self.info.count) * RestaurantViewController.INFO_ROW_HEIGHT
         let heightConstraint:NSLayoutConstraint = NSLayoutConstraint(item: self.infoTableView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute:NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: height);

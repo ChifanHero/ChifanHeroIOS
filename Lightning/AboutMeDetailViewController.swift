@@ -60,6 +60,10 @@ class AboutMeDetailViewController: UIViewController, UITableViewDelegate, UITabl
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
     }
+    
+    func refresh() {
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
