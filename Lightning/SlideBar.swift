@@ -198,7 +198,13 @@ class SlideBar: UIView {
     
     func scrollToElementIfNecessary(selectedElement : UIView) {
         let globalPoint = selectedElement.superview?.convertPoint(selectedElement.frame.origin, toView: nil)
-        if (globalPoint?.x)!  > self.superview?.frame.width || (globalPoint?.x)! + selectedElement.frame.size.width < 0 {
+        if (globalPoint?.x)! + selectedElement.frame.size.width > self.superview?.frame.width {
+            UIView.animateWithDuration(slideDuration, animations: { () -> Void in
+                let difference = (globalPoint?.x)! + selectedElement.frame.size.width + 1/2 * self.spaceBetweenElements - (self.superview?.frame.width)!
+                self.scrollView.contentOffset.x += difference
+            })
+        }
+        if (globalPoint?.x)! + selectedElement.frame.size.width < 0 {
             UIView.animateWithDuration(slideDuration, animations: { () -> Void in
                 if selectedElement.tag == 0 {
                     self.scrollView.contentOffset.x = 0
@@ -207,7 +213,6 @@ class SlideBar: UIView {
                 }
                 
             })
-            
         }
         
     }
