@@ -172,7 +172,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
         let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = barButtonItem
         if segue.identifier == "showRestaurants" {
-            let restaurantsController : RestaurantsTableViewController = segue.destinationViewController as! RestaurantsTableViewController
+            let restaurantsController : RestaurantsViewController = segue.destinationViewController as! RestaurantsViewController
             if let s = sender as? String {
                 restaurantsController.sortBy = s
             }

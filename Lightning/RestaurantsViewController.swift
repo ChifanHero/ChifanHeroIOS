@@ -8,13 +8,15 @@
 
 import UIKit
 
-class RestaurantsTableViewController: UITableViewController, ImageProgressiveTableViewDelegate {
+class RestaurantsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ImageProgressiveTableViewDelegate {
     
     @IBOutlet var restaurantsTable: ImageProgressiveTableView!
     
     private var request : GetRestaurantsRequest?
     
     var sortBy : String?
+    
+    let refreshControl = UIRefreshControl()
     
     var restaurants : [Restaurant] = []
     
@@ -31,9 +33,11 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.refreshControl = UIRefreshControl()
-        refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.restaurantsTable.addSubview(refreshControl!)
+        self.restaurantsTable.delegate = self
+        self.restaurantsTable.dataSource = self
+        self.restaurantsTable.hidden = true
+        refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.restaurantsTable.addSubview(refreshControl)
         self.restaurantsTable.imageDelegate = self
         loadTableData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -67,10 +71,11 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
                     self.restaurants = (response?.results)!
                     self.fetchImageDetails()
                 }
-                self.refreshControl!.endRefreshing()
+                self.refreshControl.endRefreshing()
                 self.waitingIndicator.stopAnimating()
                 self.waitingIndicator.hidden = true
-                self.tableView.reloadData()
+                self.restaurantsTable.reloadData()
+                self.restaurantsTable.hidden = false
             });
         }
         
@@ -98,22 +103,22 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         // Dispose of any resources that can be recreated.
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return RestaurantTableViewCell.height
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return restaurants.count
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if restaurants.isEmpty {
             return 0
         }
         return 1
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell : RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
         if cell == nil {
@@ -131,14 +136,14 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         return cell!
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == restaurants.count - 1 {
             footerView.activityIndicator.startAnimating()
             loadMore()
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let restaurantSelected : Restaurant = restaurants[indexPath.row]
         performSegueWithIdentifier("showRestaurant", sender: restaurantSelected.id)
     }
@@ -166,16 +171,16 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
                     }
                 }
                 self.footerView.activityIndicator.stopAnimating()
-                self.tableView.reloadData()
+                self.restaurantsTable.reloadData()
             });
         }
     }
     
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return footerView
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == restaurants.count - 1 {
            return 30
         } else {
@@ -184,7 +189,7 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         
     }
     
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let restaurant : Restaurant = self.restaurants[indexPath.row]
         var favoriteCount : Int = 0
         var likeCount : Int = 0
@@ -342,18 +347,18 @@ class RestaurantsTableViewController: UITableViewController, ImageProgressiveTab
         return self.images[indexPath.row]
     }
     
-    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         self.restaurantsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
         self.restaurantsTable.loadImageForVisibleCells(&pendingOperations)
         pendingOperations.downloadQueue.suspended = false
     }
     
     // As soon as the user starts scrolling, suspend all operations
-    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         pendingOperations.downloadQueue.suspended = true
     }
     
-    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             if scrollView == self.restaurantsTable {
                 self.restaurantsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
