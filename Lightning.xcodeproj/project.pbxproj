@@ -127,7 +127,7 @@
 		CA203DCE1C111EEA00D6F32C /* NameImageDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39B11B8A813300516248 /* NameImageDishTableViewCell.swift */; };
 		CA203DCF1C111EEA00D6F32C /* SelectionPanelDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9CB721B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift */; };
 		CA203DD01C111EEA00D6F32C /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39891B86F48D00516248 /* SortOrder.swift */; };
-		CA203DD11C111EEA00D6F32C /* AboutMeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4A29881BF3C3D400BAD7CC /* AboutMeDetailTableViewController.swift */; };
+		CA203DD11C111EEA00D6F32C /* AboutMeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4A29881BF3C3D400BAD7CC /* AboutMeDetailViewController.swift */; };
 		CA203DD21C111EEA00D6F32C /* HeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C414BD361BBBB04B008C5744 /* HeaderViewDelegate.swift */; };
 		CA203DD31C111EEA00D6F32C /* GetFavoritesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA37EE601BF6A44300DA3071 /* GetFavoritesResponse.swift */; };
 		CA203DD41C111EEA00D6F32C /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BFE1B726B540035C5A6 /* Restaurant.swift */; };
@@ -444,7 +444,7 @@
 		CA37EE601BF6A44300DA3071 /* GetFavoritesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFavoritesResponse.swift; sourceTree = "<group>"; };
 		CA37EE631BF6A86700DA3071 /* FavoriteTypeEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTypeEnum.swift; sourceTree = "<group>"; };
 		CA4A29861BF3C34400BAD7CC /* NickNameChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameChangeViewController.swift; sourceTree = "<group>"; };
-		CA4A29881BF3C3D400BAD7CC /* AboutMeDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeDetailTableViewController.swift; sourceTree = "<group>"; };
+		CA4A29881BF3C3D400BAD7CC /* AboutMeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeDetailViewController.swift; sourceTree = "<group>"; };
 		CA7A4F691BE939BB0016BC56 /* SignUpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		CA7A4F6B1BE9C95D0016BC56 /* SignUpResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
 		CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeTableViewController.swift; sourceTree = "<group>"; };
@@ -885,7 +885,7 @@
 				CA882D261C85181200D04696 /* SignUpTableViewController.swift */,
 				CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */,
 				CA4A29861BF3C34400BAD7CC /* NickNameChangeViewController.swift */,
-				CA4A29881BF3C3D400BAD7CC /* AboutMeDetailTableViewController.swift */,
+				CA4A29881BF3C3D400BAD7CC /* AboutMeDetailViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1240,7 +1240,7 @@
 				CA203DCF1C111EEA00D6F32C /* SelectionPanelDelegateProtocol.swift in Sources */,
 				CA203E5F1C18F34600D6F32C /* RatingAndBookmarkExecutor.swift in Sources */,
 				CA203DD01C111EEA00D6F32C /* SortOrder.swift in Sources */,
-				CA203DD11C111EEA00D6F32C /* AboutMeDetailTableViewController.swift in Sources */,
+				CA203DD11C111EEA00D6F32C /* AboutMeDetailViewController.swift in Sources */,
 				CA203DD21C111EEA00D6F32C /* HeaderViewDelegate.swift in Sources */,
 				CA203DD31C111EEA00D6F32C /* GetFavoritesResponse.swift in Sources */,
 				CA203DD41C111EEA00D6F32C /* Restaurant.swift in Sources */,

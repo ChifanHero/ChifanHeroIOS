@@ -219,7 +219,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="Lightning" customModuleProvider="target">
@@ -525,11 +525,11 @@
                         <viewControllerLayoutGuide type="bottom" id="QnF-By-T1k"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xj1-zJ-qzQ">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hNn-ud-WaQ" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
-                                <rect key="frame" x="-4" y="60" width="383" height="494"/>
+                                <rect key="frame" x="-4" y="60" width="383" height="543"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="98Y-kL-NWK" id="qgg-ST-xYq"/>
@@ -544,10 +544,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fF1-PG-SI9" userLabel="Waiting View">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="603"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0L7-sL-8lX">
-                                        <rect key="frame" x="173" y="258" width="37" height="37"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0L7-sL-8lX">
+                                        <rect key="frame" x="173" y="282" width="37" height="37"/>
                                         <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -785,8 +785,8 @@
                     <connections>
                         <outlet property="nickNameLabel" destination="ViJ-cJ-FVb" id="LqI-ea-hoF"/>
                         <outlet property="userImageView" destination="uSM-Ry-HrB" id="ve3-3f-UGg"/>
-                        <segue destination="6Ud-7T-snx" kind="show" identifier="showAboutMeDetail" id="0dZ-yJ-BxY"/>
                         <segue destination="pdu-ak-44S" kind="show" identifier="showNickNameChange" id="NxX-s2-cN4"/>
+                        <segue destination="yFU-gd-nx6" kind="show" identifier="showAboutMeDetail" id="mDx-Xa-JaM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JBw-sd-q8k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -854,31 +854,53 @@
             </objects>
             <point key="canvasLocation" x="1477.5" y="2404.5"/>
         </scene>
-        <!--AboutMeDetail-->
-        <scene sceneID="kWE-vX-a3t">
+        <!--About Me Detail View Controller-->
+        <scene sceneID="Aoo-YQ-Kio">
             <objects>
-                <tableViewController title="AboutMeDetail" id="6Ud-7T-snx" customClass="AboutMeDetailTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="kLZ-JZ-b3v">
+                <viewController id="yFU-gd-nx6" customClass="AboutMeDetailViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BlZ-3N-wbt"/>
+                        <viewControllerLayoutGuide type="bottom" id="VGp-5O-old"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iJg-P5-ySa">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <outlet property="dataSource" destination="6Ud-7T-snx" id="4Nh-fe-2NO"/>
-                            <outlet property="delegate" destination="6Ud-7T-snx" id="trs-fY-t0z"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="WwA-0t-IuG"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wmt-Pe-IJe" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="603"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="yFU-gd-nx6" id="qIl-8d-Jy8"/>
+                                    <outlet property="delegate" destination="yFU-gd-nx6" id="M5H-Fu-6QK"/>
+                                </connections>
+                            </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GvS-fq-eXH">
+                                <rect key="frame" x="169" y="283" width="37" height="37"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="VGp-5O-old" firstAttribute="top" secondItem="wmt-Pe-IJe" secondAttribute="bottom" id="6U1-R8-4K1"/>
+                            <constraint firstItem="wmt-Pe-IJe" firstAttribute="leading" secondItem="iJg-P5-ySa" secondAttribute="leadingMargin" constant="-20" id="Iem-J8-V6c"/>
+                            <constraint firstItem="GvS-fq-eXH" firstAttribute="centerX" secondItem="iJg-P5-ySa" secondAttribute="centerX" id="Rpg-DP-Be5"/>
+                            <constraint firstItem="GvS-fq-eXH" firstAttribute="centerY" secondItem="iJg-P5-ySa" secondAttribute="centerY" id="cvl-eC-bSe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wmt-Pe-IJe" secondAttribute="trailing" constant="-20" id="eX0-cR-snG"/>
+                            <constraint firstItem="wmt-Pe-IJe" firstAttribute="top" secondItem="BlZ-3N-wbt" secondAttribute="bottom" id="qEW-OC-29z"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="AboutMeDetailTableView" destination="kLZ-JZ-b3v" id="nKQ-iM-exa"/>
-                        <outlet property="aboutMeDetailTableView" destination="kLZ-JZ-b3v" id="OvY-Uk-mGE"/>
-                        <outlet property="aboutMeDetailViewTitle" destination="WwA-0t-IuG" id="NQD-EQ-Hjy"/>
-                        <segue destination="zJm-Fm-QLl" kind="show" identifier="AboutMeDetailToRestaurant" id="pAS-ML-arH"/>
-                        <segue destination="98Y-kL-NWK" kind="show" identifier="AboutMeDetailToList" id="wgF-Yw-Ofl"/>
+                        <outlet property="activityIndicator" destination="GvS-fq-eXH" id="Kgm-F6-uAG"/>
+                        <outlet property="tableView" destination="wmt-Pe-IJe" id="tSC-sc-xLG"/>
+                        <segue destination="zJm-Fm-QLl" kind="show" identifier="AboutMeDetailToRestaurant" id="3Ex-cw-iaA"/>
+                        <segue destination="98Y-kL-NWK" kind="show" identifier="AboutMeDetailToList" id="WIG-F3-BMt"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zy2-5u-aCR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4vs-gx-OeH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="867.5" y="2404.5"/>
+            <point key="canvasLocation" x="867.5" y="2440.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -906,10 +928,10 @@
             </objects>
             <point key="canvasLocation" x="-63.5" y="-208.5"/>
         </scene>
-        <!--首页-->
+        <!--Home View Navigation Controller-->
         <scene sceneID="vBJ-0Q-xaf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vtc-2Z-bjE" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vtc-2Z-bjE" userLabel="Home View Navigation Controller" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="首页" image="home" selectedImage="home" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="t3j-ww-i34">
@@ -1217,10 +1239,10 @@
             </objects>
             <point key="canvasLocation" x="3390.5" y="365.5"/>
         </scene>
-        <!--消息-->
+        <!--Notification View Split View Controller-->
         <scene sceneID="k1m-mH-zun">
             <objects>
-                <splitViewController restorationIdentifier="splitViewController" id="USD-Zz-VZI" sceneMemberID="viewController">
+                <splitViewController restorationIdentifier="splitViewController" id="USD-Zz-VZI" userLabel="Notification View Split View Controller" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="消息" image="notification" id="HCZ-rN-enm"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -1256,10 +1278,10 @@
             </objects>
             <point key="canvasLocation" x="-694.5" y="762.5"/>
         </scene>
-        <!--我的主页-->
+        <!--Personal View Navigation Controller-->
         <scene sceneID="lAW-DD-Bn8">
             <objects>
-                <navigationController restorationIdentifier="LogInNavigationController" storyboardIdentifier="LogInNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="uD7-Qe-tHo" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="LogInNavigationController" storyboardIdentifier="LogInNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="uD7-Qe-tHo" userLabel="Personal View Navigation Controller" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我的主页" image="about me" id="FW4-TG-ZV5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="JpX-m4-a5C">
@@ -1403,8 +1425,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="WIG-F3-BMt"/>
+        <segue reference="3Ex-cw-iaA"/>
         <segue reference="tIf-c0-cls"/>
-        <segue reference="SnI-Ci-tXQ"/>
-        <segue reference="vSQ-ka-XUm"/>
     </inferredMetricsTieBreakers>
 </document>

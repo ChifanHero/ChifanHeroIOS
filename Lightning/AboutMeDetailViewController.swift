@@ -8,20 +8,22 @@
 
 import UIKit
 
-class AboutMeDetailTableViewController: UITableViewController {
+class AboutMeDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
-    @IBOutlet var aboutMeDetailTableView: UITableView!
-    @IBOutlet weak var aboutMeDetailViewTitle: UINavigationItem!
+    @IBOutlet weak var tableView: ImageProgressiveTableView!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+//    @IBOutlet weak var aboutMeDetailViewTitle: UINavigationItem!
     
     var detailType: FavoriteTypeEnum? {
         didSet {
             if self.detailType == FavoriteTypeEnum.Restaurant{
-                aboutMeDetailViewTitle.title = "我想去的"
+//                aboutMeDetailViewTitle.title = "我想去的"
             } else if self.detailType == FavoriteTypeEnum.Dish {
-                aboutMeDetailViewTitle.title = "我想吃的"
+//                aboutMeDetailViewTitle.title = "我想吃的"
             } else {
-                aboutMeDetailViewTitle.title = "我的榜单"
+//                aboutMeDetailViewTitle.title = "我的榜单"
             }
             
         }
@@ -51,6 +53,13 @@ class AboutMeDetailTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        let selectedCellIndexPath : NSIndexPath? = self.tableView.indexPathForSelectedRow
+        if selectedCellIndexPath != nil {
+            self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -64,6 +73,9 @@ class AboutMeDetailTableViewController: UITableViewController {
     }
     
     private func loadData(){
+        self.tableView.hidden = true
+        self.activityIndicator.hidden = false
+        self.activityIndicator.startAnimating()
         let request: GetFavoritesRequest = GetFavoritesRequest(type: self.detailType!)
         
         DataAccessor(serviceConfiguration: ParseConfiguration()).getFavorites(request) { (response) -> Void in
@@ -80,7 +92,10 @@ class AboutMeDetailTableViewController: UITableViewController {
                 }
                 self.fetchRestaurantImageDetails()
                 self.fetchDishImageDetails()
-                self.aboutMeDetailTableView.reloadData()
+                self.tableView.reloadData()
+                self.tableView.hidden = false
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.hidden = true
             });
         }
     }
@@ -109,7 +124,7 @@ class AboutMeDetailTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         if self.detailType == FavoriteTypeEnum.Restaurant{
             return self.restaurants.count
@@ -120,13 +135,13 @@ class AboutMeDetailTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 1
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         
         if detailType == FavoriteTypeEnum.Restaurant {
@@ -144,7 +159,7 @@ class AboutMeDetailTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.favorites![indexPath.row].type == "restaurant" {
             let restaurantSelected : Restaurant = restaurants[indexPath.section]
             performSegueWithIdentifier("AboutMeDetailToRestaurant", sender: restaurantSelected.id)
@@ -156,7 +171,7 @@ class AboutMeDetailTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if detailType == FavoriteTypeEnum.Restaurant {
             return RestaurantTableViewCell.height
         } else if self.detailType == FavoriteTypeEnum.Dish {
@@ -166,7 +181,7 @@ class AboutMeDetailTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0
         } else {
@@ -174,13 +189,21 @@ class AboutMeDetailTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
         return headerView
     }
     
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
         let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "取消收藏", handler:{(action, indexpath) -> Void in
             

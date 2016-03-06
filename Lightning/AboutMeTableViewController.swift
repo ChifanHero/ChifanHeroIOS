@@ -78,17 +78,18 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if sender!.section == 2 && sender!.row == 0 {
-            let destinationVC = segue.destinationViewController as! AboutMeDetailTableViewController
-            destinationVC.detailType = FavoriteTypeEnum.Dish
-        } else if sender!.section == 2 && sender!.row == 1 {
-            let destinationVC = segue.destinationViewController as! AboutMeDetailTableViewController
-            destinationVC.detailType = FavoriteTypeEnum.Restaurant
-        } else if sender!.section == 2 && sender!.row == 2 {
-            let destinationVC = segue.destinationViewController as! AboutMeDetailTableViewController
-            destinationVC.detailType = FavoriteTypeEnum.List
-        }
-        if segue.identifier == "showNickNameChange" {
+        if segue.identifier == "showAboutMeDetail" {
+            if sender!.section == 2 && sender!.row == 0 {
+                let destinationVC = segue.destinationViewController as! AboutMeDetailViewController
+                destinationVC.detailType = FavoriteTypeEnum.Dish
+            } else if sender!.section == 2 && sender!.row == 1 {
+                let destinationVC = segue.destinationViewController as! AboutMeDetailViewController
+                destinationVC.detailType = FavoriteTypeEnum.Restaurant
+            } else if sender!.section == 2 && sender!.row == 2 {
+                let destinationVC = segue.destinationViewController as! AboutMeDetailViewController
+                destinationVC.detailType = FavoriteTypeEnum.List
+            }
+        } else if segue.identifier == "showNickNameChange" {
             let destinationVC = segue.destinationViewController as! NickNameChangeViewController
             destinationVC.nickName = self.nickNameLabel.text
         }
