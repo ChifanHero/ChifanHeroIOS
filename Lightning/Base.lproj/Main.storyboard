@@ -201,6 +201,7 @@
                     <connections>
                         <outlet property="restaurantsTable" destination="gCt-9Q-S6W" id="yIH-g6-qFW"/>
                         <outlet property="waitingIndicator" destination="EWK-8p-9KR" id="veg-HK-4QR"/>
+                        <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="Hvz-De-g2h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E7N-mt-8S8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -219,7 +220,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="Lightning" customModuleProvider="target">
@@ -1426,7 +1427,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WIG-F3-BMt"/>
-        <segue reference="3Ex-cw-iaA"/>
         <segue reference="tIf-c0-cls"/>
+        <segue reference="Hvz-De-g2h"/>
     </inferredMetricsTieBreakers>
 </document>

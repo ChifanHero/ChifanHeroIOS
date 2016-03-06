@@ -43,6 +43,13 @@ class RestaurantsViewController: UIViewController, UITableViewDataSource, UITabl
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        let selectedCellIndexPath : NSIndexPath? = self.restaurantsTable.indexPathForSelectedRow
+        if selectedCellIndexPath != nil {
+            self.restaurantsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+        }
+    }
+    
     func loadTableData() {
         waitingIndicator.startAnimating()
         if request == nil {
@@ -177,16 +184,17 @@ class RestaurantsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        footerView.backgroundColor = UIColor.whiteColor()
         return footerView
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == restaurants.count - 1 {
-           return 30
-        } else {
-            return 0
-        }
-        
+//        if section == restaurants.count - 1 {
+//           return 30
+//        } else {
+//            return 0
+//        }
+        return 30
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
