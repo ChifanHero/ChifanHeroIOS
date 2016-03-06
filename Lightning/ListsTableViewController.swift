@@ -32,7 +32,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.addSubview(refreshControl)
+        self.tableView.insertSubview(self.refreshControl, atIndex: 0)
         resultsTableView.hidden = true
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         loadTableData()

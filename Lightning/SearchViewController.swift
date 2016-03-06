@@ -78,7 +78,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     private func configurePullRefresh(){
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.searchResultsTableView.addSubview(refreshControl)
+        self.searchResultsTableView.insertSubview(self.refreshControl, atIndex: 0)
     }
     
     func configureNavigationController() {

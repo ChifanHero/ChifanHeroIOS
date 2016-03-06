@@ -48,6 +48,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.containerView.delegate = self
         configureNavigationController()
         loadingIndicator.hidden = false
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
@@ -77,7 +78,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     
     private func configurePullRefresh(){
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.containerView.addSubview(refreshControl)
+        self.containerView.insertSubview(refreshControl, atIndex : 0)
         self.refreshControl.beginRefreshing()
         self.refreshControl.endRefreshing()
     }
@@ -114,6 +115,7 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
                 self.loadingIndicator.stopAnimating()
                 self.loadingIndicator.hidden = true
                 self.refreshControl.endRefreshing()
+                self.refreshControl.hidden = true
                 self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
                 self.promotionsTable.reloadData()
                 self.adjustUI()
@@ -191,6 +193,36 @@ class HomeViewController: UIViewController, ImageProgressiveTableViewDelegate{
     internal func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
         return self.images[indexPath.row]
     }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        self.promotionsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+        self.promotionsTable.loadImageForVisibleCells(&pendingOperations)
+        pendingOperations.downloadQueue.suspended = false
+    }
+    
+    // As soon as the user starts scrolling, suspend all operations
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        pendingOperations.downloadQueue.suspended = true
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            if scrollView == self.promotionsTable {
+                self.promotionsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+                self.promotionsTable.loadImageForVisibleCells(&pendingOperations)
+                pendingOperations.downloadQueue.suspended = false
+            }
+        }
+        print(self.refreshControl.refreshing)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        print(scrollView.contentOffset.y)
+        if scrollView.contentOffset.y > 10 {
+            
+        }
+    }
+
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -542,27 +574,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         alertview.setTextTheme(.Dark)
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        self.promotionsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-        self.promotionsTable.loadImageForVisibleCells(&pendingOperations)
-        pendingOperations.downloadQueue.suspended = false
-    }
     
-    // As soon as the user starts scrolling, suspend all operations
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        pendingOperations.downloadQueue.suspended = true
-    }
-    
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            if scrollView == self.promotionsTable {
-                self.promotionsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-                self.promotionsTable.loadImageForVisibleCells(&pendingOperations)
-                pendingOperations.downloadQueue.suspended = false
-            }
-        }
-        print(self.refreshControl.refreshing)
-    }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         adjustUI()

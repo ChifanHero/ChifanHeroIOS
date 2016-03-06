@@ -37,7 +37,7 @@ class RestaurantsViewController: UIViewController, UITableViewDataSource, UITabl
         self.restaurantsTable.dataSource = self
         self.restaurantsTable.hidden = true
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.restaurantsTable.addSubview(refreshControl)
+        self.restaurantsTable.insertSubview(self.refreshControl, atIndex: 0)
         self.restaurantsTable.imageDelegate = self
         loadTableData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
