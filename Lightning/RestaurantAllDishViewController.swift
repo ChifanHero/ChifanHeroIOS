@@ -8,13 +8,19 @@
 
 import UIKit
 
-class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, ImageProgressiveTableViewDelegate {
+class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, ImageProgressiveTableViewDelegate {
     
     @IBOutlet weak var slideBar: SlideBar!
     
     @IBOutlet weak var dishTableView: ImageProgressiveTableView!
     
-    var restaurantId : String?
+    var request : GetRestaurantMenuRequest?
+    
+    var restaurantId : String? {
+        didSet {
+            
+        }
+    }
     
     private var dishes : [Dish] = []
     private var menuItems : [MenuItem] = []
@@ -67,30 +73,44 @@ class RestaurantAllDishViewController: UIViewController, SlideBarDelegate, UITab
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         waitingView.hidden = false
         waitingIndicator.startAnimating()
-        loadTableData()
+        loadData(nil)
     }
     
-    private func loadTableData() {
+    override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         if restaurantId != nil {
             let request : GetRestaurantMenuRequest = GetRestaurantMenuRequest(restaurantId: restaurantId!)
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantMenu(request, responseHandler: { (response) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.menuItems = (response?.results)!
-                    self.retriveMenuAndDishInformation()
-                    self.dishTableView.hidden = false
-                    self.fetchImageDetails()
-                    self.waitingIndicator.stopAnimating()
+                    if response == nil {
+                        if refreshHandler != nil {
+                            refreshHandler!(success: false)
+                        }
+                    } else {
+                        if response!.results.count > 0 {
+                            self.clearStates()
+                            self.menuItems = (response!.results)
+                            self.retriveMenuAndDishInformation()
+                            self.dishTableView.hidden = false
+                            self.fetchImageDetails()
+                            self.dishTableView.reloadData()
+                            self.slideBar.setUpScrollView(titles: self.menuNames, defaultSelection: nil)
+                        }
+                        if refreshHandler != nil {
+                            refreshHandler!(success: true)
+                        }
+                    }
                     self.waitingView.hidden = true
-                    self.dishTableView.reloadData()
-                    self.slideBar.setUpScrollView(titles: self.menuNames, defaultSelection: nil)
+                    self.waitingIndicator.stopAnimating()
+                    
                 });
             })
         }
-        
     }
     
-    func refresh() {
-        
+    func clearStates() {
+        self.dishes.removeAll()
+        self.dishImages.removeAll()
+        self.menuItems.removeAll()
     }
     
     private func fetchImageDetails() {
