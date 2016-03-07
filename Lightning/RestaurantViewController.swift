@@ -10,9 +10,15 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, ImageProgressiveTableViewDelegate, UIScrollViewDelegate {
+class RestaurantViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, ImageProgressiveTableViewDelegate, UIScrollViewDelegate {
     
-    var restaurantId : String?
+    var restaurantId : String? {
+        didSet {
+            request = GetRestaurantByIdRequest(id: restaurantId!)
+        }
+    }
+    
+    var request : GetRestaurantByIdRequest?
     
     var restaurant : Restaurant?
     
@@ -52,70 +58,89 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         self.hotDishesTableView.imageDelegate = self
         self.containerScrollView.delegate = self
         self.containerScrollView.showsVerticalScrollIndicator = false
-        loadData()
+        loadData(nil)
         topViewContainer.baseVC = self
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         // Do any additional setup after loading the view.
     }
     
-    func loadData() {
-        if (restaurantId != nil) {
-            let request : GetRestaurantByIdRequest = GetRestaurantByIdRequest(id: restaurantId!)
-            DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request) { (response) -> Void in
+    override func refreshData() {
+        
+    }
+    
+    override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
+        if (request != nil) {
+            DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    if response?.result != nil {
-                        self.restaurant = (response?.result)!
-                        if self.restaurant != nil {
-                            self.topViewContainer.restaurantId = self.restaurant?.id
-                            self.topViewContainer.name = self.restaurant?.name
-                            self.topViewContainer.englishName = self.restaurant?.englishName
-                            self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
-                            if self.restaurant?.address != nil {
-                                self.info["address"] = self.restaurant?.address
-                            }
-                            if self.restaurant?.hours != nil {
-                                self.info["hours"] = self.restaurant?.hours
-                            }
-                            if self.restaurant?.phone != nil {
-                                self.info["phone"] = self.restaurant?.phone
-                            }
-                            if self.restaurant != nil && self.restaurant!.hotDishes != nil {
-                                self.hotDishes += (self.restaurant?.hotDishes)!
-                            }
-                            if self.hotDishes.count == 0 {
-                                self.hotDishesTableView.hidden = true
-                                self.messageView.hidden = false
-                                self.messageView.votes = self.restaurant?.votes
-                                self.messageView.restaurantId = self.restaurant?.id
-                                
-                            } else {
-                                self.hotDishesTableView.hidden = false
-                            }
-                            if self.restaurant?.likeCount != nil {
-                                self.topViewContainer.likeCount = self.restaurant?.likeCount
-                            }
-                            if self.restaurant?.dislikeCount != nil {
-                                self.topViewContainer.dislikeCount = self.restaurant?.dislikeCount
-                            }
-                            if self.restaurant?.neutralCount != nil {
-                                self.topViewContainer.neutralCount = self.restaurant?.neutralCount
-                            }
-                            if self.restaurant?.favoriteCount != nil {
-                                self.topViewContainer.bookmarkCount = self.restaurant?.favoriteCount
-                            }
-                            if self.restaurant?.picture != nil {
-                                self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
-                            }
-                            self.fetchImageDetails()
+                    if response == nil {
+                        if refreshHandler != nil {
+                            refreshHandler!(success: false)
                         }
+                    } else {
+                        if response?.result != nil {
+                            self.restaurant = (response?.result)!
+                            if self.restaurant != nil {
+                                self.topViewContainer.restaurantId = self.restaurant?.id
+                                self.topViewContainer.name = self.restaurant?.name
+                                self.topViewContainer.englishName = self.restaurant?.englishName
+                                self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+                                if self.restaurant?.address != nil {
+                                    self.info["address"] = self.restaurant?.address
+                                }
+                                if self.restaurant?.hours != nil {
+                                    self.info["hours"] = self.restaurant?.hours
+                                }
+                                if self.restaurant?.phone != nil {
+                                    self.info["phone"] = self.restaurant?.phone
+                                }
+                                if self.restaurant != nil && self.restaurant!.hotDishes != nil {
+                                    self.hotDishes.removeAll()
+                                    self.hotDishes += (self.restaurant?.hotDishes)!
+                                }
+                                if self.hotDishes.count == 0 {
+                                    self.hotDishesTableView.hidden = true
+                                    self.messageView.hidden = false
+                                    self.messageView.votes = self.restaurant?.votes
+                                    self.messageView.restaurantId = self.restaurant?.id
+                                    
+                                } else {
+                                    self.hotDishesTableView.hidden = false
+                                }
+                                if self.restaurant?.likeCount != nil {
+                                    self.topViewContainer.likeCount = self.restaurant?.likeCount
+                                }
+                                if self.restaurant?.dislikeCount != nil {
+                                    self.topViewContainer.dislikeCount = self.restaurant?.dislikeCount
+                                }
+                                if self.restaurant?.neutralCount != nil {
+                                    self.topViewContainer.neutralCount = self.restaurant?.neutralCount
+                                }
+                                if self.restaurant?.favoriteCount != nil {
+                                    self.topViewContainer.bookmarkCount = self.restaurant?.favoriteCount
+                                }
+                                if self.restaurant?.picture != nil {
+                                    self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+                                }
+                                self.fetchImageDetails()
+                                self.infoTableView.reloadData()
+                                self.hotDishesTableView.reloadData()
+                                self.adjustUI()
+                            }
+                            
+                        } else {
+                            self.topViewContainer.hidden = true
+                            self.infoTableView.hidden = true
+                            self.hotDishesTableView.hidden = true
+                        }
+                        self.waitingIndicator.stopAnimating()
+                        self.waitingView.hidden = true
+                        if refreshHandler != nil {
+                            refreshHandler!(success: true)
+                        }
+                        
                         
                     }
                     
-                    self.infoTableView.reloadData()
-                    self.hotDishesTableView.reloadData()
-                    self.adjustUI()
-                    self.waitingIndicator.stopAnimating()
-                    self.waitingView.hidden = true
                 });
             }
         }
@@ -168,7 +193,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 contentRect = CGRectUnion(contentRect, subView.frame)
             }
         }
-        self.containerScrollView.contentSize = CGSizeMake(contentRect.width, contentRect.height - (self.navigationController?.navigationBar.frame.size.height)!)
+        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentRect.height - (self.navigationController?.navigationBar.frame.size.height)!)
         self.view.layoutIfNeeded()
     }
 

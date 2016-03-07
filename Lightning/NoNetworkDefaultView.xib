@@ -16,11 +16,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="F7N-LU-lQQ">
-                    <rect key="frame" x="169" y="315" width="37" height="37"/>
+                    <rect key="frame" x="169" y="250" width="37" height="37"/>
                     <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </activityIndicatorView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络出错啦。点击屏幕任意处重新加载。" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wfA-AT-krc">
-                    <rect key="frame" x="34" y="323" width="306" height="20.5"/>
+                    <rect key="frame" x="34" y="200" width="306" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="0.61617648601531982" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -30,12 +30,24 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="F7N-LU-lQQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ali-wE-S1C"/>
+                <constraint firstItem="F7N-LU-lQQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="250" id="Avq-PU-ERM">
+                    <variation key="heightClass=compact" constant="150"/>
+                </constraint>
                 <constraint firstItem="F7N-LU-lQQ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="RDo-AY-RZH"/>
                 <constraint firstItem="wfA-AT-krc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ta0-xU-v6f"/>
                 <constraint firstItem="wfA-AT-krc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="lMn-fX-o9d"/>
+                <constraint firstItem="wfA-AT-krc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="200" id="yFL-Tx-U1F">
+                    <variation key="heightClass=compact" constant="150"/>
+                </constraint>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Ta0-xU-v6f"/>
+                    <exclude reference="RDo-AY-RZH"/>
+                </mask>
+            </variation>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="3Nd-H1-w96" appends="YES" id="KIv-WA-YmN"/>
             </connections>
