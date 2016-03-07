@@ -91,20 +91,14 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
     }
     
     @objc private func refresh(sender:AnyObject) {
-        loadPromotionsTableData(nil)
+        loadData(nil)
     }
     
-    func refreshData() {
-        loadPromotionsTableData(nil)
+    override func refreshData() {
+        loadData(nil)
     }
     
-    override func refreshView(refreshHandler : (success : Bool) -> Void) {
-        self.loadPromotionsTableData { (success) -> Void in
-            refreshHandler(success: success)
-        }
-    }
-    
-    func loadPromotionsTableData(refreshHandler : ((success : Bool) -> Void)?) {
+    override func loadData(refreshHandler : ((success : Bool) -> Void)?) {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
         let getPromotionsRequest = GetPromotionsRequest()
         

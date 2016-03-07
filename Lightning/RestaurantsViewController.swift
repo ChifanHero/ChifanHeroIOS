@@ -8,13 +8,23 @@
 
 import UIKit
 
-class RestaurantsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ImageProgressiveTableViewDelegate {
+class RestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ImageProgressiveTableViewDelegate {
     
     @IBOutlet var restaurantsTable: ImageProgressiveTableView!
     
-    private var request : GetRestaurantsRequest?
+    private var request : GetRestaurantsRequest = GetRestaurantsRequest()
     
-    var sortBy : String?
+    var sortBy : String? {
+        didSet {
+            if sortBy == "hottest" {
+                request.sortBy = SortParameter.Hotness
+                request.sortOrder = SortOrder.Descend
+            } else {
+                request.sortBy = SortParameter.Distance
+                request.sortOrder = SortOrder.Ascend
+            }
+        }
+    }
     
     let refreshControl = UIRefreshControl()
     
@@ -39,7 +49,7 @@ class RestaurantsViewController: UIViewController, UITableViewDataSource, UITabl
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.restaurantsTable.insertSubview(self.refreshControl, atIndex: 0)
         self.restaurantsTable.imageDelegate = self
-        loadTableData()
+        refreshData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
     }
     
@@ -50,63 +60,81 @@ class RestaurantsViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    func loadTableData() {
-        waitingIndicator.startAnimating()
-        if request == nil {
-            request = GetRestaurantsRequest()
-            if sortBy == "hottest" {
-                request?.sortBy = SortParameter.Hotness
-                request?.sortOrder = SortOrder.Descend
-            } else if sortBy == "nearest" {
-                request?.sortBy = SortParameter.Distance
-                request?.sortOrder = SortOrder.Ascend
-            }
-            request?.limit = 50
-            request?.skip = 0
-        }
+    override func refreshData() {
+        request.limit = 50
+        request.skip = 0
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location = appDelegate.currentLocation
         if (location.lat == nil || location.lon == nil) {
             return
         }
-        request?.userLocation = location
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request!) { (response) -> Void in
+        request.userLocation = location
+        loadData(nil)
+    }
+    
+    func clearStates() {
+        self.restaurants.removeAll()
+        self.images.removeAll()
+    }
+    
+    override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
+        waitingIndicator.startAnimating()
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request) { (response) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
-                self.restaurants.removeAll()
-                self.images.removeAll()
-                if response != nil && (response?.results) != nil {
-                    self.restaurants = (response?.results)!
-                    self.fetchImageDetails()
+                if response == nil {
+                    if refreshHandler != nil {
+                        refreshHandler!(success: false)
+                    }
+                } else {
+                    if self.request.skip == 0 {
+                        self.clearStates()
+                    }
+                    self.loadResults(response?.results)
+                    self.fetchImageDetails(response?.results)
+                    if self.restaurants.count > 0 {
+                        self.restaurantsTable.hidden = false
+                    }
+                    self.restaurantsTable.reloadData()
+                    if refreshHandler != nil {
+                        refreshHandler!(success: true)
+                    }
+                    
                 }
                 self.refreshControl.endRefreshing()
                 self.waitingIndicator.stopAnimating()
                 self.waitingIndicator.hidden = true
-                self.restaurantsTable.reloadData()
-                self.restaurantsTable.hidden = false
+                self.footerView.activityIndicator.stopAnimating()
+
+                
             });
         }
-        
     }
+    
+    func loadResults(results : [Restaurant]?) {
+        if results != nil {
+            for restaurant in results! {
+                self.restaurants.append(restaurant)
+            }
+        }
+    }
+
     
     @objc private func refresh(sender:AnyObject) {
-        refresh()
+        refreshData()
     }
     
-    func refresh() {
-        request?.limit = 50
-        request?.skip = 0
-        loadTableData()
-    }
-    
-    private func fetchImageDetails() {
-        for restaurant : Restaurant in self.restaurants {
-            var url = restaurant.picture?.original
-            if url == nil {
-                url = ""
+    private func fetchImageDetails(results : [Restaurant]?) {
+        if results != nil {
+            for restaurant : Restaurant in results! {
+                var url = restaurant.picture?.original
+                if url == nil {
+                    url = ""
+                }
+                let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+                self.images.append(record)
             }
-            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-            self.images.append(record)
         }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -167,24 +195,25 @@ class RestaurantsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     private func loadMore() {
-        request?.skip = (request?.skip)! + (request?.limit)!
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request!) { (response) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                if response != nil && (response?.results) != nil {
-                    for restaurant : Restaurant in (response?.results)! {
-                        var url = restaurant.picture?.original
-                        if url == nil {
-                            url = ""
-                        }
-                        let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-                        self.images.append(record)
-                        self.restaurants.append(restaurant)
-                    }
-                }
-                self.footerView.activityIndicator.stopAnimating()
-                self.restaurantsTable.reloadData()
-            });
-        }
+        request.skip = (request.skip)! + (request.limit)!
+        loadData(nil)
+//        DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request) { (response) -> Void in
+//            dispatch_async(dispatch_get_main_queue(), {
+//                if response != nil && (response?.results) != nil {
+//                    for restaurant : Restaurant in (response?.results)! {
+//                        var url = restaurant.picture?.original
+//                        if url == nil {
+//                            url = ""
+//                        }
+//                        let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+//                        self.images.append(record)
+//                        self.restaurants.append(restaurant)
+//                    }
+//                }
+//                self.footerView.activityIndicator.stopAnimating()
+//                self.restaurantsTable.reloadData()
+//            });
+//        }
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

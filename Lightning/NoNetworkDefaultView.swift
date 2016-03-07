@@ -31,7 +31,7 @@ class NoNetworkDefaultView: UIView {
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
         if parentVC != nil {
-            parentVC!.refreshView({ (success) -> Void in
+            parentVC!.loadData({ (success) -> Void in
                 if success {
                     self.hide()
                 } else {

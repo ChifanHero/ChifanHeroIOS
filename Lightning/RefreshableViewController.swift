@@ -14,7 +14,11 @@ class RefreshableViewController : UIViewController {
     let noNetworkDefaultView : NoNetworkDefaultView = NoNetworkDefaultView()
     
     
-    func refreshView(refreshHandler : (success : Bool) -> Void) {
+    func refreshData() {
+        
+    }
+    
+    func loadData(refreshHandler : ((success : Bool) -> Void)?) {
         
     }
     
