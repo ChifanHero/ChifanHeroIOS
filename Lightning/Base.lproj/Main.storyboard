@@ -600,7 +600,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3fz-Di-jlA">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3fz-Di-jlA" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -628,8 +628,7 @@
                     <navigationItem key="navigationItem" title="热门榜单" id="dAJ-8e-dDd"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="resultsTableView" destination="3fz-Di-jlA" id="tfq-gX-glx"/>
-                        <outlet property="tableView" destination="3fz-Di-jlA" id="PCm-BA-U0s"/>
+                        <outlet property="listTable" destination="3fz-Di-jlA" id="6fG-lN-sw6"/>
                         <outlet property="waitingIndicator" destination="vqt-eU-mRD" id="Sm6-4d-UlA"/>
                         <segue destination="98Y-kL-NWK" kind="show" identifier="showList" id="vSQ-ka-XUm"/>
                     </connections>

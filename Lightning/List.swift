@@ -8,14 +8,15 @@
 
 import Foundation
 
-class List : Model{
+class List: Model{
     
-    var id : String?
-    var name : String?
-    var memberCount : Int?
-    var dishes : [Dish] = [Dish]()
-    var likeCount : Int?
-    var favoriteCount : Int?
+    var id: String?
+    var name: String?
+    var memberCount: Int?
+    var picture: Picture?
+    var dishes: [Dish] = [Dish]()
+    var likeCount: Int?
+    var favoriteCount: Int?
     
     
     required init() {
@@ -26,6 +27,7 @@ class List : Model{
         id <-- data["id"]
         name <-- data["name"]
         memberCount <-- data["member_count"]
+        picture <-- data["picture"]
         if let members = data["dishes"] as? [AnyObject] {
             for dish in members {
                 let result = Dish(data: dish as! [String : AnyObject])

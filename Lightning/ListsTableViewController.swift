@@ -8,9 +8,11 @@
 
 import UIKit
 
-class ListsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ListsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , ImageProgressiveTableViewDelegate {
     
     var lists : [List] = []
+    var listImages = [PhotoRecord]()
+    var pendingOperations = PendingOperations()
     
     var request : GetListsRequest?
     
@@ -18,30 +20,28 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
-    let LIMIT = 50
-    var offset = 0
-    
-    @IBOutlet weak var tableView: UITableView!
-    
     let refreshControl = UIRefreshControl()
     
+    let LIMIT = 50
+    var offset = 0
+
+    
+    @IBOutlet weak var listTable: ImageProgressiveTableView!
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var resultsTableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.insertSubview(self.refreshControl, atIndex: 0)
-        resultsTableView.hidden = true
+        self.listTable.addSubview(refreshControl)
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         loadTableData()
     }
     
     override func viewWillAppear(animated: Bool) {
-        let selectedCellIndexPath : NSIndexPath? = self.tableView.indexPathForSelectedRow
+        let selectedCellIndexPath : NSIndexPath? = self.listTable.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
-            self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+            self.listTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
     }
     
@@ -54,14 +54,25 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
                 if response?.results != nil {
                     self.lists += response!.results
                 }
+                self.fetchImageDetails()
                 dispatch_async(dispatch_get_main_queue(), {
                     self.refreshControl.endRefreshing()
-                    self.resultsTableView.hidden = false
                     self.waitingIndicator.stopAnimating()
                     self.waitingIndicator.hidden = true
-                    self.tableView.reloadData()
+                    self.listTable.reloadData()
                 });
             }
+        }
+    }
+    
+    private func fetchImageDetails() {
+        for list: List in self.lists {
+            var url = list.picture?.original
+            if url == nil {
+                url = ""
+            }
+            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+            self.listImages.append(record)
         }
     }
     
@@ -127,8 +138,22 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
             tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
             cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
         }
+        
+        let imageDetails = imageForIndexPath(tableView: self.listTable, indexPath: indexPath)
+        cell?.setUp(list: lists[indexPath.row], image: imageDetails.image!)
+        
+        switch (imageDetails.state){
+        case .New:
+            self.listTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails, indexPath:indexPath)
+        default: break
+        }
+        
         cell?.model = lists[indexPath.row]
         return cell!
+    }
+    
+    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+        return self.listImages[indexPath.row]
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -171,7 +196,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
                     } else {
                         list.favoriteCount!++
                     }
-                    self.tableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
+                    self.listTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
                     self.addToFavorites(indexPath)
                 }
                 self.dismissActionViewWithDelay()
@@ -189,7 +214,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
                     } else {
                         list.likeCount!++
                     }
-                    self.tableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("喜欢\n\(likeCount)", index: 3)
+                    self.listTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("喜欢\n\(likeCount)", index: 3)
                     
                     self.rateList(indexPath, ratingType: RatingTypeEnum.like)
                 }
@@ -233,7 +258,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @objc private func dismissActionView() {
-        self.tableView.setEditing(false, animated: true)
+        self.listTable.setEditing(false, animated: true)
         NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
     }
 

@@ -14,6 +14,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="262.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sO0-cE-wgY" userLabel="List_Image">
+                        <rect key="frame" x="0.0" y="0.5" width="375" height="262.5"/>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="List_Badge" translatesAutoresizingMaskIntoConstraints="NO" id="Bve-Z7-OoY">
                         <rect key="frame" x="257" y="8" width="100" height="80"/>
                     </imageView>
@@ -29,21 +32,23 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sO0-cE-wgY" userLabel="List_Image">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="262.5"/>
-                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="sO0-cE-wgY" secondAttribute="bottom" constant="-8" id="15E-KD-9tx"/>
+                    <constraint firstItem="sO0-cE-wgY" firstAttribute="leading" secondItem="GsA-wD-mwY" secondAttribute="leadingMargin" constant="-8" id="19Z-am-50b"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="sO0-cE-wgY" secondAttribute="trailing" constant="-8" id="GP7-FK-sbL"/>
                     <constraint firstItem="1JT-lA-YEf" firstAttribute="centerX" secondItem="Bve-Z7-OoY" secondAttribute="centerX" id="NEZ-Hc-TM8"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Bve-Z7-OoY" secondAttribute="trailing" constant="10" id="VWh-iG-7fg"/>
                     <constraint firstItem="1JT-lA-YEf" firstAttribute="top" secondItem="GsA-wD-mwY" secondAttribute="topMargin" constant="25" id="bFp-8C-DN4"/>
                     <constraint firstItem="dpN-1D-Nb7" firstAttribute="top" secondItem="1JT-lA-YEf" secondAttribute="bottom" constant="5" id="ePd-wf-rTC"/>
                     <constraint firstItem="dpN-1D-Nb7" firstAttribute="centerX" secondItem="Bve-Z7-OoY" secondAttribute="centerX" id="nNZ-cI-t6H"/>
                     <constraint firstItem="Bve-Z7-OoY" firstAttribute="top" secondItem="GsA-wD-mwY" secondAttribute="topMargin" id="qgo-Gl-6C6"/>
+                    <constraint firstItem="sO0-cE-wgY" firstAttribute="top" secondItem="GsA-wD-mwY" secondAttribute="topMargin" constant="-8" id="rRO-e9-90V"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="countLabel" destination="dpN-1D-Nb7" id="QKB-gB-aDA"/>
+                <outlet property="listImage" destination="sO0-cE-wgY" id="DYt-j4-TDg"/>
                 <outlet property="nameLabel" destination="1JT-lA-YEf" id="j45-U8-Z3y"/>
             </connections>
             <point key="canvasLocation" x="348.5" y="326.5"/>

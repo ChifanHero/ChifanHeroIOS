@@ -24,18 +24,17 @@ class ListTableViewCell: UITableViewCell {
     }
 
     @IBOutlet weak var nameLabel: UILabel!
-    
     @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var listImage: UIImageView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        setUp()
     }
     
-    func setUp() {
-        
+    func setUp(list list: List, image: UIImage) {
+        listImage.image = image
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
