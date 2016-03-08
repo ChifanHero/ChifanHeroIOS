@@ -16,11 +16,12 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B3B-T0-2hS" userLabel="Picture View">
-                        <rect key="frame" x="0.0" y="0.0" width="120" height="110"/>
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="110"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m3y-jH-8Nm">
-                                <rect key="frame" x="10" y="0.0" width="109.5" height="110"/>
+                                <rect key="frame" x="10" y="10" width="89.5" height="90"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="m3y-jH-8Nm" secondAttribute="height" multiplier="109:110" id="KuT-b3-Yaa"/>
                                     <constraint firstAttribute="width" constant="90" id="vE9-Kg-IiH"/>
                                 </constraints>
                                 <variation key="default">
@@ -32,23 +33,31 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="m3y-jH-8Nm" firstAttribute="top" secondItem="B3B-T0-2hS" secondAttribute="top" constant="10" id="0wt-8y-Efa"/>
                             <constraint firstItem="m3y-jH-8Nm" firstAttribute="top" secondItem="B3B-T0-2hS" secondAttribute="top" id="3Jt-aI-dSW"/>
                             <constraint firstItem="m3y-jH-8Nm" firstAttribute="leading" secondItem="B3B-T0-2hS" secondAttribute="leading" constant="10" id="Hmm-29-V03"/>
-                            <constraint firstAttribute="width" constant="120" id="jEb-0U-sYe"/>
+                            <constraint firstAttribute="width" constant="100" id="jEb-0U-sYe"/>
                             <constraint firstAttribute="bottom" secondItem="m3y-jH-8Nm" secondAttribute="bottom" id="ji3-bi-SmO"/>
+                            <constraint firstAttribute="bottom" secondItem="m3y-jH-8Nm" secondAttribute="bottom" constant="10" id="uXt-K6-I4E"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="3Jt-aI-dSW"/>
+                                <exclude reference="ji3-bi-SmO"/>
+                            </mask>
+                        </variation>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apX-pC-5rh" userLabel="Info View">
-                        <rect key="frame" x="120" y="0.0" width="255" height="110"/>
+                        <rect key="frame" x="100" y="0.0" width="275" height="110"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Mhm-nT-J6G">
-                                <rect key="frame" x="10" y="8" width="235" height="94"/>
+                                <rect key="frame" x="10" y="8" width="255" height="94"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rB2-dD-UgF">
-                                        <rect key="frame" x="0.0" y="0.0" width="235" height="18"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="255" height="18"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="xLz-Vq-fbv">
-                                                <rect key="frame" x="0.0" y="0.0" width="165" height="18"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="185" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="ofY-US-ygv"/>
                                                 </constraints>
@@ -64,7 +73,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="距离未知" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pd4-Ob-Yzd">
-                                                <rect key="frame" x="180" y="0.0" width="55" height="18"/>
+                                                <rect key="frame" x="200" y="0.0" width="55" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="55" id="Bg7-WC-t1E"/>
                                                 </constraints>
@@ -79,13 +88,13 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址未知" lineBreakMode="clip" minimumScaleFactor="0.69999998807907104" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fnf-o1-oFJ">
-                                        <rect key="frame" x="0.0" y="29" width="235" height="14.5"/>
+                                        <rect key="frame" x="0.0" y="29" width="255" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="kQX-WQ-O68">
-                                        <rect key="frame" x="0.0" y="55" width="235" height="14.5"/>
+                                        <rect key="frame" x="0.0" y="55" width="255" height="14.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="好评率" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIU-l7-Pxx">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="14.5"/>
@@ -97,7 +106,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9D-0E-yjN" userLabel="Rating Label">
-                                                <rect key="frame" x="46" y="0.0" width="189" height="14.5"/>
+                                                <rect key="frame" x="46" y="0.0" width="209" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -108,7 +117,7 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JO9-2x-Xij">
-                                        <rect key="frame" x="0.0" y="80.5" width="235" height="13.5"/>
+                                        <rect key="frame" x="0.0" y="80.5" width="255" height="13.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -136,6 +145,11 @@
                     <constraint firstItem="B3B-T0-2hS" firstAttribute="top" secondItem="FFF-hl-RzH" secondAttribute="topMargin" constant="-8" id="rwa-AU-sAB"/>
                     <constraint firstItem="m3y-jH-8Nm" firstAttribute="width" secondItem="FFF-hl-RzH" secondAttribute="height" id="wvp-tA-VDz"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="wvp-tA-VDz"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="addressLabel" destination="fnf-o1-oFJ" id="Isn-M3-2FZ"/>

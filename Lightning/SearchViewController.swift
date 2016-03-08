@@ -237,11 +237,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-        
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if selectionBar.scope == "list" {
             return self.lists.count
         } else if selectionBar.scope == "dish" {
@@ -249,20 +244,25 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         } else {
             return self.restaurants.count
         }
+        
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
     }
     
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        if indexPath.section == 1 {
+//        if indexPath.row == 1 {
 //            print("section == 1")
 //        }
-//        if indexPath.section == 0 {
+//        if indexPath.row == 0 {
 //            print("section == 0")
 //        }
-//        if indexPath.section == 2 {
+//        if indexPath.row == 2 {
 //            print("section == 2")
 //        }
-//        if indexPath.section == 3 {
+//        if indexPath.row == 3 {
 //            print("section == 3")
 //        }
         if selectionBar.scope == "list" {
@@ -271,7 +271,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
             }
-            cell!.model = lists[indexPath.section]
+            cell!.model = lists[indexPath.row]
             return cell!
         } else if selectionBar.scope == "dish" {
             
@@ -288,7 +288,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
 
             let imageDetails = imageForIndexPath(tableView: self.searchResultsTableView, indexPath: indexPath)
             cell?.baseVC = self
-            cell?.setUp(dish: self.dishes[indexPath.section], image: imageDetails.image!)
+            cell?.setUp(dish: self.dishes[indexPath.row], image: imageDetails.image!)
             
             switch (imageDetails.state){
             case PhotoRecordState.New:
@@ -303,7 +303,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 cell = tableView.dequeueReusableCellWithIdentifier("restaurantSearchCell") as? RestaurantSearchTableViewCell
             }
             let imageDetails = imageForIndexPath(tableView: tableView, indexPath: indexPath)
-            cell?.setUp(restaurant: restaurants[indexPath.section], image: imageDetails.image!)
+            cell?.setUp(restaurant: restaurants[indexPath.row], image: imageDetails.image!)
             
             switch (imageDetails.state){
             case .New:
@@ -328,9 +328,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
         if selectionBar.scope == "dish" {
-            return self.dishImages[indexPath.section]
+            return self.dishImages[indexPath.row]
         } else if selectionBar.scope == "restaurant" {
-            return self.restaurantImages[indexPath.section]
+            return self.restaurantImages[indexPath.row]
         } else {
             return PhotoRecord(name: "", url: NSURL())
         }
@@ -388,11 +388,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let scope = selectionBar.scope
         if scope == "restaurant" {
-            let restaurant : Restaurant = self.restaurants[indexPath.section]
+            let restaurant : Restaurant = self.restaurants[indexPath.row]
             self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
             self.searchResultsTableView.deselectRowAtIndexPath(indexPath, animated: true)
         } else if scope == "list" {
-            let list : List = self.lists[indexPath.section]
+            let list : List = self.lists[indexPath.row]
             self.performSegueWithIdentifier("showList", sender: list.id)
             self.searchResultsTableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
@@ -459,20 +459,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         
-        var resultsCount = 0
-        let scope = selectionBar.scope
-        if scope == "restaurant" {
-            resultsCount = self.restaurants.count
-        } else if scope == "list" {
-            resultsCount = self.lists.count
-        } else if scope == "dish" {
-            resultsCount = self.dishes.count
-        }
-        if section == resultsCount - 1 {
-            return 30
-        } else {
-            return 0
-        }
+        return 30
 
         
     }
@@ -505,42 +492,42 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         let scope = selectionBar.scope
         var objectId : String = ""
         if scope == "restaurant" {
-            objectId = self.restaurants[indexPath.section].id!
-            if self.restaurants[indexPath.section].favoriteCount != nil {
-                favoriteCount = self.restaurants[indexPath.section].favoriteCount!
+            objectId = self.restaurants[indexPath.row].id!
+            if self.restaurants[indexPath.row].favoriteCount != nil {
+                favoriteCount = self.restaurants[indexPath.row].favoriteCount!
             }
-            if self.restaurants[indexPath.section].likeCount != nil {
-                likeCount = self.restaurants[indexPath.section].likeCount!
+            if self.restaurants[indexPath.row].likeCount != nil {
+                likeCount = self.restaurants[indexPath.row].likeCount!
             }
-            if self.restaurants[indexPath.section].dislikeCount != nil {
-                dislikeCount = self.restaurants[indexPath.section].dislikeCount!
+            if self.restaurants[indexPath.row].dislikeCount != nil {
+                dislikeCount = self.restaurants[indexPath.row].dislikeCount!
             }
-            if self.restaurants[indexPath.section].neutralCount != nil {
-                neutralCount = self.restaurants[indexPath.section].neutralCount!
+            if self.restaurants[indexPath.row].neutralCount != nil {
+                neutralCount = self.restaurants[indexPath.row].neutralCount!
             }
             
         } else if scope == "list" {
             positiveText = "喜欢"
-            objectId = self.lists[indexPath.section].id!
-            if self.lists[indexPath.section].favoriteCount != nil {
-                favoriteCount = self.lists[indexPath.section].favoriteCount!
+            objectId = self.lists[indexPath.row].id!
+            if self.lists[indexPath.row].favoriteCount != nil {
+                favoriteCount = self.lists[indexPath.row].favoriteCount!
             }
-            if self.lists[indexPath.section].likeCount != nil {
-                likeCount = self.lists[indexPath.section].likeCount!
+            if self.lists[indexPath.row].likeCount != nil {
+                likeCount = self.lists[indexPath.row].likeCount!
             }
         } else if scope == "dish" {
-            objectId = self.dishes[indexPath.section].id!
-            if self.dishes[indexPath.section].favoriteCount != nil {
-                favoriteCount = self.dishes[indexPath.section].favoriteCount!
+            objectId = self.dishes[indexPath.row].id!
+            if self.dishes[indexPath.row].favoriteCount != nil {
+                favoriteCount = self.dishes[indexPath.row].favoriteCount!
             }
-            if self.dishes[indexPath.section].likeCount != nil {
-                likeCount = self.dishes[indexPath.section].likeCount!
+            if self.dishes[indexPath.row].likeCount != nil {
+                likeCount = self.dishes[indexPath.row].likeCount!
             }
-            if self.dishes[indexPath.section].dislikeCount != nil {
-                dislikeCount = self.dishes[indexPath.section].dislikeCount!
+            if self.dishes[indexPath.row].dislikeCount != nil {
+                dislikeCount = self.dishes[indexPath.row].dislikeCount!
             }
-            if self.dishes[indexPath.section].neutralCount != nil {
-                neutralCount = self.dishes[indexPath.section].neutralCount!
+            if self.dishes[indexPath.row].neutralCount != nil {
+                neutralCount = self.dishes[indexPath.row].neutralCount!
             }
         }
         
@@ -550,22 +537,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             } else {
                 favoriteCount++
                 if scope == "restaurant" {
-                    if self.restaurants[indexPath.section].favoriteCount == nil {
-                       self.restaurants[indexPath.section].favoriteCount = 1
+                    if self.restaurants[indexPath.row].favoriteCount == nil {
+                       self.restaurants[indexPath.row].favoriteCount = 1
                     } else {
-                        self.restaurants[indexPath.section].favoriteCount!++
+                        self.restaurants[indexPath.row].favoriteCount!++
                     }
                 } else if scope == "list" {
-                    if self.lists[indexPath.section].favoriteCount == nil {
-                        self.lists[indexPath.section].favoriteCount = 1
+                    if self.lists[indexPath.row].favoriteCount == nil {
+                        self.lists[indexPath.row].favoriteCount = 1
                     } else {
-                        self.lists[indexPath.section].favoriteCount!++
+                        self.lists[indexPath.row].favoriteCount!++
                     }
                 } else if scope == "dish" {
-                    if self.dishes[indexPath.section].favoriteCount == nil {
-                        self.dishes[indexPath.section].favoriteCount = 1
+                    if self.dishes[indexPath.row].favoriteCount == nil {
+                        self.dishes[indexPath.row].favoriteCount = 1
                     } else {
-                        self.dishes[indexPath.section].favoriteCount!++
+                        self.dishes[indexPath.row].favoriteCount!++
                     }
                 }
                 self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
@@ -583,22 +570,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             } else {
                 likeCount++
                 if scope == "restaurant" {
-                    if self.restaurants[indexPath.section].likeCount == nil {
-                        self.restaurants[indexPath.section].likeCount = 1
+                    if self.restaurants[indexPath.row].likeCount == nil {
+                        self.restaurants[indexPath.row].likeCount = 1
                     } else {
-                        self.restaurants[indexPath.section].likeCount!++
+                        self.restaurants[indexPath.row].likeCount!++
                     }
                 } else if scope == "list" {
-                    if self.lists[indexPath.section].likeCount == nil {
-                        self.lists[indexPath.section].likeCount = 1
+                    if self.lists[indexPath.row].likeCount == nil {
+                        self.lists[indexPath.row].likeCount = 1
                     } else {
-                        self.lists[indexPath.section].likeCount!++
+                        self.lists[indexPath.row].likeCount!++
                     }
                 } else if scope == "dish" {
-                    if self.dishes[indexPath.section].likeCount == nil {
-                        self.dishes[indexPath.section].likeCount = 1
+                    if self.dishes[indexPath.row].likeCount == nil {
+                        self.dishes[indexPath.row].likeCount = 1
                     } else {
-                        self.dishes[indexPath.section].likeCount!++
+                        self.dishes[indexPath.row].likeCount!++
                     }
                 }
                 
@@ -617,16 +604,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 } else {
                     neutralCount++
                     if scope == "restaurant" {
-                        if self.restaurants[indexPath.section].neutralCount == nil {
-                            self.restaurants[indexPath.section].neutralCount = 1
+                        if self.restaurants[indexPath.row].neutralCount == nil {
+                            self.restaurants[indexPath.row].neutralCount = 1
                         } else {
-                            self.restaurants[indexPath.section].neutralCount!++
+                            self.restaurants[indexPath.row].neutralCount!++
                         }
                     } else if scope == "dish" {
-                        if self.dishes[indexPath.section].neutralCount == nil {
-                            self.dishes[indexPath.section].neutralCount = 1
+                        if self.dishes[indexPath.row].neutralCount == nil {
+                            self.dishes[indexPath.row].neutralCount = 1
                         } else {
-                            self.dishes[indexPath.section].neutralCount!++
+                            self.dishes[indexPath.row].neutralCount!++
                         }
                     }
                     self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("一般\n\(neutralCount)", index: 2)
@@ -642,16 +629,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 } else {
                     dislikeCount++
                     if scope == "restaurant" {
-                        if self.restaurants[indexPath.section].dislikeCount == nil {
-                            self.restaurants[indexPath.section].dislikeCount = 1
+                        if self.restaurants[indexPath.row].dislikeCount == nil {
+                            self.restaurants[indexPath.row].dislikeCount = 1
                         } else {
-                            self.restaurants[indexPath.section].dislikeCount!++
+                            self.restaurants[indexPath.row].dislikeCount!++
                         }
                     } else if scope == "dish" {
-                        if self.dishes[indexPath.section].dislikeCount == nil {
-                            self.dishes[indexPath.section].dislikeCount = 1
+                        if self.dishes[indexPath.row].dislikeCount == nil {
+                            self.dishes[indexPath.row].dislikeCount = 1
                         } else {
-                            self.dishes[indexPath.section].dislikeCount!++
+                            self.dishes[indexPath.row].dislikeCount!++
                         }
                     }
                     self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("难吃\n\(dislikeCount)", index: 1)
@@ -669,7 +656,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     private func addToFavorites(indexPath: NSIndexPath){
         let scope = selectionBar.scope
         if scope == "restaurant" {
-            let restaurant = self.restaurants[indexPath.section]
+            let restaurant = self.restaurants[indexPath.row]
             ratingAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
                 if restaurant.favoriteCount != nil {
                     restaurant.favoriteCount!--
@@ -677,7 +664,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             })
             
         } else if scope == "list" {
-            let list = self.lists[indexPath.section]
+            let list = self.lists[indexPath.row]
             ratingAndBookmarkExecutor?.addToFavorites("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
                 if list.favoriteCount != nil {
                     list.favoriteCount!--
@@ -685,7 +672,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             })
             
         } else if scope == "dish" {
-            let dish = self.dishes[indexPath.section]
+            let dish = self.dishes[indexPath.row]
             ratingAndBookmarkExecutor?.addToFavorites("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
                 if dish.favoriteCount != nil {
                     dish.favoriteCount!--
@@ -698,21 +685,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         let scope = selectionBar.scope
         if ratingType == RatingTypeEnum.like {
             if scope == "restaurant" {
-                let restaurant = self.restaurants[indexPath.section]
+                let restaurant = self.restaurants[indexPath.row]
                 ratingAndBookmarkExecutor?.like("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
                     if restaurant.likeCount != nil {
                         restaurant.likeCount!--
                     }
                 })
             } else if scope == "dish" {
-                let dish = self.dishes[indexPath.section]
+                let dish = self.dishes[indexPath.row]
                 ratingAndBookmarkExecutor?.like("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
                     if dish.likeCount != nil {
                         dish.likeCount!--
                     }
                 })
             } else if scope == "list" {
-                let list = self.lists[indexPath.section]
+                let list = self.lists[indexPath.row]
                 ratingAndBookmarkExecutor?.like("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
                     if list.likeCount != nil {
                         list.likeCount!--
@@ -722,14 +709,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             
         } else if ratingType == RatingTypeEnum.dislike {
             if scope == "restaurant" {
-                let restaurant = self.restaurants[indexPath.section]
+                let restaurant = self.restaurants[indexPath.row]
                 ratingAndBookmarkExecutor?.dislike("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
                     if restaurant.likeCount != nil {
                         restaurant.likeCount!--
                     }
                 })
             } else if scope == "dish" {
-                let dish = self.dishes[indexPath.section]
+                let dish = self.dishes[indexPath.row]
                 ratingAndBookmarkExecutor?.dislike("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
                     if dish.likeCount != nil {
                         dish.likeCount!--
@@ -738,14 +725,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             }
         } else if ratingType == RatingTypeEnum.neutral{
             if scope == "restaurant" {
-                let restaurant = self.restaurants[indexPath.section]
+                let restaurant = self.restaurants[indexPath.row]
                 ratingAndBookmarkExecutor?.neutral("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
                     if restaurant.likeCount != nil {
                         restaurant.likeCount!--
                     }
                 })
             } else if scope == "dish" {
-                let dish = self.dishes[indexPath.section]
+                let dish = self.dishes[indexPath.row]
                 ratingAndBookmarkExecutor?.neutral("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
                     if dish.likeCount != nil {
                         dish.likeCount!--
