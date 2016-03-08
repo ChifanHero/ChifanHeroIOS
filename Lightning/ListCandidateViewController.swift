@@ -13,6 +13,8 @@ class ListCandidateViewController: UIViewController {
     var memberIds : [String]?
     var currentListId : String?
     
+    var center : Location?
+    
     var memberViewController : ListMemberViewController?
     
     
@@ -25,6 +27,7 @@ class ListCandidateViewController: UIViewController {
         mainView.parentVC = self
         let context = ListCandidateContext()
         context.memberIds = self.memberIds
+        context.listCenter = self.center
         mainView.context = context
         mainView.currentListId = currentListId
         
@@ -58,4 +61,5 @@ class ListCandidateViewController: UIViewController {
 class ListCandidateContext {
     
     var memberIds : [String]?
+    var listCenter : Location?
 }

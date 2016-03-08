@@ -8,22 +8,26 @@
 
 import Foundation
 
-class GetListsRequest : GetRequestProtocol {
+class GetListsRequest : PostRequestProtocol {
     
     var limit : Int?
     var skip : Int?
+    var userLocation : Location?
     
-    func getParameters() -> [String:String] {
-        var parameters = Dictionary<String, String>()
+    func getRequestBody() -> [String : AnyObject] {
+        var parameters = Dictionary<String, AnyObject>()
+        if (userLocation != nil) {
+            parameters["user_location"] = userLocation?.getProperties()
+        }
         if limit != nil {
-            parameters["limit"] = String(limit!)
+            parameters["limit"] = limit!
         }
         if skip != nil {
-            parameters["skip"] = String(skip!)
+            parameters["skip"] = skip!
         }
         return parameters
     }
-    
+        
     func getRelativeURL() -> String {
         return "/lists"
     }

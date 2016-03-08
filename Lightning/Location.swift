@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Location: Serializable {
+class Location: Serializable, Model {
     
     var lat : Double?
     var lon : Double?
@@ -18,5 +18,14 @@ class Location: Serializable {
         parameters["lat"] = lat
         parameters["lon"] = lon
         return parameters
+    }
+    
+    required init() {
+        
+    }
+    
+    required init(data: [String : AnyObject]) {
+        lat <-- data["lat"]
+        lon <-- data["lon"]
     }
 }

@@ -61,7 +61,7 @@ class DataAccessor {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
-        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
+        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
             var getListsResponse : GetListsResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)

@@ -36,7 +36,8 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         self.listTable.insertSubview(refreshControl, atIndex: 0)
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.listTable.hidden = true
-        loadData(nil)
+        waitingIndicator.hidden = false
+        refreshData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -49,12 +50,18 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     override func refreshData() {
         request.limit = 50
         request.skip = 0
+        self.waitingIndicator.startAnimating()
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let location = appDelegate.currentLocation
+        if (location.lat == nil || location.lon == nil) {
+            return
+        }
+        request.userLocation = location
         loadData(nil)
     }
     
     override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
-        self.waitingIndicator.hidden = false
-        self.waitingIndicator.startAnimating()
+        
         DataAccessor(serviceConfiguration: ParseConfiguration()).getLists(request) { (response) -> Void in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 if response == nil {
@@ -123,10 +130,6 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     }
     
     @objc private func refresh(sender:AnyObject) {
-        refresh()
-    }
-    
-    func refresh() {
         refreshData()
     }
     

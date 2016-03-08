@@ -14,6 +14,8 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     
     var member : [Dish] = [Dish]()
     
+    var center : Location?
+    
     
     @IBOutlet weak var waitingView: UIView!
 
@@ -60,6 +62,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     if response != nil && response!.result != nil {
                         self.member.removeAll()
+                        self.center = response?.result?.center
                         self.member += response!.result!.dishes
                         self.headerView.likeCount = response?.result?.likeCount
                         self.headerView.bookmarkCount = response?.result?.favoriteCount
@@ -145,6 +148,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             let navigationController : UINavigationController = segue.destinationViewController as! UINavigationController
             
             let listCandidateController : ListCandidateViewController = navigationController.childViewControllers[0] as! ListCandidateViewController
+            listCandidateController.center = self.center
             listCandidateController.memberViewController = self
             var memberIds = [String]()
             for dish : Dish in self.member {

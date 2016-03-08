@@ -153,7 +153,23 @@ import UIKit
         cleanStates()
         let request : RestaurantSearchRequest = RestaurantSearchRequest()
         request.keyword = keyword
+//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//        let location = appDelegate.currentLocation
+//        if (location.lat == nil || location.lon == nil) {
+//            return
+//        }
+//        request.userLocation = location
+        if self.context?.listCenter != nil {
+            let range = Range()
+            range.center = self.context?.listCenter
+            let distance = Distance()
+            distance.value = 50
+            distance.unit = "mi"
+            range.distance = distance
+            request.range = range
+        }
         print(keyword)
+        print(request.getRequestBody())
         //TODO : get range from list properties and set in the request.
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in

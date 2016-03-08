@@ -17,6 +17,7 @@ class List: Model{
     var dishes: [Dish] = [Dish]()
     var likeCount: Int?
     var favoriteCount: Int?
+    var center : Location?
     
     
     required init() {
@@ -36,5 +37,6 @@ class List: Model{
         }
         likeCount <-- data["like_count"]
         favoriteCount <-- data["favorite_count"]
+        center <-- data["center"]
     }
 }
