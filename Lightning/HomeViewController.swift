@@ -108,7 +108,7 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
         }
         getPromotionsRequest.userLocation = location
         getPromotionsRequest.limit = PROMOTIONS_LIMIT
-        getPromotionsRequest.offset = PROMOTIONS_OFFSET
+        getPromotionsRequest.skip = PROMOTIONS_OFFSET
         print(getPromotionsRequest.getRequestBody())
         DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
@@ -194,12 +194,6 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
             if let s = sender as? String {
                 restaurantsController.sortBy = s
             }
-        } else if segue.identifier == "showLists" {
-            let getListsRequest = GetListsRequest()
-            getListsRequest.limit = LISTS_LIMIT
-            getListsRequest.offset = LISTS_OFFSET
-            let listsController : ListsTableViewController = segue.destinationViewController as! ListsTableViewController
-            listsController.request = getListsRequest
         } else if segue.identifier == "showRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String

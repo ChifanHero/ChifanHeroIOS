@@ -11,15 +11,15 @@ import Foundation
 class GetListsRequest : GetRequestProtocol {
     
     var limit : Int?
-    var offset : Int?
+    var skip : Int?
     
     func getParameters() -> [String:String] {
         var parameters = Dictionary<String, String>()
         if limit != nil {
             parameters["limit"] = String(limit!)
         }
-        if offset != nil {
-            parameters["offset"] = String(offset!)
+        if skip != nil {
+            parameters["skip"] = String(skip!)
         }
         return parameters
     }

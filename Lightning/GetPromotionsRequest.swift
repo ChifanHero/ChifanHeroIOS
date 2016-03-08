@@ -11,7 +11,7 @@ import Foundation
 class GetPromotionsRequest : PostRequestProtocol{
     
     var limit : Int?
-    var offset : Int?
+    var skip : Int?
     var userLocation : Location?
     
     func getRelativeURL() -> String {
@@ -26,8 +26,8 @@ class GetPromotionsRequest : PostRequestProtocol{
         if limit != nil {
             parameters["limit"] = String(limit!)
         }
-        if offset != nil {
-            parameters["offset"] = String(offset!)
+        if skip != nil {
+            parameters["offset"] = String(skip!)
         }
         return parameters
     }

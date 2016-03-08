@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ListsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , ImageProgressiveTableViewDelegate {
+class ListsTableViewController: RefreshableViewController, UITableViewDelegate, UITableViewDataSource , ImageProgressiveTableViewDelegate {
     
     var lists : [List] = []
     var listImages = [PhotoRecord]()
     var pendingOperations = PendingOperations()
     
-    var request : GetListsRequest?
+    var request : GetListsRequest = GetListsRequest()
     
     let footerView : LoadMoreFooterView = LoadMoreFooterView()
     
@@ -36,7 +36,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
         self.listTable.insertSubview(refreshControl, atIndex: 0)
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.listTable.hidden = true
-        loadTableData()
+        loadData(nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -46,25 +46,50 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func loadTableData() {
-        if request != nil {
-            self.waitingIndicator.hidden = false
-            self.waitingIndicator.startAnimating()
-            DataAccessor(serviceConfiguration: ParseConfiguration()).getLists(request!) { (response) -> Void in
-//                self.lists = (response?.results)!
-                if response?.results != nil {
-                    self.lists += response!.results
+    override func refreshData() {
+        request.limit = 50
+        request.skip = 0
+        loadData(nil)
+    }
+    
+    override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
+        self.waitingIndicator.hidden = false
+        self.waitingIndicator.startAnimating()
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getLists(request) { (response) -> Void in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                if response == nil {
+                    if refreshHandler != nil {
+                        refreshHandler!(success: false)
+                    }
+                } else {
+                    if response!.results.count > 0 {
+                        if self.request.skip == 0 {
+                            self.clearStates()
+                        }
+                        self.lists += response!.results
+                        self.fetchImageDetails()
+                        self.listTable.reloadData()
+                        self.listTable.hidden = false
+                        
+                    }
+                    if refreshHandler != nil {
+                        refreshHandler!(success: true)
+                    }
+                    
                 }
-                self.fetchImageDetails()
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.refreshControl.endRefreshing()
-                    self.waitingIndicator.stopAnimating()
-                    self.waitingIndicator.hidden = true
-                    self.listTable.reloadData()
-                    self.listTable.hidden = false
-                });
-            }
+                self.refreshControl.endRefreshing()
+                self.waitingIndicator.stopAnimating()
+                self.waitingIndicator.hidden = true
+                self.footerView.activityIndicator.stopAnimating()
+            })
+            
+            
         }
+    }
+    
+    func clearStates() {
+        self.lists.removeAll()
+        self.listImages.removeAll()
     }
     
     private func fetchImageDetails() {
@@ -73,7 +98,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
             if url == nil {
                 url = ""
             }
-            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
+            let record = PhotoRecord(name: "", url: NSURL(string: url!)!, defaultImage: nil)
             self.listImages.append(record)
         }
     }
@@ -88,8 +113,8 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     func loadMore() {
         if lists.count == offset + LIMIT {
             offset += LIMIT
-            request?.offset = offset
-            loadTableData()
+            request.skip = offset
+            loadData(nil)
         } else {
             footerView.activityIndicator.stopAnimating()
             footerView.activityIndicator.hidden = true
@@ -102,8 +127,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func refresh() {
-        lists.removeAll()
-        loadTableData()
+        refreshData()
     }
     
     override func didReceiveMemoryWarning() {

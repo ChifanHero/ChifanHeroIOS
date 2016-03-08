@@ -24,8 +24,12 @@ class PhotoRecord {
         self.url = url
     }
     
-    init(name : String, url : NSURL, defaultImage : UIImage) {
-        self.image = defaultImage
+    init(name : String, url : NSURL, defaultImage : UIImage?) {
+        if defaultImage == nil {
+            self.image = UIImage()
+        } else {
+            self.image = defaultImage
+        }
         self.name = name
         self.url = url
     }
