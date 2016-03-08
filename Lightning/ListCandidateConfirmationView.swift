@@ -30,7 +30,7 @@ import UIKit
     
     
     @IBOutlet weak var messageLabel: UILabel!
-    var parentVC : UIViewController?
+    var parentVC : ListCandidateViewController?
     
     var context : ListCandidateContext?
     
@@ -79,6 +79,7 @@ import UIKit
     
   
     @IBAction func confirm(sender: AnyObject) {
+        self.parentVC?.memberViewController?.loadTableData()
         self.parentVC?.dismissViewControllerAnimated(true, completion: nil)
     }
 

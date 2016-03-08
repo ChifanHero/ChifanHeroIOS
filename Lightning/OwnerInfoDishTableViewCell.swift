@@ -43,28 +43,42 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
         
     }
     
-    func setUp(dish dish: Dish, image: UIImage) {
+    func setUp(dish dish: Dish, image: UIImage, useHTMLRender : Bool) {
         self.dish = dish
-    
-        dispatch_async(dispatch_get_main_queue(), {
-            if dish.name != nil {
-                do {
-                    
-                    let nameWithSize = NSString(format:"<span style=\"font-size: 18\">%@</span>", dish.name!) as String
-                    let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: false)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-                    
-                    self.nameLabel.attributedText = attributedName
-                    self.nameLabel.hidden = false
-                } catch {
-                    
+        if useHTMLRender && dish.name != nil {
+            dispatch_async(dispatch_get_main_queue(), {
+                if dish.name != nil {
+                    do {
+                        let nameWithSize = NSString(format:"<span style=\"font-size: 18\">%@</span>", dish.name!) as String
+                        let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: false)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+                        
+                        self.nameLabel.attributedText = attributedName
+                        self.nameLabel.hidden = false
+                    } catch {
+                        
+                    }
                 }
+                
+                self.rateLabel.text = ScoreComputer.getScore(positive: dish.likeCount, negative: dish.dislikeCount, neutral: dish.neutralCount)
+                self.dishImageView.image = image
+                self.restaurantButton.setTitle(dish.fromRestaurant?.name, forState: UIControlState.Normal)
+            });
+        } else {
+            if dish.name == nil {
+                self.nameLabel.text = "名称未知"
+            } else {
+                self.nameLabel.text = dish.name!
             }
             
             self.rateLabel.text = ScoreComputer.getScore(positive: dish.likeCount, negative: dish.dislikeCount, neutral: dish.neutralCount)
             self.dishImageView.image = image
-            
             self.restaurantButton.setTitle(dish.fromRestaurant?.name, forState: UIControlState.Normal)
-        });
+        }
+        
+    }
+    
+    func setUp(dish dish: Dish, image: UIImage) {
+        self.setUp(dish: dish, image: image, useHTMLRender: true)
     }
     
     

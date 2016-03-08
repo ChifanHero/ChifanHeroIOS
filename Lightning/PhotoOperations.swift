@@ -73,7 +73,6 @@ class ImageDownloader : NSOperation {
             self.photoRecord.state = .Downloaded
         } else {
             self.photoRecord.state = .Failed
-//            self.photoRecord.image = UIImage(named: "Failed")
         }
     }
     

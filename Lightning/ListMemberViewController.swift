@@ -43,7 +43,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
         if selectedCellIndexPath != nil {
             self.memberTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
-        loadTableData()
+//        loadTableData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,7 +51,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
         // Dispose of any resources that can be recreated.
     }
     
-    private func loadTableData() {
+    func loadTableData() {
         self.waitingView.hidden = false
         self.activityIndicator.startAnimating()
         if listId != nil {
@@ -99,13 +99,14 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : DishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
+        var cell : OwnerInfoDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
+            tableView.registerNib(UINib(nibName: "OwnerInfoDishCell", bundle: nil), forCellReuseIdentifier: "ownerInfoDishCell")
+            cell = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
         }
         let imageDetails = imageForIndexPath(tableView: self.memberTable, indexPath: indexPath)
-        cell?.setUp(dish: member[indexPath.section], image: imageDetails.image!)
+        cell?.baseVC = self
+        cell?.setUp(dish: self.member[indexPath.section], image: imageDetails.image!)
         
         switch (imageDetails.state){
         case PhotoRecordState.New:
@@ -144,6 +145,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             let navigationController : UINavigationController = segue.destinationViewController as! UINavigationController
             
             let listCandidateController : ListCandidateViewController = navigationController.childViewControllers[0] as! ListCandidateViewController
+            listCandidateController.memberViewController = self
             var memberIds = [String]()
             for dish : Dish in self.member {
                 if dish.id != nil {
@@ -152,6 +154,9 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             }
             listCandidateController.memberIds = memberIds
             listCandidateController.currentListId = listId
+        } else if segue.identifier == "showRestaurant" {
+            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            restaurantController.restaurantId = sender as? String
         }
     }
     

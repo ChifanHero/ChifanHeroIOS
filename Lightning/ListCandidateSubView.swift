@@ -28,7 +28,7 @@ import UIKit
     var contentViewCollapsed = false
     
     var previousView : ListCandidateTopView?
-    var parentVC : UIViewController? {
+    var parentVC : ListCandidateViewController? {
         didSet {
             self.subView.parentVC = parentVC
         }

@@ -175,12 +175,29 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         return cell!
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if indexPath.row == restaurants.count - 1 {
+//            footerView.activityIndicator.startAnimating()
+//            loadMore()
+//        }
+//    }
+    
+//    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+//        footerView.activityIndicator.startAnimating()
+//        loadMore()
+//    }
+    
+    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == restaurants.count - 1 {
             footerView.activityIndicator.startAnimating()
             loadMore()
         }
     }
+    
+//    func tableView(tableView: UITableView, didEndDisplayingFooterView view: UIView, forSection section: Int) {
+//        footerView.activityIndicator.startAnimating()
+//        loadMore()
+//    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let restaurantSelected : Restaurant = restaurants[indexPath.row]

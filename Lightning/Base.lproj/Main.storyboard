@@ -170,11 +170,11 @@
                         <viewControllerLayoutGuide type="bottom" id="ZdJ-lw-Zm3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1HC-6e-FcA">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCt-9Q-S6W" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="603"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -182,7 +182,7 @@
                                     <outlet property="delegate" destination="cBe-Iu-15d" id="GO6-dW-M30"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EWK-8p-9KR">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EWK-8p-9KR">
                                 <rect key="frame" x="169" y="283" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
@@ -192,11 +192,12 @@
                             <constraint firstItem="gCt-9Q-S6W" firstAttribute="top" secondItem="5sj-V7-MTB" secondAttribute="bottom" id="4cS-7c-Iq6"/>
                             <constraint firstItem="EWK-8p-9KR" firstAttribute="centerX" secondItem="1HC-6e-FcA" secondAttribute="centerX" id="6XN-vg-86G"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gCt-9Q-S6W" secondAttribute="trailing" constant="-20" id="Yda-Id-qVc"/>
-                            <constraint firstItem="ZdJ-lw-Zm3" firstAttribute="top" secondItem="gCt-9Q-S6W" secondAttribute="bottom" constant="-49" id="n0r-E2-YPA"/>
+                            <constraint firstItem="ZdJ-lw-Zm3" firstAttribute="top" secondItem="gCt-9Q-S6W" secondAttribute="bottom" id="n0r-E2-YPA"/>
                             <constraint firstItem="gCt-9Q-S6W" firstAttribute="leading" secondItem="1HC-6e-FcA" secondAttribute="leadingMargin" constant="-20" id="w9l-AX-DO3"/>
                             <constraint firstItem="EWK-8p-9KR" firstAttribute="centerY" secondItem="1HC-6e-FcA" secondAttribute="centerY" id="xmb-0x-SO1"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="restaurantsTable" destination="gCt-9Q-S6W" id="yIH-g6-qFW"/>
@@ -582,6 +583,7 @@
                         <outlet property="memberTable" destination="hNn-ud-WaQ" id="jVg-11-04W"/>
                         <outlet property="waitingView" destination="fF1-PG-SI9" id="pbM-9K-JyO"/>
                         <segue destination="fBm-Hz-slj" kind="presentation" identifier="addCandidate" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="4GH-Z8-m31"/>
+                        <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="19z-hm-zLV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s0w-FP-qzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -597,24 +599,24 @@
                         <viewControllerLayoutGuide type="bottom" id="LZ1-Rw-ZR7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3Kd-rR-lqD">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3fz-Di-jlA" customClass="ImageProgressiveTableView" customModule="Lightning" customModuleProvider="target">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="VfX-37-xD7" id="VgS-DP-9Rf"/>
                                     <outlet property="delegate" destination="VfX-37-xD7" id="6bL-H9-Tv2"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="vqt-eU-mRD">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="vqt-eU-mRD">
                                 <rect key="frame" x="169" y="283" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vqt-eU-mRD" firstAttribute="centerY" secondItem="3Kd-rR-lqD" secondAttribute="centerY" id="ENH-aS-fWc"/>
                             <constraint firstItem="vqt-eU-mRD" firstAttribute="centerX" secondItem="3Kd-rR-lqD" secondAttribute="centerX" id="GSA-Bh-cOY"/>
@@ -624,7 +626,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="3fz-Di-jlA" secondAttribute="trailing" constant="-20" id="ifS-QF-Uki"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="热门榜单" id="dAJ-8e-dDd"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -1426,7 +1428,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="tIf-c0-cls"/>
-        <segue reference="SnI-Ci-tXQ"/>
         <segue reference="vSQ-ka-XUm"/>
+        <segue reference="19z-hm-zLV"/>
     </inferredMetricsTieBreakers>
 </document>

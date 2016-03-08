@@ -39,7 +39,7 @@ import UIKit
     
     @IBOutlet weak var textField: UITextField!
     
-    var parentVC : UIViewController? {
+    var parentVC : ListCandidateViewController? {
         didSet {
             self.subView.parentVC = parentVC
         }

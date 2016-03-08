@@ -13,6 +13,8 @@ class ListCandidateViewController: UIViewController {
     var memberIds : [String]?
     var currentListId : String?
     
+    var memberViewController : ListMemberViewController?
+    
     
     @IBOutlet weak var mainView: ListCandidateTopView!
 
