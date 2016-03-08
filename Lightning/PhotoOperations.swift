@@ -23,6 +23,12 @@ class PhotoRecord {
         self.name = name
         self.url = url
     }
+    
+    init(name : String, url : NSURL, defaultImage : UIImage) {
+        self.image = defaultImage
+        self.name = name
+        self.url = url
+    }
 }
 
 class PendingOperations {

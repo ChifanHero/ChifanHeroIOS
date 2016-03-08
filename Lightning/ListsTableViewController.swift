@@ -33,8 +33,9 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.listTable.addSubview(refreshControl)
+        self.listTable.insertSubview(refreshControl, atIndex: 0)
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
+        self.listTable.hidden = true
         loadTableData()
     }
     
@@ -60,6 +61,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.waitingIndicator.stopAnimating()
                     self.waitingIndicator.hidden = true
                     self.listTable.reloadData()
+                    self.listTable.hidden = false
                 });
             }
         }
@@ -129,7 +131,7 @@ class ListsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 30
+        return 10
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
