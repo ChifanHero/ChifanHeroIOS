@@ -98,7 +98,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.member.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -109,7 +109,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
         }
         let imageDetails = imageForIndexPath(tableView: self.memberTable, indexPath: indexPath)
         cell?.baseVC = self
-        cell?.setUp(dish: self.member[indexPath.section], image: imageDetails.image!)
+        cell?.setUp(dish: self.member[indexPath.row], image: imageDetails.image!)
         
         switch (imageDetails.state){
         case PhotoRecordState.New:
@@ -122,7 +122,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return member.count
+        return 1
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -130,11 +130,15 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        } else {
-            return 10
-        }
+        return 0
+    }
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
     }
     
     func addCandidate(){
@@ -165,7 +169,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        return self.images[indexPath.section]
+        return self.images[indexPath.row]
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
