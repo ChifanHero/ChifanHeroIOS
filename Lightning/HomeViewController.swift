@@ -404,7 +404,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         });
         addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
         
-            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F60C}\n\(likeCount)", handler:{(action, indexpath) -> Void in
+            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F44D}\n\(likeCount)", handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
@@ -431,7 +431,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         });
         likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
-        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F60F}\n\(neutralCount)", handler:{(action, indexpath) -> Void in
+        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F44C}\n\(neutralCount)", handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
@@ -456,7 +456,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         });
         neutralAction.backgroundColor = UIColor(red: 1, green: 0.501, blue: 0, alpha: 1.0);
         
-        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F615}\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
+        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F44E}\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
