@@ -91,9 +91,9 @@ import UIKit
         if UserContext.isRatingTooFrequent(listId!) {
             JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
         } else {
-            likeButtonView.actionCount = likeButtonView.actionCount! + 1
+            likeButtonView.actionCount = likeButtonView.actionCount + 1
             rateAndBookmarkExecutor?.like("list", objectId: listId!, failureHandler: { (objectId) -> Void in
-                self.likeButtonView.actionCount = self.likeButtonView.actionCount! - 1
+                self.likeButtonView.actionCount = self.likeButtonView.actionCount - 1
             })
         }
     }
@@ -106,9 +106,9 @@ import UIKit
         if !UserContext.isValidUser() {
             JSSAlertView().show(self.baseVC!, title: "请登录", text: nil, buttonText: "我知道了")
         } else {
-            bookmarkButtonView.actionCount = bookmarkButtonView.actionCount! + 1
+            bookmarkButtonView.actionCount = bookmarkButtonView.actionCount + 1
             rateAndBookmarkExecutor?.addToFavorites("restaurant", objectId: listId!, failureHandler: { (objectId) -> Void in
-                self.bookmarkButtonView.actionCount = self.bookmarkButtonView.actionCount! - 1
+                self.bookmarkButtonView.actionCount = self.bookmarkButtonView.actionCount - 1
             })
         }
     }

@@ -38,22 +38,27 @@ class RatingAndBookmarkExecutor {
         request.type = type
         request.objectId = objectId
         let defaults = NSUserDefaults.standardUserDefaults()
+        let now : Int = Int(NSDate().timeIntervalSince1970 * 1000)
+        defaults.setInteger(now, forKey: objectId)
         
 //        self.baseViewController!.view.userInteractionEnabled = false
         DataAccessor(serviceConfiguration: ParseConfiguration()).rate(request) { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 
-                if response?.error == nil {
-                    let now : Int = Int(NSDate().timeIntervalSince1970 * 1000)
-                    defaults.setInteger(now, forKey: objectId)
-//                    self.configureSuccessPopup("评论成功")
-//                    self.baseViewController!.view.addSubview(self.popUpView)
-//                    NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
-                } else {
+                if response == nil || response?.error != nil{
                     if failureHandler != nil {
                         failureHandler!(objectId)
                     }
                 }
+                
+//                if response?.error == nil {
+//                    
+////                    self.configureSuccessPopup("评论成功")
+////                    self.baseViewController!.view.addSubview(self.popUpView)
+////                    NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
+//                } else {
+//                    
+//                }
                 
             });
         }

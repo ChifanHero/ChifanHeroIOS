@@ -212,9 +212,9 @@ import UIKit
         if UserContext.isRatingTooFrequent(restaurantId!) {
             JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
         } else {
-            likeButtonView.actionCount = likeButtonView.actionCount! + 1
+            likeButtonView.actionCount = likeButtonView.actionCount + 1
             rateAndBookmarkExecutor?.like("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
-                self.likeButtonView.actionCount = self.likeButtonView.actionCount! - 1
+                self.likeButtonView.actionCount = self.likeButtonView.actionCount - 1
             })
         }
     }
@@ -227,9 +227,9 @@ import UIKit
         if UserContext.isRatingTooFrequent(restaurantId!) {
             JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
         } else {
-            dislikeButtonView.actionCount = dislikeButtonView.actionCount! + 1
+            dislikeButtonView.actionCount = dislikeButtonView.actionCount + 1
             rateAndBookmarkExecutor?.dislike("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
-                self.dislikeButtonView.actionCount = self.dislikeButtonView.actionCount! - 1
+                self.dislikeButtonView.actionCount = self.dislikeButtonView.actionCount - 1
             })
         }
     }
@@ -243,9 +243,9 @@ import UIKit
         if UserContext.isRatingTooFrequent(restaurantId!) {
             JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
         } else {
-            neutralButtonView.actionCount = neutralButtonView.actionCount! + 1
+            neutralButtonView.actionCount = neutralButtonView.actionCount + 1
             rateAndBookmarkExecutor?.neutral("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
-                self.neutralButtonView.actionCount = self.neutralButtonView.actionCount! - 1
+                self.neutralButtonView.actionCount = self.neutralButtonView.actionCount - 1
             })
         }
     }
@@ -259,9 +259,9 @@ import UIKit
         if !UserContext.isValidUser() {
             JSSAlertView().show(self.baseVC!, title: "请登录", text: nil, buttonText: "我知道了")
         } else {
-            bookmarkButtonView.actionCount = bookmarkButtonView.actionCount! + 1
+            bookmarkButtonView.actionCount = bookmarkButtonView.actionCount + 1
             rateAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
-                self.bookmarkButtonView.actionCount = self.bookmarkButtonView.actionCount! - 1
+                self.bookmarkButtonView.actionCount = self.bookmarkButtonView.actionCount - 1
             })
         }
     }
