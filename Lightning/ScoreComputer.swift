@@ -22,7 +22,7 @@ class ScoreComputer  {
             neutral = 0
         }
         if (positive! + negative! + neutral!) == 0{
-            return "尚未评价(向左滑动以打分)"
+            return "尚未评价(向左滑动打分)"
         }
         
         let pos = Double(positive!)

@@ -228,7 +228,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                 objectId = list.id!
             }
             
-            let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
+            let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
                 if (!UserContext.isValidUser()) {
                     self.popupSigninAlert()
                 } else {
@@ -238,15 +238,15 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                     } else {
                         list.favoriteCount!++
                     }
-                    self.listTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
+                    self.listTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
                     self.addToFavorites(indexPath)
                 }
                 self.dismissActionViewWithDelay()
                 
             });
-            addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
+            addBookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
             
-            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "喜欢\n\(likeCount)", handler:{(action, indexpath) -> Void in
+            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
@@ -256,13 +256,13 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                     } else {
                         list.likeCount!++
                     }
-                    self.listTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("喜欢\n\(likeCount)", index: 3)
+                    self.listTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
                     
                     self.rateList(indexPath, ratingType: RatingTypeEnum.like)
                 }
                 self.dismissActionViewWithDelay()
             });
-            likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+            likeAction.backgroundColor = LightningColor.themeRed()
             return [addBookmarkAction, likeAction];
     }
     

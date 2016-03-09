@@ -230,6 +230,8 @@
 		CA882D271C85181200D04696 /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D261C85181200D04696 /* SignUpTableViewController.swift */; };
 		CA882D291C8556E300D04696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42D9BCC1B69EF2D0035C5A6 /* Assets.xcassets */; };
 		CA882D2D1C86790200D04696 /* LogInTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D2C1C86790200D04696 /* LogInTableViewController.swift */; };
+		CA882D2F1C90A7D400D04696 /* LightningColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D2E1C90A7D400D04696 /* LightningColor.swift */; };
+		CA882D311C90B11200D04696 /* CellActionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D301C90B11200D04696 /* CellActionTitle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -468,6 +470,8 @@
 		CA882D221C8263AE00D04696 /* RemoveFavoriteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveFavoriteResponse.swift; sourceTree = "<group>"; };
 		CA882D261C85181200D04696 /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
 		CA882D2C1C86790200D04696 /* LogInTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInTableViewController.swift; sourceTree = "<group>"; };
+		CA882D2E1C90A7D400D04696 /* LightningColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightningColor.swift; sourceTree = "<group>"; };
+		CA882D301C90B11200D04696 /* CellActionTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellActionTitle.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -661,6 +665,8 @@
 				C44C25831C52022900A345D8 /* ScoreComputer.swift */,
 				C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */,
 				C4B0A3981C8CCD8D00D05408 /* Reachability.swift */,
+				CA882D2E1C90A7D400D04696 /* LightningColor.swift */,
+				CA882D301C90B11200D04696 /* CellActionTitle.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -1282,6 +1288,7 @@
 				CA203DE21C111EEA00D6F32C /* GetFavoritesRequest.swift in Sources */,
 				CA203DE31C111EEA00D6F32C /* CouponCellSecondView.swift in Sources */,
 				C41298111C82294A0062BC7D /* NominateDishListCandidateResponse.swift in Sources */,
+				CA882D311C90B11200D04696 /* CellActionTitle.swift in Sources */,
 				C4066F111C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift in Sources */,
 				CA203DE41C111EEA00D6F32C /* SignUpResponse.swift in Sources */,
 				CA203DE51C111EEA00D6F32C /* SelectionPanel.swift in Sources */,
@@ -1313,6 +1320,7 @@
 				CA203DF41C111EEA00D6F32C /* InfoTableViewCell.swift in Sources */,
 				CA203DF51C111EEA00D6F32C /* BubbleButton.swift in Sources */,
 				CA203DF61C111EEA00D6F32C /* ListHeaderViewDelegate.swift in Sources */,
+				CA882D2F1C90A7D400D04696 /* LightningColor.swift in Sources */,
 				C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */,
 				CA203DF71C111EEA00D6F32C /* GetRestaurantMenuRequest.swift in Sources */,
 				CA203DF81C111EEA00D6F32C /* Coupon.swift in Sources */,

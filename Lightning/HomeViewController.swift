@@ -372,7 +372,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
             
-        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F31F}\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
+        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
             if (!UserContext.isValidUser()) {
                 self.popupSigninAlert()
             } else {
@@ -390,15 +390,15 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                         promotion.restaurant?.favoriteCount!++
                     }
                 }
-                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("\u{1F31F}\n\(favoriteCount)", index: 0)
+                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
                 self.addToFavorites(indexPath)
             }
             self.dismissActionViewWithDelay()
             
         });
-        addBookmarkAction.backgroundColor = UIColor(red: 251/255, green: 242/255, blue: 0/255, alpha: 1.0);
+        addBookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
         
-            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F44D}\n\(likeCount)", handler:{(action, indexpath) -> Void in
+            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
@@ -417,15 +417,15 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                     }
                 }
                 
-                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("\u{1F44D}\n\(likeCount)", index: 3)
+                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
                 
                 self.ratePromotion(indexPath, ratingType: RatingTypeEnum.like)
             }
             self.dismissActionViewWithDelay()
         });
-        likeAction.backgroundColor = UIColor(red: 235/255, green: 48/255, blue: 29/255, alpha: 1.0);
+        likeAction.backgroundColor = LightningColor.themeRed()
         
-        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F44C}\n\(neutralCount)", handler:{(action, indexpath) -> Void in
+        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
@@ -443,14 +443,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                         promotion.restaurant?.neutralCount!++
                     }
                 }
-                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("\u{1F44C}\n\(neutralCount)", index: 2)
+                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
                 self.ratePromotion(indexPath, ratingType: RatingTypeEnum.neutral)
             }
             self.dismissActionViewWithDelay()
         });
-        neutralAction.backgroundColor = UIColor(red: 255/255, green: 113/255, blue: 36/255, alpha: 1.0);
+        neutralAction.backgroundColor = LightningColor.neutralOrange()
         
-        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F44E}\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
+        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
@@ -468,12 +468,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                         promotion.restaurant?.dislikeCount!++
                     }
                 }
-                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("\u{1F44E}\n\(dislikeCount)", index: 1)
+                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
                 self.ratePromotion(indexPath, ratingType: RatingTypeEnum.dislike)
             }
             self.dismissActionViewWithDelay()
         });
-        dislikeAction.backgroundColor = UIColor(red: 54/255, green: 115/255, blue: 238/255, alpha: 1.0)
+        dislikeAction.backgroundColor = LightningColor.negativeBlue()
         
         
         return [addBookmarkAction, dislikeAction, neutralAction, likeAction];

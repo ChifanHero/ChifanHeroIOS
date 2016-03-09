@@ -375,7 +375,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         }
         
         if tableView == hotDishesTableView{
-            let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
+            let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
                 if (!UserContext.isValidUser()) {
                     self.popupSigninAlert()
                 } else {
@@ -385,14 +385,14 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                     } else {
                         dish.favoriteCount!++
                     }
-                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
+                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
                     self.addToFavorites(indexPath)
                 }
                 self.dismissActionViewWithDelay()
             });
-            bookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0)
+            bookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
             
-            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好吃\n\(likeCount)", handler:{(action, indexpath) -> Void in
+            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
@@ -402,14 +402,14 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                     } else {
                         dish.likeCount!++
                     }
-                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("好吃\n\(likeCount)", index: 3)
+                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
                     self.rateDish(indexPath, ratingType: RatingTypeEnum.like)
                 }
                 self.dismissActionViewWithDelay()
             });
-            likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0)
+            likeAction.backgroundColor = LightningColor.themeRed()
             
-            let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般\n\(neutralCount)", handler:{(action, indexpath) -> Void in
+            let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
@@ -420,14 +420,14 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                         dish.neutralCount!++
                     }
                     action.title = "一般\n\(neutralCount)"
-                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("一般\n\(neutralCount)", index: 2)
+                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
                     self.rateDish(indexPath, ratingType: RatingTypeEnum.neutral)
                 }
                 self.dismissActionViewWithDelay()
             });
-            neutralAction.backgroundColor = UIColor(red: 1, green: 0.501, blue: 0, alpha: 1.0)
+            neutralAction.backgroundColor = LightningColor.neutralOrange()
             
-            let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "难吃\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
+            let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
@@ -437,12 +437,12 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                     } else {
                         dish.dislikeCount!++
                     }
-                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("难吃\n\(dislikeCount)", index: 1)
+                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
                     self.rateDish(indexPath, ratingType: RatingTypeEnum.dislike)
                 }
                 self.dismissActionViewWithDelay()
             });
-            dislikeAction.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
+            dislikeAction.backgroundColor = LightningColor.negativeBlue()
             
             return [bookmarkAction, dislikeAction, neutralAction, likeAction];
         }
