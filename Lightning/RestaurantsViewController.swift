@@ -281,20 +281,20 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             dislikeCount = restaurant.dislikeCount!
         }
         
-        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "收藏\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
+        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F31F}\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
             favoriteCount++
             if restaurant.favoriteCount == nil {
                 restaurant.favoriteCount = 1
             } else {
                 restaurant.favoriteCount!++
             }
-            self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
+            self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("\u{1F31F}\n\(favoriteCount)", index: 0)
             self.addToFavorites(indexPath)
             self.dismissActionViewWithDelay()
         });
         addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
         
-        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "好吃\n\(likeCount)", handler:{(action, indexpath) -> Void in
+        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F44D}\n\(likeCount)", handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId!)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
@@ -304,14 +304,14 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                 } else {
                     restaurant.likeCount!++
                 }
-                self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("好吃\n\(likeCount)", index: 3)
+                self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("\u{1F44D}\n\(likeCount)", index: 3)
                 self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.like)
             }
             self.dismissActionViewWithDelay()
         });
         likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
-        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般\n\(neutralCount)", handler:{(action, indexpath) -> Void in
+        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F44C}\n\(neutralCount)", handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId!)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
@@ -322,14 +322,14 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                     restaurant.neutralCount!++
                 }
                 action.title = "一般\n\(neutralCount)"
-                self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("一般\n\(neutralCount)", index: 2)
+                self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("\u{1F44C}\n\(neutralCount)", index: 2)
                 self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.neutral)
             }
             self.dismissActionViewWithDelay()
         });
         neutralAction.backgroundColor = UIColor(red: 1, green: 0.501, blue: 0, alpha: 1.0);
         
-        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "难吃\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
+        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "\u{1F44E}\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId!)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
@@ -339,7 +339,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                 } else {
                     restaurant.dislikeCount!++
                 }
-                self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("难吃\n\(dislikeCount)", index: 1)
+                self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("\u{1F44E}\n\(dislikeCount)", index: 1)
                 self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.dislike)
             }
             self.dismissActionViewWithDelay()
