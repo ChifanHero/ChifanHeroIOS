@@ -21,6 +21,9 @@ class LoadMoreFooterView: UIView {
     private var view : UIView!
     private var nibName : String = "LoadMoreFooterView"
     
+    @IBOutlet weak var finishMessageLabel: UILabel!
+    
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override init(frame: CGRect) {
@@ -32,6 +35,10 @@ class LoadMoreFooterView: UIView {
         super.init(coder: aDecoder)
         
         Setup() // Setup when this component is used from Code
+    }
+    
+    func showFinishMessage() {
+        self.finishMessageLabel.hidden = false
     }
     
     private func Setup(){

@@ -110,11 +110,25 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         }
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didEndDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == lists.count - 1 {
-            footerView.activityIndicator.startAnimating()
-            loadMore()
+            if needToLoadMore() {
+                footerView.activityIndicator.startAnimating()
+                loadMore()
+            } else {
+                footerView.showFinishMessage()
+            }
+            
         }
+    }
+    
+    func needToLoadMore() -> Bool {
+        if self.lists.count == (request.skip)! + (request.limit)! {
+            return true
+        } else {
+            return false
+        }
+        
     }
     
     func loadMore() {

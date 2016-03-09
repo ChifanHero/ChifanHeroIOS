@@ -189,9 +189,23 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == restaurants.count - 1 {
-            footerView.activityIndicator.startAnimating()
-            loadMore()
+            if needToLoadMore() {
+                footerView.activityIndicator.startAnimating()
+                loadMore()
+            } else {
+                footerView.showFinishMessage()
+            }
+            
         }
+    }
+    
+    func needToLoadMore() -> Bool {
+        if self.restaurants.count == (request.skip)! + (request.limit)! {
+            return true
+        } else {
+            return false
+        }
+        
     }
     
 //    func tableView(tableView: UITableView, didEndDisplayingFooterView view: UIView, forSection section: Int) {
