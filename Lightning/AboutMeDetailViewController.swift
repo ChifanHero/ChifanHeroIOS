@@ -36,6 +36,7 @@ class AboutMeDetailViewController: UIViewController, UITableViewDelegate, UITabl
     
     var restaurantImages = [PhotoRecord]()
     var dishImages = [PhotoRecord]()
+    var listImages = [PhotoRecord]()
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
@@ -88,14 +89,16 @@ class AboutMeDetailViewController: UIViewController, UITableViewDelegate, UITabl
                 for var index = 0; index < self.favorites?.count; index++ {
                     if self.favorites![index].type == "restaurant" {
                         self.restaurants.append(self.favorites![index].restaurant!)
+                        self.fetchRestaurantImageDetails()
                     } else if self.favorites![index].type == "dish" {
                         self.dishes.append(self.favorites![index].dish!)
+                        self.fetchDishImageDetails()
                     } else {
                         self.lists.append(self.favorites![index].list!)
                     }
                 }
-                self.fetchRestaurantImageDetails()
-                self.fetchDishImageDetails()
+                
+                
                 self.tableView.reloadData()
                 self.tableView.hidden = false
                 self.activityIndicator.stopAnimating()
@@ -123,6 +126,17 @@ class AboutMeDetailViewController: UIViewController, UITableViewDelegate, UITabl
             }
             let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
             self.dishImages.append(record)
+        }
+    }
+    
+    private func fetchListImageDetails() {
+        for list: List in self.lists {
+            var url = list.picture?.original
+            if url == nil {
+                url = ""
+            }
+            let record = PhotoRecord(name: "", url: NSURL(string: url!)!, defaultImage: nil)
+            self.listImages.append(record)
         }
     }
 
@@ -158,9 +172,39 @@ class AboutMeDetailViewController: UIViewController, UITableViewDelegate, UITabl
             return cell!
         } else {
             let cell: ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
-            cell?.model = lists[indexPath.section]
+            let imageDetails = imageForIndexPath(tableView: tableView, indexPath: indexPath)
+            cell?.setUp(list: lists[indexPath.section], image: imageDetails.image!)
             return cell!
         }
+    }
+    
+    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+        if self.detailType == FavoriteTypeEnum.Restaurant {
+            if indexPath.section > restaurantImages.count - 1 {
+                return PhotoRecord.DEFAULT
+            } else {
+                return self.restaurantImages[indexPath.section]
+            }
+            
+            
+        } else if self.detailType == FavoriteTypeEnum.Dish {
+            if indexPath.section > dishImages.count - 1 {
+                return PhotoRecord.DEFAULT
+            } else {
+                return self.dishImages[indexPath.section]
+            }
+            
+            
+        } else {
+            if indexPath.section > listImages.count - 1 {
+                return PhotoRecord.DEFAULT
+            } else {
+                return self.listImages[indexPath.section]
+            }
+            
+        }
+        
+        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

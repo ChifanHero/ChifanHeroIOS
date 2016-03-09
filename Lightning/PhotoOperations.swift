@@ -14,6 +14,8 @@ enum PhotoRecordState {
 
 class PhotoRecord {
     
+    static let DEFAULT = PhotoRecord(name: "", url: NSURL(), defaultImage: nil)
+    
     let name : String
     let url : NSURL
     var state = PhotoRecordState.New

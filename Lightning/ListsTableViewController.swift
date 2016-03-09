@@ -290,6 +290,10 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         self.listTable.setEditing(false, animated: true)
         NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
     }
+    
+    @objc private func reloadTable() {
+        self.listTable.reloadData()
+    }
 
 
 }
