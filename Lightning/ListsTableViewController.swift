@@ -75,10 +75,12 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                         }
                         self.lists += response!.results
                         self.fetchImageDetails()
-                        self.listTable.reloadData()
                         self.listTable.hidden = false
                         
                     }
+                    
+                    self.listTable.reloadData()
+                    
                     if refreshHandler != nil {
                         refreshHandler!(success: true)
                     }
@@ -115,10 +117,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
             if needToLoadMore() {
                 footerView.activityIndicator.startAnimating()
                 loadMore()
-            } else {
-                footerView.showFinishMessage()
             }
-            
         }
     }
     

@@ -94,6 +94,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                     if self.restaurants.count > 0 {
                         self.restaurantsTable.hidden = false
                     }
+                    
                     self.restaurantsTable.reloadData()
                     if refreshHandler != nil {
                         refreshHandler!(success: true)
@@ -188,12 +189,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
 //    }
     
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let row = indexPath.row
         if indexPath.row == restaurants.count - 1 {
             if needToLoadMore() {
                 footerView.activityIndicator.startAnimating()
                 loadMore()
-            } else {
-                footerView.showFinishMessage()
             }
             
         }
