@@ -170,8 +170,8 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="bookmark_large" width="18" height="25"/>
-        <image name="dislike_large" width="25" height="24"/>
-        <image name="neutral_large" width="25" height="25"/>
+        <image name="bookmark_large" width="33" height="33"/>
+        <image name="dislike_large" width="33" height="33"/>
+        <image name="neutral_large" width="33" height="33"/>
     </resources>
 </document>

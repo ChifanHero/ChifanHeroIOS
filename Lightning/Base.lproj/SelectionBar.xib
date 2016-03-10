@@ -38,7 +38,7 @@
                                 <constraint firstAttribute="height" constant="30" id="0m4-Ls-f6v"/>
                                 <constraint firstAttribute="width" constant="80" id="We9-aI-Spq"/>
                             </constraints>
-                            <state key="normal" title="菜名">
+                            <state key="normal" title="菜品">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
