@@ -10,6 +10,8 @@ import UIKit
 
 class OwnerInfoDishTableViewCell: UITableViewCell {
     
+    static var height: CGFloat = 100
+    
     var dish : Dish?
     
     @IBOutlet weak var dishImageView: UIImageView!

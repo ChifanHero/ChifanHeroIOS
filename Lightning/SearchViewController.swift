@@ -319,9 +319,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         if selectionBar.scope == "list" {
             return ListTableViewCell.height
         } else if selectionBar.scope == "dish" {
-            return 90
+            return OwnerInfoDishTableViewCell.height
         } else {
-            return RestaurantTableViewCell.height
+            return RestaurantSearchTableViewCell.height
         }
         
     }
@@ -487,8 +487,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         var likeCount = 0
         var neutralCount = 0
         var dislikeCount = 0
-        var positiveText = "好吃"
-        let favoriteText = "收藏"
         let scope = selectionBar.scope
         var objectId : String = ""
         if scope == "restaurant" {
@@ -507,7 +505,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             }
             
         } else if scope == "list" {
-            positiveText = "喜欢"
             objectId = self.lists[indexPath.row].id!
             if self.lists[indexPath.row].favoriteCount != nil {
                 favoriteCount = self.lists[indexPath.row].favoriteCount!
@@ -531,7 +528,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             }
         }
         
-        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: favoriteText + "\n\(favoriteCount)", handler:{(action, indexpath) -> Void in
+        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
             if (!UserContext.isValidUser()) {
                 self.popupSigninAlert()
             } else {
@@ -555,15 +552,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                         self.dishes[indexPath.row].favoriteCount!++
                     }
                 }
-                self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("收藏\n\(favoriteCount)", index: 0)
+                self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
                 self.addToFavorites(indexPath)
             }
             self.dismissActionViewWithDelay()
             
         });
-        addBookmarkAction.backgroundColor = UIColor(red: 0, green: 0.749, blue: 1, alpha: 1.0);
+        addBookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
         
-        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: positiveText + "\n\(likeCount)", handler:{(action, indexpath) -> Void in
+        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
             
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
@@ -589,16 +586,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     }
                 }
                 
-                self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(positiveText + "\n\(likeCount)", index: 3)
+                self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
                 
                 self.rate(indexPath, ratingType: RatingTypeEnum.like)
             }
             self.dismissActionViewWithDelay()
         });
-        likeAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        likeAction.backgroundColor = LightningColor.themeRed()
         
         if scope != "list" {
-            let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "一般\n\(neutralCount)", handler:{(action, indexpath) -> Void in
+            let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
@@ -616,14 +613,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                             self.dishes[indexPath.row].neutralCount!++
                         }
                     }
-                    self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("一般\n\(neutralCount)", index: 2)
+                    self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
                     self.rate(indexPath, ratingType: RatingTypeEnum.neutral)
                 }
                 self.dismissActionViewWithDelay()
             });
-            neutralAction.backgroundColor = UIColor(red: 1, green: 0.501, blue: 0, alpha: 1.0);
+            neutralAction.backgroundColor = LightningColor.neutralOrange()
             
-            let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "难吃\n\(dislikeCount)", handler:{(action, indexpath) -> Void in
+            let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
@@ -641,12 +638,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                             self.dishes[indexPath.row].dislikeCount!++
                         }
                     }
-                    self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView("难吃\n\(dislikeCount)", index: 1)
+                    self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
                     self.rate(indexPath, ratingType: RatingTypeEnum.dislike)
                 }
                 self.dismissActionViewWithDelay()
             });
-            dislikeAction.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
+            dislikeAction.backgroundColor = LightningColor.negativeBlue()
             return [addBookmarkAction, dislikeAction, neutralAction, likeAction];
         } else {
             return [addBookmarkAction, likeAction]

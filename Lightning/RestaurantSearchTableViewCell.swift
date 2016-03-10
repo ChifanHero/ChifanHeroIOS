@@ -9,6 +9,8 @@
 import UIKit
 
 class RestaurantSearchTableViewCell: UITableViewCell {
+    
+    static var height: CGFloat = 120
 
     @IBOutlet weak var restaurantImageView: UIImageView!
     
@@ -38,8 +40,8 @@ class RestaurantSearchTableViewCell: UITableViewCell {
         dispatch_async(dispatch_get_main_queue(), {
             if restaurant.name != nil {
                 do {
-                    
-                    let nameWithSize = NSString(format:"<span style=\"font-size: 18\">%@</span>", restaurant.name!) as String
+                    let colordName = self.addColorToString(restaurant.name!)
+                    let nameWithSize = NSString(format:"<span style=\"font-size: 14\">%@</span>", colordName) as String
                     let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
                     self.nameLabel.attributedText = attributedName
                 } catch {
@@ -48,16 +50,9 @@ class RestaurantSearchTableViewCell: UITableViewCell {
                 
             }
             if restaurant.address != nil {
-                do {
-                    let addressWithSize = NSString(format:"<span style=\"font-size: 12\">%@</span>", restaurant.address!) as String
-                    let attributedAddress = try NSMutableAttributedString(data: addressWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-                    self.addressLabel.attributedText = attributedAddress
-                } catch {
-                    
-                }
+                self.addressLabel.text = restaurant.address
             }
             
-            //        addressLabel.text = restaurant.address
             if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
                 let value = restaurant.distance?.value
                 let unit = restaurant.distance?.unit
@@ -69,8 +64,8 @@ class RestaurantSearchTableViewCell: UITableViewCell {
             if restaurant.dishes != nil && restaurant.dishes!.count > 0 {
                 
                 for dish in restaurant.dishes! {
-                    dishNames += dish
-                    dishNames += "  "
+                    dishNames += self.addColorToString(dish)
+                    dishNames += "&nbsp&nbsp&nbsp&nbsp"
                 }
                 dishNames = NSString(format:"<span style=\"font-size: 12\">%@</span>", dishNames) as String
                 do {
@@ -83,9 +78,16 @@ class RestaurantSearchTableViewCell: UITableViewCell {
                 }
             }
         })
+    }
+    
+    private func addColorToString(originalString: String) -> String {
+        var result: String?
         
+        result = originalString.stringByReplacingOccurrencesOfString("<b>", withString:"<b><font color=\"red\">")
         
+        result = result!.stringByReplacingOccurrencesOfString("</b>", withString:"</font></b>")
         
+        return result!
     }
 
 }
