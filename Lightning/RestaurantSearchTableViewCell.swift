@@ -50,7 +50,14 @@ class RestaurantSearchTableViewCell: UITableViewCell {
                 
             }
             if restaurant.address != nil {
-                self.addressLabel.text = restaurant.address
+                do {
+                    let colordName = self.addColorToString(restaurant.address!)
+                    let nameWithSize = NSString(format:"<span style=\"font-size: 12\">%@</span>", colordName) as String
+                    let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+                    self.addressLabel.attributedText = attributedName
+                } catch {
+                    
+                }
             }
             
             if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
