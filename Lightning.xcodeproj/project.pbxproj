@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4017D311C91CCE8002840FB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4017D301C91CCE8002840FB /* StringExtension.swift */; };
 		C4066F111C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */; };
 		C4066F151C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4066F141C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift */; };
 		C41297861C809AE60062BC7D /* TutorialChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41297841C809AE60062BC7D /* TutorialChildViewController.swift */; };
@@ -235,6 +236,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C4017D301C91CCE8002840FB /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameOnlyDishTableViewCell.swift; sourceTree = "<group>"; };
 		C4066F141C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCandidateNoDishContentView.swift; sourceTree = "<group>"; };
 		C41297841C809AE60062BC7D /* TutorialChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialChildViewController.swift; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 				C4B0A3981C8CCD8D00D05408 /* Reachability.swift */,
 				CA882D2E1C90A7D400D04696 /* LightningColor.swift */,
 				CA882D301C90B11200D04696 /* CellActionTitle.swift */,
+				C4017D301C91CCE8002840FB /* StringExtension.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -1351,6 +1354,7 @@
 				CA203E091C111EEA00D6F32C /* GetDishByIdRequest.swift in Sources */,
 				C4A0D55A1C11746100BAE246 /* Serializable.swift in Sources */,
 				CA203E0A1C111EEA00D6F32C /* CouponTableViewCell.swift in Sources */,
+				C4017D311C91CCE8002840FB /* StringExtension.swift in Sources */,
 				C44C25841C52022900A345D8 /* ScoreComputer.swift in Sources */,
 				CA203E0C1C111EEA00D6F32C /* Message.swift in Sources */,
 				CA203E0D1C111EEA00D6F32C /* SortParameter.swift in Sources */,

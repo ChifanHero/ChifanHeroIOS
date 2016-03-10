@@ -151,6 +151,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if offset == 0 {
                     self.clearStates()
+//                    self.searchResultsTableView.reloadData()
                 }
                 if let results = searchResponse?.results {
                     self.restaurants += results
@@ -162,13 +163,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                         let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
                         self.restaurantImages.append(record)
                     }
-                    self.searchResultsTableView.hidden = false
+                    
                     
                     self.searchResultsTableView.allowsSelection = true
                     self.refreshControl.endRefreshing()
+                    self.searchResultsTableView.hidden = true
                     self.searchResultsTableView.reloadData()
                     self.waitingIndicator.hidden = true
                     self.waitingIndicator.stopAnimating()
+                    self.searchResultsTableView.hidden = false
 //                    self.adjustSearchResultsTableHeight()
 //                    self.adjustScrollViewContentHeight()
                 }
