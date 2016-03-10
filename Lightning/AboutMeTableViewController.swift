@@ -209,7 +209,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     private func getLogInNavigationController() -> UINavigationController{
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let logInNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("LogInNavigationController") as! UINavigationController
-        logInNC.tabBarItem = UITabBarItem(title: "About me", image: UIImage(named: "about me"), tag: 3)
+        logInNC.tabBarItem = UITabBarItem(title: "我的主页", image: UIImage(named: "AboutMe"), tag: 3)
         return logInNC
     }
     

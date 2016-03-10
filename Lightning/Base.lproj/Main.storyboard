@@ -657,7 +657,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about me" translatesAutoresizingMaskIntoConstraints="NO" id="uSM-Ry-HrB">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Profile_Picture" translatesAutoresizingMaskIntoConstraints="NO" id="uSM-Ry-HrB">
                                                     <rect key="frame" x="147" y="10" width="80" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="80" id="1TE-V5-v9p"/>
@@ -1256,11 +1256,11 @@
             </objects>
             <point key="canvasLocation" x="2643.5" y="672.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--搜索-->
         <scene sceneID="zUk-zk-wBr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E9N-Mz-AKM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="search" id="aIO-nG-c2r"/>
+                    <tabBarItem key="tabBarItem" title="搜索" image="Search_Tab" selectedImage="Search_Tab" id="aIO-nG-c2r"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="qIb-UC-V9W">
@@ -1284,7 +1284,7 @@
         <scene sceneID="lAW-DD-Bn8">
             <objects>
                 <navigationController restorationIdentifier="LogInNavigationController" storyboardIdentifier="LogInNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="uD7-Qe-tHo" userLabel="Personal View Navigation Controller" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我的主页" image="about me" id="FW4-TG-ZV5"/>
+                    <tabBarItem key="tabBarItem" title="我的主页" image="AboutMe" selectedImage="AboutMe" id="FW4-TG-ZV5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="JpX-m4-a5C">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1417,9 +1417,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AboutMe" width="25" height="25"/>
         <image name="Logo_InApp" width="180" height="180"/>
+        <image name="Profile_Picture" width="66" height="67"/>
+        <image name="Search_Tab" width="25" height="25"/>
         <image name="Separator_Line" width="135" height="6"/>
-        <image name="about me" width="25" height="25"/>
         <image name="home" width="25" height="24"/>
         <image name="hot" width="28" height="28"/>
         <image name="hotList" width="28" height="28"/>

@@ -75,7 +75,7 @@ class LogInTableViewController: UITableViewController {
     private func getAboutMeNavigationController() -> UINavigationController {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let aboutMeNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("AboutMeNavigationController") as! UINavigationController
-        aboutMeNC.tabBarItem = UITabBarItem(title: "About me", image: UIImage(named: "about me"), tag: 3)
+        aboutMeNC.tabBarItem = UITabBarItem(title: "我的主页", image: UIImage(named: "AboutMe"), tag: 3)
         return aboutMeNC
     }
     

@@ -2,17 +2,15 @@
   "images" : [
     {
       "idiom" : "iphone",
-      "filename" : "about mee.png",
       "scale" : "1x"
     },
     {
       "idiom" : "iphone",
-      "filename" : "about mee@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "iphone",
-      "filename" : "about mee@3x.png",
+      "filename" : "Profile_Picture.png",
       "scale" : "3x"
     }
   ],
