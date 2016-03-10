@@ -140,7 +140,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         let userLocation = appDelegate!.currentLocation
         request.userLocation = userLocation
-        print(request.getRequestBody())
+        let range = Range()
+        range.center = userLocation
+        let distance = Distance()
+        distance.value = 50
+        distance.unit = "mi"
+        range.distance = distance
+        request.range = range
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if offset == 0 {
