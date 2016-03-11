@@ -178,9 +178,9 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
         for promotion: Promotion in self.promotions {
             var url: String?
             if promotion.dish != nil {
-                url = promotion.dish?.picture?.original
+                url = promotion.dish?.picture?.thumbnail
             } else if promotion.restaurant != nil {
-                url = promotion.restaurant?.picture?.original
+                url = promotion.restaurant?.picture?.thumbnail
             }
             if url == nil {
                 url = ""

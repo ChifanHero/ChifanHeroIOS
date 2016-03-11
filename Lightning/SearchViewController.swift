@@ -18,6 +18,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     var searchController: UISearchController!
     
+    var resultsCount = 0
+    
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -69,7 +71,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         searchController.searchBar.sizeToFit()
         self.navigationItem.titleView = searchController.searchBar
         searchController.searchBar.barTintColor = UIColor.clearColor()
-//        searchController.searchBar.placeholder = "大家都在搜：韶山冲"
 
         definesPresentationContext = true
         searchResultsTableView.hidden = true
@@ -120,6 +121,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         let keyword = self.searchController.searchBar.text
         print(keyword)
         if keyword != nil && keyword != "" {
+            if offset == 0 {
+                self.clearStates()
+            }
             if self.searchResultsTableView.hidden == true {
                 waitingIndicator.hidden = false
                 waitingIndicator.startAnimating()
@@ -154,14 +158,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         request.range = range
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                if offset == 0 {
-                    self.clearStates()
-//                    self.searchResultsTableView.reloadData()
-                }
                 if let results = searchResponse?.results {
                     self.restaurants += results
+                    self.resultsCount = self.restaurants.count
                     for restaurant : Restaurant in results {
-                        var url = restaurant.picture?.original
+                        var url = restaurant.picture?.thumbnail
                         if url == nil {
                             url = ""
                         }
@@ -177,8 +178,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     self.waitingIndicator.hidden = true
                     self.waitingIndicator.stopAnimating()
                     self.searchResultsTableView.hidden = false
-//                    self.adjustSearchResultsTableHeight()
-//                    self.adjustScrollViewContentHeight()
+                    self.footerView.activityIndicator.stopAnimating()
                 }
                 
             })
@@ -200,6 +200,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let results = searchResponse?.results {
                     self.dishes += results
+                    self.resultsCount = self.dishes.count
                     for dish : Dish in results {
                         var url = dish.picture?.original
                         if url == nil {
@@ -215,6 +216,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     self.searchResultsTableView.reloadData()
                     self.waitingIndicator.hidden = true
                     self.waitingIndicator.stopAnimating()
+                    self.footerView.activityIndicator.stopAnimating()
                 }
                 
             })
@@ -235,6 +237,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let results = searchResponse?.results {
                     self.lists += results
+                    self.resultsCount = self.lists.count
                     self.searchResultsTableView.hidden = false
                     
                     self.searchResultsTableView.allowsSelection = true
@@ -242,8 +245,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     self.searchResultsTableView.reloadData()
                     self.waitingIndicator.hidden = true
                     self.waitingIndicator.stopAnimating()
-//                    self.adjustSearchResultsTableHeight()
-//                    self.adjustScrollViewContentHeight()
+                    self.footerView.activityIndicator.stopAnimating()
+
                 }
                 
             })
@@ -251,13 +254,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if selectionBar.scope == "list" {
-            return self.lists.count
-        } else if selectionBar.scope == "dish" {
-            return self.dishes.count
-        } else {
-            return self.restaurants.count
-        }
+        return resultsCount
         
     }
     
@@ -361,8 +358,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         self.lists.removeAll()
         self.restaurantImages.removeAll()
         self.dishImages.removeAll()
-        self.searchResultsTableView.hidden = true
+//        self.searchResultsTableView.hidden = true
         self.offset = 0
+        self.resultsCount = 0
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -392,42 +390,49 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         clearStates()
     }
     
-    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        // if last section, add activity indicator
-        var resultsCount = 0
-        let scope = selectionBar.scope
-        if scope == "restaurant" {
-            resultsCount = self.restaurants.count
-        } else if scope == "list" {
-            resultsCount = self.lists.count
-        } else if scope == "dish" {
-            resultsCount = self.dishes.count
-        }
-//        print("section = \(section), resultsCount = \(resultsCount)")
-        if section == resultsCount - 1 {
-            footerView.activityIndicator.startAnimating()
-            loadMore()
+//    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+//        // if last section, add activity indicator
+//        var resultsCount = 0
+//        let scope = selectionBar.scope
+//        if scope == "restaurant" {
+//            resultsCount = self.restaurants.count
+//        } else if scope == "list" {
+//            resultsCount = self.lists.count
+//        } else if scope == "dish" {
+//            resultsCount = self.dishes.count
+//        }
+////        print("section = \(section), resultsCount = \(resultsCount)")
+//        if section == resultsCount - 1 {
+//            footerView.activityIndicator.startAnimating()
+//            loadMore()
+//        }
+//    }
+    
+    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let row = indexPath.row
+        print("row = \(row)")
+        print("results count = \(resultsCount)")
+        if row == resultsCount - 1 {
+            if needToLoadMore() {
+                footerView.activityIndicator.startAnimating()
+                loadMore()
+            }
+            
         }
     }
     
-    func loadMore() {
-        var resultsCount = 0
-        let scope = selectionBar.scope
-        if scope == "restaurant" {
-            resultsCount = self.restaurants.count
-        } else if scope == "list" {
-            resultsCount = self.lists.count
-        } else if scope == "dish" {
-            resultsCount = self.dishes.count
-        }
-        if resultsCount == offset + LIMIT {
-            offset += LIMIT
-            search(offset: offset, limit: LIMIT)
+    func needToLoadMore() -> Bool {
+        if resultsCount == self.offset + LIMIT {
+            return true
         } else {
-            footerView.activityIndicator.stopAnimating()
-            footerView.activityIndicator.hidden = true
+            return false
         }
         
+    }
+    
+    func loadMore() {
+        offset += LIMIT
+        search(offset: offset, limit: LIMIT)
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

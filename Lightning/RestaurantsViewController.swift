@@ -135,7 +135,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     private func fetchImageDetails(results : [Restaurant]?) {
         if results != nil {
             for restaurant : Restaurant in results! {
-                var url = restaurant.picture?.original
+                var url = restaurant.picture?.thumbnail
                 if url == nil {
                     url = ""
                 }
@@ -197,8 +197,10 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
 //    }
     
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         let row = indexPath.row
-        if indexPath.row == restaurants.count - 1 {
+        print("row = \(row)")
+        if row == restaurants.count - 1 {
             if needToLoadMore() {
                 footerView.activityIndicator.startAnimating()
                 loadMore()
@@ -206,6 +208,8 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             
         }
     }
+    
+    
     
     func needToLoadMore() -> Bool {
         if self.restaurants.count == (request.skip)! + (request.limit)! {
