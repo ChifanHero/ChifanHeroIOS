@@ -43,6 +43,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearTitleForBackBarButtonItem()
         self.restaurantsTable.delegate = self
         self.restaurantsTable.dataSource = self
         self.restaurantsTable.hidden = true
@@ -58,6 +59,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         if selectedCellIndexPath != nil {
             self.restaurantsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
+    }
+    
+    private func clearTitleForBackBarButtonItem(){
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
     }
     
     override func refreshData() {

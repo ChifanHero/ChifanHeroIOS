@@ -23,7 +23,8 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "notificationArrived", name:"NotificationArrived", object: nil)
-        let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "edit")
+        clearTitleForBackBarButtonItem()
+        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
         editBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem = editBarButton
         self.splitViewController?.delegate = self
@@ -34,6 +35,11 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
         clearTableViewSelection()
         loadTableData()
         
+    }
+    
+    private func clearTitleForBackBarButtonItem(){
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
     }
     
     private func clearTableViewSelection() {
@@ -152,7 +158,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     }
     
     func edit() {
-        let doneBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "done")
+        let doneBarButton = UIBarButtonItem(title: "完成", style: UIBarButtonItemStyle.Done, target: self, action: "done")
         doneBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem = doneBarButton
         self.tableView.editing = true
@@ -160,7 +166,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     }
     
     func done() {
-        let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "edit")
+        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
         editBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem = editBarButton
         self.tableView.editing = false

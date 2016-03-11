@@ -19,6 +19,7 @@ class LogInTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        clearTitleForBackBarButtonItem()
         UISetup()
 
         if isLoggedIn(){
@@ -42,6 +43,11 @@ class LogInTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func clearTitleForBackBarButtonItem(){
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
     }
     
     func dismissKeyboard() {

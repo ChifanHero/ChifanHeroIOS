@@ -48,6 +48,7 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearTitleForBackBarButtonItem()
         self.containerView.delegate = self
         configureNavigationController()
         loadingIndicator.hidden = false
@@ -61,6 +62,11 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
         generateNavigationItemTitle()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     private func generateNavigationItemTitle() {
         let logo = UIImage(named: "Lightning_Title.png")
         let imageView = UIImageView(image:logo)
@@ -71,9 +77,9 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
         self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    private func clearTitleForBackBarButtonItem(){
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
     }
     
     private func configurePullRefresh(){
@@ -185,10 +191,6 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
-//        self.navigationItem.backBarButtonItem = barButtonItem;
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
         if segue.identifier == "showRestaurants" {
             let restaurantsController : RestaurantsViewController = segue.destinationViewController as! RestaurantsViewController
             if let s = sender as? String {

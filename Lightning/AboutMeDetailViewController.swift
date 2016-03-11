@@ -28,6 +28,8 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
+    var pendingOperations = PendingOperations()
+    
     let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
@@ -90,13 +92,19 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
                 for var index = 0; index < self.favorites?.count; index++ {
                     if self.favorites![index].type == "restaurant" {
                         self.restaurants.append(self.favorites![index].restaurant!)
-                        self.fetchRestaurantImageDetails()
                     } else if self.favorites![index].type == "dish" {
                         self.dishes.append(self.favorites![index].dish!)
-                        self.fetchDishImageDetails()
                     } else {
                         self.lists.append(self.favorites![index].list!)
                     }
+                }
+                
+                if self.detailType == FavoriteTypeEnum.Restaurant {
+                    self.fetchRestaurantImageDetails()
+                } else if self.detailType == FavoriteTypeEnum.Dish {
+                    self.fetchDishImageDetails()
+                } else {
+                    self.fetchListImageDetails()
                 }
                 
                 
@@ -175,21 +183,38 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         
         if detailType == FavoriteTypeEnum.Restaurant {
             let cell: RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
-            cell?.setUp(restaurant: restaurants[indexPath.row], image: restaurantImages[indexPath.row].image!)
+            cell?.setUp(restaurant: restaurants[indexPath.row], image: imageForIndexPath(indexPath).image!)
+            
+            switch (restaurantImages[indexPath.row].state){
+            case .New:
+                self.tableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: restaurantImages[indexPath.row],indexPath:indexPath)
+            default: break
+            }
             return cell!
         } else if self.detailType == FavoriteTypeEnum.Dish {
             let cell: NameImageDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
-            cell?.setUp(dish: dishes[indexPath.row], image: dishImages[indexPath.row].image!)
+            cell?.setUp(dish: dishes[indexPath.row], image: imageForIndexPath(indexPath).image!)
+            
+            switch (dishImages[indexPath.row].state){
+            case .New:
+                self.tableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: dishImages[indexPath.row],indexPath:indexPath)
+            default: break
+            }
             return cell!
         } else {
             let cell: ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
-            let imageDetails = imageForIndexPath(tableView: tableView, indexPath: indexPath)
-            cell?.setUp(list: lists[indexPath.row], image: imageDetails.image!)
+            cell?.setUp(list: lists[indexPath.row], image: imageForIndexPath(indexPath).image!)
+            
+            switch (listImages[indexPath.row].state){
+            case .New:
+                self.tableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: listImages[indexPath.row],indexPath:indexPath)
+            default: break
+            }
             return cell!
         }
     }
     
-    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
+    func imageForIndexPath(indexPath : NSIndexPath) -> PhotoRecord {
         if self.detailType == FavoriteTypeEnum.Restaurant {
             if indexPath.row > restaurantImages.count - 1 {
                 return PhotoRecord.DEFAULT
@@ -214,8 +239,6 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
             }
             
         }
-        
-        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

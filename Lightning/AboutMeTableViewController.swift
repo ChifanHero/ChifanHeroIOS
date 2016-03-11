@@ -16,6 +16,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearTitleForBackBarButtonItem()
         loadUserNickName()
         loadUserPicture()
         setUserProfileImageProperty()
@@ -35,6 +36,11 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func clearTitleForBackBarButtonItem(){
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
     }
     
     private func setUserProfileImageProperty(){

@@ -35,6 +35,11 @@ class ListTableViewCell: UITableViewCell {
     
     func setUp(list list: List, image: UIImage) {
         listImage.image = image
+        nameLabel.text = list.name
+        if (list.memberCount != nil) {
+            countLabel.text = String(list.memberCount!) + "道菜"
+        }
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

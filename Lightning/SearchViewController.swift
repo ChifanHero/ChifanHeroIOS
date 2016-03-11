@@ -42,7 +42,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Search view");
+        clearTitleForBackBarButtonItem()
         waitingIndicator.hidden = true
         selectionBar.hidden = false
         configurePullRefresh()
@@ -74,6 +74,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         definesPresentationContext = true
         searchResultsTableView.hidden = true
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
+    }
+    
+    private func clearTitleForBackBarButtonItem(){
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
     }
     
     private func configurePullRefresh(){
@@ -408,8 +413,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
         if segue.identifier == "showRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String

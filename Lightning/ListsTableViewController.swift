@@ -32,6 +32,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearTitleForBackBarButtonItem()
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.listTable.insertSubview(refreshControl, atIndex: 0)
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -45,6 +46,11 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         if selectedCellIndexPath != nil {
             self.listTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
+    }
+    
+    private func clearTitleForBackBarButtonItem(){
+        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = barButtonItem
     }
     
     override func refreshData() {
@@ -203,8 +209,6 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
         if segue.identifier == "showList" {
             let listMemberController : ListMemberViewController = segue.destinationViewController as! ListMemberViewController
             listMemberController.listId = (sender as! List).id
