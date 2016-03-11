@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
 //        registerForPushNotifications()
         configSplitViewController()
+        configNavigationBar()
 //        startGettingLocation()
         if launchOptions != nil && launchOptions![UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
             print("Did receive push notification in launching") // Will be called when app is not active in background
@@ -40,6 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         handleFirstLaunch()
         
         return true
+    }
+    
+    private func configNavigationBar() {
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), forBarPosition: UIBarPosition.Any, barMetrics: UIBarMetrics.Default)
+        UINavigationBar.appearance().shadowImage = UIImage()
     }
     
     private func handleFirstLaunch() {
