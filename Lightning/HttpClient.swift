@@ -23,7 +23,7 @@ class HttpClient {
     func delete(url:String, headers:[String : String]?, parameters : [String : AnyObject], completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
         let request = NSMutableURLRequest(URL:NSURL(string: url)!)
         request.HTTPMethod = "DELETE"
-        request.timeoutInterval = 5
+        request.timeoutInterval = 10
         if headers != nil {
             for (header, value) in headers! {
                 if self.headers[header] != value {
@@ -47,7 +47,7 @@ class HttpClient {
     
     func post(url:String, headers:[String : String]?, parameters : [String : AnyObject], completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
         let request = NSMutableURLRequest(URL:NSURL(string: url)!)
-        request.timeoutInterval = 5
+        request.timeoutInterval = 10
         request.HTTPMethod = "POST"
         if headers != nil {
             for (header, value) in headers! {
@@ -73,7 +73,7 @@ class HttpClient {
     func get(url:String, headers:[String : String]?, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
         let request = NSMutableURLRequest(URL:NSURL(string: url)!)
         request.HTTPMethod = "GET"
-        request.timeoutInterval = 5
+        request.timeoutInterval = 10
         if headers != nil {
             for (header, value) in headers! {
                 if self.headers[header] != value {
