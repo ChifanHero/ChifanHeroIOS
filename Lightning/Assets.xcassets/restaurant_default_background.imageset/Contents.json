@@ -2,17 +2,15 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "food_background-1.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "food_background.jpg",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "food_background-2.jpg",
+      "filename" : "Restaurant_Default_Background.png",
       "scale" : "3x"
     }
   ],
