@@ -91,27 +91,29 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                     if refreshHandler != nil {
                         refreshHandler!(success: false)
                     }
+                    self.refreshControl.endRefreshing()
+                    self.waitingIndicator.stopAnimating()
+                    self.waitingIndicator.hidden = true
+                    self.footerView.activityIndicator.stopAnimating()
                 } else {
                     if self.request.skip == 0 {
                         self.clearStates()
                     }
                     self.loadResults(response?.results)
                     self.fetchImageDetails(response?.results)
-                    if self.restaurants.count > 0 {
+                    if self.restaurants.count > 0 && self.restaurantsTable.hidden == true{
                         self.restaurantsTable.hidden = false
                     }
-                    
+                    self.refreshControl.endRefreshing()
+                    self.waitingIndicator.stopAnimating()
+                    self.waitingIndicator.hidden = true
+                    self.footerView.activityIndicator.stopAnimating()
                     self.restaurantsTable.reloadData()
                     if refreshHandler != nil {
                         refreshHandler!(success: true)
                     }
                     
                 }
-                self.refreshControl.endRefreshing()
-                self.waitingIndicator.stopAnimating()
-                self.waitingIndicator.hidden = true
-                self.footerView.activityIndicator.stopAnimating()
-
                 
             });
         }
