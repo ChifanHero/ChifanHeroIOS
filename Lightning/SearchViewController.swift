@@ -337,16 +337,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     func restaurantButtonClicked() {
+        self.searchResultsTableView.hidden = true
         clearStates()
         search(offset: 0, limit: LIMIT)
     }
     
     func dishButtonPressed() {
+        self.searchResultsTableView.hidden = true
         clearStates()
         search(offset: 0, limit: LIMIT)
     }
     
     func listButtonPressed() {
+        self.searchResultsTableView.hidden = true
         clearStates()
         search(offset: 0, limit: LIMIT)
     }

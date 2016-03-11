@@ -160,9 +160,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if restaurants.isEmpty {
-            return 0
-        }
         return 1
     }
     
@@ -431,25 +428,25 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         return self.images[indexPath.row]
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        self.restaurantsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-        self.restaurantsTable.loadImageForVisibleCells(&pendingOperations)
-        pendingOperations.downloadQueue.suspended = false
-    }
-    
-    // As soon as the user starts scrolling, suspend all operations
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        pendingOperations.downloadQueue.suspended = true
-    }
-    
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            if scrollView == self.restaurantsTable {
-                self.restaurantsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-                self.restaurantsTable.loadImageForVisibleCells(&pendingOperations)
-                pendingOperations.downloadQueue.suspended = false
-            }
-        }
-    }
+//    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+//        self.restaurantsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+//        self.restaurantsTable.loadImageForVisibleCells(&pendingOperations)
+//        pendingOperations.downloadQueue.suspended = false
+//    }
+//    
+//    // As soon as the user starts scrolling, suspend all operations
+//    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+//        pendingOperations.downloadQueue.suspended = true
+//    }
+//    
+//    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        if !decelerate {
+//            if scrollView == self.restaurantsTable {
+//                self.restaurantsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
+//                self.restaurantsTable.loadImageForVisibleCells(&pendingOperations)
+//                pendingOperations.downloadQueue.suspended = false
+//            }
+//        }
+//    }
 }
 

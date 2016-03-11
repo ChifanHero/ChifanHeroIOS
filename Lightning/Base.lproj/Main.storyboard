@@ -182,8 +182,8 @@
                                     <outlet property="delegate" destination="cBe-Iu-15d" id="GO6-dW-M30"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EWK-8p-9KR">
-                                <rect key="frame" x="169" y="283" width="37" height="37"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EWK-8p-9KR">
+                                <rect key="frame" x="169" y="258.5" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                         </subviews>
@@ -499,25 +499,6 @@
             </objects>
             <point key="canvasLocation" x="-1270.5" y="768.5"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="ssG-0R-xMM">
-            <objects>
-                <viewController id="KMu-z7-xRM" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="x5O-sn-6NL"/>
-                        <viewControllerLayoutGuide type="bottom" id="gvn-me-Yv6"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3E2-ah-2F1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1ac-Dd-wxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2850.5" y="-208.5"/>
-        </scene>
         <!--List Member View Controller-->
         <scene sceneID="tbI-NG-u1f">
             <objects>
@@ -611,8 +592,8 @@
                                     <outlet property="delegate" destination="VfX-37-xD7" id="6bL-H9-Tv2"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="vqt-eU-mRD">
-                                <rect key="frame" x="169" y="283" width="37" height="37"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="vqt-eU-mRD">
+                                <rect key="frame" x="169" y="258.5" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                         </subviews>
@@ -1429,8 +1410,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dDa-I7-4We"/>
         <segue reference="ejM-wk-Qba"/>
-        <segue reference="cRp-Bb-PSh"/>
+        <segue reference="Hvz-De-g2h"/>
+        <segue reference="vSQ-ka-XUm"/>
     </inferredMetricsTieBreakers>
 </document>
