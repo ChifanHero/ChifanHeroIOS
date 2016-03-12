@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Home View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" customClass="HomeViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="HomeViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2O-7a-gxn">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="555"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Cge-rc-BQk">
                                         <rect key="frame" x="0.0" y="95" width="383" height="460"/>
@@ -42,10 +42,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="383" height="90"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="63" translatesAutoresizingMaskIntoConstraints="NO" id="4OT-lP-E0r">
-                                                <rect key="frame" x="25" y="18" width="333" height="56"/>
+                                                <rect key="frame" x="25" y="18" width="333" height="55.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aqd-qO-PjW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="56"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="55.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
                                                                 <rect key="frame" x="18" y="0.0" width="28" height="28"/>
@@ -55,7 +55,7 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门餐厅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="re1-JV-HBL">
-                                                                <rect key="frame" x="0.0" y="36" width="64" height="20"/>
+                                                                <rect key="frame" x="0.0" y="36" width="64" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -63,7 +63,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-Dd-Yxb">
-                                                        <rect key="frame" x="135" y="0.0" width="64" height="56"/>
+                                                        <rect key="frame" x="134.5" y="0.0" width="64" height="55.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7a-2D-gQH">
                                                                 <rect key="frame" x="18" y="0.0" width="28" height="28"/>
@@ -73,7 +73,7 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="菜品榜单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rz-3p-Vkv">
-                                                                <rect key="frame" x="0.0" y="36" width="64" height="20"/>
+                                                                <rect key="frame" x="0.0" y="36" width="64" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -81,7 +81,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wJY-B6-7QL">
-                                                        <rect key="frame" x="269" y="0.0" width="64" height="56"/>
+                                                        <rect key="frame" x="269" y="0.0" width="64" height="55.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-Lg-ida">
                                                                 <rect key="frame" x="18" y="0.0" width="28" height="28"/>
@@ -91,7 +91,7 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="离我最近" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NY3-im-GGj">
-                                                                <rect key="frame" x="0.0" y="36" width="64" height="20"/>
+                                                                <rect key="frame" x="0.0" y="36" width="64" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -111,7 +111,7 @@
                                         </constraints>
                                     </view>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Jsp-bl-2dP">
-                                        <rect key="frame" x="173" y="259" width="37" height="37"/>
+                                        <rect key="frame" x="173" y="258.5" width="37" height="37"/>
                                         <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -138,14 +138,14 @@
                             <constraint firstAttribute="trailingMargin" secondItem="G2S-pL-if8" secondAttribute="trailing" constant="-20" id="JGc-ZH-WNW"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="Cge-rc-BQk" secondAttribute="bottom" constant="-1" id="Njg-QK-DLO"/>
                             <constraint firstItem="a2O-7a-gxn" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="RGp-R6-y5J"/>
-                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="a2O-7a-gxn" secondAttribute="bottom" constant="-1" id="SAD-mg-CWk"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="a2O-7a-gxn" secondAttribute="bottom" id="SAD-mg-CWk"/>
                             <constraint firstItem="Cge-rc-BQk" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="Tnc-ef-z84"/>
                             <constraint firstAttribute="trailingMargin" secondItem="a2O-7a-gxn" secondAttribute="trailing" constant="-20" id="dw4-8T-lPg"/>
                             <constraint firstItem="a2O-7a-gxn" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="huP-YP-51N"/>
                             <constraint firstItem="G2S-pL-if8" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="zmM-3G-nPF"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="Fh2-KO-OO5" userLabel="Lightning Order"/>
                     <connections>
                         <outlet property="containerView" destination="a2O-7a-gxn" id="Gjo-GS-CNs"/>
@@ -170,7 +170,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ZdJ-lw-Zm3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1HC-6e-FcA">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCt-9Q-S6W">
@@ -182,7 +182,7 @@
                                     <outlet property="delegate" destination="cBe-Iu-15d" id="GO6-dW-M30"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EWK-8p-9KR">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EWK-8p-9KR">
                                 <rect key="frame" x="169" y="258.5" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
@@ -197,7 +197,7 @@
                             <constraint firstItem="EWK-8p-9KR" firstAttribute="centerY" secondItem="1HC-6e-FcA" secondAttribute="centerY" id="xmb-0x-SO1"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="restaurantsTable" destination="gCt-9Q-S6W" id="yIH-g6-qFW"/>
@@ -455,6 +455,23 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Magnifier" translatesAutoresizingMaskIntoConstraints="NO" id="Y5i-u7-avL">
+                                <rect key="frame" x="127" y="193" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="M2U-l1-94h"/>
+                                    <constraint firstAttribute="height" constant="120" id="q8a-YV-qPk"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发现身边的美食" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyP-1m-8l6">
+                                <rect key="frame" x="112" y="330" width="150" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="PhT-DE-TyA"/>
+                                    <constraint firstAttribute="width" constant="150" id="wrQ-si-6nE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eb0-n8-VQj" userLabel="Search results tableView">
                                 <rect key="frame" x="0.0" y="43" width="375" height="511"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -472,12 +489,16 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leadingMargin" constant="-20" id="0J3-lN-1Ko"/>
+                            <constraint firstItem="Y5i-u7-avL" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" constant="150" id="DkJ-55-a4M"/>
+                            <constraint firstItem="nyP-1m-8l6" firstAttribute="top" secondItem="gAO-Cm-LSJ" secondAttribute="bottom" constant="10" id="H1t-mP-i0r"/>
                             <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" id="IVs-n4-ceA"/>
                             <constraint firstItem="XZD-6s-Tzc" firstAttribute="top" secondItem="eb0-n8-VQj" secondAttribute="bottom" id="Ntk-MR-pVw"/>
+                            <constraint firstItem="nyP-1m-8l6" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="SKo-qZ-Qgo"/>
                             <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="ifc-Dd-Dgo"/>
                             <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="opU-ss-fwO"/>
                             <constraint firstAttribute="trailing" secondItem="eb0-n8-VQj" secondAttribute="trailing" id="qo6-BZ-l3p"/>
                             <constraint firstAttribute="trailingMargin" secondItem="m9Q-Eu-s73" secondAttribute="trailing" constant="-20" id="ujF-GT-IFY"/>
+                            <constraint firstItem="Y5i-u7-avL" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="vLO-0J-19k"/>
                             <constraint firstItem="eb0-n8-VQj" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leading" id="wb3-KU-NnV"/>
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" id="zMH-dW-sU2"/>
                         </constraints>
@@ -1400,6 +1421,7 @@
     <resources>
         <image name="AboutMe" width="25" height="25"/>
         <image name="Logo_InApp" width="180" height="180"/>
+        <image name="Magnifier" width="124" height="124"/>
         <image name="Profile_Picture" width="66" height="67"/>
         <image name="Search_Tab" width="25" height="26"/>
         <image name="Separator_Line" width="135" height="6"/>
@@ -1410,8 +1432,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ejM-wk-Qba"/>
         <segue reference="Hvz-De-g2h"/>
-        <segue reference="vSQ-ka-XUm"/>
+        <segue reference="cRp-Bb-PSh"/>
+        <segue reference="ejM-wk-Qba"/>
     </inferredMetricsTieBreakers>
 </document>
