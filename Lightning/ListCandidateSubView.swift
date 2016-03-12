@@ -76,7 +76,7 @@ import UIKit
 //    var pendingOperations = PendingOperations()
 //    var dishImages : [PhotoRecord] = [PhotoRecord]()
     
-    @IBOutlet weak var searchResultsTable: ImageProgressiveTableView!
+    @IBOutlet weak var searchResultsTable: UITableView!
     
     @IBOutlet weak var searchTextField: UITextField!
     

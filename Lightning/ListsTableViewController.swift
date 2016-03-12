@@ -8,11 +8,9 @@
 
 import UIKit
 
-class ListsTableViewController: RefreshableViewController, UITableViewDelegate, UITableViewDataSource , ImageProgressiveTableViewDelegate {
+class ListsTableViewController: RefreshableViewController, UITableViewDelegate, UITableViewDataSource {
     
     var lists : [List] = []
-    var listImages = [PhotoRecord]()
-    var pendingOperations = PendingOperations()
     
     var request : GetListsRequest = GetListsRequest()
     
@@ -26,7 +24,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     var offset = 0
 
     
-    @IBOutlet weak var listTable: ImageProgressiveTableView!
+    @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
     
     
@@ -80,7 +78,6 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                             self.clearStates()
                         }
                         self.lists += response!.results
-                        self.fetchImageDetails()
                         self.listTable.hidden = false
                         
                     }
@@ -104,19 +101,8 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     
     func clearStates() {
         self.lists.removeAll()
-        self.listImages.removeAll()
     }
-    
-    private func fetchImageDetails() {
-        for list: List in self.lists {
-            var url = list.picture?.original
-            if url == nil {
-                url = ""
-            }
-            let record = PhotoRecord(name: "", url: NSURL(string: url!)!, defaultImage: nil)
-            self.listImages.append(record)
-        }
-    }
+
     
     func tableView(tableView: UITableView, didEndDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == lists.count - 1 {
@@ -186,23 +172,13 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
             tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
             cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
         }
+        cell?.setUp(list: lists[indexPath.row])
         
-        let imageDetails = imageForIndexPath(tableView: self.listTable, indexPath: indexPath)
-        cell?.setUp(list: lists[indexPath.row], image: imageDetails.image!)
-        
-        switch (imageDetails.state){
-        case .New:
-            self.listTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails, indexPath:indexPath)
-        default: break
-        }
         
         cell?.model = lists[indexPath.row]
         return cell!
     }
-    
-    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        return self.listImages[indexPath.row]
-    }
+
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("showList", sender: lists[indexPath.row])

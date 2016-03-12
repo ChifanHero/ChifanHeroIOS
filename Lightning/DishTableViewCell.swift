@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class DishTableViewCell: UITableViewCell {
     
@@ -45,11 +46,15 @@ class DishTableViewCell: UITableViewCell {
         
     }
     
-    func setUp(dish dish : Dish, image : UIImage) {
+    func setUp(dish dish : Dish) {
         nameLabel.text = dish.name
         restaurantLabel.text = dish.fromRestaurant?.name
         scoreLabel.text = String(9.99)
-        dishImageView.image = image
+        var url = ""
+        if dish.picture?.thumbnail != nil {
+            url = dish.picture!.thumbnail!
+        }
+        dishImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

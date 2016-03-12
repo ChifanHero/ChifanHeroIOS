@@ -8,11 +8,11 @@
 
 import UIKit
 
-class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, ImageProgressiveTableViewDelegate {
+class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate {
     
     @IBOutlet weak var slideBar: SlideBar!
     
-    @IBOutlet weak var dishTableView: ImageProgressiveTableView!
+    @IBOutlet weak var dishTableView: UITableView!
     
     var request : GetRestaurantMenuRequest?
     
@@ -35,9 +35,6 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     @IBOutlet weak var waitingView: UIView!
     
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
-    
-    var pendingOperations = PendingOperations()
-    var dishImages : [String : PhotoRecord] = [String : PhotoRecord]()
     
 //    var state : RestaurantAllDishViewControllerState = RestaurantAllDishViewControllerState.REGULAR
     
@@ -91,7 +88,6 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
                             self.menuItems = (response!.results)
                             self.retriveMenuAndDishInformation()
                             self.dishTableView.hidden = false
-                            self.fetchImageDetails()
                             self.dishTableView.reloadData()
                             self.slideBar.setUpScrollView(titles: self.menuNames, defaultSelection: nil)
                         }
@@ -109,19 +105,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     
     func clearStates() {
         self.dishes.removeAll()
-        self.dishImages.removeAll()
         self.menuItems.removeAll()
-    }
-    
-    private func fetchImageDetails() {
-        for dish : Dish in self.dishes {
-            var url = dish.picture?.original
-            if url == nil {
-                url = ""
-            }
-            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-            self.dishImages[dish.id!] = record
-        }
     }
     
     private func retriveMenuAndDishInformation() {
@@ -357,23 +341,13 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
             tableView.registerNib(UINib(nibName: "NameImageDishCell", bundle: nil), forCellReuseIdentifier: "nameImageDishCell")
             cell = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
         }
-        let imageDetails = imageForIndexPath(tableView: self.dishTableView, indexPath: indexPath)
         let dish : Dish?
         if searchController.active == false {
             dish = menuItems[indexPath.section].dishes?[indexPath.row]
         } else {
             dish = self.searchResults[indexPath.row].dish
         }
-        cell?.setUp(dish: dish!, image: imageDetails.image!)
-        switch (imageDetails.state){
-        case .New:
-            if (!tableView.dragging && !tableView.decelerating) {
-                self.dishTableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-            }
-        default: break
-        }
-        
-        
+        cell?.setUp(dish: dish!)
         return cell!
     }
     
@@ -457,16 +431,6 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
             }
         }
         
-    }
-    
-    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        let dish : Dish?
-        if !searchController.active {
-            dish = menuItems[indexPath.section].dishes?[indexPath.row]
-        } else {
-            dish = self.searchResults[indexPath.row].dish
-        }
-        return self.dishImages[(dish?.id)!]!
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {

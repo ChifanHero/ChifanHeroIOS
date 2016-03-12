@@ -8,12 +8,12 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResultsUpdating, UISearchControllerDelegate, UITableViewDelegate, UITableViewDataSource, ImageProgressiveTableViewDelegate, SelectionBarDelegate{
+class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResultsUpdating, UISearchControllerDelegate, UITableViewDelegate, UITableViewDataSource, SelectionBarDelegate{
     
     @IBOutlet weak var selectionBar: SelectionBar!
     
     
-    @IBOutlet weak var searchResultsTableView: ImageProgressiveTableView!
+    @IBOutlet weak var searchResultsTableView: UITableView!
     
     
     var searchController: UISearchController!
@@ -28,10 +28,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     var restaurants : [Restaurant] = [Restaurant]()
     var dishes : [Dish] = [Dish]()
     var lists : [List] = [List]()
-    
-    var pendingOperations = PendingOperations()
-    var restaurantImages = [PhotoRecord]()
-    var dishImages = [PhotoRecord]()
     
     let footerView : LoadMoreFooterView = LoadMoreFooterView()
     
@@ -161,16 +157,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 if let results = searchResponse?.results {
                     self.restaurants += results
                     self.resultsCount = self.restaurants.count
-                    for restaurant : Restaurant in results {
-                        var url = restaurant.picture?.thumbnail
-                        if url == nil {
-                            url = ""
-                        }
-                        let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-                        self.restaurantImages.append(record)
-                    }
-                    
-                    
                     self.searchResultsTableView.allowsSelection = true
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.hidden = true
@@ -201,14 +187,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 if let results = searchResponse?.results {
                     self.dishes += results
                     self.resultsCount = self.dishes.count
-                    for dish : Dish in results {
-                        var url = dish.picture?.original
-                        if url == nil {
-                            url = ""
-                        }
-                        let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-                        self.dishImages.append(record)
-                    }
                     self.searchResultsTableView.hidden = false
                     
                     self.searchResultsTableView.allowsSelection = false
@@ -284,16 +262,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
 //                tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
 //                cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
 //            }
-
-            let imageDetails = imageForIndexPath(tableView: self.searchResultsTableView, indexPath: indexPath)
             cell?.baseVC = self
-            cell?.setUp(dish: self.dishes[indexPath.row], image: imageDetails.image!)
-            
-            switch (imageDetails.state){
-            case PhotoRecordState.New:
-                self.searchResultsTableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-            default: break
-            }
+            cell?.setUp(dish: self.dishes[indexPath.row])
             return cell!
         } else {
             var cell : RestaurantSearchTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantSearchCell") as? RestaurantSearchTableViewCell
@@ -301,14 +271,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 tableView.registerNib(UINib(nibName: "RestaurantSearchCell", bundle: nil), forCellReuseIdentifier: "restaurantSearchCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("restaurantSearchCell") as? RestaurantSearchTableViewCell
             }
-            let imageDetails = imageForIndexPath(tableView: tableView, indexPath: indexPath)
-            cell?.setUp(restaurant: restaurants[indexPath.row], image: imageDetails.image!)
-            
-            switch (imageDetails.state){
-            case .New:
-                searchResultsTableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-            default: break
-            }
+            cell?.setUp(restaurant: restaurants[indexPath.row])
             return cell!
         }
         
@@ -321,17 +284,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             return OwnerInfoDishTableViewCell.height
         } else {
             return RestaurantSearchTableViewCell.height
-        }
-        
-    }
-    
-    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        if selectionBar.scope == "dish" {
-            return self.dishImages[indexPath.row]
-        } else if selectionBar.scope == "restaurant" {
-            return self.restaurantImages[indexPath.row]
-        } else {
-            return PhotoRecord(name: "", url: NSURL())
         }
         
     }
@@ -359,8 +311,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         self.dishes.removeAll()
         self.restaurants.removeAll()
         self.lists.removeAll()
-        self.restaurantImages.removeAll()
-        self.dishImages.removeAll()
 //        self.searchResultsTableView.hidden = true
         self.offset = 0
         self.resultsCount = 0
@@ -392,24 +342,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         clearStates()
     }
-    
-//    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-//        // if last section, add activity indicator
-//        var resultsCount = 0
-//        let scope = selectionBar.scope
-//        if scope == "restaurant" {
-//            resultsCount = self.restaurants.count
-//        } else if scope == "list" {
-//            resultsCount = self.lists.count
-//        } else if scope == "dish" {
-//            resultsCount = self.dishes.count
-//        }
-////        print("section = \(section), resultsCount = \(resultsCount)")
-//        if section == resultsCount - 1 {
-//            footerView.activityIndicator.startAnimating()
-//            loadMore()
-//        }
-//    }
     
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let row = indexPath.row

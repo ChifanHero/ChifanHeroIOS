@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class OwnerInfoDishTableViewCell: UITableViewCell {
     
@@ -45,7 +46,7 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
         
     }
     
-    func setUp(dish dish: Dish, image: UIImage, useHTMLRender : Bool) {
+    func setUp(dish dish: Dish, useHTMLRender : Bool) {
         self.dish = dish
         if useHTMLRender && dish.name != nil {
             if dish.name != nil {
@@ -53,9 +54,7 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
                 self.nameLabel.hidden = false
             }
             
-            self.rateLabel.text = ScoreComputer.getScore(positive: dish.likeCount, negative: dish.dislikeCount, neutral: dish.neutralCount)
-            self.dishImageView.image = image
-            self.restaurantButton.setTitle(dish.fromRestaurant?.name, forState: UIControlState.Normal)
+            
         } else {
             if dish.name == nil {
                 self.nameLabel.text = "名称未知"
@@ -63,15 +62,19 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
                 self.nameLabel.text = dish.name!
             }
             
-            self.rateLabel.text = ScoreComputer.getScore(positive: dish.likeCount, negative: dish.dislikeCount, neutral: dish.neutralCount)
-            self.dishImageView.image = image
-            self.restaurantButton.setTitle(dish.fromRestaurant?.name, forState: UIControlState.Normal)
         }
+        self.rateLabel.text = ScoreComputer.getScore(positive: dish.likeCount, negative: dish.dislikeCount, neutral: dish.neutralCount)
+        var url = ""
+        if dish.picture?.thumbnail != nil {
+            url = dish.picture!.thumbnail!
+        }
+        dishImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        self.restaurantButton.setTitle(dish.fromRestaurant?.name, forState: UIControlState.Normal)
         
     }
     
-    func setUp(dish dish: Dish, image: UIImage) {
-        self.setUp(dish: dish, image: image, useHTMLRender: true)
+    func setUp(dish dish: Dish) {
+        self.setUp(dish: dish, useHTMLRender: true)
     }
     
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RestaurantTableViewCell: UITableViewCell {
     
@@ -33,7 +34,7 @@ class RestaurantTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setUp(restaurant restaurant: Restaurant, image: UIImage) {
+    func setUp(restaurant restaurant: Restaurant) {
         nameLabel.text = restaurant.name
         addressLabel.text = restaurant.address
         if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
@@ -42,7 +43,13 @@ class RestaurantTableViewCell: UITableViewCell {
             distanceLabel.text = String(value!) + " " + unit!
         }
         ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
-        restaurantImageView.image = image
+//        restaurantImageView.image = image
+        var url = ""
+        if restaurant.picture?.thumbnail != nil {
+            url = restaurant.picture!.thumbnail!
+        }
+        restaurantImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"), optionsInfo: [.Transition(ImageTransition.Fade(1))])
+        
     }
 
 }

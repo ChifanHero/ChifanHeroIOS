@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import Kingfisher
 
-class RestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ImageProgressiveTableViewDelegate {
+class RestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet var restaurantsTable: ImageProgressiveTableView!
+    @IBOutlet var restaurantsTable: UITableView!
     
     private var request : GetRestaurantsRequest = GetRestaurantsRequest()
     
@@ -30,9 +31,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     var restaurants : [Restaurant] = []
     
-    var pendingOperations = PendingOperations()
-    var images = [PhotoRecord]()
-    
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
     
     var loadMoreIndicator : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
@@ -49,7 +47,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         self.restaurantsTable.hidden = true
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.restaurantsTable.insertSubview(self.refreshControl, atIndex: 0)
-        self.restaurantsTable.imageDelegate = self
         refreshData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
     }
@@ -80,7 +77,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     func clearStates() {
         self.restaurants.removeAll()
-        self.images.removeAll()
     }
     
     override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
@@ -100,7 +96,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                         self.clearStates()
                     }
                     self.loadResults(response?.results)
-                    self.fetchImageDetails(response?.results)
                     if self.restaurants.count > 0 && self.restaurantsTable.hidden == true{
                         self.restaurantsTable.hidden = false
                     }
@@ -132,20 +127,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         refreshData()
     }
     
-    private func fetchImageDetails(results : [Restaurant]?) {
-        if results != nil {
-            for restaurant : Restaurant in results! {
-                var url = restaurant.picture?.thumbnail
-                if url == nil {
-                    url = ""
-                }
-                let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-                self.images.append(record)
-            }
-        }
-        
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -170,28 +151,9 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
             cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
         }
-        let imageDetails = imageForIndexPath(tableView: self.restaurantsTable, indexPath: indexPath)
-        cell?.setUp(restaurant: restaurants[indexPath.row], image: imageDetails.image!)
-        
-        switch (imageDetails.state){
-        case .New:
-            self.restaurantsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-        default: break
-        }
+        cell?.setUp(restaurant: restaurants[indexPath.row])
         return cell!
     }
-    
-//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if indexPath.row == restaurants.count - 1 {
-//            footerView.activityIndicator.startAnimating()
-//            loadMore()
-//        }
-//    }
-    
-//    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-//        footerView.activityIndicator.startAnimating()
-//        loadMore()
-//    }
     
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -206,8 +168,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         }
     }
     
-    
-    
     func needToLoadMore() -> Bool {
         if self.restaurants.count == (request.skip)! + (request.limit)! {
             return true
@@ -216,11 +176,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         }
         
     }
-    
-//    func tableView(tableView: UITableView, didEndDisplayingFooterView view: UIView, forSection section: Int) {
-//        footerView.activityIndicator.startAnimating()
-//        loadMore()
-//    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let restaurantSelected : Restaurant = restaurants[indexPath.row]
@@ -237,36 +192,13 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     private func loadMore() {
         request.skip = (request.skip)! + (request.limit)!
         loadData(nil)
-//        DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request) { (response) -> Void in
-//            dispatch_async(dispatch_get_main_queue(), {
-//                if response != nil && (response?.results) != nil {
-//                    for restaurant : Restaurant in (response?.results)! {
-//                        var url = restaurant.picture?.original
-//                        if url == nil {
-//                            url = ""
-//                        }
-//                        let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-//                        self.images.append(record)
-//                        self.restaurants.append(restaurant)
-//                    }
-//                }
-//                self.footerView.activityIndicator.stopAnimating()
-//                self.restaurantsTable.reloadData()
-//            });
-//        }
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        footerView.backgroundColor = UIColor.whiteColor()
         return footerView
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        if section == restaurants.count - 1 {
-//           return 30
-//        } else {
-//            return 0
-//        }
         return 30
     }
     
@@ -423,30 +355,5 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         }
 
     }
-    
-    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        return self.images[indexPath.row]
-    }
-    
-//    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-//        self.restaurantsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-//        self.restaurantsTable.loadImageForVisibleCells(&pendingOperations)
-//        pendingOperations.downloadQueue.suspended = false
-//    }
-//    
-//    // As soon as the user starts scrolling, suspend all operations
-//    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-//        pendingOperations.downloadQueue.suspended = true
-//    }
-//    
-//    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        if !decelerate {
-//            if scrollView == self.restaurantsTable {
-//                self.restaurantsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-//                self.restaurantsTable.loadImageForVisibleCells(&pendingOperations)
-//                pendingOperations.downloadQueue.suspended = false
-//            }
-//        }
-//    }
 }
 

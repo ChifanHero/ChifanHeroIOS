@@ -11,7 +11,7 @@ import UIKit
 class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegate, UITableViewDataSource{
 
     
-    @IBOutlet weak var tableView: ImageProgressiveTableView!
+    @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -22,13 +22,8 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     var dishes: [Dish] = [Dish]()
     var lists: [List] = [List]()
     
-    var restaurantImages = [PhotoRecord]()
-    var dishImages = [PhotoRecord]()
-    var listImages = [PhotoRecord]()
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
-    
-    var pendingOperations = PendingOperations()
     
     let refreshControl = UIRefreshControl()
     
@@ -98,16 +93,6 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
                         self.lists.append(self.favorites![index].list!)
                     }
                 }
-                
-                if self.detailType == FavoriteTypeEnum.Restaurant {
-                    self.fetchRestaurantImageDetails()
-                } else if self.detailType == FavoriteTypeEnum.Dish {
-                    self.fetchDishImageDetails()
-                } else {
-                    self.fetchListImageDetails()
-                }
-                
-                
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
                 self.tableView.hidden = false
@@ -121,43 +106,8 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         self.restaurants.removeAll()
         self.dishes.removeAll()
         self.lists.removeAll()
-        self.restaurantImages.removeAll()
-        self.dishImages.removeAll()
-        self.listImages.removeAll()
     }
-    
-    private func fetchRestaurantImageDetails() {
-        for restaurant: Restaurant in self.restaurants {
-            var url = restaurant.picture?.original
-            if url == nil {
-                url = ""
-            }
-            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-            self.restaurantImages.append(record)
-        }
-    }
-    
-    private func fetchDishImageDetails() {
-        for dish: Dish in self.dishes {
-            var url = dish.picture?.original
-            if url == nil {
-                url = ""
-            }
-            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-            self.dishImages.append(record)
-        }
-    }
-    
-    private func fetchListImageDetails() {
-        for list: List in self.lists {
-            var url = list.picture?.original
-            if url == nil {
-                url = ""
-            }
-            let record = PhotoRecord(name: "", url: NSURL(string: url!)!, defaultImage: nil)
-            self.listImages.append(record)
-        }
-    }
+
 
     // MARK: - Table view data source
 
@@ -183,63 +133,19 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         
         if detailType == FavoriteTypeEnum.Restaurant {
             let cell: RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
-            cell?.setUp(restaurant: restaurants[indexPath.row], image: imageForIndexPath(indexPath).image!)
-            
-            switch (restaurantImages[indexPath.row].state){
-            case .New:
-                self.tableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: restaurantImages[indexPath.row],indexPath:indexPath)
-            default: break
-            }
+            cell?.setUp(restaurant: restaurants[indexPath.row])
             return cell!
         } else if self.detailType == FavoriteTypeEnum.Dish {
             let cell: NameImageDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
-            cell?.setUp(dish: dishes[indexPath.row], image: imageForIndexPath(indexPath).image!)
-            
-            switch (dishImages[indexPath.row].state){
-            case .New:
-                self.tableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: dishImages[indexPath.row],indexPath:indexPath)
-            default: break
-            }
+            cell?.setUp(dish: dishes[indexPath.row])
             return cell!
         } else {
             let cell: ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
-            cell?.setUp(list: lists[indexPath.row], image: imageForIndexPath(indexPath).image!)
-            
-            switch (listImages[indexPath.row].state){
-            case .New:
-                self.tableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: listImages[indexPath.row],indexPath:indexPath)
-            default: break
-            }
+            cell?.setUp(list: lists[indexPath.row])
             return cell!
         }
     }
     
-    func imageForIndexPath(indexPath : NSIndexPath) -> PhotoRecord {
-        if self.detailType == FavoriteTypeEnum.Restaurant {
-            if indexPath.row > restaurantImages.count - 1 {
-                return PhotoRecord.DEFAULT
-            } else {
-                return self.restaurantImages[indexPath.row]
-            }
-            
-            
-        } else if self.detailType == FavoriteTypeEnum.Dish {
-            if indexPath.row > dishImages.count - 1 {
-                return PhotoRecord.DEFAULT
-            } else {
-                return self.dishImages[indexPath.row]
-            }
-            
-            
-        } else {
-            if indexPath.row > listImages.count - 1 {
-                return PhotoRecord.DEFAULT
-            } else {
-                return self.listImages[indexPath.row]
-            }
-            
-        }
-    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.favorites![indexPath.row].type == "restaurant" {
@@ -288,14 +194,12 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
             let restaurant = self.restaurants[indexPath.row]
             ratingAndFavoriteExecutor?.removeFavorite("restaurant", objectId: restaurant.id!, successHandler: { () -> Void in
                 self.restaurants.removeAtIndex(indexPath.row)
-                self.restaurantImages.removeAtIndex(indexPath.row)
                 self.tableView.reloadData()
             })
         } else if detailType == FavoriteTypeEnum.Dish{
             let dish = self.dishes[indexPath.row]
             ratingAndFavoriteExecutor?.removeFavorite("dish", objectId: dish.id!, successHandler: { () -> Void in
                 self.dishes.removeAtIndex(indexPath.row)
-                self.dishImages.removeAtIndex(indexPath.row)
                 self.tableView.reloadData()
             })
         } else {

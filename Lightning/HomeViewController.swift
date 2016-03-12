@@ -8,9 +8,9 @@
 
 import UIKit
 
-class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDelegate {
+class HomeViewController: RefreshableViewController {
     
-    @IBOutlet weak var promotionsTable: ImageProgressiveTableView!
+    @IBOutlet weak var promotionsTable: UITableView!
     
     @IBOutlet weak var containerView: UIScrollView!
     
@@ -38,8 +38,7 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
     let LISTS_OFFSET = 0
 
     let refreshControl = UIRefreshControl()
-    var pendingOperations = PendingOperations()
-    var images = [PhotoRecord]()
+
     var promotions: [Promotion] = []
     
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
@@ -90,7 +89,6 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
     }
     
     private func initPromotionsTable(){
-        self.promotionsTable.imageDelegate = self
         loadingIndicator.startAnimating()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData", name:"UserLocationAvailable", object: nil)
         
@@ -123,10 +121,8 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
                         refreshHandler!(success: false)
                     }
                 } else {
-                    self.images.removeAll()
                     self.promotions.removeAll()
                     self.loadResults(response!.results)
-                    self.fetchImageDetails()
                     
                     if self.promotions.count > 0 {
                         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
@@ -173,22 +169,6 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
     private func adjustContainerViewHeight() {
         self.containerView.contentSize.height = self.topContainerView.frame.height + 10 + self.promotionsTable.frame.height
     }
-    
-    private func fetchImageDetails() {
-        for promotion: Promotion in self.promotions {
-            var url: String?
-            if promotion.dish != nil {
-                url = promotion.dish?.picture?.thumbnail
-            } else if promotion.restaurant != nil {
-                url = promotion.restaurant?.picture?.thumbnail
-            }
-            if url == nil {
-                url = ""
-            }
-            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-            self.images.append(record)
-        }
-    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRestaurants" {
@@ -202,39 +182,6 @@ class HomeViewController: RefreshableViewController, ImageProgressiveTableViewDe
         }
     }
     
-    internal func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        return self.images[indexPath.row]
-    }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        self.promotionsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-        self.promotionsTable.loadImageForVisibleCells(&pendingOperations)
-        pendingOperations.downloadQueue.suspended = false
-    }
-    
-    // As soon as the user starts scrolling, suspend all operations
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        pendingOperations.downloadQueue.suspended = true
-    }
-    
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            if scrollView == self.promotionsTable {
-                self.promotionsTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-                self.promotionsTable.loadImageForVisibleCells(&pendingOperations)
-                pendingOperations.downloadQueue.suspended = false
-            }
-        }
-        print(self.refreshControl.refreshing)
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        print(scrollView.contentOffset.y)
-        if scrollView.contentOffset.y > 10 {
-            
-        }
-    }
-
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -260,16 +207,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
             }
-            let imageDetails = imageForIndexPath(tableView: self.promotionsTable, indexPath: indexPath)
-            cell?.setUp(restaurant: promotions[indexPath.row].restaurant!, image: imageDetails.image!)
-            
-            switch (imageDetails.state){
-            case .New:
-                if (!tableView.dragging && !tableView.decelerating) {
-                    self.promotionsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-                }
-            default: break
-            }
+            cell?.setUp(restaurant: promotions[indexPath.row].restaurant!)
             return cell!
         } else if promotion.dish != nil {
             var cell : DishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
@@ -277,16 +215,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
             }
-            let imageDetails = imageForIndexPath(tableView: self.promotionsTable, indexPath: indexPath)
-            cell?.setUp(dish: promotions[indexPath.row].dish!, image: imageDetails.image!)
-            
-            switch (imageDetails.state){
-            case .New:
-                if (!tableView.dragging && !tableView.decelerating) {
-                    self.promotionsTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-                }
-            default: break
-            }
+            cell?.setUp(dish: promotions[indexPath.row].dish!)
             return cell!
         } else {
             return UITableViewCell()

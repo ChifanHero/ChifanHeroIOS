@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RestaurantSearchTableViewCell: UITableViewCell {
     
@@ -36,34 +37,13 @@ class RestaurantSearchTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setUp(restaurant restaurant: Restaurant, image: UIImage) {
-//        dispatch_async(dispatch_get_main_queue(), {
-//           
-//        })
+    func setUp(restaurant restaurant: Restaurant) {
+
         if restaurant.name != nil {
-            //                do {
-            //                    let colordName = self.addColorToString(restaurant.name!)
-            //                    let nameWithSize = NSString(format:"<span style=\"font-size: 14\">%@</span>", colordName) as String
-            //                    let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-            //                    self.nameLabel.attributedText = attributedName
-            //                } catch {
-            //
-            //                }
             self.nameLabel.attributedText = restaurant.name!.attributedStringFromHTML(14, highlightColor: UIColor.redColor())
-//            self.nameLabel.text = restaurant.name!
-            
         }
         if restaurant.address != nil {
-            //                do {
-            //                    let colordName = self.addColorToString(restaurant.address!)
-            //                    let nameWithSize = NSString(format:"<span style=\"font-size: 12\">%@</span>", colordName) as String
-            //                    let attributedName = try NSMutableAttributedString(data: nameWithSize.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-            //                    self.addressLabel.attributedText = attributedName
-            //                } catch {
-            //
-            //                }
             self.addressLabel.attributedText = restaurant.address?.attributedStringFromHTML(12, highlightColor: UIColor.redColor())
-//            self.addressLabel.text = restaurant.address!
         }
         
         if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
@@ -72,42 +52,24 @@ class RestaurantSearchTableViewCell: UITableViewCell {
             self.distanceLabel.text = String(value!) + " " + unit!
         }
         self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
-        self.restaurantImageView.image = image
+        var url = ""
+        if restaurant.picture?.thumbnail != nil {
+            url = restaurant.picture!.thumbnail!
+        }
+        restaurantImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"), optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
         var dishNames = ""
         if restaurant.dishes != nil && restaurant.dishes!.count > 0 {
             
             for dish in restaurant.dishes! {
-                //                    dishNames += self.addColorToString(dish)
                 dishNames += dish
-                //                    dishNames += "&nbsp&nbsp&nbsp&nbsp"
                 dishNames += "  "
             }
-            //                dishNames = NSString(format:"<span style=\"font-size: 12\">%@</span>", dishNames) as String
-            //                do {
-            //                    let attributedDishNames = try NSMutableAttributedString(data: dishNames.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-            //                    self.dishesLabel.attributedText = attributedDishNames
-            //                    self.dishesLabel.adjustsFontSizeToFitWidth = false
-            //                    self.dishesLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
-            //                } catch {
-            //
-            //                }
             self.dishesLabel.attributedText = dishNames.attributedStringFromHTML(12, highlightColor: UIColor.redColor())
-//            self.dishesLabel.text = dishNames
             self.dishesLabel.adjustsFontSizeToFitWidth = false
             self.dishesLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
         } else {
             self.dishesLabel.text = "暂无"
         }
     }
-    
-//    private func addColorToString(originalString: String) -> String {
-//        var result: String?
-//        
-//        result = originalString.stringByReplacingOccurrencesOfString("<b>", withString:"<b><font color=\"red\">")
-//        
-//        result = result!.stringByReplacingOccurrencesOfString("</b>", withString:"</font></b>")
-//        
-//        return result!
-//    }
 
 }

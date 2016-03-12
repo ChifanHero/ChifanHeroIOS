@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ListTableViewCell: UITableViewCell {
     
@@ -33,8 +34,12 @@ class ListTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    func setUp(list list: List, image: UIImage) {
-        listImage.image = image
+    func setUp(list list: List) {
+        var url = ""
+        if list.picture?.original != nil {
+            url = list.picture!.original!
+        }
+        listImage.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
         nameLabel.text = list.name
         if (list.memberCount != nil) {
             countLabel.text = String(list.memberCount!) + "道菜"

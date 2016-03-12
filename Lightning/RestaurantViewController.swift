@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class RestaurantViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, ImageProgressiveTableViewDelegate, UIScrollViewDelegate {
+class RestaurantViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate {
     
     var restaurantId : String? {
         didSet {
@@ -21,9 +21,6 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
     var request : GetRestaurantByIdRequest?
     
     var restaurant : Restaurant?
-    
-    var pendingOperations = PendingOperations()
-    var images = [PhotoRecord]()
 
     @IBOutlet weak var messageView: NotAvailableMessageView!
     
@@ -45,7 +42,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
     @IBOutlet weak var hotDishesContainerView: UIView!
     @IBOutlet weak var topViewContainer: ViewItemTopUIView!
     
-    @IBOutlet weak var hotDishesTableView: ImageProgressiveTableView!
+    @IBOutlet weak var hotDishesTableView: UITableView!
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
     static let INFO_ROW_HEIGHT : CGFloat = 35
@@ -55,7 +52,6 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         hotDishesTableView.allowsSelection = false
         self.waitingView.hidden = false
         self.waitingIndicator.startAnimating()
-        self.hotDishesTableView.imageDelegate = self
         self.containerScrollView.delegate = self
         self.containerScrollView.showsVerticalScrollIndicator = false
         loadData(nil)
@@ -121,7 +117,6 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                                 if self.restaurant?.picture != nil {
                                     self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
                                 }
-                                self.fetchImageDetails()
                                 self.infoTableView.reloadData()
                                 self.hotDishesTableView.reloadData()
                                 self.adjustUI()
@@ -162,17 +157,6 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         heightConstraint.priority = 1000
         self.infoTableView.addConstraint(heightConstraint);
         self.view.layoutIfNeeded()
-    }
-    
-    private func fetchImageDetails() {
-        for dish : Dish in self.hotDishes {
-            var url = dish.picture?.original
-            if url == nil {
-                url = ""
-            }
-            let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-            self.images.append(record)
-        }
     }
     
     private func adjustDishTableViewHeight() {
@@ -235,15 +219,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 cell = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
             }
             let hotDish : Dish = (hotDishes[indexPath.row])
-            let imageDetails = imageForIndexPath(tableView: self.hotDishesTableView, indexPath: indexPath)
-            cell?.setUp(dish: hotDish, image: imageDetails.image!)
-            switch (imageDetails.state){
-                case .New:
-                    if (!tableView.dragging && !tableView.decelerating) {
-                        self.hotDishesTableView.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-                    }
-                default: break
-            }
+            cell?.setUp(dish: hotDish)
             return cell!
         } else {
             return UITableViewCell()
@@ -528,32 +504,6 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
             let restaurantAllDishesController : RestaurantAllDishViewController = segue.destinationViewController as! RestaurantAllDishViewController
             restaurantAllDishesController.restaurantId = sender as? String
         }
-    }
-    
-    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        return self.images[indexPath.row]
-    }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        self.hotDishesTableView.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-        self.hotDishesTableView.loadImageForVisibleCells(&pendingOperations)
-        pendingOperations.downloadQueue.suspended = false
-    }
-    
-    // As soon as the user starts scrolling, suspend all operations
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        pendingOperations.downloadQueue.suspended = true
-    }
-    
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            if scrollView == self.hotDishesTableView {
-                self.hotDishesTableView.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-                self.hotDishesTableView.loadImageForVisibleCells(&pendingOperations)
-                pendingOperations.downloadQueue.suspended = false
-            }
-        }
-        
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {

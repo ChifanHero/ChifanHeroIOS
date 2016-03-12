@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListMemberViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ListHeaderViewDelegate, ImageProgressiveTableViewDelegate {
+class ListMemberViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ListHeaderViewDelegate {
     
     var listId : String?
     
@@ -20,19 +20,15 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var waitingView: UIView!
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var memberTable: ImageProgressiveTableView!
+    @IBOutlet weak var memberTable: UITableView!
     
     @IBOutlet weak var headerView: ListHeaderView!
-    
-    var pendingOperations = PendingOperations()
-    var images = [PhotoRecord]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         headerView.delegate = self
         headerView.baseVC = self
         headerView.listId = listId
-        memberTable.imageDelegate = self
         loadTableData()
         // Do any additional setup after loading the view.
     }
@@ -66,7 +62,6 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
                         self.member += response!.result!.dishes
                         self.headerView.likeCount = response?.result?.likeCount
                         self.headerView.bookmarkCount = response?.result?.favoriteCount
-                        self.fetchImageDetails()
                         self.memberTable.reloadData()
                         self.activityIndicator.stopAnimating()
                         self.waitingView.hidden = true
@@ -84,19 +79,6 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-    private func fetchImageDetails() {
-        for dish : Dish in self.member {
-            var url : String? = dish.picture?.original
-            if url == nil {
-                url = ""
-            }
-            if url != nil {
-                let record = PhotoRecord(name: "", url: NSURL(string: url!)!)
-                self.images.append(record)
-            }
-        }
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.member.count
     }
@@ -107,17 +89,9 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             tableView.registerNib(UINib(nibName: "OwnerInfoDishCell", bundle: nil), forCellReuseIdentifier: "ownerInfoDishCell")
             cell = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
         }
-        let imageDetails = imageForIndexPath(tableView: self.memberTable, indexPath: indexPath)
         cell?.baseVC = self
-        cell?.setUp(dish: self.member[indexPath.row], image: imageDetails.image!)
+        cell?.setUp(dish: self.member[indexPath.row])
         
-        switch (imageDetails.state){
-        case PhotoRecordState.New:
-            if (!tableView.dragging && !tableView.decelerating) {
-                self.memberTable.startOperationsForPhotoRecord(&pendingOperations, photoDetails: imageDetails,indexPath:indexPath)
-            }
-        default: break
-        }
         return cell!
     }
     
@@ -165,31 +139,6 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
         } else if segue.identifier == "showRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
-        }
-    }
-    
-    func imageForIndexPath(tableView tableView : UITableView, indexPath : NSIndexPath) -> PhotoRecord {
-        return self.images[indexPath.row]
-    }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        self.memberTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-        self.memberTable.loadImageForVisibleCells(&pendingOperations)
-        pendingOperations.downloadQueue.suspended = false
-    }
-    
-    // As soon as the user starts scrolling, suspend all operations
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        pendingOperations.downloadQueue.suspended = true
-    }
-    
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            if scrollView == self.memberTable {
-                self.memberTable.cancellImageLoadingForUnvisibleCells(&pendingOperations)
-                self.memberTable.loadImageForVisibleCells(&pendingOperations)
-                pendingOperations.downloadQueue.suspended = false
-            }
         }
     }
 
