@@ -108,6 +108,7 @@ class SlideBar: UIView {
         for var i = 0; i < titles.count; i++ {
             let label : UILabel = UILabel()
             label.text = titles[i]
+            label.textColor = UIColor.whiteColor()
             label.font = UIFont.systemFontOfSize(labelTextSize)
             label.sizeToFit()
             let labelWidth : CGFloat = label.frame.size.width
