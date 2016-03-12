@@ -341,6 +341,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         clearStates()
+        self.searchResultsTableView.hidden = true
     }
     
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
