@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gMH-Rn-scu" userLabel="Picture View">
-                        <rect key="frame" x="0.0" y="0.0" width="145" height="100"/>
+                        <rect key="frame" x="18" y="0.0" width="145" height="100"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="food placeholder2" translatesAutoresizingMaskIntoConstraints="NO" id="7XE-Fo-3bS">
                                 <rect key="frame" x="10" y="0.0" width="135" height="100"/>
@@ -33,27 +33,27 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q1i-ZL-rX8" userLabel="Info View">
-                        <rect key="frame" x="145" y="0.0" width="230" height="99.5"/>
+                        <rect key="frame" x="163" y="0.0" width="212" height="99.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="phi-cL-MzW" userLabel="Info Stack View">
-                                <rect key="frame" x="12" y="10" width="42" height="55"/>
+                                <rect key="frame" x="12" y="10" width="39" height="56"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9GT-LS-MaR">
-                                        <rect key="frame" x="0.0" y="0.0" width="42" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="39" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iil-17-dPy">
-                                        <rect key="frame" x="0.0" y="23" width="29" height="14"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <rect key="frame" x="0.0" y="22" width="31" height="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LuR-SE-iwR">
-                                        <rect key="frame" x="0.0" y="42" width="29" height="14"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="0.0" y="42" width="31" height="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -69,7 +69,7 @@
                 <color key="backgroundColor" red="0.7979797979797979" green="0.7979797979797979" blue="0.7979797979797979" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="q1i-ZL-rX8" firstAttribute="leading" secondItem="gMH-Rn-scu" secondAttribute="trailing" id="Fud-IU-PNI"/>
-                    <constraint firstItem="gMH-Rn-scu" firstAttribute="leading" secondItem="kKe-ow-nCj" secondAttribute="leadingMargin" constant="-8" id="NJX-6R-3Bx"/>
+                    <constraint firstItem="gMH-Rn-scu" firstAttribute="leading" secondItem="kKe-ow-nCj" secondAttribute="leadingMargin" constant="10" id="NJX-6R-3Bx"/>
                     <constraint firstItem="q1i-ZL-rX8" firstAttribute="leading" secondItem="gMH-Rn-scu" secondAttribute="trailing" id="R1Z-xV-Wnk"/>
                     <constraint firstAttribute="bottomMargin" secondItem="gMH-Rn-scu" secondAttribute="bottom" constant="-8.5" id="V2p-Bn-DIV"/>
                     <constraint firstItem="gMH-Rn-scu" firstAttribute="top" secondItem="kKe-ow-nCj" secondAttribute="topMargin" constant="-8" id="WsT-Z1-Y9k"/>

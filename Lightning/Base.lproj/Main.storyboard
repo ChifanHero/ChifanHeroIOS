@@ -659,7 +659,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Profile_Picture" translatesAutoresizingMaskIntoConstraints="NO" id="uSM-Ry-HrB">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Profile_Picture" translatesAutoresizingMaskIntoConstraints="NO" id="uSM-Ry-HrB">
                                                     <rect key="frame" x="147" y="10" width="80" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="80" id="1TE-V5-v9p"/>
@@ -1422,7 +1422,7 @@
         <image name="AboutMe" width="25" height="25"/>
         <image name="Logo_InApp" width="180" height="180"/>
         <image name="Magnifier" width="124" height="124"/>
-        <image name="Profile_Picture" width="66" height="67"/>
+        <image name="Profile_Picture" width="66" height="63"/>
         <image name="Search_Tab" width="25" height="26"/>
         <image name="Separator_Line" width="135" height="6"/>
         <image name="home" width="25" height="24"/>
