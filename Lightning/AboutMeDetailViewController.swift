@@ -184,7 +184,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
             self.removeFavorite(indexPath)
             
         });
-        addBookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
+        addBookmarkAction.backgroundColor = LightningColor.trashYellow()
         
         return [addBookmarkAction];
     }

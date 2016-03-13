@@ -1422,7 +1422,7 @@
         <image name="AboutMe" width="25" height="25"/>
         <image name="Logo_InApp" width="180" height="180"/>
         <image name="Magnifier" width="124" height="124"/>
-        <image name="Profile_Picture" width="66" height="63"/>
+        <image name="Profile_Picture" width="66" height="66"/>
         <image name="Search_Tab" width="25" height="26"/>
         <image name="Separator_Line" width="135" height="6"/>
         <image name="home" width="25" height="24"/>

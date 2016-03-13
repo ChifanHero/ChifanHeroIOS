@@ -9,23 +9,26 @@
 import UIKit
 
 class CellActionTitle {
+    
+    //7 blank
     internal class func positive(count: Int) -> String {
-        return "\u{1F44D}\n\(count)"
+        return "       \n\(count)"
     }
     
     internal class func neutral(count: Int) -> String {
-        return "\u{1F44C}\n\(count)"
+        return "       \n\(count)"
     }
     
     internal class func negative(count: Int) -> String {
-        return "\u{1F44E}\n\(count)"
+        return "       \n\(count)"
     }
     
     internal class func bookMark(count: Int) -> String {
-        return "\u{1F4E5}\n\(count)"
+        return "       \n\(count)"
     }
     
+    //8 blank
     internal class func removeBookMark() -> String {
-        return "\u{1F4E4}"
+        return "        "
     }
 }
