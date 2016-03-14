@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Home View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="HomeViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" customClass="HomeViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2O-7a-gxn">
@@ -145,7 +145,7 @@
                             <constraint firstItem="G2S-pL-if8" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="zmM-3G-nPF"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="Fh2-KO-OO5" userLabel="Lightning Order"/>
                     <connections>
                         <outlet property="containerView" destination="a2O-7a-gxn" id="Gjo-GS-CNs"/>
@@ -164,13 +164,13 @@
         <!--Restaurants View Controller-->
         <scene sceneID="z2R-cT-hS0">
             <objects>
-                <viewController id="cBe-Iu-15d" customClass="RestaurantsViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="cBe-Iu-15d" customClass="RestaurantsViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5sj-V7-MTB"/>
                         <viewControllerLayoutGuide type="bottom" id="ZdJ-lw-Zm3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1HC-6e-FcA">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCt-9Q-S6W">
@@ -182,7 +182,7 @@
                                     <outlet property="delegate" destination="cBe-Iu-15d" id="GO6-dW-M30"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EWK-8p-9KR">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EWK-8p-9KR">
                                 <rect key="frame" x="169" y="258.5" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
@@ -197,7 +197,7 @@
                             <constraint firstItem="EWK-8p-9KR" firstAttribute="centerY" secondItem="1HC-6e-FcA" secondAttribute="centerY" id="xmb-0x-SO1"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="restaurantsTable" destination="gCt-9Q-S6W" id="yIH-g6-qFW"/>
@@ -212,13 +212,13 @@
         <!--Restaurant View Controller-->
         <scene sceneID="hbI-cD-Qbc">
             <objects>
-                <viewController id="zJm-Fm-QLl" customClass="RestaurantViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="zJm-Fm-QLl" customClass="RestaurantViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3Db-jL-lhH"/>
                         <viewControllerLayoutGuide type="bottom" id="Eza-ca-7rH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Big-8G-yxv">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
@@ -292,10 +292,10 @@
                                 </variation>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0q-pe-yVa" userLabel="Waiting View">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="603"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3TV-2r-Q7J">
-                                        <rect key="frame" x="173" y="283" width="37" height="37"/>
+                                        <rect key="frame" x="173" y="258" width="37" height="37"/>
                                         <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -333,7 +333,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="containerScrollView" destination="HVe-v4-VBn" id="VBo-Xl-ouX"/>
@@ -359,7 +359,7 @@
                         <viewControllerLayoutGuide type="bottom" id="TuO-r1-wfP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Q8B-ue-KhO">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCx-yh-LaH" customClass="SlideBar" customModule="Lightning" customModuleProvider="target">
@@ -389,10 +389,10 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rtV-Lr-p1N" userLabel="Waiting View">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="603"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aqj-0V-wgK">
-                                        <rect key="frame" x="173" y="283" width="37" height="37"/>
+                                        <rect key="frame" x="173" y="258" width="37" height="37"/>
                                         <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -418,7 +418,7 @@
                             <constraint firstItem="rtV-Lr-p1N" firstAttribute="top" secondItem="NEG-f2-ZpO" secondAttribute="bottom" id="xcG-cm-rbr"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="dishTableView" destination="Zlm-pG-XiO" id="Jzd-5Y-wQv"/>
@@ -434,13 +434,13 @@
         <!--Search View Controller-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SearchViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="8rJ-Kc-sve" customClass="SearchViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sRH-W3-2TW"/>
                         <viewControllerLayoutGuide type="bottom" id="XZD-6s-Tzc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WfC-hM-iVb">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9Q-Eu-s73" customClass="SelectionBar" customModule="Lightning" customModuleProvider="target">
@@ -462,14 +462,14 @@
                                     <constraint firstAttribute="height" constant="120" id="q8a-YV-qPk"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发现身边的美食" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyP-1m-8l6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="发现身边的美食" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyP-1m-8l6">
                                 <rect key="frame" x="112" y="330" width="150" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="PhT-DE-TyA"/>
                                     <constraint firstAttribute="width" constant="150" id="wrQ-si-6nE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eb0-n8-VQj" userLabel="Search results tableView">
@@ -481,7 +481,7 @@
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="E86-CI-dAb"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gAO-Cm-LSJ">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gAO-Cm-LSJ">
                                 <rect key="frame" x="169" y="283" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
@@ -503,7 +503,7 @@
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" id="zMH-dW-sU2"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="abT-Hp-xXr">
                         <nil key="title"/>
                     </navigationItem>
@@ -523,17 +523,17 @@
         <!--List Member View Controller-->
         <scene sceneID="tbI-NG-u1f">
             <objects>
-                <viewController id="98Y-kL-NWK" customClass="ListMemberViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="98Y-kL-NWK" customClass="ListMemberViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qdI-In-ITW"/>
                         <viewControllerLayoutGuide type="bottom" id="QnF-By-T1k"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xj1-zJ-qzQ">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hNn-ud-WaQ">
-                                <rect key="frame" x="-4" y="60" width="383" height="494"/>
+                                <rect key="frame" x="-4" y="60" width="383" height="543"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="98Y-kL-NWK" id="qgg-ST-xYq"/>
@@ -548,7 +548,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fF1-PG-SI9" userLabel="Waiting View">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="603"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0L7-sL-8lX">
                                         <rect key="frame" x="173" y="282" width="37" height="37"/>
@@ -595,7 +595,7 @@
         <!--Hot list-->
         <scene sceneID="8aM-Rc-1UP">
             <objects>
-                <viewController id="VfX-37-xD7" userLabel="Hot list" customClass="ListsTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="VfX-37-xD7" userLabel="Hot list" customClass="ListsTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UW9-nx-Dwj"/>
                         <viewControllerLayoutGuide type="bottom" id="LZ1-Rw-ZR7"/>
@@ -644,7 +644,7 @@
         <!--Personal Home View-->
         <scene sceneID="o9I-eC-5Jh">
             <objects>
-                <tableViewController id="QPY-Tj-EdL" userLabel="Personal Home View" customClass="AboutMeTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="QPY-Tj-EdL" userLabel="Personal Home View" customClass="AboutMeTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Q0s-3K-9oZ">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -785,6 +785,7 @@
                             <outlet property="delegate" destination="QPY-Tj-EdL" id="Mu7-DJ-47k"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="我的主页" id="fMz-Bm-sVj"/>
                     <connections>
                         <outlet property="nickNameLabel" destination="ViJ-cJ-FVb" id="LqI-ea-hoF"/>
@@ -800,9 +801,9 @@
         <!--Nick name-->
         <scene sceneID="4wJ-5X-EdC">
             <objects>
-                <tableViewController title="Nick name" id="pdu-ak-44S" customClass="NickNameChangeViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Nick name" automaticallyAdjustsScrollViewInsets="NO" id="pdu-ak-44S" customClass="NickNameChangeViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="0o3-gP-raT">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
@@ -839,6 +840,7 @@
                             <outlet property="delegate" destination="pdu-ak-44S" id="bCU-0n-OXK"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="登录" id="Bfu-Um-Gfh">
                         <barButtonItem key="rightBarButtonItem" title="完成" id="GuK-uw-pg1">
@@ -861,7 +863,7 @@
         <!--About Me Detail View Controller-->
         <scene sceneID="Aoo-YQ-Kio">
             <objects>
-                <viewController id="yFU-gd-nx6" customClass="AboutMeDetailViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="yFU-gd-nx6" customClass="AboutMeDetailViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BlZ-3N-wbt"/>
                         <viewControllerLayoutGuide type="bottom" id="VGp-5O-old"/>
@@ -894,6 +896,7 @@
                             <constraint firstItem="wmt-Pe-IJe" firstAttribute="top" secondItem="BlZ-3N-wbt" secondAttribute="bottom" id="qEW-OC-29z"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="activityIndicator" destination="GvS-fq-eXH" id="Kgm-F6-uAG"/>
@@ -909,12 +912,14 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController storyboardIdentifier="initialViewController" id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="initialViewController" automaticallyAdjustsScrollViewInsets="NO" id="49e-Tb-3d3" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" id="W28-zg-YXA">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
                                 <color key="value" red="0.92156862745098034" green="0.18823529411764706" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
@@ -936,6 +941,7 @@
         <scene sceneID="vBJ-0Q-xaf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vtc-2Z-bjE" userLabel="Home View Navigation Controller" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="首页" image="home" selectedImage="home" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="t3j-ww-i34">
@@ -958,9 +964,9 @@
         <!--Sign Up Table View Controller-->
         <scene sceneID="8yt-Ke-FNY">
             <objects>
-                <tableViewController id="5cV-dy-I2V" customClass="SignUpTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="5cV-dy-I2V" customClass="SignUpTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="7JX-Zg-lCc">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="vuD-cU-uWE">
@@ -1044,6 +1050,7 @@
                             <outlet property="delegate" destination="5cV-dy-I2V" id="NDB-nY-RAa"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
                         <outlet property="createButton" destination="zRx-6d-AFV" id="7xc-Se-ueM"/>
                         <outlet property="passwordTextField" destination="gUP-9c-6wn" id="gFm-Yl-gd8"/>
@@ -1057,9 +1064,9 @@
         <!--Log In Table View Controller-->
         <scene sceneID="dHd-2j-MYx">
             <objects>
-                <tableViewController id="2xY-J8-DXY" customClass="LogInTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="2xY-J8-DXY" customClass="LogInTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="FJZ-9y-wum">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="f1n-lw-9gj">
@@ -1146,6 +1153,7 @@
                             <outlet property="delegate" destination="2xY-J8-DXY" id="ZUh-2d-KAS"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="7b2-1e-ydc">
                         <barButtonItem key="rightBarButtonItem" title="注册" id="yYB-Sw-tR0">
                             <connections>
@@ -1167,7 +1175,7 @@
         <!--Notification Detail View Controller-->
         <scene sceneID="aOZ-7e-NtV">
             <objects>
-                <viewController id="X4e-Bw-Xol" customClass="NotificationDetailViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="X4e-Bw-Xol" customClass="NotificationDetailViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eiV-Xd-GjX"/>
                         <viewControllerLayoutGuide type="bottom" id="yiV-12-fHa"/>
@@ -1202,7 +1210,7 @@
         <!--Notifications Table View Controller-->
         <scene sceneID="wpP-wB-S2c">
             <objects>
-                <tableViewController title="Notifications Table View Controller" clearsSelectionOnViewWillAppear="NO" id="yTn-ho-gAS" customClass="NotificationTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Notifications Table View Controller" automaticallyAdjustsScrollViewInsets="NO" clearsSelectionOnViewWillAppear="NO" id="yTn-ho-gAS" customClass="NotificationTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="51" sectionHeaderHeight="22" sectionFooterHeight="22" id="FfP-7Q-HTZ">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1212,6 +1220,7 @@
                             <outlet property="delegate" destination="yTn-ho-gAS" id="idn-TB-0WT"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="消息" id="dOX-vy-moo"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -1225,7 +1234,8 @@
         <!--Navigation Controller-->
         <scene sceneID="u4P-vQ-yQw">
             <objects>
-                <navigationController id="vNO-c2-1WZ" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vNO-c2-1WZ" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="pQK-v9-09K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1246,7 +1256,8 @@
         <!--Notification View Split View Controller-->
         <scene sceneID="k1m-mH-zun">
             <objects>
-                <splitViewController restorationIdentifier="splitViewController" id="USD-Zz-VZI" userLabel="Notification View Split View Controller" sceneMemberID="viewController">
+                <splitViewController restorationIdentifier="splitViewController" automaticallyAdjustsScrollViewInsets="NO" id="USD-Zz-VZI" userLabel="Notification View Split View Controller" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="消息" image="notification" id="HCZ-rN-enm"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -1262,6 +1273,7 @@
         <scene sceneID="zUk-zk-wBr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E9N-Mz-AKM" userLabel="Search" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="搜索" image="Search_Tab" selectedImage="Search_Tab" id="aIO-nG-c2r"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -1286,6 +1298,7 @@
         <scene sceneID="lAW-DD-Bn8">
             <objects>
                 <navigationController restorationIdentifier="LogInNavigationController" storyboardIdentifier="LogInNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="uD7-Qe-tHo" userLabel="Personal View Navigation Controller" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="我的主页" image="AboutMe" selectedImage="AboutMe" id="FW4-TG-ZV5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="JpX-m4-a5C">
@@ -1309,7 +1322,7 @@
         <!--List Candidate View Controller-->
         <scene sceneID="GFp-Dp-cDd">
             <objects>
-                <viewController id="Qxo-IV-jWH" customClass="ListCandidateViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Qxo-IV-jWH" customClass="ListCandidateViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xLe-KL-lgn"/>
                         <viewControllerLayoutGuide type="bottom" id="lwG-C3-mjX"/>
@@ -1353,6 +1366,7 @@
         <scene sceneID="DB4-FS-Iva">
             <objects>
                 <navigationController restorationIdentifier="AboutMeNavigationController" storyboardIdentifier="AboutMeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="t1R-Xe-I0O" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ARK-m0-b7n">
@@ -1377,6 +1391,7 @@
         <scene sceneID="djS-qO-Vsa">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="g4l-LM-ibk" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Y6t-BJ-JNI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1399,6 +1414,7 @@
         <scene sceneID="qja-Kx-9sU">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fBm-Hz-slj" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="0iR-u6-tQL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1432,8 +1448,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Hvz-De-g2h"/>
-        <segue reference="cRp-Bb-PSh"/>
         <segue reference="ejM-wk-Qba"/>
+        <segue reference="SnI-Ci-tXQ"/>
+        <segue reference="WIG-F3-BMt"/>
     </inferredMetricsTieBreakers>
 </document>
