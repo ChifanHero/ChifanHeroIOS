@@ -180,7 +180,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         let userLocation = appDelegate!.currentLocation
         request.userLocation = userLocation
-        request.userLocation = userLocation
         request.highlightInField = true
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchDishes(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -207,9 +206,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         request.keyword = keyword
         request.offset = offset
         request.limit = limit
-        let userLocation = UserContext.instance.userLocation
-        //        userLocation.lat = location.0
-        //        userLocation.lon = location.1
+        let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        let userLocation = appDelegate!.currentLocation
         request.userLocation = userLocation
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchLists(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
