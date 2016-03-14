@@ -205,7 +205,10 @@ class SlideBar: UIView {
                 self.scrollView.contentOffset.x += difference
             })
         }
-        if (globalPoint?.x)! + selectedElement.frame.size.width < 0 {
+        if selectedElement.tag != 0 {
+            
+        }
+        if globalPoint?.x < 0 {
             UIView.animateWithDuration(slideDuration, animations: { () -> Void in
                 if selectedElement.tag == 0 {
                     self.scrollView.contentOffset.x = 0
