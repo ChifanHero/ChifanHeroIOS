@@ -28,12 +28,13 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
         editBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem = editBarButton
         self.splitViewController?.delegate = self
+        loadTableData()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         clearTableViewSelection()
-        loadTableData()
+//        loadTableData()
         
     }
     
