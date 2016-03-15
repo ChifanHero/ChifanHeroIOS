@@ -127,10 +127,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     func search(offset offset : Int, limit : Int) {
-        amplifierStackView.hidden = true
+        
         let keyword = self.searchController.searchBar.text
         print(keyword)
         if keyword != nil && keyword != "" {
+            amplifierStackView.hidden = true
             if offset == 0 {
                 self.clearStates()
             }
