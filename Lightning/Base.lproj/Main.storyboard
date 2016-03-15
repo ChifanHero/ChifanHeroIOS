@@ -54,6 +54,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="k85-gS-coT" appends="YES" id="u3o-3P-HQY"/>
+                                                </connections>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-Dd-Yxb">
                                                 <rect key="frame" x="128" y="0.0" width="64" height="56"/>
@@ -72,6 +76,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="j76-KS-4yz" appends="YES" id="wyI-8m-sBc"/>
+                                                </connections>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wJY-B6-7QL">
                                                 <rect key="frame" x="256" y="0.0" width="64" height="56"/>
@@ -90,6 +98,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="Ute-KL-FNs" appends="YES" id="YmS-xt-IUA"/>
+                                                </connections>
                                             </stackView>
                                         </subviews>
                                     </stackView>
@@ -129,6 +141,21 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="k85-gS-coT" userLabel="Hottest tap gesture">
+                    <connections>
+                        <action selector="showHottestRestaurants:" destination="9pv-A4-QxB" id="0B8-Q2-aLn"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="j76-KS-4yz" userLabel="DishList tap gesture">
+                    <connections>
+                        <action selector="showDishLists:" destination="9pv-A4-QxB" id="xfV-z5-xUF"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Ute-KL-FNs" userLabel="Nearest tap gesture">
+                    <connections>
+                        <action selector="showNearstRestaurants:" destination="9pv-A4-QxB" id="MWC-TQ-JoY"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1128.5" y="-208.5"/>
         </scene>
@@ -1447,7 +1474,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="cRp-Bb-PSh"/>
+        <segue reference="SnI-Ci-tXQ"/>
         <segue reference="ejM-wk-Qba"/>
-        <segue reference="Hvz-De-g2h"/>
     </inferredMetricsTieBreakers>
 </document>
