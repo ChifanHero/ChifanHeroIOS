@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpTableViewController: UITableViewController {
+class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
 
     var loginViewController: LogInTableViewController?
     
@@ -23,6 +23,8 @@ class SignUpTableViewController: UITableViewController {
         UISetup()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
+        self.usernameTextField.delegate = self
+        self.passwordTextField.delegate = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -59,6 +61,27 @@ class SignUpTableViewController: UITableViewController {
                 }
             });
             
+        }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == usernameTextField {
+            let username = textField.text
+            if username?.characters.count > 0 && username?.containsString("@") == true{
+                textField.resignFirstResponder()
+                passwordTextField.becomeFirstResponder()
+                return true
+            } else {
+                return false
+            }
+        } else {
+            let password = textField.text
+            if password?.characters.count > 0{
+                createAccount()
+                return true
+            } else {
+                return false
+            }
         }
     }
     

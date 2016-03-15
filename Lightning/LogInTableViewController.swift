@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LogInTableViewController: UITableViewController {
+class LogInTableViewController: UITableViewController, UITextFieldDelegate {
 
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -26,6 +26,9 @@ class LogInTableViewController: UITableViewController {
             replaceLoginViewByAboutMeView()
         }
         
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         
@@ -38,6 +41,27 @@ class LogInTableViewController: UITableViewController {
     
     func UISetup() {
         self.signInButton.layer.cornerRadius = 5
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == usernameTextField {
+            let username = textField.text
+            if username?.characters.count > 0 && username?.containsString("@") == true{
+                textField.resignFirstResponder()
+                passwordTextField.becomeFirstResponder()
+                return true
+            } else {
+                return false
+            }
+        } else {
+            let password = textField.text
+            if password?.characters.count > 0{
+                startLogIn()
+                return true
+            } else {
+                return false
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,7 +118,8 @@ class LogInTableViewController: UITableViewController {
     }
     
     private func startLogIn() {
-        logInIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        logInIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        logInIndicator?.color = UIColor.grayColor()
         logInIndicator!.center = self.view.center
         logIn(username: usernameTextField.text, password: passwordTextField.text)
     }

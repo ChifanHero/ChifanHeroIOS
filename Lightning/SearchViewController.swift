@@ -16,6 +16,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     @IBOutlet weak var searchResultsTableView: UITableView!
     
     
+    @IBOutlet weak var amplifierStackView: UIStackView!
+    
+    
     var searchController: UISearchController!
     
     var resultsCount = 0
@@ -124,7 +127,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     func search(offset offset : Int, limit : Int) {
-        
+        amplifierStackView.hidden = true
         let keyword = self.searchController.searchBar.text
         print(keyword)
         if keyword != nil && keyword != "" {
@@ -366,6 +369,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         clearStates()
         self.searchResultsTableView.hidden = true
+        amplifierStackView.hidden = false
     }
     
     

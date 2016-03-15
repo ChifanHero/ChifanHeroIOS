@@ -181,15 +181,12 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func confirmLogOut(alertAction: UIAlertAction!) {
+        let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        defaults.setBool(false, forKey: "isLoggedIn")
+        self.replaceAboutMeViewByLogInView()
         AccountManager(serviceConfiguration: ParseConfiguration()).logOut() { (success) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                if success == true {
-                    let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setBool(false, forKey: "isLoggedIn")
-                    self.replaceAboutMeViewByLogInView()
-                } else {
-                    print("Log out failed")
-                }
+                // do nothing for now
             })
             
         }
