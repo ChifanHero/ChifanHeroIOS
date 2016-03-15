@@ -12,8 +12,6 @@ class HomeViewController: RefreshableViewController {
     
     @IBOutlet weak var promotionsTable: UITableView!
     
-    @IBOutlet weak var containerView: UIScrollView!
-    
     @IBOutlet weak var topContainerView: UIView!
     
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
@@ -48,7 +46,6 @@ class HomeViewController: RefreshableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
-        self.containerView.delegate = self
         configureNavigationController()
         loadingIndicator.hidden = false
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
@@ -83,7 +80,7 @@ class HomeViewController: RefreshableViewController {
     
     private func configurePullRefresh(){
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.containerView.insertSubview(refreshControl, atIndex : 0)
+        self.promotionsTable.addSubview(refreshControl)
         self.refreshControl.beginRefreshing()
         self.refreshControl.endRefreshing()
     }
@@ -157,17 +154,7 @@ class HomeViewController: RefreshableViewController {
     }
     
     private func adjustUI() {
-        adjustPromotionsTableHeight()
-        adjustContainerViewHeight()
-    }
-    
-    private func adjustPromotionsTableHeight() {
-        let originalFrame : CGRect = self.promotionsTable.frame
-        self.promotionsTable.frame = CGRectMake(originalFrame.origin.x, originalFrame.origin.y, originalFrame.size.width, self.promotionsTable.contentSize.height)
-    }
-    
-    private func adjustContainerViewHeight() {
-        self.containerView.contentSize.height = self.topContainerView.frame.height + 10 + self.promotionsTable.frame.height
+        
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
