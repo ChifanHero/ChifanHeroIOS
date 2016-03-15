@@ -177,7 +177,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 contentRect = CGRectUnion(contentRect, subView.frame)
             }
         }
-        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentRect.height - (self.navigationController?.navigationBar.frame.size.height)!)
+        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentRect.height)
         self.view.layoutIfNeeded()
     }
 
