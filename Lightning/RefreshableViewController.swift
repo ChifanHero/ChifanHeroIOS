@@ -24,9 +24,8 @@ class RefreshableViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
-        noNetworkDefaultView.frame = frame
-        
+
+        noNetworkDefaultView.translatesAutoresizingMaskIntoConstraints = false
         noNetworkDefaultView.parentVC = self
         self.view.addSubview(noNetworkDefaultView)
         
