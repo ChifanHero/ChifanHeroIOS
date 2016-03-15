@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class AboutMeTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
@@ -65,7 +66,8 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         let defaults = NSUserDefaults.standardUserDefaults()
         
         if let userPicURL = defaults.stringForKey("userPicURL"){
-            userImageView.image = UIImage(data: NSData(contentsOfURL: NSURL(string: userPicURL)!)!)
+//            userImageView.image = UIImage(data: NSData(contentsOfURL: NSURL(string: userPicURL)!)!)
+            userImageView.kf_setImageWithURL(NSURL(string: userPicURL)!, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
         }
     }
     
