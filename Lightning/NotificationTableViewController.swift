@@ -19,16 +19,35 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     private var foregroundNotification: NSObjectProtocol!
     
     var delegate : NotificationSelectionDelegate?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "notificationArrived", name:"NotificationArrived", object: nil)
         clearTitleForBackBarButtonItem()
+        configurePullRefresh()
         let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
         editBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem = editBarButton
         self.splitViewController?.delegate = self
+        loadNotificationsInBackground()
+    }
+    
+    private func configurePullRefresh(){
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    @objc private func refresh(sender:AnyObject) {
         loadTableData()
+    }
+    
+    func loadNotificationsInBackground() {
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            self.loadTableData()
+        })
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -81,14 +100,14 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
             try managedContext.executeFetchRequest(fetchRequest)
             notifications = results as! [NSManagedObject]
             print(notifications.count)
-            self.tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+            })
+            
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
-    }
-    
-    func refresh(sender:AnyObject) {
-        loadTableData()
     }
     
     override func didReceiveMemoryWarning() {
