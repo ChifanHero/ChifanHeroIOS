@@ -80,9 +80,7 @@ class HomeViewController: RefreshableViewController {
     
     private func configurePullRefresh(){
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.promotionsTable.addSubview(refreshControl)
-        self.refreshControl.beginRefreshing()
-        self.refreshControl.endRefreshing()
+        self.promotionsTable.insertSubview(refreshControl, atIndex: 0)
     }
     
     private func initPromotionsTable(){
