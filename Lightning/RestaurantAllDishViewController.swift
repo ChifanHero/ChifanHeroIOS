@@ -21,6 +21,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
             
         }
     }
+    @IBOutlet weak var slideBarHeightConstraint: NSLayoutConstraint!
     
     private var dishes : [Dish] = []
     private var menuItems : [MenuItem] = []
@@ -398,10 +399,12 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     
     private func hideSlideBar() {
         if !slideBarHidden {
-            let slideBarHeight : CGFloat = self.slideBar.frame.size.height
+//            let slideBarHeight : CGFloat = self.slideBar.frame.size.height
+            slideBarHeightConstraint.constant = 0
             UIView.animateWithDuration(0) { () -> Void in
-                self.slideBar.frame.origin.y = self.slideBar.frame.origin.y - slideBarHeight
-                self.dishTableView.frame.origin.y = self.dishTableView.frame.origin.y - slideBarHeight
+//                self.slideBar.frame.origin.y = self.slideBar.frame.origin.y - slideBarHeight
+//                self.dishTableView.frame.origin.y = self.dishTableView.frame.origin.y - slideBarHeight
+                self.view.layoutIfNeeded()
                 self.slideBarHidden = true
             }
         }
@@ -423,10 +426,12 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     
     private func showSlideBar() {
         if slideBarHidden {
-            let slideBarHeight : CGFloat = self.slideBar.frame.size.height
+//            let slideBarHeight : CGFloat = self.slideBar.frame.size.height
+            slideBarHeightConstraint.constant = 38
             UIView.animateWithDuration(0) { () -> Void in
-                self.slideBar.frame.origin.y = self.slideBar.frame.origin.y + slideBarHeight
-                self.dishTableView.frame.origin.y = self.dishTableView.frame.origin.y + slideBarHeight
+//                self.slideBar.frame.origin.y = self.slideBar.frame.origin.y + slideBarHeight
+//                self.dishTableView.frame.origin.y = self.dishTableView.frame.origin.y + slideBarHeight
+                self.view.layoutIfNeeded()
                 self.slideBarHidden = false
             }
         }
@@ -452,6 +457,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     
     func didDismissSearchController(searchController: UISearchController) {
+        print("")
         showSlideBar()
         // clear search results
         searchResults.removeAll()
