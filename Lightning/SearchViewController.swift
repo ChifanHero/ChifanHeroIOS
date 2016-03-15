@@ -29,14 +29,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     var dishes : [Dish] = [Dish]()
     var lists : [List] = [List]()
     
-    let footerView : LoadMoreFooterView = LoadMoreFooterView()
-    
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
     
     private var heightConstraint:NSLayoutConstraint?
     
     let LIMIT = 50
     var offset = 0
+    
+    var footerView : LoadMoreFooterView?
+    
+    var isLoadingMore = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         selectionBar.hidden = false
         configurePullRefresh()
         configureNavigationController()
+        
+        setTableFooterView()
         
         searchController = UISearchController(searchResultsController: nil)
         
@@ -71,6 +75,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         definesPresentationContext = true
         searchResultsTableView.hidden = true
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
+    }
+    
+    func setTableFooterView() {
+        let frame = CGRectMake(0, 0, self.view.frame.size.width, 30)
+        footerView = LoadMoreFooterView(frame: frame)
+        footerView?.reset()
+        self.searchResultsTableView.tableFooterView = footerView
     }
     
     private func clearTitleForBackBarButtonItem(){
@@ -132,7 +143,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             } else if scope == "dish" {
                 searchDish(keyword: keyword!, offset: offset, limit: limit)
             }
-            
         }
     }
     
@@ -161,12 +171,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.hidden = true
                     self.searchResultsTableView.reloadData()
+                    if offset == 0 {
+                        self.scrollToTop()
+                    }
                     self.waitingIndicator.hidden = true
                     self.waitingIndicator.stopAnimating()
                     self.searchResultsTableView.hidden = false
-                    self.footerView.activityIndicator.stopAnimating()
+                    self.footerView!.activityIndicator.stopAnimating()
                 }
-                
+                self.isLoadingMore = false
             })
         }
     }
@@ -191,10 +204,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     self.searchResultsTableView.allowsSelection = false
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
+                    if offset == 0 {
+                        self.scrollToTop()
+                    }
                     self.waitingIndicator.hidden = true
                     self.waitingIndicator.stopAnimating()
-                    self.footerView.activityIndicator.stopAnimating()
+                    self.footerView!.activityIndicator.stopAnimating()
                 }
+                self.isLoadingMore = false
                 
             })
         }
@@ -219,11 +236,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     self.searchResultsTableView.allowsSelection = true
                     self.refreshControl.endRefreshing()
                     self.searchResultsTableView.reloadData()
+                    if offset == 0 {
+                        self.scrollToTop()
+                    }
                     self.waitingIndicator.hidden = true
                     self.waitingIndicator.stopAnimating()
-                    self.footerView.activityIndicator.stopAnimating()
-
+                    self.footerView!.activityIndicator.stopAnimating()
                 }
+                self.isLoadingMore = false
                 
             })
         }
@@ -312,6 +332,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
 //        self.searchResultsTableView.hidden = true
         self.offset = 0
         self.resultsCount = 0
+        self.footerView?.reset()
+//        scrollToTop()
+    }
+    
+    func scrollToTop() {
+        self.searchResultsTableView.contentOffset = CGPointMake(0, 0 - self.searchResultsTableView.contentInset.top);
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -342,18 +368,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         self.searchResultsTableView.hidden = true
     }
     
-    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let row = indexPath.row
-        print("row = \(row)")
-        print("results count = \(resultsCount)")
-        if row == resultsCount - 1 {
-            if needToLoadMore() {
-                footerView.activityIndicator.startAnimating()
-                loadMore()
-            }
-            
-        }
-    }
     
     func needToLoadMore() -> Bool {
         if resultsCount == self.offset + LIMIT {
@@ -365,20 +379,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     func loadMore() {
+        isLoadingMore = true
         offset += LIMIT
+        footerView?.activityIndicator.startAnimating()
         search(offset: offset, limit: LIMIT)
-    }
-    
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
-        return footerView
-    }
-    
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        
-        return 30
-
-        
     }
     
     private func popupSigninAlert() {
@@ -666,6 +670,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         let headerView = UIView()
         headerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
         return headerView
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
+            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
+            if scrollPosition < 30 && !self.isLoadingMore {
+                if self.needToLoadMore() {
+                    self.loadMore()
+                } else {
+                    footerView?.showFinishMessage()
+                }
+            } else {
+                
+            }
+        }
     }
 
     

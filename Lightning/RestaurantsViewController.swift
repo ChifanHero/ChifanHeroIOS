@@ -20,9 +20,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             if sortBy == "hottest" {
                 request.sortBy = SortParameter.Hotness
                 request.sortOrder = SortOrder.Descend
+                self.navigationItem.title = "热门餐厅"
             } else {
                 request.sortBy = SortParameter.Distance
                 request.sortOrder = SortOrder.Ascend
+                self.navigationItem.title = "离我最近"
             }
         }
     }
@@ -35,9 +37,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     var loadMoreIndicator : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     
-    let footerView : LoadMoreFooterView = LoadMoreFooterView()
+    var footerView : LoadMoreFooterView?
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
+    
+    var isLoadingMore = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +49,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         self.restaurantsTable.delegate = self
         self.restaurantsTable.dataSource = self
         self.restaurantsTable.hidden = true
+        setTableViewFooterView()
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.restaurantsTable.insertSubview(self.refreshControl, atIndex: 0)
         refreshData()
@@ -63,9 +68,17 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         self.navigationItem.backBarButtonItem = barButtonItem
     }
     
+    func setTableViewFooterView() {
+        let frame = CGRectMake(0, 0, self.view.frame.size.width, 30)
+        footerView = LoadMoreFooterView(frame: frame)
+        footerView?.reset()
+        self.restaurantsTable.tableFooterView = footerView
+    }
+    
     override func refreshData() {
         request.limit = 50
         request.skip = 0
+        footerView?.reset()
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location = appDelegate.currentLocation
         if (location.lat == nil || location.lon == nil) {
@@ -90,7 +103,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                     self.refreshControl.endRefreshing()
                     self.waitingIndicator.stopAnimating()
                     self.waitingIndicator.hidden = true
-                    self.footerView.activityIndicator.stopAnimating()
+                    self.footerView!.activityIndicator.stopAnimating()
                 } else {
                     if self.request.skip == 0 {
                         self.clearStates()
@@ -102,13 +115,14 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                     self.refreshControl.endRefreshing()
                     self.waitingIndicator.stopAnimating()
                     self.waitingIndicator.hidden = true
-                    self.footerView.activityIndicator.stopAnimating()
+                    self.footerView!.activityIndicator.stopAnimating()
                     self.restaurantsTable.reloadData()
                     if refreshHandler != nil {
                         refreshHandler!(success: true)
                     }
                     
                 }
+                self.isLoadingMore = false
                 
             });
         }
@@ -155,18 +169,18 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         return cell!
     }
     
-    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        let row = indexPath.row
-        print("row = \(row)")
-        if row == restaurants.count - 1 {
-            if needToLoadMore() {
-                footerView.activityIndicator.startAnimating()
-                loadMore()
-            }
-            
-        }
-    }
+//    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//        
+//        let row = indexPath.row
+//        print("row = \(row)")
+//        if row == restaurants.count - 1 {
+//            if needToLoadMore() {
+//                footerView.activityIndicator.startAnimating()
+//                loadMore()
+//            }
+//            
+//        }
+//    }
     
     func needToLoadMore() -> Bool {
         if self.restaurants.count == (request.skip)! + (request.limit)! {
@@ -191,16 +205,18 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     private func loadMore() {
         request.skip = (request.skip)! + (request.limit)!
+        isLoadingMore = true
+        footerView?.activityIndicator.startAnimating()
         loadData(nil)
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return footerView
-    }
+//    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        return footerView
+//    }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 30
-    }
+//    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 30
+//    }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let restaurant : Restaurant = self.restaurants[indexPath.row]
@@ -354,6 +370,20 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             })
         }
 
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
+            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
+            if scrollPosition < 30 && !self.isLoadingMore {
+                if self.needToLoadMore() {
+                    self.loadMore()
+                } else {
+                    footerView?.showFinishMessage()
+                }
+                
+            }
+        }
     }
 }
 

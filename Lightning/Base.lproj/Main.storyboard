@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -130,10 +130,10 @@
             </objects>
             <point key="canvasLocation" x="1128.5" y="-208.5"/>
         </scene>
-        <!--Restaurants View Controller-->
+        <!--Restaurants-->
         <scene sceneID="z2R-cT-hS0">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="cBe-Iu-15d" customClass="RestaurantsViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="cBe-Iu-15d" userLabel="Restaurants" customClass="RestaurantsViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5sj-V7-MTB"/>
                         <viewControllerLayoutGuide type="bottom" id="ZdJ-lw-Zm3"/>
@@ -167,6 +167,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Title" id="Uvi-ao-DUE"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="restaurantsTable" destination="gCt-9Q-S6W" id="yIH-g6-qFW"/>
@@ -433,23 +434,31 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Magnifier" translatesAutoresizingMaskIntoConstraints="NO" id="Y5i-u7-avL">
-                                <rect key="frame" x="127" y="257" width="120" height="120"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="NfB-M6-uoM">
+                                <rect key="frame" x="88" y="229" width="200" height="160"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Magnifier" translatesAutoresizingMaskIntoConstraints="NO" id="Y5i-u7-avL">
+                                        <rect key="frame" x="40" y="0.0" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="M2U-l1-94h"/>
+                                            <constraint firstAttribute="height" constant="120" id="q8a-YV-qPk"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发现身边的美食" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyP-1m-8l6">
+                                        <rect key="frame" x="25" y="120" width="150" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="PhT-DE-TyA"/>
+                                            <constraint firstAttribute="width" constant="150" id="wrQ-si-6nE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="M2U-l1-94h"/>
-                                    <constraint firstAttribute="height" constant="120" id="q8a-YV-qPk"/>
+                                    <constraint firstAttribute="width" constant="200" id="UWM-O2-1SV"/>
                                 </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发现身边的美食" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyP-1m-8l6">
-                                <rect key="frame" x="112" y="337.5" width="150" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="PhT-DE-TyA"/>
-                                    <constraint firstAttribute="width" constant="150" id="wrQ-si-6nE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eb0-n8-VQj" userLabel="Search results tableView">
                                 <rect key="frame" x="0.0" y="107" width="375" height="511"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -467,25 +476,27 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leadingMargin" constant="-20" id="0J3-lN-1Ko"/>
-                            <constraint firstItem="Y5i-u7-avL" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" constant="150" id="DkJ-55-a4M"/>
-                            <constraint firstItem="nyP-1m-8l6" firstAttribute="top" secondItem="gAO-Cm-LSJ" secondAttribute="bottom" constant="10" id="H1t-mP-i0r"/>
+                            <constraint firstItem="NfB-M6-uoM" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="3r8-Ki-uDl"/>
+                            <constraint firstItem="NfB-M6-uoM" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="7xO-Xp-Qdw"/>
                             <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" id="IVs-n4-ceA"/>
                             <constraint firstItem="XZD-6s-Tzc" firstAttribute="top" secondItem="eb0-n8-VQj" secondAttribute="bottom" id="Ntk-MR-pVw"/>
-                            <constraint firstItem="nyP-1m-8l6" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="SKo-qZ-Qgo"/>
                             <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="ifc-Dd-Dgo"/>
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="top" secondItem="WfC-hM-iVb" secondAttribute="topMargin" constant="64" id="lwk-am-kfS">
                                 <variation key="heightClass=compact" constant="44"/>
                             </constraint>
+                            <constraint firstItem="NfB-M6-uoM" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" constant="122" id="njO-t5-mMC">
+                                <variation key="heightClass=compact" constant="60"/>
+                            </constraint>
                             <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="opU-ss-fwO"/>
                             <constraint firstAttribute="trailing" secondItem="eb0-n8-VQj" secondAttribute="trailing" id="qo6-BZ-l3p"/>
                             <constraint firstAttribute="trailingMargin" secondItem="m9Q-Eu-s73" secondAttribute="trailing" constant="-20" id="ujF-GT-IFY"/>
-                            <constraint firstItem="Y5i-u7-avL" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="vLO-0J-19k"/>
                             <constraint firstItem="eb0-n8-VQj" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leading" id="wb3-KU-NnV"/>
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" id="zMH-dW-sU2"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="zMH-dW-sU2"/>
+                                <exclude reference="7xO-Xp-Qdw"/>
                             </mask>
                         </variation>
                     </view>
@@ -1432,8 +1443,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SnI-Ci-tXQ"/>
         <segue reference="cRp-Bb-PSh"/>
         <segue reference="ejM-wk-Qba"/>
+        <segue reference="Hvz-De-g2h"/>
     </inferredMetricsTieBreakers>
 </document>

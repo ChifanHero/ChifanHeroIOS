@@ -41,6 +41,11 @@ class LoadMoreFooterView: UIView {
         self.finishMessageLabel.hidden = false
     }
     
+    func reset() {
+        self.activityIndicator.stopAnimating()
+        self.finishMessageLabel.hidden = true
+    }
+    
     private func Setup(){
         view = LoadViewFromNib()
         addSubview(view)

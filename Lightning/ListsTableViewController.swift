@@ -14,7 +14,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     
     var request : GetListsRequest = GetListsRequest()
     
-    let footerView : LoadMoreFooterView = LoadMoreFooterView()
+    var footerView : LoadMoreFooterView?
     
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
@@ -22,7 +22,8 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     
     let LIMIT = 50
     var offset = 0
-
+    
+    var isLoadingMore = false
     
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
@@ -31,6 +32,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
+        setTableViewFooterView()
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.listTable.insertSubview(refreshControl, atIndex: 0)
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -46,6 +48,13 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         }
     }
     
+    func setTableViewFooterView() {
+        let frame = CGRectMake(0, 0, self.view.frame.size.width, 30)
+        footerView = LoadMoreFooterView(frame: frame)
+        footerView?.reset()
+        self.listTable.tableFooterView = footerView
+    }
+    
     private func clearTitleForBackBarButtonItem(){
         let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = barButtonItem
@@ -54,6 +63,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     override func refreshData() {
         request.limit = 50
         request.skip = 0
+        footerView?.reset()
         self.waitingIndicator.startAnimating()
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location = appDelegate.currentLocation
@@ -89,10 +99,11 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                     }
                     
                 }
+                self.isLoadingMore = true
                 self.refreshControl.endRefreshing()
                 self.waitingIndicator.stopAnimating()
                 self.waitingIndicator.hidden = true
-                self.footerView.activityIndicator.stopAnimating()
+                self.footerView!.activityIndicator.stopAnimating()
             })
             
             
@@ -104,15 +115,6 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     }
 
     
-    func tableView(tableView: UITableView, didEndDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == lists.count - 1 {
-            if needToLoadMore() {
-                footerView.activityIndicator.startAnimating()
-                loadMore()
-            }
-        }
-    }
-    
     func needToLoadMore() -> Bool {
         if self.lists.count == (request.skip)! + (request.limit)! {
             return true
@@ -123,15 +125,10 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     }
     
     func loadMore() {
-        if lists.count == offset + LIMIT {
-            offset += LIMIT
-            request.skip = offset
-            loadData(nil)
-        } else {
-            footerView.activityIndicator.stopAnimating()
-            footerView.activityIndicator.hidden = true
-        }
-        
+        offset += LIMIT
+        request.skip = offset
+        isLoadingMore = true
+        loadData(nil)
     }
     
     @objc private func refresh(sender:AnyObject) {
@@ -156,14 +153,6 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
             return 0
         }
         return 1
-    }
-    
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return footerView
-    }
-    
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 30
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -286,6 +275,20 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     
     @objc private func reloadTable() {
         self.listTable.reloadData()
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
+            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
+            if scrollPosition < 30 && !self.isLoadingMore {
+                if self.needToLoadMore() {
+                    self.loadMore()
+                } else {
+                    footerView?.showFinishMessage()
+                }
+                
+            }
+        }
     }
 
 
