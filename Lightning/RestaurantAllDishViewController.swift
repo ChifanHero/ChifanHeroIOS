@@ -353,7 +353,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 82
+        return NameImageDishTableViewCell.height
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

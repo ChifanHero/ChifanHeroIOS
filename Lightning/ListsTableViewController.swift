@@ -213,7 +213,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                 self.dismissActionViewWithDelay()
                 
             });
-            addBookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
+            addBookmarkAction.backgroundColor = LightningColor.bookMarkGreenLarge()
             
             let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
                 if (UserContext.isRatingTooFrequent(objectId)) {
@@ -231,7 +231,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                 }
                 self.dismissActionViewWithDelay()
             });
-            likeAction.backgroundColor = LightningColor.themeRed()
+            likeAction.backgroundColor = LightningColor.themeRedLarge()
             return [addBookmarkAction, likeAction];
     }
     

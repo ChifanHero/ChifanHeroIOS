@@ -179,14 +179,25 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
-        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.removeBookMark(), handler:{(action, indexpath) -> Void in
+        if detailType == FavoriteTypeEnum.List{
+            let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.removeBookMark(), handler:{(action, indexpath) -> Void in
+                
+                self.removeFavorite(indexPath)
+                
+            });
+            addBookmarkAction.backgroundColor = LightningColor.trashGreenLarge()
             
-            self.removeFavorite(indexPath)
+            return [addBookmarkAction];
+        } else {
+            let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.removeBookMark(), handler:{(action, indexpath) -> Void in
+                
+                self.removeFavorite(indexPath)
+                
+            });
+            addBookmarkAction.backgroundColor = LightningColor.trashYellow()
             
-        });
-        addBookmarkAction.backgroundColor = LightningColor.trashYellow()
-        
-        return [addBookmarkAction];
+            return [addBookmarkAction];
+        }
     }
     
     private func removeFavorite(indexPath: NSIndexPath){

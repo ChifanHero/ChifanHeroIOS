@@ -303,7 +303,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 return 62
             }
         } else if tableView == hotDishesTableView {
-            return 82
+            return NameImageDishTableViewCell.height
         } else {
             return 0
         }

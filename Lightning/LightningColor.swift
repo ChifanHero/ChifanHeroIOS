@@ -33,4 +33,19 @@ class LightningColor {
         //return UIColor(red: 251/255, green: 242/255, blue: 0/255, alpha: 1.0)
         return UIColor(patternImage: UIImage(named: "Trash_With_Background")!)
     }
+    
+    internal class func themeRedLarge() -> UIColor {
+        //return UIColor(red: 251/255, green: 242/255, blue: 0/255, alpha: 1.0)
+        return UIColor(patternImage: UIImage(named: "Like_With_Background_Large")!)
+    }
+    
+    internal class func bookMarkGreenLarge() -> UIColor {
+        //return UIColor(red: 251/255, green: 242/255, blue: 0/255, alpha: 1.0)
+        return UIColor(patternImage: UIImage(named: "Bookmark_With_Background_Large")!)
+    }
+    
+    internal class func trashGreenLarge() -> UIColor {
+        //return UIColor(red: 251/255, green: 242/255, blue: 0/255, alpha: 1.0)
+        return UIColor(patternImage: UIImage(named: "Trash_With_Background_Large")!)
+    }
 }

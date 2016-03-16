@@ -11,7 +11,7 @@ import Kingfisher
 
 class NameImageDishTableViewCell: UITableViewCell {
     
-    static var height : CGFloat = 82
+    static var height : CGFloat = 100
     
     @IBOutlet weak var dishImageView: UIImageView!
     

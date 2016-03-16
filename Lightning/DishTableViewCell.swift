@@ -13,23 +13,6 @@ class DishTableViewCell: UITableViewCell {
     
     static var height : CGFloat = 100
     
-//    var model : Model? {
-//        didSet {
-//            if let dish = model as? Dish {
-//                nameLabel.text = dish.name
-//                restaurantLabel.text = dish.fromRestaurant?.name
-//                scoreLabel.text = String(9.99)
-//                if let imageURL = dish.picture?.original {
-//                    let url = NSURL(string: imageURL)
-//                    let data = NSData(contentsOfURL: url!)
-//                    let image = UIImage(data: data!)
-//                    dishImageView.image = image
-//                }
-//            }
-//        }
-//    }
-    
-    
     @IBOutlet weak var dishImageView: UIImageView!
 
     @IBOutlet weak var nameLabel: UILabel!
