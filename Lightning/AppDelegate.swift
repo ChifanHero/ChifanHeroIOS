@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         Parse.setApplicationId("Z6ND8ho1yR4aY3NSq1zNNU0kPc0GDOD1UZJ5rgxM", clientKey: "t9TxZ7HPgwEl84gH9A2R9qisn8giNIdtKuAyt9Q4")
 //        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
 //        registerForPushNotifications()
+        UISetup()
         configSplitViewController()
         configNavigationBar()
 //        startGettingLocation()
@@ -43,6 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         return true
     }
     
+    private func UISetup() {
+        UITextField.appearance().tintColor = UIColor.blueColor()
+    }
+    
     private func configNavigationBar() {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), forBarPosition: UIBarPosition.Any, barMetrics: UIBarMetrics.Default)
         UINavigationBar.appearance().shadowImage = UIImage()
@@ -52,11 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let defaults = NSUserDefaults.standardUserDefaults()
         if !defaults.boolForKey("hasLaunchedOnce") {
             createFirstNotification()
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            let storyboard = UIStoryboard(name: "Tutorial", bundle: nil)
-            let tutorialViewController = storyboard.instantiateViewControllerWithIdentifier("tutorialInitial")
-            self.window?.rootViewController = tutorialViewController
-            self.window?.makeKeyAndVisible()
+//            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//            let storyboard = UIStoryboard(name: "Tutorial", bundle: nil)
+//            let tutorialViewController = storyboard.instantiateViewControllerWithIdentifier("tutorialInitial")
+//            self.window?.rootViewController = tutorialViewController
+//            self.window?.makeKeyAndVisible()
             defaults.setBool(true, forKey: "hasLaunchedOnce")
             defaults.synchronize()
         } else {
