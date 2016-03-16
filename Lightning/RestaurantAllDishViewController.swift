@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate {
+class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var slideBar: SlideBar!
     
@@ -43,7 +43,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     
     var searching = false
     
-    var searchController: UISearchController!
+    var searchBar : UISearchBar?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,23 +53,6 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         dishTableView.hidden = true
         dishTableView.allowsSelection = false
         
-        searchController = UISearchController(searchResultsController: nil)
-        
-        // The object responsible for updating the contents of the search results controller.
-        searchController.searchResultsUpdater = self
-        
-        // Determines whether the underlying content is dimmed during a search.
-        // if we are presenting the display results in the same view, this should be false
-        searchController.dimsBackgroundDuringPresentation = false
-        
-        searchController.hidesNavigationBarDuringPresentation = false
-        
-        searchController.delegate = self
-        
-        // Make sure the that the search bar is visible within the navigation bar.
-        searchController.searchBar.sizeToFit()
-        self.navigationItem.titleView = searchController.searchBar
-        definesPresentationContext = true
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         waitingView.hidden = false
         waitingIndicator.startAnimating()
@@ -78,6 +61,15 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
                 self.noNetworkDefaultView.show()
             }
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        searchBar = UISearchBar()
+        searchBar!.delegate = self
+        searchBar!.sizeToFit()
+        self.navigationItem.titleView = searchBar
+        definesPresentationContext = true
     }
     
     override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
@@ -115,6 +107,26 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         self.menuItems.removeAll()
     }
     
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        searchResults.removeAll()
+        searching = true
+        filterContentForSearchText(searchText)
+        self.dishTableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        print("")
+        searching = false
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+        showSlideBar()
+        // clear search results
+        searchResults.removeAll()
+        dishTableView.reloadData()
+    }
+
+    
     private func retriveMenuAndDishInformation() {
         for menuItem : MenuItem in menuItems {
             if menuItem.name != nil {
@@ -140,7 +152,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if !searchController.active {
+        if !searching {
             if shouldChangeSlideBarState {
                 changeSlideBarState()
             }
@@ -418,7 +430,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     
     private func getDishAtIndexPath(indexPath : NSIndexPath) -> Dish?{
-        if searchController.active == false {
+        if searching == false {
             if menuItems[indexPath.section].dishes != nil && menuItems[indexPath.section].dishes?[indexPath.row] != nil{
                 return (menuItems[indexPath.section].dishes?[indexPath.row])!
             } else {
@@ -448,30 +460,16 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         if !searchController.active {
             return
         }
-        print(searchController.searchBar.text)
-        let searchText = searchController.searchBar.text
-        searchResults.removeAll()
-        if searchText != nil && searchText != ""{
-            searching = true
-            filterContentForSearchText(searchText!)
-            self.dishTableView.reloadData()
-        }
+        
         
     }
     
-    func didPresentSearchController(searchController: UISearchController) {
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
         hideSlideBar()
         dishTableView.reloadData()
     }
-    
-    func didDismissSearchController(searchController: UISearchController) {
-        print("")
-        searching = false
-        showSlideBar()
-        // clear search results
-        searchResults.removeAll()
-        dishTableView.reloadData()
-    }
+
     
     class DishWrapper {
         
