@@ -41,6 +41,8 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     
     var slideBarHidden = false
     
+    var searching = false
+    
     var searchController: UISearchController!
     
     override func viewDidLoad() {
@@ -323,7 +325,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.active {
+        if searching {
             return searchResults.count
         } else {
             if section >= 0 && section < menuItems.count {
@@ -347,7 +349,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
             cell = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
         }
         let dish : Dish?
-        if searchController.active == false {
+        if !self.searching {
             dish = menuItems[indexPath.section].dishes?[indexPath.row]
         } else {
             dish = self.searchResults[indexPath.row].dish
@@ -361,7 +363,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if searchController.active {
+        if searching {
             return 1
         } else {
             return menuItems.count
@@ -449,10 +451,12 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         print(searchController.searchBar.text)
         let searchText = searchController.searchBar.text
         searchResults.removeAll()
-        if searchText != nil {
-           filterContentForSearchText(searchText!)
+        if searchText != nil && searchText != ""{
+            searching = true
+            filterContentForSearchText(searchText!)
+            self.dishTableView.reloadData()
         }
-        self.dishTableView.reloadData()
+        
     }
     
     func didPresentSearchController(searchController: UISearchController) {
@@ -462,6 +466,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     
     func didDismissSearchController(searchController: UISearchController) {
         print("")
+        searching = false
         showSlideBar()
         // clear search results
         searchResults.removeAll()
