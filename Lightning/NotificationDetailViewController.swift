@@ -24,6 +24,7 @@ class NotificationDetailViewController: UIViewController, NotificationSelectionD
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         if self.notification != nil {
             let title = notification!.valueForKey("title") as! String
             let body = notification!.valueForKey("body") as! String

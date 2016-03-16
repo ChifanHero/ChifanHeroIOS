@@ -18,6 +18,8 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     var notifications = [NSManagedObject]()
     private var foregroundNotification: NSObjectProtocol!
     
+    var detailNavigationController : UINavigationController?
+    
     var delegate : NotificationSelectionDelegate?
 
     
@@ -30,7 +32,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
         editBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem = editBarButton
         self.splitViewController?.delegate = self
-        loadNotificationsInBackground()
+//        loadNotificationsInBackground()
     }
     
     private func configurePullRefresh(){
@@ -42,13 +44,13 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
         loadTableData()
     }
     
-    func loadNotificationsInBackground() {
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
-            self.loadTableData()
-        })
-    }
+//    func loadNotificationsInBackground() {
+//        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+//        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+//        dispatch_async(backgroundQueue, {
+//            self.loadTableData()
+//        })
+//    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -71,6 +73,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.loadTableData()
     }
     
     func notificationArrived() {
@@ -100,10 +103,8 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
             try managedContext.executeFetchRequest(fetchRequest)
             notifications = results as! [NSManagedObject]
             print(notifications.count)
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.tableView.reloadData()
-                self.refreshControl?.endRefreshing()
-            })
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
             
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
@@ -143,12 +144,14 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let notificationSelected : NSManagedObject = notifications[indexPath.row]
+        markNotificationAsRead(notificationSelected)
         self.delegate?.notificationSelected(notificationSelected)
-        if let detailViewController = self.delegate as? NotificationDetailViewController {
-            self.navigationController?.splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
-            markNotificationAsRead(notificationSelected)
-            
-        }
+//        if let detailViewController = self.delegate as? NotificationDetailViewController {
+//            self.navigationController?.splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
+//            
+//            
+//        }
+        self.navigationController?.splitViewController?.showDetailViewController(self.detailNavigationController!, sender: nil)
 //        performSegueWithIdentifier("showMessage", sender: notificationSelected)
     }
     

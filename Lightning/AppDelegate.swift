@@ -158,17 +158,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let vc : UIViewController = viewControllers[index]
             if vc.restorationIdentifier == "splitViewController" {
                 let splitViewController = vc as! UISplitViewController
+
+
                 let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
                 detailNavigationController.navigationBar.tintColor = UIColor.whiteColor()
                 detailNavigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+                let detailController = detailNavigationController.topViewController as! NotificationDetailViewController
+                detailController.navigationItem.leftItemsSupplementBackButton = true
 //                splitViewController.delegate = self
                 let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
                 masterNavigationController.navigationBar.tintColor = UIColor.whiteColor()
                 let masterController = masterNavigationController.topViewController as! NotificationTableViewController
-                let detailController = detailNavigationController.topViewController as! NotificationDetailViewController
+                
                 masterController.delegate = detailController
+                masterController.detailNavigationController = detailNavigationController
                 detailController.navigationItem.leftBarButtonItem = detailController.splitViewController?.displayModeButtonItem()
-                detailController.navigationItem.leftItemsSupplementBackButton = true
+                
 //                controller.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
                 break
             }
