@@ -54,7 +54,11 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         self.waitingIndicator.startAnimating()
         self.containerScrollView.delegate = self
         self.containerScrollView.showsVerticalScrollIndicator = false
-        loadData(nil)
+        loadData { (success) -> Void in
+            if !success {
+                self.noNetworkDefaultView.show()
+            }
+        }
         topViewContainer.baseVC = self
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         // Do any additional setup after loading the view.

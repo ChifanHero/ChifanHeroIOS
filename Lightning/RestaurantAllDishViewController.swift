@@ -71,7 +71,11 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         waitingView.hidden = false
         waitingIndicator.startAnimating()
-        loadData(nil)
+        loadData { (success) -> Void in
+            if !success {
+                self.noNetworkDefaultView.show()
+            }
+        }
     }
     
     override func loadData(refreshHandler: ((success: Bool) -> Void)?) {

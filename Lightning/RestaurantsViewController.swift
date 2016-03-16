@@ -52,7 +52,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         setTableViewFooterView()
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.restaurantsTable.insertSubview(self.refreshControl, atIndex: 0)
-        refreshData()
+        firstLoadData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
     }
     
@@ -86,6 +86,23 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         }
         request.userLocation = location
         loadData(nil)
+    }
+    
+    func firstLoadData() {
+        request.limit = 50
+        request.skip = 0
+        footerView?.reset()
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let location = appDelegate.currentLocation
+        if (location.lat == nil || location.lon == nil) {
+            return
+        }
+        request.userLocation = location
+        loadData { (success) -> Void in
+            if !success {
+                self.noNetworkDefaultView.show()
+            }
+        }
     }
     
     func clearStates() {

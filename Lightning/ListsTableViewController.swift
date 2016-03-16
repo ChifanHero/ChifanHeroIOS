@@ -38,7 +38,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.listTable.hidden = true
         waitingIndicator.hidden = false
-        refreshData()
+        firstLoadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -72,6 +72,24 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         }
         request.userLocation = location
         loadData(nil)
+    }
+    
+    func firstLoadData() {
+        request.limit = 50
+        request.skip = 0
+        footerView?.reset()
+        self.waitingIndicator.startAnimating()
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let location = appDelegate.currentLocation
+        if (location.lat == nil || location.lon == nil) {
+            return
+        }
+        request.userLocation = location
+        loadData { (success) -> Void in
+            if !success {
+                self.noNetworkDefaultView.show()
+            }
+        }
     }
     
     override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
