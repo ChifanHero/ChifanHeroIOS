@@ -64,6 +64,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         
         searchController.hidesNavigationBarDuringPresentation = false
         
+        
         searchController.delegate = self
         
         searchController.searchBar.delegate = self
@@ -134,6 +135,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             amplifierStackView.hidden = true
             if offset == 0 {
                 self.clearStates()
+                self.searchResultsTableView.hidden = true
             }
             if self.searchResultsTableView.hidden == true {
                 waitingIndicator.hidden = false
@@ -173,16 +175,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     self.resultsCount = self.restaurants.count
                     self.searchResultsTableView.allowsSelection = true
                     self.refreshControl.endRefreshing()
-                    self.searchResultsTableView.hidden = true
                     self.searchResultsTableView.reloadData()
                     if offset == 0 {
                         self.scrollToTop()
                     }
-                    self.waitingIndicator.hidden = true
-                    self.waitingIndicator.stopAnimating()
                     self.searchResultsTableView.hidden = false
-                    self.footerView!.activityIndicator.stopAnimating()
                 }
+                self.waitingIndicator.hidden = true
+                self.waitingIndicator.stopAnimating()
+                self.footerView!.activityIndicator.stopAnimating()
                 self.isLoadingMore = false
             })
         }
@@ -211,10 +212,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     if offset == 0 {
                         self.scrollToTop()
                     }
-                    self.waitingIndicator.hidden = true
-                    self.waitingIndicator.stopAnimating()
-                    self.footerView!.activityIndicator.stopAnimating()
+                    
                 }
+                self.waitingIndicator.hidden = true
+                self.waitingIndicator.stopAnimating()
+                self.footerView!.activityIndicator.stopAnimating()
                 self.isLoadingMore = false
                 
             })
@@ -243,10 +245,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                     if offset == 0 {
                         self.scrollToTop()
                     }
-                    self.waitingIndicator.hidden = true
-                    self.waitingIndicator.stopAnimating()
-                    self.footerView!.activityIndicator.stopAnimating()
+                    
                 }
+                self.waitingIndicator.hidden = true
+                self.waitingIndicator.stopAnimating()
+                self.footerView!.activityIndicator.stopAnimating()
                 self.isLoadingMore = false
                 
             })
