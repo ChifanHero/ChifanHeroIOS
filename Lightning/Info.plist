@@ -26,11 +26,11 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>need your location</string>
+	<string></string>
 	<key>NSLocationUsageDescription</key>
 	<string>ssss</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>need your location</string>
+	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
