@@ -22,6 +22,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     var dishes: [Dish] = [Dish]()
     var lists: [List] = [List]()
     
+    @IBOutlet weak var noFavoritesMessage: UILabel!
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
@@ -93,9 +94,16 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
                         self.lists.append(self.favorites![index].list!)
                     }
                 }
-                self.tableView.reloadData()
+                if self.restaurants.count > 0 || self.dishes.count > 0 || self.lists.count > 0 {
+                    self.tableView.hidden = false
+                    self.noFavoritesMessage.hidden = true
+                    self.tableView.reloadData()
+                } else {
+                    self.noFavoritesMessage.hidden = false
+                }
+                
                 self.refreshControl.endRefreshing()
-                self.tableView.hidden = false
+                
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.hidden = true
             });
