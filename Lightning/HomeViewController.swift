@@ -84,6 +84,8 @@ class HomeViewController: RefreshableViewController {
     }
     
     private func initPromotionsTable(){
+        loadingIndicator.hidden = false
+        loadingIndicator.startAnimating()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData", name:"UserLocationAvailable", object: nil)
         
     }
@@ -102,10 +104,10 @@ class HomeViewController: RefreshableViewController {
         
         let location = appDelegate!.currentLocation
         if (location.lat == nil || location.lon == nil) {
-           return
+            loadingIndicator.hidden = true
+            loadingIndicator.stopAnimating()
+            return
         }
-        loadingIndicator.hidden = false
-        loadingIndicator.startAnimating()
         getPromotionsRequest.userLocation = location
         getPromotionsRequest.limit = PROMOTIONS_LIMIT
         getPromotionsRequest.skip = PROMOTIONS_OFFSET

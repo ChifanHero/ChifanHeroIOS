@@ -98,6 +98,8 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         if (location.lat == nil || location.lon == nil) {
             return
         }
+        waitingIndicator.hidden = false
+        waitingIndicator.startAnimating()
         request.userLocation = location
         loadData { (success) -> Void in
             if !success {
@@ -111,8 +113,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     }
     
     override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
-        waitingIndicator.hidden = false
-        waitingIndicator.startAnimating()
+        
         DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request) { (response) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
                 if response == nil {
