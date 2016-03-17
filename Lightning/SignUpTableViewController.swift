@@ -16,6 +16,8 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var createButton: UIButton!
     
+    var waitingIndicator: UIActivityIndicatorView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,17 +53,41 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private func createAccount() {
-        AccountManager(serviceConfiguration: ParseConfiguration()).signUp(username: usernameTextField.text!, password: passwordTextField.text!){(success) -> Void in
+        waitingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        waitingIndicator?.color = UIColor.grayColor()
+        self.view.addSubview(waitingIndicator!)
+        centerIndicator()
+        waitingIndicator?.startAnimating()
+        AccountManager(serviceConfiguration: ParseConfiguration()).signUp(username: usernameTextField.text!, password: passwordTextField.text!){(response) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
-                if success == true {
-                    self.loginViewController?.replaceLoginViewByAboutMeView()
-                    self.navigationController?.popViewControllerAnimated(true)
-                } else{
-                    print("fail")
+                if response == nil {
+                    self.showErrorMessage("注册失败", message: "网络错误")
+                } else {
+                    if response!.success != nil && response!.success! == true {
+                        self.loginViewController?.replaceLoginViewByAboutMeView()
+                        self.navigationController?.popViewControllerAnimated(true)
+                    } else{
+                        if let error = response?.error {
+                            if error.code == 202 {
+                                self.showErrorMessage("注册失败", message: "用户名已被占用")
+                            } else if error.code == 125 {
+                                self.showErrorMessage("注册失败", message: "请用邮箱注册")
+                            } else {
+                                self.showErrorMessage("注册失败", message: "请提供有效用户名和密码")
+                            }
+                        }
+                    }
                 }
+                self.waitingIndicator?.stopAnimating()
+                self.waitingIndicator?.removeFromSuperview()
+                
             });
             
         }
+    }
+    
+    private func centerIndicator() {
+        waitingIndicator?.center = self.view.center
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -85,13 +111,27 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    private func showErrorMessage() {
-        let alert = UIAlertController(title: "输入错误", message: "请输入有效用户名和密码", preferredStyle: UIAlertControllerStyle.Alert)
-        
-        let dismissAction = UIAlertAction(title: "知道了", style: .Default, handler: self.resetLogInInput)
-        alert.addAction(dismissAction)
-        
-        self.presentViewController(alert, animated: true, completion: nil)
+//    private func showErrorMessage() {
+//        let alert = UIAlertController(title: "输入错误", message: "请输入有效用户名和密码", preferredStyle: UIAlertControllerStyle.Alert)
+//        
+//        let dismissAction = UIAlertAction(title: "知道了", style: .Default, handler: self.resetLogInInput)
+//        alert.addAction(dismissAction)
+//        
+//        self.presentViewController(alert, animated: true, completion: nil)
+//    }
+    
+    private func showErrorMessage(var title : String?, message : String?) {
+        //        let alert = UIAlertController(title: "输入错误", message: "请输入有效用户名和密码", preferredStyle: UIAlertControllerStyle.Alert)
+        //
+        //        let dismissAction = UIAlertAction(title: "知道了", style: .Default, handler: self.resetLogInInput)
+        //        alert.addAction(dismissAction)
+        //
+        //        self.presentViewController(alert, animated: true, completion: nil)
+        if title == nil {
+            title = "输入错误"
+        }
+        let alertview = JSSAlertView().show(self, title: title!, text: message, buttonText: "我知道了")
+        alertview.setTextTheme(.Dark)
     }
     
     private func resetLogInInput(alertAction: UIAlertAction!){

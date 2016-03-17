@@ -13,6 +13,7 @@ class SignUpResponse: Model {
     var success: Bool?
     var sessionToken: String?
     var user: User?
+    var error: Error?
     
     required init() {
         
@@ -22,6 +23,7 @@ class SignUpResponse: Model {
         success <-- data["success"]
         sessionToken <-- data["session_token"]
         user <-- data["user"]
+        error <-- data["error"]
     }
     
 }

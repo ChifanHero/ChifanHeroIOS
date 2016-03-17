@@ -18,7 +18,7 @@ class AccountManager {
         self.serviceConfiguration = serviceConfiguration
     }
     
-    func logIn(username username: String?, password: String?, responseHandler: (Bool?, User?) -> Void) {
+    func logIn(username username: String?, password: String?, responseHandler: (LoginResponse?, User?) -> Void) {
         
         let request : LoginRequest = LoginRequest()
         request.username = username
@@ -43,12 +43,12 @@ class AccountManager {
                     print(error)
                 }
             }
-            responseHandler(loginResponse?.success, loginResponse?.user)
+            responseHandler(loginResponse, loginResponse?.user)
         }
         
     }
     
-    func signUp(username username: String, password: String, responseHandler: (Bool?) -> Void){
+    func signUp(username username: String, password: String, responseHandler: (SignUpResponse?) -> Void){
         
         let request : SignUpRequest = SignUpRequest()
         request.username = username
@@ -66,15 +66,22 @@ class AccountManager {
                 do {
                     jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
                     signUpResponse = SignUpResponse(data: jsonData)
+                    if signUpResponse?.success != nil && signUpResponse!.success! == true{
+//                        self.logIn(username: username, password: password){_,_ in
+//                            
+//                        }
+                        self.logIn(username: username, password: password, responseHandler: { (success, user) -> Void in
+                            //
+                        })
+                    }
+                    
                 } catch {
                     print(error)
                 }
-            }
-            
-            self.logIn(username: username, password: password){_,_ in
                 
             }
-            responseHandler(signUpResponse?.success)
+            responseHandler(signUpResponse)
+            
         }
     }
     

@@ -120,40 +120,58 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     private func startLogIn() {
         logInIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
         logInIndicator?.color = UIColor.grayColor()
-        logInIndicator!.center = self.view.center
+        self.view.addSubview(logInIndicator!)
+        centerIndicator()
+        logInIndicator?.startAnimating()
         logIn(username: usernameTextField.text, password: passwordTextField.text)
+    }
+    
+    private func centerIndicator() {
+//        let midXConstraint : NSLayoutConstraint = NSLayoutConstraint(item: self.logInIndicator!, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute:NSLayoutAttribute.CenterX, multiplier: 1, constant: 0);
+//        let midYConstraint : NSLayoutConstraint = NSLayoutConstraint(item: self.logInIndicator!, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute:NSLayoutAttribute.CenterY, multiplier: 1, constant: 0);
+//        self.view.addConstraints([midXConstraint, midYConstraint])
+//        self.view.layoutIfNeeded()
+        logInIndicator?.center = self.view.center
     }
     
     func logIn(username username: String?, password: String?) {
         
-        logInIndicator?.startAnimating()
-        self.view.addSubview(logInIndicator!)
         
-        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, password: password) { (success, user) -> Void in
+        
+        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, password: password) { (response, user) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                if success == true {
-                    let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setBool(true, forKey: "isLoggedIn")
-                    self.replaceLoginViewByAboutMeView()
+                if response == nil {
+                    self.showErrorMessage("登录失败", message: "网络错误")
                 } else {
-                    print("login failed")
-                    self.logInIndicator?.stopAnimating()
-                    self.logInIndicator?.removeFromSuperview()
-                    self.showErrorMessage()
+                    if response!.success == true {
+                        let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setBool(true, forKey: "isLoggedIn")
+                        self.replaceLoginViewByAboutMeView()
+                    } else {
+                        print("login failed")
+                        self.showErrorMessage("登录失败", message: "用户名或密码错误")
+                    }
                 }
+                self.logInIndicator?.stopAnimating()
+                self.logInIndicator?.removeFromSuperview()
+                
             })
         }
     }
     
-    private func showErrorMessage() {
-        let alert = UIAlertController(title: "输入错误", message: "请输入有效用户名和密码", preferredStyle: UIAlertControllerStyle.Alert)
-        
-        let dismissAction = UIAlertAction(title: "知道了", style: .Default, handler: self.resetLogInInput)
-        alert.addAction(dismissAction)
-        
-        self.presentViewController(alert, animated: true, completion: nil)
+    private func showErrorMessage(var title : String?, message : String?) {
+//        let alert = UIAlertController(title: "输入错误", message: "请输入有效用户名和密码", preferredStyle: UIAlertControllerStyle.Alert)
+//        
+//        let dismissAction = UIAlertAction(title: "知道了", style: .Default, handler: self.resetLogInInput)
+//        alert.addAction(dismissAction)
+//        
+//        self.presentViewController(alert, animated: true, completion: nil)
+        if title == nil {
+            title = "输入错误"
+        }
+        let alertview = JSSAlertView().show(self, title: title!, text: message, buttonText: "我知道了")
+        alertview.setTextTheme(.Dark)
     }
-    
     private func resetLogInInput(alertAction: UIAlertAction!){
         usernameTextField.text = nil
         passwordTextField.text = nil
