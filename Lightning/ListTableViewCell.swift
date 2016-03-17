@@ -39,7 +39,7 @@ class ListTableViewCell: UITableViewCell {
         if list.picture?.original != nil {
             url = list.picture!.original!
         }
-        listImage.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        listImage.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
         nameLabel.text = list.name
         if (list.memberCount != nil) {
             countLabel.text = String(list.memberCount!) + "道菜"

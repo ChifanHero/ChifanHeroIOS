@@ -37,7 +37,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         self.listTable.insertSubview(refreshControl, atIndex: 0)
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.listTable.hidden = true
-        waitingIndicator.hidden = false
+        waitingIndicator.hidden = true
         firstLoadData()
     }
     
@@ -78,12 +78,14 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         request.limit = 50
         request.skip = 0
         footerView?.reset()
-        self.waitingIndicator.startAnimating()
+        
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location = appDelegate.currentLocation
         if (location.lat == nil || location.lon == nil) {
             return
         }
+        self.waitingIndicator.hidden = false
+        self.waitingIndicator.startAnimating()
         request.userLocation = location
         loadData { (success) -> Void in
             if !success {

@@ -47,7 +47,7 @@ class HomeViewController: RefreshableViewController {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
         configureNavigationController()
-        loadingIndicator.hidden = false
+        loadingIndicator.hidden = true
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         appDelegate!.startGettingLocation()
@@ -84,7 +84,6 @@ class HomeViewController: RefreshableViewController {
     }
     
     private func initPromotionsTable(){
-        loadingIndicator.startAnimating()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData", name:"UserLocationAvailable", object: nil)
         
     }
@@ -105,6 +104,8 @@ class HomeViewController: RefreshableViewController {
         if (location.lat == nil || location.lon == nil) {
            return
         }
+        loadingIndicator.hidden = false
+        loadingIndicator.startAnimating()
         getPromotionsRequest.userLocation = location
         getPromotionsRequest.limit = PROMOTIONS_LIMIT
         getPromotionsRequest.skip = PROMOTIONS_OFFSET
