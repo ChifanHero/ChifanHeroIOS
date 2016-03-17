@@ -64,9 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //            self.window?.makeKeyAndVisible()
             defaults.setBool(true, forKey: "hasLaunchedOnce")
             defaults.synchronize()
-        } else {
-            setBadgeValue()
-        }
+        } 
+        setBadgeValue()
         
     }
     

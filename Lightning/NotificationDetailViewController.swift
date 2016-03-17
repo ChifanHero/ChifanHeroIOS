@@ -45,6 +45,11 @@ class NotificationDetailViewController: UIViewController, NotificationSelectionD
         
     }
     
+    func clear() {
+        self.notificationDetailView?.hidden = true
+        self.notification = nil
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

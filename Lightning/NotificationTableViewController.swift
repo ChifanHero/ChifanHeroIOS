@@ -198,10 +198,17 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete {
             let deletedObject : NSManagedObject = self.notifications.removeAtIndex(indexPath.row)
+            clearDetailView()
             deleteFromCoreData(deletedObject)
             self.tableView.beginUpdates()
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Top)
             self.tableView.endUpdates()
+        }
+    }
+    
+    func clearDetailView() {
+        if let detailViewController = self.delegate as? NotificationDetailViewController {
+            detailViewController.clear()
         }
     }
     
