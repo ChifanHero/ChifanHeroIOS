@@ -37,7 +37,6 @@
 		C41297E41C80B8C80062BC7D /* ListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297E61C80B8C80062BC7D /* ListHeaderView.xib */; };
 		C41297E71C80B8CD0062BC7D /* ListCandidateConfirmationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297E91C80B8CD0062BC7D /* ListCandidateConfirmationView.xib */; };
 		C41297EA1C80B8D10062BC7D /* PhotoCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297EC1C80B8D10062BC7D /* PhotoCollectionCell.xib */; };
-		C41297ED1C80B8D90062BC7D /* RecommendationsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297EF1C80B8D90062BC7D /* RecommendationsHeaderView.xib */; };
 		C41297F31C80B9310062BC7D /* NameAddressRestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297F51C80B9310062BC7D /* NameAddressRestaurantCell.xib */; };
 		C41297F61C80B9390062BC7D /* ActionButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297F81C80B9390062BC7D /* ActionButtonView.xib */; };
 		C41297F91C80B93F0062BC7D /* NotAvailableMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41297FB1C80B93F0062BC7D /* NotAvailableMessageView.xib */; };
@@ -101,7 +100,6 @@
 		CA203DAB1C111EEA00D6F32C /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476C54D1B84565F0051B0E5 /* Queue.swift */; };
 		CA203DAC1C111EEA00D6F32C /* ViewItemTopUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B39AB1B8909BC00516248 /* ViewItemTopUIView.swift */; };
 		CA203DAD1C111EEA00D6F32C /* ParseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437282E1B82F12F009121C9 /* ParseConfiguration.swift */; };
-		CA203DAE1C111EEA00D6F32C /* RecommendationsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A821E11BE3257000D1D4B7 /* RecommendationsHeaderView.swift */; };
 		CA203DAF1C111EEA00D6F32C /* GetMessageByIdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDFC0E1B9825970065F285 /* GetMessageByIdRequest.swift */; };
 		CA203DB01C111EEA00D6F32C /* SlideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433BA081B9625670049CB53 /* SlideBar.swift */; };
 		CA203DB11C111EEA00D6F32C /* GetMessagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDFC021B96CBBF0065F285 /* GetMessagesResponse.swift */; };
@@ -232,6 +230,7 @@
 		CA882D2D1C86790200D04696 /* LogInTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D2C1C86790200D04696 /* LogInTableViewController.swift */; };
 		CA882D2F1C90A7D400D04696 /* LightningColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D2E1C90A7D400D04696 /* LightningColor.swift */; };
 		CA882D311C90B11200D04696 /* CellActionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D301C90B11200D04696 /* CellActionTitle.swift */; };
+		CADA93881C9A6EA400F3E400 /* Respinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADA93871C9A6EA400F3E400 /* Respinner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -267,7 +266,6 @@
 		C41297E51C80B8C80062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ListHeaderView.xib; sourceTree = "<group>"; };
 		C41297E81C80B8CD0062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ListCandidateConfirmationView.xib; sourceTree = "<group>"; };
 		C41297EB1C80B8D10062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PhotoCollectionCell.xib; sourceTree = "<group>"; };
-		C41297EE1C80B8D90062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RecommendationsHeaderView.xib; sourceTree = "<group>"; };
 		C41297F41C80B9310062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NameAddressRestaurantCell.xib; sourceTree = "<group>"; };
 		C41297F71C80B9390062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ActionButtonView.xib; sourceTree = "<group>"; };
 		C41297FA1C80B93F0062BC7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NotAvailableMessageView.xib; sourceTree = "<group>"; };
@@ -381,7 +379,6 @@
 		C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponCellSecondView.swift; sourceTree = "<group>"; };
-		C4A821E11BE3257000D1D4B7 /* RecommendationsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationsHeaderView.swift; sourceTree = "<group>"; };
 		C4B0A3921C8C0B4B00D05408 /* NoNetworkDefaultView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoNetworkDefaultView.xib; sourceTree = "<group>"; };
 		C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNetworkDefaultView.swift; sourceTree = "<group>"; };
 		C4B0A3981C8CCD8D00D05408 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -474,6 +471,7 @@
 		CA882D2C1C86790200D04696 /* LogInTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInTableViewController.swift; sourceTree = "<group>"; };
 		CA882D2E1C90A7D400D04696 /* LightningColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightningColor.swift; sourceTree = "<group>"; };
 		CA882D301C90B11200D04696 /* CellActionTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellActionTitle.swift; sourceTree = "<group>"; };
+		CADA93871C9A6EA400F3E400 /* Respinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Respinner.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -682,6 +680,7 @@
 				CA882D2E1C90A7D400D04696 /* LightningColor.swift */,
 				CA882D301C90B11200D04696 /* CellActionTitle.swift */,
 				C4017D301C91CCE8002840FB /* StringExtension.swift */,
+				CADA93871C9A6EA400F3E400 /* Respinner.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -771,7 +770,6 @@
 				C41297C51C80B8950062BC7D /* NotificationDetailView.xib */,
 				C41297FE1C80B9430062BC7D /* OwnerInfoDishCell.xib */,
 				C41297EC1C80B8D10062BC7D /* PhotoCollectionCell.xib */,
-				C41297EF1C80B8D90062BC7D /* RecommendationsHeaderView.xib */,
 				C41297AD1C80B8630062BC7D /* RestaurantCell.xib */,
 				C41298011C80B94A0062BC7D /* RestaurantSearchCell.xib */,
 				C41297D41C80B8AC0062BC7D /* SelectionBar.xib */,
@@ -807,7 +805,6 @@
 				C461DB7C1BD0D654009032C8 /* ListHeaderView.swift */,
 				C461DB821BD0E379009032C8 /* ListHeaderViewDelegate.swift */,
 				C48042B21BDDA957003135D2 /* BubbleButton.swift */,
-				C4A821E11BE3257000D1D4B7 /* RecommendationsHeaderView.swift */,
 				C4DB3E221BE6717A00076A57 /* ListCandidateConfirmationView.swift */,
 				C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */,
 				C44C25811C50C97200A345D8 /* ActionButtonView.swift */,
@@ -1103,7 +1100,7 @@
 						TestTargetID = C42D9BBF1B69EF2D0035C5A6;
 					};
 					CA203DA01C111EEA00D6F32C = {
-						DevelopmentTeam = 43JBA7Z8PB;
+						DevelopmentTeam = DCSM79KF66;
 					};
 				};
 			};
@@ -1154,7 +1151,6 @@
 				CA203E321C111EEA00D6F32C /* LaunchScreen.storyboard in Resources */,
 				C41297E41C80B8C80062BC7D /* ListHeaderView.xib in Resources */,
 				C41297A21C80B8510062BC7D /* CouponCell.xib in Resources */,
-				C41297ED1C80B8D90062BC7D /* RecommendationsHeaderView.xib in Resources */,
 				C41297C61C80B89A0062BC7D /* SimpleDishCell.xib in Resources */,
 				C41297F61C80B9390062BC7D /* ActionButtonView.xib in Resources */,
 				C41297D81C80B8B50062BC7D /* CouponCellSecondView.xib in Resources */,
@@ -1273,7 +1269,6 @@
 				CA203DAC1C111EEA00D6F32C /* ViewItemTopUIView.swift in Sources */,
 				CA203DAD1C111EEA00D6F32C /* ParseConfiguration.swift in Sources */,
 				C4B0A3991C8CCD8D00D05408 /* Reachability.swift in Sources */,
-				CA203DAE1C111EEA00D6F32C /* RecommendationsHeaderView.swift in Sources */,
 				CA203DAF1C111EEA00D6F32C /* GetMessageByIdRequest.swift in Sources */,
 				CA203DB01C111EEA00D6F32C /* SlideBar.swift in Sources */,
 				CA203DB11C111EEA00D6F32C /* GetMessagesResponse.swift in Sources */,
@@ -1400,6 +1395,7 @@
 				CA203E051C111EEA00D6F32C /* SimpleDishTableViewCell.swift in Sources */,
 				CA203E061C111EEA00D6F32C /* Rating.swift in Sources */,
 				CA203E071C111EEA00D6F32C /* StringUtil.swift in Sources */,
+				CADA93881C9A6EA400F3E400 /* Respinner.swift in Sources */,
 				CA203E081C111EEA00D6F32C /* HttpClient.swift in Sources */,
 				CA882D211C82632800D04696 /* DeleteRequestProtocol.swift in Sources */,
 				CA203E091C111EEA00D6F32C /* GetDishByIdRequest.swift in Sources */,
@@ -1615,14 +1611,6 @@
 				C41297EB1C80B8D10062BC7D /* Base */,
 			);
 			name = PhotoCollectionCell.xib;
-			sourceTree = "<group>";
-		};
-		C41297EF1C80B8D90062BC7D /* RecommendationsHeaderView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C41297EE1C80B8D90062BC7D /* Base */,
-			);
-			name = RecommendationsHeaderView.xib;
 			sourceTree = "<group>";
 		};
 		C41297F51C80B9310062BC7D /* NameAddressRestaurantCell.xib */ = {

@@ -35,7 +35,7 @@ class HomeViewController: RefreshableViewController {
     let LISTS_LIMIT = 10
     let LISTS_OFFSET = 0
 
-    let refreshControl = UIRefreshControl()
+    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
 
     var promotions: [Promotion] = []
     
@@ -80,7 +80,7 @@ class HomeViewController: RefreshableViewController {
     
     private func configurePullRefresh(){
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.promotionsTable.insertSubview(refreshControl, atIndex: 0)
+        self.promotionsTable.addSubview(refreshControl)
     }
     
     private func initPromotionsTable(){
@@ -236,19 +236,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         self.promotionsTable.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 30
-        } else {
-            return 10
-        }
-    }
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = RecommendationsHeaderView()
-        return headerView
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) ->
