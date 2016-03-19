@@ -10,6 +10,10 @@ import UIKit
 
 class LightningColor {
     internal class func themeRed() -> UIColor {
+        return UIColor(red: 235/255, green: 48/255, blue: 29/255, alpha: 1.0)
+    }
+    
+    internal class func likeBackground() -> UIColor {
         //return UIColor(red: 235/255, green: 48/255, blue: 29/255, alpha: 1.0)
         return UIColor(patternImage: UIImage(named: "Like_With_Background")!)
     }

@@ -40,10 +40,10 @@ class RestaurantSearchTableViewCell: UITableViewCell {
     func setUp(restaurant restaurant: Restaurant) {
 
         if restaurant.name != nil {
-            self.nameLabel.attributedText = restaurant.name!.attributedStringFromHTML(14, highlightColor: UIColor.redColor())
+            self.nameLabel.attributedText = restaurant.name!.attributedStringFromHTML(14, highlightColor: LightningColor.themeRed())
         }
         if restaurant.address != nil {
-            self.addressLabel.attributedText = restaurant.address?.attributedStringFromHTML(12, highlightColor: UIColor.redColor())
+            self.addressLabel.attributedText = restaurant.address?.attributedStringFromHTML(12, highlightColor: LightningColor.themeRed())
         }
         
         if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
@@ -62,9 +62,9 @@ class RestaurantSearchTableViewCell: UITableViewCell {
             
             for dish in restaurant.dishes! {
                 dishNames += dish
-                dishNames += "  "
+                dishNames += "    "
             }
-            self.dishesLabel.attributedText = dishNames.attributedStringFromHTML(12, highlightColor: UIColor.redColor())
+            self.dishesLabel.attributedText = dishNames.attributedStringFromHTML(12, highlightColor: LightningColor.themeRed())
             self.dishesLabel.adjustsFontSizeToFitWidth = false
             self.dishesLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
         } else {

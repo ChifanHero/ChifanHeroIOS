@@ -50,7 +50,7 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
         self.dish = dish
         if useHTMLRender && dish.name != nil {
             if dish.name != nil {
-                self.nameLabel.attributedText = dish.name!.attributedStringFromHTML(18, highlightColor: UIColor.redColor())
+                self.nameLabel.attributedText = dish.name!.attributedStringFromHTML(14, highlightColor: UIColor.redColor())
                 self.nameLabel.hidden = false
             }
             

@@ -282,11 +282,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
                 tableView.registerNib(UINib(nibName: "OwnerInfoDishCell", bundle: nil), forCellReuseIdentifier: "ownerInfoDishCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
             }
-//            var cell : DishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
-//            if cell == nil {
-//                tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
-//                cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
-//            }
             cell?.baseVC = self
             cell?.setUp(dish: self.dishes[indexPath.row])
             return cell!

@@ -15,9 +15,12 @@
             <rect key="frame" x="0.0" y="0.0" width="383" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0w-zJ-1BT">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0w-zJ-1BT">
                     <rect key="frame" x="303" y="0.0" width="60" height="49"/>
-                    <state key="normal" title="推荐候选"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="推荐候选">
+                        <color key="titleColor" red="0.92156862750000001" green="0.18823529410000001" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
                     <connections>
                         <action selector="addCandidate:" destination="-1" eventType="touchUpInside" id="V9n-Ud-eV0"/>
                     </connections>

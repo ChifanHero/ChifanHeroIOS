@@ -286,7 +286,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             }
             self.dismissActionViewWithDelay()
         });
-        likeAction.backgroundColor = LightningColor.themeRed()
+        likeAction.backgroundColor = LightningColor.likeBackground()
         
         let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId!)) {
