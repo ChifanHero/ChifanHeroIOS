@@ -21,6 +21,8 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     var detailNavigationController : UINavigationController?
     
     var delegate : NotificationSelectionDelegate?
+    
+    let refreshCtrl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
 
     
     override func viewDidLoad() {
@@ -36,8 +38,8 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     }
     
     private func configurePullRefresh(){
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshCtrl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshCtrl)
     }
     
     @objc private func refresh(sender:AnyObject) {
@@ -104,7 +106,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
             notifications = results as! [NSManagedObject]
             print(notifications.count)
             self.tableView.reloadData()
-            self.refreshControl?.endRefreshing()
+            self.refreshCtrl.endRefreshing()
             
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")

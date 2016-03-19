@@ -29,7 +29,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         }
     }
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
     
     var restaurants : [Restaurant] = []
     

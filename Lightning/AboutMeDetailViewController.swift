@@ -26,7 +26,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
     
     override func viewDidLoad() {
         super.viewDidLoad()

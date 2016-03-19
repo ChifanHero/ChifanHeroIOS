@@ -26,7 +26,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
     @IBOutlet weak var scrollView: UIScrollView!
-    let refreshControl = UIRefreshControl()
+    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
     
     var restaurants : [Restaurant] = [Restaurant]()
     var dishes : [Dish] = [Dish]()

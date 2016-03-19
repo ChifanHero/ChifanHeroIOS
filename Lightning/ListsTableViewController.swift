@@ -18,7 +18,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
     
     let LIMIT = 50
     var offset = 0
