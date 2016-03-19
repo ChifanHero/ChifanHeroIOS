@@ -28,6 +28,9 @@ class HomeViewController: RefreshableViewController {
         self.performSegueWithIdentifier("showLists", sender: self)
     }
     
+    @IBOutlet weak var bannerView: UIView!
+    
+    
     let PROMOTIONS_LIMIT = 10
     let PROMOTIONS_OFFSET = 0
     let RESTAURANTS_LIMIT = 10
