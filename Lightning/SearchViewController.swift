@@ -516,7 +516,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
             }
             self.dismissActionViewWithDelay()
         });
-        likeAction.backgroundColor = LightningColor.themeRed()
+        likeAction.backgroundColor = LightningColor.likeBackground()
         
         if scope != "list" {
             let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
