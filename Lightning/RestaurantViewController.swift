@@ -245,10 +245,12 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                     self.localSearchResponse = localSearchResponse
                     let alert = UIAlertController(title: "打开地图", message: "是否打开地图导航", preferredStyle: UIAlertControllerStyle.ActionSheet)
                     
-                    let goAction = UIAlertAction(title: "确定", style: .Destructive, handler: self.doUsingAppleMap)
+                    let goWithAppleAction = UIAlertAction(title: "内置地图", style: .Destructive, handler: self.doUsingAppleMap)
+                    let goWithGoogleAction = UIAlertAction(title: "谷歌地图", style: .Destructive, handler: self.doUsingGoogleMap)
                     let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelUsingAppleMap)
                     
-                    alert.addAction(goAction)
+                    alert.addAction(goWithAppleAction)
+                    alert.addAction(goWithGoogleAction)
                     alert.addAction(cancelAction)
                     
                     self.presentViewController(alert, animated: true, completion: nil)
@@ -292,6 +294,18 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = self.info["address"]
         mapItem.openInMapsWithLaunchOptions(options)
+    }
+    
+    func doUsingGoogleMap(alertAction: UIAlertAction!) -> Void {
+        let address: String = info["address"]!.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        let requestString: String = "comgooglemaps://?q=" + address
+        print(requestString)
+        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"comgooglemaps://")!)) {
+            UIApplication.sharedApplication().openURL(NSURL(string:
+                requestString)!)
+        } else {
+            print("Can't use comgooglemaps://");
+        }
     }
     
     func cancelUsingAppleMap(alertAction: UIAlertAction!) {
