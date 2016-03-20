@@ -119,7 +119,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                     }
                     
                 }
-                self.isLoadingMore = true
+                self.isLoadingMore = false
                 self.refreshControl.endRefreshing()
                 self.waitingIndicator.stopAnimating()
                 self.waitingIndicator.hidden = true

@@ -268,13 +268,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if selectionBar.scope == "list" {
+//            var cell : ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
+//            if cell == nil {
+//                tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
+//                cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
+//            }
+//            cell!.model = lists[indexPath.row]
+//            return cell!
             var cell : ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
             if cell == nil {
                 tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
             }
-            cell!.model = lists[indexPath.row]
+            cell?.setUp(list: lists[indexPath.row])
+//            cell?.model = lists[indexPath.row]
             return cell!
+
         } else if selectionBar.scope == "dish" {
             
             var cell : OwnerInfoDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
