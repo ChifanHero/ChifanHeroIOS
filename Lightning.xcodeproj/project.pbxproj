@@ -59,7 +59,6 @@
 		C44C25861C53610B00A345D8 /* RestaurantCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25851C53610B00A345D8 /* RestaurantCandidate.swift */; };
 		C44C25881C5361C900A345D8 /* VoteRestaurantRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */; };
 		C44C258A1C53627700A345D8 /* VoteRestaurantResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25891C53627700A345D8 /* VoteRestaurantResponse.swift */; };
-		C468384A1C9E81DB007D38E0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46838491C9E81DB007D38E0 /* MapKit.framework */; };
 		C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */; };
 		C47A1C8B1C7DF2A100E0DF3A /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C8A1C7DF2A100E0DF3A /* NotificationTableViewCell.swift */; };
 		C47A1C8D1C7EC66500E0DF3A /* FirstNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */; };
@@ -204,6 +203,7 @@
 		CA203E1D1C111EEA00D6F32C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039E31BC347C100183AC2 /* libz.tbd */; };
 		CA203E1E1C111EEA00D6F32C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039E11BC347B500183AC2 /* libsqlite3.tbd */; };
 		CA203E1F1C111EEA00D6F32C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039DF1BC3479900183AC2 /* SystemConfiguration.framework */; };
+		CA203E201C111EEA00D6F32C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039DD1BC3478F00183AC2 /* StoreKit.framework */; };
 		CA203E211C111EEA00D6F32C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039DB1BC3478600183AC2 /* Social.framework */; };
 		CA203E221C111EEA00D6F32C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039D91BC3477D00183AC2 /* Security.framework */; };
 		CA203E231C111EEA00D6F32C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039D71BC3477300183AC2 /* QuartzCore.framework */; };
@@ -348,8 +348,6 @@
 		C461DB801BD0D747009032C8 /* GetListByIdResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetListByIdResponse.swift; sourceTree = "<group>"; };
 		C461DB821BD0E379009032C8 /* ListHeaderViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListHeaderViewDelegate.swift; sourceTree = "<group>"; };
 		C461DB851BD2CE7D009032C8 /* PhotoOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoOperations.swift; sourceTree = "<group>"; };
-		C46838461C9E81C6007D38E0 /* Lightning.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Lightning.entitlements; sourceTree = "<group>"; };
-		C46838491C9E81DB007D38E0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C46CB8D01BA00978000D1006 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		C46CB8D21BA00B50000D1006 /* GetRestaurantMenuRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRestaurantMenuRequest.swift; sourceTree = "<group>"; };
 		C46CB8D41BA00B5A000D1006 /* GetRestaurantMenuResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRestaurantMenuResponse.swift; sourceTree = "<group>"; };
@@ -435,6 +433,7 @@
 		C4F039D71BC3477300183AC2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C4F039D91BC3477D00183AC2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C4F039DB1BC3478600183AC2 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		C4F039DD1BC3478F00183AC2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C4F039DF1BC3479900183AC2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C4F039E11BC347B500183AC2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C4F039E31BC347C100183AC2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -497,8 +496,8 @@
 			files = (
 				CA203E1D1C111EEA00D6F32C /* libz.tbd in Frameworks */,
 				CA203E1E1C111EEA00D6F32C /* libsqlite3.tbd in Frameworks */,
-				C468384A1C9E81DB007D38E0 /* MapKit.framework in Frameworks */,
 				CA203E1F1C111EEA00D6F32C /* SystemConfiguration.framework in Frameworks */,
+				CA203E201C111EEA00D6F32C /* StoreKit.framework in Frameworks */,
 				CA203E211C111EEA00D6F32C /* Social.framework in Frameworks */,
 				CA203E221C111EEA00D6F32C /* Security.framework in Frameworks */,
 				CA203E231C111EEA00D6F32C /* QuartzCore.framework in Frameworks */,
@@ -520,10 +519,10 @@
 		23D85A71B84862FEE9FC8005 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C46838491C9E81DB007D38E0 /* MapKit.framework */,
 				C4F039E31BC347C100183AC2 /* libz.tbd */,
 				C4F039E11BC347B500183AC2 /* libsqlite3.tbd */,
 				C4F039DF1BC3479900183AC2 /* SystemConfiguration.framework */,
+				C4F039DD1BC3478F00183AC2 /* StoreKit.framework */,
 				C4F039DB1BC3478600183AC2 /* Social.framework */,
 				C4F039D91BC3477D00183AC2 /* Security.framework */,
 				C4F039D71BC3477300183AC2 /* QuartzCore.framework */,
@@ -604,7 +603,6 @@
 		C42D9BC21B69EF2D0035C5A6 /* Lightning */ = {
 			isa = PBXGroup;
 			children = (
-				C46838461C9E81C6007D38E0 /* Lightning.entitlements */,
 				C4A821E31BE325D200D1D4B7 /* Controllers */,
 				C43B9A541BDF04A900FD50FF /* OperationQueue */,
 				C4D300161BC2478200807C4D /* KeychainWrapper */,
@@ -1103,20 +1101,6 @@
 					};
 					CA203DA01C111EEA00D6F32C = {
 						DevelopmentTeam = 43JBA7Z8PB;
-						SystemCapabilities = {
-							com.apple.HomeKit = {
-								enabled = 0;
-							};
-							com.apple.InAppPurchase = {
-								enabled = 0;
-							};
-							com.apple.Maps.iOS = {
-								enabled = 1;
-							};
-							com.apple.Push = {
-								enabled = 1;
-							};
-						};
 					};
 				};
 			};
