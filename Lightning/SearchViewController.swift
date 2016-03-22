@@ -133,10 +133,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         print(keyword)
         if keyword != nil && keyword != "" {
             amplifierStackView.hidden = true
-            if offset == 0 {
-                self.clearStates()
-                self.searchResultsTableView.hidden = true
-            }
+//            if offset == 0 {
+//                self.clearStates()
+//            }
             if self.searchResultsTableView.hidden == true {
                 waitingIndicator.hidden = false
                 waitingIndicator.startAnimating()
@@ -171,6 +170,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let results = searchResponse?.results {
+                    if offset == 0 {
+                        self.restaurants.removeAll()
+                    }
                     self.restaurants += results
                     self.resultsCount = self.restaurants.count
                     self.searchResultsTableView.allowsSelection = true
@@ -202,6 +204,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchDishes(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let results = searchResponse?.results {
+                    if offset == 0 {
+                        self.dishes.removeAll()
+                    }
                     self.dishes += results
                     self.resultsCount = self.dishes.count
                     self.searchResultsTableView.hidden = false
@@ -235,6 +240,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchLists(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let results = searchResponse?.results {
+                    if offset == 0 {
+                        self.lists.removeAll()
+                    }
                     self.lists += results
                     self.resultsCount = self.lists.count
                     self.searchResultsTableView.hidden = false
@@ -318,28 +326,34 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     }
     
     func restaurantButtonClicked() {
-        self.searchResultsTableView.hidden = true
-        clearStates()
-        search(offset: 0, limit: LIMIT)
+        if selectionBar.previousScope != "restaurant" {
+            self.searchResultsTableView.hidden = true
+            clearStates()
+            search(offset: 0, limit: LIMIT)
+        }
+        
     }
     
     func dishButtonPressed() {
-        self.searchResultsTableView.hidden = true
-        clearStates()
-        search(offset: 0, limit: LIMIT)
+        if selectionBar.previousScope != "dish" {
+            self.searchResultsTableView.hidden = true
+            clearStates()
+            search(offset: 0, limit: LIMIT)
+        }
+        
     }
     
     func listButtonPressed() {
-        self.searchResultsTableView.hidden = true
-        clearStates()
-        search(offset: 0, limit: LIMIT)
+        if selectionBar.previousScope != "list" {
+            self.searchResultsTableView.hidden = true
+            clearStates()
+            search(offset: 0, limit: LIMIT)
+        }
+        
     }
     
     func clearStates() {
         self.offset = 0
-        self.dishes.removeAll()
-        self.restaurants.removeAll()
-        self.lists.removeAll()
 //        self.searchResultsTableView.hidden = true
         self.offset = 0
         self.resultsCount = 0

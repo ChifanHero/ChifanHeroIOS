@@ -33,6 +33,8 @@ import UIKit
     
     var scope : String = "restaurant"
     
+    var previousScope : String = ""
+    
     
     @IBOutlet var buttons: [UIButton]!
     
@@ -74,12 +76,14 @@ import UIKit
     }
 
     @IBAction func restaurantButtonClicked(sender: AnyObject) {
+        previousScope = scope
         scope = "restaurant"
         toggleButtonStatus(sender)
         delegate?.restaurantButtonClicked()
     }
 
     @IBAction func dishButtonPressed(sender: AnyObject) {
+        previousScope = scope
         scope = "dish"
         toggleButtonStatus(sender)
         delegate?.dishButtonPressed()
@@ -87,6 +91,7 @@ import UIKit
     
     
     @IBAction func listButtonPressed(sender: AnyObject) {
+        previousScope = scope
         scope = "list"
         toggleButtonStatus(sender)
         delegate?.listButtonPressed()
