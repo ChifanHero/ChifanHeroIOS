@@ -58,6 +58,6 @@
         </view>
     </objects>
     <resources>
-        <image name="like_large" width="34" height="34"/>
+        <image name="like_large" width="33" height="33"/>
     </resources>
 </document>

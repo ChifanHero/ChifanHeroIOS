@@ -171,7 +171,7 @@
     </objects>
     <resources>
         <image name="bookmark_large" width="33" height="33"/>
-        <image name="dislike_large" width="34" height="34"/>
-        <image name="neutral_large" width="34" height="34"/>
+        <image name="dislike_large" width="33" height="33"/>
+        <image name="neutral_large" width="33" height="33"/>
     </resources>
 </document>

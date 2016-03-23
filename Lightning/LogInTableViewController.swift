@@ -41,6 +41,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     func UISetup() {
         self.signInButton.layer.cornerRadius = 5
+        self.signInButton.enabled = true
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -135,8 +136,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func logIn(username username: String?, password: String?) {
-        
-        
+        self.signInButton.enabled = false
         
         AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, password: password) { (response, user) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -154,7 +154,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                 }
                 self.logInIndicator?.stopAnimating()
                 self.logInIndicator?.removeFromSuperview()
-                
+                self.signInButton.enabled = true
             })
         }
     }
