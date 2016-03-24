@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResultsUpdating, UISearchControllerDelegate, UITableViewDelegate, UITableViewDataSource, SelectionBarDelegate{
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SelectionBarDelegate, UISearchBarDelegate{
     
     @IBOutlet weak var selectionBar: SelectionBar!
     
@@ -17,9 +17,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     
     @IBOutlet weak var amplifierStackView: UIStackView!
-    
-    
-    var searchController: UISearchController!
     
     var resultsCount = 0
     
@@ -33,6 +30,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     var lists : [List] = [List]()
     
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
+    
+    var searchBar : UISearchBar?
     
     private var heightConstraint:NSLayoutConstraint?
     
@@ -50,35 +49,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         selectionBar.hidden = false
         configurePullRefresh()
         configureNavigationController()
-        
         setTableFooterView()
-        
-        searchController = UISearchController(searchResultsController: nil)
-        
-        // The object responsible for updating the contents of the search results controller.
-        searchController.searchResultsUpdater = self
-        
-        // Determines whether the underlying content is dimmed during a search.
-        // if we are presenting the display results in the same view, this should be false
-        searchController.dimsBackgroundDuringPresentation = false
-        
-        searchController.hidesNavigationBarDuringPresentation = false
-        
-        
-        searchController.delegate = self
-        
-        searchController.searchBar.delegate = self
-        
         selectionBar.delegate = self
-        
-        // Make sure the that the search bar is visible within the navigation bar.
-        searchController.searchBar.sizeToFit()
-        self.navigationItem.titleView = searchController.searchBar
-        searchController.searchBar.barTintColor = UIColor.clearColor()
-
-        definesPresentationContext = true
         searchResultsTableView.hidden = true
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        searchBar = UISearchBar()
+        searchBar!.delegate = self
+        searchBar!.sizeToFit()
+        self.navigationItem.titleView = searchBar
+        definesPresentationContext = true
     }
     
     func setTableFooterView() {
@@ -111,25 +94,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
         // Dispose of any resources that can be recreated.
     }
     
-    // Too expensive. For now, search only when the search buttion gets clicked
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-//        if searchController.active == false {
-//            let text = searchController.searchBar.text
-//            print(text)
-//            print("called")
-//        }
-        
-    }
     
-    // For now, search only when the search buttion gets clicked
+    
+//    // For now, search only when the search buttion gets clicked
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         clearStates()
+        self.searchBar?.endEditing(true)
         search(offset: 0, limit: LIMIT)
     }
+
     
     func search(offset offset : Int, limit : Int) {
         
-        let keyword = self.searchController.searchBar.text
+        let keyword = self.searchBar?.text
         print(keyword)
         if keyword != nil && keyword != "" {
             amplifierStackView.hidden = true
@@ -390,8 +367,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UISearchResult
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         clearStates()
+        self.searchBar?.text = nil
+        self.searchBar?.resignFirstResponder()
+        self.searchBar?.setShowsCancelButton(false, animated: true)
         self.searchResultsTableView.hidden = true
         amplifierStackView.hidden = false
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        self.searchBar?.setShowsCancelButton(true, animated: true)
     }
     
     
