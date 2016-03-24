@@ -53,6 +53,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private func createAccount() {
+        createButton.enabled = false
         waitingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
         waitingIndicator?.color = UIColor.grayColor()
         self.view.addSubview(waitingIndicator!)
@@ -80,6 +81,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
                 }
                 self.waitingIndicator?.stopAnimating()
                 self.waitingIndicator?.removeFromSuperview()
+                self.createButton.enabled = true
                 
             });
             
