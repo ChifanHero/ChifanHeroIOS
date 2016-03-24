@@ -490,7 +490,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="NfB-M6-uoM">
-                                <rect key="frame" x="88" y="165" width="200" height="160"/>
+                                <rect key="frame" x="88" y="197" width="200" height="160"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Magnifier" translatesAutoresizingMaskIntoConstraints="NO" id="Y5i-u7-avL">
                                         <rect key="frame" x="40" y="0.0" width="120" height="120"/>
@@ -524,12 +524,13 @@
                                 </connections>
                             </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gAO-Cm-LSJ">
-                                <rect key="frame" x="169" y="258.5" width="37" height="37"/>
+                                <rect key="frame" x="169" y="258" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="NfB-M6-uoM" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="0Ey-q4-FZW"/>
                             <constraint firstItem="m9Q-Eu-s73" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leadingMargin" constant="-20" id="0J3-lN-1Ko"/>
                             <constraint firstItem="NfB-M6-uoM" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="3r8-Ki-uDl"/>
                             <constraint firstItem="NfB-M6-uoM" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="7xO-Xp-Qdw"/>
@@ -550,6 +551,7 @@
                             <mask key="constraints">
                                 <exclude reference="zMH-dW-sU2"/>
                                 <exclude reference="7xO-Xp-Qdw"/>
+                                <exclude reference="njO-t5-mMC"/>
                             </mask>
                         </variation>
                     </view>

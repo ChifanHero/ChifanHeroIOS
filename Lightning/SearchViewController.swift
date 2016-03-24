@@ -53,10 +53,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         selectionBar.delegate = self
         searchResultsTableView.hidden = true
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         searchBar = UISearchBar()
         searchBar!.delegate = self
         searchBar!.sizeToFit()
