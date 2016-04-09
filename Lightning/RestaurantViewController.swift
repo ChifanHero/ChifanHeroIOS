@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class RestaurantViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate {
+class RestaurantViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var restaurantId : String? {
         didSet {
@@ -61,6 +61,10 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         }
         topViewContainer.baseVC = self
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
+//        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
+        let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addPhoto")
+        editBarButton.tintColor = UIColor.whiteColor()
+        self.navigationItem.rightBarButtonItem = editBarButton
         // Do any additional setup after loading the view.
     }
     
@@ -547,5 +551,81 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
 //    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
 //        
 //    }
+    
+    func addPhoto() {
+        popUpImageSourceOption()
+    }
+    
+    private func popUpImageSourceOption(){
+        let alert = UIAlertController(title: "更换头像", message: "选取图片来源", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let takePhotoAction = UIAlertAction(title: "相机", style: .Default, handler: self.takePhotoFromCamera)
+        let chooseFromPhotosAction = UIAlertAction(title: "照片", style: .Default, handler: self.chooseFromPhotoRoll)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelChoosingImage)
+        
+        alert.addAction(takePhotoAction)
+        alert.addAction(chooseFromPhotosAction)
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func takePhotoFromCamera(alertAction: UIAlertAction!) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera;
+            imagePicker.allowsEditing = true
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    private func chooseFromPhotoRoll(alertAction: UIAlertAction!) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+            imagePicker.allowsEditing = true
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    private func cancelChoosingImage(alertAction: UIAlertAction!) {
+        
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        self.dismissViewControllerAnimated(true, completion: nil);
+        
+        let imageData = UIImageJPEGRepresentation(image, 0.1) //0.1 is compression ratio
+        let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
+        let request : UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
+        DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                
+                if response?.result != nil{
+//                    AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: response?.result?.id) { (success, user) -> Void in
+//                        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                            if success == true {
+//                                print("Update profile picture succeed")
+//                            } else {
+//                                print("Update profile picture failed")
+//                            }
+//                        })
+//                        
+//                    }
+                    let updateRestaurantRequest : UpdateRestaurantInfoRequest = UpdateRestaurantInfoRequest()
+                    updateRestaurantRequest.restaurantId = self.restaurantId
+                    updateRestaurantRequest.imageId = response?.result?.id
+                    DataAccessor(serviceConfiguration: ParseConfiguration()).updateRestaurantInfo(updateRestaurantRequest, responseHandler: { (updateResponse) -> Void in
+                        if updateResponse?.result != nil {
+                            self.topViewContainer.backgroundImageURL = updateResponse?.result?.picture?.original
+                        }
+                    })
+                }
+                
+            });
+        }
+    }
     
 }

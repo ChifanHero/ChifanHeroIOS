@@ -85,6 +85,9 @@
 		C4BCB3581C54BAC70049D74A /* RestaurantSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BCB3571C54BAC70049D74A /* RestaurantSearchTableViewCell.swift */; };
 		C4CC99E21C5407A1007CBF64 /* NotAvailableMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */; };
 		C4CC99E61C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */; };
+		C4D00EDC1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D00EDB1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift */; };
+		C4D00EDE1CB8D5A0008C24FB /* UpdateRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D00EDD1CB8D5A0008C24FB /* UpdateRequestProtocol.swift */; };
+		C4D00EE01CB8D6D6008C24FB /* UpdateRestaurantInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D00EDF1CB8D6D6008C24FB /* UpdateRestaurantInfoResponse.swift */; };
 		C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BC1C13A1060024C287 /* UserContext.swift */; };
 		C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */; };
 		C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */; };
@@ -412,6 +415,9 @@
 		C4BDFC181B98C5C00065F285 /* SelectionPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanel.swift; sourceTree = "<group>"; };
 		C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAvailableMessageView.swift; sourceTree = "<group>"; };
 		C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerInfoDishTableViewCell.swift; sourceTree = "<group>"; };
+		C4D00EDB1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRestaurantInfoRequest.swift; sourceTree = "<group>"; };
+		C4D00EDD1CB8D5A0008C24FB /* UpdateRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRequestProtocol.swift; sourceTree = "<group>"; };
+		C4D00EDF1CB8D6D6008C24FB /* UpdateRestaurantInfoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRestaurantInfoResponse.swift; sourceTree = "<group>"; };
 		C4D300041BBE5F1A00807C4D /* AboutMeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeNavigationController.swift; sourceTree = "<group>"; };
 		C4D3000E1BC1B10B00807C4D /* AcountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcountManager.swift; sourceTree = "<group>"; };
 		C4D300101BC1B4FC00807C4D /* LoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
@@ -939,6 +945,7 @@
 				CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */,
 				CA882D1E1C82619500D04696 /* RemoveFavoriteRequest.swift */,
 				C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */,
+				C4D00EDB1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -968,6 +975,7 @@
 				CA882D221C8263AE00D04696 /* RemoveFavoriteResponse.swift */,
 				C44C25891C53627700A345D8 /* VoteRestaurantResponse.swift */,
 				C41298101C82294A0062BC7D /* NominateDishListCandidateResponse.swift */,
+				C4D00EDF1CB8D6D6008C24FB /* UpdateRestaurantInfoResponse.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -982,6 +990,7 @@
 				C43728281B815C8F009121C9 /* JSONHelperExtension.swift */,
 				C437282C1B82ED06009121C9 /* HttpRequestProtocol.swift */,
 				C4A0D54D1C11746100BAE246 /* Serializable.swift */,
+				C4D00EDD1CB8D5A0008C24FB /* UpdateRequestProtocol.swift */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -1303,6 +1312,7 @@
 				C4A0D5551C11746100BAE246 /* Location.swift in Sources */,
 				CA203DC41C111EEA00D6F32C /* MessageType.swift in Sources */,
 				CA203DC61C111EEA00D6F32C /* AllDishesHeaderView.swift in Sources */,
+				C4D00EDE1CB8D5A0008C24FB /* UpdateRequestProtocol.swift in Sources */,
 				CA203DC71C111EEA00D6F32C /* GetListByIdRequest.swift in Sources */,
 				CA203DC81C111EEA00D6F32C /* GetPromotionsResponse.swift in Sources */,
 				CA203DC91C111EEA00D6F32C /* GetMessagesRequest.swift in Sources */,
@@ -1317,6 +1327,7 @@
 				CA203DD01C111EEA00D6F32C /* SortOrder.swift in Sources */,
 				CA203DD11C111EEA00D6F32C /* AboutMeDetailViewController.swift in Sources */,
 				CA203DD21C111EEA00D6F32C /* HeaderViewDelegate.swift in Sources */,
+				C4D00EDC1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift in Sources */,
 				CA203DD31C111EEA00D6F32C /* GetFavoritesResponse.swift in Sources */,
 				CA203DD41C111EEA00D6F32C /* Restaurant.swift in Sources */,
 				C44C25881C5361C900A345D8 /* VoteRestaurantRequest.swift in Sources */,
@@ -1340,6 +1351,7 @@
 				C41298161C83CDA40062BC7D /* UIImageEffects.swift in Sources */,
 				CA203DE11C111EEA00D6F32C /* HttpRequestProtocol.swift in Sources */,
 				CA203DE21C111EEA00D6F32C /* GetFavoritesRequest.swift in Sources */,
+				C4D00EE01CB8D6D6008C24FB /* UpdateRestaurantInfoResponse.swift in Sources */,
 				CA203DE31C111EEA00D6F32C /* CouponCellSecondView.swift in Sources */,
 				C41298111C82294A0062BC7D /* NominateDishListCandidateResponse.swift in Sources */,
 				CA882D311C90B11200D04696 /* CellActionTitle.swift in Sources */,
@@ -1744,7 +1756,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1782,7 +1794,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
