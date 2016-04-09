@@ -1516,8 +1516,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cRp-Bb-PSh"/>
         <segue reference="tIf-c0-cls"/>
-        <segue reference="dDa-I7-4We"/>
+        <segue reference="vSQ-ka-XUm"/>
+        <segue reference="19z-hm-zLV"/>
     </inferredMetricsTieBreakers>
 </document>
