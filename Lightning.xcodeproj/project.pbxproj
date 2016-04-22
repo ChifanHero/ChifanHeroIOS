@@ -1865,7 +1865,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "Lightning-Test";
-				PROVISIONING_PROFILE = "a3992a3c-0363-47b5-94ac-747406101d18";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lightning/Lightning-Bridging-Header.h";
 			};
 			name = Debug;
@@ -1875,8 +1875,9 @@
 			baseConfigurationReference = 9F4E1D025DE105092EEBD4B9 /* Pods-Lightning.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shi Yan (JVM24QRUX3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1886,7 +1887,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a3992a3c-0363-47b5-94ac-747406101d18";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lightning/Lightning-Bridging-Header.h";
 			};
 			name = Release;

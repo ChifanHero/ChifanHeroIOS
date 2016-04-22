@@ -597,7 +597,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         self.dismissViewControllerAnimated(true, completion: nil);
         
-        let imageData = UIImageJPEGRepresentation(image, 0.1) //0.1 is compression ratio
+        let imageData = UIImageJPEGRepresentation(image, 1.0) //1.0 is compression ratio
         let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
         let request : UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
         DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
