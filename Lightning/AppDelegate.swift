@@ -91,11 +91,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     private func handleNotification(notification : [NSObject : AnyObject]) {
         print(notification)
-        let aps = notification["aps"]
+        let aps = notification["aps"] as? NSDictionary
         var title : String = ""
         var body : String = ""
-        if let parameter = notification["parameters"] {
+        if let parameter = notification["parameters"] as? NSDictionary {
             title = parameter["title"] as! String
+//            title = parameter.objectForKey("title") as! String
             body = parameter["body"] as! String
             let save = parameter["save"] as! Int
             if save == 1 {
@@ -108,8 +109,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 
             }
         } else {
-            title = aps!["alert"] as! String
-            body = aps!["alert"] as! String
+            if aps != nil {
+                title = aps!["alert"] as! String
+                body = aps!["alert"] as! String
+            }
+            
         }
     }
     

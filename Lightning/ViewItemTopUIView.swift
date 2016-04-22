@@ -105,7 +105,12 @@ import UIKit
             if let imageURL = backgroundImageURL {
                 let url = NSURL(string: imageURL)
                 let data = NSData(contentsOfURL: url!)
-                backgroundImage = UIImage(data: data!)
+                if data != nil {
+                    backgroundImage = UIImage(data: data!)
+                } else {
+                    backgroundImage = UIImage(named: "restaurant_default_background")
+                }
+                
             } else {
                 backgroundImage = UIImage(named: "restaurant_default_background")
             }
