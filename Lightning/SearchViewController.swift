@@ -73,7 +73,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     private func configurePullRefresh(){
-        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(SearchViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.searchResultsTableView.insertSubview(self.refreshControl, atIndex: 0)
     }
     
@@ -397,12 +397,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     private func dismissActionViewWithDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(SearchViewController.dismissActionView), userInfo: nil, repeats: false)
     }
     
     @objc private func dismissActionView() {
         self.searchResultsTableView.setEditing(false, animated: true)
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(SearchViewController.reloadTable), userInfo: nil, repeats: false)
     }
     
     @objc private func reloadTable() {
@@ -459,24 +459,24 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if (!UserContext.isValidUser()) {
                 self.popupSigninAlert()
             } else {
-                favoriteCount++
+                favoriteCount += 1
                 if scope == "restaurant" {
                     if self.restaurants[indexPath.row].favoriteCount == nil {
                        self.restaurants[indexPath.row].favoriteCount = 1
                     } else {
-                        self.restaurants[indexPath.row].favoriteCount!++
+                        self.restaurants[indexPath.row].favoriteCount! += 1
                     }
                 } else if scope == "list" {
                     if self.lists[indexPath.row].favoriteCount == nil {
                         self.lists[indexPath.row].favoriteCount = 1
                     } else {
-                        self.lists[indexPath.row].favoriteCount!++
+                        self.lists[indexPath.row].favoriteCount! += 1
                     }
                 } else if scope == "dish" {
                     if self.dishes[indexPath.row].favoriteCount == nil {
                         self.dishes[indexPath.row].favoriteCount = 1
                     } else {
-                        self.dishes[indexPath.row].favoriteCount!++
+                        self.dishes[indexPath.row].favoriteCount! += 1
                     }
                 }
                 self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
@@ -492,24 +492,24 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                likeCount++
+                likeCount += 1
                 if scope == "restaurant" {
                     if self.restaurants[indexPath.row].likeCount == nil {
                         self.restaurants[indexPath.row].likeCount = 1
                     } else {
-                        self.restaurants[indexPath.row].likeCount!++
+                        self.restaurants[indexPath.row].likeCount! += 1
                     }
                 } else if scope == "list" {
                     if self.lists[indexPath.row].likeCount == nil {
                         self.lists[indexPath.row].likeCount = 1
                     } else {
-                        self.lists[indexPath.row].likeCount!++
+                        self.lists[indexPath.row].likeCount! += 1
                     }
                 } else if scope == "dish" {
                     if self.dishes[indexPath.row].likeCount == nil {
                         self.dishes[indexPath.row].likeCount = 1
                     } else {
-                        self.dishes[indexPath.row].likeCount!++
+                        self.dishes[indexPath.row].likeCount! += 1
                     }
                 }
                 
@@ -526,18 +526,18 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
-                    neutralCount++
+                    neutralCount += 1
                     if scope == "restaurant" {
                         if self.restaurants[indexPath.row].neutralCount == nil {
                             self.restaurants[indexPath.row].neutralCount = 1
                         } else {
-                            self.restaurants[indexPath.row].neutralCount!++
+                            self.restaurants[indexPath.row].neutralCount! += 1
                         }
                     } else if scope == "dish" {
                         if self.dishes[indexPath.row].neutralCount == nil {
                             self.dishes[indexPath.row].neutralCount = 1
                         } else {
-                            self.dishes[indexPath.row].neutralCount!++
+                            self.dishes[indexPath.row].neutralCount! += 1
                         }
                     }
                     self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
@@ -551,18 +551,18 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
-                    dislikeCount++
+                    dislikeCount += 1
                     if scope == "restaurant" {
                         if self.restaurants[indexPath.row].dislikeCount == nil {
                             self.restaurants[indexPath.row].dislikeCount = 1
                         } else {
-                            self.restaurants[indexPath.row].dislikeCount!++
+                            self.restaurants[indexPath.row].dislikeCount! += 1
                         }
                     } else if scope == "dish" {
                         if self.dishes[indexPath.row].dislikeCount == nil {
                             self.dishes[indexPath.row].dislikeCount = 1
                         } else {
-                            self.dishes[indexPath.row].dislikeCount!++
+                            self.dishes[indexPath.row].dislikeCount! += 1
                         }
                     }
                     self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
@@ -583,7 +583,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let restaurant = self.restaurants[indexPath.row]
             ratingAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
                 if restaurant.favoriteCount != nil {
-                    restaurant.favoriteCount!--
+                    restaurant.favoriteCount! -= 1
                 }
             })
             
@@ -591,7 +591,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let list = self.lists[indexPath.row]
             ratingAndBookmarkExecutor?.addToFavorites("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
                 if list.favoriteCount != nil {
-                    list.favoriteCount!--
+                    list.favoriteCount! -= 1
                 }
             })
             
@@ -599,7 +599,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let dish = self.dishes[indexPath.row]
             ratingAndBookmarkExecutor?.addToFavorites("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
                 if dish.favoriteCount != nil {
-                    dish.favoriteCount!--
+                    dish.favoriteCount! -= 1
                 }
             })
         }
@@ -612,21 +612,21 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let restaurant = self.restaurants[indexPath.row]
                 ratingAndBookmarkExecutor?.like("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
                     if restaurant.likeCount != nil {
-                        restaurant.likeCount!--
+                        restaurant.likeCount! -= 1
                     }
                 })
             } else if scope == "dish" {
                 let dish = self.dishes[indexPath.row]
                 ratingAndBookmarkExecutor?.like("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
                     if dish.likeCount != nil {
-                        dish.likeCount!--
+                        dish.likeCount! -= 1
                     }
                 })
             } else if scope == "list" {
                 let list = self.lists[indexPath.row]
                 ratingAndBookmarkExecutor?.like("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
                     if list.likeCount != nil {
-                        list.likeCount!--
+                        list.likeCount! -= 1
                     }
                 })
             }
@@ -636,14 +636,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let restaurant = self.restaurants[indexPath.row]
                 ratingAndBookmarkExecutor?.dislike("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
                     if restaurant.likeCount != nil {
-                        restaurant.likeCount!--
+                        restaurant.likeCount! -= 1
                     }
                 })
             } else if scope == "dish" {
                 let dish = self.dishes[indexPath.row]
                 ratingAndBookmarkExecutor?.dislike("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
                     if dish.likeCount != nil {
-                        dish.likeCount!--
+                        dish.likeCount! -= 1
                     }
                 })
             }
@@ -652,14 +652,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let restaurant = self.restaurants[indexPath.row]
                 ratingAndBookmarkExecutor?.neutral("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
                     if restaurant.likeCount != nil {
-                        restaurant.likeCount!--
+                        restaurant.likeCount! -= 1
                     }
                 })
             } else if scope == "dish" {
                 let dish = self.dishes[indexPath.row]
                 ratingAndBookmarkExecutor?.neutral("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
                     if dish.likeCount != nil {
-                        dish.likeCount!--
+                        dish.likeCount! -= 1
                     }
                 })
             }

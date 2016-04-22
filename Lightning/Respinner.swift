@@ -77,7 +77,7 @@ class Respinner: UIControl {
         
         if object as? UIScrollView == scrollView {
             if keyPath == "contentOffset" {
-                var yOffsetWithoutInsets = scrollView.contentOffset.y + scrollViewDefaultContentInset.top
+                let yOffsetWithoutInsets = scrollView.contentOffset.y + scrollViewDefaultContentInset.top
                 
                 if yOffsetWithoutInsets < -frame.size.height {
                     if !scrollView.dragging && !refreshing {

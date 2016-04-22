@@ -128,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             for item : NSManagedObject in notifications {
                 let read : Bool = item.valueForKey("read") as! Bool
                 if read == false {
-                    count++
+                    count += 1
                 }
             }
         } catch let error as NSError {
@@ -162,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     private func configSplitViewController() {
         let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
         var viewControllers = tabBarController.viewControllers!
-        for var index = 0; index < viewControllers.count; index++ {
+        for index in 0 ..< viewControllers.count {
             let vc : UIViewController = viewControllers[index]
             if vc.restorationIdentifier == "splitViewController" {
                 let splitViewController = vc as! UISplitViewController
@@ -205,7 +205,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //                PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
 //            }
 //        }
-        if application!.respondsToSelector("registerUserNotificationSettings:") {
+        if application!.respondsToSelector(#selector(UIApplication.registerUserNotificationSettings(_:))) {
             //view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
             let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound], categories: nil)
             application!.registerUserNotificationSettings(settings)

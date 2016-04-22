@@ -124,11 +124,11 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             if (!UserContext.isValidUser()) {
                 self.popupSigninAlert()
             } else {
-                favoriteCount++
+                favoriteCount += 1
                 if dish.favoriteCount == nil {
                     dish.favoriteCount = 1
                 } else {
-                    dish.favoriteCount!++
+                    dish.favoriteCount! += 1
                 }
                 self.memberTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
                 self.addToFavorites(indexPath)
@@ -141,11 +141,11 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                likeCount++
+                likeCount += 1
                 if dish.likeCount == nil {
                     dish.likeCount = 1
                 } else {
-                    dish.likeCount!++
+                    dish.likeCount! += 1
                 }
                 self.memberTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
                 self.rateDish(indexPath, ratingType: RatingTypeEnum.like)
@@ -158,11 +158,11 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                neutralCount++
+                neutralCount += 1
                 if dish.neutralCount == nil {
                     dish.neutralCount = 1
                 } else {
-                    dish.neutralCount!++
+                    dish.neutralCount! += 1
                 }
                 action.title = "一般\n\(neutralCount)"
                 self.memberTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
@@ -176,11 +176,11 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                dislikeCount++
+                dislikeCount += 1
                 if dish.dislikeCount == nil {
                     dish.dislikeCount = 1
                 } else {
-                    dish.dislikeCount!++
+                    dish.dislikeCount! += 1
                 }
                 self.memberTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
                 self.rateDish(indexPath, ratingType: RatingTypeEnum.dislike)
@@ -198,12 +198,12 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     private func dismissActionViewWithDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(ListMemberViewController.dismissActionView), userInfo: nil, repeats: false)
     }
     
     @objc private func dismissActionView() {
         self.memberTable.setEditing(false, animated: true)
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(ListMemberViewController.reloadTable), userInfo: nil, repeats: false)
     }
     
     @objc private func reloadTable() {
@@ -216,7 +216,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
             for dish: Dish in self.member {
                 if dish.id == objectId {
                     if dish.favoriteCount != nil {
-                        dish.favoriteCount!--
+                        dish.favoriteCount! -= 1
                     }
                 }
             }
@@ -232,7 +232,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
                 for dish : Dish in self.member {
                     if dish.id == objectId {
                         if dish.likeCount != nil {
-                            dish.likeCount!--
+                            dish.likeCount! -= 1
                         }
                     }
                 }
@@ -242,7 +242,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
                 for dish : Dish in self.member {
                     if dish.id == objectId {
                         if dish.dislikeCount != nil {
-                            dish.dislikeCount!--
+                            dish.dislikeCount! -= 1
                         }
                     }
                 }
@@ -252,7 +252,7 @@ class ListMemberViewController: UIViewController, UITableViewDataSource, UITable
                 for dish : Dish in self.member {
                     if dish.id == objectId {
                         if dish.neutralCount != nil {
-                            dish.neutralCount!--
+                            dish.neutralCount! -= 1
                         }
                     }
                 }

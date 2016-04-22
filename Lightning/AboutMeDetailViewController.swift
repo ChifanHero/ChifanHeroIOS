@@ -33,7 +33,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         if detailType == FavoriteTypeEnum.Dish {
             self.tableView.allowsSelection = false
         }
-        refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(AboutMeDetailViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.insertSubview(self.refreshControl, atIndex: 0)
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         registerCell()
@@ -85,7 +85,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 self.clearData()
                 self.favorites = (response?.results)
-                for var index = 0; index < self.favorites?.count; index++ {
+                for var index = 0; index < self.favorites?.count; index += 1 {
                     if self.favorites![index].type == "restaurant" {
                         self.restaurants.append(self.favorites![index].restaurant!)
                     } else if self.favorites![index].type == "dish" {

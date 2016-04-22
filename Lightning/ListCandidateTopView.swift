@@ -101,7 +101,7 @@ import UIKit
         view.frame = bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         searchTextField.delegate = self
-        searchTextField.addTarget(self, action: "textFieldDidChange:", forControlEvents: UIControlEvents.EditingChanged)
+        searchTextField.addTarget(self, action: #selector(ListCandidateTopView.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
         searchResultsTable.delegate = self
         searchResultsTable.dataSource = self
         UISetup()

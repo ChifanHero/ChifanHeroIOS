@@ -23,7 +23,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
         
         // Do additional setup after loading the view.
         UISetup()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignUpTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         self.usernameTextField.delegate = self
         self.passwordTextField.delegate = self
@@ -122,13 +122,14 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
 //        self.presentViewController(alert, animated: true, completion: nil)
 //    }
     
-    private func showErrorMessage(var title : String?, message : String?) {
+    private func showErrorMessage(title : String?, message : String?) {
         //        let alert = UIAlertController(title: "输入错误", message: "请输入有效用户名和密码", preferredStyle: UIAlertControllerStyle.Alert)
         //
         //        let dismissAction = UIAlertAction(title: "知道了", style: .Default, handler: self.resetLogInInput)
         //        alert.addAction(dismissAction)
         //
         //        self.presentViewController(alert, animated: true, completion: nil)
+        var title = title
         if title == nil {
             title = "输入错误"
         }

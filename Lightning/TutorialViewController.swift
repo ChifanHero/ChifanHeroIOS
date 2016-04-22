@@ -56,7 +56,7 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
         if index == 0 {
             return nil
         }
-        index--
+        index -= 1
         return self.viewControllerAtIndex(index)
     }
 
@@ -67,7 +67,7 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
         if index == 4 {
             return nil
         }
-        index++
+        index += 1
         return self.viewControllerAtIndex(index)
     }
     

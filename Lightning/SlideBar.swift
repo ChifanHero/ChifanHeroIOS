@@ -99,13 +99,15 @@ class SlideBar: UIView {
         return view
     }
     
-    func setUpScrollView(titles titles : [String], var defaultSelection : Int?) {
+    func setUpScrollView(titles titles : [String], defaultSelection : Int?) {
         if (titles.count <= 0 ){
             return
         }
         
+        var defaultSelection = defaultSelection
+        
         var selectionBarHeight : CGFloat?
-        for var i = 0; i < titles.count; i++ {
+        for i in 0 ..< titles.count {
             let label : UILabel = UILabel()
             label.text = titles[i]
             label.textColor = UIColor.whiteColor()
@@ -134,7 +136,7 @@ class SlideBar: UIView {
             
             containerView.tag = i
             
-            let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleElementTap:")
+            let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SlideBar.handleElementTap(_:)))
             containerView.addGestureRecognizer(tapGesture)
             
             containerView.addSubview(label)

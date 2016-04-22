@@ -27,10 +27,10 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "notificationArrived", name:"NotificationArrived", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NotificationTableViewController.notificationArrived), name:"NotificationArrived", object: nil)
         clearTitleForBackBarButtonItem()
         configurePullRefresh()
-        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
+        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NotificationTableViewController.edit))
         editBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem = editBarButton
         self.splitViewController?.delegate = self
@@ -38,7 +38,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     }
     
     private func configurePullRefresh(){
-        self.refreshCtrl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshCtrl.addTarget(self, action: #selector(NotificationTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshCtrl)
     }
     
@@ -176,14 +176,14 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
         for item : NSManagedObject in self.notifications {
             let read : Bool = item.valueForKey("read") as! Bool
             if read == false {
-                count++
+                count += 1
             }
         }
         return count
     }
     
     func edit() {
-        let doneBarButton = UIBarButtonItem(title: "完成", style: UIBarButtonItemStyle.Done, target: self, action: "done")
+        let doneBarButton = UIBarButtonItem(title: "完成", style: UIBarButtonItemStyle.Done, target: self, action: #selector(NotificationTableViewController.done))
         doneBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem = doneBarButton
         self.tableView.editing = true
@@ -191,7 +191,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     }
     
     func done() {
-        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
+        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NotificationTableViewController.edit))
         editBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem = editBarButton
         self.tableView.editing = false

@@ -33,7 +33,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
         setTableViewFooterView()
-        refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(ListsTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.listTable.insertSubview(refreshControl, atIndex: 0)
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.listTable.hidden = true
@@ -221,11 +221,11 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                 if (!UserContext.isValidUser()) {
                     self.popupSigninAlert()
                 } else {
-                    favoriteCount++
+                    favoriteCount += 1
                     if list.favoriteCount == nil {
                         list.favoriteCount = 1
                     } else {
-                        list.favoriteCount!++
+                        list.favoriteCount! += 1
                     }
                     self.listTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
                     self.addToFavorites(indexPath)
@@ -239,11 +239,11 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
-                    likeCount++
+                    likeCount += 1
                     if list.likeCount == nil {
                         list.likeCount = 1
                     } else {
-                        list.likeCount!++
+                        list.likeCount! += 1
                     }
                     self.listTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
                     
@@ -260,7 +260,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         let list = self.lists[indexPath.row]
         ratingAndBookmarkExecutor?.addToFavorites("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
             if list.favoriteCount != nil {
-                list.favoriteCount!--
+                list.favoriteCount! -= 1
             }
         })
     }
@@ -273,7 +273,7 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
         if ratingType == RatingTypeEnum.like {
             ratingAndBookmarkExecutor?.like(type, objectId: objectId!, failureHandler: { (objectId) -> Void in
                 if list.likeCount != nil {
-                    list.likeCount!--
+                    list.likeCount! -= 1
                 }
             })
         }
@@ -285,12 +285,12 @@ class ListsTableViewController: RefreshableViewController, UITableViewDelegate, 
     }
     
     private func dismissActionViewWithDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(ListsTableViewController.dismissActionView), userInfo: nil, repeats: false)
     }
     
     @objc private func dismissActionView() {
         self.listTable.setEditing(false, animated: true)
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(ListsTableViewController.reloadTable), userInfo: nil, repeats: false)
     }
     
     @objc private func reloadTable() {

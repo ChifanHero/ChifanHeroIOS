@@ -29,7 +29,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         usernameTextField.delegate = self
         passwordTextField.delegate = self
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogInTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         // Uncomment the following line to preserve selection between presentations
@@ -91,7 +91,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     func replaceLoginViewByAboutMeView() {
         let tabBarController : UITabBarController = UIApplication.sharedApplication().keyWindow?.rootViewController as! UITabBarController
         var viewControllers = tabBarController.viewControllers!
-        for var index = 0; index < viewControllers.count; index++ {
+        for index in 0 ..< viewControllers.count {
             let vc : UIViewController = viewControllers[index]
             if vc.restorationIdentifier == "LogInNavigationController" {
                 viewControllers.removeAtIndex(index)
@@ -159,7 +159,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    private func showErrorMessage(var title : String?, message : String?) {
+    private func showErrorMessage(title : String?, message : String?) {
+        var title = title
 //        let alert = UIAlertController(title: "输入错误", message: "请输入有效用户名和密码", preferredStyle: UIAlertControllerStyle.Alert)
 //        
 //        let dismissAction = UIAlertAction(title: "知道了", style: .Default, handler: self.resetLogInInput)

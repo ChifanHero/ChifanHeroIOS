@@ -199,7 +199,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     private func replaceAboutMeViewByLogInView(){
         let tabBarController : UITabBarController = UIApplication.sharedApplication().keyWindow?.rootViewController as! UITabBarController
         var viewControllers = tabBarController.viewControllers!
-        for var index = 0; index < viewControllers.count; index++ {
+        for index in 0 ..< viewControllers.count {
             let vc : UIViewController = viewControllers[index]
             if vc.restorationIdentifier == "AboutMeNavigationController" {
                 viewControllers.removeAtIndex(index)

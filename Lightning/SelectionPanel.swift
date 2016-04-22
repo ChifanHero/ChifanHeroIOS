@@ -47,13 +47,15 @@ class SelectionPanel: UIView {
         
     }
     
-    func setUpSelectionPanel(options options : [String], var defaultSelection : Int?) {
+    func setUpSelectionPanel(options options : [String], defaultSelection : Int?) {
+        
+        var defaultSelection = defaultSelection
         
         if (options.count <= 0) {
             return
         }
         
-        for var i = 0; i < options.count; i++ {
+        for i in 0 ..< options.count {
             let label : UILabel = UILabel()
             label.text = options[i]
             label.font = font
@@ -67,7 +69,7 @@ class SelectionPanel: UIView {
         let space : CGFloat = getElementsSpace()
         
         var x = leadingSpace
-        for var j = 0; j < self.options.count; j++ {
+        for j in 0 ..< self.options.count {
             
             let containerView = UIView()
             containerView.alpha = 1
@@ -89,7 +91,7 @@ class SelectionPanel: UIView {
                 containerView.layer.borderWidth = boarderWidth
             }
             
-            let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleElementTap:")
+            let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SelectionPanel.handleElementTap(_:)))
             containerView.addGestureRecognizer(tapGesture)
             
             

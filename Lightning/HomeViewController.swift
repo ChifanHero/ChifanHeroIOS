@@ -82,14 +82,14 @@ class HomeViewController: RefreshableViewController {
     }
     
     private func configurePullRefresh(){
-        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(HomeViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.promotionsTable.addSubview(refreshControl)
     }
     
     private func initPromotionsTable(){
         loadingIndicator.hidden = false
         loadingIndicator.startAnimating()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData", name:"UserLocationAvailable", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RefreshableViewController.refreshData), name:"UserLocationAvailable", object: nil)
         
     }
     
@@ -285,18 +285,18 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             if (!UserContext.isValidUser()) {
                 self.popupSigninAlert()
             } else {
-                favoriteCount++
+                favoriteCount += 1
                 if promotion.dish != nil {
                     if promotion.dish?.favoriteCount == nil {
                         promotion.dish?.favoriteCount = 1
                     } else {
-                        promotion.dish?.favoriteCount!++
+                        promotion.dish?.favoriteCount! += 1
                     }
                 } else {
                     if promotion.restaurant?.favoriteCount == nil {
                         promotion.restaurant?.favoriteCount = 1
                     } else {
-                        promotion.restaurant?.favoriteCount!++
+                        promotion.restaurant?.favoriteCount! += 1
                     }
                 }
                 self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
@@ -311,18 +311,18 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                likeCount++
+                likeCount += 1
                 if promotion.dish != nil {
                     if promotion.dish?.likeCount == nil {
                         promotion.dish?.likeCount = 1
                     } else {
-                        promotion.dish?.likeCount!++
+                        promotion.dish?.likeCount! += 1
                     }
                 } else {
                     if promotion.restaurant?.likeCount == nil {
                         promotion.restaurant?.likeCount = 1
                     } else {
-                        promotion.restaurant?.likeCount!++
+                        promotion.restaurant?.likeCount! += 1
                     }
                 }
                 
@@ -338,18 +338,18 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                neutralCount++
+                neutralCount += 1
                 if promotion.dish != nil {
                     if promotion.dish?.neutralCount == nil {
                         promotion.dish?.neutralCount = 1
                     } else {
-                        promotion.dish?.neutralCount!++
+                        promotion.dish?.neutralCount! += 1
                     }
                 } else {
                     if promotion.restaurant?.neutralCount == nil {
                         promotion.restaurant?.neutralCount = 1
                     } else {
-                        promotion.restaurant?.neutralCount!++
+                        promotion.restaurant?.neutralCount! += 1
                     }
                 }
                 self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
@@ -363,18 +363,18 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             if (UserContext.isRatingTooFrequent(objectId)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                dislikeCount++
+                dislikeCount += 1
                 if promotion.dish != nil {
                     if promotion.dish?.dislikeCount == nil {
                         promotion.dish?.dislikeCount = 1
                     } else {
-                        promotion.dish?.dislikeCount!++
+                        promotion.dish?.dislikeCount! += 1
                     }
                 } else {
                     if promotion.restaurant?.dislikeCount == nil {
                         promotion.restaurant?.dislikeCount = 1
                     } else {
-                        promotion.restaurant?.dislikeCount!++
+                        promotion.restaurant?.dislikeCount! += 1
                     }
                 }
                 self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
@@ -389,12 +389,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     private func dismissActionViewWithDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(HomeViewController.dismissActionView), userInfo: nil, repeats: false)
     }
     
     @objc private func dismissActionView() {
         self.promotionsTable.setEditing(false, animated: true)
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(HomeViewController.reloadTable), userInfo: nil, repeats: false)
     }
     
     @objc private func reloadTable() {
@@ -409,7 +409,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 for promotion : Promotion in self.promotions {
                     if promotion.dish?.id == objectId {
                         if promotion.dish?.favoriteCount != nil {
-                            promotion.dish?.favoriteCount!--
+                            promotion.dish?.favoriteCount! -= 1
                         }
                     }
                 }
@@ -419,7 +419,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 for promotion : Promotion in self.promotions {
                     if promotion.restaurant?.id == objectId {
                         if promotion.restaurant?.favoriteCount != nil {
-                            promotion.restaurant?.favoriteCount!--
+                            promotion.restaurant?.favoriteCount! -= 1
                         }
                     }
                 }
@@ -446,11 +446,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 for promotion : Promotion in self.promotions {
                     if promotion.dish?.id == objectId {
                         if promotion.dish?.likeCount != nil {
-                            promotion.dish?.likeCount!--
+                            promotion.dish?.likeCount! -= 1
                         }
                     } else if promotion.restaurant?.id == objectId {
                         if promotion.restaurant?.likeCount != nil {
-                            promotion.restaurant?.likeCount!--
+                            promotion.restaurant?.likeCount! -= 1
                         }
                     }
                 }
@@ -460,11 +460,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 for promotion : Promotion in self.promotions {
                     if promotion.dish?.id == objectId {
                         if promotion.dish?.dislikeCount != nil {
-                            promotion.dish?.dislikeCount!--
+                            promotion.dish?.dislikeCount! -= 1
                         }
                     } else if promotion.restaurant?.id == objectId {
                         if promotion.restaurant?.dislikeCount != nil {
-                            promotion.restaurant?.dislikeCount!--
+                            promotion.restaurant?.dislikeCount! -= 1
                         }
                     }
                 }
@@ -474,11 +474,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 for promotion : Promotion in self.promotions {
                     if promotion.dish?.id == objectId {
                         if promotion.dish?.neutralCount != nil {
-                            promotion.dish?.neutralCount!--
+                            promotion.dish?.neutralCount! -= 1
                         }
                     } else if promotion.restaurant?.id == objectId {
                         if promotion.restaurant?.neutralCount != nil {
-                            promotion.restaurant?.neutralCount!--
+                            promotion.restaurant?.neutralCount! -= 1
                         }
                     }
                 }

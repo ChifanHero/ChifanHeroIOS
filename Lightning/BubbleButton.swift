@@ -33,7 +33,7 @@ class BubbleButton: UIButton {
     }
     
     func setup(containerView containerView : UIView) {
-        let pan : UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "drag:")
+        let pan : UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(BubbleButton.drag(_:)))
         self.addGestureRecognizer(pan)
         view = containerView
         itemView = self

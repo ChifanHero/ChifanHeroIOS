@@ -11,7 +11,10 @@ import Foundation
 
 class ScoreComputer  {
     
-    static func getScore(var positive positive: Int?, var negative: Int?, var neutral: Int?) -> String {
+    static func getScore(positive positive: Int?, negative: Int?, neutral: Int?) -> String {
+        var neutral = neutral
+        var negative = negative
+        var positive = positive
         if (positive == nil) {
             positive = 0
         }

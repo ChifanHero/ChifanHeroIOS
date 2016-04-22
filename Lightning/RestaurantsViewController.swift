@@ -50,7 +50,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         self.restaurantsTable.dataSource = self
         self.restaurantsTable.hidden = true
         setTableViewFooterView()
-        refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(RestaurantsViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.restaurantsTable.insertSubview(self.refreshControl, atIndex: 0)
         waitingIndicator.hidden = true
         firstLoadData()
@@ -259,11 +259,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         }
         
         let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
-            favoriteCount++
+            favoriteCount += 1
             if restaurant.favoriteCount == nil {
                 restaurant.favoriteCount = 1
             } else {
-                restaurant.favoriteCount!++
+                restaurant.favoriteCount! += 1
             }
             self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
             self.addToFavorites(indexPath)
@@ -275,11 +275,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             if (UserContext.isRatingTooFrequent(objectId!)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                likeCount++
+                likeCount += 1
                 if restaurant.likeCount == nil {
                     restaurant.likeCount = 1
                 } else {
-                    restaurant.likeCount!++
+                    restaurant.likeCount! += 1
                 }
                 self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
                 self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.like)
@@ -292,11 +292,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             if (UserContext.isRatingTooFrequent(objectId!)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                neutralCount++
+                neutralCount += 1
                 if restaurant.neutralCount == nil {
                     restaurant.neutralCount = 1
                 } else {
-                    restaurant.neutralCount!++
+                    restaurant.neutralCount! += 1
                 }
                 action.title = "一般\n\(neutralCount)"
                 self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
@@ -310,11 +310,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             if (UserContext.isRatingTooFrequent(objectId!)) {
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
-                dislikeCount++
+                dislikeCount += 1
                 if restaurant.dislikeCount == nil {
                     restaurant.dislikeCount = 1
                 } else {
-                    restaurant.dislikeCount!++
+                    restaurant.dislikeCount! += 1
                 }
                 self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
                 self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.dislike)
@@ -333,7 +333,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     }
     
     private func dismissActionViewWithDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantsViewController.dismissActionView), userInfo: nil, repeats: false)
     }
     
     @objc private func dismissActionView() {
@@ -346,7 +346,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             for restaurant : Restaurant in self.restaurants {
                 if restaurant.id == objectId {
                     if restaurant.favoriteCount != nil {
-                        restaurant.favoriteCount!--
+                        restaurant.favoriteCount! -= 1
                     }
                 }
             }
@@ -363,7 +363,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                 for restaurant : Restaurant in self.restaurants {
                     if restaurant.id == objectId {
                         if restaurant.likeCount != nil {
-                            restaurant.likeCount!--
+                            restaurant.likeCount! -= 1
                         }
                     }
                 }
@@ -373,7 +373,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                 for restaurant : Restaurant in self.restaurants {
                     if restaurant.id == objectId {
                         if restaurant.dislikeCount != nil {
-                            restaurant.dislikeCount!--
+                            restaurant.dislikeCount! -= 1
                         }
                     }
                 }
@@ -383,7 +383,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                 for restaurant : Restaurant in self.restaurants {
                     if restaurant.id == objectId {
                         if restaurant.neutralCount != nil {
-                            restaurant.neutralCount!--
+                            restaurant.neutralCount! -= 1
                         }
                     }
                 }

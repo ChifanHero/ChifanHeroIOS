@@ -62,7 +62,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         topViewContainer.baseVC = self
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
 //        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
-        let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addPhoto")
+        let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(RestaurantViewController.addPhoto))
         editBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.rightBarButtonItem = editBarButton
         // Do any additional setup after loading the view.
@@ -377,11 +377,11 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 if (!UserContext.isValidUser()) {
                     self.popupSigninAlert()
                 } else {
-                    favoriteCount++
+                    favoriteCount += 1
                     if dish.favoriteCount == nil {
                         dish.favoriteCount = 1
                     } else {
-                        dish.favoriteCount!++
+                        dish.favoriteCount! += 1
                     }
                     self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
                     self.addToFavorites(indexPath)
@@ -394,11 +394,11 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
-                    likeCount++
+                    likeCount += 1
                     if dish.likeCount == nil {
                         dish.likeCount = 1
                     } else {
-                        dish.likeCount!++
+                        dish.likeCount! += 1
                     }
                     self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
                     self.rateDish(indexPath, ratingType: RatingTypeEnum.like)
@@ -411,11 +411,11 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
-                    neutralCount++
+                    neutralCount += 1
                     if dish.neutralCount == nil {
                         dish.neutralCount = 1
                     } else {
-                        dish.neutralCount!++
+                        dish.neutralCount! += 1
                     }
                     action.title = "一般\n\(neutralCount)"
                     self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
@@ -429,11 +429,11 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 if (UserContext.isRatingTooFrequent(objectId)) {
                     JSSAlertView().warning(self, title: "评价太频繁")
                 } else {
-                    dislikeCount++
+                    dislikeCount += 1
                     if dish.dislikeCount == nil {
                         dish.dislikeCount = 1
                     } else {
-                        dish.dislikeCount!++
+                        dish.dislikeCount! += 1
                     }
                     self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
                     self.rateDish(indexPath, ratingType: RatingTypeEnum.dislike)
@@ -453,7 +453,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
             for dish : Dish in self.hotDishes {
                 if dish.id == objectId {
                     if dish.favoriteCount != nil {
-                        dish.favoriteCount!--
+                        dish.favoriteCount! -= 1
                     }
                 }
             }
@@ -469,7 +469,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 for dish : Dish in self.hotDishes {
                     if dish.id == objectId {
                         if dish.likeCount != nil {
-                            dish.likeCount!--
+                            dish.likeCount! -= 1
                         }
                     }
                 }
@@ -479,7 +479,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 for dish : Dish in self.hotDishes {
                     if dish.id == objectId {
                         if dish.dislikeCount != nil {
-                            dish.dislikeCount!--
+                            dish.dislikeCount! -= 1
                         }
                     }
                 }
@@ -489,7 +489,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 for dish : Dish in self.hotDishes {
                     if dish.id == objectId {
                         if dish.neutralCount != nil {
-                            dish.neutralCount!--
+                            dish.neutralCount! -= 1
                         }
                     }
                 }
@@ -503,12 +503,12 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
     }
     
     private func dismissActionViewWithDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("dismissActionView"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantViewController.dismissActionView), userInfo: nil, repeats: false)
     }
     
     @objc private func dismissActionView() {
         self.hotDishesTableView.setEditing(false, animated: true)
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("reloadTable"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantViewController.reloadTable), userInfo: nil, repeats: false)
     }
     
     @objc private func reloadTable() {
