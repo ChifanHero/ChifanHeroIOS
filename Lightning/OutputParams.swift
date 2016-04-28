@@ -8,9 +8,9 @@
 
 import Foundation
 
-class OutputParams: Serializable {
+class OutputParams: Serializable{
     
-    var distanceUnit : String?
+    var distanceUnit: String?
     
     func getProperties() -> [String : AnyObject] {
         var properties = Dictionary<String, String>()

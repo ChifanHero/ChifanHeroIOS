@@ -10,8 +10,8 @@ import Foundation
 
 class Distance: Serializable, Model{
     
-    var value : Double?
-    var unit : String?
+    var value: Double?
+    var unit: String?
     
     func getProperties() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()

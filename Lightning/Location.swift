@@ -10,11 +10,11 @@ import Foundation
 
 class Location: Serializable, Model {
     
-    var lat : Double?
-    var lon : Double?
+    var lat: Double?
+    var lon: Double?
     
-    func getProperties() -> [String : Double] {
-        var parameters = Dictionary<String, Double>()
+    func getProperties() -> [String : AnyObject] {
+        var parameters = Dictionary<String, AnyObject>()
         parameters["lat"] = lat
         parameters["lon"] = lon
         return parameters

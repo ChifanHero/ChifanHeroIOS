@@ -10,12 +10,12 @@ import Foundation
 
 class Favorite: Model {
     
-    var id : String?
-    var user : User?
-    var dish : Dish?
-    var restaurant : Restaurant?
-    var list : List?
-    var type : String?
+    var id: String?
+    var user: User?
+    var dish: Dish?
+    var restaurant: Restaurant?
+    var list: List?
+    var type: String?
     
     required init() {
         

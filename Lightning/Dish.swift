@@ -8,17 +8,17 @@
 
 import Foundation
 
-class Dish : Model{
+class Dish: Model{
     
-    var id : String?
-    var name : String?
-    var picture : Picture?
-    var englishName : String?
-    var favoriteCount : Int?
-    var likeCount : Int?
-    var dislikeCount : Int?
-    var neutralCount : Int?
-    var fromRestaurant : Restaurant?
+    var id: String?
+    var name: String?
+    var picture: Picture?
+    var englishName: String?
+    var favoriteCount: Int?
+    var likeCount: Int?
+    var dislikeCount: Int?
+    var neutralCount: Int?
+    var fromRestaurant: Restaurant?
     
     required init() {
         

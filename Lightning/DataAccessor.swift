@@ -16,6 +16,7 @@ class DataAccessor {
         self.serviceConfiguration = serviceConfiguration
     }
     
+    //Get--------------------------------------------------------------------------------------------------//
     func getPromotions(request: GetPromotionsRequest, responseHandler : (GetPromotionsResponse?) -> Void) {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
@@ -117,46 +118,6 @@ class DataAccessor {
         }
     }
     
-    func getMessages(request: GetMessagesRequest, responseHandler : (GetMessagesResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
-        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
-            var getMessagesResponse : GetMessagesResponse? = nil
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    getMessagesResponse = GetMessagesResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(getMessagesResponse)
-        }
-    }
-    
-    func getMessageById(request: GetMessageByIdRequest, responseHandler : (GetMessageByIdResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL() + "/" + request.getResourceId()
-        print(url)
-        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
-            var getMessageByIdResponse : GetMessageByIdResponse? = nil
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    getMessageByIdResponse = GetMessageByIdResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(getMessageByIdResponse)
-        }
-    }
-    
     
     func getRestaurantMenu(request: GetRestaurantMenuRequest, responseHandler : (GetRestaurantMenuResponse?) -> Void) {
         let httpClient = HttpClient()
@@ -223,6 +184,34 @@ class DataAccessor {
 
     }
     
+    func getSelectedCollection(request: GetRestaurantsRequest, responseHandler : (GetRestaurantsResponse?) -> Void) {
+        let httpClient = HttpClient()
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
+            var getRestaurantsResponse : GetRestaurantsResponse? = nil
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    getRestaurantsResponse = GetRestaurantsResponse(data: jsonData)
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(getRestaurantsResponse)
+        }
+    }
+    //--------------------------------------------------------------------------------------------------//
+    
+    
+    
+    
+    
+    
+    
+    //Post----------------------------------------------------------------------------------------------//
     func uploadPicture(request: UploadPictureRequest, responseHandler : (UploadPictureResponse?) -> Void) {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()

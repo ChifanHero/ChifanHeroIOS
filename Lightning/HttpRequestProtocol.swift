@@ -9,7 +9,6 @@
 import Foundation
 
 
-protocol HttpRequestProtocol {
-    
+protocol HttpRequestProtocol {    
     func getRelativeURL() -> String
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Promotion : Model{
+class Promotion: Model{
     
     var id: String?
     var restaurant: Restaurant?

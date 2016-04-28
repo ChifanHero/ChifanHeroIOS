@@ -8,23 +8,23 @@
 
 import Foundation
 
-class Restaurant : Model{
+class Restaurant: Model{
     
-    var id : String?
-    var name : String?
-    var englishName : String?
-    var picture : Picture?
-    var address : String?
-    var distance : Distance?
-    var favoriteCount : Int?
-    var likeCount : Int?
-    var dislikeCount : Int?
-    var neutralCount : Int?
-    var phone : String?
-    var hours : String?
-    var hotDishes : [Dish]?
-    var votes : Int?
-    var dishes : [String]?
+    var id: String?
+    var name: String?
+    var englishName: String?
+    var picture: Picture?
+    var address: String?
+    var distance: Distance?
+    var favoriteCount: Int?
+    var likeCount: Int?
+    var dislikeCount: Int?
+    var neutralCount: Int?
+    var phone: String?
+    var hours: String?
+    var hotDishes: [Dish]?
+    var votes: Int?
+    var dishes: [String]?
     
     required init() {
         

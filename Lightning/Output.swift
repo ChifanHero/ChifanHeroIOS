@@ -10,8 +10,8 @@ import Foundation
 
 class Output: Serializable {
     
-    var fields : [String]?
-    var params : OutputParams?
+    var fields: [String]?
+    var params: OutputParams?
     
     func getProperties() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()

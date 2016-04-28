@@ -8,12 +8,17 @@
 
 import Foundation
 
-class GetListByIdRequest: GetResourceRequestProtocol {
+class GetListByIdRequest: GetRequestProtocol {
     
     var resourceId : String
     
     init(id : String) {
         resourceId = id
+    }
+    
+    func getParameters() -> [String:String] {
+        let parameters = Dictionary<String, String>()
+        return parameters
     }
     
     func getResourceId() -> String {

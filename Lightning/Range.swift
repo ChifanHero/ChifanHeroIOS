@@ -8,10 +8,10 @@
 
 import Foundation
 
-class Range : Serializable {
+class Range: Serializable{
     
-    var center : Location?
-    var distance : Distance?
+    var center: Location?
+    var distance: Distance?
     
     func getProperties() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
