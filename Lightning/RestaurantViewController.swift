@@ -20,6 +20,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     var restaurantImage : UIImage?
     
+    var restaurantName : String?
+    
     var request : GetRestaurantByIdRequest?
     
     var restaurant : Restaurant?
@@ -28,6 +30,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var waitingView: UIView!
     @IBOutlet weak var containerScrollView: UIScrollView!
+    
+    let vcTitleLabel : UILabel = UILabel()
     
     @IBOutlet weak var infoTableView: UITableView!
     var info : [String : String] = [String : String]()
@@ -51,6 +55,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configVCTitle()
         hotDishesTableView.allowsSelection = false
         self.waitingView.hidden = false
         self.waitingIndicator.startAnimating()
@@ -63,6 +68,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         }
         topViewContainer.baseVC = self
         topViewContainer.backgroundImage = restaurantImage
+        topViewContainer.name = restaurantName
         self.waitingView.hidden = true
 //        adjustUI()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -77,6 +83,20 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
 //        
 //    }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationItem.titleView?.alpha = 0.0
+    }
+    
+    func configVCTitle() {
+        vcTitleLabel.text = restaurantName
+        vcTitleLabel.backgroundColor = UIColor.clearColor()
+        vcTitleLabel.textColor = UIColor.whiteColor()
+        vcTitleLabel.sizeToFit()
+        vcTitleLabel.alpha = 1.0
+        self.navigationItem.titleView = vcTitleLabel
+    }
+    
     func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         if (request != nil) {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
@@ -90,7 +110,9 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                             self.restaurant = (response?.result)!
                             if self.restaurant != nil {
                                 self.topViewContainer.restaurantId = self.restaurant?.id
-                                self.topViewContainer.name = self.restaurant?.name
+                                if self.topViewContainer.name != nil {
+                                    self.topViewContainer.name = self.restaurant?.name
+                                }
                                 self.topViewContainer.englishName = self.restaurant?.englishName
                                 if self.topViewContainer.backgroundImage == nil {
                                     self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
@@ -543,8 +565,13 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func scrollViewDidScroll(scrollView: UIScrollView) {
         print(scrollView.contentOffset.y)
         let offset = scrollView.contentOffset.y
-        if offset < 0 {
+        let nameLabelBottomY = self.topViewContainer.getNameLabelBottomY()
+        if offset > nameLabelBottomY{
 //            self.topViewContainer.changeBackgroundImageBlurEffect(scrollView.contentOffset.y)
+            let scale = (abs(offset) - abs(nameLabelBottomY)) / 20
+            self.navigationItem.titleView?.alpha = scale
+        } else {
+            self.navigationItem.titleView?.alpha = 0.0
         }
 //        if offset > -100 {
 //            self.topViewContainer.applyBlurEffectToBackgroundImage()

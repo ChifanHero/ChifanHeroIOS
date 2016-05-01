@@ -18,6 +18,8 @@ class HomeViewController: RefreshableViewController, UINavigationControllerDeleg
     
     var imageViewOfSelectedCell : UIImageView?
     
+    var nameOfSelectedCell : String?
+    
     var navigationOperation: UINavigationControllerOperation?
     
     var interactivePopTransition: UIPercentDrivenInteractiveTransition!
@@ -35,6 +37,8 @@ class HomeViewController: RefreshableViewController, UINavigationControllerDeleg
     }
     
     @IBOutlet weak var bannerView: UIView!
+    
+    var segueType : String?
     
     
     let PROMOTIONS_LIMIT = 10
@@ -173,6 +177,7 @@ class HomeViewController: RefreshableViewController, UINavigationControllerDeleg
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        segueType = ""
         if segue.identifier == "showRestaurants" {
             let restaurantsController : RestaurantsViewController = segue.destinationViewController as! RestaurantsViewController
             if let s = sender as? String {
@@ -181,7 +186,9 @@ class HomeViewController: RefreshableViewController, UINavigationControllerDeleg
         } else if segue.identifier == "showRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantImage = self.imageViewOfSelectedCell?.image
+            restaurantController.restaurantName = self.nameOfSelectedCell
             restaurantController.restaurantId = sender as? String
+            segueType = "showRestaurant"
         }
     }
     
@@ -247,6 +254,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let promotion : Promotion = self.promotions[indexPath.row]
         let selectedCell : RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
         imageViewOfSelectedCell = selectedCell.restaurantImageView
+        nameOfSelectedCell = selectedCell.nameLabel.text
         if promotion.restaurant != nil {
             let restaurant : Restaurant = promotions[indexPath.row].restaurant!
             self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
@@ -505,10 +513,42 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+        
         let containerView = transitionContext.containerView()!
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
+        
+        if let navController = toViewController.navigationController {
+            for constraint in toViewController.view.constraints as [NSLayoutConstraint] {
+                if constraint.firstItem === toViewController.topLayoutGuide
+                    && constraint.firstAttribute == .Height
+                    && constraint.secondItem == nil
+                    && constraint.constant == 0 {
+                    constraint.constant = navController.navigationBar.frame.height
+                }
+            }
+        }
+        
+        if segueType != "showRestaurant" {
+            if navigationOperation == UINavigationControllerOperation.Push {
+                containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
+                toViewController.view.alpha = 0.0
+            } else if navigationOperation == UINavigationControllerOperation.Pop {
+                containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
+            }
+            UIView.animateWithDuration(0.4, animations: {
+                if self.navigationOperation == UINavigationControllerOperation.Push {
+                    toViewController.view.alpha = 1.0
+                } else if self.navigationOperation == UINavigationControllerOperation.Pop {
+                    fromViewController.view.alpha = 0.0
+                }
+                }, completion: ({completed in
+                    //告诉系统你的动画过程已经结束，这是非常重要的方法，必须调用。
+                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                }))
+            return
+        }
         
         var detailVC: RestaurantViewController!
         var fromView: UIView!
@@ -522,17 +562,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         if navigationOperation == UINavigationControllerOperation.Push {
             containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
-            if let navController = toViewController.navigationController {
-                for constraint in toViewController.view.constraints as [NSLayoutConstraint] {
-                    if constraint.firstItem === toViewController.topLayoutGuide
-                        && constraint.firstAttribute == .Height
-                        && constraint.secondItem == nil
-                        && constraint.constant == 0 {
-                        constraint.constant = navController.navigationBar.frame.height
-                    }
-                }
-            }
-
             snapshotImageView = originalView?.snapshotViewAfterScreenUpdates(false)
             detailVC = toViewController as! RestaurantViewController
             fromView = fromViewController.view
@@ -541,17 +570,19 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             
             destTransform = CGAffineTransformMakeScale(1, 1)
             snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(originalView!)
+            originalView?.hidden = true
+            detailVC.topViewContainer.backgroundImageView.hidden = true
         } else if navigationOperation == UINavigationControllerOperation.Pop {
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
             detailVC = fromViewController as! RestaurantViewController
             snapshotImageView = detailVC.topViewContainer.backgroundImageView.snapshotViewAfterScreenUpdates(false)
             fromView = toViewController.view
             // 如果IDE是Xcode6 Beta4+iOS8SDK，那么在此处设置为0，动画将会不被执行(不确定是哪里的Bug)
-            destTransform = CGAffineTransformMakeScale(0.1, 0.1)
+            destTransform = CGAffineTransformMakeScale(0, 0)
             snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(detailVC.topViewContainer.backgroundImageView)
         }
-        originalView?.hidden = true
-        detailVC.topViewContainer.backgroundImageView.hidden = true
+        
+        
         
         containerView.addSubview(snapshotImageView)
         

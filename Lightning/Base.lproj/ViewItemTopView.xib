@@ -12,6 +12,7 @@
                 <outlet property="dislikeButtonView" destination="bnh-O4-Ff1" id="2hm-K9-UCJ"/>
                 <outlet property="likeButtonView" destination="dqR-aC-yOu" id="dZG-bc-wuI"/>
                 <outlet property="nameLabel" destination="x6K-2e-lFz" id="chh-Ma-3Um"/>
+                <outlet property="nameLabelContainer" destination="2I8-ur-tWU" id="014-yP-00Y"/>
                 <outlet property="neutralButtonView" destination="c6Y-Po-lH5" id="yyt-RR-HY8"/>
             </connections>
         </placeholder>

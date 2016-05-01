@@ -21,6 +21,9 @@ import UIKit
     @IBOutlet weak var backgroundImageView: UIImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
+    
+    
+    @IBOutlet weak var nameLabelContainer: UIView!
 
     
     private var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
@@ -133,6 +136,11 @@ import UIKit
         view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         addSubview(view)
         UISetup()
+    }
+    
+    func getNameLabelBottomY() -> CGFloat{
+        let convertedFrame : CGRect = self.view.convertRect(self.nameLabel.frame, fromView : nameLabelContainer)
+        return convertedFrame.origin.y + self.nameLabel.frame.size.height / 2
     }
     
 //    func applyBlurEffectToBackgroundImage() {
