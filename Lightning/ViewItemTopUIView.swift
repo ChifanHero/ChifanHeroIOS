@@ -31,7 +31,11 @@ import UIKit
     
     var view: UIView!
     
-    var backgroundImage : UIImage?
+    var backgroundImage : UIImage? {
+        didSet {
+            self.backgroundImageView.image = backgroundImage
+        }
+    }
     
     var fullBlurEffectApplied = false
     
@@ -101,21 +105,21 @@ import UIKit
     
     @IBInspectable var backgroundImageURL: String? {
         didSet {
-//            if let imageURL = backgroundImageURL {
-//                let url = NSURL(string: imageURL)
-//                let data = NSData(contentsOfURL: url!)
-//                if data != nil {
-//                    backgroundImage = UIImage(data: data!)
-//                } else {
-//                    backgroundImage = UIImage(named: "restaurant_default_background")
-//                }
-//                
-//            } else {
-//                backgroundImage = UIImage(named: "restaurant_default_background")
-//            }
-//            self.backgroundImageView.image = backgroundImage
-////            self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
-////            self.fullBlurEffectApplied = true
+            if let imageURL = backgroundImageURL {
+                let url = NSURL(string: imageURL)
+                let data = NSData(contentsOfURL: url!)
+                if data != nil {
+                    backgroundImage = UIImage(data: data!)
+                } else {
+                    backgroundImage = UIImage(named: "restaurant_default_background")
+                }
+                
+            } else {
+                backgroundImage = UIImage(named: "restaurant_default_background")
+            }
+            self.backgroundImageView.image = backgroundImage
+//            self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
+//            self.fullBlurEffectApplied = true
         }
     }
     

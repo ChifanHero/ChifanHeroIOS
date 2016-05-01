@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: RefreshableViewController, UINavigationControllerDelegate ,UIViewControllerAnimatedTransitioning {
+class HomeViewController: RefreshableViewController, UINavigationControllerDelegate, UIViewControllerAnimatedTransitioning {
     
     @IBOutlet weak var promotionsTable: UITableView!
     
@@ -501,13 +501,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.4
+        return 0.15
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView()!
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
         
         var detailVC: RestaurantViewController!
         var fromView: UIView!
@@ -521,11 +522,23 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         if navigationOperation == UINavigationControllerOperation.Push {
             containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
+            if let navController = toViewController.navigationController {
+                for constraint in toViewController.view.constraints as [NSLayoutConstraint] {
+                    if constraint.firstItem === toViewController.topLayoutGuide
+                        && constraint.firstAttribute == .Height
+                        && constraint.secondItem == nil
+                        && constraint.constant == 0 {
+                        constraint.constant = navController.navigationBar.frame.height
+                    }
+                }
+            }
+
             snapshotImageView = originalView?.snapshotViewAfterScreenUpdates(false)
             detailVC = toViewController as! RestaurantViewController
             fromView = fromViewController.view
             alpha = 0
-            detailVC.view.transform = CGAffineTransformMakeScale(0.1, 0.1)
+            detailVC.view.transform = CGAffineTransformMakeScale(0, 0)
+            
             destTransform = CGAffineTransformMakeScale(1, 1)
             snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(originalView!)
         } else if navigationOperation == UINavigationControllerOperation.Pop {

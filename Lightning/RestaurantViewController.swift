@@ -62,9 +62,9 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         topViewContainer.baseVC = self
-        topViewContainer.backgroundImageView.image = restaurantImage
+        topViewContainer.backgroundImage = restaurantImage
         self.waitingView.hidden = true
-        adjustUI()
+//        adjustUI()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
 //        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
         let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(RestaurantViewController.addPhoto))
@@ -92,7 +92,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                                 self.topViewContainer.restaurantId = self.restaurant?.id
                                 self.topViewContainer.name = self.restaurant?.name
                                 self.topViewContainer.englishName = self.restaurant?.englishName
-//                                self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+                                if self.topViewContainer.backgroundImage == nil {
+                                    self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+                                }
+//
                                 if self.restaurant?.address != nil {
                                     self.info["address"] = self.restaurant?.address
                                 }
