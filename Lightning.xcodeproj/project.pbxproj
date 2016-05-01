@@ -224,7 +224,8 @@
 		CA882D311C90B11200D04696 /* CellActionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D301C90B11200D04696 /* CellActionTitle.swift */; };
 		CACA84031CD1A69E000A2794 /* SelectedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA84021CD1A69E000A2794 /* SelectedCollection.swift */; };
 		CACA84071CD1BEDF000A2794 /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA84061CD1BEDF000A2794 /* Serializable.swift */; };
-		CACA84091CD1C829000A2794 /* GetSelectedCollectionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA84081CD1C829000A2794 /* GetSelectedCollectionsRequest.swift */; };
+		CACA84091CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA84081CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift */; };
+		CACA84131CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA84121CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift */; };
 		CADA93881C9A6EA400F3E400 /* Respinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADA93871C9A6EA400F3E400 /* Respinner.swift */; };
 /* End PBXBuildFile section */
 
@@ -460,7 +461,8 @@
 		CA882D301C90B11200D04696 /* CellActionTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellActionTitle.swift; sourceTree = "<group>"; };
 		CACA84021CD1A69E000A2794 /* SelectedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedCollection.swift; sourceTree = "<group>"; };
 		CACA84061CD1BEDF000A2794 /* Serializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
-		CACA84081CD1C829000A2794 /* GetSelectedCollectionsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSelectedCollectionsRequest.swift; sourceTree = "<group>"; };
+		CACA84081CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSelectedCollectionsByLatAndLonRequest.swift; sourceTree = "<group>"; };
+		CACA84121CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSelectedCollectionsByLatAndLonResponse.swift; sourceTree = "<group>"; };
 		CADA93871C9A6EA400F3E400 /* Respinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Respinner.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -630,7 +632,7 @@
 			path = LightningUITests;
 			sourceTree = "<group>";
 		};
-		C42D9BF91B726B090035C5A6 /* Models */ = {
+		C42D9BF91B726B090035C5A6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				C4A0D55D1C137AED00BAE246 /* LocationComponent */,
@@ -648,7 +650,7 @@
 				C41298121C822B1B0062BC7D /* DishListCandidate.swift */,
 				CACA84021CD1A69E000A2794 /* SelectedCollection.swift */,
 			);
-			name = Models;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		C43728231B812FA9009121C9 /* Util */ = {
@@ -842,25 +844,26 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
-		C4A0D5661C138B7F00BAE246 /* SearchService */ = {
+		C4A0D5661C138B7F00BAE246 /* ServiceConfig */ = {
 			isa = PBXGroup;
 			children = (
+				C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */,
 				C4A0D5671C138B9700BAE246 /* SearchServiceConfiguration.swift */,
+				C437282E1B82F12F009121C9 /* ParseConfiguration.swift */,
 			);
-			name = SearchService;
+			name = ServiceConfig;
 			sourceTree = "<group>";
 		};
 		C4A595B41B7FC735009E0F24 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				C4A0D5661C138B7F00BAE246 /* SearchService */,
+				C4A0D5661C138B7F00BAE246 /* ServiceConfig */,
 				CACA84041CD1BDAA000A2794 /* Manager */,
 				C4B14E3F1B80499A001E8B62 /* Base */,
-				C42D9BF91B726B090035C5A6 /* Models */,
+				C42D9BF91B726B090035C5A6 /* Model */,
 				C4B14E311B8048CF001E8B62 /* Request */,
 				C4B14E321B8048D8001E8B62 /* Response */,
 				CACA84051CD1BDDC000A2794 /* Enum */,
-				C4B14E251B804778001E8B62 /* Parse */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -890,39 +893,14 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		C4B14E251B804778001E8B62 /* Parse */ = {
-			isa = PBXGroup;
-			children = (
-				C437282E1B82F12F009121C9 /* ParseConfiguration.swift */,
-			);
-			name = Parse;
-			sourceTree = "<group>";
-		};
 		C4B14E311B8048CF001E8B62 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				CACA840A1CD5351C000A2794 /* Get */,
+				CACA840B1CD53531000A2794 /* Post */,
+				CACA840C1CD5354C000A2794 /* Put */,
+				CACA840D1CD5357A000A2794 /* Delete */,
 				C4A0D55E1C137DA800BAE246 /* Search */,
-				C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */,
-				C4B14E331B80490C001E8B62 /* GetPromotionsRequest.swift */,
-				C4B14E351B80491B001E8B62 /* GetRestaurantsRequest.swift */,
-				C4B14E371B804927001E8B62 /* GetDishesRequest.swift */,
-				C4B14E391B80493A001E8B62 /* GetRestaurantByIdRequest.swift */,
-				C4B14E3B1B804947001E8B62 /* GetDishByIdRequest.swift */,
-				C43B398D1B87EDD800516248 /* GetListsRequest.swift */,
-				C46CB8D21BA00B50000D1006 /* GetRestaurantMenuRequest.swift */,
-				C461DB7E1BD0D731009032C8 /* GetListByIdRequest.swift */,
-				CA37EE5E1BF6A29500DA3071 /* GetFavoritesRequest.swift */,
-				CACA84081CD1C829000A2794 /* GetSelectedCollectionsRequest.swift */,
-				CA850ADF1C03CF6800D497D4 /* UploadPictureRequest.swift */,
-				CA7A4F691BE939BB0016BC56 /* SignUpRequest.swift */,
-				C4D300101BC1B4FC00807C4D /* LoginRequest.swift */,
-				CA850AE31C04188A00D497D4 /* UpdateInfoRequest.swift */,
-				CA850AE71C066FF200D497D4 /* LogOutRequest.swift */,
-				CA850AED1C0F834400D497D4 /* RateRequest.swift */,
-				CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */,
-				CA882D1E1C82619500D04696 /* RemoveFavoriteRequest.swift */,
-				C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */,
-				C4D00EDB1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -951,6 +929,7 @@
 				C44C25891C53627700A345D8 /* VoteRestaurantResponse.swift */,
 				C41298101C82294A0062BC7D /* NominateDishListCandidateResponse.swift */,
 				C4D00EDF1CB8D6D6008C24FB /* UpdateRestaurantInfoResponse.swift */,
+				CACA84121CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -1008,7 +987,6 @@
 		CACA84041CD1BDAA000A2794 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */,
 				C4B14E231B804755001E8B62 /* DataAccessor.swift */,
 				C4D3000E1BC1B10B00807C4D /* AcountManager.swift */,
 			);
@@ -1023,6 +1001,55 @@
 				C43B39891B86F48D00516248 /* SortOrder.swift */,
 			);
 			name = Enum;
+			sourceTree = "<group>";
+		};
+		CACA840A1CD5351C000A2794 /* Get */ = {
+			isa = PBXGroup;
+			children = (
+				C4B14E331B80490C001E8B62 /* GetPromotionsRequest.swift */,
+				C4B14E351B80491B001E8B62 /* GetRestaurantsRequest.swift */,
+				C4B14E371B804927001E8B62 /* GetDishesRequest.swift */,
+				C4B14E391B80493A001E8B62 /* GetRestaurantByIdRequest.swift */,
+				C4B14E3B1B804947001E8B62 /* GetDishByIdRequest.swift */,
+				C43B398D1B87EDD800516248 /* GetListsRequest.swift */,
+				C46CB8D21BA00B50000D1006 /* GetRestaurantMenuRequest.swift */,
+				C461DB7E1BD0D731009032C8 /* GetListByIdRequest.swift */,
+				CA37EE5E1BF6A29500DA3071 /* GetFavoritesRequest.swift */,
+				CACA84081CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift */,
+			);
+			name = Get;
+			sourceTree = "<group>";
+		};
+		CACA840B1CD53531000A2794 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */,
+				C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */,
+				CA850ADF1C03CF6800D497D4 /* UploadPictureRequest.swift */,
+				CA7A4F691BE939BB0016BC56 /* SignUpRequest.swift */,
+				C4D300101BC1B4FC00807C4D /* LoginRequest.swift */,
+				CA850AE31C04188A00D497D4 /* UpdateInfoRequest.swift */,
+				CA850AE71C066FF200D497D4 /* LogOutRequest.swift */,
+				CA850AED1C0F834400D497D4 /* RateRequest.swift */,
+				CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */,
+			);
+			name = Post;
+			sourceTree = "<group>";
+		};
+		CACA840C1CD5354C000A2794 /* Put */ = {
+			isa = PBXGroup;
+			children = (
+				C4D00EDB1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift */,
+			);
+			name = Put;
+			sourceTree = "<group>";
+		};
+		CACA840D1CD5357A000A2794 /* Delete */ = {
+			isa = PBXGroup;
+			children = (
+				CA882D1E1C82619500D04696 /* RemoveFavoriteRequest.swift */,
+			);
+			name = Delete;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1339,7 +1366,7 @@
 				CA203DE01C111EEA00D6F32C /* DishTableViewCell.swift in Sources */,
 				C41298161C83CDA40062BC7D /* UIImageEffects.swift in Sources */,
 				CA203DE11C111EEA00D6F32C /* HttpRequestProtocol.swift in Sources */,
-				CACA84091CD1C829000A2794 /* GetSelectedCollectionsRequest.swift in Sources */,
+				CACA84091CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift in Sources */,
 				CA203DE21C111EEA00D6F32C /* GetFavoritesRequest.swift in Sources */,
 				C4D00EE01CB8D6D6008C24FB /* UpdateRestaurantInfoResponse.swift in Sources */,
 				CA203DE31C111EEA00D6F32C /* CouponCellSecondView.swift in Sources */,
@@ -1391,6 +1418,7 @@
 				C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */,
 				CA203DFB1C111EEA00D6F32C /* GetDishesRequest.swift in Sources */,
 				CA203DFC1C111EEA00D6F32C /* RestaurantsViewController.swift in Sources */,
+				CACA84131CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift in Sources */,
 				CA203DFD1C111EEA00D6F32C /* FavoriteTypeEnum.swift in Sources */,
 				CA203DFE1C111EEA00D6F32C /* MessageTableViewCell.swift in Sources */,
 				CA203DFF1C111EEA00D6F32C /* ModelTableViewCellProtocol.swift in Sources */,

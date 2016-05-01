@@ -15,11 +15,6 @@ class GetRestaurantMenuRequest : GetRequestProtocol{
         self.restaurantId = restaurantId
     }
     
-    func getParameters() -> [String:String] {
-        let parameters = Dictionary<String, String>()
-        return parameters
-    }
-    
     func getRelativeURL() -> String {
         return "/restaurants/" + restaurantId + "/menus"
     }

@@ -184,23 +184,23 @@ class DataAccessor {
 
     }
     
-    func getSelectedCollection(request: GetRestaurantsRequest, responseHandler : (GetRestaurantsResponse?) -> Void) {
+    func getSelectedCollection(request: GetSelectedCollectionsByLatAndLonRequest, responseHandler : (GetSelectedCollectionsByLatAndLonResponse?) -> Void) {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
-        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
-            var getRestaurantsResponse : GetRestaurantsResponse? = nil
+        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
+            var getSelectedCollectionsByLatAndLonResponse : GetSelectedCollectionsByLatAndLonResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
                 var jsonData : [String : AnyObject]
                 do {
                     jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    getRestaurantsResponse = GetRestaurantsResponse(data: jsonData)
+                    getSelectedCollectionsByLatAndLonResponse = GetSelectedCollectionsByLatAndLonResponse(data: jsonData)
                 } catch {
                     print(error)
                 }
             }
-            responseHandler(getRestaurantsResponse)
+            responseHandler(getSelectedCollectionsByLatAndLonResponse)
         }
     }
     //--------------------------------------------------------------------------------------------------//

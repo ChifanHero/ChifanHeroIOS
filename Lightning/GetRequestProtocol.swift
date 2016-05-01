@@ -9,5 +9,5 @@
 import Foundation
 
 protocol GetRequestProtocol: HttpRequestProtocol{
-    func getParameters() -> [String:String]
+    
 }

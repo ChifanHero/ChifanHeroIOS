@@ -10,11 +10,6 @@ import Foundation
 
 class GetDishesRequest : GetRequestProtocol{
     
-    func getParameters() -> [String:String] {
-        let parameters = Dictionary<String, String>()
-        return parameters
-    }
-    
     func getRelativeURL() -> String {
         return ""
     }

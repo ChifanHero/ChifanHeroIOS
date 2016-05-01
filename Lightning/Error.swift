@@ -8,10 +8,10 @@
 
 import Foundation
 
-class Error : Model {
+class Error: Model {
     
-    var code : Int?
-    var message : String?
+    var code: Int?
+    var message: String?
     
     required init() {
         
