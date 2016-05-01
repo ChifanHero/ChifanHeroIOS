@@ -249,8 +249,8 @@
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <subviews>
-                                    <view contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="Lightning" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="214"/>
+                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="Lightning" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="383" height="265"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="214" id="t1F-cl-PsJ"/>
@@ -261,8 +261,8 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-pF-gKu" userLabel="Info Table View">
-                                        <rect key="frame" x="0.0" y="215" width="383" height="126"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-pF-gKu" userLabel="Info Table View">
+                                        <rect key="frame" x="0.0" y="266" width="383" height="126"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="126" placeholder="YES" id="SrF-3g-tHe"/>
@@ -272,8 +272,8 @@
                                             <outlet property="delegate" destination="zJm-Fm-QLl" id="jFT-ur-ANA"/>
                                         </connections>
                                     </tableView>
-                                    <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yvc-Bv-eKm" userLabel="Message View" customClass="NotAvailableMessageView" customModule="Lightning" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="340" width="383" height="258"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvc-Bv-eKm" userLabel="Message View" customClass="NotAvailableMessageView" customModule="Lightning" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="391" width="383" height="258"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="258" id="jBW-EQ-ASk">
@@ -281,8 +281,8 @@
                                             </constraint>
                                         </constraints>
                                     </view>
-                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7">
-                                        <rect key="frame" x="0.0" y="340" width="383" height="255"/>
+                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7">
+                                        <rect key="frame" x="0.0" y="391" width="383" height="255"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="750" constant="255" placeholder="YES" id="qRd-sd-BZ6"/>
@@ -298,7 +298,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" constant="214" id="3u1-2A-dXU"/>
+                                    <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" constant="266" id="3u1-2A-dXU"/>
                                     <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="eWi-Dd-Kda" secondAttribute="bottom" constant="1" id="5WM-yH-CAP"/>
                                     <constraint firstAttribute="bottom" secondItem="3wF-uh-jL7" secondAttribute="bottom" constant="1" id="AdF-AL-4yB"/>
                                     <constraint firstItem="yvc-Bv-eKm" firstAttribute="top" secondItem="hqm-pF-gKu" secondAttribute="bottom" constant="-1" id="M5e-Us-yZj"/>
