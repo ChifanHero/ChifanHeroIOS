@@ -8,13 +8,19 @@
 
 import UIKit
 
-class HomeViewController: RefreshableViewController {
+class HomeViewController: RefreshableViewController, UINavigationControllerDelegate ,UIViewControllerAnimatedTransitioning {
     
     @IBOutlet weak var promotionsTable: UITableView!
     
     @IBOutlet weak var topContainerView: UIView!
     
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    var imageViewOfSelectedCell : UIImageView?
+    
+    var navigationOperation: UINavigationControllerOperation?
+    
+    var interactivePopTransition: UIPercentDrivenInteractiveTransition!
     
     @IBAction func showHottestRestaurants(sender: AnyObject) {
         self.performSegueWithIdentifier("showRestaurants", sender: "hottest")
@@ -48,6 +54,11 @@ class HomeViewController: RefreshableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.delegate = self
+        self.navigationController!.view.backgroundColor = UIColor.whiteColor()
+        let popRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(HomeViewController.handlePopRecognizer(_:)))
+        popRecognizer.edges = UIRectEdge.Left
+        self.navigationController!.view.addGestureRecognizer(popRecognizer)
         clearTitleForBackBarButtonItem()
         configureNavigationController()
         loadingIndicator.hidden = true
@@ -169,6 +180,7 @@ class HomeViewController: RefreshableViewController {
             }
         } else if segue.identifier == "showRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            restaurantController.restaurantImage = self.imageViewOfSelectedCell?.image
             restaurantController.restaurantId = sender as? String
         }
     }
@@ -233,6 +245,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let promotion : Promotion = self.promotions[indexPath.row]
+        let selectedCell : RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
+        imageViewOfSelectedCell = selectedCell.restaurantImageView
         if promotion.restaurant != nil {
             let restaurant : Restaurant = promotions[indexPath.row].restaurant!
             self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
@@ -484,8 +498,102 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 }
             })
         }
+    }
+    
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+        return 0.4
+    }
+
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+        let containerView = transitionContext.containerView()!
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         
+        var detailVC: RestaurantViewController!
+        var fromView: UIView!
+        var alpha: CGFloat = 1.0
+        var destTransform: CGAffineTransform!
         
+        var snapshotImageView: UIView!
+        //获取到当前选择的Button
+        let originalView = self.imageViewOfSelectedCell
+        print(originalView?.frame)
+        
+        if navigationOperation == UINavigationControllerOperation.Push {
+            containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
+            snapshotImageView = originalView?.snapshotViewAfterScreenUpdates(false)
+            detailVC = toViewController as! RestaurantViewController
+            fromView = fromViewController.view
+            alpha = 0
+            detailVC.view.transform = CGAffineTransformMakeScale(0.1, 0.1)
+            destTransform = CGAffineTransformMakeScale(1, 1)
+            snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(originalView!)
+        } else if navigationOperation == UINavigationControllerOperation.Pop {
+            containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
+            detailVC = fromViewController as! RestaurantViewController
+            snapshotImageView = detailVC.topViewContainer.backgroundImageView.snapshotViewAfterScreenUpdates(false)
+            fromView = toViewController.view
+            // 如果IDE是Xcode6 Beta4+iOS8SDK，那么在此处设置为0，动画将会不被执行(不确定是哪里的Bug)
+            destTransform = CGAffineTransformMakeScale(0.1, 0.1)
+            snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(detailVC.topViewContainer.backgroundImageView)
+        }
+        originalView?.hidden = true
+        detailVC.topViewContainer.backgroundImageView.hidden = true
+        
+        containerView.addSubview(snapshotImageView)
+        
+        UIView.animateWithDuration(transitionDuration(transitionContext), animations: {
+            detailVC.view.transform = destTransform
+            fromView.alpha = alpha
+            if self.navigationOperation == UINavigationControllerOperation.Push {
+                snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(detailVC.topViewContainer.backgroundImageView)
+            } else if self.navigationOperation == UINavigationControllerOperation.Pop {
+                snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(originalView!)
+            }
+            }, completion: ({completed in
+                originalView?.hidden = false
+                detailVC.topViewContainer.backgroundImageView.hidden = false
+                snapshotImageView.removeFromSuperview()
+                //告诉系统你的动画过程已经结束，这是非常重要的方法，必须调用。
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+            }))
+    }
+    
+    func handlePopRecognizer(popRecognizer: UIScreenEdgePanGestureRecognizer) {
+        var progress = popRecognizer.translationInView(navigationController!.view).x / navigationController!.view.bounds.size.width
+        progress = min(1.0, max(0.0, progress))
+        
+        print("\(progress)")
+        if popRecognizer.state == UIGestureRecognizerState.Began {
+            print("Began")
+            self.interactivePopTransition = UIPercentDrivenInteractiveTransition()
+            self.navigationController!.popViewControllerAnimated(true)
+        } else if popRecognizer.state == UIGestureRecognizerState.Changed {
+            self.interactivePopTransition!.updateInteractiveTransition(progress)
+            print("Changed")
+        } else if popRecognizer.state == UIGestureRecognizerState.Ended || popRecognizer.state == UIGestureRecognizerState.Cancelled {
+            if progress > 0.5 {
+                self.interactivePopTransition!.finishInteractiveTransition()
+            } else {
+                self.interactivePopTransition!.cancelInteractiveTransition()
+            }
+            //            finishBy(progress < 0.5)
+            print("Ended || Cancelled")
+            self.interactivePopTransition = nil
+        }
+    }
+    
+    // UINavigationControllerDelegate
+    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        navigationOperation = operation
+        return self
+    }
+    
+    func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if self.interactivePopTransition == nil {
+            return nil
+        }
+        return self.interactivePopTransition
     }
     
     private func popupSigninAlert() {

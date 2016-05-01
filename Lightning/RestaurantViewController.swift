@@ -10,13 +10,15 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class RestaurantViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var restaurantId : String? {
         didSet {
             request = GetRestaurantByIdRequest(id: restaurantId!)
         }
     }
+    
+    var restaurantImage : UIImage?
     
     var request : GetRestaurantByIdRequest?
     
@@ -56,10 +58,13 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         self.containerScrollView.showsVerticalScrollIndicator = false
         loadData { (success) -> Void in
             if !success {
-                self.noNetworkDefaultView.show()
+//                self.noNetworkDefaultView.show()
             }
         }
         topViewContainer.baseVC = self
+        topViewContainer.backgroundImageView.image = restaurantImage
+        self.waitingView.hidden = true
+        adjustUI()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
 //        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
         let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(RestaurantViewController.addPhoto))
@@ -68,11 +73,11 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         // Do any additional setup after loading the view.
     }
     
-    override func refreshData() {
-        
-    }
+//    override func refreshData() {
+//        
+//    }
     
-    override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
+    func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         if (request != nil) {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -87,7 +92,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                                 self.topViewContainer.restaurantId = self.restaurant?.id
                                 self.topViewContainer.name = self.restaurant?.name
                                 self.topViewContainer.englishName = self.restaurant?.englishName
-                                self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+//                                self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
                                 if self.restaurant?.address != nil {
                                     self.info["address"] = self.restaurant?.address
                                 }
@@ -536,7 +541,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         print(scrollView.contentOffset.y)
         let offset = scrollView.contentOffset.y
         if offset < 0 {
-            self.topViewContainer.changeBackgroundImageBlurEffect(scrollView.contentOffset.y)
+//            self.topViewContainer.changeBackgroundImageBlurEffect(scrollView.contentOffset.y)
         }
 //        if offset > -100 {
 //            self.topViewContainer.applyBlurEffectToBackgroundImage()

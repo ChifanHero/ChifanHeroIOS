@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -26,14 +26,14 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aqd-qO-PjW">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="56"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
                                                         <state key="normal" image="hot"/>
                                                         <connections>
                                                             <action selector="showHottestRestaurants:" destination="9pv-A4-QxB" eventType="touchUpInside" id="iLq-aw-gd0"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门餐厅" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="re1-JV-HBL">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="热门餐厅" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="re1-JV-HBL">
                                                         <rect key="frame" x="0.0" y="37" width="64" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -48,14 +48,14 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-Dd-Yxb">
                                                 <rect key="frame" x="128" y="0.0" width="64" height="56"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7a-2D-gQH">
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7a-2D-gQH">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
                                                         <state key="normal" image="hotList"/>
                                                         <connections>
                                                             <action selector="showDishLists:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Bnc-rc-Vpm"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="菜品榜单" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="1Rz-3p-Vkv">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" misplaced="YES" text="菜品榜单" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="1Rz-3p-Vkv">
                                                         <rect key="frame" x="0.0" y="37" width="64" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -70,14 +70,14 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wJY-B6-7QL">
                                                 <rect key="frame" x="256" y="0.0" width="64" height="56"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-Lg-ida">
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-Lg-ida">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
                                                         <state key="normal" image="nearby"/>
                                                         <connections>
                                                             <action selector="showNearstRestaurants:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Fen-Mi-Sqy"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="离我最近" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="NY3-im-GGj">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="离我最近" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="NY3-im-GGj">
                                                         <rect key="frame" x="0.0" y="37" width="64" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -255,11 +255,6 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="170" id="t1F-cl-PsJ"/>
                                         </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="t1F-cl-PsJ"/>
-                                            </mask>
-                                        </variation>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-pF-gKu" userLabel="Info Table View">
                                         <rect key="frame" x="0.0" y="171" width="383" height="126"/>
@@ -303,6 +298,7 @@
                                     <constraint firstAttribute="bottom" secondItem="3wF-uh-jL7" secondAttribute="bottom" constant="1" id="AdF-AL-4yB"/>
                                     <constraint firstItem="yvc-Bv-eKm" firstAttribute="top" secondItem="hqm-pF-gKu" secondAttribute="bottom" constant="-1" id="M5e-Us-yZj"/>
                                     <constraint firstAttribute="bottom" secondItem="yvc-Bv-eKm" secondAttribute="bottom" id="NSd-Yc-92U"/>
+                                    <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" id="Pn4-89-ovJ"/>
                                     <constraint firstAttribute="trailing" secondItem="3wF-uh-jL7" secondAttribute="trailing" id="RpW-IB-vla"/>
                                     <constraint firstItem="3wF-uh-jL7" firstAttribute="top" secondItem="hqm-pF-gKu" secondAttribute="bottom" constant="-1" id="VRk-Zc-BLA"/>
                                     <constraint firstItem="yvc-Bv-eKm" firstAttribute="leading" secondItem="hqm-pF-gKu" secondAttribute="leading" id="gCH-Ce-C4m"/>
@@ -312,6 +308,8 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="Pn4-89-ovJ"/>
+                                        <exclude reference="glo-ER-JCa"/>
                                         <exclude reference="NSd-Yc-92U"/>
                                     </mask>
                                 </variation>
@@ -339,6 +337,7 @@
                             <constraint firstItem="v0q-pe-yVa" firstAttribute="top" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="FrV-ug-eD5"/>
                             <constraint firstItem="eWi-Dd-Kda" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="Mco-lx-D9A"/>
                             <constraint firstItem="v0q-pe-yVa" firstAttribute="bottom" secondItem="Big-8G-yxv" secondAttribute="bottomMargin" id="RuZ-QQ-2xK"/>
+                            <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="Yg9-yC-lQV"/>
                             <constraint firstItem="Eza-ca-7rH" firstAttribute="top" secondItem="yvc-Bv-eKm" secondAttribute="bottom" constant="144" id="Zan-cK-Fza"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3wF-uh-jL7" secondAttribute="trailing" constant="-20" id="eHJ-oJ-W0B"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eWi-Dd-Kda" secondAttribute="trailing" constant="-20" id="g0w-Ca-jPc"/>
@@ -353,6 +352,7 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="h23-h0-dfQ"/>
                                 <exclude reference="Zan-cK-Fza"/>
                                 <exclude reference="jj3-la-myT"/>
                             </mask>
@@ -1516,8 +1516,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="cRp-Bb-PSh"/>
+        <segue reference="Hvz-De-g2h"/>
         <segue reference="tIf-c0-cls"/>
-        <segue reference="vSQ-ka-XUm"/>
-        <segue reference="19z-hm-zLV"/>
     </inferredMetricsTieBreakers>
 </document>

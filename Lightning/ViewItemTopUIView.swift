@@ -22,7 +22,6 @@ import UIKit
     
     @IBOutlet weak var nameLabel: UILabel!
 
-    @IBOutlet weak var englishNameLabel: UILabel!
     
     private var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
@@ -44,7 +43,7 @@ import UIKit
     
     var englishName: String? {
         didSet {
-            englishNameLabel.text = englishName
+//            englishNameLabel.text = englishName
         }
     }
     
@@ -102,26 +101,27 @@ import UIKit
     
     @IBInspectable var backgroundImageURL: String? {
         didSet {
-            if let imageURL = backgroundImageURL {
-                let url = NSURL(string: imageURL)
-                let data = NSData(contentsOfURL: url!)
-                if data != nil {
-                    backgroundImage = UIImage(data: data!)
-                } else {
-                    backgroundImage = UIImage(named: "restaurant_default_background")
-                }
-                
-            } else {
-                backgroundImage = UIImage(named: "restaurant_default_background")
-            }
-            self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
-            self.fullBlurEffectApplied = true
+//            if let imageURL = backgroundImageURL {
+//                let url = NSURL(string: imageURL)
+//                let data = NSData(contentsOfURL: url!)
+//                if data != nil {
+//                    backgroundImage = UIImage(data: data!)
+//                } else {
+//                    backgroundImage = UIImage(named: "restaurant_default_background")
+//                }
+//                
+//            } else {
+//                backgroundImage = UIImage(named: "restaurant_default_background")
+//            }
+//            self.backgroundImageView.image = backgroundImage
+////            self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
+////            self.fullBlurEffectApplied = true
         }
     }
     
-    private func blurWithEffects(image : UIImage, factor : CGFloat) -> UIImage{
-        return image.applyBlurWithRadius(10 * factor, tintColor: UIColor(white: 1.0, alpha: 0.7 * factor), saturationDeltaFactor: 1.8)!
-    }
+//    private func blurWithEffects(image : UIImage, factor : CGFloat) -> UIImage{
+//        return image.applyBlurWithRadius(10 * factor, tintColor: UIColor(white: 1.0, alpha: 0.7 * factor), saturationDeltaFactor: 1.8)!
+//    }
     
     func xibSetup() {
         view = loadViewFromNib()
@@ -154,35 +154,35 @@ import UIKit
 //        }
 //    }
     
-    func changeBackgroundImageBlurEffect(offSet : CGFloat) {
-        let max : CGFloat = 60.0
-        let threshold : CGFloat = 100.0
-        var current = fabs(offSet) - threshold
-        if current < 0.0 {
-            current = 0.0
-        }
-        let factor = (max - current) / max
-        
-        if factor < 0.6 {
-            self.nameLabel.hidden = true
-            self.englishNameLabel.hidden = true
-        } else {
-            self.nameLabel.hidden = false
-            self.englishNameLabel.hidden = false
-        }
-        if self.backgroundImage != nil {
-            if factor < 1.0 {
-                self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: factor)
-                fullBlurEffectApplied = false
-            }
-            if factor == 1.0 && fullBlurEffectApplied == false {
-                self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: factor)
-                fullBlurEffectApplied = true
-            }
-            
-        }
-        
-    }
+//    func changeBackgroundImageBlurEffect(offSet : CGFloat) {
+//        let max : CGFloat = 60.0
+//        let threshold : CGFloat = 100.0
+//        var current = fabs(offSet) - threshold
+//        if current < 0.0 {
+//            current = 0.0
+//        }
+//        let factor = (max - current) / max
+//        
+//        if factor < 0.6 {
+//            self.nameLabel.hidden = true
+////            self.englishNameLabel.hidden = true
+//        } else {
+//            self.nameLabel.hidden = false
+////            self.englishNameLabel.hidden = false
+//        }
+//        if self.backgroundImage != nil {
+//            if factor < 1.0 {
+//                self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: factor)
+//                fullBlurEffectApplied = false
+//            }
+//            if factor == 1.0 && fullBlurEffectApplied == false {
+//                self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: factor)
+//                fullBlurEffectApplied = true
+//            }
+//            
+//        }
+//        
+//    }
     
     func loadViewFromNib() -> UIView{
         let bundle = NSBundle(forClass: self.dynamicType)
