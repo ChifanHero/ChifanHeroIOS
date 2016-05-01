@@ -55,7 +55,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configVCTitle()
+//        configVCTitle()
         hotDishesTableView.allowsSelection = false
         self.waitingView.hidden = false
         self.waitingIndicator.startAnimating()
@@ -85,7 +85,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationItem.titleView?.alpha = 0.0
+        configVCTitle()
+        
     }
     
     func configVCTitle() {
@@ -95,6 +96,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         vcTitleLabel.sizeToFit()
         vcTitleLabel.alpha = 1.0
         self.navigationItem.titleView = vcTitleLabel
+        self.navigationItem.titleView?.alpha = 0.0
     }
     
     func loadData(refreshHandler: ((success: Bool) -> Void)?) {
