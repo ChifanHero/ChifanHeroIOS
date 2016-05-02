@@ -665,4 +665,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    func getRestaurantImageFinalRect() -> CGRect {
+        let rect = CGRectMake(0, (self.navigationController?.navigationBar.frame.size.height)!, self.view.frame.size.width, 177)
+        print(rect)
+        return rect
+    }
+    
 }

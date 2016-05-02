@@ -25,6 +25,7 @@ import UIKit
     
     @IBOutlet weak var nameLabelContainer: UIView!
 
+    @IBOutlet weak var imageViewContainer: UIView!
     
     private var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
@@ -141,6 +142,10 @@ import UIKit
     func getNameLabelBottomY() -> CGFloat{
         let convertedFrame : CGRect = self.view.convertRect(self.nameLabel.frame, fromView : nameLabelContainer)
         return convertedFrame.origin.y + self.nameLabel.frame.size.height / 2
+    }
+    
+    func getImageViewFrame() -> CGRect {
+        return self.view.convertRect(self.backgroundImageView.frame, fromView : imageViewContainer)
     }
     
 //    func applyBlurEffectToBackgroundImage() {

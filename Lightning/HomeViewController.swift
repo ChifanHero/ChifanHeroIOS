@@ -509,7 +509,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.15
+        return 0.3
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -590,7 +590,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             detailVC.view.transform = destTransform
             fromView.alpha = alpha
             if self.navigationOperation == UINavigationControllerOperation.Push {
-                snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(detailVC.topViewContainer.backgroundImageView)
+                snapshotImageView.frame = detailVC.getRestaurantImageFinalRect()
             } else if self.navigationOperation == UINavigationControllerOperation.Pop {
                 snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(originalView!)
             }
