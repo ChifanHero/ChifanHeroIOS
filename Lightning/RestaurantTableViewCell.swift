@@ -45,8 +45,8 @@ class RestaurantTableViewCell: UITableViewCell {
         ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
 //        restaurantImageView.image = image
         var url = ""
-        if restaurant.picture?.thumbnail != nil {
-            url = restaurant.picture!.thumbnail!
+        if restaurant.picture?.original != nil {
+            url = restaurant.picture!.original!
         }
         restaurantImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"), optionsInfo: [.Transition(ImageTransition.Fade(1))])
         

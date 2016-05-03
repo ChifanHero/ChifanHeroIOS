@@ -90,6 +90,7 @@
 		C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207BE1C13D9710024C287 /* SelectionBarDelegate.swift */; };
 		C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */; };
 		C4F5B6F41C4C56B400DD1EBF /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */; };
+		C4FD0D361CD5CE380015DDB7 /* PositionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FD0D351CD5CE380015DDB7 /* PositionConverter.swift */; };
 		CA203DA31C111EEA00D6F32C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */; };
 		CA203DA41C111EEA00D6F32C /* LogOutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA850AE91C06702D00D497D4 /* LogOutResponse.swift */; };
 		CA203DA51C111EEA00D6F32C /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43728181B812176009121C9 /* Favorite.swift */; };
@@ -427,6 +428,7 @@
 		C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
 		C4F9CB721B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanelDelegateProtocol.swift; sourceTree = "<group>"; };
 		C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantAllDishViewController.swift; sourceTree = "<group>"; };
+		C4FD0D351CD5CE380015DDB7 /* PositionConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionConverter.swift; sourceTree = "<group>"; };
 		CA203E4D1C111EEA00D6F32C /* Lightning-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lightning-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA203E511C124AF900D6F32C /* RatingTypeEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingTypeEnum.swift; sourceTree = "<group>"; };
 		CA203E531C12732600D6F32C /* RateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateResponse.swift; sourceTree = "<group>"; };
@@ -666,6 +668,7 @@
 				CA882D301C90B11200D04696 /* CellActionTitle.swift */,
 				C4017D301C91CCE8002840FB /* StringExtension.swift */,
 				CADA93871C9A6EA400F3E400 /* Respinner.swift */,
+				C4FD0D351CD5CE380015DDB7 /* PositionConverter.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -1403,6 +1406,7 @@
 				CA203DFB1C111EEA00D6F32C /* GetDishesRequest.swift in Sources */,
 				CA203DFC1C111EEA00D6F32C /* RestaurantsViewController.swift in Sources */,
 				CACA84131CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift in Sources */,
+				C4FD0D361CD5CE380015DDB7 /* PositionConverter.swift in Sources */,
 				CA203DFD1C111EEA00D6F32C /* FavoriteTypeEnum.swift in Sources */,
 				CA203DFE1C111EEA00D6F32C /* MessageTableViewCell.swift in Sources */,
 				CA203DFF1C111EEA00D6F32C /* ModelTableViewCellProtocol.swift in Sources */,

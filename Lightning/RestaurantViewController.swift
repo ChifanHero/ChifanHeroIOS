@@ -10,13 +10,17 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class RestaurantViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var restaurantId : String? {
         didSet {
             request = GetRestaurantByIdRequest(id: restaurantId!)
         }
     }
+    
+    var restaurantImage : UIImage?
+    
+    var restaurantName : String?
     
     var request : GetRestaurantByIdRequest?
     
@@ -26,6 +30,8 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
     
     @IBOutlet weak var waitingView: UIView!
     @IBOutlet weak var containerScrollView: UIScrollView!
+    
+    let vcTitleLabel : UILabel = UILabel()
     
     @IBOutlet weak var infoTableView: UITableView!
     var info : [String : String] = [String : String]()
@@ -49,6 +55,7 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        configVCTitle()
         hotDishesTableView.allowsSelection = false
         self.waitingView.hidden = false
         self.waitingIndicator.startAnimating()
@@ -56,10 +63,14 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         self.containerScrollView.showsVerticalScrollIndicator = false
         loadData { (success) -> Void in
             if !success {
-                self.noNetworkDefaultView.show()
+//                self.noNetworkDefaultView.show()
             }
         }
         topViewContainer.baseVC = self
+        topViewContainer.backgroundImage = restaurantImage
+        topViewContainer.name = restaurantName
+        self.waitingView.hidden = true
+//        adjustUI()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
 //        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
         let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(RestaurantViewController.addPhoto))
@@ -68,11 +79,27 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
         // Do any additional setup after loading the view.
     }
     
-    override func refreshData() {
+//    override func refreshData() {
+//        
+//    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        configVCTitle()
         
     }
     
-    override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
+    func configVCTitle() {
+        vcTitleLabel.text = restaurantName
+        vcTitleLabel.backgroundColor = UIColor.clearColor()
+        vcTitleLabel.textColor = UIColor.whiteColor()
+        vcTitleLabel.sizeToFit()
+        vcTitleLabel.alpha = 1.0
+        self.navigationItem.titleView = vcTitleLabel
+        self.navigationItem.titleView?.alpha = 0.0
+    }
+    
+    func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         if (request != nil) {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -85,9 +112,14 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                             self.restaurant = (response?.result)!
                             if self.restaurant != nil {
                                 self.topViewContainer.restaurantId = self.restaurant?.id
-                                self.topViewContainer.name = self.restaurant?.name
+                                if self.topViewContainer.name != nil {
+                                    self.topViewContainer.name = self.restaurant?.name
+                                }
                                 self.topViewContainer.englishName = self.restaurant?.englishName
-                                self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+                                if self.topViewContainer.backgroundImage == nil {
+                                    self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+                                }
+//
                                 if self.restaurant?.address != nil {
                                     self.info["address"] = self.restaurant?.address
                                 }
@@ -535,8 +567,13 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
     func scrollViewDidScroll(scrollView: UIScrollView) {
         print(scrollView.contentOffset.y)
         let offset = scrollView.contentOffset.y
-        if offset < 0 {
-            self.topViewContainer.changeBackgroundImageBlurEffect(scrollView.contentOffset.y)
+        let nameLabelBottomY = self.topViewContainer.getNameLabelBottomY()
+        if offset > nameLabelBottomY{
+//            self.topViewContainer.changeBackgroundImageBlurEffect(scrollView.contentOffset.y)
+            let scale = (abs(offset) - abs(nameLabelBottomY)) / 20
+            self.navigationItem.titleView?.alpha = scale
+        } else {
+            self.navigationItem.titleView?.alpha = 0.0
         }
 //        if offset > -100 {
 //            self.topViewContainer.applyBlurEffectToBackgroundImage()
@@ -626,6 +663,12 @@ class RestaurantViewController: RefreshableViewController, UITableViewDataSource
                 
             });
         }
+    }
+    
+    func getRestaurantImageFinalRect() -> CGRect {
+        let rect = CGRectMake(0, (self.navigationController?.navigationBar.frame.size.height)!, self.view.frame.size.width, 177)
+        print(rect)
+        return rect
     }
     
 }

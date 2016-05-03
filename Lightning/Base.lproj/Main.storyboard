@@ -250,10 +250,10 @@
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="Lightning" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="170"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="383" height="265"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="170" id="t1F-cl-PsJ"/>
+                                            <constraint firstAttribute="height" constant="214" id="t1F-cl-PsJ"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -262,7 +262,7 @@
                                         </variation>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-pF-gKu" userLabel="Info Table View">
-                                        <rect key="frame" x="0.0" y="171" width="383" height="126"/>
+                                        <rect key="frame" x="0.0" y="266" width="383" height="126"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="126" placeholder="YES" id="SrF-3g-tHe"/>
@@ -273,7 +273,7 @@
                                         </connections>
                                     </tableView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvc-Bv-eKm" userLabel="Message View" customClass="NotAvailableMessageView" customModule="Lightning" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="296" width="383" height="258"/>
+                                        <rect key="frame" x="0.0" y="391" width="383" height="258"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="258" id="jBW-EQ-ASk">
@@ -282,7 +282,7 @@
                                         </constraints>
                                     </view>
                                     <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7">
-                                        <rect key="frame" x="0.0" y="296" width="383" height="255"/>
+                                        <rect key="frame" x="0.0" y="391" width="383" height="255"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="750" constant="255" placeholder="YES" id="qRd-sd-BZ6"/>
@@ -298,7 +298,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" constant="171" id="3u1-2A-dXU"/>
+                                    <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" constant="266" id="3u1-2A-dXU"/>
                                     <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="eWi-Dd-Kda" secondAttribute="bottom" constant="1" id="5WM-yH-CAP"/>
                                     <constraint firstAttribute="bottom" secondItem="3wF-uh-jL7" secondAttribute="bottom" constant="1" id="AdF-AL-4yB"/>
                                     <constraint firstItem="yvc-Bv-eKm" firstAttribute="top" secondItem="hqm-pF-gKu" secondAttribute="bottom" constant="-1" id="M5e-Us-yZj"/>
@@ -307,11 +307,13 @@
                                     <constraint firstItem="3wF-uh-jL7" firstAttribute="top" secondItem="hqm-pF-gKu" secondAttribute="bottom" constant="-1" id="VRk-Zc-BLA"/>
                                     <constraint firstItem="yvc-Bv-eKm" firstAttribute="leading" secondItem="hqm-pF-gKu" secondAttribute="leading" id="gCH-Ce-C4m"/>
                                     <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" id="glo-ER-JCa"/>
+                                    <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" id="jXO-so-f8Y"/>
                                     <constraint firstItem="yvc-Bv-eKm" firstAttribute="leading" secondItem="HVe-v4-VBn" secondAttribute="leading" id="kSw-kn-PfU"/>
                                     <constraint firstAttribute="trailing" secondItem="yvc-Bv-eKm" secondAttribute="trailing" id="xPz-Co-OnT"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="glo-ER-JCa"/>
                                         <exclude reference="NSd-Yc-92U"/>
                                     </mask>
                                 </variation>
@@ -337,12 +339,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="HVe-v4-VBn" secondAttribute="trailing" constant="-20" id="9Ga-vG-VhO"/>
                             <constraint firstItem="HVe-v4-VBn" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="EBa-L4-APJ"/>
                             <constraint firstItem="v0q-pe-yVa" firstAttribute="top" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="FrV-ug-eD5"/>
+                            <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" relation="lessThanOrEqual" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="LCz-t5-NVe"/>
                             <constraint firstItem="eWi-Dd-Kda" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="Mco-lx-D9A"/>
                             <constraint firstItem="v0q-pe-yVa" firstAttribute="bottom" secondItem="Big-8G-yxv" secondAttribute="bottomMargin" id="RuZ-QQ-2xK"/>
                             <constraint firstItem="Eza-ca-7rH" firstAttribute="top" secondItem="yvc-Bv-eKm" secondAttribute="bottom" constant="144" id="Zan-cK-Fza"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3wF-uh-jL7" secondAttribute="trailing" constant="-20" id="eHJ-oJ-W0B"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eWi-Dd-Kda" secondAttribute="trailing" constant="-20" id="g0w-Ca-jPc"/>
-                            <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" relation="lessThanOrEqual" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="h23-h0-dfQ"/>
+                            <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="h23-h0-dfQ"/>
                             <constraint firstItem="Eza-ca-7rH" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="bottom" id="j04-pa-7Sr"/>
                             <constraint firstItem="Eza-ca-7rH" firstAttribute="top" secondItem="3wF-uh-jL7" secondAttribute="bottom" id="jj3-la-myT"/>
                             <constraint firstItem="v0q-pe-yVa" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="l3S-3s-D4P"/>
@@ -353,6 +356,7 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="h23-h0-dfQ"/>
                                 <exclude reference="Zan-cK-Fza"/>
                                 <exclude reference="jj3-la-myT"/>
                             </mask>
@@ -1516,8 +1520,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tIf-c0-cls"/>
+        <segue reference="SnI-Ci-tXQ"/>
         <segue reference="vSQ-ka-XUm"/>
-        <segue reference="19z-hm-zLV"/>
+        <segue reference="tIf-c0-cls"/>
     </inferredMetricsTieBreakers>
 </document>
