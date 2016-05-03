@@ -14,7 +14,7 @@ class Favorite: Model {
     var user: User?
     var dish: Dish?
     var restaurant: Restaurant?
-    var list: List?
+    var selectedCollection: SelectedCollection?
     var type: String?
     
     required init() {
@@ -26,7 +26,7 @@ class Favorite: Model {
         user <-- data["user"]
         dish <-- data["dish"]
         restaurant <-- data["restaurant"]
-        list <-- data["list"]
+        selectedCollection <-- data["selected_collection"]
         type <-- data["type"]
     }
 }

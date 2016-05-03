@@ -184,12 +184,12 @@ class DataAccessor {
 
     }
     
-    func getSelectedCollection(request: GetSelectedCollectionsByLatAndLonRequest, responseHandler : (GetSelectedCollectionsByLatAndLonResponse?) -> Void) {
+    func getSelectedCollectionByLocation(request: GetSelectedCollectionsByLatAndLonRequest, responseHandler : (GetSelectedCollectionsByLatAndLonResponse?) -> Void) {
         let httpClient = HttpClient()
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
         httpClient.get(url, headers: nil) { (data, response, error) -> Void in
-            var getSelectedCollectionsByLatAndLonResponse : GetSelectedCollectionsByLatAndLonResponse? = nil
+            var getSelectedCollectionsByLatAndLonResponse: GetSelectedCollectionsByLatAndLonResponse? = nil
             if data != nil {
                 let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
                 var jsonData : [String : AnyObject]

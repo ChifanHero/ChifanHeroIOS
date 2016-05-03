@@ -9,7 +9,7 @@
 import UIKit
 
 class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegate, UITableViewDataSource{
-
+    
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -20,7 +20,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     var favorites: [Favorite]?
     var restaurants: [Restaurant] = [Restaurant]()
     var dishes: [Dish] = [Dish]()
-    var lists: [List] = [List]()
+    var selectedCollections: [SelectedCollection] = [SelectedCollection]()
     
     @IBOutlet weak var noFavoritesMessage: UILabel!
     
@@ -41,7 +41,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         loadData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -66,7 +66,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     override func refreshData() {
         loadData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -75,7 +75,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     private func registerCell(){
         tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
         tableView.registerNib(UINib(nibName: "NameImageDishCell", bundle: nil), forCellReuseIdentifier: "nameImageDishCell")
-        tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
+        tableView.registerNib(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "selectedCollectionCell")
     }
     
     private func loadData(){
@@ -91,10 +91,10 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
                     } else if self.favorites![index].type == "dish" {
                         self.dishes.append(self.favorites![index].dish!)
                     } else {
-                        self.lists.append(self.favorites![index].list!)
+                        self.selectedCollections.append(self.favorites![index].selectedCollection!)
                     }
                 }
-                if self.restaurants.count > 0 || self.dishes.count > 0 || self.lists.count > 0 {
+                if self.restaurants.count > 0 || self.dishes.count > 0 || self.selectedCollections.count > 0 {
                     self.tableView.hidden = false
                     self.noFavoritesMessage.hidden = true
                     self.tableView.reloadData()
@@ -113,17 +113,17 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     private func clearData() {
         self.restaurants.removeAll()
         self.dishes.removeAll()
-        self.lists.removeAll()
+        self.selectedCollections.removeAll()
     }
-
-
+    
+    
     // MARK: - Table view data source
-
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if self.detailType == FavoriteTypeEnum.Restaurant{
@@ -131,10 +131,10 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         } else if self.detailType == FavoriteTypeEnum.Dish {
             return self.dishes.count
         } else {
-            return self.lists.count
+            return self.selectedCollections.count
         }
     }
-
+    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
@@ -148,8 +148,8 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
             cell?.setUp(dish: dishes[indexPath.row])
             return cell!
         } else {
-            let cell: ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
-            cell?.setUp(list: lists[indexPath.row])
+            let cell: SelectedCollectionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("selectedCollectionCell") as? SelectedCollectionTableViewCell
+            cell?.setUp(selectedCollection: selectedCollections[indexPath.row])
             return cell!
         }
     }
@@ -162,8 +162,8 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         } else if self.favorites![indexPath.row].type == "dish" {
             
         } else {
-            let listSelected : List = lists[indexPath.row]
-            performSegueWithIdentifier("AboutMeDetailToList", sender: listSelected.id)
+            let selectedCollectionSelected: SelectedCollection = selectedCollections[indexPath.row]
+            performSegueWithIdentifier("AboutMeDetailToList", sender: selectedCollectionSelected.id)
         }
     }
     
@@ -173,7 +173,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         } else if self.detailType == FavoriteTypeEnum.Dish {
             return NameImageDishTableViewCell.height
         } else {
-            return ListTableViewCell.height
+            return SelectedCollectionTableViewCell.height
         }
     }
     
@@ -185,51 +185,6 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         return 0.01
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        
-        if detailType == FavoriteTypeEnum.List{
-            let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.removeBookMark(), handler:{(action, indexpath) -> Void in
-                
-                self.removeFavorite(indexPath)
-                
-            });
-            addBookmarkAction.backgroundColor = LightningColor.trashGreenLarge()
-            
-            return [addBookmarkAction];
-        } else {
-            let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.removeBookMark(), handler:{(action, indexpath) -> Void in
-                
-                self.removeFavorite(indexPath)
-                
-            });
-            addBookmarkAction.backgroundColor = LightningColor.trashYellow()
-            
-            return [addBookmarkAction];
-        }
-    }
-    
-    private func removeFavorite(indexPath: NSIndexPath){
-        if detailType == FavoriteTypeEnum.Restaurant{
-            let restaurant = self.restaurants[indexPath.row]
-            ratingAndFavoriteExecutor?.removeFavorite("restaurant", objectId: restaurant.id!, successHandler: { () -> Void in
-                self.restaurants.removeAtIndex(indexPath.row)
-                self.tableView.reloadData()
-            })
-        } else if detailType == FavoriteTypeEnum.Dish{
-            let dish = self.dishes[indexPath.row]
-            ratingAndFavoriteExecutor?.removeFavorite("dish", objectId: dish.id!, successHandler: { () -> Void in
-                self.dishes.removeAtIndex(indexPath.row)
-                self.tableView.reloadData()
-            })
-        } else {
-            let lish = self.lists[indexPath.row]
-            ratingAndFavoriteExecutor?.removeFavorite("lish", objectId: lish.id!, successHandler: { () -> Void in
-                self.lists.removeAtIndex(indexPath.row)
-                self.tableView.reloadData()
-            })
-        }
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "AboutMeDetailToRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
@@ -239,50 +194,50 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
             listMemberController.listId = sender as? String
         }
     }
-
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+     if editingStyle == .Delete {
+     // Delete the row from the data source
+     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+     } else if editingStyle == .Insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

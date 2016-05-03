@@ -249,20 +249,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if selectionBar.scope == "list" {
-//            var cell : ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
-//            if cell == nil {
-//                tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
-//                cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
-//            }
-//            cell!.model = lists[indexPath.row]
-//            return cell!
-            var cell : ListTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
+            var cell: SelectedCollectionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? SelectedCollectionTableViewCell
             if cell == nil {
                 tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? ListTableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? SelectedCollectionTableViewCell
             }
-            cell?.setUp(list: lists[indexPath.row])
-//            cell?.model = lists[indexPath.row]
+            //cell?.setUp(list: lists[indexPath.row])
             return cell!
 
         } else if selectionBar.scope == "dish" {
@@ -289,7 +281,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if selectionBar.scope == "list" {
-            return ListTableViewCell.height
+            return SelectedCollectionTableViewCell.height
         } else if selectionBar.scope == "dish" {
             return OwnerInfoDishTableViewCell.height
         } else {

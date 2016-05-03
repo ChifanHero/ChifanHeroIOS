@@ -10,15 +10,15 @@ import Foundation
 
 class GetSelectedCollectionsByLatAndLonRequest: GetRequestProtocol{
     
-    var lat: Int
-    var lon: Int
+    var userLocation: Location?
     
-    init(latitude: Int, longitude: Int){
-        self.lat = latitude
-        self.lon = longitude
+    init(){}
+    
+    init(location: Location){
+        self.userLocation = location
     }
     
     func getRelativeURL() -> String {
-        return "selectedCollections?lat=" + String(lat) + "lon=" + String(lon)
+        return "/selectedCollections?lat=" + String((userLocation?.lat)!) + "&lon=" + String((userLocation?.lon)!)
     }
 }
