@@ -9,11 +9,19 @@
 import UIKit
 import Kingfisher
 
-class RestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate {
+class RestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable {
     
     @IBOutlet var restaurantsTable: UITableView!
     
     private var request : GetRestaurantsRequest = GetRestaurantsRequest()
+    
+    var animateTransition = false
+    
+    weak var selectedImageView : UIImageView?
+    
+    var selectedRestaurantName : String?
+    
+    var selectedRestaurantId : String?
     
     var sortBy : String? {
         didSet {
@@ -58,6 +66,8 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.animateTransition = false
         let selectedCellIndexPath : NSIndexPath? = self.restaurantsTable.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
             self.restaurantsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
@@ -213,6 +223,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let restaurantSelected : Restaurant = restaurants[indexPath.row]
+        let selectedCell : RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
+        self.selectedImageView = selectedCell.restaurantImageView
+        selectedRestaurantName = selectedCell.nameLabel.text
+        selectedRestaurantId = restaurantSelected.id
+        self.animateTransition = true
         performSegueWithIdentifier("showRestaurant", sender: restaurantSelected.id)
     }
     
@@ -220,6 +235,8 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         if segue.identifier == "showRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
+            restaurantController.restaurantImage = self.selectedImageView?.image
+            restaurantController.restaurantName = self.selectedRestaurantName
         }
     }
     
@@ -405,5 +422,31 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             }
         }
     }
+    
+    // MARK: - ARNImageTransitionZoomable
+    
+    func createTransitionImageView() -> UIImageView {
+        let imageView = UIImageView(image: self.selectedImageView!.image)
+        imageView.contentMode = self.selectedImageView!.contentMode
+        imageView.clipsToBounds = true
+        imageView.userInteractionEnabled = false
+        //        imageView.frame = self.selectedImageView!.convertRect(self.selectedImageView!.frame, toView: self.view)
+        imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
+        
+        return imageView
+    }
+    
+    func presentationCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = true
+    }
+    
+    func dismissalCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = false
+    }
+    
+    func usingAnimatedTransition() -> Bool {
+        return animateTransition
+    }
+
 }
 

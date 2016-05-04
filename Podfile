@@ -7,6 +7,7 @@ use_frameworks!
 target 'Lightning' do
 
 pod 'Kingfisher', '~> 2.1'
+pod 'ARNTransitionAnimator'
 
 end
 

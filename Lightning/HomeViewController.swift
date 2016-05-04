@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ARNTransitionAnimator
 
-class HomeViewController: RefreshableViewController {
+class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable {
     
     @IBOutlet weak var promotionsTable: UITableView!
     
@@ -16,13 +17,15 @@ class HomeViewController: RefreshableViewController {
     
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
-    var imageViewOfSelectedCell : UIImageView?
+    weak var selectedImageView : UIImageView?
     
-    var nameOfSelectedCell : String?
+    var selectedRestaurantName : String?
     
-    var navigationOperation: UINavigationControllerOperation?
+    var selectedRestaurantId : String?
     
-    var interactivePopTransition: UIPercentDrivenInteractiveTransition!
+//    var navigationOperation: UINavigationControllerOperation?
+//    
+//    var interactivePopTransition: UIPercentDrivenInteractiveTransition!
     
     @IBAction func showHottestRestaurants(sender: AnyObject) {
         self.performSegueWithIdentifier("showRestaurants", sender: "hottest")
@@ -39,6 +42,8 @@ class HomeViewController: RefreshableViewController {
     @IBOutlet weak var bannerView: UIView!
     
     var segueType : String?
+    
+    var animateTransition = false
     
     
     let PROMOTIONS_LIMIT = 10
@@ -59,6 +64,7 @@ class HomeViewController: RefreshableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.view.backgroundColor = UIColor.whiteColor()
+        self.extendedLayoutIncludesOpaqueBars = false
 //        let popRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(HomeViewController.handlePopRecognizer(_:)))
 //        popRecognizer.edges = UIRectEdge.Left
 //        self.navigationController!.view.addGestureRecognizer(popRecognizer)
@@ -178,16 +184,17 @@ class HomeViewController: RefreshableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         segueType = ""
         if segue.identifier == "showRestaurants" {
+            self.animateTransition = false
             let restaurantsController : RestaurantsViewController = segue.destinationViewController as! RestaurantsViewController
             if let s = sender as? String {
                 restaurantsController.sortBy = s
             }
         } else if segue.identifier == "showRestaurant" {
-            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
-            restaurantController.restaurantImage = self.imageViewOfSelectedCell?.image
-            restaurantController.restaurantName = self.nameOfSelectedCell
-            restaurantController.restaurantId = sender as? String
-            segueType = "showRestaurant"
+//            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+//            restaurantController.restaurantImage = self.selectedImageView?.image
+//            restaurantController.restaurantName = self.nameOfSelectedCell
+//            restaurantController.restaurantId = sender as? String
+//            segueType = "showRestaurant"
         }
     }
     
@@ -232,6 +239,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.animateTransition = false
         let selectedCellIndexPath : NSIndexPath? = self.promotionsTable.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
             self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
@@ -252,14 +261,17 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let promotion : Promotion = self.promotions[indexPath.row]
         let selectedCell : RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
-        imageViewOfSelectedCell = selectedCell.restaurantImageView
-        nameOfSelectedCell = selectedCell.nameLabel.text
+        self.selectedImageView = selectedCell.restaurantImageView
+        selectedRestaurantName = selectedCell.nameLabel.text
+        
         if promotion.restaurant != nil {
             let restaurant : Restaurant = promotions[indexPath.row].restaurant!
-            self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
+//            self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
+            selectedRestaurantId = restaurant.id
         }
         
         self.promotionsTable.deselectRowAtIndexPath(indexPath, animated: true)
+        self.handleTransition()
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) ->
@@ -506,21 +518,49 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             })
         }
     }
-    
-
-    
-    
-
-    
+ 
     private func popupSigninAlert() {
         let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
         alertview.setTextTheme(.Dark)
     }
-    
-    
-    
+
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         adjustUI()
+    }
+    
+    // MARK: - ARNImageTransitionZoomable
+    
+    func createTransitionImageView() -> UIImageView {
+        let imageView = UIImageView(image: self.selectedImageView!.image)
+        imageView.contentMode = self.selectedImageView!.contentMode
+        imageView.clipsToBounds = true
+        imageView.userInteractionEnabled = false
+//        imageView.frame = self.selectedImageView!.convertRect(self.selectedImageView!.frame, toView: self.view)
+        imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
+        
+        return imageView
+    }
+    
+    func presentationCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = true
+    }
+    
+    func dismissalCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = false
+    }
+    
+    func handleTransition() {
+        self.animateTransition = true
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantViewController") as! RestaurantViewController
+        restaurantController.restaurantImage = self.selectedImageView?.image
+        restaurantController.restaurantName = self.selectedRestaurantName
+        restaurantController.restaurantId = self.selectedRestaurantId
+        self.navigationController?.pushViewController(restaurantController, animated: true)
+    }
+    
+    func usingAnimatedTransition() -> Bool {
+        return animateTransition
     }
 }
 
