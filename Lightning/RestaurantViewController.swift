@@ -710,8 +710,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         imageView.clipsToBounds = true
         imageView.userInteractionEnabled = false
 //        imageView.frame = self.topViewContainer.backgroundImageView!.frame
-//        imageView.frame = backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view)
-        imageView.frame = CGRectMake(0, 0, self.view.frame.size.width, 200)
+        imageView.frame = backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view)
+//        imageView.frame = CGRectMake(0, 64, self.view.frame.size.width, 200)
 //        imageView.frame = backgroundImageView.frame
         print(imageView.frame)
 //        imageView.frame = CGRectMake(0, 44, self.view.frame.size.width, 177)
