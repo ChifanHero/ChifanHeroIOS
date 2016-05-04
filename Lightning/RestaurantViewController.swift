@@ -9,8 +9,9 @@
 import UIKit
 import CoreLocation
 import MapKit
+import ARNTransitionAnimator
 
-class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ARNImageTransitionZoomable {
     
     var restaurantId : String? {
         didSet {
@@ -18,6 +19,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    @IBOutlet weak var backgroundImageView: UIImageView!
     var restaurantImage : UIImage?
     
     var restaurantName : String?
@@ -25,6 +27,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     var request : GetRestaurantByIdRequest?
     
     var restaurant : Restaurant?
+    
+    var animateTransition = true
 
     @IBOutlet weak var messageView: NotAvailableMessageView!
     
@@ -67,7 +71,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         topViewContainer.baseVC = self
-        topViewContainer.backgroundImage = restaurantImage
+        self.backgroundImageView.image = restaurantImage
         topViewContainer.name = restaurantName
         self.waitingView.hidden = true
 //        adjustUI()
@@ -85,9 +89,11 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.animateTransition = true
         configVCTitle()
         
     }
+    
     
     func configVCTitle() {
         vcTitleLabel.text = restaurantName
@@ -116,8 +122,23 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                                     self.topViewContainer.name = self.restaurant?.name
                                 }
                                 self.topViewContainer.englishName = self.restaurant?.englishName
-                                if self.topViewContainer.backgroundImage == nil {
-                                    self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+                                if self.backgroundImageView.image == nil {
+//                                    self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+                                    let backgroundImage : UIImage?
+                                    if let imageURL = self.restaurant?.picture?.original {
+                                        
+                                        let url = NSURL(string: imageURL)
+                                        let data = NSData(contentsOfURL: url!)
+                                        if data != nil {
+                                            backgroundImage = UIImage(data: data!)
+                                        } else {
+                                            backgroundImage = UIImage(named: "restaurant_default_background")
+                                        }
+                                        
+                                    } else {
+                                        backgroundImage = UIImage(named: "restaurant_default_background")
+                                    }
+                                    self.backgroundImageView.image = backgroundImage
                                 }
 //
                                 if self.restaurant?.address != nil {
@@ -154,9 +175,9 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                                 if self.restaurant?.favoriteCount != nil {
                                     self.topViewContainer.bookmarkCount = self.restaurant?.favoriteCount
                                 }
-                                if self.restaurant?.picture != nil {
-                                    self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
-                                }
+//                                if self.restaurant?.picture != nil {
+//                                    self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
+//                                }
                                 self.infoTableView.reloadData()
                                 self.hotDishesTableView.reloadData()
                                 self.adjustUI()
@@ -555,6 +576,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = barButtonItem
         if segue.identifier == "showAllDishes" {
+            self.animateTransition = false
             let restaurantAllDishesController : RestaurantAllDishViewController = segue.destinationViewController as! RestaurantAllDishViewController
             restaurantAllDishesController.restaurantId = sender as? String
         }
@@ -656,7 +678,22 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                     updateRestaurantRequest.imageId = response?.result?.id
                     DataAccessor(serviceConfiguration: ParseConfiguration()).updateRestaurantInfo(updateRestaurantRequest, responseHandler: { (updateResponse) -> Void in
                         if updateResponse?.result != nil {
-                            self.topViewContainer.backgroundImageURL = updateResponse?.result?.picture?.original
+//                            self.topViewContainer.backgroundImageURL = updateResponse?.result?.picture?.original
+                            let backgroundImage : UIImage?
+                            if let imageURL = updateResponse?.result?.picture?.original {
+                                
+                                let url = NSURL(string: imageURL)
+                                let data = NSData(contentsOfURL: url!)
+                                if data != nil {
+                                    backgroundImage = UIImage(data: data!)
+                                } else {
+                                    backgroundImage = UIImage(named: "restaurant_default_background")
+                                }
+                                
+                            } else {
+                                backgroundImage = UIImage(named: "restaurant_default_background")
+                            }
+                            self.backgroundImageView.image = backgroundImage
                         }
                     })
                 }
@@ -665,10 +702,42 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func getRestaurantImageFinalRect() -> CGRect {
-        let rect = CGRectMake(0, (self.navigationController?.navigationBar.frame.size.height)!, self.view.frame.size.width, 177)
-        print(rect)
-        return rect
+    // MARK: - ARNImageTransitionZoomable
+    
+    func createTransitionImageView() -> UIImageView {
+        let imageView = UIImageView(image: self.backgroundImageView.image)
+        imageView.contentMode = self.backgroundImageView.contentMode
+        imageView.clipsToBounds = true
+        imageView.userInteractionEnabled = false
+//        imageView.frame = self.topViewContainer.backgroundImageView!.frame
+        imageView.frame = backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view)
+//        imageView.frame = backgroundImageView.frame
+        print(imageView.frame)
+//        imageView.frame = CGRectMake(0, 44, self.view.frame.size.width, 177)
+        return imageView
     }
+    
+    func presentationBeforeAction() {
+        backgroundImageView.hidden = true
+    }
+    
+    func presentationCompletionAction(completeTransition: Bool) {
+        backgroundImageView.hidden = false
+    }
+    
+    func dismissalBeforeAction() {
+        backgroundImageView.hidden = true
+    }
+    
+    func dismissalCompletionAction(completeTransition: Bool) {
+        if !completeTransition {
+            backgroundImageView.hidden = false
+        }
+    }
+    
+    func usingAnimatedTransition() -> Bool {
+        return animateTransition
+    }
+    
     
 }

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ARNTransitionAnimator
 
-class HomeViewController: RefreshableViewController, UINavigationControllerDelegate, UIViewControllerAnimatedTransitioning {
+class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable {
     
     @IBOutlet weak var promotionsTable: UITableView!
     
@@ -16,13 +17,15 @@ class HomeViewController: RefreshableViewController, UINavigationControllerDeleg
     
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
-    var imageViewOfSelectedCell : UIImageView?
+    weak var selectedImageView : UIImageView?
     
-    var nameOfSelectedCell : String?
+    var selectedRestaurantName : String?
     
-    var navigationOperation: UINavigationControllerOperation?
+    var selectedRestaurantId : String?
     
-    var interactivePopTransition: UIPercentDrivenInteractiveTransition!
+//    var navigationOperation: UINavigationControllerOperation?
+//    
+//    var interactivePopTransition: UIPercentDrivenInteractiveTransition!
     
     @IBAction func showHottestRestaurants(sender: AnyObject) {
         self.performSegueWithIdentifier("showRestaurants", sender: "hottest")
@@ -39,6 +42,8 @@ class HomeViewController: RefreshableViewController, UINavigationControllerDeleg
     @IBOutlet weak var bannerView: UIView!
     
     var segueType : String?
+    
+    var animateTransition = false
     
     
     let PROMOTIONS_LIMIT = 10
@@ -58,11 +63,11 @@ class HomeViewController: RefreshableViewController, UINavigationControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.delegate = self
         self.navigationController!.view.backgroundColor = UIColor.whiteColor()
-        let popRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(HomeViewController.handlePopRecognizer(_:)))
-        popRecognizer.edges = UIRectEdge.Left
-        self.navigationController!.view.addGestureRecognizer(popRecognizer)
+        self.extendedLayoutIncludesOpaqueBars = false
+//        let popRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(HomeViewController.handlePopRecognizer(_:)))
+//        popRecognizer.edges = UIRectEdge.Left
+//        self.navigationController!.view.addGestureRecognizer(popRecognizer)
         clearTitleForBackBarButtonItem()
         configureNavigationController()
         loadingIndicator.hidden = true
@@ -179,16 +184,17 @@ class HomeViewController: RefreshableViewController, UINavigationControllerDeleg
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         segueType = ""
         if segue.identifier == "showRestaurants" {
+            self.animateTransition = false
             let restaurantsController : RestaurantsViewController = segue.destinationViewController as! RestaurantsViewController
             if let s = sender as? String {
                 restaurantsController.sortBy = s
             }
         } else if segue.identifier == "showRestaurant" {
-            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
-            restaurantController.restaurantImage = self.imageViewOfSelectedCell?.image
-            restaurantController.restaurantName = self.nameOfSelectedCell
-            restaurantController.restaurantId = sender as? String
-            segueType = "showRestaurant"
+//            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+//            restaurantController.restaurantImage = self.selectedImageView?.image
+//            restaurantController.restaurantName = self.nameOfSelectedCell
+//            restaurantController.restaurantId = sender as? String
+//            segueType = "showRestaurant"
         }
     }
     
@@ -233,6 +239,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.animateTransition = false
         let selectedCellIndexPath : NSIndexPath? = self.promotionsTable.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
             self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
@@ -253,14 +261,17 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let promotion : Promotion = self.promotions[indexPath.row]
         let selectedCell : RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
-        imageViewOfSelectedCell = selectedCell.restaurantImageView
-        nameOfSelectedCell = selectedCell.nameLabel.text
+        self.selectedImageView = selectedCell.restaurantImageView
+        selectedRestaurantName = selectedCell.nameLabel.text
+        
         if promotion.restaurant != nil {
             let restaurant : Restaurant = promotions[indexPath.row].restaurant!
-            self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
+//            self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
+            selectedRestaurantId = restaurant.id
         }
         
         self.promotionsTable.deselectRowAtIndexPath(indexPath, animated: true)
+        self.handleTransition()
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) ->
@@ -507,148 +518,49 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             })
         }
     }
-    
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.3
-    }
-
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        
-        let containerView = transitionContext.containerView()!
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
-        
-        if let navController = toViewController.navigationController {
-            for constraint in toViewController.view.constraints as [NSLayoutConstraint] {
-                if constraint.firstItem === toViewController.topLayoutGuide
-                    && constraint.firstAttribute == .Height
-                    && constraint.secondItem == nil
-                    && constraint.constant == 0 {
-                    constraint.constant = navController.navigationBar.frame.height
-                }
-            }
-        }
-        
-        if segueType != "showRestaurant" {
-            if navigationOperation == UINavigationControllerOperation.Push {
-                containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
-                toViewController.view.alpha = 0.0
-            } else if navigationOperation == UINavigationControllerOperation.Pop {
-                containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
-            }
-            UIView.animateWithDuration(0.4, animations: {
-                if self.navigationOperation == UINavigationControllerOperation.Push {
-                    toViewController.view.alpha = 1.0
-                } else if self.navigationOperation == UINavigationControllerOperation.Pop {
-                    fromViewController.view.alpha = 0.0
-                }
-                }, completion: ({completed in
-                    //告诉系统你的动画过程已经结束，这是非常重要的方法，必须调用。
-                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-                }))
-            return
-        }
-        
-        var detailVC: RestaurantViewController!
-        var fromView: UIView!
-        var alpha: CGFloat = 1.0
-        var destTransform: CGAffineTransform!
-        
-        var snapshotImageView: UIView!
-        //获取到当前选择的Button
-        let originalView = self.imageViewOfSelectedCell
-        print(originalView?.frame)
-        
-        if navigationOperation == UINavigationControllerOperation.Push {
-            containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
-            snapshotImageView = originalView?.snapshotViewAfterScreenUpdates(false)
-            detailVC = toViewController as! RestaurantViewController
-            fromView = fromViewController.view
-            alpha = 0
-            detailVC.view.transform = CGAffineTransformMakeScale(0, 0)
-            
-            destTransform = CGAffineTransformMakeScale(1, 1)
-            snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(originalView!)
-            originalView?.hidden = true
-            detailVC.topViewContainer.backgroundImageView.hidden = true
-        } else if navigationOperation == UINavigationControllerOperation.Pop {
-            containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
-            detailVC = fromViewController as! RestaurantViewController
-            snapshotImageView = detailVC.topViewContainer.backgroundImageView.snapshotViewAfterScreenUpdates(false)
-            fromView = toViewController.view
-            // 如果IDE是Xcode6 Beta4+iOS8SDK，那么在此处设置为0，动画将会不被执行(不确定是哪里的Bug)
-            destTransform = CGAffineTransformMakeScale(0, 0)
-            snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(detailVC.topViewContainer.backgroundImageView)
-        }
-        
-        
-        
-        containerView.addSubview(snapshotImageView)
-        
-        UIView.animateWithDuration(transitionDuration(transitionContext), animations: {
-            detailVC.view.transform = destTransform
-            fromView.alpha = alpha
-            if self.navigationOperation == UINavigationControllerOperation.Push {
-                snapshotImageView.frame = detailVC.getRestaurantImageFinalRect()
-            } else if self.navigationOperation == UINavigationControllerOperation.Pop {
-                snapshotImageView.frame = PositionConverter.getViewAbsoluteFrame(originalView!)
-            }
-            }, completion: ({completed in
-                originalView?.hidden = false
-                detailVC.topViewContainer.backgroundImageView.hidden = false
-                snapshotImageView.removeFromSuperview()
-                //告诉系统你的动画过程已经结束，这是非常重要的方法，必须调用。
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-            }))
-    }
-    
-    func handlePopRecognizer(popRecognizer: UIScreenEdgePanGestureRecognizer) {
-        var progress = popRecognizer.translationInView(navigationController!.view).x / navigationController!.view.bounds.size.width
-        progress = min(1.0, max(0.0, progress))
-        
-        print("\(progress)")
-        if popRecognizer.state == UIGestureRecognizerState.Began {
-            print("Began")
-            self.interactivePopTransition = UIPercentDrivenInteractiveTransition()
-            self.navigationController!.popViewControllerAnimated(true)
-        } else if popRecognizer.state == UIGestureRecognizerState.Changed {
-            self.interactivePopTransition!.updateInteractiveTransition(progress)
-            print("Changed")
-        } else if popRecognizer.state == UIGestureRecognizerState.Ended || popRecognizer.state == UIGestureRecognizerState.Cancelled {
-            if progress > 0.5 {
-                self.interactivePopTransition!.finishInteractiveTransition()
-            } else {
-                self.interactivePopTransition!.cancelInteractiveTransition()
-            }
-            //            finishBy(progress < 0.5)
-            print("Ended || Cancelled")
-            self.interactivePopTransition = nil
-        }
-    }
-    
-    // UINavigationControllerDelegate
-    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        navigationOperation = operation
-        return self
-    }
-    
-    func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if self.interactivePopTransition == nil {
-            return nil
-        }
-        return self.interactivePopTransition
-    }
-    
+ 
     private func popupSigninAlert() {
         let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
         alertview.setTextTheme(.Dark)
     }
-    
-    
-    
+
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         adjustUI()
+    }
+    
+    // MARK: - ARNImageTransitionZoomable
+    
+    func createTransitionImageView() -> UIImageView {
+        let imageView = UIImageView(image: self.selectedImageView!.image)
+        imageView.contentMode = self.selectedImageView!.contentMode
+        imageView.clipsToBounds = true
+        imageView.userInteractionEnabled = false
+//        imageView.frame = self.selectedImageView!.convertRect(self.selectedImageView!.frame, toView: self.view)
+        imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
+        
+        return imageView
+    }
+    
+    func presentationCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = true
+    }
+    
+    func dismissalCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = false
+    }
+    
+    func handleTransition() {
+        self.animateTransition = true
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantViewController") as! RestaurantViewController
+        restaurantController.restaurantImage = self.selectedImageView?.image
+        restaurantController.restaurantName = self.selectedRestaurantName
+        restaurantController.restaurantId = self.selectedRestaurantId
+        self.navigationController?.pushViewController(restaurantController, animated: true)
+    }
+    
+    func usingAnimatedTransition() -> Bool {
+        return animateTransition
     }
 }
 

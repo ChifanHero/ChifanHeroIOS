@@ -62,6 +62,8 @@
 		C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */; };
 		C47A1C8B1C7DF2A100E0DF3A /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C8A1C7DF2A100E0DF3A /* NotificationTableViewCell.swift */; };
 		C47A1C8D1C7EC66500E0DF3A /* FirstNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */; };
+		C49427DE1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */; };
+		C49427DF1CD86FC300F94D4F /* ARNImageZoomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */; };
 		C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */; };
 		C4A0D5521C11746100BAE246 /* DishSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */; };
 		C4A0D5531C11746100BAE246 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5461C11746100BAE246 /* Distance.swift */; };
@@ -349,6 +351,11 @@
 		C47A1C491C7DDF7B00E0DF3A /* Lightning.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lightning.xcdatamodel; sourceTree = "<group>"; };
 		C47A1C8A1C7DF2A100E0DF3A /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstNotification.swift; sourceTree = "<group>"; };
+		C48042B01BDDA920003135D2 /* FloatingBubbleBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingBubbleBehavior.swift; sourceTree = "<group>"; };
+		C48042B21BDDA957003135D2 /* BubbleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleButton.swift; sourceTree = "<group>"; };
+		C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionNavigationController.swift; sourceTree = "<group>"; };
+		C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageZoomTransition.swift; sourceTree = "<group>"; };
+		C49427E11CD874DA00F94D4F /* ARNTransitionAnimator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARNTransitionAnimator.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Lightning-cdtqhbxirnfcbjegdnunhyimuqez/Build/Products/Debug-iphoneos/ARNTransitionAnimator.framework"; sourceTree = "<group>"; };
 		C49BF32C1BC4EA940097CBE0 /* SelectionBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionBar.swift; sourceTree = "<group>"; };
 		C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishListSearchRequest.swift; sourceTree = "<group>"; };
 		C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishSearchRequest.swift; sourceTree = "<group>"; };
@@ -508,6 +515,7 @@
 		23D85A71B84862FEE9FC8005 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C49427E11CD874DA00F94D4F /* ARNTransitionAnimator.framework */,
 				C4F039E31BC347C100183AC2 /* libz.tbd */,
 				C4F039E11BC347B500183AC2 /* libsqlite3.tbd */,
 				C4F039DF1BC3479900183AC2 /* SystemConfiguration.framework */,
@@ -561,6 +569,7 @@
 		C41298141C83CD7D0062BC7D /* OpenSource */ = {
 			isa = PBXGroup;
 			children = (
+				C49427DA1CD86F8600F94D4F /* ARNImage */,
 				C41298151C83CDA40062BC7D /* UIImageEffects.swift */,
 			);
 			name = OpenSource;
@@ -798,6 +807,23 @@
 				C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */,
 			);
 			name = UIElementsClass;
+			sourceTree = "<group>";
+		};
+		C48042AF1BDDA8FC003135D2 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				C48042B01BDDA920003135D2 /* FloatingBubbleBehavior.swift */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
+		C49427DA1CD86F8600F94D4F /* ARNImage */ = {
+			isa = PBXGroup;
+			children = (
+				C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */,
+				C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */,
+			);
+			name = ARNImage;
 			sourceTree = "<group>";
 		};
 		C4A0D55D1C137AED00BAE246 /* LocationComponent */ = {
@@ -1296,6 +1322,7 @@
 				C4B0A3991C8CCD8D00D05408 /* Reachability.swift in Sources */,
 				CA203DB01C111EEA00D6F32C /* SlideBar.swift in Sources */,
 				CA203DB21C111EEA00D6F32C /* GetRestaurantMenuResponse.swift in Sources */,
+				C49427DF1CD86FC300F94D4F /* ARNImageZoomTransition.swift in Sources */,
 				CA203DB31C111EEA00D6F32C /* DataAccessor.swift in Sources */,
 				CA203DB41C111EEA00D6F32C /* InfoCouponTableViewCell.swift in Sources */,
 				CA203DB51C111EEA00D6F32C /* ListCandidateSubView.swift in Sources */,
@@ -1343,6 +1370,7 @@
 				CA203DD71C111EEA00D6F32C /* LoadMoreFooterView.swift in Sources */,
 				C4A0D5541C11746100BAE246 /* DistanceUnit.swift in Sources */,
 				CA203DD81C111EEA00D6F32C /* AcountManager.swift in Sources */,
+				C49427DE1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift in Sources */,
 				CA203DD91C111EEA00D6F32C /* UploadPictureRequest.swift in Sources */,
 				CA203DDA1C111EEA00D6F32C /* GetRequestProtocol.swift in Sources */,
 				C44C25861C53610B00A345D8 /* RestaurantCandidate.swift in Sources */,

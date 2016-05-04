@@ -18,14 +18,14 @@ import UIKit
     }
     */
     
-    @IBOutlet weak var backgroundImageView: UIImageView!
+//    @IBOutlet weak var backgroundImageView: UIImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
     
     
     @IBOutlet weak var nameLabelContainer: UIView!
 
-    @IBOutlet weak var imageViewContainer: UIView!
+//    @IBOutlet weak var imageViewContainer: UIView!
     
     private var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
@@ -35,11 +35,11 @@ import UIKit
     
     var view: UIView!
     
-    var backgroundImage : UIImage? {
-        didSet {
-            self.backgroundImageView.image = backgroundImage
-        }
-    }
+//    var backgroundImage : UIImage? {
+//        didSet {
+//            self.backgroundImageView.image = backgroundImage
+//        }
+//    }
     
     var fullBlurEffectApplied = false
     
@@ -106,26 +106,26 @@ import UIKit
     @IBOutlet weak var bookmarkButtonView: ActionButtonView!
     
     
-    
-    @IBInspectable var backgroundImageURL: String? {
-        didSet {
-            if let imageURL = backgroundImageURL {
-                let url = NSURL(string: imageURL)
-                let data = NSData(contentsOfURL: url!)
-                if data != nil {
-                    backgroundImage = UIImage(data: data!)
-                } else {
-                    backgroundImage = UIImage(named: "restaurant_default_background")
-                }
-                
-            } else {
-                backgroundImage = UIImage(named: "restaurant_default_background")
-            }
-            self.backgroundImageView.image = backgroundImage
-//            self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
-//            self.fullBlurEffectApplied = true
-        }
-    }
+//    
+//    @IBInspectable var backgroundImageURL: String? {
+//        didSet {
+//            if let imageURL = backgroundImageURL {
+//                let url = NSURL(string: imageURL)
+//                let data = NSData(contentsOfURL: url!)
+//                if data != nil {
+//                    backgroundImage = UIImage(data: data!)
+//                } else {
+//                    backgroundImage = UIImage(named: "restaurant_default_background")
+//                }
+//                
+//            } else {
+//                backgroundImage = UIImage(named: "restaurant_default_background")
+//            }
+//            self.backgroundImageView.image = backgroundImage
+////            self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
+////            self.fullBlurEffectApplied = true
+//        }
+//    }
     
 //    private func blurWithEffects(image : UIImage, factor : CGFloat) -> UIImage{
 //        return image.applyBlurWithRadius(10 * factor, tintColor: UIColor(white: 1.0, alpha: 0.7 * factor), saturationDeltaFactor: 1.8)!
@@ -144,9 +144,9 @@ import UIKit
         return convertedFrame.origin.y + self.nameLabel.frame.size.height / 2
     }
     
-    func getImageViewFrame() -> CGRect {
-        return self.view.convertRect(self.backgroundImageView.frame, fromView : imageViewContainer)
-    }
+//    func getImageViewFrame() -> CGRect {
+//        return self.view.convertRect(self.backgroundImageView.frame, fromView : imageViewContainer)
+//    }
     
 //    func applyBlurEffectToBackgroundImage() {
 //        if !blurEffectApplied {
