@@ -173,8 +173,8 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showList" {
-            let listMemberController : ListMemberViewController = segue.destinationViewController as! ListMemberViewController
-            listMemberController.listId = (sender as! List).id
+            let restaurantCollectionMembersController: RestaurantCollectionMembersViewController = segue.destinationViewController as! RestaurantCollectionMembersViewController
+            restaurantCollectionMembersController.selectedCollectionId = (sender as! SelectedCollection).id
         }
     }
     

@@ -348,8 +348,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
         } else if segue.identifier == "showList" {
-            let listMemberController : ListMemberViewController = segue.destinationViewController as! ListMemberViewController
-            listMemberController.listId = sender as? String
+            //let listMemberController : ListMemberViewController = segue.destinationViewController as! ListMemberViewController
+            //listMemberController.listId = sender as? String
         }
     }
     

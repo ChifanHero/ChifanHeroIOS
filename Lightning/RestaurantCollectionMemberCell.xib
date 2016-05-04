@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="restaurantCollectionMemberTableViewCell" selectionStyle="default" indentationWidth="10" rowHeight="275" id="ABy-zC-3i5" userLabel="restaurantCollectionMemberCell" customClass="RestaurantCollectionMemberTableViewCell" customModule="Lightning" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="526" height="275"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ABy-zC-3i5" id="f6E-UE-wIu">
+                <rect key="frame" x="0.0" y="0.0" width="526" height="274.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ycw-HA-llA" userLabel="RestaurantImage">
+                        <rect key="frame" x="8" y="8" width="510" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="100" id="QtU-Rv-Tbh"/>
+                        </constraints>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="oHE-r8-f9o">
+                        <rect key="frame" x="8" y="116" width="510" height="151"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLp-BW-nXq" userLabel="Name">
+                                <rect key="frame" x="0.0" y="0.0" width="510" height="51"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3vh-Im-Vib" userLabel="Location">
+                                <rect key="frame" x="0.0" y="51" width="510" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twG-SS-bo0" userLabel="Rating">
+                                <rect key="frame" x="0.0" y="101" width="510" height="51"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="oHE-r8-f9o" firstAttribute="trailing" secondItem="f6E-UE-wIu" secondAttribute="trailingMargin" id="5v4-Et-iyT"/>
+                    <constraint firstItem="ycw-HA-llA" firstAttribute="leading" secondItem="f6E-UE-wIu" secondAttribute="leadingMargin" id="C4o-39-uI2"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="oHE-r8-f9o" secondAttribute="bottom" id="GbI-qb-bea"/>
+                    <constraint firstItem="ycw-HA-llA" firstAttribute="trailing" secondItem="f6E-UE-wIu" secondAttribute="trailingMargin" id="K25-2g-OAa"/>
+                    <constraint firstItem="ycw-HA-llA" firstAttribute="top" secondItem="f6E-UE-wIu" secondAttribute="topMargin" id="LnK-uT-rfF"/>
+                    <constraint firstItem="oHE-r8-f9o" firstAttribute="top" secondItem="ycw-HA-llA" secondAttribute="bottom" constant="8" id="Xqn-IU-U0t"/>
+                    <constraint firstItem="oHE-r8-f9o" firstAttribute="leading" secondItem="f6E-UE-wIu" secondAttribute="leadingMargin" id="xF7-w7-FPs"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="restaurantImage" destination="ycw-HA-llA" id="guE-rW-oG4"/>
+                <outlet property="restaurantLocation" destination="3vh-Im-Vib" id="wrf-sD-CKi"/>
+                <outlet property="restaurantName" destination="hLp-BW-nXq" id="cNh-Dr-obm"/>
+                <outlet property="restaurantRating" destination="twG-SS-bo0" id="mXH-dp-jmO"/>
+            </connections>
+            <point key="canvasLocation" x="179" y="99.5"/>
+        </tableViewCell>
+    </objects>
+</document>

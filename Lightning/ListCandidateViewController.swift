@@ -15,7 +15,7 @@ class ListCandidateViewController: UIViewController {
     
     var center : Location?
     
-    var memberViewController : ListMemberViewController?
+    //var memberViewController : ListMemberViewController?
     
     
     @IBOutlet weak var mainView: ListCandidateTopView!

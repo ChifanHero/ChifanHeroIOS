@@ -566,10 +566,10 @@
             </objects>
             <point key="canvasLocation" x="-1270.5" y="768.5"/>
         </scene>
-        <!--List Member View Controller-->
+        <!--Restaurant Collection Member View Controller-->
         <scene sceneID="tbI-NG-u1f">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="98Y-kL-NWK" customClass="ListMemberViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="98Y-kL-NWK" userLabel="Restaurant Collection Member View Controller" customClass="RestaurantCollectionMembersViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qdI-In-ITW"/>
                         <viewControllerLayoutGuide type="bottom" id="QnF-By-T1k"/>
@@ -1510,8 +1510,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SnI-Ci-tXQ"/>
         <segue reference="cRp-Bb-PSh"/>
+        <segue reference="19z-hm-zLV"/>
         <segue reference="tIf-c0-cls"/>
     </inferredMetricsTieBreakers>
 </document>

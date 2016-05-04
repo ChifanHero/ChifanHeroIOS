@@ -79,7 +79,7 @@ import UIKit
     
   
     @IBAction func confirm(sender: AnyObject) {
-        self.parentVC?.memberViewController?.loadTableData()
+        //self.parentVC?.memberViewController?.loadTableData()
         self.parentVC?.dismissViewControllerAnimated(true, completion: nil)
     }
 

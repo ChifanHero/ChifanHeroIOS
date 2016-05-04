@@ -190,8 +190,8 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
         } else if segue.identifier == "AboutMeDetailToList" {
-            let listMemberController: ListMemberViewController = segue.destinationViewController as! ListMemberViewController
-            listMemberController.listId = sender as? String
+            //let listMemberController: ListMemberViewController = segue.destinationViewController as! ListMemberViewController
+            //listMemberController.listId = sender as? String
         }
     }
     
