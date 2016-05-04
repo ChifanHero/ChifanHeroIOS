@@ -253,15 +253,20 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="200" id="Ia2-xb-gmr"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Ia2-xb-gmr"/>
+                                            </mask>
+                                        </variation>
                                     </imageView>
-                                    <view contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="Lightning" customModuleProvider="target">
+                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-Dd-Kda" customClass="ViewItemTopUIView" customModule="Lightning" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="200" width="383" height="88"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="88" id="Sld-cs-Hy4"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-pF-gKu" userLabel="Info Table View">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-pF-gKu" userLabel="Info Table View">
                                         <rect key="frame" x="0.0" y="289" width="383" height="126"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -272,7 +277,7 @@
                                             <outlet property="delegate" destination="zJm-Fm-QLl" id="jFT-ur-ANA"/>
                                         </connections>
                                     </tableView>
-                                    <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yvc-Bv-eKm" userLabel="Message View" customClass="NotAvailableMessageView" customModule="Lightning" customModuleProvider="target">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvc-Bv-eKm" userLabel="Message View" customClass="NotAvailableMessageView" customModule="Lightning" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="414" width="383" height="258"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -281,7 +286,7 @@
                                             </constraint>
                                         </constraints>
                                     </view>
-                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7">
+                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3wF-uh-jL7">
                                         <rect key="frame" x="0.0" y="414" width="383" height="255"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -301,6 +306,7 @@
                                     <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" constant="266" id="3u1-2A-dXU"/>
                                     <constraint firstItem="hqm-pF-gKu" firstAttribute="top" secondItem="eWi-Dd-Kda" secondAttribute="bottom" constant="1" id="5WM-yH-CAP"/>
                                     <constraint firstAttribute="trailing" secondItem="4WW-ny-dYE" secondAttribute="trailing" id="7vZ-oQ-etf"/>
+                                    <constraint firstItem="4WW-ny-dYE" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" id="8AA-cv-PZ4"/>
                                     <constraint firstAttribute="bottom" secondItem="3wF-uh-jL7" secondAttribute="bottom" constant="1" id="AdF-AL-4yB"/>
                                     <constraint firstItem="yvc-Bv-eKm" firstAttribute="top" secondItem="hqm-pF-gKu" secondAttribute="bottom" constant="-1" id="M5e-Us-yZj"/>
                                     <constraint firstItem="4WW-ny-dYE" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" id="NBC-pb-USm"/>
@@ -310,11 +316,14 @@
                                     <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="4WW-ny-dYE" secondAttribute="bottom" id="eM8-mY-scy"/>
                                     <constraint firstItem="yvc-Bv-eKm" firstAttribute="leading" secondItem="hqm-pF-gKu" secondAttribute="leading" id="gCH-Ce-C4m"/>
                                     <constraint firstItem="yvc-Bv-eKm" firstAttribute="leading" secondItem="HVe-v4-VBn" secondAttribute="leading" id="kSw-kn-PfU"/>
+                                    <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="top" constant="200" id="oMH-ML-ojn"/>
                                     <constraint firstAttribute="trailing" secondItem="yvc-Bv-eKm" secondAttribute="trailing" id="xPz-Co-OnT"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="7vZ-oQ-etf"/>
                                         <exclude reference="NBC-pb-USm"/>
+                                        <exclude reference="bwP-5y-2jf"/>
                                         <exclude reference="3u1-2A-dXU"/>
                                     </mask>
                                 </variation>
@@ -338,13 +347,15 @@
                         <constraints>
                             <constraint firstItem="hqm-pF-gKu" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="4MP-yH-zYn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HVe-v4-VBn" secondAttribute="trailing" constant="-20" id="9Ga-vG-VhO"/>
-                            <constraint firstItem="4WW-ny-dYE" firstAttribute="top" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="C2I-XY-bt7"/>
+                            <constraint firstItem="4WW-ny-dYE" firstAttribute="top" relation="lessThanOrEqual" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="C2I-XY-bt7"/>
                             <constraint firstItem="HVe-v4-VBn" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="EBa-L4-APJ"/>
                             <constraint firstItem="v0q-pe-yVa" firstAttribute="top" secondItem="3Db-jL-lhH" secondAttribute="bottom" id="FrV-ug-eD5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="4WW-ny-dYE" secondAttribute="trailing" constant="-24" id="GfJ-bp-Bxx"/>
                             <constraint firstItem="eWi-Dd-Kda" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="Mco-lx-D9A"/>
                             <constraint firstItem="v0q-pe-yVa" firstAttribute="bottom" secondItem="Big-8G-yxv" secondAttribute="bottomMargin" id="RuZ-QQ-2xK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3wF-uh-jL7" secondAttribute="trailing" constant="-20" id="eHJ-oJ-W0B"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eWi-Dd-Kda" secondAttribute="trailing" constant="-20" id="g0w-Ca-jPc"/>
+                            <constraint firstItem="4WW-ny-dYE" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-24" id="iUu-70-gsO"/>
                             <constraint firstItem="Eza-ca-7rH" firstAttribute="top" secondItem="HVe-v4-VBn" secondAttribute="bottom" id="j04-pa-7Sr"/>
                             <constraint firstItem="v0q-pe-yVa" firstAttribute="leading" secondItem="Big-8G-yxv" secondAttribute="leadingMargin" constant="-20" id="l3S-3s-D4P"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hqm-pF-gKu" secondAttribute="trailing" constant="-20" id="qsa-1G-ggT"/>

@@ -238,7 +238,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 contentRect = CGRectUnion(contentRect, subView.frame)
             }
         }
-        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentRect.height)
+        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 200 + self.infoTableView.frame.size.height + self.hotDishesTableView.frame.size.height + 44)
         self.view.layoutIfNeeded()
     }
 
@@ -589,10 +589,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func scrollViewDidScroll(scrollView: UIScrollView) {
         print(scrollView.contentOffset.y)
         let offset = scrollView.contentOffset.y
-        let nameLabelBottomY = self.topViewContainer.getNameLabelBottomY()
+        let nameLabelBottomY = self.topViewContainer.getNameLabelBottomY() + 200
         if offset > nameLabelBottomY{
 //            self.topViewContainer.changeBackgroundImageBlurEffect(scrollView.contentOffset.y)
-            let scale = (abs(offset) - abs(nameLabelBottomY)) / 20
+            let scale = (abs(offset) - abs(nameLabelBottomY)) / 40
             self.navigationItem.titleView?.alpha = scale
         } else {
             self.navigationItem.titleView?.alpha = 0.0
@@ -711,6 +711,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         imageView.userInteractionEnabled = false
 //        imageView.frame = self.topViewContainer.backgroundImageView!.frame
         imageView.frame = backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view)
+//        imageView.frame = CGRectMake(0, 64, self.view.frame.size.width, 200)
 //        imageView.frame = backgroundImageView.frame
         print(imageView.frame)
 //        imageView.frame = CGRectMake(0, 44, self.view.frame.size.width, 177)
