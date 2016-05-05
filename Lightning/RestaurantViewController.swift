@@ -232,13 +232,21 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     private func adjustContainerViewHeight() {
+//        var contentRect : CGRect = CGRectZero
+//        for subView : UIView in self.containerScrollView.subviews {
+//            if subView.hidden == false {
+//                contentRect = CGRectUnion(contentRect, subView.frame)
+//            }
+//        }
+//        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 200 + self.infoTableView.frame.size.height + self.hotDishesTableView.frame.size.height + 44)
+//        self.view.layoutIfNeeded()
         var contentRect : CGRect = CGRectZero
         for subView : UIView in self.containerScrollView.subviews {
             if subView.hidden == false {
                 contentRect = CGRectUnion(contentRect, subView.frame)
             }
         }
-        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 200 + self.infoTableView.frame.size.height + self.hotDishesTableView.frame.size.height + 44)
+        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentRect.height)
         self.view.layoutIfNeeded()
     }
 
@@ -739,6 +747,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func usingAnimatedTransition() -> Bool {
         return animateTransition
     }
+    
     
     
 }

@@ -236,7 +236,7 @@
         <!--Restaurant View Controller-->
         <scene sceneID="hbI-cD-Qbc">
             <objects>
-                <viewController storyboardIdentifier="RestaurantViewController" extendedLayoutIncludesOpaqueBars="YES" id="zJm-Fm-QLl" customClass="RestaurantViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RestaurantViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="zJm-Fm-QLl" customClass="RestaurantViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3Db-jL-lhH"/>
                         <viewControllerLayoutGuide type="bottom" id="Eza-ca-7rH"/>
@@ -248,8 +248,8 @@
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
                                 <rect key="frame" x="-4" y="64" width="383" height="554"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4WW-ny-dYE">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="200"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4WW-ny-dYE">
+                                        <rect key="frame" x="-4" y="0.0" width="391" height="200"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="200" id="Ia2-xb-gmr"/>
                                         </constraints>
@@ -328,11 +328,11 @@
                                     </mask>
                                 </variation>
                             </scrollView>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v0q-pe-yVa" userLabel="Waiting View">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0q-pe-yVa" userLabel="Waiting View">
+                                <rect key="frame" x="-4" y="64" width="383" height="603"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3TV-2r-Q7J">
-                                        <rect key="frame" x="173" y="258" width="37" height="37"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3TV-2r-Q7J">
+                                        <rect key="frame" x="173" y="283" width="37" height="37"/>
                                         <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
