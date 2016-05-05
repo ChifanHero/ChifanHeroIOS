@@ -326,7 +326,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 let alert = UIAlertController(title: "呼叫", message: "呼叫\(currentCell.info!)", preferredStyle: UIAlertControllerStyle.ActionSheet)
                 
                 let goAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-                    if let url = NSURL(string: "tel://\(currentCell.info!)") {
+                    let phoneNumber = self.extractPhoneNumber(currentCell.info)
+                    if let url = NSURL(string: "tel://\(phoneNumber)") {
                         UIApplication.sharedApplication().openURL(url)
                     }
                 })
@@ -708,6 +709,16 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 
             });
         }
+    }
+    
+    func extractPhoneNumber(originalNumber : String?) -> String{
+        if originalNumber == nil {
+            return ""
+        }
+        let stringArray = originalNumber!.componentsSeparatedByCharactersInSet(
+            NSCharacterSet.decimalDigitCharacterSet().invertedSet)
+        let newString = stringArray.joinWithSeparator("")
+        return newString
     }
     
     // MARK: - ARNImageTransitionZoomable
