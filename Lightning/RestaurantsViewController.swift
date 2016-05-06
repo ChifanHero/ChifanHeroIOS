@@ -355,6 +355,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     @objc private func dismissActionView() {
         self.restaurantsTable.setEditing(false, animated: true)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantsViewController.reloadTable), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func reloadTable() {
+        self.restaurantsTable.reloadData()
     }
     
     private func addToFavorites(indexPath: NSIndexPath){

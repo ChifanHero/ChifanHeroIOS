@@ -164,99 +164,99 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         shouldChangeSlideBarState = true
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        
-        let dish : Dish = getDishAtIndexPath(indexPath)!
-        var favoriteCount : Int = 0
-        var likeCount : Int = 0
-        var neutralCount : Int = 0
-        var dislikeCount : Int = 0
-        let objectId = dish.id!
-        
-        if dish.favoriteCount != nil {
-            favoriteCount = dish.favoriteCount!
-        }
-        if dish.likeCount != nil {
-            likeCount = dish.likeCount!
-        }
-        if dish.neutralCount != nil {
-            neutralCount = dish.neutralCount!
-        }
-        if dish.dislikeCount != nil {
-            dislikeCount = dish.dislikeCount!
-        }
-        
-        let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
-            if (!UserContext.isValidUser()) {
-                self.popupSigninAlert()
-            } else {
-                favoriteCount += 1
-                if dish.favoriteCount == nil {
-                    dish.favoriteCount = 1
-                } else {
-                    dish.favoriteCount! += 1
-                }
-                self.dishTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
-                self.addToFavorites(indexPath)
-            }
-            self.dismissActionViewWithDelay()
-        });
-        bookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
-        
-        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
-            if (UserContext.isRatingTooFrequent(objectId)) {
-                JSSAlertView().warning(self, title: "评价太频繁")
-            } else {
-                likeCount += 1
-                if dish.likeCount == nil {
-                    dish.likeCount = 1
-                } else {
-                    dish.likeCount! += 1
-                }
-                self.dishTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
-                self.rateDish(indexPath, ratingType: RatingTypeEnum.like)
-            }
-            self.dismissActionViewWithDelay()
-        });
-        likeAction.backgroundColor = LightningColor.likeBackground()
-        
-        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
-            if (UserContext.isRatingTooFrequent(objectId)) {
-                JSSAlertView().warning(self, title: "评价太频繁")
-            } else {
-                neutralCount += 1
-                if dish.neutralCount == nil {
-                    dish.neutralCount = 1
-                } else {
-                    dish.neutralCount! += 1
-                }
-                action.title = "一般\n\(neutralCount)"
-                self.dishTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
-                self.rateDish(indexPath, ratingType: RatingTypeEnum.neutral)
-            }
-            self.dismissActionViewWithDelay()
-        });
-        neutralAction.backgroundColor = LightningColor.neutralOrange()
-        
-        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
-            if (UserContext.isRatingTooFrequent(objectId)) {
-                JSSAlertView().warning(self, title: "评价太频繁")
-            } else {
-                dislikeCount += 1
-                if dish.dislikeCount == nil {
-                    dish.dislikeCount = 1
-                } else {
-                    dish.dislikeCount! += 1
-                }
-                self.dishTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
-                self.rateDish(indexPath, ratingType: RatingTypeEnum.dislike)
-            }
-            self.dismissActionViewWithDelay()
-        });
-        dislikeAction.backgroundColor = LightningColor.negativeBlue()
-        
-        return [bookmarkAction, dislikeAction, neutralAction, likeAction];
-    }
+//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+//        
+//        let dish : Dish = getDishAtIndexPath(indexPath)!
+//        var favoriteCount : Int = 0
+//        var likeCount : Int = 0
+//        var neutralCount : Int = 0
+//        var dislikeCount : Int = 0
+//        let objectId = dish.id!
+//        
+//        if dish.favoriteCount != nil {
+//            favoriteCount = dish.favoriteCount!
+//        }
+//        if dish.likeCount != nil {
+//            likeCount = dish.likeCount!
+//        }
+//        if dish.neutralCount != nil {
+//            neutralCount = dish.neutralCount!
+//        }
+//        if dish.dislikeCount != nil {
+//            dislikeCount = dish.dislikeCount!
+//        }
+//        
+//        let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
+//            if (!UserContext.isValidUser()) {
+//                self.popupSigninAlert()
+//            } else {
+//                favoriteCount += 1
+//                if dish.favoriteCount == nil {
+//                    dish.favoriteCount = 1
+//                } else {
+//                    dish.favoriteCount! += 1
+//                }
+//                self.dishTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
+//                self.addToFavorites(indexPath)
+//            }
+//            self.dismissActionViewWithDelay()
+//        });
+//        bookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
+//        
+//        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
+//            if (UserContext.isRatingTooFrequent(objectId)) {
+//                JSSAlertView().warning(self, title: "评价太频繁")
+//            } else {
+//                likeCount += 1
+//                if dish.likeCount == nil {
+//                    dish.likeCount = 1
+//                } else {
+//                    dish.likeCount! += 1
+//                }
+//                self.dishTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
+//                self.rateDish(indexPath, ratingType: RatingTypeEnum.like)
+//            }
+//            self.dismissActionViewWithDelay()
+//        });
+//        likeAction.backgroundColor = LightningColor.likeBackground()
+//        
+//        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
+//            if (UserContext.isRatingTooFrequent(objectId)) {
+//                JSSAlertView().warning(self, title: "评价太频繁")
+//            } else {
+//                neutralCount += 1
+//                if dish.neutralCount == nil {
+//                    dish.neutralCount = 1
+//                } else {
+//                    dish.neutralCount! += 1
+//                }
+//                action.title = "一般\n\(neutralCount)"
+//                self.dishTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
+//                self.rateDish(indexPath, ratingType: RatingTypeEnum.neutral)
+//            }
+//            self.dismissActionViewWithDelay()
+//        });
+//        neutralAction.backgroundColor = LightningColor.neutralOrange()
+//        
+//        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
+//            if (UserContext.isRatingTooFrequent(objectId)) {
+//                JSSAlertView().warning(self, title: "评价太频繁")
+//            } else {
+//                dislikeCount += 1
+//                if dish.dislikeCount == nil {
+//                    dish.dislikeCount = 1
+//                } else {
+//                    dish.dislikeCount! += 1
+//                }
+//                self.dishTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
+//                self.rateDish(indexPath, ratingType: RatingTypeEnum.dislike)
+//            }
+//            self.dismissActionViewWithDelay()
+//        });
+//        dislikeAction.backgroundColor = LightningColor.negativeBlue()
+//        
+//        return [bookmarkAction, dislikeAction, neutralAction, likeAction];
+//    }
     
     private func addToFavorites(indexPath: NSIndexPath){
         let dish : Dish = getDishAtIndexPath(indexPath)!
@@ -329,7 +329,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     private func changeSlideBarState() {
         if let indicesForVisibleRows : [NSIndexPath]? = self.dishTableView.indexPathsForVisibleRows {
             let indexForFirstVisibleRow : NSIndexPath = indicesForVisibleRows![0]
-            let dishCell : NameImageDishTableViewCell = self.dishTableView.cellForRowAtIndexPath(indexForFirstVisibleRow) as! NameImageDishTableViewCell
+            let dishCell : NameOnlyDishTableViewCell = self.dishTableView.cellForRowAtIndexPath(indexForFirstVisibleRow) as! NameOnlyDishTableViewCell
             let menuName = dishToMenuDic[dishCell.nameLabel.text!]
             let position = menuNames.indexOf(menuName!)
             self.slideBar.markElementAsSelected(atIndex: position!)
@@ -355,10 +355,10 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : NameImageDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
+        var cell : NameOnlyDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "NameImageDishCell", bundle: nil), forCellReuseIdentifier: "nameImageDishCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
+            tableView.registerNib(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
+            cell = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
         }
         let dish : Dish?
         if !self.searching {
@@ -371,7 +371,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return NameImageDishTableViewCell.height
+        return 49
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
