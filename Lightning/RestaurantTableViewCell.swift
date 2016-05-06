@@ -48,7 +48,7 @@ class RestaurantTableViewCell: UITableViewCell {
         if restaurant.picture?.original != nil {
             url = restaurant.picture!.original!
         }
-        restaurantImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"), optionsInfo: [.Transition(ImageTransition.Fade(1))])
+        restaurantImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: [.Transition(ImageTransition.Fade(1))])
         
     }
 
