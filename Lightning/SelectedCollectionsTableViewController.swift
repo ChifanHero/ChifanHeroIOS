@@ -157,7 +157,7 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : SelectedCollectionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("SelectedCollectionCell") as? SelectedCollectionTableViewCell
+        var cell: SelectedCollectionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("SelectedCollectionCell") as? SelectedCollectionTableViewCell
         if cell == nil {
             tableView.registerNib(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "SelectedCollectionCell")
             cell = tableView.dequeueReusableCellWithIdentifier("SelectedCollectionCell") as? SelectedCollectionTableViewCell
@@ -168,13 +168,13 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
 
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("showList", sender: selectedCollections[indexPath.row])
+        self.performSegueWithIdentifier("showRestaurantCollectionMembers", sender: selectedCollections[indexPath.row])
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showList" {
+        if segue.identifier == "showRestaurantCollectionMembers" {
             let restaurantCollectionMembersController: RestaurantCollectionMembersViewController = segue.destinationViewController as! RestaurantCollectionMembersViewController
-            restaurantCollectionMembersController.selectedCollectionId = (sender as! SelectedCollection).id
+            restaurantCollectionMembersController.selectedCollection = (sender as! SelectedCollection)
         }
     }
     

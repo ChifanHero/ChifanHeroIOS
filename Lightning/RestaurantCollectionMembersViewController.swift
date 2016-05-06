@@ -7,20 +7,23 @@
 //
 
 import UIKit
+import Kingfisher
 
-class RestaurantCollectionMembersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class RestaurantCollectionMembersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate{
     
-    var selectedCollectionId: String?
+    var selectedCollection: SelectedCollection?
     
     var members: [Restaurant] = [Restaurant]()
     
+    var headerView: UIView!
+    let kTableHeaderHeight: CGFloat = 300.0
     
+    @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var waitingView: UIView!
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var memberTable: UITableView!
-    
-    @IBOutlet weak var headerView: ListHeaderView!
+    @IBOutlet weak var collectionTitle: UILabel!
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
@@ -28,6 +31,8 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
         super.viewDidLoad()
         loadTableData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
+        self.setUpHeaderView()
+        self.configureHeaderView()
         // Do any additional setup after loading the view.
     }
     
@@ -45,11 +50,39 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
     
+    private func setUpHeaderView(){
+        self.navigationController?.navigationBar.translucent = true
+        headerImage.kf_setImageWithURL(NSURL(string: (selectedCollection?.cellImage?.original)!)!, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        self.collectionTitle.text = selectedCollection?.title
+    }
+    
+    private func configureHeaderView(){
+        headerView = self.memberTable.tableHeaderView
+        self.memberTable.tableHeaderView = nil
+        self.memberTable.addSubview(headerView)
+        self.memberTable.contentInset = UIEdgeInsets(top: kTableHeaderHeight, left: 0, bottom: 0, right: 0)
+        self.memberTable.contentOffset = CGPoint(x: 0, y: -kTableHeaderHeight)
+        updateHeaderView()
+    }
+    
+    private func updateHeaderView(){
+        var headerRect = CGRect(x: 0, y: -kTableHeaderHeight, width: self.memberTable.bounds.width, height: kTableHeaderHeight)
+        if memberTable.contentOffset.y < -kTableHeaderHeight {
+            headerRect.origin.y = self.memberTable.contentOffset.y
+            headerRect.size.height = -self.memberTable.contentOffset.y
+        }
+        headerView.frame = headerRect
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        updateHeaderView()
+    }
+    
     func loadTableData() {
         self.waitingView.hidden = false
         self.activityIndicator.startAnimating()
-        if selectedCollectionId != nil {
-            let request : GetRestaurantCollectionMembersRequest = GetRestaurantCollectionMembersRequest(id: selectedCollectionId!)
+        if selectedCollection?.id != nil {
+            let request : GetRestaurantCollectionMembersRequest = GetRestaurantCollectionMembersRequest(id: (selectedCollection?.id!)!)
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantCollectionMembersById(request, responseHandler: { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     if response != nil && !response!.results.isEmpty {
