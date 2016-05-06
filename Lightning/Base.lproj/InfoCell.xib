@@ -33,8 +33,14 @@
                     <constraint firstItem="ygM-YV-GYn" firstAttribute="leading" secondItem="mdR-CF-kE6" secondAttribute="leadingMargin" constant="10" id="8Xu-4n-omm"/>
                     <constraint firstItem="sx7-Cv-C4M" firstAttribute="leading" secondItem="ygM-YV-GYn" secondAttribute="trailing" constant="24" id="Ab0-iJ-Uc9"/>
                     <constraint firstItem="sx7-Cv-C4M" firstAttribute="centerY" secondItem="mdR-CF-kE6" secondAttribute="centerY" id="HBH-qf-V2D"/>
+                    <constraint firstItem="ygM-YV-GYn" firstAttribute="leading" secondItem="mdR-CF-kE6" secondAttribute="leading" constant="18" id="de3-O4-Y6u"/>
                     <constraint firstItem="ygM-YV-GYn" firstAttribute="centerY" secondItem="mdR-CF-kE6" secondAttribute="centerY" id="f0r-rq-7Yl"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="8Xu-4n-omm"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="icon" destination="ygM-YV-GYn" id="zpf-TK-LNC"/>

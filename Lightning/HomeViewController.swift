@@ -547,6 +547,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func dismissalCompletionAction(completeTransition: Bool) {
         self.selectedImageView?.hidden = false
+        animateTransition = false
     }
     
     func handleTransition() {
