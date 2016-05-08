@@ -24,22 +24,16 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="oHE-r8-f9o">
-                                <rect key="frame" x="10" y="200" width="480" height="49"/>
+                                <rect key="frame" x="10" y="150" width="480" height="99"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLp-BW-nXq" userLabel="Name">
-                                        <rect key="frame" x="0.0" y="0.0" width="480" height="16.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="49.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3vh-Im-Vib" userLabel="Location">
-                                        <rect key="frame" x="0.0" y="16.5" width="480" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twG-SS-bo0" userLabel="Rating">
-                                        <rect key="frame" x="0.0" y="32.5" width="480" height="16.5"/>
+                                        <rect key="frame" x="0.0" y="49" width="480" height="49.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -95,7 +89,9 @@
                             <constraint firstAttribute="bottom" secondItem="oHE-r8-f9o" secondAttribute="bottom" id="DrX-96-nFB"/>
                             <constraint firstItem="e1a-OB-icP" firstAttribute="top" secondItem="d9C-hT-Qc8" secondAttribute="top" constant="153" id="Eqr-PN-zqh"/>
                             <constraint firstAttribute="trailing" secondItem="oHE-r8-f9o" secondAttribute="trailing" id="Gqm-Aw-1Rm"/>
-                            <constraint firstItem="oHE-r8-f9o" firstAttribute="top" secondItem="d9C-hT-Qc8" secondAttribute="top" constant="200" id="WHQ-Ii-eeP"/>
+                            <constraint firstItem="e1a-OB-icP" firstAttribute="bottom" secondItem="ycw-HA-llA" secondAttribute="bottom" constant="-10" id="KwJ-l0-Epz"/>
+                            <constraint firstItem="e1a-OB-icP" firstAttribute="bottom" secondItem="ycw-HA-llA" secondAttribute="bottom" constant="-20" id="Uzu-jN-hxK"/>
+                            <constraint firstItem="oHE-r8-f9o" firstAttribute="top" secondItem="d9C-hT-Qc8" secondAttribute="top" constant="150" id="WHQ-Ii-eeP"/>
                             <constraint firstAttribute="trailing" secondItem="e1a-OB-icP" secondAttribute="trailing" constant="10" id="b5a-2n-6w2"/>
                             <constraint firstItem="fw0-g0-tpS" firstAttribute="top" secondItem="d9C-hT-Qc8" secondAttribute="top" constant="10" id="f1l-L5-iwU"/>
                             <constraint firstAttribute="trailing" secondItem="ycw-HA-llA" secondAttribute="trailing" id="iUK-s5-XGk"/>
@@ -105,8 +101,10 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="6L1-p8-QiP"/>
                                 <exclude reference="3ZJ-5X-91z"/>
                                 <exclude reference="Eqr-PN-zqh"/>
+                                <exclude reference="Uzu-jN-hxK"/>
                             </mask>
                         </variation>
                     </view>
@@ -128,7 +126,6 @@
                 <outlet property="restaurantImage" destination="ycw-HA-llA" id="guE-rW-oG4"/>
                 <outlet property="restaurantLocation" destination="3vh-Im-Vib" id="wrf-sD-CKi"/>
                 <outlet property="restaurantName" destination="hLp-BW-nXq" id="cNh-Dr-obm"/>
-                <outlet property="restaurantRating" destination="twG-SS-bo0" id="mXH-dp-jmO"/>
             </connections>
             <point key="canvasLocation" x="209" y="90.5"/>
         </tableViewCell>

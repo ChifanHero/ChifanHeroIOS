@@ -11,8 +11,8 @@ import Kingfisher
 
 class RestaurantCollectionMemberTableViewCell: UITableViewCell {
     
-    static var height: CGFloat = 300
-    var cellCornerRadius: CGFloat = 5
+    static var height: CGFloat = 280
+    var cellCornerRadius: CGFloat = 2
     var ratingLabelCornerRadius: CGFloat = 3
     
     var restaurant: Restaurant?
@@ -21,8 +21,6 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
     @IBOutlet weak var restaurantImage: UIImageView!
     @IBOutlet weak var restaurantName: UILabel!
     @IBOutlet weak var restaurantLocation: UILabel!
-    @IBOutlet weak var button: UIButton!
-    @IBOutlet weak var restaurantRating: UILabel!
     @IBOutlet weak var actualContentView: UIView!
     @IBOutlet weak var ratingView: UIView!
     @IBOutlet weak var ratingLabel: UILabel!
@@ -39,7 +37,6 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
         if restaurant.address != nil {
             self.restaurantLocation.text = restaurant.address
         }
-        self.restaurantRating.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
         var url: String = ""
         if restaurant.picture?.original != nil {
             url = restaurant.picture!.original!
@@ -49,7 +46,7 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
         self.makeRoundedCorner()
         self.configureRatingView()
         self.configureRankView()
-        
+        self.configureBorderColor()
     }
     
     private func makeRoundedCorner(){
@@ -66,5 +63,10 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
         self.rankView.backgroundColor = RankColorPicker.colorPicker(rank: self.rank!)
         self.rankView.layer.cornerRadius = self.rankView.frame.size.width / 2
         self.rankLabel.text = String(self.rank!)
+    }
+    
+    private func configureBorderColor(){
+        self.actualContentView.layer.borderWidth = 0.2
+        self.actualContentView.layer.borderColor = UIColor.grayColor().CGColor
     }
 }
