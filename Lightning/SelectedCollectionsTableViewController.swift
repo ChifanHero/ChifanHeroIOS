@@ -44,6 +44,7 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
         if selectedCellIndexPath != nil {
             self.selectedCollectionTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
+        self.navigationController?.navigationBar.translucent = false
     }
     
     private func setTableViewFooterView() {

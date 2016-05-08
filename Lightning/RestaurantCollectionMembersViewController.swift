@@ -18,6 +18,7 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
     var headerView: UIView!
     let kTableHeaderHeight: CGFloat = 300.0
     
+    @IBOutlet weak var navBarTitle: UILabel!
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var waitingView: UIView!
 
@@ -32,7 +33,7 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
         loadTableData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.setUpHeaderView()
-        self.configureHeaderView()
+        //self.configureHeaderView()
         // Do any additional setup after loading the view.
     }
     
@@ -43,6 +44,8 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
         if selectedCellIndexPath != nil {
             self.memberTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
+        self.configureHeaderView()
+        self.navigationController?.navigationBar.translucent = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,17 +54,20 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
     }
     
     private func setUpHeaderView(){
-        self.navigationController?.navigationBar.translucent = true
         headerImage.kf_setImageWithURL(NSURL(string: (selectedCollection?.cellImage?.original)!)!, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
         self.collectionTitle.text = selectedCollection?.title
+        self.navBarTitle.text = selectedCollection?.title
+        self.navBarTitle.hidden = true
     }
     
     private func configureHeaderView(){
-        headerView = self.memberTable.tableHeaderView
-        self.memberTable.tableHeaderView = nil
-        self.memberTable.addSubview(headerView)
+        if headerView == nil {
+            headerView = self.memberTable.tableHeaderView
+            self.memberTable.tableHeaderView = nil
+            self.memberTable.addSubview(headerView)
+        }
         self.memberTable.contentInset = UIEdgeInsets(top: kTableHeaderHeight, left: 0, bottom: 0, right: 0)
-        self.memberTable.contentOffset = CGPoint(x: 0, y: -kTableHeaderHeight)
+        //self.memberTable.contentOffset = CGPoint(x: 0, y: -kTableHeaderHeight)
         updateHeaderView()
     }
     
@@ -72,6 +78,13 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
             headerRect.size.height = -self.memberTable.contentOffset.y
         }
         headerView.frame = headerRect
+        if self.memberTable.contentOffset.y > 0 {
+            self.navBarTitle.hidden = false
+            self.navigationController?.navigationBar.translucent = false
+        } else{
+            self.navBarTitle.hidden = true
+            self.navigationController?.navigationBar.translucent = true
+        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -88,6 +101,10 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
                     if response != nil && !response!.results.isEmpty {
                         self.members.removeAll()
                         self.members += response!.results
+                        self.members.sortInPlace {
+                            (r1, r2) -> Bool in
+                            return ScoreComputer.getScoreNum(positive: r1.likeCount, negative: r1.dislikeCount, neutral: r1.neutralCount) > ScoreComputer.getScoreNum(positive: r2.likeCount, negative: r2.dislikeCount, neutral: r2.neutralCount)
+                        }
                         self.memberTable.reloadData()
                         self.activityIndicator.stopAnimating()
                         self.waitingView.hidden = true
@@ -115,7 +132,7 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
             tableView.registerNib(UINib(nibName: "RestaurantCollectionMemberCell", bundle: nil), forCellReuseIdentifier: "restaurantCollectionMemberTableViewCell")
             cell = tableView.dequeueReusableCellWithIdentifier("restaurantCollectionMemberTableViewCell") as? RestaurantCollectionMemberTableViewCell
         }
-        cell?.setUp(restaurant: self.members[indexPath.row])
+        cell?.setUp(restaurant: self.members[indexPath.row], rank: indexPath.row + 1)
         
         return cell!
     }

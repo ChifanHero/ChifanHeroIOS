@@ -7,11 +7,28 @@
 //
 
 import Foundation
-
+import UIKit
 
 class ScoreComputer  {
     
     static func getScore(positive positive: Int?, negative: Int?, neutral: Int?) -> String {
+        let score: Double = calculateScore(positive: positive, negative: negative, neutral: neutral)
+        return String(format:"%.1f", score / 100 * 5)
+    }
+    
+    static func getScoreNum(positive positive: Int?, negative: Int?, neutral: Int?) -> Double {
+        return calculateScore(positive: positive, negative: negative, neutral: neutral)
+    }
+    
+    static func getScoreColor(positive positive: Int?, negative: Int?, neutral: Int?) -> UIColor {
+        let score: Double = calculateScore(positive: positive, negative: negative, neutral: neutral)
+        let red: CGFloat = ((255 * (100 - CGFloat(score))) / 100 + 50) / 255
+        let green: CGFloat = ((255 * CGFloat(score)) / 100 - 50) / 255
+        let blue: CGFloat = 0
+        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+    }
+    
+    static func calculateScore(positive positive: Int?, negative: Int?, neutral: Int?) -> Double {
         var neutral = neutral
         var negative = negative
         var positive = positive
@@ -24,14 +41,11 @@ class ScoreComputer  {
         if (neutral == nil) {
             neutral = 0
         }
-        if (positive! + negative! + neutral!) == 0{
-            return "尚未评价(向左滑动打分)"
-        }
         
         let pos = Double(positive!)
         let neg = Double(negative!)
         let neu = Double(neutral!)
         let result:Double = (pos * 1.0 + neu * 0.7) / (pos + neg + neu) * 100.00
-        return String(format:"%.1f", result) + "%"
+        return result
     }
 }

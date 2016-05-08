@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9C-hT-Qc8" userLabel="Actual Content View">
-                        <rect key="frame" x="18" y="13" width="490" height="248.5"/>
+                        <rect key="frame" x="18" y="13" width="490" height="249"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ycw-HA-llA" userLabel="RestaurantImage">
                                 <rect key="frame" x="0.0" y="0.0" width="490" height="200"/>
@@ -46,17 +46,69 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e1a-OB-icP" userLabel="Rating View">
+                                <rect key="frame" x="445" y="170" width="35" height="20"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTL-or-FXS" userLabel="Rating">
+                                        <rect key="frame" x="5" y="5" width="25" height="10"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="5aS-gx-KHD"/>
+                                    <constraint firstItem="bTL-or-FXS" firstAttribute="leading" secondItem="e1a-OB-icP" secondAttribute="leading" constant="5" id="QtO-ph-7oN"/>
+                                    <constraint firstItem="bTL-or-FXS" firstAttribute="top" secondItem="e1a-OB-icP" secondAttribute="top" constant="5" id="VPz-W5-d96"/>
+                                    <constraint firstAttribute="bottom" secondItem="bTL-or-FXS" secondAttribute="bottom" constant="5" id="e9j-ye-lUu"/>
+                                    <constraint firstAttribute="trailing" secondItem="bTL-or-FXS" secondAttribute="trailing" constant="5" id="ppz-Uh-ZMN"/>
+                                    <constraint firstAttribute="height" constant="20" id="tvi-5V-01T"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fw0-g0-tpS" userLabel="Rank View">
+                                <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQF-9W-bng" userLabel="Rank">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="EQF-9W-bng" firstAttribute="leading" secondItem="fw0-g0-tpS" secondAttribute="leading" id="A1G-XP-7HW"/>
+                                    <constraint firstItem="EQF-9W-bng" firstAttribute="top" secondItem="fw0-g0-tpS" secondAttribute="top" id="aVV-3t-qHZ"/>
+                                    <constraint firstAttribute="width" constant="30" id="mnD-AH-Q43"/>
+                                    <constraint firstAttribute="height" constant="30" id="n95-yi-gYN"/>
+                                    <constraint firstAttribute="bottom" secondItem="EQF-9W-bng" secondAttribute="bottom" id="qHh-xL-HEU"/>
+                                    <constraint firstAttribute="trailing" secondItem="EQF-9W-bng" secondAttribute="trailing" id="slm-ha-lx4"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="e1a-OB-icP" firstAttribute="leading" secondItem="d9C-hT-Qc8" secondAttribute="leading" constant="405" id="3ZJ-5X-91z"/>
+                            <constraint firstItem="oHE-r8-f9o" firstAttribute="top" secondItem="e1a-OB-icP" secondAttribute="bottom" constant="10" id="6L1-p8-QiP"/>
                             <constraint firstItem="oHE-r8-f9o" firstAttribute="leading" secondItem="d9C-hT-Qc8" secondAttribute="leading" constant="10" id="CyM-aX-Cs7"/>
                             <constraint firstAttribute="bottom" secondItem="oHE-r8-f9o" secondAttribute="bottom" id="DrX-96-nFB"/>
+                            <constraint firstItem="e1a-OB-icP" firstAttribute="top" secondItem="d9C-hT-Qc8" secondAttribute="top" constant="153" id="Eqr-PN-zqh"/>
                             <constraint firstAttribute="trailing" secondItem="oHE-r8-f9o" secondAttribute="trailing" id="Gqm-Aw-1Rm"/>
                             <constraint firstItem="oHE-r8-f9o" firstAttribute="top" secondItem="d9C-hT-Qc8" secondAttribute="top" constant="200" id="WHQ-Ii-eeP"/>
+                            <constraint firstAttribute="trailing" secondItem="e1a-OB-icP" secondAttribute="trailing" constant="10" id="b5a-2n-6w2"/>
+                            <constraint firstItem="fw0-g0-tpS" firstAttribute="top" secondItem="d9C-hT-Qc8" secondAttribute="top" constant="10" id="f1l-L5-iwU"/>
                             <constraint firstAttribute="trailing" secondItem="ycw-HA-llA" secondAttribute="trailing" id="iUK-s5-XGk"/>
+                            <constraint firstItem="fw0-g0-tpS" firstAttribute="leading" secondItem="d9C-hT-Qc8" secondAttribute="leading" constant="10" id="nhg-qi-BSD"/>
                             <constraint firstItem="ycw-HA-llA" firstAttribute="leading" secondItem="d9C-hT-Qc8" secondAttribute="leading" id="qkU-ie-RiK"/>
                             <constraint firstItem="ycw-HA-llA" firstAttribute="top" secondItem="d9C-hT-Qc8" secondAttribute="top" id="zcw-RT-g9N"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="3ZJ-5X-91z"/>
+                                <exclude reference="Eqr-PN-zqh"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -69,6 +121,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="actualContentView" destination="d9C-hT-Qc8" id="pk3-KR-FoA"/>
+                <outlet property="rankLabel" destination="EQF-9W-bng" id="ki4-Uv-nnL"/>
+                <outlet property="rankView" destination="fw0-g0-tpS" id="sOF-bj-Bd5"/>
+                <outlet property="ratingLabel" destination="bTL-or-FXS" id="1v2-9h-bDR"/>
+                <outlet property="ratingView" destination="e1a-OB-icP" id="eBt-rx-Ff4"/>
                 <outlet property="restaurantImage" destination="ycw-HA-llA" id="guE-rW-oG4"/>
                 <outlet property="restaurantLocation" destination="3vh-Im-Vib" id="wrf-sD-CKi"/>
                 <outlet property="restaurantName" destination="hLp-BW-nXq" id="cNh-Dr-obm"/>

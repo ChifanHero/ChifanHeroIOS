@@ -645,12 +645,35 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="qZ2-TG-Sk2">
+                        <nil key="title"/>
+                        <view key="titleView" contentMode="scaleToFill" id="05j-5Z-oLo">
+                            <rect key="frame" x="112.5" y="5.5" width="150" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wtc-zh-8VX" userLabel="Nav Bar Title">
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="33"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="Wtc-zh-8VX" secondAttribute="trailing" id="6Me-SP-0Gg"/>
+                                <constraint firstItem="Wtc-zh-8VX" firstAttribute="leading" secondItem="05j-5Z-oLo" secondAttribute="leading" id="89Z-vn-ULm"/>
+                                <constraint firstItem="Wtc-zh-8VX" firstAttribute="top" secondItem="05j-5Z-oLo" secondAttribute="top" id="lqe-MO-Jhg"/>
+                                <constraint firstAttribute="bottom" secondItem="Wtc-zh-8VX" secondAttribute="bottom" id="z4u-s2-aHx"/>
+                            </constraints>
+                        </view>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="activityIndicator" destination="0L7-sL-8lX" id="Qya-Do-Qgh"/>
                         <outlet property="collectionTitle" destination="5LR-x8-m59" id="636-ga-jhU"/>
                         <outlet property="headerImage" destination="oWW-hz-RQh" id="Dgu-ll-1Bb"/>
                         <outlet property="memberTable" destination="hNn-ud-WaQ" id="jVg-11-04W"/>
+                        <outlet property="navBarTitle" destination="Wtc-zh-8VX" id="mho-YU-oqh"/>
                         <outlet property="waitingView" destination="fF1-PG-SI9" id="pbM-9K-JyO"/>
                         <segue destination="fBm-Hz-slj" kind="presentation" identifier="addCandidate" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="4GH-Z8-m31"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="19z-hm-zLV"/>
