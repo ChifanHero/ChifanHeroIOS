@@ -72,7 +72,7 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
     }
     
     private func updateHeaderView(){
-        var headerRect = CGRect(x: 0, y: -kTableHeaderHeight, width: self.memberTable.bounds.width, height: kTableHeaderHeight)
+        var headerRect = CGRect(x: 0, y: -kTableHeaderHeight, width: self.view.frame.width, height: kTableHeaderHeight)
         if memberTable.contentOffset.y < -kTableHeaderHeight {
             headerRect.origin.y = self.memberTable.contentOffset.y
             headerRect.size.height = -self.memberTable.contentOffset.y
