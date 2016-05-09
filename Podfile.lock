@@ -1,13 +1,16 @@
 PODS:
   - ARNTransitionAnimator (1.1.0)
   - Kingfisher (2.1.0)
+  - SCLAlertView (0.5.6)
 
 DEPENDENCIES:
   - ARNTransitionAnimator
   - Kingfisher (~> 2.1)
+  - SCLAlertView
 
 SPEC CHECKSUMS:
   ARNTransitionAnimator: b8b35ce733d08f137eadb0e0c6e53011ea3fb28d
   Kingfisher: 3ac09acad75a25ab22f6d7cef3de10d61dd4792d
+  SCLAlertView: c2b916952520d96cf5e886a38053f1b8c3da502e
 
 COCOAPODS: 0.39.0

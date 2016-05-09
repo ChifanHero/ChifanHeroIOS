@@ -40,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             handleNotification(notification)
         }
         handleFirstLaunch()
-        
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         return true
     }
     
@@ -62,9 +63,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //            let tutorialViewController = storyboard.instantiateViewControllerWithIdentifier("tutorialInitial")
 //            self.window?.rootViewController = tutorialViewController
 //            self.window?.makeKeyAndVisible()
-            defaults.setBool(true, forKey: "hasLaunchedOnce")
-            defaults.synchronize()
-        } 
+//            defaults.setBool(true, forKey: "hasLaunchedOnce")
+//            defaults.synchronize()
+        }
         setBadgeValue()
         
     }
@@ -153,10 +154,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func startGettingLocation() {
-        locationManager.delegate = self;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
+    }
+    
+    func requestLocationAuthorization() {
+        locationManager.requestAlwaysAuthorization()
     }
     
     private func configSplitViewController() {

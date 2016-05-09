@@ -53,3 +53,21 @@ class LightningColor {
         return UIColor(patternImage: UIImage(named: "Trash_With_Background_Large")!)
     }
 }
+
+extension UIColor {
+    
+    func getColorCode() -> UInt {
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        let colorAsUInt : UInt = 0xFFFFFF
+        if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+            
+            var colorAsUInt : UInt32 = 0
+            
+            colorAsUInt += UInt32(red * 255.0) << 16 +
+                UInt32(green * 255.0) << 8 +
+                UInt32(blue * 255.0)
+        }
+        return colorAsUInt
+    }
+    
+}

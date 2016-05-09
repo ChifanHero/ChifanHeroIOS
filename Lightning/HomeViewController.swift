@@ -8,6 +8,7 @@
 
 import UIKit
 import ARNTransitionAnimator
+import SCLAlertView
 
 class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable {
     
@@ -45,6 +46,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     
     var animateTransition = false
     
+    var askLocationAlertView : SCLAlertView?
+    
     
     let PROMOTIONS_LIMIT = 10
     let PROMOTIONS_OFFSET = 0
@@ -62,19 +65,18 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     var appDelegate : AppDelegate?
     
     override func viewDidLoad() {
+        print(LightningColor.themeRed().getColorCode())
         super.viewDidLoad()
         self.navigationController!.view.backgroundColor = UIColor.whiteColor()
         self.extendedLayoutIncludesOpaqueBars = false
-//        let popRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(HomeViewController.handlePopRecognizer(_:)))
-//        popRecognizer.edges = UIRectEdge.Left
-//        self.navigationController!.view.addGestureRecognizer(popRecognizer)
         clearTitleForBackBarButtonItem()
         configureNavigationController()
         loadingIndicator.hidden = true
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
+        addLocationSelectionToLeftCorner()
+        handleFirstLaunch()
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         appDelegate!.startGettingLocation()
-        appDelegate!.registerForPushNotifications()
         configurePullRefresh()
         initPromotionsTable()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -86,6 +88,51 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - First launch
+    func handleFirstLaunch() {
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if !defaults.boolForKey("hasLaunchedOnce") {
+            askForLocationPermit()
+            defaults.setBool(true, forKey: "hasLaunchedOnce")
+            defaults.synchronize()
+        }
+    }
+    
+    func askForLocationPermit() {
+        let appearance = SCLAlertView.SCLAppearance(kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
+        askLocationAlertView = SCLAlertView(appearance: appearance)
+        askLocationAlertView!.addButton("同意", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(HomeViewController.startGettingLocation))
+        askLocationAlertView!.addButton("拒绝", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(HomeViewController.informUserLocationSettings))
+        askLocationAlertView!.showInfo("", subTitle: "\n\n您的地理位置信息可以帮助吃饭英雄更精确地搜索附近的餐厅信息\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+    }
+    
+    func startGettingLocation() {
+        appDelegate!.requestLocationAuthorization()
+        self.allowSystemAlerts()
+    }
+    
+    func informUserLocationSettings() {
+        let appearance = SCLAlertView.SCLAppearance(kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
+        askLocationAlertView = SCLAlertView(appearance: appearance)
+        askLocationAlertView?.addButton("我知道了", backgroundColor: LightningColor.themeRed(), textColor: nil, showDurationStatus: false, action: {
+            self.allowSystemAlerts()
+        })
+        askLocationAlertView!.showInfo("", subTitle: "\n\n您的默认城市已被设置为 San Jose, CA。您可以随时在主页左上角更改位置设置，或者去系统\"设置\"里打开位置共享。\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+        
+    }
+    
+    func allowSystemAlerts() {
+        registerPushNotifications()
+    }
+    
+    func registerPushNotifications() {
+        appDelegate!.registerForPushNotifications()
+    }
+    
+    
+    
+    // MARK: - Configure navigation bar
     private func generateNavigationItemTitle() {
         let logo = UIImage(named: "Lightning_Title.png")
         let imageView = UIImageView(image:logo)
@@ -100,6 +147,20 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = barButtonItem
     }
+    
+    
+    // MARK: - add location selection button to top left corner
+    func addLocationSelectionToLeftCorner() {
+        let selectionLocationButton = UIBarButtonItem(title: "位置", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(HomeViewController.editLocation))
+        selectionLocationButton.tintColor = UIColor.whiteColor()
+        self.navigationItem.leftBarButtonItem = selectionLocationButton
+    }
+    
+    func editLocation() {
+        self.performSegueWithIdentifier("editLocation", sender: nil)
+    }
+    
+    
     
     private func configurePullRefresh(){
         self.refreshControl.addTarget(self, action: #selector(HomeViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)

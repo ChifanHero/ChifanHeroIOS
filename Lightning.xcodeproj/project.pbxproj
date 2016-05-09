@@ -78,6 +78,7 @@
 		C4B0A3991C8CCD8D00D05408 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0A3981C8CCD8D00D05408 /* Reachability.swift */; };
 		C4B0A39B1C8CE69500D05408 /* RefreshableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0A39A1C8CE69500D05408 /* RefreshableViewController.swift */; };
 		C4BCB3581C54BAC70049D74A /* RestaurantSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BCB3571C54BAC70049D74A /* RestaurantSearchTableViewCell.swift */; };
+		C4C861931CE043FA00A6C896 /* SelectLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C861921CE043FA00A6C896 /* SelectLocationViewController.swift */; };
 		C4CC99E21C5407A1007CBF64 /* NotAvailableMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */; };
 		C4CC99E61C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */; };
 		C4D00EDC1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D00EDB1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift */; };
@@ -394,6 +395,7 @@
 		C4BDFC0A1B97C8FB0065F285 /* NotificationDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailView.swift; sourceTree = "<group>"; };
 		C4BDFC0C1B9821280065F285 /* NotificationDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailViewController.swift; sourceTree = "<group>"; };
 		C4BDFC181B98C5C00065F285 /* SelectionPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanel.swift; sourceTree = "<group>"; };
+		C4C861921CE043FA00A6C896 /* SelectLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLocationViewController.swift; sourceTree = "<group>"; };
 		C4CC99E11C5407A1007CBF64 /* NotAvailableMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAvailableMessageView.swift; sourceTree = "<group>"; };
 		C4CC99E51C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerInfoDishTableViewCell.swift; sourceTree = "<group>"; };
 		C4D00EDB1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRestaurantInfoRequest.swift; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 		C41298141C83CD7D0062BC7D /* OpenSource */ = {
 			isa = PBXGroup;
 			children = (
+				C4C8618C1CE0093F00A6C896 /* JSSAlertView */,
 				C49427DA1CD86F8600F94D4F /* ARNImage */,
 				C41298151C83CDA40062BC7D /* UIImageEffects.swift */,
 			);
@@ -667,7 +670,6 @@
 				C476C54D1B84565F0051B0E5 /* Queue.swift */,
 				C43B39B91B8C28F000516248 /* StringUtil.swift */,
 				C4F207BC1C13A1060024C287 /* UserContext.swift */,
-				C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */,
 				C44C25831C52022900A345D8 /* ScoreComputer.swift */,
 				C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */,
 				C4B0A3981C8CCD8D00D05408 /* Reachability.swift */,
@@ -879,6 +881,7 @@
 				CAC81EDD1CD6854600338B59 /* AboutMeDetailViewController.swift */,
 				CA4A29861BF3C34400BAD7CC /* NickNameChangeViewController.swift */,
 				C4B0A39A1C8CE69500D05408 /* RefreshableViewController.swift */,
+				C4C861921CE043FA00A6C896 /* SelectLocationViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -938,6 +941,14 @@
 				C43728281B815C8F009121C9 /* JSONHelperExtension.swift */,
 			);
 			name = Base;
+			sourceTree = "<group>";
+		};
+		C4C8618C1CE0093F00A6C896 /* JSSAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */,
+			);
+			name = JSSAlertView;
 			sourceTree = "<group>";
 		};
 		C4D300141BC2449F00807C4D /* BridgeHeader */ = {
@@ -1399,6 +1410,7 @@
 				CA203DEB1C111EEA00D6F32C /* LoginRequest.swift in Sources */,
 				CA203DEC1C111EEA00D6F32C /* RestaurantTableViewCell.swift in Sources */,
 				C44C25821C50C97200A345D8 /* ActionButtonView.swift in Sources */,
+				C4C861931CE043FA00A6C896 /* SelectLocationViewController.swift in Sources */,
 				CA203DED1C111EEA00D6F32C /* SlideBarDelegateProtocol.swift in Sources */,
 				C4B0A39B1C8CE69500D05408 /* RefreshableViewController.swift in Sources */,
 				CA203DEE1C111EEA00D6F32C /* ServiceConfiguration.swift in Sources */,
