@@ -8,12 +8,17 @@
 
 import UIKit
 
-class SelectLocationViewController: UIViewController {
+class SelectLocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     @IBOutlet weak var doneButton: UIBarButtonItem!
+    
+    
+    @IBOutlet weak var locationTable: UITableView!
+    
+    var cities : [City] = [City]()
     
 
     override func viewDidLoad() {
@@ -44,6 +49,23 @@ class SelectLocationViewController: UIViewController {
     
     @IBAction func done(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    // MARK: - UITableViewDataSource
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return cities.count + 1
+        return 10
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell : CityTableViewCell? = tableView.dequeueReusableCellWithIdentifier("cityCell") as? CityTableViewCell
+        if cell == nil {
+            tableView.registerNib(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "cityCell")
+            cell = tableView.dequeueReusableCellWithIdentifier("cityCell") as? CityTableViewCell
+        }
+        cell?.cityName = "San Jose, CA, USA"
+        return cell!
     }
     
 }

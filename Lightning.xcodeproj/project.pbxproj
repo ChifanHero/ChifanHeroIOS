@@ -48,6 +48,10 @@
 		C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4215A981C63009A0052A613 /* DishListTableViewCell.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */; };
+		C44B05DA1CE1AF3300337502 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B05D91CE1AF3300337502 /* City.swift */; };
+		C44B05DC1CE1AF3D00337502 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B05DB1CE1AF3D00337502 /* State.swift */; };
+		C44B05DE1CE1B37B00337502 /* CityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44B05DD1CE1B37B00337502 /* CityCell.xib */; };
+		C44B05E01CE1B48F00337502 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B05DF1CE1B48F00337502 /* CityTableViewCell.swift */; };
 		C44C257E1C50B88300A345D8 /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C257D1C50B88300A345D8 /* UITableViewCellExtension.swift */; };
 		C44C25821C50C97200A345D8 /* ActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25811C50C97200A345D8 /* ActionButtonView.swift */; };
 		C44C25841C52022900A345D8 /* ScoreComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25831C52022900A345D8 /* ScoreComputer.swift */; };
@@ -326,6 +330,10 @@
 		C43B39B91B8C28F000516248 /* StringUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtil.swift; sourceTree = "<group>"; };
 		C43B9A471BDEBFC300FD50FF /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		C43B9A4E1BDED5FE00FD50FF /* ModelTableViewCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTableViewCellProtocol.swift; sourceTree = "<group>"; };
+		C44B05D91CE1AF3300337502 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		C44B05DB1CE1AF3D00337502 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		C44B05DD1CE1B37B00337502 /* CityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityCell.xib; sourceTree = "<group>"; };
+		C44B05DF1CE1B48F00337502 /* CityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
 		C44C257D1C50B88300A345D8 /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
 		C44C25811C50C97200A345D8 /* ActionButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionButtonView.swift; sourceTree = "<group>"; };
 		C44C25831C52022900A345D8 /* ScoreComputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreComputer.swift; sourceTree = "<group>"; };
@@ -646,6 +654,7 @@
 		C42D9BF91B726B090035C5A6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C44B05D81CE1AF1D00337502 /* City */,
 				C4A0D55D1C137AED00BAE246 /* LocationComponent */,
 				C42D9BFA1B726B270035C5A6 /* User.swift */,
 				C42D9BFC1B726B3D0035C5A6 /* Dish.swift */,
@@ -706,6 +715,7 @@
 				C43B39A31B8854AA00516248 /* SimpleCouponTableViewCell.swift */,
 				C46CB8D81BA15CCD000D1006 /* SimpleDishTableViewCell.swift */,
 				CAC81EEC1CDA86E000338B59 /* RestaurantCollectionMemberTableViewCell.swift */,
+				C44B05DF1CE1B48F00337502 /* CityTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -724,6 +734,15 @@
 			children = (
 			);
 			name = UploadPhotoQueue;
+			sourceTree = "<group>";
+		};
+		C44B05D81CE1AF1D00337502 /* City */ = {
+			isa = PBXGroup;
+			children = (
+				C44B05D91CE1AF3300337502 /* City.swift */,
+				C44B05DB1CE1AF3D00337502 /* State.swift */,
+			);
+			name = City;
 			sourceTree = "<group>";
 		};
 		C44C257C1C50B86300A345D8 /* Local Extensions */ = {
@@ -1014,6 +1033,7 @@
 				C41298011C80B94A0062BC7D /* RestaurantSearchCell.xib */,
 				C412980D1C80B9620062BC7D /* NotificationCell.xib */,
 				CAC81EE41CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib */,
+				C44B05DD1CE1B37B00337502 /* CityCell.xib */,
 			);
 			name = CellXib;
 			sourceTree = "<group>";
@@ -1225,6 +1245,7 @@
 				C41297E71C80B8CD0062BC7D /* ListCandidateConfirmationView.xib in Resources */,
 				C41297BD1C80B88A0062BC7D /* AllDishesHeaderView.xib in Resources */,
 				C41297DE1C80B8BF0062BC7D /* ListCandidateTopView.xib in Resources */,
+				C44B05DE1CE1B37B00337502 /* CityCell.xib in Resources */,
 				C41297AE1C80B8720062BC7D /* DishCell.xib in Resources */,
 				CA882D291C8556E300D04696 /* Assets.xcassets in Resources */,
 				CAC81EE51CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib in Resources */,
@@ -1326,6 +1347,7 @@
 				CA203DA51C111EEA00D6F32C /* Favorite.swift in Sources */,
 				CA203DA61C111EEA00D6F32C /* ListCandidateViewController.swift in Sources */,
 				CA203DA71C111EEA00D6F32C /* ListCandidateConfirmationView.swift in Sources */,
+				C44B05DC1CE1AF3D00337502 /* State.swift in Sources */,
 				CA203DA81C111EEA00D6F32C /* GetDishesResponse.swift in Sources */,
 				C4A0D5651C137DEA00BAE246 /* DishListSearchResponse.swift in Sources */,
 				C4CC99E61C541B1C007CBF64 /* OwnerInfoDishTableViewCell.swift in Sources */,
@@ -1461,6 +1483,7 @@
 				CAC81EE71CDA7BF900338B59 /* GetRestaurantCollectionMembersRequest.swift in Sources */,
 				CA203E011C111EEA00D6F32C /* GetListByIdResponse.swift in Sources */,
 				CA203E021C111EEA00D6F32C /* LoginResponse.swift in Sources */,
+				C44B05E01CE1B48F00337502 /* CityTableViewCell.swift in Sources */,
 				C4A0D55C1C11746100BAE246 /* TuningParams.swift in Sources */,
 				CA203E041C111EEA00D6F32C /* UpdateInfoResponse.swift in Sources */,
 				CA203E051C111EEA00D6F32C /* SimpleDishTableViewCell.swift in Sources */,
@@ -1493,6 +1516,7 @@
 				CA203E191C111EEA00D6F32C /* SimpleCouponTableViewCell.swift in Sources */,
 				CA203E1A1C111EEA00D6F32C /* NotificationDetailView.swift in Sources */,
 				CA203E1B1C111EEA00D6F32C /* ListHeaderView.swift in Sources */,
+				C44B05DA1CE1AF3300337502 /* City.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
