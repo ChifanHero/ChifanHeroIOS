@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectedCollectionsTableViewController: RefreshableViewController, UITableViewDelegate, UITableViewDataSource {
+class SelectedCollectionsTableViewController: UITableViewController, RefreshableViewDelegate{
     
     var selectedCollections: [SelectedCollection] = []
     
@@ -18,31 +18,25 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
     
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
-    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
+    //let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
     
     var isLoadingMore = false
-    
-    
-    @IBOutlet weak var selectedCollectionTable: UITableView!
-    @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
         setTableViewFooterView()
-        refreshControl.addTarget(self, action: #selector(SelectedCollectionsTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.selectedCollectionTable.addSubview(refreshControl)
+        //refreshControl!.addTarget(self, action: #selector(SelectedCollectionsTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        //self.tableView.addSubview(refreshControl!)
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
-        self.selectedCollectionTable.hidden = true
-        waitingIndicator.hidden = true
+        //waitingIndicator.hidden = true
         initialLoadData()
     }
     
     override func viewWillAppear(animated: Bool) {
-        let selectedCellIndexPath : NSIndexPath? = self.selectedCollectionTable.indexPathForSelectedRow
+        let selectedCellIndexPath : NSIndexPath? = self.tableView.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
-            self.selectedCollectionTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+            self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
         self.navigationController?.navigationBar.translucent = false
     }
@@ -51,7 +45,7 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
         let frame = CGRectMake(0, 0, self.view.frame.size.width, 30)
         footerView = LoadMoreFooterView(frame: frame)
         footerView?.reset()
-        self.selectedCollectionTable.tableFooterView = footerView
+        self.tableView.tableFooterView = footerView
     }
     
     private func clearTitleForBackBarButtonItem(){
@@ -59,9 +53,9 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
         self.navigationItem.backBarButtonItem = barButtonItem
     }
     
-    override func refreshData() {
+    func refreshData() {
         footerView?.reset()
-        self.waitingIndicator.startAnimating()
+        //self.waitingIndicator.startAnimating()
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location = appDelegate.currentLocation
         if (location.lat == nil || location.lon == nil) {
@@ -79,17 +73,17 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
         if (location.lat == nil || location.lon == nil) {
             return
         }
-        self.waitingIndicator.hidden = false
-        self.waitingIndicator.startAnimating()
+        //self.waitingIndicator.hidden = false
+        //self.waitingIndicator.startAnimating()
         request.userLocation = location
         loadData { (success) -> Void in
             if !success {
-                self.noNetworkDefaultView.show()
+                //self.noNetworkDefaultView.show()
             }
         }
     }
     
-    override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
+    func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         
         DataAccessor(serviceConfiguration: ParseConfiguration()).getSelectedCollectionByLocation(request) { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -101,10 +95,10 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
                     self.clearData()
                     if response!.results.count > 0 {
                         self.selectedCollections += response!.results
-                        self.selectedCollectionTable.hidden = false
+                        self.tableView.hidden = false
                     }
                     
-                    self.selectedCollectionTable.reloadData()
+                    self.tableView.reloadData()
                     
                     if refreshHandler != nil {
                         refreshHandler!(success: true)
@@ -112,9 +106,9 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
                     
                 }
                 self.isLoadingMore = false
-                self.refreshControl.endRefreshing()
-                self.waitingIndicator.stopAnimating()
-                self.waitingIndicator.hidden = true
+                //self.refreshControl!.endRefreshing()
+                //self.waitingIndicator.stopAnimating()
+                //self.waitingIndicator.hidden = true
                 self.footerView!.activityIndicator.stopAnimating()
             })
             
@@ -142,22 +136,22 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return SelectedCollectionTableViewCell.height
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return selectedCollections.count
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if selectedCollections.isEmpty {
             return 0
         }
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: SelectedCollectionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("SelectedCollectionCell") as? SelectedCollectionTableViewCell
         if cell == nil {
             tableView.registerNib(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "SelectedCollectionCell")
@@ -168,7 +162,7 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
     }
 
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("showRestaurantCollectionMembers", sender: selectedCollections[indexPath.row])
     }
     
@@ -180,10 +174,10 @@ class SelectedCollectionsTableViewController: RefreshableViewController, UITable
     }
     
     @objc private func reloadTable() {
-        self.selectedCollectionTable.reloadData()
+        self.tableView.reloadData()
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
             let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
             if scrollPosition < 30 && !self.isLoadingMore {

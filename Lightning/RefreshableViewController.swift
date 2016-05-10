@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-class RefreshableViewController : UIViewController {
+class RefreshableViewController: UIViewController {
     
-    let noNetworkDefaultView : NoNetworkDefaultView = NoNetworkDefaultView()
+    let noNetworkDefaultView: NoNetworkDefaultView = NoNetworkDefaultView()
     
     func refreshData() {
         

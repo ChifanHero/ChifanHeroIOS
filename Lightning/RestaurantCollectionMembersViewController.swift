@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class RestaurantCollectionMembersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate{
+class RestaurantCollectionMembersViewController: UITableViewController{
     
     var selectedCollection: SelectedCollection?
     
@@ -20,10 +20,6 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
     
     @IBOutlet weak var navBarTitle: UILabel!
     @IBOutlet weak var headerImage: UIImageView!
-    @IBOutlet weak var waitingView: UIView!
-
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var memberTable: UITableView!
     @IBOutlet weak var collectionTitle: UILabel!
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
@@ -33,18 +29,18 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
         loadTableData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.setUpHeaderView()
-        //self.configureHeaderView()
+        self.configureHeaderView()
         // Do any additional setup after loading the view.
     }
     
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        let selectedCellIndexPath : NSIndexPath? = self.memberTable.indexPathForSelectedRow
+        let selectedCellIndexPath : NSIndexPath? = self.tableView.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
-            self.memberTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+            self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
-        self.configureHeaderView()
+        //self.configureHeaderView()
         self.navigationController?.navigationBar.translucent = true
     }
 
@@ -61,24 +57,22 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
     }
     
     private func configureHeaderView(){
-        if headerView == nil {
-            headerView = self.memberTable.tableHeaderView
-            self.memberTable.tableHeaderView = nil
-            self.memberTable.addSubview(headerView)
-        }
-        self.memberTable.contentInset = UIEdgeInsets(top: kTableHeaderHeight, left: 0, bottom: 0, right: 0)
-        //self.memberTable.contentOffset = CGPoint(x: 0, y: -kTableHeaderHeight)
+        headerView = self.tableView.tableHeaderView
+        self.tableView.tableHeaderView = nil
+        self.tableView.addSubview(headerView)
+        self.tableView.contentInset = UIEdgeInsets(top: kTableHeaderHeight, left: 0, bottom: 0, right: 0)
+        self.tableView.contentOffset = CGPoint(x: 0, y: -kTableHeaderHeight)
         updateHeaderView()
     }
     
     private func updateHeaderView(){
-        var headerRect = CGRect(x: 0, y: -kTableHeaderHeight, width: self.view.frame.width, height: kTableHeaderHeight)
-        if memberTable.contentOffset.y < -kTableHeaderHeight {
-            headerRect.origin.y = self.memberTable.contentOffset.y
-            headerRect.size.height = -self.memberTable.contentOffset.y
+        var headerRect = CGRect(x: 0, y: -kTableHeaderHeight, width: self.tableView.bounds.width, height: kTableHeaderHeight)
+        if tableView.contentOffset.y < -kTableHeaderHeight {
+            headerRect.origin.y = self.tableView.contentOffset.y
+            headerRect.size.height = -self.tableView.contentOffset.y
         }
         headerView.frame = headerRect
-        if self.memberTable.contentOffset.y > 0 {
+        if self.tableView.contentOffset.y > 0 {
             self.navBarTitle.hidden = false
             self.navigationController?.navigationBar.translucent = false
         } else{
@@ -87,13 +81,13 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
         }
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
         updateHeaderView()
     }
     
     func loadTableData() {
-        self.waitingView.hidden = false
-        self.activityIndicator.startAnimating()
+        //self.waitingView.hidden = false
+        //self.activityIndicator.startAnimating()
         if selectedCollection?.id != nil {
             let request : GetRestaurantCollectionMembersRequest = GetRestaurantCollectionMembersRequest(id: (selectedCollection?.id!)!)
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantCollectionMembersById(request, responseHandler: { (response) -> Void in
@@ -105,9 +99,9 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
                             (r1, r2) -> Bool in
                             return ScoreComputer.getScoreNum(positive: r1.likeCount, negative: r1.dislikeCount, neutral: r1.neutralCount) > ScoreComputer.getScoreNum(positive: r2.likeCount, negative: r2.dislikeCount, neutral: r2.neutralCount)
                         }
-                        self.memberTable.reloadData()
-                        self.activityIndicator.stopAnimating()
-                        self.waitingView.hidden = true
+                        self.tableView.reloadData()
+                        //self.activityIndicator.stopAnimating()
+                        //self.waitingView.hidden = true
                         
                     }
                 })
@@ -122,11 +116,11 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.members.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: RestaurantCollectionMemberTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCollectionMemberTableViewCell") as? RestaurantCollectionMemberTableViewCell
         if cell == nil {
             tableView.registerNib(UINib(nibName: "RestaurantCollectionMemberCell", bundle: nil), forCellReuseIdentifier: "restaurantCollectionMemberTableViewCell")
@@ -143,26 +137,26 @@ class RestaurantCollectionMembersViewController: UIViewController, UITableViewDa
     }
     
     @objc private func reloadTable() {
-        self.memberTable.reloadData()
+        self.tableView.reloadData()
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return RestaurantCollectionMemberTableViewCell.height
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01
     }
     

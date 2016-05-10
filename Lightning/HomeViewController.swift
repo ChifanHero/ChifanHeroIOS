@@ -37,7 +37,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     }
     
     @IBAction func showDishLists(sender: AnyObject) {
-        self.performSegueWithIdentifier("showLists", sender: self)
+        self.performSegueWithIdentifier("showSelectedCollections", sender: self)
     }
     
     @IBOutlet weak var bannerView: UIView!
