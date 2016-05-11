@@ -20,6 +20,8 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     var cities : [City] = [City]()
     
+    var searching = false
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +59,15 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
 //        return cities.count + 1
         return 10
     }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if searching {
+            return 1
+        } else {
+            return 2
+        }
+        
+    }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell : CityTableViewCell? = tableView.dequeueReusableCellWithIdentifier("cityCell") as? CityTableViewCell
@@ -66,6 +77,36 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         }
         cell?.cityName = "San Jose, CA, USA"
         return cell!
+    }
+    
+    
+    // MARK: - UITableViewDelegate
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = LocationHeaderView()
+        if searching {
+            headerView.title = "请选择城市"
+        } else {
+            if section == 0 {
+                headerView.title = "热门城市"
+            } else if section == 1 {
+                headerView.title = "最近选择城市"
+            }
+        }
+        return headerView
+    }
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        return footerView
     }
     
 }

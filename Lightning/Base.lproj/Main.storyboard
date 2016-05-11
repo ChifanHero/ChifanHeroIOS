@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1344,10 +1344,10 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hXV-Q6-P2Y">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="603"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="gWY-NF-SaQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="383" height="113"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="60"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="输入城市名称" translatesAutoresizingMaskIntoConstraints="NO" id="QZI-5O-fN7">
@@ -1355,41 +1355,20 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="zdj-sd-cNr"/>
                                             </constraints>
-                                            <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <color key="barTintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </searchBar>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择城市" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8sz-Sv-Tb4">
-                                            <rect key="frame" x="8" y="88" width="101" height="17"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="101" id="WsO-tK-0zM"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqB-4F-Teu" userLabel="Separator">
-                                            <rect key="frame" x="0.0" y="112" width="383" height="0.5"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="0.5" id="zQN-Ut-DgW"/>
-                                            </constraints>
-                                        </view>
                                     </subviews>
-                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="YqB-4F-Teu" secondAttribute="trailing" id="1Mh-cS-nPO"/>
                                         <constraint firstItem="QZI-5O-fN7" firstAttribute="top" secondItem="gWY-NF-SaQ" secondAttribute="top" id="4fC-9M-oQY"/>
                                         <constraint firstAttribute="trailing" secondItem="QZI-5O-fN7" secondAttribute="trailing" id="9Rb-uQ-q6p"/>
-                                        <constraint firstItem="8sz-Sv-Tb4" firstAttribute="leading" secondItem="gWY-NF-SaQ" secondAttribute="leading" constant="8" id="Auy-Fs-Usp"/>
-                                        <constraint firstAttribute="bottom" secondItem="8sz-Sv-Tb4" secondAttribute="bottom" constant="8" id="ClK-Hj-kjs"/>
-                                        <constraint firstAttribute="bottom" secondItem="YqB-4F-Teu" secondAttribute="bottom" id="f1p-2c-DTu"/>
                                         <constraint firstItem="QZI-5O-fN7" firstAttribute="leading" secondItem="gWY-NF-SaQ" secondAttribute="leading" id="isK-XW-KB8"/>
-                                        <constraint firstItem="YqB-4F-Teu" firstAttribute="leading" secondItem="gWY-NF-SaQ" secondAttribute="leading" id="p1l-mT-pJx"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="esK-hT-K5n">
-                                        <rect key="frame" x="0.0" y="141" width="383" height="44"/>
+                                        <rect key="frame" x="0.0" y="88" width="383" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="esK-hT-K5n" id="LsB-US-vW1">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
