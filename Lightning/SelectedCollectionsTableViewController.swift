@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectedCollectionsTableViewController: UITableViewController, RefreshableViewDelegate{
+class SelectedCollectionsTableViewController: UITableViewController, RefreshableViewDelegate, ExpandingTransitionPresentingViewController{
     
     var selectedCollections: [SelectedCollection] = []
     
@@ -22,6 +22,8 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
     
     var isLoadingMore = false
     
+    var selectedIndexPath: NSIndexPath?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
@@ -34,7 +36,8 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
     }
     
     override func viewWillAppear(animated: Bool) {
-        let selectedCellIndexPath : NSIndexPath? = self.tableView.indexPathForSelectedRow
+        super.viewWillAppear(animated)
+        let selectedCellIndexPath: NSIndexPath? = self.tableView.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
@@ -136,9 +139,9 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
         // Dispose of any resources that can be recreated.
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return SelectedCollectionTableViewCell.height
-    }
+//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return SelectedCollectionTableViewCell.height
+//    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return selectedCollections.count
@@ -163,15 +166,20 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
 
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("showRestaurantCollectionMembers", sender: selectedCollections[indexPath.row])
+        selectedIndexPath = indexPath
+        //self.performSegueWithIdentifier("showRestaurantCollectionMembers", sender: selectedCollections[indexPath.row])
+        
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("restaurantCollectionMembers") as! RestaurantCollectionMembersViewController
+        controller.selectedCollection = selectedCollections[indexPath.row]
+        presentViewController(controller, animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showRestaurantCollectionMembers" {
-            let restaurantCollectionMembersController: RestaurantCollectionMembersViewController = segue.destinationViewController as! RestaurantCollectionMembersViewController
-            restaurantCollectionMembersController.selectedCollection = (sender as! SelectedCollection)
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "showRestaurantCollectionMembers" {
+//            let restaurantCollectionMembersController: RestaurantCollectionMembersViewController = segue.destinationViewController as! RestaurantCollectionMembersViewController
+//            restaurantCollectionMembersController.selectedCollection = (sender as! SelectedCollection)
+//        }
+//    }
     
     @objc private func reloadTable() {
         self.tableView.reloadData()
@@ -188,6 +196,17 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
                 }
                 
             }
+        }
+    }
+    
+    // MARK: ExpandingTransitionPresentingViewController
+    
+    func expandingTransitionTargetViewForTransition(transition: ExpandingCellTransition) -> UIView! {
+        if let indexPath = selectedIndexPath {
+            return tableView.cellForRowAtIndexPath(indexPath)
+        }
+        else {
+            return nil
         }
     }
 

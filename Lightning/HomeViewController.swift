@@ -37,7 +37,9 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     }
     
     @IBAction func showDishLists(sender: AnyObject) {
-        self.performSegueWithIdentifier("showSelectedCollections", sender: self)
+        //self.performSegueWithIdentifier("showSelectedCollections", sender: self)
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("selectedCollection") as! SelectedCollectionsTableViewController
+        presentViewController(controller, animated: true, completion: nil)
     }
     
     @IBOutlet weak var bannerView: UIView!

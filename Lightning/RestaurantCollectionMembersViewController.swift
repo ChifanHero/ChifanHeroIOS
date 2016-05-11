@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class RestaurantCollectionMembersViewController: UITableViewController{
+class RestaurantCollectionMembersViewController: UITableViewController, ExpandingTransitionPresentedViewController{
     
     var selectedCollection: SelectedCollection?
     
@@ -17,6 +17,8 @@ class RestaurantCollectionMembersViewController: UITableViewController{
     
     var headerView: UIView!
     let kTableHeaderHeight: CGFloat = 300.0
+    
+    let transition = ExpandingCellTransition()
     
     @IBOutlet weak var navBarTitle: UILabel!
     @IBOutlet weak var headerImage: UIImageView!
@@ -30,6 +32,7 @@ class RestaurantCollectionMembersViewController: UITableViewController{
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.setUpHeaderView()
         self.configureHeaderView()
+        transitioningDelegate = transition
         // Do any additional setup after loading the view.
     }
     
@@ -47,6 +50,10 @@ class RestaurantCollectionMembersViewController: UITableViewController{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func handleCloseButton(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     private func setUpHeaderView(){
@@ -160,16 +167,11 @@ class RestaurantCollectionMembersViewController: UITableViewController{
         return 0.01
     }
     
-    func addCandidate(){
-        self.performSegueWithIdentifier("addCandidate", sender: self)
-    }
+    // MARK: ExpandingTransitionPresentedViewController
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
-        if segue.identifier == "addCandidate" {
-            
-        }
+    func expandingTransition(transition: ExpandingCellTransition, navigationBarSnapshot: UIView) {
+        //self.navigationBarSnapshot = navigationBarSnapshot
+        //self.navigationBarHeight = navigationBarSnapshot.frame.height
     }
 
 }

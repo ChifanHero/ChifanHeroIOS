@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -163,7 +163,6 @@
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="SnI-Ci-tXQ"/>
                         <segue destination="cBe-Iu-15d" kind="show" identifier="showRestaurants" id="Vt6-Zb-4Nz"/>
                         <segue destination="kbm-Tg-Rz2" kind="presentation" identifier="editLocation" id="EaB-6N-Nfd"/>
-                        <segue destination="95b-bo-wIe" kind="show" identifier="showSelectedCollections" id="eBe-9x-Ytd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -232,14 +231,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E7N-mt-8S8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1661.5" y="-1214.5"/>
+            <point key="canvasLocation" x="2473.5" y="-1214.5"/>
         </scene>
         <!--Selected Collections Table View Controller-->
         <scene sceneID="xje-ul-W9J">
             <objects>
-                <tableViewController id="95b-bo-wIe" customClass="SelectedCollectionsTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="selectedCollection" id="95b-bo-wIe" customClass="SelectedCollectionsTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jgp-XE-aRB">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -252,25 +251,25 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="95b-bo-wIe" id="s59-5f-MIc"/>
                             <outlet property="delegate" destination="95b-bo-wIe" id="pCP-GF-0iE"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <segue destination="Bol-Ce-s2z" kind="show" identifier="showRestaurantCollectionMembers" id="jp7-mA-8Yr"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="tD0-Or-smL"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDA-ug-fIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-22.5" y="-1613.5"/>
+            <point key="canvasLocation" x="789" y="-1614"/>
         </scene>
         <!--Restaurant Collection Members View Controller-->
         <scene sceneID="hcI-5y-Im8">
             <objects>
-                <tableViewController id="Bol-Ce-s2z" customClass="RestaurantCollectionMembersViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="restaurantCollectionMembers" id="Bol-Ce-s2z" customClass="RestaurantCollectionMembersViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8E9-uT-aZE">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="UYa-gB-E10" userLabel="Header View">
@@ -290,12 +289,25 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iav-UX-nTT" userLabel="Dissmis Button">
+                                    <rect key="frame" x="10" y="10" width="20" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="W1S-0u-cEF"/>
+                                        <constraint firstAttribute="height" constant="20" id="vza-EX-FYY"/>
+                                    </constraints>
+                                    <state key="normal" title="X"/>
+                                    <connections>
+                                        <action selector="handleCloseButton:" destination="Bol-Ce-s2z" eventType="touchUpInside" id="vMi-ch-Ebj"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="wLe-cz-yEh" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" id="9BQ-XY-4WX"/>
+                                <constraint firstItem="Iav-UX-nTT" firstAttribute="top" secondItem="UYa-gB-E10" secondAttribute="top" constant="10" id="Vej-xb-fyJ"/>
                                 <constraint firstAttribute="trailing" secondItem="wLe-cz-yEh" secondAttribute="trailing" id="Vgc-zJ-Qsy"/>
                                 <constraint firstItem="jlt-gg-apc" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" constant="20" id="gyY-VE-Xc6"/>
+                                <constraint firstItem="Iav-UX-nTT" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" constant="10" id="lSi-hO-12H"/>
                                 <constraint firstItem="wLe-cz-yEh" firstAttribute="top" secondItem="UYa-gB-E10" secondAttribute="top" id="oAf-gY-LXm"/>
                                 <constraint firstAttribute="bottom" secondItem="jlt-gg-apc" secondAttribute="bottom" constant="10" id="tFa-5Y-WeV"/>
                                 <constraint firstAttribute="bottom" secondItem="wLe-cz-yEh" secondAttribute="bottom" id="tGo-Vb-9G1"/>
@@ -338,6 +350,7 @@
                             </constraints>
                         </view>
                     </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="collectionTitle" destination="jlt-gg-apc" id="h4E-R1-xDj"/>
                         <outlet property="headerImage" destination="wLe-cz-yEh" id="nhr-3p-fNT"/>
@@ -346,7 +359,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OaO-zc-x5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="815.5" y="-1612.5"/>
+            <point key="canvasLocation" x="1358.5" y="-1614.5"/>
         </scene>
         <!--Restaurant View Controller-->
         <scene sceneID="hbI-cD-Qbc">
