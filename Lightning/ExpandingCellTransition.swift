@@ -1,205 +1,165 @@
-//
-//  ExpandingCellTransition.swift
-//  Lightning
-//
-//  Created by Zhang, Alex on 5/10/16.
-//  Copyright © 2016 Lightning. All rights reserved.
-//
-
+import Foundation
 import UIKit
 
-private let kExpandingCellTransitionDuration: NSTimeInterval = 0.6
-
-class ExpandingCellTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
-    enum TransitionType {
-        case None
-        case Presenting
-        case Dismissing
-    }
+class ExpandingCellTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate{
     
-    enum TransitionState {
-        case Initial
-        case Final
-    }
+    var operation: UINavigationControllerOperation?
     
-    var type: TransitionType = .None
-    var presentingController: UIViewController!
-    var presentedController: UIViewController!
-    
-    var targetSnapshot: UIView!
-    var targetContainer: UIView!
-    
-    var topRegionSnapshot: UIView!
-    var bottomRegionSnapshot: UIView!
-    var navigationBarSnapshot: UIView!
-    
-    func sliceSnapshotsInBackgroundViewController(backgroundViewController: UIViewController, targetFrame: CGRect, targetView: UIView) {
-        let view = backgroundViewController.view
-        let width = view.bounds.width
-        let height = view.bounds.height
-        
-        // create top region snapshot
-        topRegionSnapshot = view.resizableSnapshotViewFromRect(CGRect(x: 0, y: 0, width: width, height: targetFrame.minY), afterScreenUpdates: false, withCapInsets: UIEdgeInsetsZero)
-        
-        // create bottom region snapshot
-        bottomRegionSnapshot = view.resizableSnapshotViewFromRect(CGRect(x: 0, y: targetFrame.maxY, width: width, height: height-targetFrame.maxY), afterScreenUpdates: false, withCapInsets: UIEdgeInsetsZero)
-        
-        // create target view snapshot
-        targetSnapshot = targetView.snapshotViewAfterScreenUpdates(false)
-        targetContainer = UIView(frame: targetFrame)
-        targetContainer.backgroundColor = UIColor.whiteColor()
-        targetContainer.clipsToBounds = true
-        targetContainer.addSubview(targetSnapshot)
-        
-        // create navigation bar snapshot
-        if let navController = backgroundViewController as? UINavigationController {
-            let barHeight = navController.navigationBar.frame.maxY
-            
-            UIGraphicsBeginImageContext(CGSize(width: width, height: barHeight))
-            view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: false)
-            let navigationBarImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            
-            navigationBarSnapshot = UIImageView(image: navigationBarImage)
-            navigationBarSnapshot.backgroundColor = navController.navigationBar.barTintColor
-            navigationBarSnapshot.contentMode = .Bottom
-        }
-    }
-    
-    func configureViewsToState(state: TransitionState, width: CGFloat, height: CGFloat, targetFrame: CGRect, fullFrame: CGRect, foregroundView: UIView) {
-        switch state {
-        case .Initial:
-            topRegionSnapshot.frame = CGRect(x: 0, y: 0, width: width, height: targetFrame.minY)
-            bottomRegionSnapshot.frame = CGRect(x: 0, y: targetFrame.maxY, width: width, height: height-targetFrame.maxY)
-            targetContainer.frame = targetFrame
-            targetSnapshot.alpha = 1
-            foregroundView.alpha = 0
-            //navigationBarSnapshot.sizeToFit()
-            
-        case .Final:
-            topRegionSnapshot.frame = CGRect(x: 0, y: -targetFrame.minY, width: width, height: targetFrame.minY)
-            bottomRegionSnapshot.frame = CGRect(x: 0, y: height, width: width, height: height-targetFrame.maxY)
-            targetContainer.frame = fullFrame
-            targetSnapshot.alpha = 0
-            foregroundView.alpha = 1
-        }
-    }
+    var imageViewTop: UIImageView?
+    var imageViewBottom: UIImageView?
+    var duration: NSTimeInterval = 0
+    var selectedCellFrame = CGRectZero
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return kExpandingCellTransitionDuration
+        return self.duration
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let duration = transitionDuration(transitionContext)
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        let containerView = transitionContext.containerView()
+        let sourceVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let sourceView = sourceVC.view
         
-        var foregroundViewController = toViewController
-        var backgroundViewController = fromViewController
+        let destinationVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let destinationView = destinationVC.view
         
-        if type == .Dismissing {
-            foregroundViewController = fromViewController
-            backgroundViewController = toViewController
+        // MARK:
+        if let navController = destinationVC.navigationController {
+            for constraint in destinationVC.view.constraints as [NSLayoutConstraint] {
+                if constraint.firstItem === destinationVC.topLayoutGuide
+                    && constraint.firstAttribute == .Height
+                    && constraint.secondItem == nil
+                    && constraint.constant == 0 {
+                    constraint.constant = navController.navigationBar.frame.height
+                }
+            }
         }
         
-        containerView!.addSubview(backgroundViewController.view)
-        containerView!.addSubview(foregroundViewController.view)
+        let container = transitionContext.containerView()!
         
-        // get target view
-        var targetViewController = backgroundViewController
-        if let navController = targetViewController as? UINavigationController {
-            targetViewController = navController.topViewController!
-        }
-        let targetViewMaybe = (targetViewController as? ExpandingTransitionPresentingViewController)?.expandingTransitionTargetViewForTransition(self)
+        self.selectedCellFrame = CGRectMake(self.selectedCellFrame.origin.x, self.selectedCellFrame.origin.y + self.selectedCellFrame.height, self.selectedCellFrame.width, self.selectedCellFrame.height)
         
-        assert(targetViewMaybe != nil, "Cannot find target view in background view controller")
+        var snapShot = UIImage()
+        let bounds = CGRectMake(0, 0, sourceView.bounds.size.width, sourceView.bounds.size.height)
         
-        let targetView = targetViewMaybe!
-        
-        // setup animation
-        let targetFrame = backgroundViewController.view.convertRect(targetView.frame, fromView: targetView.superview)
-        if type == .Presenting {
-            sliceSnapshotsInBackgroundViewController(backgroundViewController, targetFrame: targetFrame, targetView: targetView)
-            //(foregroundViewController as? ExpandingTransitionPresentedViewController)?.expandingTransition(self, navigationBarSnapshot: navigationBarSnapshot)
-        }
-        else {
-            //navigationBarSnapshot.frame = containerView!.convertRect(navigationBarSnapshot.frame, fromView: navigationBarSnapshot.superview)
-        }
-        
-        targetContainer.addSubview(foregroundViewController.view)
-        containerView!.addSubview(targetContainer)
-        containerView!.addSubview(topRegionSnapshot)
-        containerView!.addSubview(bottomRegionSnapshot)
-        //containerView!.addSubview(navigationBarSnapshot)
-        
-        let width = backgroundViewController.view.bounds.width
-        let height = backgroundViewController.view.bounds.height
-        
-        let preTransition: TransitionState = (type == .Presenting ? .Initial : .Final)
-        let postTransition: TransitionState = (type == .Presenting ? .Final : .Initial)
-        
-        configureViewsToState(preTransition, width: width, height: height, targetFrame: targetFrame, fullFrame: foregroundViewController.view.frame, foregroundView: foregroundViewController.view)
-        
-        // perform animation
-        backgroundViewController.view.hidden = true
-        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-            [self]
-            self.configureViewsToState(postTransition, width: width, height: height, targetFrame: targetFrame, fullFrame: foregroundViewController.view.frame, foregroundView: foregroundViewController.view)
+        if self.operation == UINavigationControllerOperation.Push {
+            UIGraphicsBeginImageContextWithOptions(sourceView.bounds.size, true, 0)
             
-            if self.type == .Presenting {
-                //self.navigationBarSnapshot.frame.size.height = 0
+            sourceView.drawViewHierarchyInRect(bounds, afterScreenUpdates: false)
+            
+            snapShot = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            let tempImageRef = snapShot.CGImage!
+            let imageSize = snapShot.size
+            let imageScale = snapShot.scale
+            
+            let midPoint = bounds.height / 2
+            let selectedFrame = self.selectedCellFrame.origin.y - (self.selectedCellFrame.height / 2)
+            
+            let padding = self.selectedCellFrame.height * imageScale
+            
+            var topHeight: CGFloat = 0.0
+            var bottomHeight: CGFloat = 0.0
+            
+            if selectedFrame < midPoint {
+                topHeight = self.selectedCellFrame.origin.y * imageScale
+                bottomHeight = (imageSize.height - self.selectedCellFrame.origin.y) * imageScale
+            } else {
+                topHeight = (self.selectedCellFrame.origin.y * imageScale) - padding
+                bottomHeight = ((imageSize.height - self.selectedCellFrame.origin.y) * imageScale) + padding
             }
             
-            }, completion: {
-                (finished) in
-                [self]
-                self.targetContainer.removeFromSuperview()
-                self.topRegionSnapshot.removeFromSuperview()
-                self.bottomRegionSnapshot.removeFromSuperview()
-                //self.navigationBarSnapshot.removeFromSuperview()
+            let topImageRect = CGRectMake(0, 0, imageSize.width * imageScale, topHeight)
+            
+            let bottomImageRect = CGRectMake(0, topHeight, imageSize.width * imageScale, bottomHeight)
+            
+            let topImageRef = CGImageCreateWithImageInRect(tempImageRef, topImageRect)!
+            let bottomImageRef = CGImageCreateWithImageInRect(tempImageRef, bottomImageRect)
+            
+            self.imageViewTop = UIImageView(image: UIImage(CGImage: topImageRef, scale: snapShot.scale, orientation: UIImageOrientation.Up))
+            
+            if (bottomImageRef != nil) {
+                self.imageViewBottom = UIImageView(image: UIImage(CGImage: bottomImageRef!, scale: snapShot.scale, orientation: UIImageOrientation.Up))
+            }
+        }
+        
+        
+        
+        var startFrameTop = self.imageViewTop!.frame
+        var endFrameTop = startFrameTop
+        var startFrameBottom = self.imageViewBottom!.frame
+        var endFrameBottom = startFrameBottom
+        
+        if self.operation == UINavigationControllerOperation.Pop {
+            startFrameTop.origin.y = -startFrameTop.size.height
+            endFrameTop.origin.y = 0
+            startFrameBottom.origin.y = startFrameTop.height + startFrameBottom.height
+            endFrameBottom.origin.y = startFrameTop.height
+        } else {
+            startFrameTop.origin.y = 0
+            endFrameTop.origin.y = -startFrameTop.size.height
+            startFrameBottom.origin.y = startFrameTop.size.height
+            endFrameBottom.origin.y = startFrameTop.height + startFrameBottom.height
+        }
+        
+        self.imageViewTop!.frame = startFrameTop
+        self.imageViewBottom!.frame = startFrameBottom
+        
+        destinationView.alpha = 0
+        sourceView.alpha = 0
+        
+        let backgroundView = UIView(frame: bounds)
+        backgroundView.backgroundColor = UIColor.blackColor()
+        
+        if self.operation == UINavigationControllerOperation.Pop {
+            sourceView.alpha = 1
+            
+            //container.addSubview(backgroundView)
+            container.addSubview(sourceView)
+            container.addSubview(destinationView)
+            container.addSubview(self.imageViewTop!)
+            container.addSubview(self.imageViewBottom!)
+            
+            UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
+                self.imageViewTop!.frame = endFrameTop
+                self.imageViewBottom!.frame = endFrameBottom
                 
-                containerView!.addSubview(foregroundViewController.view)
-                backgroundViewController.view.hidden = false
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-        })
+                sourceView.alpha = 0
+                
+                }, completion: { (finish) -> Void in
+                    self.imageViewTop!.removeFromSuperview()
+                    self.imageViewBottom!.removeFromSuperview()
+                    
+                    destinationView.alpha = 1
+                    transitionContext.completeTransition(true)
+            })
+            
+        } else {
+            container.addSubview(backgroundView)
+            container.addSubview(destinationView)
+            container.addSubview(self.imageViewTop!)
+            container.addSubview(self.imageViewBottom!)
+            
+            UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
+                self.imageViewTop!.frame = endFrameTop
+                self.imageViewBottom!.frame = endFrameBottom
+                
+                destinationView.alpha = 1
+                
+                }, completion: { (finish) -> Void in
+                    self.imageViewTop!.removeFromSuperview()
+                    self.imageViewBottom!.removeFromSuperview()
+                    
+                    transitionContext.completeTransition(true)
+            })
+        }
     }
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        presentingController = presenting
-        //        if let navController = presentingController as? UINavigationController {
-        //            presentingController = navController.topViewController
-        //        }
-        
-        if presentingController is ExpandingTransitionPresentingViewController {
-            type = .Presenting
-            return self
-        }
-        else {
-            type = .None
-            return nil
-        }
+       return self
     }
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if presentingController is ExpandingTransitionPresentingViewController {
-            type = .Dismissing
-            return self
-        }
-        else {
-            type = .None
-            return nil
-        }
+        return self
     }
-    
-}
-
-@objc
-protocol ExpandingTransitionPresentingViewController {
-    func expandingTransitionTargetViewForTransition(transition: ExpandingCellTransition) -> UIView!
-}
-
-@objc
-protocol ExpandingTransitionPresentedViewController {
-    func expandingTransition(transition: ExpandingCellTransition, navigationBarSnapshot: UIView)
 }

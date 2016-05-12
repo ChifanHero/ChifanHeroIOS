@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectedCollectionsTableViewController: UITableViewController, RefreshableViewDelegate, ExpandingTransitionPresentingViewController{
+class SelectedCollectionsTableViewController: UITableViewController, RefreshableViewDelegate {
     
     var selectedCollections: [SelectedCollection] = []
     
@@ -21,6 +21,8 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
     //let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
     
     var isLoadingMore = false
+    
+    var selectedCellFrame = CGRectZero
     
     var selectedIndexPath: NSIndexPath?
     
@@ -139,9 +141,10 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
         // Dispose of any resources that can be recreated.
     }
     
-//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return SelectedCollectionTableViewCell.height
-//    }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        //return SelectedCollectionTableViewCell.height
+        return 120
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return selectedCollections.count
@@ -166,11 +169,17 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
 
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedIndexPath = indexPath
+        
         //self.performSegueWithIdentifier("showRestaurantCollectionMembers", sender: selectedCollections[indexPath.row])
+        self.selectedCellFrame = tableView.convertRect(tableView.cellForRowAtIndexPath(indexPath)!.frame, toView: tableView.superview)
         
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("restaurantCollectionMembers") as! RestaurantCollectionMembersViewController
         controller.selectedCollection = selectedCollections[indexPath.row]
+        controller.transition = ExpandingCellTransition()
+        controller.transition!.operation = UINavigationControllerOperation.Push
+        controller.transition!.duration = 0.80
+        controller.transition!.selectedCellFrame = self.selectedCellFrame
+        
         presentViewController(controller, animated: true, completion: nil)
     }
     
@@ -196,17 +205,6 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
                 }
                 
             }
-        }
-    }
-    
-    // MARK: ExpandingTransitionPresentingViewController
-    
-    func expandingTransitionTargetViewForTransition(transition: ExpandingCellTransition) -> UIView! {
-        if let indexPath = selectedIndexPath {
-            return tableView.cellForRowAtIndexPath(indexPath)
-        }
-        else {
-            return nil
         }
     }
 

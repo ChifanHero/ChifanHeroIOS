@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class RestaurantCollectionMembersViewController: UITableViewController, ExpandingTransitionPresentedViewController{
+class RestaurantCollectionMembersViewController: UITableViewController {
     
     var selectedCollection: SelectedCollection?
     
@@ -18,9 +18,8 @@ class RestaurantCollectionMembersViewController: UITableViewController, Expandin
     var headerView: UIView!
     let kTableHeaderHeight: CGFloat = 300.0
     
-    let transition = ExpandingCellTransition()
+    var transition: ExpandingCellTransition?
     
-    @IBOutlet weak var navBarTitle: UILabel!
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var collectionTitle: UILabel!
     
@@ -43,8 +42,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, Expandin
         if selectedCellIndexPath != nil {
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
-        //self.configureHeaderView()
-        self.navigationController?.navigationBar.translucent = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,14 +50,14 @@ class RestaurantCollectionMembersViewController: UITableViewController, Expandin
     }
     
     @IBAction func handleCloseButton(sender: AnyObject) {
+        transition!.operation = UINavigationControllerOperation.Pop
+        transition!.duration = 0.8
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     private func setUpHeaderView(){
         headerImage.kf_setImageWithURL(NSURL(string: (selectedCollection?.cellImage?.original)!)!, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
         self.collectionTitle.text = selectedCollection?.title
-        self.navBarTitle.text = selectedCollection?.title
-        self.navBarTitle.hidden = true
     }
     
     private func configureHeaderView(){
@@ -79,13 +76,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, Expandin
             headerRect.size.height = -self.tableView.contentOffset.y
         }
         headerView.frame = headerRect
-        if self.tableView.contentOffset.y > 0 {
-            self.navBarTitle.hidden = false
-            self.navigationController?.navigationBar.translucent = false
-        } else{
-            self.navBarTitle.hidden = true
-            self.navigationController?.navigationBar.translucent = true
-        }
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -153,25 +143,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, Expandin
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return RestaurantCollectionMemberTableViewCell.height
-    }
-    
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    // MARK: ExpandingTransitionPresentedViewController
-    
-    func expandingTransition(transition: ExpandingCellTransition, navigationBarSnapshot: UIView) {
-        //self.navigationBarSnapshot = navigationBarSnapshot
-        //self.navigationBarHeight = navigationBarSnapshot.frame.height
     }
 
 }
