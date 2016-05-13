@@ -231,7 +231,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E7N-mt-8S8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2473.5" y="-1214.5"/>
+            <point key="canvasLocation" x="4097.5" y="-1214.5"/>
         </scene>
         <!--Selected Collections Table View Controller-->
         <scene sceneID="xje-ul-W9J">
@@ -257,12 +257,13 @@
                             <outlet property="delegate" destination="95b-bo-wIe" id="pCP-GF-0iE"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" systemItem="more" id="717-Sx-yKc"/>
                     <navigationItem key="navigationItem" id="tD0-Or-smL"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDA-ug-fIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="789" y="-1614"/>
+            <point key="canvasLocation" x="2412.5" y="-1614.5"/>
         </scene>
         <!--Restaurant Collection Members View Controller-->
         <scene sceneID="hcI-5y-Im8">
@@ -337,7 +338,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OaO-zc-x5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1358.5" y="-1614.5"/>
+            <point key="canvasLocation" x="2982.5" y="-1614.5"/>
         </scene>
         <!--Restaurant View Controller-->
         <scene sceneID="hbI-cD-Qbc">
@@ -982,6 +983,7 @@
                         <segue destination="E9N-Mz-AKM" kind="relationship" relationship="viewControllers" id="mvH-BS-Hvc"/>
                         <segue destination="uD7-Qe-tHo" kind="relationship" relationship="viewControllers" id="cxw-Nc-pHz"/>
                         <segue destination="USD-Zz-VZI" kind="relationship" relationship="viewControllers" id="KsT-cu-QJo"/>
+                        <segue destination="95b-bo-wIe" kind="relationship" relationship="viewControllers" id="BLD-WC-04H"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>

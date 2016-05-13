@@ -114,7 +114,7 @@ class ExpandingCellTransition: NSObject, UIViewControllerAnimatedTransitioning, 
         if self.operation == UINavigationControllerOperation.Pop {
             sourceView.alpha = 1
             
-            //container.addSubview(backgroundView)
+            container.addSubview(backgroundView)
             container.addSubview(sourceView)
             container.addSubview(destinationView)
             container.addSubview(self.imageViewTop!)

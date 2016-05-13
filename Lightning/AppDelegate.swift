@@ -79,12 +79,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     private func setBadgeValue() {
         let badgeValue = countUnreadNotifications()
         let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
-        let splitViewController : UISplitViewController = tabBarController.viewControllers![3] as! UISplitViewController
+        //let splitViewController : UISplitViewController = tabBarController.viewControllers![3] as! UISplitViewController
         if badgeValue > 0 {
-            splitViewController.tabBarItem.badgeValue = "\(badgeValue)"
+            //splitViewController.tabBarItem.badgeValue = "\(badgeValue)"
             UIApplication.sharedApplication().applicationIconBadgeNumber = badgeValue;
         } else {
-            splitViewController.tabBarItem.badgeValue = nil
+            //splitViewController.tabBarItem.badgeValue = nil
             UIApplication.sharedApplication().applicationIconBadgeNumber = 0;
         }
 
