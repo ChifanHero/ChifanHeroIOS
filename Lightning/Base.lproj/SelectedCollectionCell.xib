@@ -17,6 +17,10 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sO0-cE-wgY" userLabel="SelectedCollection_Image">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="262.5"/>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRF-Qb-ScD" userLabel="Mask">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="262.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLI-E5-n3F" userLabel="Title">
                         <rect key="frame" x="87" y="91.5" width="200" height="80"/>
                         <constraints>
@@ -32,12 +36,17 @@
                     <constraint firstItem="KLI-E5-n3F" firstAttribute="centerY" secondItem="GsA-wD-mwY" secondAttribute="centerY" id="0OE-eG-ZMe"/>
                     <constraint firstAttribute="bottomMargin" secondItem="sO0-cE-wgY" secondAttribute="bottom" constant="-8" id="15E-KD-9tx"/>
                     <constraint firstItem="sO0-cE-wgY" firstAttribute="leading" secondItem="GsA-wD-mwY" secondAttribute="leadingMargin" constant="-8" id="19Z-am-50b"/>
+                    <constraint firstItem="LRF-Qb-ScD" firstAttribute="top" secondItem="GsA-wD-mwY" secondAttribute="topMargin" constant="-8" id="2JE-Xh-imT"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="LRF-Qb-ScD" secondAttribute="bottom" constant="-8" id="Boz-qN-2Mf"/>
                     <constraint firstAttribute="trailingMargin" secondItem="sO0-cE-wgY" secondAttribute="trailing" constant="-8" id="GP7-FK-sbL"/>
                     <constraint firstItem="KLI-E5-n3F" firstAttribute="centerX" secondItem="GsA-wD-mwY" secondAttribute="centerX" id="RQ9-AM-jhW"/>
+                    <constraint firstItem="LRF-Qb-ScD" firstAttribute="leading" secondItem="GsA-wD-mwY" secondAttribute="leadingMargin" constant="-8" id="oV9-u0-AIZ"/>
                     <constraint firstItem="sO0-cE-wgY" firstAttribute="top" secondItem="GsA-wD-mwY" secondAttribute="topMargin" constant="-8" id="rRO-e9-90V"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="LRF-Qb-ScD" secondAttribute="trailing" constant="-8" id="vML-G5-gS9"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="mask" destination="LRF-Qb-ScD" id="dsa-gP-R22"/>
                 <outlet property="selectedCollectionImage" destination="sO0-cE-wgY" id="K1C-KU-BUH"/>
                 <outlet property="title" destination="KLI-E5-n3F" id="kLl-Ze-HUS"/>
             </connections>
