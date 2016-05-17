@@ -37,9 +37,9 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     }
     
     @IBAction func showDishLists(sender: AnyObject) {
-        //self.performSegueWithIdentifier("showSelectedCollections", sender: self)
-        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("selectedCollection") as! SelectedCollectionsTableViewController
-        presentViewController(controller, animated: true, completion: nil)
+        self.performSegueWithIdentifier("showSelectedCollections", sender: self)
+//        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("selectedCollection") as! SelectedCollectionsTableViewController
+//        presentViewController(controller, animated: true, completion: nil)
     }
     
     @IBOutlet weak var bannerView: UIView!
@@ -83,6 +83,15 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         initPromotionsTable()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         generateNavigationItemTitle()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        let selectedCellIndexPath : NSIndexPath? = self.promotionsTable.indexPathForSelectedRow
+        if selectedCellIndexPath != nil {
+            self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+        }
+        self.navigationController?.navigationBar.translucent = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -298,15 +307,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             return cell!
         } else {
             return UITableViewCell()
-        }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-//        self.animateTransition = false
-        let selectedCellIndexPath : NSIndexPath? = self.promotionsTable.indexPathForSelectedRow
-        if selectedCellIndexPath != nil {
-            self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
     }
     

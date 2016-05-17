@@ -17,17 +17,23 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sO0-cE-wgY" userLabel="SelectedCollection_Image">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="262.5"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLI-E5-n3F" userLabel="Title">
-                        <rect key="frame" x="60" y="91" width="250" height="67"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLI-E5-n3F" userLabel="Title">
+                        <rect key="frame" x="87" y="91.5" width="200" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="Ffx-Ca-F70"/>
+                            <constraint firstAttribute="width" constant="200" id="hJn-rA-0D5"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="KLI-E5-n3F" firstAttribute="centerY" secondItem="GsA-wD-mwY" secondAttribute="centerY" id="0OE-eG-ZMe"/>
                     <constraint firstAttribute="bottomMargin" secondItem="sO0-cE-wgY" secondAttribute="bottom" constant="-8" id="15E-KD-9tx"/>
                     <constraint firstItem="sO0-cE-wgY" firstAttribute="leading" secondItem="GsA-wD-mwY" secondAttribute="leadingMargin" constant="-8" id="19Z-am-50b"/>
                     <constraint firstAttribute="trailingMargin" secondItem="sO0-cE-wgY" secondAttribute="trailing" constant="-8" id="GP7-FK-sbL"/>
+                    <constraint firstItem="KLI-E5-n3F" firstAttribute="centerX" secondItem="GsA-wD-mwY" secondAttribute="centerX" id="RQ9-AM-jhW"/>
                     <constraint firstItem="sO0-cE-wgY" firstAttribute="top" secondItem="GsA-wD-mwY" secondAttribute="topMargin" constant="-8" id="rRO-e9-90V"/>
                 </constraints>
             </tableViewCellContentView>

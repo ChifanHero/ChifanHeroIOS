@@ -35,6 +35,7 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         //waitingIndicator.hidden = true
         initialLoadData()
+        self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -43,7 +44,7 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
         if selectedCellIndexPath != nil {
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.translucent = true
     }
     
     private func setTableViewFooterView() {
@@ -142,8 +143,8 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        //return SelectedCollectionTableViewCell.height
-        return 120
+        return SelectedCollectionTableViewCell.height
+        //return 120
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
