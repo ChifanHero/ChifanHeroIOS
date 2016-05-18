@@ -8,23 +8,25 @@
 
 import UIKit
 
-class SelectLocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SelectLocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var locationTable: UITableView!
     
-    var cities : [City] = [City]()
+    var searchResults : [City] = [City]()
     
     var searching = false
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         cancelButton.tintColor = UIColor.whiteColor()
         doneButton.tintColor = UIColor.whiteColor()
     }
@@ -56,8 +58,18 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: - UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return cities.count + 1
-        return 10
+        if searching {
+            return searchResults.count
+        } else {
+            if section == 0 {
+                return 2
+            } else if section == 1 {
+                return 10
+            } else {
+                return 10
+            }
+        }
+        
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -75,7 +87,25 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
             tableView.registerNib(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "cityCell")
             cell = tableView.dequeueReusableCellWithIdentifier("cityCell") as? CityTableViewCell
         }
-        cell?.cityName = "San Jose, CA, USA"
+        if searching {
+            let city = searchResults[indexPath.row]
+            var cityName = ""
+            if city.name != nil {
+                cityName += city.name!
+                cityName += ", "
+            }
+            if city.state != nil {
+                cityName += city.state!
+                cityName += ", "
+            }
+            if city.localizedCountryName != nil {
+                cityName += city.localizedCountryName!
+            }
+            cell?.cityName = cityName
+        } else {
+            cell?.cityName = "San Jose, CA, USA"
+        }
+        
         return cell!
     }
     
@@ -95,7 +125,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
             headerView.title = "请选择城市"
         } else {
             if section == 0 {
-                headerView.title = "热门城市"
+                headerView.title = "当前城市"
             } else if section == 1 {
                 headerView.title = "最近选择城市"
             }
@@ -107,6 +137,56 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         let footerView = UIView()
         footerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
         return footerView
+    }
+    
+    // MARK: - UISearchBarDelegate
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        clearStates()
+        self.searchBar?.text = nil
+        self.searchBar?.resignFirstResponder()
+        self.searchBar?.setShowsCancelButton(false, animated: true)
+        searching = false
+        locationTable.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        self.searchBar?.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.characters.count < 3 {
+            if searching == true {
+                searching = false
+                locationTable.reloadData()
+            }
+        } else {
+            searching = true
+            search(searchText)
+        }
+    }
+    
+    
+    // MARK: - Search
+    func search(prefix : String) {
+        
+        let request : GetCitiesRequest = GetCitiesRequest()
+        request.prefix = StringUtil.capitalizeString(prefix)
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getCities(request) { (searchResponse) in
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                if let results = searchResponse?.results {
+                    self.searchResults.removeAll()
+                    self.searchResults += results
+                    self.locationTable.reloadData()
+                }
+            })
+        }
+        
+    }
+    
+    
+    func clearStates() {
+        searching = false
+        searchResults.removeAll()
     }
     
 }

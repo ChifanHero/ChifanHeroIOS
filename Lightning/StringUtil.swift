@@ -63,4 +63,18 @@ class StringUtil {
             return str!.componentsSeparatedByString(" ")
         }
     }
+    
+    class func capitalizeString(original : String) -> String {
+        let tokens : [String] = StringUtil.tokenize(original)!
+        var result = ""
+        for token in tokens {
+            if token == "" {
+                continue
+            }
+            let lowercaseToken = token.lowercaseString
+            result += lowercaseToken.stringByReplacingCharactersInRange(lowercaseToken.startIndex...lowercaseToken.startIndex, withString: String(lowercaseToken[lowercaseToken.startIndex]).uppercaseString)
+            result += " "
+        }
+        return String(result.characters.dropLast())
+    }
 }
