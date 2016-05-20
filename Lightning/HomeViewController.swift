@@ -113,7 +113,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         let appearance = SCLAlertView.SCLAppearance(kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
         askLocationAlertView = SCLAlertView(appearance: appearance)
         askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(HomeViewController.startGettingLocation))
-//        askLocationAlertView!.addButton("拒绝", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(HomeViewController.informUserLocationSettings))
         askLocationAlertView!.showInfo("", subTitle: "\n\n您的地理位置信息可以帮助吃饭英雄更精确地搜索附近的餐厅信息\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
     }
     

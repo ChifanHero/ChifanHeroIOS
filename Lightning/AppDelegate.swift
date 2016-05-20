@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import CoreData
+import SCLAlertView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
@@ -233,6 +234,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        informUserLocationSettingsIfNecessary()
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -275,6 +277,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if error.code == CLError.Denied.rawValue {
             manager.stopUpdatingLocation()
             handleLocationPermissionDenied()
+            informUserLocationSettingsIfNecessary()
         }
     }
     
@@ -291,6 +294,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         case (CLAuthorizationStatus.Authorized):
             // user granted location permission
             manager.startUpdatingLocation()
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
+            defaults.synchronize()
             break
         default:
             break
@@ -298,20 +304,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     private func handleLocationPermissionDenied() {
-//        UIViewController *vc = self.window.rootViewController;
-        let rootVC : UIViewController? = self.window?.rootViewController
-        if rootVC != nil {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setBool(true, forKey: "needsToInformedUserLocationChange")
+        defaults.synchronize()
+        
+    }
+    
+    private func informUserLocationSettingsIfNecessary() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey("needsToInformedUserLocationChange") {
+            let rootVC : UIViewController? = self.window?.rootViewController
+            if rootVC != nil {
+                let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
+                let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
+                askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.doNothing))
+                askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：XXX\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+            }
             
+            defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
+            defaults.synchronize()
         }
     }
     
-    private func informUserLocationSettings() {
-//        let appearance = SCLAlertView.SCLAppearance(kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
-//        askLocationAlertView = SCLAlertView(appearance: appearance)
-//        askLocationAlertView?.addButton("我知道了", backgroundColor: LightningColor.themeRed(), textColor: nil, showDurationStatus: false, action: {
-//            self.allowSystemAlerts()
-//        })
-//        askLocationAlertView!.showInfo("", subTitle: "\n\n您的默认城市已被设置为 San Jose, CA。您可以随时在主页左上角更改位置设置，或者去系统\"设置\"里打开位置共享。\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+    @objc private func doNothing() {
+        
     }
     
     // MARK: - Core Data stack
