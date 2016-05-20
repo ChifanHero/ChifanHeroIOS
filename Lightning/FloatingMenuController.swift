@@ -38,7 +38,7 @@ class FloatingMenuController: UIViewController {
     
     let fromView: UIView
     
-    let blurredView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+    let blurredView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
     let closeButton = FloatingButton(image: UIImage(named: "Cancel_Button"), backgroundColor: UIColor.flatRedColor)
     
     weak var delegate: FloatingMenuControllerDelegate?
