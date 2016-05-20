@@ -78,7 +78,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         addLocationSelectionToLeftCorner()
         handleFirstLaunch()
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        appDelegate!.startGettingLocation()
         configurePullRefresh()
         initPromotionsTable()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -113,25 +112,17 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     func askForLocationPermit() {
         let appearance = SCLAlertView.SCLAppearance(kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
         askLocationAlertView = SCLAlertView(appearance: appearance)
-        askLocationAlertView!.addButton("同意", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(HomeViewController.startGettingLocation))
-        askLocationAlertView!.addButton("拒绝", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(HomeViewController.informUserLocationSettings))
+        askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(HomeViewController.startGettingLocation))
+//        askLocationAlertView!.addButton("拒绝", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(HomeViewController.informUserLocationSettings))
         askLocationAlertView!.showInfo("", subTitle: "\n\n您的地理位置信息可以帮助吃饭英雄更精确地搜索附近的餐厅信息\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
     }
     
     func startGettingLocation() {
         appDelegate!.requestLocationAuthorization()
+        appDelegate!.startGettingLocation()
         self.allowSystemAlerts()
     }
     
-    func informUserLocationSettings() {
-        let appearance = SCLAlertView.SCLAppearance(kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
-        askLocationAlertView = SCLAlertView(appearance: appearance)
-        askLocationAlertView?.addButton("我知道了", backgroundColor: LightningColor.themeRed(), textColor: nil, showDurationStatus: false, action: {
-            self.allowSystemAlerts()
-        })
-        askLocationAlertView!.showInfo("", subTitle: "\n\n您的默认城市已被设置为 San Jose, CA。您可以随时在主页左上角更改位置设置，或者去系统\"设置\"里打开位置共享。\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
-        
-    }
     
     func allowSystemAlerts() {
         registerPushNotifications()

@@ -270,6 +270,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: currentLocation)
     }
     
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        // user denied to share location. Set default location to user last used city and show alert
+        if error.code == CLError.Denied.rawValue {
+            manager.stopUpdatingLocation()
+            handleLocationPermissionDenied()
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch (status) {
+        case (CLAuthorizationStatus.NotDetermined):
+            // not determined
+            break
+        case (CLAuthorizationStatus.Denied):
+            // user denied location permission
+            manager.stopUpdatingLocation()
+            handleLocationPermissionDenied()
+            break
+        case (CLAuthorizationStatus.Authorized):
+            // user granted location permission
+            manager.startUpdatingLocation()
+            break
+        default:
+            break
+        }
+    }
+    
+    private func handleLocationPermissionDenied() {
+//        UIViewController *vc = self.window.rootViewController;
+        let rootVC : UIViewController? = self.window?.rootViewController
+        if rootVC != nil {
+            
+        }
+    }
+    
+    private func informUserLocationSettings() {
+//        let appearance = SCLAlertView.SCLAppearance(kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
+//        askLocationAlertView = SCLAlertView(appearance: appearance)
+//        askLocationAlertView?.addButton("我知道了", backgroundColor: LightningColor.themeRed(), textColor: nil, showDurationStatus: false, action: {
+//            self.allowSystemAlerts()
+//        })
+//        askLocationAlertView!.showInfo("", subTitle: "\n\n您的默认城市已被设置为 San Jose, CA。您可以随时在主页左上角更改位置设置，或者去系统\"设置\"里打开位置共享。\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+    }
+    
     // MARK: - Core Data stack
     
     lazy var applicationDocumentsDirectory: NSURL = {
