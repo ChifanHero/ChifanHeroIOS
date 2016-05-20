@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -23,18 +23,18 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4OT-lP-E0r">
                                         <rect key="frame" x="31" y="17" width="320" height="56"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aqd-qO-PjW">
-                                                <rect key="frame" x="0.0" y="0.0" width="64" height="56"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aqd-qO-PjW">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="56"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
-                                                        <rect key="frame" x="18" y="0.0" width="28" height="28"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="29"/>
                                                         <state key="normal" image="hot"/>
                                                         <connections>
                                                             <action selector="showHottestRestaurants:" destination="9pv-A4-QxB" eventType="touchUpInside" id="iLq-aw-gd0"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="热门餐厅" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="re1-JV-HBL">
-                                                        <rect key="frame" x="0.0" y="37" width="64" height="20"/>
+                                                        <rect key="frame" x="13" y="37" width="64" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -45,8 +45,8 @@
                                                     <outletCollection property="gestureRecognizers" destination="k85-gS-coT" appends="YES" id="u3o-3P-HQY"/>
                                                 </connections>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-Dd-Yxb">
-                                                <rect key="frame" x="128" y="0.0" width="64" height="56"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-Dd-Yxb">
+                                                <rect key="frame" x="135" y="0.0" width="64" height="56"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7a-2D-gQH">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
@@ -301,18 +301,43 @@
                                         <action selector="handleCloseButton:" destination="Bol-Ce-s2z" eventType="touchUpInside" id="vMi-ch-Ebj"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LLj-p8-Oam" userLabel="More Option Button" customClass="FloatingButton" customModule="Lightning" customModuleProvider="target">
+                                    <rect key="frame" x="305" y="230" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="34e-EC-w4W"/>
+                                        <constraint firstAttribute="width" constant="40" id="zuR-Z2-hCH"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="handleMenuButton:" destination="Bol-Ce-s2z" eventType="touchUpInside" id="rA9-RP-ZtS"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="LLj-p8-Oam" firstAttribute="top" secondItem="UYa-gB-E10" secondAttribute="top" constant="230" id="275-vT-ws5"/>
+                                <constraint firstItem="LLj-p8-Oam" firstAttribute="leading" secondItem="jlt-gg-apc" secondAttribute="trailing" constant="85" id="49i-P1-QFr"/>
                                 <constraint firstItem="wLe-cz-yEh" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" id="9BQ-XY-4WX"/>
+                                <constraint firstAttribute="bottom" secondItem="LLj-p8-Oam" secondAttribute="bottom" constant="30" id="Bey-AH-eZP"/>
                                 <constraint firstItem="Iav-UX-nTT" firstAttribute="top" secondItem="UYa-gB-E10" secondAttribute="top" constant="20" id="Vej-xb-fyJ"/>
                                 <constraint firstAttribute="trailing" secondItem="wLe-cz-yEh" secondAttribute="trailing" id="Vgc-zJ-Qsy"/>
+                                <constraint firstAttribute="trailing" secondItem="LLj-p8-Oam" secondAttribute="trailing" constant="30" id="XBi-XH-59M"/>
+                                <constraint firstAttribute="trailing" secondItem="LLj-p8-Oam" secondAttribute="trailing" constant="30" id="dcm-aB-2QM"/>
                                 <constraint firstItem="jlt-gg-apc" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" constant="20" id="gyY-VE-Xc6"/>
                                 <constraint firstItem="Iav-UX-nTT" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" constant="10" id="lSi-hO-12H"/>
+                                <constraint firstAttribute="bottom" secondItem="LLj-p8-Oam" secondAttribute="bottom" constant="30" id="nan-2b-2wI"/>
                                 <constraint firstItem="wLe-cz-yEh" firstAttribute="top" secondItem="UYa-gB-E10" secondAttribute="top" id="oAf-gY-LXm"/>
                                 <constraint firstAttribute="bottom" secondItem="jlt-gg-apc" secondAttribute="bottom" constant="10" id="tFa-5Y-WeV"/>
                                 <constraint firstAttribute="bottom" secondItem="wLe-cz-yEh" secondAttribute="bottom" id="tGo-Vb-9G1"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="275-vT-ws5"/>
+                                    <exclude reference="49i-P1-QFr"/>
+                                    <exclude reference="Bey-AH-eZP"/>
+                                    <exclude reference="dcm-aB-2QM"/>
+                                </mask>
+                            </variation>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ruu-dM-11o">

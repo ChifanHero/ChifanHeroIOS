@@ -229,6 +229,9 @@
 		CAC5278F1CDD7B570056AAC8 /* RankColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */; };
 		CAC527921CE1997E0056AAC8 /* RefreshableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527911CE1997E0056AAC8 /* RefreshableViewDelegate.swift */; };
 		CAC527951CE1CAA20056AAC8 /* ExpandingCellTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */; };
+		CAC527A71CEEB5F60056AAC8 /* UIColor+FloatingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527A61CEEB5F60056AAC8 /* UIColor+FloatingMenu.swift */; };
+		CAC527A91CEEB62F0056AAC8 /* FloatingMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527A81CEEB62F0056AAC8 /* FloatingMenuController.swift */; };
+		CAC527AB1CEEB6650056AAC8 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527AA1CEEB6650056AAC8 /* FloatingButton.swift */; };
 		CAC81EDE1CD6854600338B59 /* AboutMeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC81EDD1CD6854600338B59 /* AboutMeDetailViewController.swift */; };
 		CAC81EE51CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAC81EE41CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib */; };
 		CAC81EE71CDA7BF900338B59 /* GetRestaurantCollectionMembersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC81EE61CDA7BF900338B59 /* GetRestaurantCollectionMembersRequest.swift */; };
@@ -479,6 +482,9 @@
 		CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankColorPicker.swift; sourceTree = "<group>"; };
 		CAC527911CE1997E0056AAC8 /* RefreshableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableViewDelegate.swift; sourceTree = "<group>"; };
 		CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingCellTransition.swift; sourceTree = "<group>"; };
+		CAC527A61CEEB5F60056AAC8 /* UIColor+FloatingMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+FloatingMenu.swift"; sourceTree = "<group>"; };
+		CAC527A81CEEB62F0056AAC8 /* FloatingMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingMenuController.swift; sourceTree = "<group>"; };
+		CAC527AA1CEEB6650056AAC8 /* FloatingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		CAC81EDD1CD6854600338B59 /* AboutMeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeDetailViewController.swift; sourceTree = "<group>"; };
 		CAC81EE41CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCollectionMemberCell.xib; sourceTree = "<group>"; };
 		CAC81EE61CDA7BF900338B59 /* GetRestaurantCollectionMembersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRestaurantCollectionMembersRequest.swift; sourceTree = "<group>"; };
@@ -1034,6 +1040,9 @@
 			isa = PBXGroup;
 			children = (
 				CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */,
+				CAC527A61CEEB5F60056AAC8 /* UIColor+FloatingMenu.swift */,
+				CAC527A81CEEB62F0056AAC8 /* FloatingMenuController.swift */,
+				CAC527AA1CEEB6650056AAC8 /* FloatingButton.swift */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -1404,6 +1413,7 @@
 				CA882D1F1C82619500D04696 /* RemoveFavoriteRequest.swift in Sources */,
 				CA203DBB1C111EEA00D6F32C /* UpdateInfoRequest.swift in Sources */,
 				CA203DBD1C111EEA00D6F32C /* Dish.swift in Sources */,
+				CAC527A71CEEB5F60056AAC8 /* UIColor+FloatingMenu.swift in Sources */,
 				CA203DBE1C111EEA00D6F32C /* ListCandidateTopView.swift in Sources */,
 				CA203DBF1C111EEA00D6F32C /* ModelProtocol.swift in Sources */,
 				CA203DC01C111EEA00D6F32C /* GetRestaurantByIdRequest.swift in Sources */,
@@ -1442,6 +1452,7 @@
 				C4A0D5611C137DCC00BAE246 /* RestaurantSearchResponse.swift in Sources */,
 				CA203DDC1C111EEA00D6F32C /* RateRequest.swift in Sources */,
 				CA203DDD1C111EEA00D6F32C /* SelectionBar.swift in Sources */,
+				CAC527A91CEEB62F0056AAC8 /* FloatingMenuController.swift in Sources */,
 				CA203DDE1C111EEA00D6F32C /* Picture.swift in Sources */,
 				CA203DDF1C111EEA00D6F32C /* PhotoOperations.swift in Sources */,
 				CA203DE01C111EEA00D6F32C /* DishTableViewCell.swift in Sources */,
@@ -1512,6 +1523,7 @@
 				CA203E011C111EEA00D6F32C /* GetListByIdResponse.swift in Sources */,
 				CA203E021C111EEA00D6F32C /* LoginResponse.swift in Sources */,
 				C44B05E01CE1B48F00337502 /* CityTableViewCell.swift in Sources */,
+				CAC527AB1CEEB6650056AAC8 /* FloatingButton.swift in Sources */,
 				C4A0D55C1C11746100BAE246 /* TuningParams.swift in Sources */,
 				CA203E041C111EEA00D6F32C /* UpdateInfoResponse.swift in Sources */,
 				CA203E051C111EEA00D6F32C /* SimpleDishTableViewCell.swift in Sources */,

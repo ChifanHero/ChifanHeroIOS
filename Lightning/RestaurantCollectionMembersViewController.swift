@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class RestaurantCollectionMembersViewController: UITableViewController {
+class RestaurantCollectionMembersViewController: UITableViewController, FloatingMenuControllerDelegate{
     
     var selectedCollection: SelectedCollection?
     
@@ -143,6 +143,29 @@ class RestaurantCollectionMembersViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return RestaurantCollectionMemberTableViewCell.height
+    }
+    
+    @IBAction func handleMenuButton(sender: AnyObject) {
+        let controller = FloatingMenuController(fromView: sender as! UIButton)
+        controller.delegate = self
+        controller.buttonItems = [
+            FloatingButton(image: UIImage(named: "Cancel_Button")),
+            FloatingButton(image: UIImage(named: "Cancel_Button")),
+            FloatingButton(image: UIImage(named: "Cancel_Button")),
+        ]
+        controller.labelTitles = [
+            "点赞",
+            "收藏",
+            "提名"
+        ]
+        presentViewController(controller, animated: true, completion: nil)
+    }
+    
+    // MARK: FloatingMenuControllerDelegate
+    
+    func floatingMenuController(controller: FloatingMenuController, didTapOnButton button: UIButton, atIndex index: Int) {
+        print("tapped index \(index)")
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }
