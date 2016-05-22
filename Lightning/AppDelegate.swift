@@ -270,6 +270,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         currentLocation.lat = locValue.latitude
         currentLocation.lon = locValue.longitude
         NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: currentLocation)
+        NSNotificationCenter.defaultCenter().postNotificationName("locationAlertDismissed", object: currentLocation)
+        
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -278,6 +280,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             manager.stopUpdatingLocation()
             handleLocationPermissionDenied()
             informUserLocationSettingsIfNecessary()
+            NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: LocationHelper.getDefaultCity().center)
         }
     }
     
@@ -296,6 +299,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             manager.startUpdatingLocation()
             let defaults = NSUserDefaults.standardUserDefaults()
             defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
+            defaults.setBool(false, forKey: "locationPermissionDenied")
             defaults.synchronize()
             break
         default:
@@ -306,28 +310,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     private func handleLocationPermissionDenied() {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setBool(true, forKey: "needsToInformedUserLocationChange")
+        defaults.setBool(true, forKey: "locationPermissionDenied")
         defaults.synchronize()
+        var defaultCity : City = City()
+        if currentLocation.lat != nil && currentLocation.lon != nil {
+            LocationHelper.getCityNameFromLocation(currentLocation.lat!, lon: currentLocation.lon!, completionHandler: { (city) in
+                defaultCity = city
+                let center = Location()
+                center.lat = self.currentLocation.lat
+                center.lon = self.currentLocation.lon
+                defaultCity.center = center
+                LocationHelper.saveDefaultCityToCoreData(defaultCity)
+            })
+        } else {
+            LocationHelper.saveDefaultCityToCoreData(LocationHelper.getDefaultCity())
+        }
         
     }
+
     
     private func informUserLocationSettingsIfNecessary() {
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.boolForKey("needsToInformedUserLocationChange") {
             let rootVC : UIViewController? = self.window?.rootViewController
             if rootVC != nil {
-                let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
-                let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
-                askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.doNothing))
-                askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：XXX\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+                if let defaultCity = LocationHelper.getDefaultCityFromCoreData() {
+                    print("default city is \(defaultCity)")
+                    let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
+                    let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
+                    askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))
+                    askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+                }
+                
             }
             
             defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
             defaults.synchronize()
+            
         }
     }
     
-    @objc private func doNothing() {
-        
+    @objc private func dismissLocationAlerts() {
+        NSNotificationCenter.defaultCenter().postNotificationName("locationAlertDismissed", object: nil)
     }
     
     // MARK: - Core Data stack
