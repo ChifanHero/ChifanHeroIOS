@@ -227,6 +227,8 @@
 		CA882D2D1C86790200D04696 /* LogInTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D2C1C86790200D04696 /* LogInTableViewController.swift */; };
 		CA882D2F1C90A7D400D04696 /* LightningColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D2E1C90A7D400D04696 /* LightningColor.swift */; };
 		CA882D311C90B11200D04696 /* CellActionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D301C90B11200D04696 /* CellActionTitle.swift */; };
+		CAA0F0B21CF15EB30061BFBE /* RestaurantNominationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0F0B11CF15EB30061BFBE /* RestaurantNominationViewController.swift */; };
+		CAA0F0B41CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0F0B31CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift */; };
 		CAC5278F1CDD7B570056AAC8 /* RankColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */; };
 		CAC527921CE1997E0056AAC8 /* RefreshableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527911CE1997E0056AAC8 /* RefreshableViewDelegate.swift */; };
 		CAC527951CE1CAA20056AAC8 /* ExpandingCellTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */; };
@@ -481,6 +483,8 @@
 		CA882D2C1C86790200D04696 /* LogInTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInTableViewController.swift; sourceTree = "<group>"; };
 		CA882D2E1C90A7D400D04696 /* LightningColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightningColor.swift; sourceTree = "<group>"; };
 		CA882D301C90B11200D04696 /* CellActionTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellActionTitle.swift; sourceTree = "<group>"; };
+		CAA0F0B11CF15EB30061BFBE /* RestaurantNominationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantNominationViewController.swift; sourceTree = "<group>"; };
+		CAA0F0B31CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantNominationCollectionViewCell.swift; sourceTree = "<group>"; };
 		CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankColorPicker.swift; sourceTree = "<group>"; };
 		CAC527911CE1997E0056AAC8 /* RefreshableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableViewDelegate.swift; sourceTree = "<group>"; };
 		CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingCellTransition.swift; sourceTree = "<group>"; };
@@ -735,6 +739,7 @@
 				C43B39A31B8854AA00516248 /* SimpleCouponTableViewCell.swift */,
 				C46CB8D81BA15CCD000D1006 /* SimpleDishTableViewCell.swift */,
 				CAC81EEC1CDA86E000338B59 /* RestaurantCollectionMemberTableViewCell.swift */,
+				CAA0F0B31CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift */,
 				C44B05DF1CE1B48F00337502 /* CityTableViewCell.swift */,
 			);
 			name = Cells;
@@ -913,6 +918,7 @@
 				C43B39AD1B890B6000516248 /* RestaurantViewController.swift */,
 				C43B398B1B8703C800516248 /* SelectedCollectionsTableViewController.swift */,
 				C461DB781BD0CA18009032C8 /* RestaurantCollectionMembersViewController.swift */,
+				CAA0F0B11CF15EB30061BFBE /* RestaurantNominationViewController.swift */,
 				C4DB3E241BE67F7500076A57 /* ListCandidateViewController.swift */,
 				C42D9BC71B69EF2D0035C5A6 /* SearchViewController.swift */,
 				C42D9BF51B7266DB0035C5A6 /* NotificationTableViewController.swift */,
@@ -1494,6 +1500,7 @@
 				CA203DF01C111EEA00D6F32C /* GetDishByIdResponse.swift in Sources */,
 				CA203DF11C111EEA00D6F32C /* GetListsResponse.swift in Sources */,
 				C4A0D5631C137DDB00BAE246 /* DishSearchResponse.swift in Sources */,
+				CAA0F0B21CF15EB30061BFBE /* RestaurantNominationViewController.swift in Sources */,
 				C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */,
 				CA882D2D1C86790200D04696 /* LogInTableViewController.swift in Sources */,
 				CAC527921CE1997E0056AAC8 /* RefreshableViewDelegate.swift in Sources */,
@@ -1539,6 +1546,7 @@
 				C4D983161CED978C0061A088 /* LocationHelper.swift in Sources */,
 				CA203E091C111EEA00D6F32C /* GetDishByIdRequest.swift in Sources */,
 				C4017D311C91CCE8002840FB /* StringExtension.swift in Sources */,
+				CAA0F0B41CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift in Sources */,
 				C44C25841C52022900A345D8 /* ScoreComputer.swift in Sources */,
 				CA203E0D1C111EEA00D6F32C /* SortParameter.swift in Sources */,
 				CA203E0E1C111EEA00D6F32C /* PhotoCollectionViewCell.swift in Sources */,

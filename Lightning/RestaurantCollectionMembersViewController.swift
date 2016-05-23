@@ -164,8 +164,14 @@ class RestaurantCollectionMembersViewController: UITableViewController, Floating
     // MARK: FloatingMenuControllerDelegate
     
     func floatingMenuController(controller: FloatingMenuController, didTapOnButton button: UIButton, atIndex index: Int) {
-        print("tapped index \(index)")
+        //print("tapped index \(index)")
         controller.dismissViewControllerAnimated(true, completion: nil)
+        
+        if index == 2 {
+            let restaurantNominationVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RestaurantNomination") as! UINavigationController
+            
+            presentViewController(restaurantNominationVC, animated: true, completion: nil)
+        }
     }
 
 }
