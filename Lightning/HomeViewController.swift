@@ -69,6 +69,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     override func viewDidLoad() {
         print(LightningColor.themeRed().getColorCode())
         super.viewDidLoad()
+        print("vid did load")
         self.navigationController!.view.backgroundColor = UIColor.whiteColor()
         self.extendedLayoutIncludesOpaqueBars = false
         clearTitleForBackBarButtonItem()
@@ -76,6 +77,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         loadingIndicator.hidden = true
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         addLocationSelectionToLeftCorner()
+        registerPushNotifications()
         handleFirstLaunch()
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         configurePullRefresh()
@@ -119,16 +121,16 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     func startGettingLocation() {
         appDelegate!.requestLocationAuthorization()
         appDelegate!.startGettingLocation()
-        self.allowSystemAlerts()
-    }
-    
-    
-    func allowSystemAlerts() {
-        registerPushNotifications()
     }
     
     func registerPushNotifications() {
-        appDelegate!.registerForPushNotifications()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.registerSystemNotifications), name:"locationAlertDismissed", object: nil)
+        
+    }
+    
+    func registerSystemNotifications() {
+        appDelegate?.registerForPushNotifications()
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "locationAlertDismissed", object: nil)
     }
     
     
@@ -187,12 +189,20 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
         let getPromotionsRequest = GetPromotionsRequest()
         
-        let location = appDelegate!.currentLocation
+        var location : Location
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if !defaults.boolForKey("locationPermissionDenied") {
+            location = appDelegate!.currentLocation
+        } else {
+            location = (LocationHelper.getDefaultCityFromCoreData()?.center)!
+        }
         if (location.lat == nil || location.lon == nil) {
             loadingIndicator.hidden = true
             loadingIndicator.stopAnimating()
             return
         }
+        
+        
         getPromotionsRequest.userLocation = location
         getPromotionsRequest.limit = PROMOTIONS_LIMIT
         getPromotionsRequest.skip = PROMOTIONS_OFFSET

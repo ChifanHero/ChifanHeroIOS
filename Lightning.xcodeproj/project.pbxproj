@@ -1954,6 +1954,7 @@
 				INFOPLIST_FILE = Lightning/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "Lightning-Test";
 				PROVISIONING_PROFILE = "";
