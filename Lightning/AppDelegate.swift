@@ -43,6 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         handleFirstLaunch()
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        #if DEBUG
+        #else
+        #endif
         return true
     }
     
@@ -292,7 +295,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         case (CLAuthorizationStatus.Denied):
             // user denied location permission
             manager.stopUpdatingLocation()
-            handleLocationPermissionDenied()
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if !defaults.boolForKey("locationPermissionDenied") {
+                handleLocationPermissionDenied()
+            }
+            NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: LocationHelper.getDefaultCity().center)
             break
         case (CLAuthorizationStatus.Authorized):
             // user granted location permission
