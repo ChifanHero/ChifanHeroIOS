@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import CoreData
 import SCLAlertView
+import Flurry_iOS_SDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
@@ -44,7 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         #if DEBUG
+            print("debug mode")
+            Flurry.startSession("N4DY3VDK76YVF8S72RZ7")
         #else
+            print("release mode")
+            Flurry.startSession("PFBPXT8FVS35SWZVT68C")
         #endif
         return true
     }

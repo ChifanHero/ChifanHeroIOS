@@ -9,6 +9,7 @@ target 'Lightning' do
 pod 'Kingfisher', '~> 2.1'
 pod 'ARNTransitionAnimator'
 pod 'SCLAlertView'
+pod 'Flurry-iOS-SDK/FlurrySDK'
 
 end
 

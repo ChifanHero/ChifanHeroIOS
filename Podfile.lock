@@ -1,15 +1,18 @@
 PODS:
   - ARNTransitionAnimator (1.1.0)
+  - Flurry-iOS-SDK/FlurrySDK (7.1.0)
   - Kingfisher (2.1.0)
   - SCLAlertView (0.5.6)
 
 DEPENDENCIES:
   - ARNTransitionAnimator
+  - Flurry-iOS-SDK/FlurrySDK
   - Kingfisher (~> 2.1)
   - SCLAlertView
 
 SPEC CHECKSUMS:
   ARNTransitionAnimator: b8b35ce733d08f137eadb0e0c6e53011ea3fb28d
+  Flurry-iOS-SDK: 7b3fe6c3344c82b73c4c84163652eada84fbfcf4
   Kingfisher: 3ac09acad75a25ab22f6d7cef3de10d61dd4792d
   SCLAlertView: c2b916952520d96cf5e886a38053f1b8c3da502e
 
