@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Flurry_iOS_SDK
 
 protocol NotificationSelectionDelegate {
     func notificationSelected(notification : NSManagedObject)
@@ -35,6 +36,11 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
         self.navigationItem.leftBarButtonItem = editBarButton
         self.splitViewController?.delegate = self
 //        loadNotificationsInBackground()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Flurry.logEvent("NotificationsView")
     }
     
     private func configurePullRefresh(){

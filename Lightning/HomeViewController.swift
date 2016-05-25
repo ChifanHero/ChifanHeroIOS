@@ -9,6 +9,7 @@
 import UIKit
 import ARNTransitionAnimator
 import SCLAlertView
+import Flurry_iOS_SDK
 
 class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable {
     
@@ -93,6 +94,11 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
             self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
         self.navigationController?.navigationBar.translucent = false
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Flurry.logEvent("RecommendationView")
     }
     
     override func didReceiveMemoryWarning() {

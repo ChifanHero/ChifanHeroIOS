@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Flurry_iOS_SDK
 
 class RestaurantNominationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate{
 
@@ -24,6 +25,11 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         self.nominationView?.collectionViewLayout = layout
         
         self.searchBar.delegate = self
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Flurry.logEvent("RestaurantNominationView")
     }
 
     override func didReceiveMemoryWarning() {

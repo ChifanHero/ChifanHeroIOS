@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Flurry_iOS_SDK
 
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SelectionBarDelegate, UISearchBarDelegate{
     
@@ -58,6 +59,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchBar!.sizeToFit()
         self.navigationItem.titleView = searchBar
         definesPresentationContext = true
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Flurry.logEvent("SearchView")
     }
     
     func setTableFooterView() {

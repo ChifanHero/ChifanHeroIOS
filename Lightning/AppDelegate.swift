@@ -74,9 +74,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //            self.window?.makeKeyAndVisible()
 //            defaults.setBool(true, forKey: "hasLaunchedOnce")
 //            defaults.synchronize()
+            trackAppVersion()
         }
         setBadgeValue()
         
+    }
+    
+    private func trackAppVersion() {
+        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+            Flurry.logEvent("AppVersion" + version)
+        }
     }
     
     private func createFirstNotification() {

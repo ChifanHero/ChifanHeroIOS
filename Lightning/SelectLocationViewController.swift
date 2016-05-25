@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Flurry_iOS_SDK
 
 class SelectLocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
@@ -29,6 +30,11 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         searchBar.delegate = self
         cancelButton.tintColor = UIColor.whiteColor()
         doneButton.tintColor = UIColor.whiteColor()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        Flurry.logEvent("LocationChangeView")
     }
 
     override func didReceiveMemoryWarning() {

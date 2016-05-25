@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import Flurry_iOS_SDK
 
 class RestaurantCollectionMembersViewController: UITableViewController, FloatingMenuControllerDelegate{
     
@@ -42,6 +43,11 @@ class RestaurantCollectionMembersViewController: UITableViewController, Floating
         if selectedCellIndexPath != nil {
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Flurry.logEvent("CollectionsMemberView")
     }
 
     override func didReceiveMemoryWarning() {
