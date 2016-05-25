@@ -41,6 +41,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         Flurry.logEvent("NotificationsView")
+        self.loadTableData()
     }
     
     private func configurePullRefresh(){
@@ -77,11 +78,6 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
         if selectedCellIndexPath != nil {
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        self.loadTableData()
     }
     
     func notificationArrived() {
