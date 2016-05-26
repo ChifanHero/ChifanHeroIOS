@@ -249,6 +249,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
         informUserLocationSettingsIfNecessary()
     }
 
@@ -293,7 +294,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // user denied to share location. Set default location to user last used city and show alert
         if error.code == CLError.Denied.rawValue {
             manager.stopUpdatingLocation()
-            handleLocationPermissionDenied()
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if !defaults.boolForKey("locationPermissionDenied") {
+                handleLocationPermissionDenied()
+            }
             informUserLocationSettingsIfNecessary()
             NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: LocationHelper.getDefaultCity().center)
         }
@@ -340,15 +344,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 center.lon = self.currentLocation.lon
                 defaultCity.center = center
                 LocationHelper.saveDefaultCityToCoreData(defaultCity)
+                NSNotificationCenter.defaultCenter().postNotificationName("DefaultCityAvailable", object: nil)
             })
         } else {
             LocationHelper.saveDefaultCityToCoreData(LocationHelper.getDefaultCity())
+            NSNotificationCenter.defaultCenter().postNotificationName("DefaultCityAvailable", object: nil)
         }
         
     }
 
     
-    private func informUserLocationSettingsIfNecessary() {
+    func informUserLocationSettingsIfNecessary() {
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.boolForKey("needsToInformedUserLocationChange") {
             let rootVC : UIViewController? = self.window?.rootViewController
@@ -359,12 +365,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
                     askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))
                     askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+                    NSNotificationCenter.defaultCenter().removeObserver(self, name: "DefaultCityAvailable", object: nil)
+                    defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
+                    defaults.synchronize()
+                } else {
+                    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.informUserLocationSettingsIfNecessary), name:"DefaultCityAvailable", object: nil)
                 }
                 
             }
             
-            defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
-            defaults.synchronize()
+            
+            
             
         }
     }
