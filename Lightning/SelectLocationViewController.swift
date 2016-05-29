@@ -8,6 +8,7 @@
 
 import UIKit
 import Flurry_iOS_SDK
+import SCLAlertView
 
 class SelectLocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
@@ -27,11 +28,18 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     var searching = false
     
+    var rowOfRealTimeLocationCell = -1
+    
+    var homeViewController : HomeViewController?
+    
+    
     struct Sections {
         static let CurrentSelection = 0
         static let HotCities = 1
         static let History = 2
     }
+    
+    var appDelegate : AppDelegate?
     
 
     override func viewDidLoad() {
@@ -39,6 +47,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         searchBar.delegate = self
         cancelButton.tintColor = UIColor.whiteColor()
         doneButton.tintColor = UIColor.whiteColor()
+        appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -100,8 +109,10 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         } else {
             if section == Sections.CurrentSelection {
                 if (currentSelection == nil) {
+                    rowOfRealTimeLocationCell = 0
                     return 1
                 } else {
+                    rowOfRealTimeLocationCell = 1
                     return 2
                 }
             } else if section == Sections.HotCities {
@@ -136,6 +147,11 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         if cell == nil {
             tableView.registerNib(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "cityCell")
             cell = tableView.dequeueReusableCellWithIdentifier("cityCell") as? CityTableViewCell
+        }
+        if (indexPath.section == Sections.CurrentSelection && indexPath.row == 0) {
+            cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        } else {
+            cell?.accessoryType = UITableViewCellAccessoryType.None
         }
         if searching {
             let city = searchResults[indexPath.row]
@@ -249,7 +265,35 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        <#code#>
+        var city : City? = nil
+        if searching {
+            searching = false
+            city = searchResults[indexPath.row]
+        } else {
+            if indexPath.section == Sections.CurrentSelection && indexPath.row == rowOfRealTimeLocationCell{
+                tryToUseUserRealLocation()
+            } else {
+                if indexPath.section == Sections.History {
+                    city = history[indexPath.row]
+                } else if indexPath.section == Sections.HotCities {
+                    city = hotCities[indexPath.row]
+                }
+            }
+        }
+        if homeViewController != nil {
+            homeViewController!.refreshOnViewAppear = true
+        }
+        if city != nil {
+            LocationHelper.saveDefaultCityToCoreData(city!)
+            LocationHelper.saveCityToHistory(city!)
+            currentSelection = city
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setBool(true, forKey: "usingCustomLocation")
+            defaults.synchronize()
+            locationTable.reloadData()
+        }
+        
+        
     }
     
     // MARK: - UISearchBarDelegate
@@ -299,6 +343,48 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     func clearStates() {
         searching = false
         searchResults.removeAll()
+    }
+    
+    
+    // MARK: - User real time location handling
+    func tryToUseUserRealLocation() {
+        appDelegate?.startGettingLocation()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SelectLocationViewController.handleUserLocationDenied), name:"FailToGetUserLocation", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SelectLocationViewController.handleUserLocationAllowed), name:"UserLocationAvailable", object: nil)
+        
+    }
+    
+    func handleUserLocationDenied() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "FailToGetUserLocation", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
+        remindUserToAuthorize()
+    }
+    
+    func handleUserLocationAllowed() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "FailToGetUserLocation", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
+        defaults.setBool(false, forKey: "locationPermissionDenied")
+        defaults.setBool(false, forKey: "usingCustomLocation")
+        defaults.synchronize()
+        self.locationTable.reloadData()
+    }
+    
+    func remindUserToAuthorize() {
+        let appearance = SCLAlertView.SCLAppearance(kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
+        let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
+        askLocationAlertView!.addButton("打开设置", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(SelectLocationViewController.openLocationSettings))
+        askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(SelectLocationViewController.dontOpenSettings))
+        askLocationAlertView!.showInfo("", subTitle: "\n\n请打开设置\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+    }
+    
+    func openLocationSettings() {
+        UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root=LOCATION_SERVICES")!)
+    }
+    
+    func dontOpenSettings() {
+        
     }
     
 }

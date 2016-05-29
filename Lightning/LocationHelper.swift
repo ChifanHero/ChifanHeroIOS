@@ -80,7 +80,7 @@ class LocationHelper {
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
-        return nil
+        return getDefaultCity()
     }
     
     class func saveDefaultCityToCoreData(city : City) {

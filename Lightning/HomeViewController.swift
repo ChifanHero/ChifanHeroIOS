@@ -67,6 +67,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     
     var appDelegate : AppDelegate?
     
+    var refreshOnViewAppear = false
+    
     override func viewDidLoad() {
         print(LightningColor.themeRed().getColorCode())
         super.viewDidLoad()
@@ -94,6 +96,9 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
             self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
         self.navigationController?.navigationBar.translucent = false
+        if refreshOnViewAppear {
+            refreshData()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -180,6 +185,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         loadingIndicator.hidden = false
         loadingIndicator.startAnimating()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RefreshableViewController.refreshData), name:"UserLocationAvailable", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RefreshableViewController.refreshData), name:"FailToGetUserLocation", object: nil)
         
     }
     
@@ -193,6 +199,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     
     override func loadData(refreshHandler : ((success : Bool) -> Void)?) {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "FailToGetUserLocation", object: nil)
         let getPromotionsRequest = GetPromotionsRequest()
         
         var location : Location
@@ -273,6 +280,10 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
 //            restaurantController.restaurantName = self.nameOfSelectedCell
 //            restaurantController.restaurantId = sender as? String
 //            segueType = "showRestaurant"
+        } else if segue.identifier == "editLocation" {
+            let selectLocationNavigationController : UINavigationController = segue.destinationViewController as! UINavigationController
+            let selectLocationController : SelectLocationViewController = selectLocationNavigationController.viewControllers[0] as! SelectLocationViewController
+            selectLocationController.homeViewController = self
         }
     }
     

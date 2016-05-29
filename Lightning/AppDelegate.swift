@@ -91,6 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             trackAppVersion()
         }
         setBadgeValue()
+        defaults.setBool(false, forKey: "usingCustomLocation")
+        defaults.synchronize()
         
     }
     
@@ -189,6 +191,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func requestLocationAuthorization() {
         locationManager.requestAlwaysAuthorization()
+    }
+    
+    func getCurrentLocation() -> Location {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey("usingCustomLocation") {
+            var defaultCity = LocationHelper.getDefaultCityFromCoreData()
+            if defaultCity == nil {
+                defaultCity = LocationHelper.getDefaultCity()
+            }
+            return defaultCity!.center!
+        } else {
+            return currentLocation
+        }
     }
     
     private func configSplitViewController() {
@@ -313,7 +328,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 handleLocationPermissionDenied()
             }
             informUserLocationSettingsIfNecessary()
-            NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: LocationHelper.getDefaultCity().center)
+//            NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: LocationHelper.getDefaultCity().center)
             NSNotificationCenter.defaultCenter().postNotificationName("FailToGetUserLocation", object: LocationHelper.getDefaultCity().center)
         }
     }
@@ -330,7 +345,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             if !defaults.boolForKey("locationPermissionDenied") {
                 handleLocationPermissionDenied()
             }
-            NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: LocationHelper.getDefaultCity().center)
+            NSNotificationCenter.defaultCenter().postNotificationName("FailToGetUserLocation", object: LocationHelper.getDefaultCity().center)
             break
         case (CLAuthorizationStatus.Authorized):
             // user granted location permission
@@ -349,6 +364,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setBool(true, forKey: "needsToInformedUserLocationChange")
         defaults.setBool(true, forKey: "locationPermissionDenied")
+        defaults.setBool(true, forKey: "usingCustomLocation")
         defaults.synchronize()
         var defaultCity : City = City()
         if currentLocation.lat != nil && currentLocation.lon != nil {
