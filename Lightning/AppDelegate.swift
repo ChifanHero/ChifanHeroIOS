@@ -23,28 +23,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     var application : UIApplication?
     var launchOptions : [NSObject: AnyObject]?
+    
+    var isAppInForeground = false
+    
+    var postLocationAvailableNotification = true
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        isAppInForeground = true
         self.application = application
         self.launchOptions = launchOptions
-        // Override point for customization after application launch.
-        Parse.setApplicationId("Z6ND8ho1yR4aY3NSq1zNNU0kPc0GDOD1UZJ5rgxM", clientKey: "t9TxZ7HPgwEl84gH9A2R9qisn8giNIdtKuAyt9Q4")
-//        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-//        registerForPushNotifications()
-        loadHotCitiesInBackground()
-        UISetup()
-        configSplitViewController()
-        configNavigationBar()
-//        startGettingLocation()
+        initialize()
         if launchOptions != nil && launchOptions![UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
             print("Did receive push notification in launching") // Will be called when app is not active in background
             // show notification page
             let notification : [NSObject : AnyObject] = launchOptions![UIApplicationLaunchOptionsRemoteNotificationKey] as! [NSObject : AnyObject]
             handleNotification(notification)
         }
-        handleFirstLaunch()
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        return true
+    }
+    
+    
+    // MARK: - Initialization
+    
+    private func initialize() {
+        Parse.setApplicationId("Z6ND8ho1yR4aY3NSq1zNNU0kPc0GDOD1UZJ5rgxM", clientKey: "t9TxZ7HPgwEl84gH9A2R9qisn8giNIdtKuAyt9Q4")
         #if DEBUG
             print("debug mode")
             Flurry.startSession("N4DY3VDK76YVF8S72RZ7")
@@ -52,7 +56,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             print("release mode")
             Flurry.startSession("PFBPXT8FVS35SWZVT68C")
         #endif
-        return true
+        observeDefaultCityChanges()
+        loadInitializationData()
+        UISetup()
+        handleFirstLaunch()
+        setBadgeValue()
+    }
+    
+    private func UISetup() {
+        configTextField()
+        configSplitViewController()
+        configNavigationBar()
+    }
+    
+    private func observeDefaultCityChanges() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.informUserLocationSettingsIfNecessary), name:"DefaultCityChanged", object: nil)
+    }
+    
+    private func loadInitializationData() {
+        loadHotCitiesInBackground()
     }
     
     private func loadHotCitiesInBackground() {
@@ -66,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    private func UISetup() {
+    private func configTextField() {
         UITextField.appearance().tintColor = UIColor.blueColor()
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
     }
@@ -80,20 +102,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     private func handleFirstLaunch() {
         let defaults = NSUserDefaults.standardUserDefaults()
         if !defaults.boolForKey("hasLaunchedOnce") {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.keyWindowLoaded), name:"HomeVCLoaded", object: nil)
+            initializeUserDefaults()
             createFirstNotification()
-//            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-//            let storyboard = UIStoryboard(name: "Tutorial", bundle: nil)
-//            let tutorialViewController = storyboard.instantiateViewControllerWithIdentifier("tutorialInitial")
-//            self.window?.rootViewController = tutorialViewController
-//            self.window?.makeKeyAndVisible()
-//            defaults.setBool(true, forKey: "hasLaunchedOnce")
-//            defaults.synchronize()
             trackAppVersion()
+            defaults.setBool(true, forKey: "hasLaunchedOnce")
+            defaults.synchronize()
         }
-        setBadgeValue()
+        
+    }
+    
+    func keyWindowLoaded() {
+        prepareForNotificationAuthorization()
+        askForLocationAuthorization()
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "HomeVCLoaded", object: nil)
+    }
+    
+    private func initializeUserDefaults() {
+        let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setBool(false, forKey: "usingCustomLocation")
         defaults.synchronize()
+    }
+    
+    private func prepareForNotificationAuthorization() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.registerSystemNotifications), name:"locationAlertDismissed", object: nil)
+    }
+    
+    func registerSystemNotifications() {
+        registerForPushNotifications()
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "locationAlertDismissed", object: nil)
+    }
+    
+    private func askForLocationAuthorization() {
+        let rootVC : UIViewController? = self.window?.rootViewController
+        if rootVC != nil {
+            let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
+            let askLocationAlertView = SCLAlertView(appearance: appearance)
+            askLocationAlertView.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.askLocationAlertViewDismissed))
+            askLocationAlertView.showInfo("", subTitle: "\n\n您的地理位置信息可以帮助吃饭英雄更精确地搜索附近的餐厅信息\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+        }
         
+    }
+    
+    func askLocationAlertViewDismissed() {
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     private func trackAppVersion() {
@@ -110,8 +164,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     private func setBadgeValue() {
         let badgeValue = countUnreadNotifications()
-        let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
-        //let splitViewController : UISplitViewController = tabBarController.viewControllers![3] as! UISplitViewController
+//        let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
+//        let splitViewController : UISplitViewController = tabBarController.viewControllers![3] as! UISplitViewController
         if badgeValue > 0 {
             //splitViewController.tabBarItem.badgeValue = "\(badgeValue)"
             UIApplication.sharedApplication().applicationIconBadgeNumber = badgeValue;
@@ -129,7 +183,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         var body : String = ""
         if let parameter = notification["parameters"] as? NSDictionary {
             title = parameter["title"] as! String
-//            title = parameter.objectForKey("title") as! String
             body = parameter["body"] as! String
             let save = parameter["save"] as! Int
             if save == 1 {
@@ -185,26 +238,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    func startGettingLocation() {
-        locationManager.startUpdatingLocation()
-    }
     
-    func requestLocationAuthorization() {
-        locationManager.requestAlwaysAuthorization()
-    }
-    
-    func getCurrentLocation() -> Location {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("usingCustomLocation") {
-            var defaultCity = LocationHelper.getDefaultCityFromCoreData()
-            if defaultCity == nil {
-                defaultCity = LocationHelper.getDefaultCity()
-            }
-            return defaultCity!.center!
-        } else {
-            return currentLocation
-        }
-    }
     
     private func configSplitViewController() {
         let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
@@ -213,14 +247,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let vc : UIViewController = viewControllers[index]
             if vc.restorationIdentifier == "splitViewController" {
                 let splitViewController = vc as! UISplitViewController
-
-
                 let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
                 detailNavigationController.navigationBar.tintColor = UIColor.whiteColor()
                 detailNavigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
                 let detailController = detailNavigationController.topViewController as! NotificationDetailViewController
                 detailController.navigationItem.leftItemsSupplementBackButton = true
-//                splitViewController.delegate = self
                 let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
                 masterNavigationController.navigationBar.tintColor = UIColor.whiteColor()
                 let masterController = masterNavigationController.topViewController as! NotificationTableViewController
@@ -228,30 +259,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 masterController.delegate = detailController
                 masterController.detailNavigationController = detailNavigationController
                 detailController.navigationItem.leftBarButtonItem = detailController.splitViewController?.displayModeButtonItem()
-                
-//                controller.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
                 break
             }
         }
     }
+
+    func applicationWillResignActive(application: UIApplication) {
+        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+        // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        isAppInForeground = false
+    }
+
+    func applicationDidEnterBackground(application: UIApplication) {
+        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        isAppInForeground = false
+    }
+
+    func applicationWillEnterForeground(application: UIApplication) {
+        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        isAppInForeground = true
+    }
+
+    func applicationDidBecomeActive(application: UIApplication) {
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        isAppInForeground = true
+        informUserLocationSettingsIfNecessary()
+    }
+
+    func applicationWillTerminate(application: UIApplication) {
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        isAppInForeground = false
+    }
+    
+    
+    // MARK: - Push notifications
     
     func registerForPushNotifications() {
         // Register for Push Notitications
-//        if application.applicationState != UIApplicationState.Background {
-//            // Track an app open here if we launch with a push, unless
-//            // "content_available" was used to trigger a background push (introduced in iOS 7).
-//            // In that case, we skip tracking here to avoid double counting the app-open.
-//            
-//            let preBackgroundPush = !application.respondsToSelector("backgroundRefreshStatus")
-//            let oldPushHandlerOnly = !self.respondsToSelector("application:didReceiveRemoteNotification:fetchCompletionHandler:")
-//            var pushPayload = false
-//            if let options = launchOptions {
-//                pushPayload = options[UIApplicationLaunchOptionsRemoteNotificationKey] != nil
-//            }
-//            if (preBackgroundPush || oldPushHandlerOnly || pushPayload) {
-//                PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-//            }
-//        }
         if application!.respondsToSelector(#selector(UIApplication.registerUserNotificationSettings(_:))) {
             //view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
             let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound], categories: nil)
@@ -260,30 +305,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         } else {
             application!.registerForRemoteNotifications()
         }
-    }
-
-    func applicationWillResignActive(application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        
-        informUserLocationSettingsIfNecessary()
-    }
-
-    func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -309,14 +330,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     
+    // MARK: - Location management
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         currentLocation.lat = locValue.latitude
         currentLocation.lon = locValue.longitude
-        NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: currentLocation)
-        NSNotificationCenter.defaultCenter().postNotificationName("locationAlertDismissed", object: currentLocation)
-        
+        print(locValue.latitude)
+        print(locValue.longitude)
+        if postLocationAvailableNotification {
+            postLocationAvailableNotification = false
+            NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: nil)
+//            NSNotificationCenter.defaultCenter().postNotificationName("locationAlertDismissed", object: nil)
+            
+        }
+
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -328,7 +356,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 handleLocationPermissionDenied()
             }
             informUserLocationSettingsIfNecessary()
-//            NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: LocationHelper.getDefaultCity().center)
             NSNotificationCenter.defaultCenter().postNotificationName("FailToGetUserLocation", object: LocationHelper.getDefaultCity().center)
         }
     }
@@ -375,44 +402,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 center.lon = self.currentLocation.lon
                 defaultCity.center = center
                 LocationHelper.saveDefaultCityToCoreData(defaultCity)
-                NSNotificationCenter.defaultCenter().postNotificationName("DefaultCityAvailable", object: nil)
             })
         } else {
             LocationHelper.saveDefaultCityToCoreData(LocationHelper.getDefaultCity())
-            NSNotificationCenter.defaultCenter().postNotificationName("DefaultCityAvailable", object: nil)
         }
         
     }
 
     
     func informUserLocationSettingsIfNecessary() {
-        let triggerTime = (Int64(NSEC_PER_SEC) * 10)
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, triggerTime), dispatch_get_main_queue(), { () -> Void in
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if defaults.boolForKey("needsToInformedUserLocationChange") {
-                let rootVC : UIViewController? = self.window?.rootViewController
-                if rootVC != nil {
-                    if let defaultCity = LocationHelper.getDefaultCityFromCoreData() {
-                        print("default city is \(defaultCity)")
-                        let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
-                        let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
-                        askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))
-                        askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
-                        NSNotificationCenter.defaultCenter().removeObserver(self, name: "DefaultCityAvailable", object: nil)
-                        defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
-                        defaults.synchronize()
-                    } else {
-                        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.informUserLocationSettingsIfNecessary), name:"DefaultCityAvailable", object: nil)
-                    }
-                    
+//        let triggerTime = (Int64(NSEC_PER_SEC) * 10)
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, triggerTime), dispatch_get_main_queue(), { () -> Void in
+//            
+//        })
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey("needsToInformedUserLocationChange") && isAppInForeground {
+            let rootVC : UIViewController? = self.window?.rootViewController
+            if rootVC != nil {
+                if let defaultCity = LocationHelper.getDefaultCityFromCoreData() {
+                    print("default city is \(defaultCity)")
+                    let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
+                    let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
+                    askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))
+                    askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+                    defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
+                    defaults.synchronize()
                 }
                 
-                
-                
-                
             }
-        })
+        }
         
+    }
+    
+    
+    func getCurrentLocation() -> Location {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey("usingCustomLocation") {
+            var defaultCity = LocationHelper.getDefaultCityFromCoreData()
+            if defaultCity == nil {
+                defaultCity = LocationHelper.getDefaultCity()
+            }
+            return defaultCity!.center!
+        } else {
+            return currentLocation
+        }
     }
     
     @objc private func dismissLocationAlerts() {

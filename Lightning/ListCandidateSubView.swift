@@ -143,15 +143,15 @@ import UIKit
     }
     
     private func nominateDish() {
-        let request : NominateDishListCandidateRequest = NominateDishListCandidateRequest()
-        request.dishId = self.selectedDishId
-        request.listId = self.currentListId
-        DataAccessor(serviceConfiguration: ParseConfiguration()).nominateDishListCandidate(request) { (response) -> Void in
-            print(response?.error?.message)
-            print(response?.result?.id)
-            print(response?.result?.count)
-//            <#code#>
-        }
+//        let request : NominateDishListCandidateRequest = NominateDishListCandidateRequest()
+//        request.dishId = self.selectedDishId
+//        request.listId = self.currentListId
+//        DataAccessor(serviceConfiguration: ParseConfiguration()).nominateDishListCandidate(request) { (response) -> Void in
+//            print(response?.error?.message)
+//            print(response?.result?.id)
+//            print(response?.result?.count)
+////            <#code#>
+//        }
     }
 
     @IBAction func headerViewTapped(sender: AnyObject) {

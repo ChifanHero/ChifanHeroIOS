@@ -1538,17 +1538,10 @@
                                 <action selector="cancel:" destination="CKz-Y4-TRN" id="njz-ne-XH7"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="YoN-ee-IT0">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="done:" destination="CKz-Y4-TRN" id="wWq-n4-2GW"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="cancelButton" destination="h3B-9d-RBb" id="BVh-8U-F44"/>
-                        <outlet property="doneButton" destination="YoN-ee-IT0" id="yWe-CX-qZW"/>
                         <outlet property="locationTable" destination="hXV-Q6-P2Y" id="NVP-H9-up7"/>
                         <outlet property="searchBar" destination="QZI-5O-fN7" id="V99-tn-V4U"/>
                     </connections>

@@ -67,9 +67,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     
     var appDelegate : AppDelegate?
     
-    var refreshOnViewAppear = false
-    
     override func viewDidLoad() {
+        NSNotificationCenter.defaultCenter().postNotificationName("HomeVCLoaded", object: nil)
         print(LightningColor.themeRed().getColorCode())
         super.viewDidLoad()
         print("vid did load")
@@ -80,8 +79,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         loadingIndicator.hidden = true
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         addLocationSelectionToLeftCorner()
-        registerPushNotifications()
-        handleFirstLaunch()
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         configurePullRefresh()
         initPromotionsTable()
@@ -96,9 +93,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
             self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
         self.navigationController?.navigationBar.translucent = false
-        if refreshOnViewAppear {
-            refreshData()
-        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -111,39 +105,9 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - First launch
-    func handleFirstLaunch() {
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if !defaults.boolForKey("hasLaunchedOnce") {
-            askForLocationPermit()
-            defaults.setBool(true, forKey: "hasLaunchedOnce")
-            defaults.synchronize()
-        }
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
-    func askForLocationPermit() {
-        let appearance = SCLAlertView.SCLAppearance(kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
-        askLocationAlertView = SCLAlertView(appearance: appearance)
-        askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(HomeViewController.startGettingLocation))
-        askLocationAlertView!.showInfo("", subTitle: "\n\n您的地理位置信息可以帮助吃饭英雄更精确地搜索附近的餐厅信息\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
-    }
-    
-    func startGettingLocation() {
-        appDelegate!.requestLocationAuthorization()
-        appDelegate!.startGettingLocation()
-    }
-    
-    func registerPushNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.registerSystemNotifications), name:"locationAlertDismissed", object: nil)
-        
-    }
-    
-    func registerSystemNotifications() {
-        appDelegate?.registerForPushNotifications()
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "locationAlertDismissed", object: nil)
-    }
-    
     
     
     // MARK: - Configure navigation bar
@@ -184,12 +148,14 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     private func initPromotionsTable(){
         loadingIndicator.hidden = false
         loadingIndicator.startAnimating()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RefreshableViewController.refreshData), name:"UserLocationAvailable", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RefreshableViewController.refreshData), name:"FailToGetUserLocation", object: nil)
-        
+        parepareForDataRefresh()
     }
     
     @objc private func refresh(sender:AnyObject) {
+        loadData(nil)
+    }
+    
+    func handleLocationChange() {
         loadData(nil)
     }
     
@@ -197,9 +163,17 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         loadData(nil)
     }
     
+    func parepareForDataRefresh() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey("usingCustomLocation") {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil)
+        } else {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
+        }
+    }
+
     override func loadData(refreshHandler : ((success : Bool) -> Void)?) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "FailToGetUserLocation", object: nil)
+//        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
         let getPromotionsRequest = GetPromotionsRequest()
         
         var location : Location
@@ -209,6 +183,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         } else {
             location = (LocationHelper.getDefaultCityFromCoreData()?.center)!
         }
+        location = appDelegate!.getCurrentLocation()
         if (location.lat == nil || location.lon == nil) {
             loadingIndicator.hidden = true
             loadingIndicator.stopAnimating()
