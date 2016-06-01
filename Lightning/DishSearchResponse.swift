@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DishSearchResponse : Model {
+class DishSearchResponse: HttpResponseProtocol {
     
     var results : [Dish] = [Dish]()
     var error : Error?

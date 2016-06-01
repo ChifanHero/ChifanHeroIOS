@@ -18,7 +18,7 @@ class DataAccessor {
         self.serviceConfiguration = serviceConfiguration
     }
     
-    private func callParseApi<Response: HttpResponseProtocol>(method method: String, request: HttpRequestProtocol, responseHandler: (Response?) -> Void){
+    private func callApi<Response: HttpResponseProtocol>(method method: String, request: HttpRequestProtocol, responseHandler: (Response?) -> Void){
         
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
@@ -99,35 +99,35 @@ class DataAccessor {
     
     //Get--------------------------------------------------------------------------------------------------//
     func getPromotions(request: GetPromotionsRequest, responseHandler : (GetPromotionsResponse?) -> Void) {
-        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func getRestaurants(request: GetRestaurantsRequest, responseHandler : (GetRestaurantsResponse?) -> Void) {
-        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func getRestaurantById(request: GetRestaurantByIdRequest, responseHandler : (GetRestaurantByIdResponse?) -> Void) {
-        self.callParseApi(method: "GET", request: request, responseHandler: responseHandler)
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
     
     func getRestaurantMenu(request: GetRestaurantMenuRequest, responseHandler : (GetRestaurantMenuResponse?) -> Void) {
-        self.callParseApi(method: "GET", request: request, responseHandler: responseHandler)
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
     func getFavorites(request: GetFavoritesRequest, responseHandler: (GetFavoritesResponse?) -> Void){
         let defaults = NSUserDefaults.standardUserDefaults()
         request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         
-        self.callParseApi(method: "GET", request: request, responseHandler: responseHandler)
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
     func getSelectedCollectionByLocation(request: GetSelectedCollectionsByLatAndLonRequest, responseHandler : (GetSelectedCollectionsByLatAndLonResponse?) -> Void) {
-        self.callParseApi(method: "GET", request: request, responseHandler: responseHandler)
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
     func getRestaurantCollectionMembersById(request: GetRestaurantCollectionMembersRequest, responseHandler : (GetRestaurantCollectionMembersResponse?) -> Void) {
-        self.callParseApi(method: "GET", request: request, responseHandler: responseHandler)
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     //--------------------------------------------------------------------------------------------------//
     
@@ -139,7 +139,7 @@ class DataAccessor {
     
     //Post----------------------------------------------------------------------------------------------//
     func uploadPicture(request: UploadPictureRequest, responseHandler : (UploadPictureResponse?) -> Void) {
-        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func rate(request: RateRequest, responseHandler: (RateResponse?) -> Void) {
@@ -148,7 +148,7 @@ class DataAccessor {
             request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         }
         
-        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func addToFavorites(request: AddToFavoritesRequest, responseHandler: (AddToFavoritesResponse?) -> Void) {
@@ -157,7 +157,7 @@ class DataAccessor {
             request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         }
         
-        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
         
     }
     
@@ -167,75 +167,24 @@ class DataAccessor {
             request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         }
         
-        self.callParseApi(method: "DELETE", request: request, responseHandler: responseHandler)
+        self.callApi(method: "DELETE", request: request, responseHandler: responseHandler)
     }
     
     func searchRestaurants(request: RestaurantSearchRequest, responseHandler : (RestaurantSearchResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
         
-        var httpHeaders = [String : String]()
-        httpHeaders["Accept-Language"] = "zh-CN"
-        httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
-            var restaurantSearchResponse: RestaurantSearchResponse?
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    restaurantSearchResponse = RestaurantSearchResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(restaurantSearchResponse)
-        }
-        
+        request.addHeader(key: "Accept-Language", value: "zh-CN")
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func searchDishes(request: DishSearchRequest, responseHandler : (DishSearchResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
         
-        var httpHeaders = [String : String]()
-        httpHeaders["Accept-Language"] = "zh-CN"
-        httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
-            var dishSearchResponse: DishSearchResponse?
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    dishSearchResponse = DishSearchResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(dishSearchResponse)
-        }
+        request.addHeader(key: "Accept-Language", value: "zh-CN")
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func searchLists(request: DishListSearchRequest, responseHandler : (DishListSearchResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
-        
-        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
-            var dishListSearchResponse: DishListSearchResponse?
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    dishListSearchResponse = DishListSearchResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(dishListSearchResponse)
-        }
+        request.addHeader(key: "Accept-Language", value: "zh-CN")
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func voteRestaurant(request: VoteRestaurantRequest, responseHandler: (VoteRestaurantResponse?) -> Void) {
@@ -244,23 +193,23 @@ class DataAccessor {
             request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         }
         
-        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func updateRestaurantInfo(request: UpdateRestaurantInfoRequest, responseHandler: (UpdateRestaurantInfoResponse?) -> Void) {
-        self.callParseApi(method: "PUT", request: request, responseHandler: responseHandler)
+        self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
     }
     
     func getCities(request: GetCitiesRequest, responseHandler: (GetCitiesResponse?) -> Void) {
-        self.callParseApi(method: "GET", request: request, responseHandler: responseHandler)
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
     func getHotCities(request: GetHotCitiesRequest, responseHandler: (GetCitiesResponse?) -> Void) {
-        self.callParseApi(method: "GET", request: request, responseHandler: responseHandler)
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
     
     func nominateRestaurantForCollection(request: NominateRestaurantRequest, responseHandler: (NominateRestaurantResponse?) -> Void){
-        self.callParseApi(method: "PUT", request: request, responseHandler: responseHandler)
+        self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
     }
 }

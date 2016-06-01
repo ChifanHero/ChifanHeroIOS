@@ -9,7 +9,7 @@
 import Foundation
 
 
-class RestaurantSearchResponse : Model {
+class RestaurantSearchResponse: HttpResponseProtocol {
     
     var results : [Restaurant] = [Restaurant]()
     var error : Error?

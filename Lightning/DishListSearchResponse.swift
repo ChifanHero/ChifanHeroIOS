@@ -9,7 +9,7 @@
 import Foundation
 
 
-class DishListSearchResponse : Model {
+class DishListSearchResponse: HttpResponseProtocol {
     
     var results : [List] = [List]()
     var error : Error?
