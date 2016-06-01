@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetRestaurantsResponse : Model {
+class GetRestaurantsResponse: HttpResponseProtocol {
     
     var results: [Restaurant] = [Restaurant]()
     var error: Error?

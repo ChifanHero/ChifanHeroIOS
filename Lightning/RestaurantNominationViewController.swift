@@ -99,7 +99,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         
         DataAccessor(serviceConfiguration: ParseConfiguration()).nominateRestaurantForCollection(request, responseHandler: { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                print(response.result)
+                print(response!.result)
             })
             
         })

@@ -20,44 +20,11 @@ class DataAccessor {
     
     //Get--------------------------------------------------------------------------------------------------//
     func getPromotions(request: GetPromotionsRequest, responseHandler : (GetPromotionsResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
-        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
-                        var getPromotionsResponse : GetPromotionsResponse? = nil
-                        if data != nil {
-                            let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                            var jsonData : [String : AnyObject]
-                            do {
-                                jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                                getPromotionsResponse = GetPromotionsResponse(data: jsonData)
-                            } catch {
-                                print(error)
-                            }
-                        }
-                        responseHandler(getPromotionsResponse)
-        }
-        
+        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func getRestaurants(request: GetRestaurantsRequest, responseHandler : (GetRestaurantsResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
-        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
-                        var getRestaurantsResponse : GetRestaurantsResponse? = nil
-                        if data != nil {
-                            let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                            var jsonData : [String : AnyObject]
-                            do {
-                                jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                                getRestaurantsResponse = GetRestaurantsResponse(data: jsonData)
-                            } catch {
-                                print(error)
-                            }
-                        }
-                        responseHandler(getRestaurantsResponse)
-        }
+        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func getLists(request: GetListsRequest, responseHandler : (GetListsResponse?) -> Void) {
@@ -81,23 +48,7 @@ class DataAccessor {
     }
     
     func getRestaurantById(request: GetRestaurantByIdRequest, responseHandler : (GetRestaurantByIdResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL() + "/" + request.getResourceId()
-        print(url)
-        httpClient.get(url, headers: nil) { (data, response, error) -> Void in
-            var getRestaurantByIdResponse : GetRestaurantByIdResponse? = nil
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    getRestaurantByIdResponse = GetRestaurantByIdResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(getRestaurantByIdResponse)
-        }
+        self.callParseApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
     func getDishById(request: GetDishByIdRequest, responseHandler : (GetDishByIdResponse?) -> Void) {
@@ -534,21 +485,20 @@ class DataAccessor {
     }
     
     
-    func nominateRestaurantForCollection(request: NominateRestaurantRequest, responseHandler: (NominateRestaurantResponse) -> Void){
+    func nominateRestaurantForCollection(request: NominateRestaurantRequest, responseHandler: (NominateRestaurantResponse?) -> Void){
         
         self.callParseApi(method: "PUT", request: request, responseHandler: responseHandler)
         
     }
     
-    private func callParseApi<Response: HttpResponseProtocol>(method method: String, request: HttpRequestProtocol, responseHandler: (Response) -> Void){
+    private func callParseApi<Response: HttpResponseProtocol>(method method: String, request: HttpRequestProtocol, responseHandler: (Response?) -> Void){
         
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
         
         switch method {
-            case "GET": break
-            case "POST": break
-            case "PUT":
-                Alamofire.request(.PUT, url, parameters: request.getRequestBody()).validate().responseJSON { response in
+            case "GET":
+                Alamofire.request(.GET, url).validate().responseJSON { response in
                     
                     var responseObject: Response?
                     
@@ -562,10 +512,60 @@ class DataAccessor {
                         print(error)
                     }
                     
-                    responseHandler(responseObject!)
-            }
+                    responseHandler(responseObject)
+                }
+            case "POST":
+                Alamofire.request(.POST, url, parameters: request.getRequestBody(), encoding: .JSON).validate().responseJSON { response in
+                    
+                    var responseObject: Response?
+                    
+                    switch response.result {
+                    case .Success:
+                        if let value = response.result.value {
+                            let json = JSON(value)
+                            responseObject = Response(data: json.dictionaryObject!)
+                        }
+                    case .Failure(let error):
+                        print(error)
+                    }
+                    
+                    responseHandler(responseObject)
+                }
+            case "PUT":
+                Alamofire.request(.PUT, url, parameters: request.getRequestBody(), encoding: .JSON).validate().responseJSON { response in
+                    
+                    var responseObject: Response?
+                    
+                    switch response.result {
+                    case .Success:
+                        if let value = response.result.value {
+                            let json = JSON(value)
+                            responseObject = Response(data: json.dictionaryObject!)
+                        }
+                    case .Failure(let error):
+                        print(error)
+                    }
+                    
+                    responseHandler(responseObject)
+                }
             
-            case "DELETE": break
+            case "DELETE":
+                Alamofire.request(.DELETE, url, parameters: request.getRequestBody(), encoding: .JSON).validate().responseJSON { response in
+                    
+                    var responseObject: Response?
+                    
+                    switch response.result {
+                    case .Success:
+                        if let value = response.result.value {
+                            let json = JSON(value)
+                            responseObject = Response(data: json.dictionaryObject!)
+                        }
+                    case .Failure(let error):
+                        print(error)
+                    }
+                    
+                    responseHandler(responseObject)
+                }
             default: break
         }
     }

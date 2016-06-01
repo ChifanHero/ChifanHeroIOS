@@ -21,7 +21,7 @@ class GetRestaurantByIdRequest: HttpRequestProtocol{
     }
     
     func getRelativeURL() -> String {
-        return "/restaurants"
+        return "/restaurants/" + resourceId
     }
     
     func getRequestBody() -> [String : AnyObject] {

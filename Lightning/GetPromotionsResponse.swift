@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetPromotionsResponse : Model {
+class GetPromotionsResponse: HttpResponseProtocol {
     
     var results: [Promotion] = [Promotion]()
     var error: Error?
