@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LogOutRequest: PostRequestProtocol{
+class LogOutRequest: HttpRequestProtocol{
     
     func getRequestBody() -> [String : AnyObject] {
         let parameters = Dictionary<String, String>()

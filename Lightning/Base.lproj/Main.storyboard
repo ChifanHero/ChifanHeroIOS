@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -381,8 +381,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzl-U0-fO5" userLabel="Search View">
                                 <rect key="frame" x="-8" y="64" width="391" height="40"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="YuL-kS-BTj">
+                                    <searchBar contentMode="redraw" placeholder="请输入餐厅名称" translatesAutoresizingMaskIntoConstraints="NO" id="YuL-kS-BTj">
                                         <rect key="frame" x="0.0" y="-2" width="391" height="44"/>
+                                        <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
@@ -397,7 +398,7 @@
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IbA-l7-dNm">
                                 <rect key="frame" x="-4" y="104" width="383" height="563"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cKE-ip-P3t">
                                     <size key="itemSize" width="174" height="159"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -412,8 +413,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="174" height="159"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kka-PJ-Fqr">
-                                                    <rect key="frame" x="8" y="8" width="158" height="105"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kka-PJ-Fqr">
+                                                    <rect key="frame" x="0.0" y="0.0" width="174" height="121"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Kka-PJ-Fqr" secondAttribute="height" multiplier="58:53" constant="3" id="0Y1-qT-Che"/>
                                                         <constraint firstAttribute="width" secondItem="Kka-PJ-Fqr" secondAttribute="height" multiplier="3:2" id="7yD-AJ-T43"/>
@@ -421,11 +422,15 @@
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="0Y1-qT-Che"/>
+                                                            <exclude reference="7yD-AJ-T43"/>
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hnL-Z6-6HV">
-                                                    <rect key="frame" x="8" y="113" width="158" height="38"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hnL-Z6-6HV">
+                                                    <rect key="frame" x="8" y="121" width="158" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="p9A-TW-MLw"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -437,11 +442,21 @@
                                             <constraint firstItem="hnL-Z6-6HV" firstAttribute="leading" secondItem="Lrt-Ec-bpL" secondAttribute="leadingMargin" id="0OX-su-r1h"/>
                                             <constraint firstItem="hnL-Z6-6HV" firstAttribute="top" secondItem="Kka-PJ-Fqr" secondAttribute="bottom" id="2SF-Zy-HNV"/>
                                             <constraint firstItem="hnL-Z6-6HV" firstAttribute="bottom" secondItem="Lrt-Ec-bpL" secondAttribute="bottomMargin" id="3wG-4M-pNn"/>
+                                            <constraint firstItem="Kka-PJ-Fqr" firstAttribute="top" secondItem="Lrt-Ec-bpL" secondAttribute="topMargin" constant="-8" id="FVN-eV-gci"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="Kka-PJ-Fqr" secondAttribute="trailing" constant="-8" id="QSq-uo-Drf"/>
+                                            <constraint firstItem="Kka-PJ-Fqr" firstAttribute="leading" secondItem="Lrt-Ec-bpL" secondAttribute="leadingMargin" constant="-8" id="ZTn-pw-a96"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="Kka-PJ-Fqr" secondAttribute="trailing" id="enV-ex-htU"/>
                                             <constraint firstItem="Kka-PJ-Fqr" firstAttribute="leading" secondItem="Lrt-Ec-bpL" secondAttribute="leadingMargin" id="g4a-re-S3V"/>
                                             <constraint firstItem="Kka-PJ-Fqr" firstAttribute="top" secondItem="Lrt-Ec-bpL" secondAttribute="topMargin" id="uzE-Kf-fdv"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="hnL-Z6-6HV" secondAttribute="trailing" id="yw1-wL-NQN"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="enV-ex-htU"/>
+                                                <exclude reference="g4a-re-S3V"/>
+                                                <exclude reference="uzE-Kf-fdv"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outlet property="restaurantImage" destination="Kka-PJ-Fqr" id="EwE-qF-Y1S"/>
                                             <outlet property="restaurantName" destination="hnL-Z6-6HV" id="9vd-hL-ZKB"/>

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RateRequest: PostRequestProtocol{
+class RateRequest: HttpRequestProtocol{
     
     var type: String?
     var action: String?

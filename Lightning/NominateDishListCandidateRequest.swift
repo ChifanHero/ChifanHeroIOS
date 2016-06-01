@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NominateDishListCandidateRequest : PostRequestProtocol{
+class NominateDishListCandidateRequest: HttpRequestProtocol{
     
     var dishId : String?
     var listId : String?

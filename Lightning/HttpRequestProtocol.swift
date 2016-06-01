@@ -11,4 +11,5 @@ import Foundation
 
 protocol HttpRequestProtocol {    
     func getRelativeURL() -> String
+    func getRequestBody() -> [String : AnyObject]
 }

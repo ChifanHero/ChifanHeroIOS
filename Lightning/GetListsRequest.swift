@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetListsRequest : PostRequestProtocol {
+class GetListsRequest: HttpRequestProtocol {
     
     var limit : Int?
     var skip : Int?

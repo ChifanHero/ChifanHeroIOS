@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AddToFavoritesRequest: PostRequestProtocol{
+class AddToFavoritesRequest: HttpRequestProtocol{
     
     var type: String?
     var objectId: String?

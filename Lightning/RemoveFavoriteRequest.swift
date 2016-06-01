@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RemoveFavoriteRequest: DeleteRequestProtocol{
+class RemoveFavoriteRequest: HttpRequestProtocol{
     
     var type: String?
     var objectId: String?

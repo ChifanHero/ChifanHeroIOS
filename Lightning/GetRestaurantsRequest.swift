@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetRestaurantsRequest : PostRequestProtocol{
+class GetRestaurantsRequest: HttpRequestProtocol{
     
     var limit : Int?
     var skip : Int?

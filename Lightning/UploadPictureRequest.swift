@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UploadPictureRequest: PostRequestProtocol{
+class UploadPictureRequest: HttpRequestProtocol{
     
     var base64_code: String
     

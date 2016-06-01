@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class RestaurantNominationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate{
 
@@ -19,8 +21,10 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         super.viewDidLoad()
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
-        layout.itemSize = CGSize(width: self.nominationView!.frame.width / 3, height: self.nominationView!.frame.width / 3)
-        layout.sectionInset = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+        layout.itemSize = CGSize(width: self.nominationView!.frame.width / 40 * 17, height: self.nominationView!.frame.width / 40 * 25)
+        layout.sectionInset = UIEdgeInsets(top: self.nominationView!.frame.width / 40 * 2, left: self.nominationView!.frame.width / 40 * 2, bottom: self.nominationView!.frame.width / 40 * 2, right: self.nominationView!.frame.width / 40 * 2)
+        layout.minimumInteritemSpacing = self.nominationView!.frame.width / 40 * 2
+        layout.minimumLineSpacing = self.nominationView!.frame.width / 40 * 2
         self.nominationView?.collectionViewLayout = layout
         
         self.searchBar.delegate = self
@@ -65,22 +69,33 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     
     private func searchRestaurant(keyword keyword : String) {
         cleanStates()
-        let request: RestaurantSearchRequest = RestaurantSearchRequest()
-        request.keyword = keyword
+//        let request: RestaurantSearchRequest = RestaurantSearchRequest()
+//        request.keyword = keyword
+//        
+//        print(keyword)
+//        print(request.getRequestBody())
+//        
+//        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
+//            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                if let results = searchResponse?.results {
+//                    self.cleanStates()
+//                    self.restaurants += results
+//                    self.nominationView?.reloadData()
+//                }
+//                
+//            })
+//        }
         
-        print(keyword)
-        print(request.getRequestBody())
+        let request: NominateRestaurantRequest = NominateRestaurantRequest()
+        request.collectionId = "9leA3dr2Mx"
+        request.restaurantId = "EmZBPV7aRk"
         
-        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
+        DataAccessor(serviceConfiguration: ParseConfiguration()).nominateRestaurantForCollection(request, responseHandler: { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                if let results = searchResponse?.results {
-                    self.cleanStates()
-                    self.restaurants += results
-                    self.nominationView?.reloadData()
-                }
-                
+                print(response.result)
             })
-        }
+            
+        })
     }
     
     private func cleanStates() {

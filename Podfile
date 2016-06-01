@@ -6,6 +6,8 @@ use_frameworks!
 
 target 'Lightning' do
 
+pod 'Alamofire', '~> 3.4'
+pod 'AlamofireSwiftyJSON'
 pod 'Kingfisher', '~> 2.1'
 pod 'ARNTransitionAnimator'
 pod 'SCLAlertView'

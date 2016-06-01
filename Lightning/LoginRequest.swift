@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LoginRequest: PostRequestProtocol {
+class LoginRequest: HttpRequestProtocol {
     
     var username : String?
     var password : String?

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetRestaurantCollectionMembersRequest: GetRequestProtocol{
+class GetRestaurantCollectionMembersRequest: HttpRequestProtocol{
     
     var resourceId: String?
     
@@ -18,5 +18,10 @@ class GetRestaurantCollectionMembersRequest: GetRequestProtocol{
     
     func getRelativeURL() -> String {
         return "/restaurantCollectionMembers/" + resourceId!
+    }
+    
+    func getRequestBody() -> [String : AnyObject] {
+        let parameters = Dictionary<String, String>()
+        return parameters
     }
 }

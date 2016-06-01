@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RestaurantSearchRequest : PostRequestProtocol{
+class RestaurantSearchRequest: HttpRequestProtocol{
     
     var keyword : String?
     var offset : Int?

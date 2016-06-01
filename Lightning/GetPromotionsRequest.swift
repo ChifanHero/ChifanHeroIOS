@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetPromotionsRequest : PostRequestProtocol{
+class GetPromotionsRequest: HttpRequestProtocol{
     
     var limit : Int?
     var skip : Int?

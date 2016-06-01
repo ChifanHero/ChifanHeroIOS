@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DishListSearchRequest : PostRequestProtocol{
+class DishListSearchRequest: HttpRequestProtocol{
     
     var keyword : String?
     var offset : Int?

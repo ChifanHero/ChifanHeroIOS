@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VoteRestaurantRequest: PostRequestProtocol{
+class VoteRestaurantRequest: HttpRequestProtocol{
     
     var restaurantId: String?
     

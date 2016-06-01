@@ -27,11 +27,28 @@ class RestaurantNominationCollectionViewCell: UICollectionViewCell {
             url = restaurant.picture!.original!
         }
         restaurantImage.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        
+        configureCell()
     }
     
-    func setUp(){
-        self.restaurantName.text = "chi"
-        self.layer.borderWidth = 1
+    override var selected: Bool {
+        get {
+            return super.selected
+        }
+        set {
+            if newValue {
+                self.layer.borderWidth = 4.0
+                self.layer.borderColor = UIColor.redColor().CGColor
+            } else if newValue == false {
+                super.selected = false
+                self.layer.borderWidth = 0.3
+                self.layer.borderColor = UIColor.grayColor().CGColor
+            }
+        }
+    }
+    
+    private func configureCell(){
+        self.layer.borderWidth = 0.3
         self.layer.borderColor = UIColor.grayColor().CGColor
     }
     

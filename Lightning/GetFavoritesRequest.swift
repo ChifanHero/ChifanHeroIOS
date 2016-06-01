@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetFavoritesRequest: GetRequestProtocol{
+class GetFavoritesRequest: HttpRequestProtocol{
     
     var favoriteType: String
     
@@ -24,5 +24,10 @@ class GetFavoritesRequest: GetRequestProtocol{
     
     func getRelativeURL() -> String {
         return "/favorites?type=" + favoriteType
+    }
+    
+    func getRequestBody() -> [String : AnyObject] {
+        let parameters = Dictionary<String, String>()
+        return parameters
     }
 }

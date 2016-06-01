@@ -8,10 +8,15 @@
 
 import Foundation
 
-class GetDishesRequest : GetRequestProtocol{
+class GetDishesRequest: HttpRequestProtocol{
     
     func getRelativeURL() -> String {
         return ""
+    }
+    
+    func getRequestBody() -> [String : AnyObject] {
+        let parameters = Dictionary<String, String>()
+        return parameters
     }
     
 }

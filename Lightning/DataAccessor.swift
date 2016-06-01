@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Alamofire
+import SwiftyJSON
 
 class DataAccessor {
     
@@ -512,7 +514,39 @@ class DataAccessor {
     }
     
     
+    func nominateRestaurantForCollection(request: NominateRestaurantRequest, responseHandler: (NominateRestaurantResponse) -> Void){
+        
+        self.callParseApi(method: "PUT", request: request, responseHandler: responseHandler)
+        
+    }
     
-    
-    
+    private func callParseApi<Response: HttpResponseProtocol>(method method: String, request: HttpRequestProtocol, responseHandler: (Response) -> Void){
+        
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        
+        switch method {
+            case "GET": break
+            case "POST": break
+            case "PUT":
+                Alamofire.request(.PUT, url, parameters: request.getRequestBody()).validate().responseJSON { response in
+                    
+                    var responseObject: Response?
+                    
+                    switch response.result {
+                    case .Success:
+                        if let value = response.result.value {
+                            let json = JSON(value)
+                            responseObject = Response(data: json.dictionaryObject!)
+                        }
+                    case .Failure(let error):
+                        print(error)
+                    }
+                    
+                    responseHandler(responseObject!)
+            }
+            
+            case "DELETE": break
+            default: break
+        }
+    }
 }

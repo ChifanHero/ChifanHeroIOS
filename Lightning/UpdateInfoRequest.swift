@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UpdateInfoRequest: PostRequestProtocol{
+class UpdateInfoRequest: HttpRequestProtocol{
     
     var nickName: String?
     var pictureId: String?

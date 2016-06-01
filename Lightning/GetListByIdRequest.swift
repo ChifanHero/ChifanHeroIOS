@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetListByIdRequest: GetRequestProtocol {
+class GetListByIdRequest: HttpRequestProtocol {
     
     var resourceId : String
     
@@ -22,6 +22,11 @@ class GetListByIdRequest: GetRequestProtocol {
     
     func getRelativeURL() -> String {
         return "/lists"
+    }
+    
+    func getRequestBody() -> [String : AnyObject] {
+        let parameters = Dictionary<String, String>()
+        return parameters
     }
     
 }

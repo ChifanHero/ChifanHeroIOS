@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetSelectedCollectionsByLatAndLonRequest: GetRequestProtocol{
+class GetSelectedCollectionsByLatAndLonRequest: HttpRequestProtocol{
     
     var userLocation: Location?
     
@@ -20,5 +20,10 @@ class GetSelectedCollectionsByLatAndLonRequest: GetRequestProtocol{
     
     func getRelativeURL() -> String {
         return "/selectedCollections?lat=" + String((userLocation?.lat)!) + "&lon=" + String((userLocation?.lon)!)
+    }
+    
+    func getRequestBody() -> [String : AnyObject] {
+        let parameters = Dictionary<String, String>()
+        return parameters
     }
 }

@@ -1,25 +1,26 @@
 //
-//  UpdateRestaurantInfoRequest.swift
+//  NominateRestaurantRequest.swift
 //  Lightning
 //
-//  Created by Shi Yan on 4/8/16.
+//  Created by Zhang, Alex on 5/24/16.
 //  Copyright © 2016 Lightning. All rights reserved.
 //
 
 import Foundation
 
-class UpdateRestaurantInfoRequest: HttpRequestProtocol{
+class NominateRestaurantRequest: HttpRequestProtocol{
     
     var restaurantId: String?
-    var imageId: String?
+    var collectionId: String?
     
     func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
-        parameters["image_id"] = imageId
+        parameters["restaurant_id"] = restaurantId
+        parameters["collection_id"] = collectionId
         return parameters
     }
     
     func getRelativeURL() -> String {
-        return "/restaurants/" + restaurantId!
+        return "/restaurantCollectionMemCan"
     }
 }
