@@ -29,6 +29,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         self.nominationView?.collectionViewLayout = layout
         
         self.searchBar.delegate = self
+
     }
     
     override func viewDidAppear(animated: Bool) {
