@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UploadPictureResponse: Model{
+class UploadPictureResponse: HttpResponseProtocol{
     
     var result: Picture?
     var error: Error?

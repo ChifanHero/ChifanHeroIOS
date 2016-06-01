@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GetRestaurantMenuResponse :  Model{
+class GetRestaurantMenuResponse:  HttpResponseProtocol{
     
     var results: [MenuItem] = [MenuItem]()
     var error: Error?

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetSelectedCollectionsByLatAndLonResponse: Model{
+class GetSelectedCollectionsByLatAndLonResponse: HttpResponseProtocol{
     
     var results: [SelectedCollection] = [SelectedCollection]()
     var error: Error?
