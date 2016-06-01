@@ -46,7 +46,6 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         searchBar.delegate = self
         cancelButton.tintColor = UIColor.whiteColor()
-        doneButton.tintColor = UIColor.whiteColor()
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
     }
     
@@ -75,7 +74,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     func getCurrentSelection() {
         let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("locationPermissionDenied") {
+        if defaults.boolForKey("usingCustomLocation") {
             currentSelection = LocationHelper.getDefaultCityFromCoreData()
             if currentSelection == nil {
                 currentSelection = LocationHelper.getDefaultCity()
@@ -94,10 +93,6 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func done(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -281,7 +276,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
             }
         }
         if homeViewController != nil {
-            homeViewController!.refreshOnViewAppear = true
+            homeViewController!.parepareForDataRefresh()
         }
         if city != nil {
             LocationHelper.saveDefaultCityToCoreData(city!)
@@ -290,7 +285,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
             let defaults = NSUserDefaults.standardUserDefaults()
             defaults.setBool(true, forKey: "usingCustomLocation")
             defaults.synchronize()
-            locationTable.reloadData()
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
         
         
@@ -348,7 +343,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: - User real time location handling
     func tryToUseUserRealLocation() {
-        appDelegate?.startGettingLocation()
+        appDelegate?.locationManager.startUpdatingLocation()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SelectLocationViewController.handleUserLocationDenied), name:"FailToGetUserLocation", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SelectLocationViewController.handleUserLocationAllowed), name:"UserLocationAvailable", object: nil)
         
@@ -368,7 +363,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         defaults.setBool(false, forKey: "locationPermissionDenied")
         defaults.setBool(false, forKey: "usingCustomLocation")
         defaults.synchronize()
-        self.locationTable.reloadData()
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func remindUserToAuthorize() {
@@ -384,7 +379,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func dontOpenSettings() {
-        
+        locationTable.reloadData()
     }
     
 }

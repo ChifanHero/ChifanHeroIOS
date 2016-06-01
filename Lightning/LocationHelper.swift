@@ -107,6 +107,7 @@ class LocationHelper {
                 managedObject.setValue(city.center?.lon, forKey: "center_lon")
                 do {
                     try managedContext.save()
+                    NSNotificationCenter.defaultCenter().postNotificationName("DefaultCityChanged", object: nil)
                 } catch let error as NSError {
                     print("Could not save \(error), \(error.userInfo)")
                 }
