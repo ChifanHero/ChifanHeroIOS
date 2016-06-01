@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetFavoritesResponse: Model{
+class GetFavoritesResponse: HttpResponseProtocol{
     
     var error: Error?
     var results: [Favorite] = [Favorite]()

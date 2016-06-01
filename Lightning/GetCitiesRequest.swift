@@ -8,16 +8,11 @@
 
 import Foundation
 
-class GetCitiesRequest: HttpRequestProtocol {
+class GetCitiesRequest: HttpRequest {
     
     var prefix : String = ""
 
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/cities?prefix=" + prefix.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-    }
-    
-    func getRequestBody() -> [String : AnyObject] {
-        let parameters = Dictionary<String, String>()
-        return parameters
     }
 }

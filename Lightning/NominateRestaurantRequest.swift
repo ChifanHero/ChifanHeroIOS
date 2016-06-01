@@ -8,19 +8,19 @@
 
 import Foundation
 
-class NominateRestaurantRequest: HttpRequestProtocol{
+class NominateRestaurantRequest: HttpRequest{
     
     var restaurantId: String?
     var collectionId: String?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["restaurant_id"] = restaurantId
         parameters["collection_id"] = collectionId
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/restaurantCollectionMemCan"
     }
 }

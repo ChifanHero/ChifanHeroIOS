@@ -8,19 +8,19 @@
 
 import Foundation
 
-class NominateDishListCandidateRequest: HttpRequestProtocol{
+class NominateDishListCandidateRequest: HttpRequest{
     
     var dishId : String?
     var listId : String?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["dish_id"] = dishId
         parameters["list_id"] = listId
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/lists/candidates"
     }
     

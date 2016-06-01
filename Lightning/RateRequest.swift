@@ -8,13 +8,13 @@
 
 import Foundation
 
-class RateRequest: HttpRequestProtocol{
+class RateRequest: HttpRequest{
     
     var type: String?
     var action: String?
     var objectId: String?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["type"] = type
         parameters["action"] = action
@@ -22,7 +22,7 @@ class RateRequest: HttpRequestProtocol{
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/ratings"
     }
 }

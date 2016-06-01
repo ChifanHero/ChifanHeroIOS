@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RestaurantSearchRequest: HttpRequestProtocol{
+class RestaurantSearchRequest: HttpRequest{
     
     var keyword : String?
     var offset : Int?
@@ -21,7 +21,7 @@ class RestaurantSearchRequest: HttpRequestProtocol{
     var range : Range?
     var highlightInField : Bool?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var requestBody = Dictionary<String, AnyObject>()
         requestBody["keyword"] = keyword
         requestBody["offset"] = offset
@@ -36,7 +36,7 @@ class RestaurantSearchRequest: HttpRequestProtocol{
         return requestBody
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/search/restaurants"
     }
     

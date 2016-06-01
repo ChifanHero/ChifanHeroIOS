@@ -8,17 +8,17 @@
 
 import Foundation
 
-class VoteRestaurantRequest: HttpRequestProtocol{
+class VoteRestaurantRequest: HttpRequest{
     
     var restaurantId: String?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["restaurant_id"] = restaurantId
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/restaurantCandidates"
     }
 }

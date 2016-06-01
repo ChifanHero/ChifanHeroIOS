@@ -8,19 +8,19 @@
 
 import Foundation
 
-class RemoveFavoriteRequest: HttpRequestProtocol{
+class RemoveFavoriteRequest: HttpRequest{
     
     var type: String?
     var objectId: String?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["type"] = type
         parameters["object_id"] = objectId
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/favorites"
     }
 }

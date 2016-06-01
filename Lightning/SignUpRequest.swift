@@ -8,19 +8,19 @@
 
 import Foundation
 
-class SignUpRequest: HttpRequestProtocol {
+class SignUpRequest: HttpRequest {
     
     var username : String?
     var password : String?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["username"] = username
         parameters["password"] = password
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/users/signUp"
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VoteRestaurantResponse: Model{
+class VoteRestaurantResponse: HttpResponseProtocol{
     
     var result: RestaurantCandidate?
     var error: Error?

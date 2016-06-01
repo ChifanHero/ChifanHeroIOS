@@ -8,19 +8,19 @@
 
 import Foundation
 
-class UpdateInfoRequest: HttpRequestProtocol{
+class UpdateInfoRequest: HttpRequest{
     
     var nickName: String?
     var pictureId: String?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["nick_name"] = nickName
         parameters["pictureId"] = pictureId
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/users/update"
     }
 }

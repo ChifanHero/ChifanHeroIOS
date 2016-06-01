@@ -8,17 +8,17 @@
 
 import Foundation
 
-class GetPromotionsRequest: HttpRequestProtocol{
+class GetPromotionsRequest: HttpRequest{
     
     var limit : Int?
     var skip : Int?
     var userLocation : Location?
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/promotions"
     }
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
         if (userLocation != nil) {
             parameters["user_location"] = userLocation?.getProperties()

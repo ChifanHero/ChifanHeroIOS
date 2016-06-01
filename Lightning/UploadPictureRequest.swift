@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UploadPictureRequest: HttpRequestProtocol{
+class UploadPictureRequest: HttpRequest{
     
     var base64_code: String
     
@@ -16,13 +16,13 @@ class UploadPictureRequest: HttpRequestProtocol{
         self.base64_code = base64_code
     }
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["base64_code"] = base64_code
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/images"
     }
 }

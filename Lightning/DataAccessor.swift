@@ -25,7 +25,7 @@ class DataAccessor {
         
         switch method {
         case "GET":
-            Alamofire.request(.GET, url).validate().responseJSON { response in
+            Alamofire.request(.GET, url, headers: request.getHeaders()).validate().responseJSON { response in
                 
                 var responseObject: Response?
                 
@@ -42,7 +42,7 @@ class DataAccessor {
                 responseHandler(responseObject)
             }
         case "POST":
-            Alamofire.request(.POST, url, parameters: request.getRequestBody(), encoding: .JSON).validate().responseJSON { response in
+            Alamofire.request(.POST, url, parameters: request.getRequestBody(), encoding: .JSON, headers: request.getHeaders()).validate().responseJSON { response in
                 
                 var responseObject: Response?
                 
@@ -59,7 +59,7 @@ class DataAccessor {
                 responseHandler(responseObject)
             }
         case "PUT":
-            Alamofire.request(.PUT, url, parameters: request.getRequestBody(), encoding: .JSON).validate().responseJSON { response in
+            Alamofire.request(.PUT, url, parameters: request.getRequestBody(), encoding: .JSON, headers: request.getHeaders()).validate().responseJSON { response in
                 
                 var responseObject: Response?
                 
@@ -77,7 +77,7 @@ class DataAccessor {
             }
             
         case "DELETE":
-            Alamofire.request(.DELETE, url, parameters: request.getRequestBody(), encoding: .JSON).validate().responseJSON { response in
+            Alamofire.request(.DELETE, url, parameters: request.getRequestBody(), encoding: .JSON, headers: request.getHeaders()).validate().responseJSON { response in
                 
                 var responseObject: Response?
                 
@@ -116,28 +116,10 @@ class DataAccessor {
     }
     
     func getFavorites(request: GetFavoritesRequest, responseHandler: (GetFavoritesResponse?) -> Void){
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
-        
         let defaults = NSUserDefaults.standardUserDefaults()
-        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
+        request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         
-        httpClient.get(url, headers: httpHeaders) { (data, response, error) -> Void in
-            var getFavoritesResponse: GetFavoritesResponse?
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding))!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    getFavoritesResponse = GetFavoritesResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(getFavoritesResponse)
-        }
-
+        self.callParseApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
     func getSelectedCollectionByLocation(request: GetSelectedCollectionsByLatAndLonRequest, responseHandler : (GetSelectedCollectionsByLatAndLonResponse?) -> Void) {
@@ -161,97 +143,31 @@ class DataAccessor {
     }
     
     func rate(request: RateRequest, responseHandler: (RateResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
-        
         let defaults = NSUserDefaults.standardUserDefaults()
-//        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
-        var httpHeaders = [String : String]()
         if defaults.stringForKey("sessionToken") != nil {
-            httpHeaders["User-Session"] = defaults.stringForKey("sessionToken")!
-//            httpHeaders.setValue(defaults.stringForKey("sessionToken")!, forKey: "User-Session")
+            request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         }
         
-        httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
-            var rateResponse: RateResponse?
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    rateResponse = RateResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(rateResponse)
-        }
-        
+        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func addToFavorites(request: AddToFavoritesRequest, responseHandler: (AddToFavoritesResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
-        
-//        let defaults = NSUserDefaults.standardUserDefaults()
-//        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
         let defaults = NSUserDefaults.standardUserDefaults()
-        //        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
-        var httpHeaders = [String : String]()
         if defaults.stringForKey("sessionToken") != nil {
-            httpHeaders["User-Session"] = defaults.stringForKey("sessionToken")!
-            //            httpHeaders.setValue(defaults.stringForKey("sessionToken")!, forKey: "User-Session")
+            request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         }
         
-        httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
-            var addToFavoritesResponse: AddToFavoritesResponse?
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    addToFavoritesResponse = AddToFavoritesResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(addToFavoritesResponse)
-        }
+        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
         
     }
     
     func removeFavorite(request: RemoveFavoriteRequest, responseHandler: (RemoveFavoriteResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
-        
-        //        let defaults = NSUserDefaults.standardUserDefaults()
-        //        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
         let defaults = NSUserDefaults.standardUserDefaults()
-        //        let httpHeaders = ["User-Session": defaults.stringForKey("sessionToken")!]
-        var httpHeaders = [String : String]()
         if defaults.stringForKey("sessionToken") != nil {
-            httpHeaders["User-Session"] = defaults.stringForKey("sessionToken")!
-            //            httpHeaders.setValue(defaults.stringForKey("sessionToken")!, forKey: "User-Session")
+            request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         }
         
-        httpClient.delete(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
-            var removeFavoriteResponse: RemoveFavoriteResponse?
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    removeFavoriteResponse = RemoveFavoriteResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(removeFavoriteResponse)
-        }
-        
+        self.callParseApi(method: "DELETE", request: request, responseHandler: responseHandler)
     }
     
     func searchRestaurants(request: RestaurantSearchRequest, responseHandler : (RestaurantSearchResponse?) -> Void) {
@@ -323,30 +239,12 @@ class DataAccessor {
     }
     
     func voteRestaurant(request: VoteRestaurantRequest, responseHandler: (VoteRestaurantResponse?) -> Void) {
-        let httpClient = HttpClient()
-        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
-        
         let defaults = NSUserDefaults.standardUserDefaults()
-        var httpHeaders = [String : String]()
         if defaults.stringForKey("sessionToken") != nil {
-            httpHeaders["User-Session"] = defaults.stringForKey("sessionToken")!
+            request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         }
         
-        httpClient.post(url, headers: httpHeaders, parameters: request.getRequestBody()) { (data, response, error) -> Void in
-            var rateResponse: VoteRestaurantResponse?
-            if data != nil {
-                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                var jsonData : [String : AnyObject]
-                do {
-                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
-                    rateResponse = VoteRestaurantResponse(data: jsonData)
-                } catch {
-                    print(error)
-                }
-            }
-            responseHandler(rateResponse)
-        }
+        self.callParseApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func updateRestaurantInfo(request: UpdateRestaurantInfoRequest, responseHandler: (UpdateRestaurantInfoResponse?) -> Void) {

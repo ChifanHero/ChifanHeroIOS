@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DishSearchRequest: HttpRequestProtocol{
+class DishSearchRequest: HttpRequest{
     
     var keyword : String?
     var offset : Int?
@@ -23,7 +23,7 @@ class DishSearchRequest: HttpRequestProtocol{
     var range : Range?
     var highlightInField : Bool?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var requestBody = Dictionary<String, AnyObject>()
         requestBody["keyword"] = keyword
         requestBody["offset"] = offset
@@ -40,7 +40,7 @@ class DishSearchRequest: HttpRequestProtocol{
         return requestBody
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/search/dishes"
     }
     

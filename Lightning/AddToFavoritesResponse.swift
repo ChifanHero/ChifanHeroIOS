@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AddToFavoritesResponse: Model{
+class AddToFavoritesResponse: HttpResponseProtocol{
     
     var result: Favorite?
     var error: Error?

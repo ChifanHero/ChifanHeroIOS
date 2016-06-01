@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class GetRestaurantMenuRequest: HttpRequestProtocol{
+class GetRestaurantMenuRequest: HttpRequest{
     
     var restaurantId : String
     
@@ -15,12 +15,7 @@ class GetRestaurantMenuRequest: HttpRequestProtocol{
         self.restaurantId = restaurantId
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/restaurants/" + restaurantId + "/menus"
-    }
-    
-    func getRequestBody() -> [String : AnyObject] {
-        let parameters = Dictionary<String, String>()
-        return parameters
     }
 }

@@ -8,14 +8,9 @@
 
 import Foundation
 
-class GetHotCitiesRequest: HttpRequestProtocol {
+class GetHotCitiesRequest: HttpRequest {
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/hotCities" 
-    }
-    
-    func getRequestBody() -> [String : AnyObject] {
-        let parameters = Dictionary<String, String>()
-        return parameters
     }
 }

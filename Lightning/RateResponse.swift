@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RateResponse: Model{
+class RateResponse: HttpResponseProtocol{
     
     var result: Rating?
     var error: Error?

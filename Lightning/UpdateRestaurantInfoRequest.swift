@@ -8,18 +8,18 @@
 
 import Foundation
 
-class UpdateRestaurantInfoRequest: HttpRequestProtocol{
+class UpdateRestaurantInfoRequest: HttpRequest{
     
     var restaurantId: String?
     var imageId: String?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["image_id"] = imageId
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/restaurants/" + restaurantId!
     }
 }

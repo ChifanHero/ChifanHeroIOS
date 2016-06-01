@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetRestaurantsRequest: HttpRequestProtocol{
+class GetRestaurantsRequest: HttpRequest{
     
     var limit : Int?
     var skip : Int?
@@ -16,7 +16,7 @@ class GetRestaurantsRequest: HttpRequestProtocol{
     var sortOrder : SortOrder?
     var userLocation : Location?
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
         if (userLocation != nil) {
             parameters["user_location"] = userLocation?.getProperties()
@@ -35,7 +35,7 @@ class GetRestaurantsRequest: HttpRequestProtocol{
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/restaurants"
     }
     

@@ -8,14 +8,14 @@
 
 import Foundation
 
-class LogOutRequest: HttpRequestProtocol{
+class LogOutRequest: HttpRequest{
     
-    func getRequestBody() -> [String : AnyObject] {
+    override func getRequestBody() -> [String : AnyObject] {
         let parameters = Dictionary<String, String>()
         return parameters
     }
     
-    func getRelativeURL() -> String {
+    override func getRelativeURL() -> String {
         return "/users/logOut"
     }
 }

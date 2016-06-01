@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RemoveFavoriteResponse: Model{
+class RemoveFavoriteResponse: HttpResponseProtocol{
     
     var result: Favorite?
     var error: Error?
