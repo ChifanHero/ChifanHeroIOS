@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="DefaultCity" syncable="YES">
+        <attribute name="center_lat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="center_lon" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="localized_country_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zip" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="EverUsedCity" syncable="YES">
         <attribute name="center_lat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="center_lon" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -16,14 +24,6 @@
         <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zip" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="LastUsedCity" syncable="YES">
-        <attribute name="center_lat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="center_lon" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="localized_country_name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="zip" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
     <entity name="Notification" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="read" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -31,8 +31,8 @@
     </entity>
     <elements>
         <element name="EverUsedCity" positionX="-63" positionY="9" width="128" height="135"/>
-        <element name="Notification" positionX="-63" positionY="-18" width="128" height="90"/>
-        <element name="LastUsedCity" positionX="-54" positionY="54" width="128" height="135"/>
         <element name="HotCity" positionX="-36" positionY="81" width="128" height="135"/>
+        <element name="DefaultCity" positionX="-54" positionY="54" width="128" height="135"/>
+        <element name="Notification" positionX="-63" positionY="-18" width="128" height="90"/>
     </elements>
 </model>

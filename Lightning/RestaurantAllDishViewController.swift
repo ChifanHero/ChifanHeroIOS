@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Flurry_iOS_SDK
 
 class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
@@ -70,6 +71,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         searchBar!.sizeToFit()
         self.navigationItem.titleView = searchBar
         definesPresentationContext = true
+        Flurry.logEvent("RestaurantAllDishView")
     }
     
     override func loadData(refreshHandler: ((success: Bool) -> Void)?) {

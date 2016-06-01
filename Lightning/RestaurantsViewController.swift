@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import Flurry_iOS_SDK
 
 class RestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable {
     
@@ -72,6 +73,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         if selectedCellIndexPath != nil {
             self.restaurantsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Flurry.logEvent("RestaurantsView_" + sortBy!)
     }
     
     private func clearTitleForBackBarButtonItem(){

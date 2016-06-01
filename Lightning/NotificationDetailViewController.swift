@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Flurry_iOS_SDK
 
 class NotificationDetailViewController: UIViewController, NotificationSelectionDelegate {
     
@@ -32,6 +33,11 @@ class NotificationDetailViewController: UIViewController, NotificationSelectionD
             self.notificationDetailView!.hidden = false
         }
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Flurry.logEvent("NotificationCotentView")
     }
     
     func notificationSelected(notification : NSManagedObject) {

@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import Flurry_iOS_SDK
 
 class AboutMeTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
@@ -32,6 +33,11 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         loadUserNickName()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        Flurry.logEvent("ProfileView")
     }
 
     override func didReceiveMemoryWarning() {

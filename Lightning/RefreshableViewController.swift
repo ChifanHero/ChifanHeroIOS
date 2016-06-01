@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Flurry_iOS_SDK
 
 class RefreshableViewController: UIViewController {
     

@@ -17,6 +17,17 @@ class CityTableViewCell: UITableViewCell {
             self.cityNameLabel.text = cityName
         }
     }
+    
+    var usingRealLocation : Bool? {
+        didSet {
+            if usingRealLocation == true {
+                self.cityNameLabel.text = "正在使用您的实时位置"
+            } else {
+                self.cityNameLabel.text = "使用我的实时位置"
+            }
+            
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

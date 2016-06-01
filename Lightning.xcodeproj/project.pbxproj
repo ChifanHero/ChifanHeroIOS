@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1519622B33064ADFB1B9FBCD /* Pods_Lightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A14C6E345D38407E2D2B20 /* Pods_Lightning.framework */; };
 		C4017D311C91CCE8002840FB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4017D301C91CCE8002840FB /* StringExtension.swift */; };
+		C4021ACB1CF41EE00021343B /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4021ACA1CF41EE00021343B /* libstdc++.6.tbd */; };
+		C4021ACD1CF975D10021343B /* GetHotCitiesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4021ACC1CF975D10021343B /* GetHotCitiesRequest.swift */; };
 		C4066F111C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */; };
 		C4066F151C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4066F141C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift */; };
 		C41297861C809AE60062BC7D /* TutorialChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41297841C809AE60062BC7D /* TutorialChildViewController.swift */; };
@@ -251,6 +253,8 @@
 		90904D921B49E7397CD1A26E /* Pods-Lightning.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lightning.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lightning/Pods-Lightning.debug.xcconfig"; sourceTree = "<group>"; };
 		9F4E1D025DE105092EEBD4B9 /* Pods-Lightning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lightning.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lightning/Pods-Lightning.release.xcconfig"; sourceTree = "<group>"; };
 		C4017D301C91CCE8002840FB /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		C4021ACA1CF41EE00021343B /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
+		C4021ACC1CF975D10021343B /* GetHotCitiesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetHotCitiesRequest.swift; sourceTree = "<group>"; };
 		C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameOnlyDishTableViewCell.swift; sourceTree = "<group>"; };
 		C4066F141C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCandidateNoDishContentView.swift; sourceTree = "<group>"; };
 		C41297841C809AE60062BC7D /* TutorialChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialChildViewController.swift; sourceTree = "<group>"; };
@@ -521,6 +525,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4021ACB1CF41EE00021343B /* libstdc++.6.tbd in Frameworks */,
 				CA203E1D1C111EEA00D6F32C /* libz.tbd in Frameworks */,
 				CA203E1E1C111EEA00D6F32C /* libsqlite3.tbd in Frameworks */,
 				CA203E1F1C111EEA00D6F32C /* SystemConfiguration.framework in Frameworks */,
@@ -545,6 +550,7 @@
 		23D85A71B84862FEE9FC8005 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4021ACA1CF41EE00021343B /* libstdc++.6.tbd */,
 				C49427E11CD874DA00F94D4F /* ARNTransitionAnimator.framework */,
 				C4F039E31BC347C100183AC2 /* libz.tbd */,
 				C4F039E11BC347B500183AC2 /* libsqlite3.tbd */,
@@ -1108,6 +1114,7 @@
 				CACA84081CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift */,
 				CAC81EE61CDA7BF900338B59 /* GetRestaurantCollectionMembersRequest.swift */,
 				C4D983111CEC34980061A088 /* GetCitiesRequest.swift */,
+				C4021ACC1CF975D10021343B /* GetHotCitiesRequest.swift */,
 			);
 			name = Get;
 			sourceTree = "<group>";
@@ -1556,6 +1563,7 @@
 				C47A1C8D1C7EC66500E0DF3A /* FirstNotification.swift in Sources */,
 				C4A0D5521C11746100BAE246 /* DishSearchRequest.swift in Sources */,
 				C4A0D5581C11746100BAE246 /* Range.swift in Sources */,
+				C4021ACD1CF975D10021343B /* GetHotCitiesRequest.swift in Sources */,
 				CA203E151C111EEA00D6F32C /* RestaurantAllDishViewController.swift in Sources */,
 				C47A1C8B1C7DF2A100E0DF3A /* NotificationTableViewCell.swift in Sources */,
 				CAC81EED1CDA86E000338B59 /* RestaurantCollectionMemberTableViewCell.swift in Sources */,

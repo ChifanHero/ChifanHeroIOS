@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import ARNTransitionAnimator
+import Flurry_iOS_SDK
 
 class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ARNImageTransitionZoomable {
     
@@ -91,9 +92,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidAppear(animated)
         self.animateTransition = true
         configVCTitle()
-        
+        Flurry.logEvent("RestaurantView")
     }
-    
     
     func configVCTitle() {
         vcTitleLabel.text = restaurantName

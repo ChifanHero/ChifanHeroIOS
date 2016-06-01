@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Flurry_iOS_SDK
 
 class SelectedCollectionsTableViewController: UITableViewController, RefreshableViewDelegate {
     
@@ -46,6 +47,12 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
         }
         self.navigationController?.navigationBar.translucent = true
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Flurry.logEvent("CollectionsView")
+    }
+    
     
     private func setTableViewFooterView() {
         let frame = CGRectMake(0, 0, self.view.frame.size.width, 30)

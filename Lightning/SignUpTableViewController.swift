@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Flurry_iOS_SDK
 
 class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
 
@@ -33,6 +34,11 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        Flurry.logEvent("SignupView")
     }
 
     override func didReceiveMemoryWarning() {
