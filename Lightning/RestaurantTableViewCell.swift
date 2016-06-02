@@ -37,10 +37,15 @@ class RestaurantTableViewCell: UITableViewCell {
     func setUp(restaurant restaurant: Restaurant) {
         nameLabel.text = restaurant.name
         addressLabel.text = restaurant.address
-        if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
-            let value = restaurant.distance?.value
-            let unit = restaurant.distance?.unit
-            distanceLabel.text = String(value!) + " " + unit!
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if !defaults.boolForKey("usingCustomLocation") {
+            if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
+                let value = restaurant.distance?.value
+                let unit = restaurant.distance?.unit
+                distanceLabel.text = String(value!) + " " + unit!
+            }
+        } else {
+            distanceLabel.text = ""
         }
         ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
 //        restaurantImageView.image = image
