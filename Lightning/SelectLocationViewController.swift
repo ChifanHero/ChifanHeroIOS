@@ -53,11 +53,13 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         super.viewWillAppear(animated)
         fetchDataAndConfigTable()
         locationTable.reloadData()
+        print("selection view will appear")
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
         Flurry.logEvent("LocationChangeView")
+        print("selection view did appear")
     }
 
     override func didReceiveMemoryWarning() {
@@ -129,7 +131,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
             if hotCities.count > 0 {
                 sections = sections + 1
             }
-            if history.count > 1 {
+            if history.count > 0 {
                 sections = sections + 1
             }
             return sections
@@ -143,11 +145,16 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
             tableView.registerNib(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "cityCell")
             cell = tableView.dequeueReusableCellWithIdentifier("cityCell") as? CityTableViewCell
         }
-        if (indexPath.section == Sections.CurrentSelection && indexPath.row == 0) {
-            cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        if (!searching) {
+            if (indexPath.section == Sections.CurrentSelection && indexPath.row == 0) {
+                cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+            } else {
+                cell?.accessoryType = UITableViewCellAccessoryType.None
+            }
         } else {
             cell?.accessoryType = UITableViewCellAccessoryType.None
         }
+        
         if searching {
             let city = searchResults[indexPath.row]
             var cityName = ""
@@ -182,12 +189,10 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
                         cityName += city!.localizedCountryName!
                     }
                     cell?.cityName = cityName
-                    cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
                 } else if currentSelection != nil && row == 1 {
                     cell?.cityName = "使用我的实时位置"
                 } else if currentSelection == nil {
                     cell?.cityName = "正在使用实时位置"
-                    cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
                 }
                 
             } else if section == Sections.History {
@@ -260,6 +265,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.locationTable.deselectRowAtIndexPath(indexPath, animated: true)
         var city : City? = nil
         if searching {
             searching = false
@@ -275,20 +281,32 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
         }
-        if homeViewController != nil {
-            homeViewController!.parepareForDataRefresh()
-        }
         if city != nil {
-            LocationHelper.saveDefaultCityToCoreData(city!)
-            LocationHelper.saveCityToHistory(city!)
-            currentSelection = city
             let defaults = NSUserDefaults.standardUserDefaults()
             defaults.setBool(true, forKey: "usingCustomLocation")
             defaults.synchronize()
+            if homeViewController != nil {
+                homeViewController!.prepareForDataRefresh()
+            }
+            LocationHelper.saveDefaultCityToCoreData(city!)
+            LocationHelper.saveCityToHistory(city!)
+            currentSelection = city
             self.dismissViewControllerAnimated(true, completion: nil)
         }
-        
-        
+    }
+    
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if indexPath.section == Sections.CurrentSelection && indexPath.row == 0 {
+            return nil
+        }
+        return indexPath
+    }
+    
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.section == Sections.CurrentSelection && indexPath.row == 0 {
+            return false
+        }
+        return true
     }
     
     // MARK: - UISearchBarDelegate
@@ -363,6 +381,9 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         defaults.setBool(false, forKey: "locationPermissionDenied")
         defaults.setBool(false, forKey: "usingCustomLocation")
         defaults.synchronize()
+        if homeViewController != nil {
+            homeViewController!.prepareForDataRefresh()
+        }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

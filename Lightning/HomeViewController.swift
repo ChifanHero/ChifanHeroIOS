@@ -148,7 +148,12 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     private func initPromotionsTable(){
         loadingIndicator.hidden = false
         loadingIndicator.startAnimating()
-        parepareForDataRefresh()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey("usingCustomLocation") {
+            loadData(nil)
+        } else {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
+        }
     }
     
     @objc private func refresh(sender:AnyObject) {
@@ -156,6 +161,9 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     }
     
     func handleLocationChange() {
+        promotionsTable.hidden = true
+        loadingIndicator.hidden = false
+        loadingIndicator.startAnimating()
         loadData(nil)
     }
     
@@ -163,7 +171,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         loadData(nil)
     }
     
-    func parepareForDataRefresh() {
+    func prepareForDataRefresh() {
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.boolForKey("usingCustomLocation") {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil)
@@ -173,16 +181,11 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     }
 
     override func loadData(refreshHandler : ((success : Bool) -> Void)?) {
-//        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
         let getPromotionsRequest = GetPromotionsRequest()
         
-        var location : Location
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if !defaults.boolForKey("locationPermissionDenied") {
-            location = appDelegate!.currentLocation
-        } else {
-            location = (LocationHelper.getDefaultCityFromCoreData()?.center)!
-        }
+        var location : Location = appDelegate!.getCurrentLocation()
+
         location = appDelegate!.getCurrentLocation()
         if (location.lat == nil || location.lon == nil) {
             loadingIndicator.hidden = true
@@ -217,7 +220,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
                 self.loadingIndicator.stopAnimating()
                 self.loadingIndicator.hidden = true
                 self.refreshControl.endRefreshing()
-                
+                self.promotionsTable.hidden = false
                 
             });
         }

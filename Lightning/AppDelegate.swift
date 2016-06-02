@@ -278,7 +278,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         isAppInForeground = true
-        informUserLocationSettingsIfNecessary()
+//        informUserLocationSettingsIfNecessary()
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -330,14 +330,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         currentLocation.lat = locValue.latitude
         currentLocation.lon = locValue.longitude
-        print(locValue.latitude)
-        print(locValue.longitude)
-        if postLocationAvailableNotification {
-            postLocationAvailableNotification = false
-            NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: nil)
-//            NSNotificationCenter.defaultCenter().postNotificationName("locationAlertDismissed", object: nil)
-            
-        }
+        NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: nil)
 
     }
     
@@ -361,10 +354,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             break
         case (CLAuthorizationStatus.Denied):
             // user denied location permission
+            print("denied")
             manager.stopUpdatingLocation()
             let defaults = NSUserDefaults.standardUserDefaults()
             if !defaults.boolForKey("locationPermissionDenied") {
-                handleLocationPermissionDenied()
+                if !defaults.boolForKey("usingCustomLocation") {
+                    handleLocationPermissionDenied()
+                }
+                
             }
             NSNotificationCenter.defaultCenter().postNotificationName("FailToGetUserLocation", object: LocationHelper.getDefaultCity().center)
             break
@@ -419,11 +416,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
                     askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))
                     askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
-                    defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
-                    defaults.synchronize()
+                    
                 }
-                
             }
+            defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
+            defaults.synchronize()
+            
         }
         
     }
