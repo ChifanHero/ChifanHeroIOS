@@ -1136,7 +1136,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                <color key="value" red="0.92156862745098034" green="0.18823529411764706" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="value" red="0.99607843137254903" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBar>
@@ -1161,7 +1161,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.9882352941176471" green="0.29803921568627451" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.99607843137254903" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -1690,7 +1690,6 @@
         <!--Navigation Controller-->
         <scene sceneID="ze4-8v-CRs">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zMF-eK-4oU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="RestaurantNomination" automaticallyAdjustsScrollViewInsets="NO" id="fsa-lF-R0f" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -1703,6 +1702,7 @@
                         <segue destination="CUa-OE-7Gk" kind="relationship" relationship="rootViewController" id="DCm-zW-pTO"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zMF-eK-4oU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3177" y="-1663"/>
         </scene>

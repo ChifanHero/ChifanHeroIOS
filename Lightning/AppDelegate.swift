@@ -64,7 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     private func UISetup() {
-        configTextField()
         configSplitViewController()
         configNavigationBar()
     }
@@ -88,15 +87,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    private func configTextField() {
-        UITextField.appearance().tintColor = UIColor.blueColor()
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-    }
-    
     private func configNavigationBar() {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), forBarPosition: UIBarPosition.Any, barMetrics: UIBarMetrics.Default)
         UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().barTintColor = UIColor.themeOrange()
     }
     
     private func handleFirstLaunch() {

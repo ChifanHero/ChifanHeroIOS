@@ -55,6 +55,12 @@ class LightningColor {
 }
 
 extension UIColor {
+    public class func themeOrange() -> UIColor {
+        return UIColor(red: 254/255, green: 80/255, blue: 0/255, alpha: 1.0)
+    }
+}
+
+extension UIColor {
     
     func getColorCode() -> UInt {
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
