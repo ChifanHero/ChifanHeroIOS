@@ -157,6 +157,10 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         
         if searching {
             let city = searchResults[indexPath.row]
+            var activated = true
+            if city.activated == nil || city.activated! == false {
+                activated = false
+            }
             var cityName = ""
             if city.name != nil {
                 cityName += city.name!
@@ -169,7 +173,14 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
             if city.localizedCountryName != nil {
                 cityName += city.localizedCountryName!
             }
+            if !activated {
+                cityName += "(暂未开通)"
+                cell?.activated = false
+            } else {
+                cell?.activated = true
+            }
             cell?.cityName = cityName
+            
         } else {
             let section = indexPath.section
             if section == Sections.CurrentSelection {
@@ -226,6 +237,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
                 }
                 cell?.cityName = cityName
             }
+            cell?.activated = true
 
         }
         
@@ -296,16 +308,31 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section == Sections.CurrentSelection && indexPath.row == 0 {
-            return nil
+        if searching {
+            let city = searchResults[indexPath.row]
+            if city.activated == nil || city.activated == false {
+                return nil
+            }
+        } else {
+            if indexPath.section == Sections.CurrentSelection && indexPath.row == 0 {
+                return nil
+            }
         }
         return indexPath
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if indexPath.section == Sections.CurrentSelection && indexPath.row == 0 {
-            return false
+        if searching {
+            let city = searchResults[indexPath.row]
+            if city.activated == nil || city.activated == false {
+                return false
+            }
+        } else {
+            if indexPath.section == Sections.CurrentSelection && indexPath.row == 0 {
+                return false
+            }
         }
+        
         return true
     }
     

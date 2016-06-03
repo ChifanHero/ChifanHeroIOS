@@ -28,6 +28,16 @@ class CityTableViewCell: UITableViewCell {
             
         }
     }
+    
+    var activated : Bool? {
+        didSet {
+            if activated == true {
+                cityNameLabel.textColor = UIColor.blackColor()
+            } else {
+                cityNameLabel.textColor = UIColor.lightGrayColor()
+            }
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
