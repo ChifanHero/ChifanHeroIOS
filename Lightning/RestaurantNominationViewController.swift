@@ -15,8 +15,11 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
 
     @IBOutlet weak var nominationView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var completeButton: UIBarButtonItem!
     
-    var restaurants : [Restaurant] = [Restaurant]()
+    let nominationRequest: NominateRestaurantRequest = NominateRestaurantRequest()
+    var restaurants: [Restaurant] = [Restaurant]()
+    var selectedCollection: SelectedCollection?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +32,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         self.nominationView?.collectionViewLayout = layout
         
         self.searchBar.delegate = self
+        completeButton.enabled = false
 
     }
     
@@ -66,7 +70,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell: RestaurantNominationCollectionViewCell? = nominationView.dequeueReusableCellWithReuseIdentifier("nominationCell", forIndexPath: indexPath) as! RestaurantNominationCollectionViewCell
+        let cell: RestaurantNominationCollectionViewCell? = nominationView.dequeueReusableCellWithReuseIdentifier("nominationCell", forIndexPath: indexPath) as? RestaurantNominationCollectionViewCell
     
         // Configure the cell
         cell!.setUp(restaurant: restaurants[indexPath.row])
@@ -74,35 +78,31 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         return cell!
     }
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        completeButton.enabled = true
+        nominationRequest.collectionId = selectedCollection?.id
+        nominationRequest.restaurantId = restaurants[indexPath.row].id
+    }
+    
     private func searchRestaurant(keyword keyword : String) {
         cleanStates()
-//        let request: RestaurantSearchRequest = RestaurantSearchRequest()
-//        request.keyword = keyword
-//        
-//        print(keyword)
-//        print(request.getRequestBody())
-//        
-//        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
-//            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                if let results = searchResponse?.results {
-//                    self.cleanStates()
-//                    self.restaurants += results
-//                    self.nominationView?.reloadData()
-//                }
-//                
-//            })
-//        }
+        let request: RestaurantSearchRequest = RestaurantSearchRequest()
+        request.keyword = keyword
         
-        let request: NominateRestaurantRequest = NominateRestaurantRequest()
-        request.collectionId = "9leA3dr2Mx"
-        request.restaurantId = "EmZBPV7aRk"
+        print(keyword)
+        print(request.getRequestBody())
         
-        DataAccessor(serviceConfiguration: ParseConfiguration()).nominateRestaurantForCollection(request, responseHandler: { (response) -> Void in
+        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                print(response!.result)
+                if let results = searchResponse?.results {
+                    self.cleanStates()
+                    self.restaurants += results
+                    self.nominationView?.reloadData()
+                }
+                
             })
-            
-        })
+        }
+        
     }
     
     private func cleanStates() {
@@ -114,6 +114,23 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         searchRestaurant(keyword: self.searchBar.text!)
     }
 
+    @IBAction func cancelNomination(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    @IBAction func completeNomination(sender: AnyObject) {
+        DataAccessor(serviceConfiguration: ParseConfiguration()).nominateRestaurantForCollection(nominationRequest, responseHandler: { (response) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                print(response!.result)
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+            
+        })
+    }
+    
+    
+    
     // MARK: UICollectionViewDelegate
 
     /*

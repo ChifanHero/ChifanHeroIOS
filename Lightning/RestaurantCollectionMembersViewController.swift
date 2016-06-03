@@ -174,8 +174,9 @@ class RestaurantCollectionMembersViewController: UITableViewController, Floating
         controller.dismissViewControllerAnimated(true, completion: nil)
         
         if index == 2 {
-            let restaurantNominationVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RestaurantNomination") as! UINavigationController
-            
+            let restaurantNominationVC: UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RestaurantNomination") as! UINavigationController
+            let rootVC = restaurantNominationVC.viewControllers.first as! RestaurantNominationViewController
+            rootVC.selectedCollection = selectedCollection
             presentViewController(restaurantNominationVC, animated: true, completion: nil)
         }
     }

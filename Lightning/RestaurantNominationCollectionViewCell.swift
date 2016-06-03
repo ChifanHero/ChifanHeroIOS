@@ -32,15 +32,12 @@ class RestaurantNominationCollectionViewCell: UICollectionViewCell {
     }
     
     override var selected: Bool {
-        get {
-            return super.selected
-        }
-        set {
-            if newValue {
+        
+        didSet {
+            if selected {
                 self.layer.borderWidth = 4.0
                 self.layer.borderColor = UIColor.redColor().CGColor
-            } else if newValue == false {
-                super.selected = false
+            } else {
                 self.layer.borderWidth = 0.3
                 self.layer.borderColor = UIColor.grayColor().CGColor
             }

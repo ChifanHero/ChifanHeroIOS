@@ -239,7 +239,7 @@
         <scene sceneID="xje-ul-W9J">
             <objects>
                 <tableViewController storyboardIdentifier="selectedCollection" id="95b-bo-wIe" customClass="SelectedCollectionsTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jgp-XE-aRB">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jgp-XE-aRB">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -270,7 +270,7 @@
         <scene sceneID="hcI-5y-Im8">
             <objects>
                 <tableViewController storyboardIdentifier="restaurantCollectionMembers" id="Bol-Ce-s2z" customClass="RestaurantCollectionMembersViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8E9-uT-aZE">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8E9-uT-aZE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -489,11 +489,20 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="JML-Sc-UYy">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="oj1-0c-hZU"/>
-                        <barButtonItem key="rightBarButtonItem" title="完成" id="eBR-F4-xzn"/>
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="oj1-0c-hZU">
+                            <connections>
+                                <action selector="cancelNomination:" destination="CUa-OE-7Gk" id="iiG-AH-hDt"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="完成" id="eBR-F4-xzn">
+                            <connections>
+                                <action selector="completeNomination:" destination="CUa-OE-7Gk" id="pcN-bE-Pkb"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="completeButton" destination="eBR-F4-xzn" id="Ihn-W8-rmc"/>
                         <outlet property="nominationView" destination="IbA-l7-dNm" id="3BL-x5-0tX"/>
                         <outlet property="searchBar" destination="YuL-kS-BTj" id="noC-l8-vpG"/>
                     </connections>
