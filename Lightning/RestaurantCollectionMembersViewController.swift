@@ -173,7 +173,19 @@ class RestaurantCollectionMembersViewController: UITableViewController, Floating
         //print("tapped index \(index)")
         controller.dismissViewControllerAnimated(true, completion: nil)
         
-        if index == 2 {
+        if index == 0 {
+            ratingAndFavoriteExecutor?.like("selected_collection", objectId: selectedCollection!.id!, failureHandler: { (objectId) -> Void in
+//                if self.selectedCollection?.likeCount != nil {
+//                    self.selectedCollection?.likeCount! -= 1
+//                }
+            })
+        } else if index == 1 {
+            ratingAndFavoriteExecutor?.addToFavorites("selected_collection", objectId: selectedCollection!.id!, failureHandler: { (objectId) -> Void in
+//                if self.selectedCollection?.userFavoriteCount != nil {
+//                    self.selectedCollection?.userFavoriteCount! -= 1
+//                }
+            })
+        } else if index == 2 {
             let restaurantNominationVC: UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RestaurantNomination") as! UINavigationController
             let rootVC = restaurantNominationVC.viewControllers.first as! RestaurantNominationViewController
             rootVC.selectedCollection = selectedCollection

@@ -15,6 +15,7 @@ class SelectedCollection: Model{
     var description: String?
     var typeId: Int?
     var memberCount: Int?
+    var likeCount: Int?
     var userFavoriteCount: Int?
     var cellImage: Picture?
     var coverageCenterGeo: Location?
@@ -30,6 +31,7 @@ class SelectedCollection: Model{
         description <-- data["description"]
         typeId <-- data["type_id"]
         memberCount <-- data["member_count"]
+        likeCount <-- data["like_count"]
         userFavoriteCount <-- data["user_favorite_count"]
         cellImage <-- data["cell_image"]
         coverageCenterGeo <-- data["coverage_center_geo"]

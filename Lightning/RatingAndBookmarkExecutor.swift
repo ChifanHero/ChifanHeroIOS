@@ -41,7 +41,6 @@ class RatingAndBookmarkExecutor {
         let now : Int = Int(NSDate().timeIntervalSince1970 * 1000)
         defaults.setInteger(now, forKey: objectId)
         
-//        self.baseViewController!.view.userInteractionEnabled = false
         DataAccessor(serviceConfiguration: ParseConfiguration()).rate(request) { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 
@@ -50,15 +49,6 @@ class RatingAndBookmarkExecutor {
                         failureHandler!(objectId)
                     }
                 }
-                
-//                if response?.error == nil {
-//                    
-////                    self.configureSuccessPopup("评论成功")
-////                    self.baseViewController!.view.addSubview(self.popUpView)
-////                    NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
-//                } else {
-//                    
-//                }
                 
             });
         }
@@ -69,14 +59,11 @@ class RatingAndBookmarkExecutor {
         request.type = type
         request.objectId = objectId
         
-//        self.baseViewController!.view.userInteractionEnabled = false
         DataAccessor(serviceConfiguration: ParseConfiguration()).addToFavorites(request) { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 
                 if response?.error == nil {
-//                    self.configureSuccessPopup("收藏成功")
-//                    self.baseViewController!.view.addSubview(self.popUpView)
-//                    NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("popUpDismiss"), userInfo: nil, repeats: false)
+                    
                 } else {
                     if failureHandler != nil {
                         failureHandler!(objectId)
