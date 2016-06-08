@@ -214,6 +214,7 @@
 		CA621EB81CF5886C00693306 /* NominateRestaurantResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA621EB71CF5886C00693306 /* NominateRestaurantResponse.swift */; };
 		CA621EBA1CFE55D700693306 /* HttpResponseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA621EB91CFE55D700693306 /* HttpResponseProtocol.swift */; };
 		CA621EBC1CFF8B3E00693306 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA621EBB1CFF8B3E00693306 /* HttpRequest.swift */; };
+		CA621EBE1D05E76800693306 /* DOFavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA621EBD1D05E76800693306 /* DOFavoriteButton.swift */; };
 		CA882D1F1C82619500D04696 /* RemoveFavoriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D1E1C82619500D04696 /* RemoveFavoriteRequest.swift */; };
 		CA882D231C8263AE00D04696 /* RemoveFavoriteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D221C8263AE00D04696 /* RemoveFavoriteResponse.swift */; };
 		CA882D271C85181200D04696 /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D261C85181200D04696 /* SignUpTableViewController.swift */; };
@@ -455,6 +456,7 @@
 		CA621EB71CF5886C00693306 /* NominateRestaurantResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NominateRestaurantResponse.swift; sourceTree = "<group>"; };
 		CA621EB91CFE55D700693306 /* HttpResponseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpResponseProtocol.swift; sourceTree = "<group>"; };
 		CA621EBB1CFF8B3E00693306 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		CA621EBD1D05E76800693306 /* DOFavoriteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DOFavoriteButton.swift; sourceTree = "<group>"; };
 		CA7A4F691BE939BB0016BC56 /* SignUpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		CA7A4F6B1BE9C95D0016BC56 /* SignUpResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
 		CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeTableViewController.swift; sourceTree = "<group>"; };
@@ -1037,6 +1039,7 @@
 				CAC527A61CEEB5F60056AAC8 /* UIColor+FloatingMenu.swift */,
 				CAC527A81CEEB62F0056AAC8 /* FloatingMenuController.swift */,
 				CAC527AA1CEEB6650056AAC8 /* FloatingButton.swift */,
+				CA621EBD1D05E76800693306 /* DOFavoriteButton.swift */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -1514,6 +1517,7 @@
 				CAC527AB1CEEB6650056AAC8 /* FloatingButton.swift in Sources */,
 				C4A0D55C1C11746100BAE246 /* TuningParams.swift in Sources */,
 				CA203E041C111EEA00D6F32C /* UpdateInfoResponse.swift in Sources */,
+				CA621EBE1D05E76800693306 /* DOFavoriteButton.swift in Sources */,
 				CA203E051C111EEA00D6F32C /* SimpleDishTableViewCell.swift in Sources */,
 				CA203E061C111EEA00D6F32C /* Rating.swift in Sources */,
 				CA203E071C111EEA00D6F32C /* StringUtil.swift in Sources */,

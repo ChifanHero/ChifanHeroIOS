@@ -302,43 +302,174 @@
                                         <action selector="handleCloseButton:" destination="Bol-Ce-s2z" eventType="touchUpInside" id="vMi-ch-Ebj"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LLj-p8-Oam" userLabel="More Option Button" customClass="FloatingButton" customModule="Lightning" customModuleProvider="target">
-                                    <rect key="frame" x="305" y="230" width="40" height="40"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npI-EN-eTb" userLabel="Like">
+                                    <rect key="frame" x="265" y="140" width="80" height="40"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dug-Fk-3PA" customClass="DOFavoriteButton" customModule="Lightning" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="3bW-30-NEh"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="image" value="Cancel_Button"/>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="imageColorOn">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="imageColorOff">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="circleColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="handleLikeButton:" destination="Bol-Ce-s2z" eventType="touchUpInside" id="KNE-XY-ZiQ"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEK-Q0-3mw" userLabel="Like Label">
+                                            <rect key="frame" x="40" y="4" width="36" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="34e-EC-w4W"/>
-                                        <constraint firstAttribute="width" constant="40" id="zuR-Z2-hCH"/>
+                                        <constraint firstItem="mEK-Q0-3mw" firstAttribute="top" secondItem="npI-EN-eTb" secondAttribute="top" constant="4" id="8aY-23-lNU"/>
+                                        <constraint firstItem="mEK-Q0-3mw" firstAttribute="leading" secondItem="dug-Fk-3PA" secondAttribute="trailing" id="LcA-3a-qL9"/>
+                                        <constraint firstAttribute="bottom" secondItem="dug-Fk-3PA" secondAttribute="bottom" id="Qgy-sJ-ZyA"/>
+                                        <constraint firstItem="dug-Fk-3PA" firstAttribute="leading" secondItem="npI-EN-eTb" secondAttribute="leading" id="Xe4-tY-Gy2"/>
+                                        <constraint firstAttribute="height" constant="40" id="blq-az-8dC"/>
+                                        <constraint firstAttribute="bottom" secondItem="mEK-Q0-3mw" secondAttribute="bottom" constant="4" id="ftj-az-Rbe"/>
+                                        <constraint firstAttribute="trailing" secondItem="mEK-Q0-3mw" secondAttribute="trailing" constant="4" id="kyD-k2-wB5"/>
+                                        <constraint firstAttribute="width" constant="80" id="v7U-kM-na8"/>
+                                        <constraint firstItem="dug-Fk-3PA" firstAttribute="top" secondItem="npI-EN-eTb" secondAttribute="top" id="vba-rH-ww5"/>
                                     </constraints>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <action selector="handleMenuButton:" destination="Bol-Ce-s2z" eventType="touchUpInside" id="rA9-RP-ZtS"/>
-                                    </connections>
-                                </button>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fEc-Ke-B1p" userLabel="Favorite">
+                                    <rect key="frame" x="265" y="190" width="80" height="40"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ho7-jf-SlU" userLabel="Favorite Button" customClass="DOFavoriteButton" customModule="Lightning" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="3FC-gu-o8l"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="image" value="Cancel_Button"/>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="imageColorOn">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="imageColorOff">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="circleColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="handleFavoriteButton:" destination="Bol-Ce-s2z" eventType="touchUpInside" id="wIV-AX-d6f"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tX0-HS-RRO" userLabel="Favorite Label">
+                                            <rect key="frame" x="40" y="4" width="36" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="1bl-DG-Sj0"/>
+                                        <constraint firstItem="tX0-HS-RRO" firstAttribute="leading" secondItem="Ho7-jf-SlU" secondAttribute="trailing" id="49S-rr-CD5"/>
+                                        <constraint firstAttribute="bottom" secondItem="tX0-HS-RRO" secondAttribute="bottom" constant="4" id="C1M-MB-d1w"/>
+                                        <constraint firstItem="tX0-HS-RRO" firstAttribute="top" secondItem="fEc-Ke-B1p" secondAttribute="top" constant="4" id="Hcn-gr-GfT"/>
+                                        <constraint firstAttribute="trailing" secondItem="tX0-HS-RRO" secondAttribute="trailing" constant="4" id="ZV2-jr-tHa"/>
+                                        <constraint firstItem="Ho7-jf-SlU" firstAttribute="leading" secondItem="fEc-Ke-B1p" secondAttribute="leading" id="eja-nS-KG1"/>
+                                        <constraint firstItem="Ho7-jf-SlU" firstAttribute="top" secondItem="fEc-Ke-B1p" secondAttribute="top" id="o8r-aY-fVI"/>
+                                        <constraint firstAttribute="width" constant="80" id="tIL-HF-cAE"/>
+                                        <constraint firstAttribute="bottom" secondItem="Ho7-jf-SlU" secondAttribute="bottom" id="v2C-kR-aCQ"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A1I-tE-te8" userLabel="Nomination">
+                                    <rect key="frame" x="265" y="240" width="80" height="40"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffv-Jx-xha" userLabel="Nomination Button" customClass="DOFavoriteButton" customModule="Lightning" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="t1g-Ef-hRb"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="image" value="Cancel_Button"/>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="imageColorOn">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="imageColorOff">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="circleColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="handleNominationButton:" destination="Bol-Ce-s2z" eventType="touchUpInside" id="Pks-Ab-aJ4"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4go-yj-YUq">
+                                            <rect key="frame" x="40" y="4" width="36" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="8p8-ca-M6I"/>
+                                        <constraint firstAttribute="bottom" secondItem="4go-yj-YUq" secondAttribute="bottom" constant="4" id="Dfd-mI-mnL"/>
+                                        <constraint firstItem="ffv-Jx-xha" firstAttribute="top" secondItem="A1I-tE-te8" secondAttribute="top" id="FL9-28-hJn"/>
+                                        <constraint firstItem="4go-yj-YUq" firstAttribute="leading" secondItem="ffv-Jx-xha" secondAttribute="trailing" id="Ur6-2U-MlR"/>
+                                        <constraint firstAttribute="bottom" secondItem="ffv-Jx-xha" secondAttribute="bottom" id="X6f-UT-g2a"/>
+                                        <constraint firstAttribute="width" constant="80" id="ba3-q0-KnY"/>
+                                        <constraint firstItem="ffv-Jx-xha" firstAttribute="leading" secondItem="A1I-tE-te8" secondAttribute="leading" id="kNs-r1-pGq"/>
+                                        <constraint firstItem="4go-yj-YUq" firstAttribute="top" secondItem="A1I-tE-te8" secondAttribute="top" constant="4" id="vRJ-o1-F0m"/>
+                                        <constraint firstAttribute="trailing" secondItem="4go-yj-YUq" secondAttribute="trailing" constant="4" id="vw3-9W-lEg"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="LLj-p8-Oam" firstAttribute="top" secondItem="UYa-gB-E10" secondAttribute="top" constant="230" id="275-vT-ws5"/>
-                                <constraint firstItem="LLj-p8-Oam" firstAttribute="leading" secondItem="jlt-gg-apc" secondAttribute="trailing" constant="85" id="49i-P1-QFr"/>
+                                <constraint firstAttribute="bottom" secondItem="npI-EN-eTb" secondAttribute="bottom" constant="120" id="0tJ-wl-uAD"/>
+                                <constraint firstAttribute="trailing" secondItem="npI-EN-eTb" secondAttribute="trailing" constant="30" id="1MO-Ta-OVk"/>
                                 <constraint firstItem="wLe-cz-yEh" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" id="9BQ-XY-4WX"/>
-                                <constraint firstAttribute="bottom" secondItem="LLj-p8-Oam" secondAttribute="bottom" constant="30" id="Bey-AH-eZP"/>
+                                <constraint firstAttribute="bottom" secondItem="A1I-tE-te8" secondAttribute="bottom" constant="20" id="Fxl-0V-31E"/>
                                 <constraint firstItem="Iav-UX-nTT" firstAttribute="top" secondItem="UYa-gB-E10" secondAttribute="top" constant="20" id="Vej-xb-fyJ"/>
                                 <constraint firstAttribute="trailing" secondItem="wLe-cz-yEh" secondAttribute="trailing" id="Vgc-zJ-Qsy"/>
-                                <constraint firstAttribute="trailing" secondItem="LLj-p8-Oam" secondAttribute="trailing" constant="30" id="XBi-XH-59M"/>
-                                <constraint firstAttribute="trailing" secondItem="LLj-p8-Oam" secondAttribute="trailing" constant="30" id="dcm-aB-2QM"/>
+                                <constraint firstAttribute="bottom" secondItem="fEc-Ke-B1p" secondAttribute="bottom" constant="70" id="cjY-e4-2yg"/>
+                                <constraint firstAttribute="trailing" secondItem="fEc-Ke-B1p" secondAttribute="trailing" constant="30" id="e8a-lJ-uwD"/>
                                 <constraint firstItem="jlt-gg-apc" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" constant="20" id="gyY-VE-Xc6"/>
                                 <constraint firstItem="Iav-UX-nTT" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" constant="10" id="lSi-hO-12H"/>
-                                <constraint firstAttribute="bottom" secondItem="LLj-p8-Oam" secondAttribute="bottom" constant="30" id="nan-2b-2wI"/>
                                 <constraint firstItem="wLe-cz-yEh" firstAttribute="top" secondItem="UYa-gB-E10" secondAttribute="top" id="oAf-gY-LXm"/>
+                                <constraint firstAttribute="trailing" secondItem="A1I-tE-te8" secondAttribute="trailing" constant="30" id="rKx-g8-CzY"/>
                                 <constraint firstAttribute="bottom" secondItem="jlt-gg-apc" secondAttribute="bottom" constant="10" id="tFa-5Y-WeV"/>
                                 <constraint firstAttribute="bottom" secondItem="wLe-cz-yEh" secondAttribute="bottom" id="tGo-Vb-9G1"/>
                             </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="275-vT-ws5"/>
-                                    <exclude reference="49i-P1-QFr"/>
-                                    <exclude reference="Bey-AH-eZP"/>
-                                    <exclude reference="dcm-aB-2QM"/>
-                                </mask>
-                            </variation>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ruu-dM-11o">
@@ -359,7 +490,15 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="collectionTitle" destination="jlt-gg-apc" id="h4E-R1-xDj"/>
+                        <outlet property="favoriteButton" destination="Ho7-jf-SlU" id="m7g-d1-ALQ"/>
+                        <outlet property="favoriteLabel" destination="tX0-HS-RRO" id="SlA-BX-slt"/>
+                        <outlet property="favoriteView" destination="fEc-Ke-B1p" id="Pug-iG-AGe"/>
                         <outlet property="headerImage" destination="wLe-cz-yEh" id="nhr-3p-fNT"/>
+                        <outlet property="likeButton" destination="dug-Fk-3PA" id="uWL-kE-CJp"/>
+                        <outlet property="likeLabel" destination="mEK-Q0-3mw" id="vxV-3q-1HR"/>
+                        <outlet property="likeView" destination="npI-EN-eTb" id="umy-y6-s5L"/>
+                        <outlet property="nominationButton" destination="ffv-Jx-xha" id="SMd-Mp-xwh"/>
+                        <outlet property="nominationView" destination="A1I-tE-te8" id="evY-CK-VxU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OaO-zc-x5i" userLabel="First Responder" sceneMemberID="firstResponder"/>

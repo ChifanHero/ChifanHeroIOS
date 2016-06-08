@@ -10,9 +10,29 @@ import UIKit
 import Kingfisher
 import Flurry_iOS_SDK
 
-class RestaurantCollectionMembersViewController: UITableViewController, FloatingMenuControllerDelegate{
+class RestaurantCollectionMembersViewController: UITableViewController {
     
     var selectedCollection: SelectedCollection?
+    
+    var likeCount: Int? {
+        didSet {
+            if likeLabel != nil {
+                if let count = likeCount {
+                    likeLabel.text = String(count)
+                }
+            }
+        }
+    }
+    
+    var favoriteCount: Int? {
+        didSet {
+            if favoriteLabel != nil {
+                if let count = favoriteCount {
+                    favoriteLabel.text = String(count)
+                }
+            }
+        }
+    }
     
     var members: [Restaurant] = [Restaurant]()
     
@@ -23,6 +43,15 @@ class RestaurantCollectionMembersViewController: UITableViewController, Floating
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var collectionTitle: UILabel!
+    @IBOutlet weak var likeView: UIView!
+    @IBOutlet weak var likeButton: DOFavoriteButton!
+    @IBOutlet weak var likeLabel: UILabel!
+    @IBOutlet weak var favoriteView: UIView!
+    @IBOutlet weak var favoriteButton: DOFavoriteButton!
+    @IBOutlet weak var favoriteLabel: UILabel!
+    @IBOutlet weak var nominationView: UIView!
+    @IBOutlet weak var nominationButton: DOFavoriteButton!
+    
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
@@ -32,10 +61,15 @@ class RestaurantCollectionMembersViewController: UITableViewController, Floating
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.setUpHeaderView()
         self.configureHeaderView()
+        self.configureLikeView()
+        self.configureFavoriteView()
+        self.configureNominationView()
         transitioningDelegate = transition
+        
+        likeCount = selectedCollection?.likeCount
+        favoriteCount = selectedCollection?.userFavoriteCount
         // Do any additional setup after loading the view.
     }
-    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -86,6 +120,63 @@ class RestaurantCollectionMembersViewController: UITableViewController, Floating
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         updateHeaderView()
+    }
+    
+    func configureLikeView(){
+        likeView.layer.borderWidth = 1.0
+        likeView.layer.borderColor = UIColor.whiteColor().CGColor
+        likeView.layer.cornerRadius = 10.0
+        likeButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.likeButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        if let likeCount = selectedCollection?.likeCount {
+            likeLabel.text = String(likeCount)
+        }
+    }
+    
+    func configureFavoriteView(){
+        favoriteView.layer.borderWidth = 1.0
+        favoriteView.layer.borderColor = UIColor.whiteColor().CGColor
+        favoriteView.layer.cornerRadius = 10.0
+        favoriteButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.favoriteButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        if let favoriteCount = selectedCollection?.userFavoriteCount {
+            favoriteLabel.text = String(favoriteCount)
+        }
+    }
+    
+    func configureNominationView(){
+        nominationView.layer.borderWidth = 1.0
+        nominationView.layer.borderColor = UIColor.whiteColor().CGColor
+        nominationView.layer.cornerRadius = 10.0
+        nominationButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.nominationButtonTapped(_:)), forControlEvents: .TouchUpInside)
+    }
+    
+    func likeButtonTapped(sender: DOFavoriteButton) {
+        if sender.selected {
+            // deselect
+            sender.deselect()
+        } else {
+            // select with animation
+            sender.select()
+        }
+    }
+    
+    func favoriteButtonTapped(sender: DOFavoriteButton) {
+        if sender.selected {
+            // deselect
+            sender.deselect()
+        } else {
+            // select with animation
+            sender.select()
+        }
+    }
+    
+    func nominationButtonTapped(sender: DOFavoriteButton) {
+        if sender.selected {
+            // deselect
+            sender.deselect()
+        } else {
+            // select with animation
+            sender.select()
+        }
     }
     
     func loadTableData() {
@@ -151,46 +242,59 @@ class RestaurantCollectionMembersViewController: UITableViewController, Floating
         return RestaurantCollectionMemberTableViewCell.height
     }
     
-    @IBAction func handleMenuButton(sender: AnyObject) {
-        let controller = FloatingMenuController(fromView: sender as! UIButton)
-        controller.delegate = self
-        controller.buttonItems = [
-            FloatingButton(image: UIImage(named: "Cancel_Button")),
-            FloatingButton(image: UIImage(named: "Cancel_Button")),
-            FloatingButton(image: UIImage(named: "Cancel_Button")),
-        ]
-        controller.labelTitles = [
-            "点赞",
-            "收藏",
-            "提名"
-        ]
-        presentViewController(controller, animated: true, completion: nil)
-    }
-    
-    // MARK: FloatingMenuControllerDelegate
-    
-    func floatingMenuController(controller: FloatingMenuController, didTapOnButton button: UIButton, atIndex index: Int) {
-        //print("tapped index \(index)")
-        controller.dismissViewControllerAnimated(true, completion: nil)
-        
-        if index == 0 {
+    @IBAction func handleLikeButton(sender: AnyObject) {
+        if likeButton.selected == false {
+            self.likeCount! += 1
             ratingAndFavoriteExecutor?.like("selected_collection", objectId: selectedCollection!.id!, failureHandler: { (objectId) -> Void in
-//                if self.selectedCollection?.likeCount != nil {
-//                    self.selectedCollection?.likeCount! -= 1
-//                }
+                if self.selectedCollection?.likeCount != nil {
+                    self.selectedCollection?.likeCount! -= 1
+                }
             })
-        } else if index == 1 {
-            ratingAndFavoriteExecutor?.addToFavorites("selected_collection", objectId: selectedCollection!.id!, failureHandler: { (objectId) -> Void in
-//                if self.selectedCollection?.userFavoriteCount != nil {
-//                    self.selectedCollection?.userFavoriteCount! -= 1
-//                }
-            })
-        } else if index == 2 {
-            let restaurantNominationVC: UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RestaurantNomination") as! UINavigationController
-            let rootVC = restaurantNominationVC.viewControllers.first as! RestaurantNominationViewController
-            rootVC.selectedCollection = selectedCollection
-            presentViewController(restaurantNominationVC, animated: true, completion: nil)
+            self.likeButton.enabled = false
         }
+    }
+    @IBAction func handleFavoriteButton(sender: AnyObject) {
+        if self.favoriteButton.selected == false {
+            if !UserContext.isValidUser() {
+                // Initialize Alert Controller
+                let alertController = UIAlertController(title: "Alert", message: "Are you okay?", preferredStyle: .Alert)
+                
+                // Initialize Actions
+                let yesAction = UIAlertAction(title: "Yes", style: .Default) { (action) -> Void in
+                    print("The user is okay.")
+                }
+                
+                let noAction = UIAlertAction(title: "No", style: .Default) { (action) -> Void in
+                    print("The user is not okay.")
+                }
+                
+                // Add Actions
+                alertController.addAction(yesAction)
+                alertController.addAction(noAction)
+                
+                // Present Alert Controller
+                self.presentViewController(alertController, animated: true, completion: nil)
+            } else {
+                self.favoriteCount! += 1
+                ratingAndFavoriteExecutor?.addToFavorites("selected_collection", objectId: selectedCollection!.id!, failureHandler: { (objectId) -> Void in
+                    if self.selectedCollection?.userFavoriteCount != nil {
+                        self.selectedCollection?.userFavoriteCount! -= 1
+                    }
+                })
+            }
+        } else {
+            self.favoriteCount! -= 1
+            ratingAndFavoriteExecutor?.removeFavorite("selected_collection", objectId: selectedCollection!.id!, successHandler: { () -> Void in
+                
+            })
+        }
+        
+    }
+    @IBAction func handleNominationButton(sender: AnyObject) {
+        let restaurantNominationVC: UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RestaurantNomination") as! UINavigationController
+        let rootVC = restaurantNominationVC.viewControllers.first as! RestaurantNominationViewController
+        rootVC.selectedCollection = selectedCollection
+        presentViewController(restaurantNominationVC, animated: true, completion: nil)
     }
 
 }
