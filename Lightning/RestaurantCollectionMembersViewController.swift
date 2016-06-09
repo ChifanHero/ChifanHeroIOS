@@ -10,9 +10,13 @@ import UIKit
 import Kingfisher
 import Flurry_iOS_SDK
 
-class RestaurantCollectionMembersViewController: UITableViewController {
+class RestaurantCollectionMembersViewController: UITableViewController, ARNImageTransitionZoomable{
     
     var selectedCollection: SelectedCollection?
+    
+    var animateTransition = false
+    weak var selectedImageView: UIImageView?
+    var selectedRestaurantName: String?
     
     var likeCount: Int? {
         didSet {
@@ -39,7 +43,7 @@ class RestaurantCollectionMembersViewController: UITableViewController {
     var headerView: UIView!
     let kTableHeaderHeight: CGFloat = 300.0
     
-    var transition: ExpandingCellTransition?
+    //var transition: ExpandingCellTransition?
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var collectionTitle: UILabel!
@@ -64,7 +68,7 @@ class RestaurantCollectionMembersViewController: UITableViewController {
         self.configureLikeView()
         self.configureFavoriteView()
         self.configureNominationView()
-        transitioningDelegate = transition
+        //transitioningDelegate = transition
         
         likeCount = selectedCollection?.likeCount
         favoriteCount = selectedCollection?.userFavoriteCount
@@ -77,6 +81,8 @@ class RestaurantCollectionMembersViewController: UITableViewController {
         if selectedCellIndexPath != nil {
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
+        self.animateTransition = false
+        self.navigationController?.navigationBar.translucent = true
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -87,12 +93,6 @@ class RestaurantCollectionMembersViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func handleCloseButton(sender: AnyObject) {
-        transition!.operation = UINavigationControllerOperation.Pop
-        transition!.duration = 0.8
-        dismissViewControllerAnimated(true, completion: nil)
     }
     
     private func setUpHeaderView(){
@@ -234,6 +234,28 @@ class RestaurantCollectionMembersViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let restaurantSelected: Restaurant = members[indexPath.row]
+        let selectedCell: RestaurantCollectionMemberTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantCollectionMemberTableViewCell
+        self.selectedImageView = selectedCell.restaurantImage
+        self.selectedRestaurantName = selectedCell.restaurantName.text
+        self.animateTransition = true
+        performSegueWithIdentifier("showRestaurant", sender: restaurantSelected.id)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showRestaurant" {
+            let controller: RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            controller.restaurantId = sender as? String
+            controller.restaurantImage = self.selectedImageView?.image
+            controller.restaurantName = self.selectedRestaurantName
+        } else if segue.identifier == "showNomination" {
+            let controller: RestaurantNominationViewController = segue.destinationViewController as! RestaurantNominationViewController
+            controller.selectedCollection = sender as? SelectedCollection
+        }
+    }
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -291,10 +313,33 @@ class RestaurantCollectionMembersViewController: UITableViewController {
         
     }
     @IBAction func handleNominationButton(sender: AnyObject) {
-        let restaurantNominationVC: UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RestaurantNomination") as! UINavigationController
-        let rootVC = restaurantNominationVC.viewControllers.first as! RestaurantNominationViewController
-        rootVC.selectedCollection = selectedCollection
-        presentViewController(restaurantNominationVC, animated: true, completion: nil)
+        performSegueWithIdentifier("showNomination", sender: selectedCollection)
+    }
+    
+    @IBAction func unwindToCollectionMember(segue: UIStoryboardSegue) {}
+    
+    // MARK: - ARNImageTransitionZoomable
+    
+    func createTransitionImageView() -> UIImageView {
+        let imageView = UIImageView(image: self.selectedImageView!.image)
+        imageView.contentMode = self.selectedImageView!.contentMode
+        imageView.clipsToBounds = true
+        imageView.userInteractionEnabled = false
+        imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
+        
+        return imageView
+    }
+    
+    func presentationCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = true
+    }
+    
+    func dismissalCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = false
+    }
+    
+    func usingAnimatedTransition() -> Bool {
+        return animateTransition
     }
 
 }

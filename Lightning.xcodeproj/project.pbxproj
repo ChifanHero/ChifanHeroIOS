@@ -594,7 +594,6 @@
 			isa = PBXGroup;
 			children = (
 				C4C8618C1CE0093F00A6C896 /* JSSAlertView */,
-				C49427DA1CD86F8600F94D4F /* ARNImage */,
 				C41298151C83CDA40062BC7D /* UIImageEffects.swift */,
 			);
 			name = OpenSource;
@@ -832,15 +831,6 @@
 			name = UIElementsClass;
 			sourceTree = "<group>";
 		};
-		C49427DA1CD86F8600F94D4F /* ARNImage */ = {
-			isa = PBXGroup;
-			children = (
-				C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */,
-				C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */,
-			);
-			name = ARNImage;
-			sourceTree = "<group>";
-		};
 		C4A0D55D1C137AED00BAE246 /* LocationComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -1035,6 +1025,8 @@
 		CAC527931CE1CA870056AAC8 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */,
+				C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */,
 				CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */,
 				CAC527A61CEEB5F60056AAC8 /* UIColor+FloatingMenu.swift */,
 				CAC527A81CEEB62F0056AAC8 /* FloatingMenuController.swift */,

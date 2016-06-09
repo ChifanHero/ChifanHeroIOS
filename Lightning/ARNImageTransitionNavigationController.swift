@@ -11,8 +11,9 @@ import ARNTransitionAnimator
 
 class ARNImageTransitionNavigationController: UINavigationController, UINavigationControllerDelegate {
     
-    weak var interactiveAnimator : ARNTransitionAnimator?
-    var currentOperation : UINavigationControllerOperation = .None
+    weak var interactiveAnimator: ARNTransitionAnimator?
+    var currentOperation: UINavigationControllerOperation = .None
+    let expandingCellTransition = ExpandingCellTransition()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,31 @@ class ARNImageTransitionNavigationController: UINavigationController, UINavigati
         fromViewController fromVC: UIViewController,
         toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
-        if let transitionSource = fromVC as? ARNImageTransitionZoomable {
+        
+        if fromVC is RestaurantCollectionMembersViewController{
+            if operation == .Push{
+                if let transitionSource = fromVC as? ARNImageTransitionZoomable {
+                    if transitionSource.usingAnimatedTransition() {
+                        self.currentOperation = operation
+                        return ARNImageZoomTransition.createAnimator(.Push, fromVC: fromVC, toVC: toVC)
+                    }
+                }
+            } else if operation == .Pop {
+                expandingCellTransition.operation = operation
+                expandingCellTransition.duration = 0.80
+                return expandingCellTransition
+            }
+        } else if let transitionSource = fromVC as? SelectedCollectionsTableViewController {
+            if operation == .Push {
+                expandingCellTransition.operation = UINavigationControllerOperation.Push
+                expandingCellTransition.duration = 0.80
+                expandingCellTransition.selectedCellFrame = transitionSource.selectedCellFrame
+                
+                return expandingCellTransition
+            } else {
+                return nil
+            }
+        } else if let transitionSource = fromVC as? ARNImageTransitionZoomable {
             if transitionSource.usingAnimatedTransition() {
                 self.currentOperation = operation
                 
@@ -37,8 +62,6 @@ class ARNImageTransitionNavigationController: UINavigationController, UINavigati
                 }
             }
         }
-        
-        
         return nil
     }
 

@@ -9,7 +9,7 @@
 import UIKit
 import Flurry_iOS_SDK
 
-class SelectedCollectionsTableViewController: UITableViewController, RefreshableViewDelegate {
+class SelectedCollectionsTableViewController: UITableViewController, UINavigationControllerDelegate, RefreshableViewDelegate {
     
     var selectedCollections: [SelectedCollection] = []
     
@@ -26,6 +26,8 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
     var selectedCellFrame = CGRectZero
     
     var selectedIndexPath: NSIndexPath?
+    
+    let transition = ExpandingCellTransition()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,25 +180,31 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        //self.performSegueWithIdentifier("showRestaurantCollectionMembers", sender: selectedCollections[indexPath.row])
         self.selectedCellFrame = tableView.convertRect(tableView.cellForRowAtIndexPath(indexPath)!.frame, toView: tableView.superview)
+        self.performSegueWithIdentifier("showCollectionMember", sender: indexPath)
         
-        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("restaurantCollectionMembers") as! RestaurantCollectionMembersViewController
-        controller.selectedCollection = selectedCollections[indexPath.row]
-        controller.transition = ExpandingCellTransition()
-        controller.transition!.operation = UINavigationControllerOperation.Push
-        controller.transition!.duration = 0.80
-        controller.transition!.selectedCellFrame = self.selectedCellFrame
-        
-        presentViewController(controller, animated: true, completion: nil)
+//        
+//        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("restaurantCollectionMembers") as! RestaurantCollectionMembersViewController
+//        controller.selectedCollection = selectedCollections[indexPath.row]
+//        controller.transition = ExpandingCellTransition()
+//        controller.transition!.operation = UINavigationControllerOperation.Push
+//        controller.transition!.duration = 0.80
+//        controller.transition!.selectedCellFrame = self.selectedCellFrame
+//        
+//        presentViewController(controller, animated: true, completion: nil)
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "showRestaurantCollectionMembers" {
-//            let restaurantCollectionMembersController: RestaurantCollectionMembersViewController = segue.destinationViewController as! RestaurantCollectionMembersViewController
-//            restaurantCollectionMembersController.selectedCollection = (sender as! SelectedCollection)
-//        }
-//    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showCollectionMember" {
+            //self.navigationController?.delegate = self
+            let controller: RestaurantCollectionMembersViewController = segue.destinationViewController as! RestaurantCollectionMembersViewController
+            controller.selectedCollection = selectedCollections[(sender as! NSIndexPath).row]
+            //controller.transition = ExpandingCellTransition()
+            //controller.transition!.operation = UINavigationControllerOperation.Push
+            //controller.transition!.duration = 0.80
+            //controller.transition!.selectedCellFrame = self.selectedCellFrame
+        }
+    }
     
     @objc private func reloadTable() {
         self.tableView.reloadData()
@@ -214,6 +222,28 @@ class SelectedCollectionsTableViewController: UITableViewController, Refreshable
                 
             }
         }
+    }
+    
+    // MARK: UINavigationControllerDelegate
+    
+    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        if operation == UINavigationControllerOperation.Push {
+            transition.operation = UINavigationControllerOperation.Push
+            transition.duration = 0.40
+            transition.selectedCellFrame = self.selectedCellFrame
+            
+            return transition
+        }
+        
+        if operation == UINavigationControllerOperation.Pop {
+            transition.operation = UINavigationControllerOperation.Pop
+            transition.duration = 0.20
+            
+            return transition
+        }
+        
+        return nil
     }
 
 

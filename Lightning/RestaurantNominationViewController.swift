@@ -33,6 +33,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         
         self.searchBar.delegate = self
         completeButton.enabled = false
+        self.navigationController?.navigationBar.translucent = false
 
     }
     
@@ -113,17 +114,19 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         self.searchBar?.endEditing(true)
         searchRestaurant(keyword: self.searchBar.text!)
     }
-
-    @IBAction func cancelNomination(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
     
     
     @IBAction func completeNomination(sender: AnyObject) {
         DataAccessor(serviceConfiguration: ParseConfiguration()).nominateRestaurantForCollection(nominationRequest, responseHandler: { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 print(response!.result)
-                self.dismissViewControllerAnimated(true, completion: nil)
+                let alert = UIAlertController(title: "提名成功!", message: "感谢您的提名.\n吃饭英雄会尽快处理您的请求!", preferredStyle: .Alert)
+                let OKAction = UIAlertAction(title: "完成", style: UIAlertActionStyle.Default, handler: {
+                    (_)in
+                    self.performSegueWithIdentifier("unwindToCollectionMember", sender: self)
+                })
+                alert.addAction(OKAction)
+                self.presentViewController(alert, animated: true, completion: nil)
             })
             
         })

@@ -205,19 +205,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         return cell!
     }
     
-//    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        
-//        let row = indexPath.row
-//        print("row = \(row)")
-//        if row == restaurants.count - 1 {
-//            if needToLoadMore() {
-//                footerView.activityIndicator.startAnimating()
-//                loadMore()
-//            }
-//            
-//        }
-//    }
-    
     func needToLoadMore() -> Bool {
         if self.restaurants.count == (request.skip)! + (request.limit)! {
             return true
@@ -252,14 +239,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         footerView?.activityIndicator.startAnimating()
         loadData(nil)
     }
-    
-//    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        return footerView
-//    }
-    
-//    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 30
-//    }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let restaurant : Restaurant = self.restaurants[indexPath.row]

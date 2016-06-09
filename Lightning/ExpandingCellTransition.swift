@@ -72,7 +72,6 @@ class ExpandingCellTransition: NSObject, UIViewControllerAnimatedTransitioning, 
             let topImageRect = CGRectMake(0, 0, imageSize.width * imageScale, topHeight)
             
             let bottomImageRect = CGRectMake(0, topHeight, imageSize.width * imageScale, bottomHeight)
-            
             let topImageRef = CGImageCreateWithImageInRect(tempImageRef, topImageRect)!
             let bottomImageRef = CGImageCreateWithImageInRect(tempImageRef, bottomImageRect)
             

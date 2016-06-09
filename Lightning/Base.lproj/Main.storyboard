@@ -233,7 +233,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E7N-mt-8S8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7345.5" y="-1214.5"/>
+            <point key="canvasLocation" x="8157.5" y="-1214.5"/>
         </scene>
         <!--Selected Collections Table View Controller-->
         <scene sceneID="xje-ul-W9J">
@@ -261,6 +261,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="tD0-Or-smL"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <segue destination="Bol-Ce-s2z" kind="show" identifier="showCollectionMember" id="tVL-Re-YKx"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDA-ug-fIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -269,9 +272,9 @@
         <!--Restaurant Collection Members View Controller-->
         <scene sceneID="hcI-5y-Im8">
             <objects>
-                <tableViewController storyboardIdentifier="restaurantCollectionMembers" id="Bol-Ce-s2z" customClass="RestaurantCollectionMembersViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Bol-Ce-s2z" customClass="RestaurantCollectionMembersViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8E9-uT-aZE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="UYa-gB-E10" userLabel="Header View">
@@ -291,17 +294,6 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iav-UX-nTT" userLabel="Dissmis Button">
-                                    <rect key="frame" x="10" y="20" width="25" height="25"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="25" id="W1S-0u-cEF"/>
-                                        <constraint firstAttribute="height" constant="25" id="vza-EX-FYY"/>
-                                    </constraints>
-                                    <state key="normal" title="X" image="Cancel_Button"/>
-                                    <connections>
-                                        <action selector="handleCloseButton:" destination="Bol-Ce-s2z" eventType="touchUpInside" id="vMi-ch-Ebj"/>
-                                    </connections>
-                                </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npI-EN-eTb" userLabel="Like">
                                     <rect key="frame" x="265" y="140" width="80" height="40"/>
                                     <subviews>
@@ -459,12 +451,10 @@
                                 <constraint firstAttribute="trailing" secondItem="npI-EN-eTb" secondAttribute="trailing" constant="30" id="1MO-Ta-OVk"/>
                                 <constraint firstItem="wLe-cz-yEh" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" id="9BQ-XY-4WX"/>
                                 <constraint firstAttribute="bottom" secondItem="A1I-tE-te8" secondAttribute="bottom" constant="20" id="Fxl-0V-31E"/>
-                                <constraint firstItem="Iav-UX-nTT" firstAttribute="top" secondItem="UYa-gB-E10" secondAttribute="top" constant="20" id="Vej-xb-fyJ"/>
                                 <constraint firstAttribute="trailing" secondItem="wLe-cz-yEh" secondAttribute="trailing" id="Vgc-zJ-Qsy"/>
                                 <constraint firstAttribute="bottom" secondItem="fEc-Ke-B1p" secondAttribute="bottom" constant="70" id="cjY-e4-2yg"/>
                                 <constraint firstAttribute="trailing" secondItem="fEc-Ke-B1p" secondAttribute="trailing" constant="30" id="e8a-lJ-uwD"/>
                                 <constraint firstItem="jlt-gg-apc" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" constant="20" id="gyY-VE-Xc6"/>
-                                <constraint firstItem="Iav-UX-nTT" firstAttribute="leading" secondItem="UYa-gB-E10" secondAttribute="leading" constant="10" id="lSi-hO-12H"/>
                                 <constraint firstItem="wLe-cz-yEh" firstAttribute="top" secondItem="UYa-gB-E10" secondAttribute="top" id="oAf-gY-LXm"/>
                                 <constraint firstAttribute="trailing" secondItem="A1I-tE-te8" secondAttribute="trailing" constant="30" id="rKx-g8-CzY"/>
                                 <constraint firstAttribute="bottom" secondItem="jlt-gg-apc" secondAttribute="bottom" constant="10" id="tFa-5Y-WeV"/>
@@ -487,6 +477,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <navigationItem key="navigationItem" id="54J-JD-OEM"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="collectionTitle" destination="jlt-gg-apc" id="h4E-R1-xDj"/>
@@ -499,11 +490,13 @@
                         <outlet property="likeView" destination="npI-EN-eTb" id="umy-y6-s5L"/>
                         <outlet property="nominationButton" destination="ffv-Jx-xha" id="SMd-Mp-xwh"/>
                         <outlet property="nominationView" destination="A1I-tE-te8" id="evY-CK-VxU"/>
+                        <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="FsK-Rc-bJJ"/>
+                        <segue destination="CUa-OE-7Gk" kind="show" identifier="showNomination" id="riw-9x-QZh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OaO-zc-x5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2398.5" y="-1662.5"/>
+            <point key="canvasLocation" x="2618.5" y="-1662.5"/>
         </scene>
         <!--Restaurant Nomination View Controller-->
         <scene sceneID="FHf-wr-Dpw">
@@ -514,11 +507,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Xij-O1-xFU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8b0-ws-ke6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzl-U0-fO5" userLabel="Search View">
-                                <rect key="frame" x="-8" y="64" width="391" height="40"/>
+                                <rect key="frame" x="-8" y="0.0" width="391" height="40"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" placeholder="请输入餐厅名称" translatesAutoresizingMaskIntoConstraints="NO" id="YuL-kS-BTj">
                                         <rect key="frame" x="0.0" y="-2" width="391" height="44"/>
@@ -536,7 +529,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IbA-l7-dNm">
-                                <rect key="frame" x="-4" y="104" width="383" height="563"/>
+                                <rect key="frame" x="-4" y="40" width="383" height="514"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cKE-ip-P3t">
                                     <size key="itemSize" width="174" height="159"/>
@@ -628,27 +621,24 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="JML-Sc-UYy">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="oj1-0c-hZU">
+                        <barButtonItem key="rightBarButtonItem" title="完成" id="VqB-80-kCC">
                             <connections>
-                                <action selector="cancelNomination:" destination="CUa-OE-7Gk" id="iiG-AH-hDt"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="完成" id="eBR-F4-xzn">
-                            <connections>
-                                <action selector="completeNomination:" destination="CUa-OE-7Gk" id="pcN-bE-Pkb"/>
+                                <action selector="completeNomination:" destination="CUa-OE-7Gk" id="IjC-Uy-iwq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="completeButton" destination="eBR-F4-xzn" id="Ihn-W8-rmc"/>
+                        <outlet property="completeButton" destination="VqB-80-kCC" id="eJx-yY-nuE"/>
                         <outlet property="nominationView" destination="IbA-l7-dNm" id="3BL-x5-0tX"/>
                         <outlet property="searchBar" destination="YuL-kS-BTj" id="noC-l8-vpG"/>
+                        <segue destination="71f-EJ-kij" kind="unwind" identifier="unwindToCollectionMember" unwindAction="unwindToCollectionMember:" id="puP-5s-nys"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hym-G9-ewU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="71f-EJ-kij" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3985.5" y="-1662.5"/>
+            <point key="canvasLocation" x="3301.5" y="-1662.5"/>
         </scene>
         <!--Restaurant View Controller-->
         <scene sceneID="hbI-cD-Qbc">
@@ -1835,25 +1825,6 @@
             </objects>
             <point key="canvasLocation" x="1932.5" y="784.5"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ze4-8v-CRs">
-            <objects>
-                <navigationController storyboardIdentifier="RestaurantNomination" automaticallyAdjustsScrollViewInsets="NO" id="fsa-lF-R0f" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QS3-DS-lAj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="CUa-OE-7Gk" kind="relationship" relationship="rootViewController" id="DCm-zW-pTO"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zMF-eK-4oU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3177" y="-1663"/>
-        </scene>
     </scenes>
     <resources>
         <image name="AboutMe" width="25" height="25"/>
@@ -1871,7 +1842,7 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SnI-Ci-tXQ"/>
+        <segue reference="FsK-Rc-bJJ"/>
         <segue reference="tIf-c0-cls"/>
     </inferredMetricsTieBreakers>
 </document>
