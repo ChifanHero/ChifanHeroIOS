@@ -39,6 +39,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         //waitingIndicator.hidden = true
         initialLoadData()
         self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
+        self.tabBarController?.tabBar.hidden = true
     }
     
     override func viewWillAppear(animated: Bool) {
