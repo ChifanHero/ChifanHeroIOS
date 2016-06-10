@@ -29,6 +29,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     let transition = ExpandingCellTransition()
     
+    var indicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
@@ -40,6 +42,16 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         initialLoadData()
         self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
         self.tabBarController?.tabBar.hidden = true
+        activityIndicator()
+        indicator.startAnimation()
+    }
+    
+    func activityIndicator() {
+        //indicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
+        indicator.color = UIColor.grayColor()
+        indicator.type = NVActivityIndicatorType.Pacman
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -54,6 +66,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         Flurry.logEvent("CollectionsView")
+        indicator.stopAnimation()
     }
     
     
