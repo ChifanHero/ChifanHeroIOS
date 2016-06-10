@@ -12,6 +12,7 @@ pod 'Kingfisher', '~> 2.1'
 pod 'ARNTransitionAnimator'
 pod 'SCLAlertView'
 pod 'Flurry-iOS-SDK/FlurrySDK'
+pod 'PullToMakeSoup', '~> 1.0'
 
 end
 

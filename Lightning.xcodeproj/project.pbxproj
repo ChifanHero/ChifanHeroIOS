@@ -1024,6 +1024,18 @@
 			name = Enum;
 			sourceTree = "<group>";
 		};
+		CA621EC91D0A718400693306 /* LoadingIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				CA621EBF1D0A39A500693306 /* NVActivityIndicatorView.swift */,
+				CA621EC11D0A3A0500693306 /* NVActivityIndicatorAnimationDelegate.swift */,
+				CA621EC31D0A698800693306 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */,
+				CA621EC51D0A6BA300693306 /* NVActivityIndicatorShape.swift */,
+				CA621EC71D0A6F5F00693306 /* NVActivityIndicatorAnimationPacman.swift */,
+			);
+			name = LoadingIndicator;
+			sourceTree = "<group>";
+		};
 		CAC527901CE1994E0056AAC8 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -1035,6 +1047,7 @@
 		CAC527931CE1CA870056AAC8 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				CA621EC91D0A718400693306 /* LoadingIndicator */,
 				C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */,
 				C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */,
 				CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */,
@@ -1042,11 +1055,6 @@
 				CAC527A81CEEB62F0056AAC8 /* FloatingMenuController.swift */,
 				CAC527AA1CEEB6650056AAC8 /* FloatingButton.swift */,
 				CA621EBD1D05E76800693306 /* DOFavoriteButton.swift */,
-				CA621EBF1D0A39A500693306 /* NVActivityIndicatorView.swift */,
-				CA621EC11D0A3A0500693306 /* NVActivityIndicatorAnimationDelegate.swift */,
-				CA621EC31D0A698800693306 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */,
-				CA621EC51D0A6BA300693306 /* NVActivityIndicatorShape.swift */,
-				CA621EC71D0A6F5F00693306 /* NVActivityIndicatorAnimationPacman.swift */,
 			);
 			name = Animation;
 			sourceTree = "<group>";

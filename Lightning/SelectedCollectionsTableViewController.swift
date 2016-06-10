@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PullToMakeSoup
 import Flurry_iOS_SDK
 
 class SelectedCollectionsTableViewController: UITableViewController, UINavigationControllerDelegate, RefreshableViewDelegate {
@@ -30,6 +31,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     let transition = ExpandingCellTransition()
     
     var indicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
+    
+    let refresher = PullToMakeSoup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +70,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         super.viewDidAppear(animated)
         Flurry.logEvent("CollectionsView")
         indicator.stopAnimation()
+        tableView.addPullToRefresh(refresher, action: {self.loadData(nil)})
     }
     
     
@@ -132,6 +136,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                     if refreshHandler != nil {
                         refreshHandler!(success: true)
                     }
+                    
+                    self.tableView.endRefreshing()
                     
                 }
                 self.isLoadingMore = false
