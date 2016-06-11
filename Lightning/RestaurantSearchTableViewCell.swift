@@ -46,17 +46,22 @@ class RestaurantSearchTableViewCell: UITableViewCell {
             self.addressLabel.attributedText = restaurant.address?.attributedStringFromHTML(12, highlightColor: LightningColor.themeRed())
         }
         
-        if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
-            let value = restaurant.distance?.value
-            let unit = restaurant.distance?.unit
-            self.distanceLabel.text = String(value!) + " " + unit!
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if !defaults.boolForKey("usingCustomLocation") {
+            if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
+                let value = restaurant.distance?.value
+                let unit = restaurant.distance?.unit
+                distanceLabel.text = String(value!) + " " + unit!
+            }
+        } else {
+            distanceLabel.text = ""
         }
         self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
         var url = ""
-        if restaurant.picture?.thumbnail != nil {
-            url = restaurant.picture!.thumbnail!
+        if restaurant.picture?.original != nil {
+            url = restaurant.picture!.original!
         }
-        restaurantImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"), optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        restaurantImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: [.Transition(ImageTransition.Fade(1))])
         var dishNames = ""
         if restaurant.dishes != nil && restaurant.dishes!.count > 0 {
             
