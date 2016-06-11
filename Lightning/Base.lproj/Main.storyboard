@@ -120,7 +120,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Cge-rc-BQk">
                                 <rect key="frame" x="-4" y="160" width="383" height="394"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -133,7 +133,7 @@
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Cge-rc-BQk" firstAttribute="top" secondItem="G2S-pL-if8" secondAttribute="bottom" constant="100" id="9pZ-Wd-ghX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Cge-rc-BQk" secondAttribute="trailing" constant="-20" id="A9v-AE-t8R"/>
@@ -200,7 +200,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCt-9Q-S6W">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="cBe-Iu-15d" id="Xlp-jp-qsH"/>
@@ -212,7 +212,7 @@
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gCt-9Q-S6W" firstAttribute="top" secondItem="5sj-V7-MTB" secondAttribute="bottom" id="4cS-7c-Iq6"/>
                             <constraint firstItem="EWK-8p-9KR" firstAttribute="centerX" secondItem="1HC-6e-FcA" secondAttribute="centerX" id="6XN-vg-86G"/>
@@ -1842,7 +1842,7 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FsK-Rc-bJJ"/>
         <segue reference="tIf-c0-cls"/>
+        <segue reference="Hvz-De-g2h"/>
     </inferredMetricsTieBreakers>
 </document>
