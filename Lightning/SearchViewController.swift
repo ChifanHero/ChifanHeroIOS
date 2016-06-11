@@ -9,9 +9,7 @@
 import UIKit
 import Flurry_iOS_SDK
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SelectionBarDelegate, UISearchBarDelegate{
-    
-    @IBOutlet weak var selectionBar: SelectionBar!
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
     
     
     @IBOutlet weak var searchResultsTableView: UITableView!
@@ -47,11 +45,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
         waitingIndicator.hidden = true
-        selectionBar.hidden = false
         configurePullRefresh()
         configureNavigationController()
         setTableFooterView()
-        selectionBar.delegate = self
         searchResultsTableView.hidden = true
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         searchBar = UISearchBar()
@@ -119,14 +115,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 waitingIndicator.hidden = false
                 waitingIndicator.startAnimating()
             }
-            let scope = selectionBar.scope
-            if scope == "restaurant" {
-                searchRestaurant(keyword: keyword!, offset: offset, limit: limit)
-            } else if scope == "list" {
-                searchList(keyword: keyword!, offset: offset, limit: limit)
-            } else if scope == "dish" {
-                searchDish(keyword: keyword!, offset: offset, limit: limit)
-            }
+            searchRestaurant(keyword: keyword!, offset: offset, limit: limit)
         }
     }
     
@@ -170,78 +159,78 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    func searchDish(keyword keyword : String, offset : Int, limit : Int) {
-//        cleanStates()
-        let request : DishSearchRequest = DishSearchRequest()
-        request.keyword = keyword
-        request.offset = offset
-        request.limit = limit
-        let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        let userLocation = appDelegate!.currentLocation
-        request.userLocation = userLocation
-        request.highlightInField = true
-        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchDishes(request) { (searchResponse) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                if let results = searchResponse?.results {
-                    if offset == 0 {
-                        self.dishes.removeAll()
-                    }
-                    self.dishes += results
-                    self.resultsCount = self.dishes.count
-                    self.searchResultsTableView.hidden = false
-                    
-                    self.searchResultsTableView.allowsSelection = false
-                    self.refreshControl.endRefreshing()
-                    self.searchResultsTableView.reloadData()
-                    if offset == 0 {
-                        self.scrollToTop()
-                    }
-                    
-                }
-                self.waitingIndicator.hidden = true
-                self.waitingIndicator.stopAnimating()
-                self.footerView!.activityIndicator.stopAnimating()
-                self.isLoadingMore = false
-                
-            })
-        }
-    }
+//    func searchDish(keyword keyword : String, offset : Int, limit : Int) {
+////        cleanStates()
+//        let request : DishSearchRequest = DishSearchRequest()
+//        request.keyword = keyword
+//        request.offset = offset
+//        request.limit = limit
+//        let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+//        let userLocation = appDelegate!.currentLocation
+//        request.userLocation = userLocation
+//        request.highlightInField = true
+//        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchDishes(request) { (searchResponse) -> Void in
+//            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                if let results = searchResponse?.results {
+//                    if offset == 0 {
+//                        self.dishes.removeAll()
+//                    }
+//                    self.dishes += results
+//                    self.resultsCount = self.dishes.count
+//                    self.searchResultsTableView.hidden = false
+//                    
+//                    self.searchResultsTableView.allowsSelection = false
+//                    self.refreshControl.endRefreshing()
+//                    self.searchResultsTableView.reloadData()
+//                    if offset == 0 {
+//                        self.scrollToTop()
+//                    }
+//                    
+//                }
+//                self.waitingIndicator.hidden = true
+//                self.waitingIndicator.stopAnimating()
+//                self.footerView!.activityIndicator.stopAnimating()
+//                self.isLoadingMore = false
+//                
+//            })
+//        }
+//    }
     
-    func searchList(keyword keyword : String, offset : Int, limit : Int) {
-//        cleanStates()
-        let request : DishListSearchRequest = DishListSearchRequest()
-        request.keyword = keyword
-        request.offset = offset
-        request.limit = limit
-        let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        let userLocation = appDelegate!.currentLocation
-        request.userLocation = userLocation
-        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchLists(request) { (searchResponse) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                if let results = searchResponse?.results {
-                    if offset == 0 {
-                        self.lists.removeAll()
-                    }
-                    self.lists += results
-                    self.resultsCount = self.lists.count
-                    self.searchResultsTableView.hidden = false
-                    
-                    self.searchResultsTableView.allowsSelection = true
-                    self.refreshControl.endRefreshing()
-                    self.searchResultsTableView.reloadData()
-                    if offset == 0 {
-                        self.scrollToTop()
-                    }
-                    
-                }
-                self.waitingIndicator.hidden = true
-                self.waitingIndicator.stopAnimating()
-                self.footerView!.activityIndicator.stopAnimating()
-                self.isLoadingMore = false
-                
-            })
-        }
-    }
+//    func searchList(keyword keyword : String, offset : Int, limit : Int) {
+////        cleanStates()
+//        let request : DishListSearchRequest = DishListSearchRequest()
+//        request.keyword = keyword
+//        request.offset = offset
+//        request.limit = limit
+//        let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+//        let userLocation = appDelegate!.currentLocation
+//        request.userLocation = userLocation
+//        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchLists(request) { (searchResponse) -> Void in
+//            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                if let results = searchResponse?.results {
+//                    if offset == 0 {
+//                        self.lists.removeAll()
+//                    }
+//                    self.lists += results
+//                    self.resultsCount = self.lists.count
+//                    self.searchResultsTableView.hidden = false
+//                    
+//                    self.searchResultsTableView.allowsSelection = true
+//                    self.refreshControl.endRefreshing()
+//                    self.searchResultsTableView.reloadData()
+//                    if offset == 0 {
+//                        self.scrollToTop()
+//                    }
+//                    
+//                }
+//                self.waitingIndicator.hidden = true
+//                self.waitingIndicator.stopAnimating()
+//                self.footerView!.activityIndicator.stopAnimating()
+//                self.isLoadingMore = false
+//                
+//            })
+//        }
+//    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return resultsCount
@@ -254,74 +243,45 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if selectionBar.scope == "list" {
-            var cell: SelectedCollectionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("listCell") as? SelectedCollectionTableViewCell
-            if cell == nil {
-                tableView.registerNib(UINib(nibName: "ListCell", bundle: nil), forCellReuseIdentifier: "listCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("listCell") as? SelectedCollectionTableViewCell
-            }
-            //cell?.setUp(list: lists[indexPath.row])
-            return cell!
-
-        } else if selectionBar.scope == "dish" {
-            
-            var cell : OwnerInfoDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
-            if cell == nil {
-                tableView.registerNib(UINib(nibName: "OwnerInfoDishCell", bundle: nil), forCellReuseIdentifier: "ownerInfoDishCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("ownerInfoDishCell") as? OwnerInfoDishTableViewCell
-            }
-            cell?.baseVC = self
-            cell?.setUp(dish: self.dishes[indexPath.row])
-            return cell!
-        } else {
-            var cell : RestaurantSearchTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantSearchCell") as? RestaurantSearchTableViewCell
-            if cell == nil {
-                tableView.registerNib(UINib(nibName: "RestaurantSearchCell", bundle: nil), forCellReuseIdentifier: "restaurantSearchCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("restaurantSearchCell") as? RestaurantSearchTableViewCell
-            }
-            cell?.setUp(restaurant: restaurants[indexPath.row])
-            return cell!
+        var cell : RestaurantSearchTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantSearchCell") as? RestaurantSearchTableViewCell
+        if cell == nil {
+            tableView.registerNib(UINib(nibName: "RestaurantSearchCell", bundle: nil), forCellReuseIdentifier: "restaurantSearchCell")
+            cell = tableView.dequeueReusableCellWithIdentifier("restaurantSearchCell") as? RestaurantSearchTableViewCell
         }
-        
+        cell?.setUp(restaurant: restaurants[indexPath.row])
+        return cell!
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if selectionBar.scope == "list" {
-            return SelectedCollectionTableViewCell.height
-        } else if selectionBar.scope == "dish" {
-            return OwnerInfoDishTableViewCell.height
-        } else {
-            return RestaurantSearchTableViewCell.height
-        }
-        
+        return RestaurantSearchTableViewCell.height
     }
     
-    func restaurantButtonClicked() {
-        if selectionBar.previousScope != "restaurant" {
-            self.searchResultsTableView.hidden = true
-            clearStates()
-            search(offset: 0, limit: LIMIT)
-        }
-        
-    }
-    
-    func dishButtonPressed() {
-        if selectionBar.previousScope != "dish" {
-            self.searchResultsTableView.hidden = true
-            clearStates()
-            search(offset: 0, limit: LIMIT)
-        }
-        
-    }
-    
-    func listButtonPressed() {
-        if selectionBar.previousScope != "list" {
-            self.searchResultsTableView.hidden = true
-            clearStates()
-            search(offset: 0, limit: LIMIT)
-        }
-        
-    }
+//    func restaurantButtonClicked() {
+//        if selectionBar.previousScope != "restaurant" {
+//            self.searchResultsTableView.hidden = true
+//            clearStates()
+//            search(offset: 0, limit: LIMIT)
+//        }
+//        
+//    }
+//    
+//    func dishButtonPressed() {
+//        if selectionBar.previousScope != "dish" {
+//            self.searchResultsTableView.hidden = true
+//            clearStates()
+//            search(offset: 0, limit: LIMIT)
+//        }
+//        
+//    }
+//    
+//    func listButtonPressed() {
+//        if selectionBar.previousScope != "list" {
+//            self.searchResultsTableView.hidden = true
+//            clearStates()
+//            search(offset: 0, limit: LIMIT)
+//        }
+//        
+//    }
     
     func clearStates() {
         self.offset = 0
@@ -337,26 +297,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let scope = selectionBar.scope
-        if scope == "restaurant" {
-            let restaurant : Restaurant = self.restaurants[indexPath.row]
-            self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
-            self.searchResultsTableView.deselectRowAtIndexPath(indexPath, animated: true)
-        } else if scope == "list" {
-            let list : List = self.lists[indexPath.row]
-            self.performSegueWithIdentifier("showList", sender: list.id)
-            self.searchResultsTableView.deselectRowAtIndexPath(indexPath, animated: true)
-        }
+        let restaurant : Restaurant = self.restaurants[indexPath.row]
+        self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
+        self.searchResultsTableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showRestaurant" {
-            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
-            restaurantController.restaurantId = sender as? String
-        } else if segue.identifier == "showList" {
-            //let listMemberController : ListMemberViewController = segue.destinationViewController as! ListMemberViewController
-            //listMemberController.listId = sender as? String
-        }
+        let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+        restaurantController.restaurantId = sender as? String
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -412,45 +360,19 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var likeCount = 0
         var neutralCount = 0
         var dislikeCount = 0
-        let scope = selectionBar.scope
         var objectId : String = ""
-        if scope == "restaurant" {
-            objectId = self.restaurants[indexPath.row].id!
-            if self.restaurants[indexPath.row].favoriteCount != nil {
-                favoriteCount = self.restaurants[indexPath.row].favoriteCount!
-            }
-            if self.restaurants[indexPath.row].likeCount != nil {
-                likeCount = self.restaurants[indexPath.row].likeCount!
-            }
-            if self.restaurants[indexPath.row].dislikeCount != nil {
-                dislikeCount = self.restaurants[indexPath.row].dislikeCount!
-            }
-            if self.restaurants[indexPath.row].neutralCount != nil {
-                neutralCount = self.restaurants[indexPath.row].neutralCount!
-            }
-            
-        } else if scope == "list" {
-            objectId = self.lists[indexPath.row].id!
-            if self.lists[indexPath.row].favoriteCount != nil {
-                favoriteCount = self.lists[indexPath.row].favoriteCount!
-            }
-            if self.lists[indexPath.row].likeCount != nil {
-                likeCount = self.lists[indexPath.row].likeCount!
-            }
-        } else if scope == "dish" {
-            objectId = self.dishes[indexPath.row].id!
-            if self.dishes[indexPath.row].favoriteCount != nil {
-                favoriteCount = self.dishes[indexPath.row].favoriteCount!
-            }
-            if self.dishes[indexPath.row].likeCount != nil {
-                likeCount = self.dishes[indexPath.row].likeCount!
-            }
-            if self.dishes[indexPath.row].dislikeCount != nil {
-                dislikeCount = self.dishes[indexPath.row].dislikeCount!
-            }
-            if self.dishes[indexPath.row].neutralCount != nil {
-                neutralCount = self.dishes[indexPath.row].neutralCount!
-            }
+        objectId = self.restaurants[indexPath.row].id!
+        if self.restaurants[indexPath.row].favoriteCount != nil {
+            favoriteCount = self.restaurants[indexPath.row].favoriteCount!
+        }
+        if self.restaurants[indexPath.row].likeCount != nil {
+            likeCount = self.restaurants[indexPath.row].likeCount!
+        }
+        if self.restaurants[indexPath.row].dislikeCount != nil {
+            dislikeCount = self.restaurants[indexPath.row].dislikeCount!
+        }
+        if self.restaurants[indexPath.row].neutralCount != nil {
+            neutralCount = self.restaurants[indexPath.row].neutralCount!
         }
         
         let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
@@ -458,24 +380,10 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.popupSigninAlert()
             } else {
                 favoriteCount += 1
-                if scope == "restaurant" {
-                    if self.restaurants[indexPath.row].favoriteCount == nil {
-                       self.restaurants[indexPath.row].favoriteCount = 1
-                    } else {
-                        self.restaurants[indexPath.row].favoriteCount! += 1
-                    }
-                } else if scope == "list" {
-                    if self.lists[indexPath.row].favoriteCount == nil {
-                        self.lists[indexPath.row].favoriteCount = 1
-                    } else {
-                        self.lists[indexPath.row].favoriteCount! += 1
-                    }
-                } else if scope == "dish" {
-                    if self.dishes[indexPath.row].favoriteCount == nil {
-                        self.dishes[indexPath.row].favoriteCount = 1
-                    } else {
-                        self.dishes[indexPath.row].favoriteCount! += 1
-                    }
+                if self.restaurants[indexPath.row].favoriteCount == nil {
+                    self.restaurants[indexPath.row].favoriteCount = 1
+                } else {
+                    self.restaurants[indexPath.row].favoriteCount! += 1
                 }
                 self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
                 self.addToFavorites(indexPath)
@@ -491,26 +399,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 JSSAlertView().warning(self, title: "评价太频繁")
             } else {
                 likeCount += 1
-                if scope == "restaurant" {
-                    if self.restaurants[indexPath.row].likeCount == nil {
-                        self.restaurants[indexPath.row].likeCount = 1
-                    } else {
-                        self.restaurants[indexPath.row].likeCount! += 1
-                    }
-                } else if scope == "list" {
-                    if self.lists[indexPath.row].likeCount == nil {
-                        self.lists[indexPath.row].likeCount = 1
-                    } else {
-                        self.lists[indexPath.row].likeCount! += 1
-                    }
-                } else if scope == "dish" {
-                    if self.dishes[indexPath.row].likeCount == nil {
-                        self.dishes[indexPath.row].likeCount = 1
-                    } else {
-                        self.dishes[indexPath.row].likeCount! += 1
-                    }
+                if self.restaurants[indexPath.row].likeCount == nil {
+                    self.restaurants[indexPath.row].likeCount = 1
+                } else {
+                    self.restaurants[indexPath.row].likeCount! += 1
                 }
-                
                 self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
                 
                 self.rate(indexPath, ratingType: RatingTypeEnum.like)
@@ -519,148 +412,73 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         });
         likeAction.backgroundColor = LightningColor.likeBackground()
         
-        if scope != "list" {
-            let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
-                if (UserContext.isRatingTooFrequent(objectId)) {
-                    JSSAlertView().warning(self, title: "评价太频繁")
+        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
+            if (UserContext.isRatingTooFrequent(objectId)) {
+                JSSAlertView().warning(self, title: "评价太频繁")
+            } else {
+                neutralCount += 1
+                if self.restaurants[indexPath.row].neutralCount == nil {
+                    self.restaurants[indexPath.row].neutralCount = 1
                 } else {
-                    neutralCount += 1
-                    if scope == "restaurant" {
-                        if self.restaurants[indexPath.row].neutralCount == nil {
-                            self.restaurants[indexPath.row].neutralCount = 1
-                        } else {
-                            self.restaurants[indexPath.row].neutralCount! += 1
-                        }
-                    } else if scope == "dish" {
-                        if self.dishes[indexPath.row].neutralCount == nil {
-                            self.dishes[indexPath.row].neutralCount = 1
-                        } else {
-                            self.dishes[indexPath.row].neutralCount! += 1
-                        }
-                    }
-                    self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
-                    self.rate(indexPath, ratingType: RatingTypeEnum.neutral)
+                    self.restaurants[indexPath.row].neutralCount! += 1
                 }
-                self.dismissActionViewWithDelay()
-            });
-            neutralAction.backgroundColor = LightningColor.neutralOrange()
-            
-            let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
-                if (UserContext.isRatingTooFrequent(objectId)) {
-                    JSSAlertView().warning(self, title: "评价太频繁")
+                self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
+                self.rate(indexPath, ratingType: RatingTypeEnum.neutral)
+            }
+            self.dismissActionViewWithDelay()
+        });
+        neutralAction.backgroundColor = LightningColor.neutralOrange()
+        
+        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
+            if (UserContext.isRatingTooFrequent(objectId)) {
+                JSSAlertView().warning(self, title: "评价太频繁")
+            } else {
+                dislikeCount += 1
+                if self.restaurants[indexPath.row].dislikeCount == nil {
+                    self.restaurants[indexPath.row].dislikeCount = 1
                 } else {
-                    dislikeCount += 1
-                    if scope == "restaurant" {
-                        if self.restaurants[indexPath.row].dislikeCount == nil {
-                            self.restaurants[indexPath.row].dislikeCount = 1
-                        } else {
-                            self.restaurants[indexPath.row].dislikeCount! += 1
-                        }
-                    } else if scope == "dish" {
-                        if self.dishes[indexPath.row].dislikeCount == nil {
-                            self.dishes[indexPath.row].dislikeCount = 1
-                        } else {
-                            self.dishes[indexPath.row].dislikeCount! += 1
-                        }
-                    }
-                    self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
-                    self.rate(indexPath, ratingType: RatingTypeEnum.dislike)
+                    self.restaurants[indexPath.row].dislikeCount! += 1
                 }
-                self.dismissActionViewWithDelay()
-            });
-            dislikeAction.backgroundColor = LightningColor.negativeBlue()
-            return [addBookmarkAction, dislikeAction, neutralAction, likeAction];
-        } else {
-            return [addBookmarkAction, likeAction]
-        }
+                self.searchResultsTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
+                self.rate(indexPath, ratingType: RatingTypeEnum.dislike)
+            }
+            self.dismissActionViewWithDelay()
+        });
+        dislikeAction.backgroundColor = LightningColor.negativeBlue()
+        return [addBookmarkAction, dislikeAction, neutralAction, likeAction];
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
-        let scope = selectionBar.scope
-        if scope == "restaurant" {
-            let restaurant = self.restaurants[indexPath.row]
-            ratingAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
-                if restaurant.favoriteCount != nil {
-                    restaurant.favoriteCount! -= 1
-                }
-            })
-            
-        } else if scope == "list" {
-            let list = self.lists[indexPath.row]
-            ratingAndBookmarkExecutor?.addToFavorites("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
-                if list.favoriteCount != nil {
-                    list.favoriteCount! -= 1
-                }
-            })
-            
-        } else if scope == "dish" {
-            let dish = self.dishes[indexPath.row]
-            ratingAndBookmarkExecutor?.addToFavorites("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
-                if dish.favoriteCount != nil {
-                    dish.favoriteCount! -= 1
-                }
-            })
-        }
+        let restaurant = self.restaurants[indexPath.row]
+        ratingAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
+            if restaurant.favoriteCount != nil {
+                restaurant.favoriteCount! -= 1
+            }
+        })
     }
     
     private func rate(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
-        let scope = selectionBar.scope
         if ratingType == RatingTypeEnum.like {
-            if scope == "restaurant" {
-                let restaurant = self.restaurants[indexPath.row]
-                ratingAndBookmarkExecutor?.like("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
-                    if restaurant.likeCount != nil {
-                        restaurant.likeCount! -= 1
-                    }
-                })
-            } else if scope == "dish" {
-                let dish = self.dishes[indexPath.row]
-                ratingAndBookmarkExecutor?.like("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
-                    if dish.likeCount != nil {
-                        dish.likeCount! -= 1
-                    }
-                })
-            } else if scope == "list" {
-                let list = self.lists[indexPath.row]
-                ratingAndBookmarkExecutor?.like("list", objectId: list.id!, failureHandler: { (objectId) -> Void in
-                    if list.likeCount != nil {
-                        list.likeCount! -= 1
-                    }
-                })
-            }
-            
+            let restaurant = self.restaurants[indexPath.row]
+            ratingAndBookmarkExecutor?.like("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
+                if restaurant.likeCount != nil {
+                    restaurant.likeCount! -= 1
+                }
+            })
         } else if ratingType == RatingTypeEnum.dislike {
-            if scope == "restaurant" {
-                let restaurant = self.restaurants[indexPath.row]
-                ratingAndBookmarkExecutor?.dislike("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
-                    if restaurant.likeCount != nil {
-                        restaurant.likeCount! -= 1
-                    }
-                })
-            } else if scope == "dish" {
-                let dish = self.dishes[indexPath.row]
-                ratingAndBookmarkExecutor?.dislike("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
-                    if dish.likeCount != nil {
-                        dish.likeCount! -= 1
-                    }
-                })
-            }
+            let restaurant = self.restaurants[indexPath.row]
+            ratingAndBookmarkExecutor?.dislike("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
+                if restaurant.likeCount != nil {
+                    restaurant.likeCount! -= 1
+                }
+            })
         } else if ratingType == RatingTypeEnum.neutral{
-            if scope == "restaurant" {
-                let restaurant = self.restaurants[indexPath.row]
-                ratingAndBookmarkExecutor?.neutral("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
-                    if restaurant.likeCount != nil {
-                        restaurant.likeCount! -= 1
-                    }
-                })
-            } else if scope == "dish" {
-                let dish = self.dishes[indexPath.row]
-                ratingAndBookmarkExecutor?.neutral("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
-                    if dish.likeCount != nil {
-                        dish.likeCount! -= 1
-                    }
-                })
-            }
+            let restaurant = self.restaurants[indexPath.row]
+            ratingAndBookmarkExecutor?.neutral("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
+                if restaurant.likeCount != nil {
+                    restaurant.likeCount! -= 1
+                }
+            })
         }
         
     }

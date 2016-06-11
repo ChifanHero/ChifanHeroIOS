@@ -890,18 +890,6 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9Q-Eu-s73" customClass="SelectionBar" customModule="Lightning" customModuleProvider="target">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="43"/>
-                                <color key="backgroundColor" red="0.92156862750000001" green="0.18823529410000001" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="xde-wy-P0o"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="boarderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="NfB-M6-uoM">
                                 <rect key="frame" x="88" y="197" width="200" height="160"/>
                                 <subviews>
@@ -928,7 +916,7 @@
                                 </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eb0-n8-VQj" userLabel="Search results tableView">
-                                <rect key="frame" x="0.0" y="43" width="375" height="511"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -944,27 +932,18 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="NfB-M6-uoM" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="0Ey-q4-FZW"/>
-                            <constraint firstItem="m9Q-Eu-s73" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leadingMargin" constant="-20" id="0J3-lN-1Ko"/>
                             <constraint firstItem="NfB-M6-uoM" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="3r8-Ki-uDl"/>
                             <constraint firstItem="NfB-M6-uoM" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="7xO-Xp-Qdw"/>
-                            <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" id="IVs-n4-ceA"/>
+                            <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" id="E6R-m0-5Bs"/>
                             <constraint firstItem="XZD-6s-Tzc" firstAttribute="top" secondItem="eb0-n8-VQj" secondAttribute="bottom" id="Ntk-MR-pVw"/>
                             <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="ifc-Dd-Dgo"/>
-                            <constraint firstItem="m9Q-Eu-s73" firstAttribute="top" secondItem="WfC-hM-iVb" secondAttribute="topMargin" id="lwk-am-kfS"/>
-                            <constraint firstItem="NfB-M6-uoM" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" constant="122" id="njO-t5-mMC">
-                                <variation key="heightClass=compact" constant="60"/>
-                            </constraint>
                             <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="opU-ss-fwO"/>
                             <constraint firstAttribute="trailing" secondItem="eb0-n8-VQj" secondAttribute="trailing" id="qo6-BZ-l3p"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="m9Q-Eu-s73" secondAttribute="trailing" constant="-20" id="ujF-GT-IFY"/>
                             <constraint firstItem="eb0-n8-VQj" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leading" id="wb3-KU-NnV"/>
-                            <constraint firstItem="m9Q-Eu-s73" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" id="zMH-dW-sU2"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="zMH-dW-sU2"/>
                                 <exclude reference="7xO-Xp-Qdw"/>
-                                <exclude reference="njO-t5-mMC"/>
                             </mask>
                         </variation>
                     </view>
@@ -974,7 +953,6 @@
                     <connections>
                         <outlet property="amplifierStackView" destination="NfB-M6-uoM" id="p3h-DT-8Rm"/>
                         <outlet property="searchResultsTableView" destination="eb0-n8-VQj" id="QIU-6Y-jds"/>
-                        <outlet property="selectionBar" destination="m9Q-Eu-s73" id="TJb-AZ-zY3"/>
                         <outlet property="waitingIndicator" destination="gAO-Cm-LSJ" id="XN0-O9-zlg"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="dDa-I7-4We"/>
                     </connections>
@@ -1842,7 +1820,7 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="dDa-I7-4We"/>
         <segue reference="tIf-c0-cls"/>
-        <segue reference="Hvz-De-g2h"/>
     </inferredMetricsTieBreakers>
 </document>
