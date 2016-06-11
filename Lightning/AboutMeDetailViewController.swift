@@ -9,7 +9,7 @@
 import UIKit
 import Flurry_iOS_SDK
 
-class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegate, UITableViewDataSource{
+class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegate, UITableViewDataSource, ARNImageTransitionZoomable{
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -22,6 +22,14 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     var restaurants: [Restaurant] = [Restaurant]()
     var dishes: [Dish] = [Dish]()
     var selectedCollections: [SelectedCollection] = [SelectedCollection]()
+    
+    weak var selectedImageView : UIImageView?
+    
+    var selectedRestaurantName : String?
+    
+    var selectedRestaurantId : String?
+    
+    var animateTransition = false
     
     @IBOutlet weak var noFavoritesMessage: UILabel!
     
@@ -159,6 +167,10 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.favorites![indexPath.row].type == "restaurant" {
             let restaurantSelected : Restaurant = restaurants[indexPath.row]
+            let selectedCell : RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
+            self.selectedImageView = selectedCell.restaurantImageView
+            selectedRestaurantName = selectedCell.nameLabel.text
+            selectedRestaurantId = restaurantSelected.id
             performSegueWithIdentifier("AboutMeDetailToRestaurant", sender: restaurantSelected.id)
         } else if self.favorites![indexPath.row].type == "dish" {
             
@@ -190,10 +202,50 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         if segue.identifier == "AboutMeDetailToRestaurant" {
             let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
+            self.animateTransition = true
+            restaurantController.restaurantImage = self.selectedImageView?.image
+            restaurantController.restaurantName = self.selectedRestaurantName
+            restaurantController.restaurantId = self.selectedRestaurantId
         } else if segue.identifier == "AboutMeDetailToList" {
             //let listMemberController: ListMemberViewController = segue.destinationViewController as! ListMemberViewController
             //listMemberController.listId = sender as? String
         }
+    }
+    
+    // MARK: - ARNImageTransitionZoomable
+    
+    func createTransitionImageView() -> UIImageView {
+        let imageView = UIImageView(image: self.selectedImageView!.image)
+        imageView.contentMode = self.selectedImageView!.contentMode
+        imageView.clipsToBounds = true
+        imageView.userInteractionEnabled = false
+        //        imageView.frame = self.selectedImageView!.convertRect(self.selectedImageView!.frame, toView: self.view)
+        imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
+        
+        return imageView
+    }
+    
+    func presentationCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = true
+    }
+    
+    func dismissalCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = false
+        animateTransition = false
+    }
+    
+//    func handleTransition() {
+//        self.animateTransition = true
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantViewController") as! RestaurantViewController
+//        restaurantController.restaurantImage = self.selectedImageView?.image
+//        restaurantController.restaurantName = self.selectedRestaurantName
+//        restaurantController.restaurantId = self.selectedRestaurantId
+//        self.navigationController?.pushViewController(restaurantController, animated: true)
+//    }
+    
+    func usingAnimatedTransition() -> Bool {
+        return animateTransition
     }
     
     /*

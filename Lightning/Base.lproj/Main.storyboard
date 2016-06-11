@@ -1731,10 +1731,10 @@
             </objects>
             <point key="canvasLocation" x="154.5" y="784.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Image Transition Navigation Controller-->
         <scene sceneID="DB4-FS-Iva">
             <objects>
-                <navigationController restorationIdentifier="AboutMeNavigationController" storyboardIdentifier="AboutMeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="t1R-Xe-I0O" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="AboutMeNavigationController" storyboardIdentifier="AboutMeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="t1R-Xe-I0O" customClass="ARNImageTransitionNavigationController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
