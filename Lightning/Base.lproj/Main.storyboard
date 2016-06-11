@@ -1685,8 +1685,7 @@
         <!--Search-->
         <scene sceneID="zUk-zk-wBr">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E9N-Mz-AKM" userLabel="Search" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                <navigationController id="E9N-Mz-AKM" userLabel="Search" customClass="ARNImageTransitionNavigationController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="搜索" image="Search_Tab" selectedImage="Search_Tab" id="aIO-nG-c2r"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

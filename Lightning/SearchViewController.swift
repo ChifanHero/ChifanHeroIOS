@@ -10,7 +10,7 @@ import UIKit
 import Flurry_iOS_SDK
 import PullToMakeSoup
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, ARNImageTransitionZoomable{
     
     
     @IBOutlet weak var searchResultsTableView: UITableView!
@@ -43,6 +43,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var isLoadingMore = false
     
     let refresher = PullToMakeSoup()
+    
+    var animateTransition = false
+    
+    weak var selectedImageView : UIImageView?
+    
+    var selectedRestaurantName : String?
+    
+    var selectedRestaurantId : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -305,13 +313,21 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let restaurant : Restaurant = self.restaurants[indexPath.row]
-        self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
         self.searchResultsTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let selectedCell : RestaurantSearchTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantSearchTableViewCell
+        self.selectedImageView = selectedCell.restaurantImageView
+        self.selectedRestaurantName = selectedCell.nameLabel.text
+        self.selectedRestaurantId = restaurant.id
+        self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
-        restaurantController.restaurantId = sender as? String
+        self.animateTransition = true
+        restaurantController.restaurantImage = self.selectedImageView?.image
+        restaurantController.restaurantName = self.selectedRestaurantName
+        restaurantController.restaurantId = self.selectedRestaurantId
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -514,6 +530,42 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
             }
         }
+    }
+    
+    // MARK: - ARNImageTransitionZoomable
+    
+    func createTransitionImageView() -> UIImageView {
+        let imageView = UIImageView(image: self.selectedImageView!.image)
+        imageView.contentMode = self.selectedImageView!.contentMode
+        imageView.clipsToBounds = true
+        imageView.userInteractionEnabled = false
+        //        imageView.frame = self.selectedImageView!.convertRect(self.selectedImageView!.frame, toView: self.view)
+        imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
+        
+        return imageView
+    }
+    
+    func presentationCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = true
+    }
+    
+    func dismissalCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = false
+        animateTransition = false
+    }
+    
+//    func handleTransition() {
+//        self.animateTransition = true
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantViewController") as! RestaurantViewController
+//        restaurantController.restaurantImage = self.selectedImageView?.image
+//        restaurantController.restaurantName = self.selectedRestaurantName
+//        restaurantController.restaurantId = self.selectedRestaurantId
+//        self.navigationController?.pushViewController(restaurantController, animated: true)
+//    }
+    
+    func usingAnimatedTransition() -> Bool {
+        return animateTransition
     }
 
     
