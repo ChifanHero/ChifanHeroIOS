@@ -8,6 +8,7 @@
 
 import UIKit
 import Flurry_iOS_SDK
+import PullToMakeSoup
 
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
     
@@ -22,7 +23,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
     @IBOutlet weak var scrollView: UIScrollView!
-    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
+//    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
     
     var restaurants : [Restaurant] = [Restaurant]()
     var dishes : [Dish] = [Dish]()
@@ -41,17 +42,20 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var isLoadingMore = false
     
+    let refresher = PullToMakeSoup()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
         waitingIndicator.hidden = true
-        configurePullRefresh()
+//        configurePullRefresh()
         configureNavigationController()
         setTableFooterView()
         searchResultsTableView.hidden = true
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         searchBar = UISearchBar()
         searchBar!.delegate = self
+        searchBar?.placeholder = "请输入餐厅名称开始搜索"
         searchBar!.sizeToFit()
         self.navigationItem.titleView = searchBar
         definesPresentationContext = true
@@ -59,6 +63,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.searchResultsTableView.addPullToRefresh(refresher) {
+            self.search(offset: 0, limit: self.LIMIT)
+        }
         Flurry.logEvent("SearchView")
     }
     
@@ -74,10 +81,10 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationItem.backBarButtonItem = barButtonItem
     }
     
-    private func configurePullRefresh(){
-        self.refreshControl.addTarget(self, action: #selector(SearchViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.searchResultsTableView.insertSubview(self.refreshControl, atIndex: 0)
-    }
+//    private func configurePullRefresh(){
+//        self.refreshControl.addTarget(self, action: #selector(SearchViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+//        self.searchResultsTableView.insertSubview(self.refreshControl, atIndex: 0)
+//    }
     
     func configureNavigationController() {
         self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
@@ -144,7 +151,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.restaurants += results
                     self.resultsCount = self.restaurants.count
                     self.searchResultsTableView.allowsSelection = true
-                    self.refreshControl.endRefreshing()
+                    self.searchResultsTableView.endRefreshing()
                     self.searchResultsTableView.reloadData()
                     if offset == 0 {
                         self.scrollToTop()
