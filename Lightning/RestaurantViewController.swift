@@ -39,7 +39,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     let vcTitleLabel : UILabel = UILabel()
     
     @IBOutlet weak var infoTableView: UITableView!
-    var info : [String : String] = [String : String]()
+    var info: [String : String] = [String : String]()
     
     var hotDishes : [Dish] = [Dish]()
     
@@ -310,12 +310,14 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                     self.localSearchResponse = localSearchResponse
                     let alert = UIAlertController(title: "打开地图", message: "是否打开地图导航", preferredStyle: UIAlertControllerStyle.ActionSheet)
                     
-                    let goWithAppleAction = UIAlertAction(title: "内置地图", style: .Destructive, handler: self.doUsingAppleMap)
-                    let goWithGoogleAction = UIAlertAction(title: "谷歌地图", style: .Destructive, handler: self.doUsingGoogleMap)
-                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelUsingAppleMap)
+                    let goWithAppleAction = UIAlertAction(title: "内置地图", style: .Default, handler: self.doUsingAppleMap)
+                    let goWithGoogleAction = UIAlertAction(title: "谷歌地图", style: .Default, handler: self.doUsingGoogleMap)
+                    let copyAction = UIAlertAction(title: "复制", style: .Default, handler: self.copyToClipBoard)
+                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelNavigation)
                     
                     alert.addAction(goWithAppleAction)
                     alert.addAction(goWithGoogleAction)
+                    alert.addAction(copyAction)
                     alert.addAction(cancelAction)
                     
                     self.presentViewController(alert, animated: true, completion: nil)
@@ -374,7 +376,11 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func cancelUsingAppleMap(alertAction: UIAlertAction!) {
+    func copyToClipBoard(alertAction: UIAlertAction!) -> Void {
+        UIPasteboard.generalPasteboard().string = self.info["address"]
+    }
+    
+    func cancelNavigation(alertAction: UIAlertAction!) {
         
     }
     
