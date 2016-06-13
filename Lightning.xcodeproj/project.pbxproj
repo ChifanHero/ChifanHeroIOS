@@ -220,6 +220,7 @@
 		CA621EC41D0A698800693306 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA621EC31D0A698800693306 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */; };
 		CA621EC61D0A6BA300693306 /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA621EC51D0A6BA300693306 /* NVActivityIndicatorShape.swift */; };
 		CA621EC81D0A6F5F00693306 /* NVActivityIndicatorAnimationPacman.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA621EC71D0A6F5F00693306 /* NVActivityIndicatorAnimationPacman.swift */; };
+		CA621ECF1D0B6D4300693306 /* PullToRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA621ECE1D0B6D4300693306 /* PullToRefreshControl.swift */; };
 		CA882D1F1C82619500D04696 /* RemoveFavoriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D1E1C82619500D04696 /* RemoveFavoriteRequest.swift */; };
 		CA882D231C8263AE00D04696 /* RemoveFavoriteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D221C8263AE00D04696 /* RemoveFavoriteResponse.swift */; };
 		CA882D271C85181200D04696 /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA882D261C85181200D04696 /* SignUpTableViewController.swift */; };
@@ -467,6 +468,7 @@
 		CA621EC31D0A698800693306 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallSpinFadeLoader.swift; sourceTree = "<group>"; };
 		CA621EC51D0A6BA300693306 /* NVActivityIndicatorShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorShape.swift; sourceTree = "<group>"; };
 		CA621EC71D0A6F5F00693306 /* NVActivityIndicatorAnimationPacman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationPacman.swift; sourceTree = "<group>"; };
+		CA621ECE1D0B6D4300693306 /* PullToRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshControl.swift; sourceTree = "<group>"; };
 		CA7A4F691BE939BB0016BC56 /* SignUpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		CA7A4F6B1BE9C95D0016BC56 /* SignUpResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
 		CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeTableViewController.swift; sourceTree = "<group>"; };
@@ -1055,6 +1057,7 @@
 				CAC527A81CEEB62F0056AAC8 /* FloatingMenuController.swift */,
 				CAC527AA1CEEB6650056AAC8 /* FloatingButton.swift */,
 				CA621EBD1D05E76800693306 /* DOFavoriteButton.swift */,
+				CA621ECE1D0B6D4300693306 /* PullToRefreshControl.swift */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -1489,6 +1492,7 @@
 				CA203DEC1C111EEA00D6F32C /* RestaurantTableViewCell.swift in Sources */,
 				C44C25821C50C97200A345D8 /* ActionButtonView.swift in Sources */,
 				C4C861931CE043FA00A6C896 /* SelectLocationViewController.swift in Sources */,
+				CA621ECF1D0B6D4300693306 /* PullToRefreshControl.swift in Sources */,
 				CA203DED1C111EEA00D6F32C /* SlideBarDelegateProtocol.swift in Sources */,
 				C4B0A39B1C8CE69500D05408 /* RefreshableViewController.swift in Sources */,
 				CA203DEE1C111EEA00D6F32C /* ServiceConfiguration.swift in Sources */,

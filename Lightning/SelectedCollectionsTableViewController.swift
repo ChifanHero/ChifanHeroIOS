@@ -51,7 +51,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     func activityIndicator() {
         //indicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
-        indicator.color = UIColor.grayColor()
+        indicator.color = UIColor.themeOrange()
         indicator.type = NVActivityIndicatorType.Pacman
         indicator.center = self.view.center
         self.view.addSubview(indicator)
@@ -228,20 +228,6 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     @objc private func reloadTable() {
         self.tableView.reloadData()
-    }
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
-            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
-            if scrollPosition < 30 && !self.isLoadingMore {
-                if self.needToLoadMore() {
-                    self.loadMore()
-                } else {
-                    footerView?.showFinishMessage()
-                }
-                
-            }
-        }
     }
     
     // MARK: UINavigationControllerDelegate
