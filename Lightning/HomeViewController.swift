@@ -10,6 +10,7 @@ import UIKit
 import ARNTransitionAnimator
 import SCLAlertView
 import Flurry_iOS_SDK
+import PullToMakeSoup
 
 class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable {
     
@@ -24,6 +25,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     var selectedRestaurantName : String?
     
     var selectedRestaurantId : String?
+    
+    let refresher = PullToMakeSoup()
     
 //    var navigationOperation: UINavigationControllerOperation?
 //    
@@ -59,7 +62,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     let LISTS_LIMIT = 10
     let LISTS_OFFSET = 0
 
-    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
+//    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
 
     var promotions: [Promotion] = []
     
@@ -80,7 +83,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         addLocationSelectionToLeftCorner()
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        configurePullRefresh()
+//        configurePullRefresh()
         initPromotionsTable()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         generateNavigationItemTitle()
@@ -98,6 +101,9 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.promotionsTable.addPullToRefresh(refresher) {
+            self.refreshData()
+        }
         Flurry.logEvent("RecommendationView")
     }
     
@@ -141,10 +147,10 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     
     
     
-    private func configurePullRefresh(){
-        self.refreshControl.addTarget(self, action: #selector(HomeViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.promotionsTable.addSubview(refreshControl)
-    }
+//    private func configurePullRefresh(){
+//        self.refreshControl.addTarget(self, action: #selector(HomeViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+//        self.promotionsTable.addSubview(refreshControl)
+//    }
     
     private func initPromotionsTable(){
         loadingIndicator.hidden = false
@@ -211,6 +217,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
                     
                     if self.promotions.count > 0 {
                         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+                    } else {
+                        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
                     }
                     self.promotionsTable.reloadData()
                     self.adjustUI()
@@ -220,7 +228,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
                 }
                 self.loadingIndicator.stopAnimating()
                 self.loadingIndicator.hidden = true
-                self.refreshControl.endRefreshing()
+//                self.refreshControl.endRefreshing()
+                self.promotionsTable.endRefreshing()
                 self.promotionsTable.hidden = false
                 
             });

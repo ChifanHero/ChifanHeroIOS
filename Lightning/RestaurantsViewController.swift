@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 import Flurry_iOS_SDK
+import PullToMakeSoup
 
 class RestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable {
     
@@ -38,7 +39,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         }
     }
     
-    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
+//    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
     
     var restaurants : [Restaurant] = []
     
@@ -52,6 +53,8 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     var isLoadingMore = false
     
+    let refresher = PullToMakeSoup()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
@@ -59,8 +62,9 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         self.restaurantsTable.dataSource = self
         self.restaurantsTable.hidden = true
         setTableViewFooterView()
-        refreshControl.addTarget(self, action: #selector(RestaurantsViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.restaurantsTable.insertSubview(self.refreshControl, atIndex: 0)
+//        refreshControl.addTarget(self, action: #selector(RestaurantsViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+//        self.restaurantsTable.insertSubview(self.refreshControl, atIndex: 0)
+
         waitingIndicator.hidden = true
         firstLoadData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -77,6 +81,9 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.restaurantsTable.addPullToRefresh(refresher) {
+            self.refreshData()
+        }
         Flurry.logEvent("RestaurantsView_" + sortBy!)
     }
     
@@ -97,7 +104,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         request.skip = 0
         footerView?.reset()
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.currentLocation
+        let location = appDelegate.getCurrentLocation()
         if (location.lat == nil || location.lon == nil) {
             return
         }
@@ -110,7 +117,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         request.skip = 0
         footerView?.reset()
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.currentLocation
+        let location = appDelegate.getCurrentLocation()
         if (location.lat == nil || location.lon == nil) {
             return
         }
@@ -136,7 +143,8 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                     if refreshHandler != nil {
                         refreshHandler!(success: false)
                     }
-                    self.refreshControl.endRefreshing()
+//                    self.refreshControl.endRefreshing()
+                    self.restaurantsTable.endRefreshing()
                     self.waitingIndicator.stopAnimating()
                     self.waitingIndicator.hidden = true
                     self.footerView!.activityIndicator.stopAnimating()
@@ -148,7 +156,8 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                     if self.restaurants.count > 0 && self.restaurantsTable.hidden == true{
                         self.restaurantsTable.hidden = false
                     }
-                    self.refreshControl.endRefreshing()
+//                    self.refreshControl.endRefreshing()
+                    self.restaurantsTable.endRefreshing()
                     self.waitingIndicator.stopAnimating()
                     self.waitingIndicator.hidden = true
                     self.footerView!.activityIndicator.stopAnimating()

@@ -27,14 +27,14 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aqd-qO-PjW">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="56"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
                                                         <state key="normal" image="hot"/>
                                                         <connections>
                                                             <action selector="showHottestRestaurants:" destination="9pv-A4-QxB" eventType="touchUpInside" id="iLq-aw-gd0"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="热门餐厅" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="re1-JV-HBL">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="热门餐厅" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="re1-JV-HBL">
                                                         <rect key="frame" x="0.0" y="37" width="64" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -49,14 +49,14 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-Dd-Yxb">
                                                 <rect key="frame" x="128" y="0.0" width="64" height="56"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7a-2D-gQH">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7a-2D-gQH">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
                                                         <state key="normal" image="hotList"/>
                                                         <connections>
                                                             <action selector="showDishLists:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Bnc-rc-Vpm"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="菜品榜单" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="1Rz-3p-Vkv">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="菜品榜单" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="1Rz-3p-Vkv">
                                                         <rect key="frame" x="0.0" y="37" width="64" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -71,14 +71,14 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wJY-B6-7QL">
                                                 <rect key="frame" x="256" y="0.0" width="64" height="56"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-Lg-ida">
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-Lg-ida">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
                                                         <state key="normal" image="nearby"/>
                                                         <connections>
                                                             <action selector="showNearstRestaurants:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Fen-Mi-Sqy"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="离我最近" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="NY3-im-GGj">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" misplaced="YES" text="离我最近" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="NY3-im-GGj">
                                                         <rect key="frame" x="0.0" y="37" width="64" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -120,7 +120,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Cge-rc-BQk">
                                 <rect key="frame" x="-4" y="160" width="383" height="394"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -128,12 +128,12 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="qyr-po-BYQ"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Jsp-bl-2dP">
-                                <rect key="frame" x="169" y="259" width="37" height="37"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Jsp-bl-2dP">
+                                <rect key="frame" x="169" y="283" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Cge-rc-BQk" firstAttribute="top" secondItem="G2S-pL-if8" secondAttribute="bottom" constant="100" id="9pZ-Wd-ghX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Cge-rc-BQk" secondAttribute="trailing" constant="-20" id="A9v-AE-t8R"/>
@@ -200,7 +200,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCt-9Q-S6W">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="cBe-Iu-15d" id="Xlp-jp-qsH"/>
@@ -212,7 +212,7 @@
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="gCt-9Q-S6W" firstAttribute="top" secondItem="5sj-V7-MTB" secondAttribute="bottom" id="4cS-7c-Iq6"/>
                             <constraint firstItem="EWK-8p-9KR" firstAttribute="centerX" secondItem="1HC-6e-FcA" secondAttribute="centerX" id="6XN-vg-86G"/>
@@ -890,18 +890,6 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9Q-Eu-s73" customClass="SelectionBar" customModule="Lightning" customModuleProvider="target">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="43"/>
-                                <color key="backgroundColor" red="0.92156862750000001" green="0.18823529410000001" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="xde-wy-P0o"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="boarderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="NfB-M6-uoM">
                                 <rect key="frame" x="88" y="197" width="200" height="160"/>
                                 <subviews>
@@ -928,8 +916,8 @@
                                 </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eb0-n8-VQj" userLabel="Search results tableView">
-                                <rect key="frame" x="0.0" y="43" width="375" height="511"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="8rJ-Kc-sve" id="9k5-WD-SEW"/>
@@ -941,30 +929,21 @@
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="NfB-M6-uoM" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="0Ey-q4-FZW"/>
-                            <constraint firstItem="m9Q-Eu-s73" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leadingMargin" constant="-20" id="0J3-lN-1Ko"/>
                             <constraint firstItem="NfB-M6-uoM" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="3r8-Ki-uDl"/>
                             <constraint firstItem="NfB-M6-uoM" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="7xO-Xp-Qdw"/>
-                            <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" id="IVs-n4-ceA"/>
+                            <constraint firstItem="eb0-n8-VQj" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" id="E6R-m0-5Bs"/>
                             <constraint firstItem="XZD-6s-Tzc" firstAttribute="top" secondItem="eb0-n8-VQj" secondAttribute="bottom" id="Ntk-MR-pVw"/>
                             <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerY" secondItem="WfC-hM-iVb" secondAttribute="centerY" id="ifc-Dd-Dgo"/>
-                            <constraint firstItem="m9Q-Eu-s73" firstAttribute="top" secondItem="WfC-hM-iVb" secondAttribute="topMargin" id="lwk-am-kfS"/>
-                            <constraint firstItem="NfB-M6-uoM" firstAttribute="top" secondItem="m9Q-Eu-s73" secondAttribute="bottom" constant="122" id="njO-t5-mMC">
-                                <variation key="heightClass=compact" constant="60"/>
-                            </constraint>
                             <constraint firstItem="gAO-Cm-LSJ" firstAttribute="centerX" secondItem="WfC-hM-iVb" secondAttribute="centerX" id="opU-ss-fwO"/>
                             <constraint firstAttribute="trailing" secondItem="eb0-n8-VQj" secondAttribute="trailing" id="qo6-BZ-l3p"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="m9Q-Eu-s73" secondAttribute="trailing" constant="-20" id="ujF-GT-IFY"/>
                             <constraint firstItem="eb0-n8-VQj" firstAttribute="leading" secondItem="WfC-hM-iVb" secondAttribute="leading" id="wb3-KU-NnV"/>
-                            <constraint firstItem="m9Q-Eu-s73" firstAttribute="top" secondItem="sRH-W3-2TW" secondAttribute="bottom" id="zMH-dW-sU2"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="zMH-dW-sU2"/>
                                 <exclude reference="7xO-Xp-Qdw"/>
-                                <exclude reference="njO-t5-mMC"/>
                             </mask>
                         </variation>
                     </view>
@@ -974,7 +953,6 @@
                     <connections>
                         <outlet property="amplifierStackView" destination="NfB-M6-uoM" id="p3h-DT-8Rm"/>
                         <outlet property="searchResultsTableView" destination="eb0-n8-VQj" id="QIU-6Y-jds"/>
-                        <outlet property="selectionBar" destination="m9Q-Eu-s73" id="TJb-AZ-zY3"/>
                         <outlet property="waitingIndicator" destination="gAO-Cm-LSJ" id="XN0-O9-zlg"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="dDa-I7-4We"/>
                     </connections>
@@ -1707,8 +1685,7 @@
         <!--Search-->
         <scene sceneID="zUk-zk-wBr">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E9N-Mz-AKM" userLabel="Search" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                <navigationController id="E9N-Mz-AKM" userLabel="Search" customClass="ARNImageTransitionNavigationController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="搜索" image="Search_Tab" selectedImage="Search_Tab" id="aIO-nG-c2r"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -1754,10 +1731,10 @@
             </objects>
             <point key="canvasLocation" x="154.5" y="784.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Image Transition Navigation Controller-->
         <scene sceneID="DB4-FS-Iva">
             <objects>
-                <navigationController restorationIdentifier="AboutMeNavigationController" storyboardIdentifier="AboutMeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="t1R-Xe-I0O" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="AboutMeNavigationController" storyboardIdentifier="AboutMeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="t1R-Xe-I0O" customClass="ARNImageTransitionNavigationController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -1842,7 +1819,7 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FsK-Rc-bJJ"/>
         <segue reference="tIf-c0-cls"/>
+        <segue reference="SnI-Ci-tXQ"/>
     </inferredMetricsTieBreakers>
 </document>

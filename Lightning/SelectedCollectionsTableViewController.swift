@@ -90,7 +90,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         footerView?.reset()
         //self.waitingIndicator.startAnimating()
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.currentLocation
+        let location = appDelegate.getCurrentLocation()
         if (location.lat == nil || location.lon == nil) {
             return
         }
