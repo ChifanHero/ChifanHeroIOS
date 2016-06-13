@@ -117,7 +117,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         request.skip = 0
         footerView?.reset()
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.currentLocation
+        let location = appDelegate.getCurrentLocation()
         if (location.lat == nil || location.lon == nil) {
             return
         }

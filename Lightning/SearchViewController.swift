@@ -141,7 +141,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         request.offset = offset
         request.limit = limit
         let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        let userLocation = appDelegate!.currentLocation
+        let userLocation = appDelegate!.getCurrentLocation()
         request.userLocation = userLocation
         let range = Range()
         range.center = userLocation
