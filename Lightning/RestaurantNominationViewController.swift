@@ -25,9 +25,9 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         super.viewDidLoad()
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
-        layout.itemSize = CGSize(width: self.nominationView!.frame.width / 40 * 17, height: self.nominationView!.frame.width / 40 * 25)
-        layout.sectionInset = UIEdgeInsets(top: self.nominationView!.frame.width / 40 * 2, left: self.nominationView!.frame.width / 40 * 2, bottom: self.nominationView!.frame.width / 40 * 2, right: self.nominationView!.frame.width / 40 * 2)
-        layout.minimumInteritemSpacing = self.nominationView!.frame.width / 40 * 2
+        layout.itemSize = CGSize(width: self.nominationView!.frame.width / 40 * 18, height: self.nominationView!.frame.width / 40 * 25)
+        layout.sectionInset = UIEdgeInsets(top: self.nominationView!.frame.width / 40 * 2, left: self.nominationView!.frame.width / 40 * 1.5, bottom: self.nominationView!.frame.width / 40 * 2, right: self.nominationView!.frame.width / 40 * 1.5)
+        layout.minimumInteritemSpacing = self.nominationView!.frame.width / 40 * 0.5
         layout.minimumLineSpacing = self.nominationView!.frame.width / 40 * 2
         self.nominationView?.collectionViewLayout = layout
         

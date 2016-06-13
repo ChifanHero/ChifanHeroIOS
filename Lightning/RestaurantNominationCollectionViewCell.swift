@@ -35,8 +35,8 @@ class RestaurantNominationCollectionViewCell: UICollectionViewCell {
         
         didSet {
             if selected {
-                self.layer.borderWidth = 4.0
-                self.layer.borderColor = UIColor.redColor().CGColor
+                self.layer.borderWidth = 2.0
+                self.layer.borderColor = UIColor.themeOrange().CGColor
             } else {
                 self.layer.borderWidth = 0.3
                 self.layer.borderColor = UIColor.grayColor().CGColor
