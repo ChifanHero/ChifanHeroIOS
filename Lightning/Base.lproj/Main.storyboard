@@ -274,7 +274,7 @@
             <objects>
                 <tableViewController id="Bol-Ce-s2z" customClass="RestaurantCollectionMembersViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8E9-uT-aZE">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="UYa-gB-E10" userLabel="Header View">
@@ -528,7 +528,7 @@
                                     <constraint firstItem="YuL-kS-BTj" firstAttribute="top" secondItem="vzl-U0-fO5" secondAttribute="top" constant="-2" id="r0O-Yh-wF1"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IbA-l7-dNm">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IbA-l7-dNm">
                                 <rect key="frame" x="-4" y="40" width="383" height="514"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cKE-ip-P3t">
@@ -634,7 +634,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVe-v4-VBn">
                                 <rect key="frame" x="-4" y="64" width="383" height="554"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4WW-ny-dYE">
@@ -779,7 +779,7 @@
                         <viewControllerLayoutGuide type="bottom" id="TuO-r1-wfP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Q8B-ue-KhO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCx-yh-LaH" customClass="SlideBar" customModule="Lightning" customModuleProvider="target">
@@ -804,15 +804,15 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zlm-pG-XiO">
-                                <rect key="frame" x="-4" y="102" width="383" height="516"/>
+                                <rect key="frame" x="-4" y="102" width="383" height="565"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rtV-Lr-p1N" userLabel="Waiting View">
-                                <rect key="frame" x="-4" y="64" width="383" height="554"/>
+                                <rect key="frame" x="-4" y="64" width="383" height="603"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aqj-0V-wgK">
-                                        <rect key="frame" x="173" y="258" width="37" height="37"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aqj-0V-wgK">
+                                        <rect key="frame" x="173" y="282" width="37" height="37"/>
                                         <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -1007,25 +1007,8 @@
                             </tableViewSection>
                             <tableViewSection id="k7j-1k-2qq">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="4r9-PJ-baD" style="IBUITableViewCellStyleDefault" id="q3p-Tl-XGQ">
-                                        <rect key="frame" x="0.0" y="251" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q3p-Tl-XGQ" id="MHN-6M-e9F">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="我爱吃的" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4r9-PJ-baD">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="NqK-Y2-tbe" style="IBUITableViewCellStyleDefault" id="Cdd-Yd-Fkg">
-                                        <rect key="frame" x="0.0" y="295" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="251" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cdd-Yd-Fkg" id="q5z-a2-RB9">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -1042,7 +1025,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="2O8-Ia-9ga" style="IBUITableViewCellStyleDefault" id="TjW-IC-uCP">
-                                        <rect key="frame" x="0.0" y="339" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="295" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TjW-IC-uCP" id="ONh-Hx-HZ3">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -1063,7 +1046,7 @@
                             <tableViewSection id="alb-Tl-G9Z">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Pw1-0n-MxD" style="IBUITableViewCellStyleDefault" id="wih-UR-LZ5">
-                                        <rect key="frame" x="0.0" y="419" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="375" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wih-UR-LZ5" id="6Rq-aB-YfF">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1144,7 +1127,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="登录" id="Bfu-Um-Gfh">
+                    <navigationItem key="navigationItem" title="修改昵称" id="Bfu-Um-Gfh">
                         <barButtonItem key="rightBarButtonItem" title="完成" id="GuK-uw-pg1">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -1160,7 +1143,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmR-mm-BeC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1477.5" y="2404.5"/>
+            <point key="canvasLocation" x="1479.5" y="2440.5"/>
         </scene>
         <!--About Me Detail View Controller-->
         <scene sceneID="Aoo-YQ-Kio">
@@ -1215,6 +1198,7 @@
                         <outlet property="noFavoritesMessage" destination="ok0-jE-aVX" id="D82-tJ-yBa"/>
                         <outlet property="tableView" destination="wmt-Pe-IJe" id="tSC-sc-xLG"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="AboutMeDetailToRestaurant" id="3Ex-cw-iaA"/>
+                        <segue destination="Bol-Ce-s2z" kind="show" identifier="AboutMeDetailToSelectedCollection" id="Glu-u6-pCf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4vs-gx-OeH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1803,7 +1787,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Glu-u6-pCf"/>
+        <segue reference="3Ex-cw-iaA"/>
         <segue reference="tIf-c0-cls"/>
-        <segue reference="Hvz-De-g2h"/>
     </inferredMetricsTieBreakers>
 </document>

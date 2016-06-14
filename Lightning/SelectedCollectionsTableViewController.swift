@@ -16,13 +16,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     var request: GetSelectedCollectionsByLatAndLonRequest = GetSelectedCollectionsByLatAndLonRequest()
     
-    var footerView: LoadMoreFooterView?
-    
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
-    
-    //let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
-    
-    var isLoadingMore = false
     
     var selectedCellFrame = CGRectZero
     
@@ -30,31 +24,19 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     let transition = ExpandingCellTransition()
     
-    var indicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
+    var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
     let refresher = PullToMakeSoup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
-        setTableViewFooterView()
-        //refreshControl!.addTarget(self, action: #selector(SelectedCollectionsTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        //self.tableView.addSubview(refreshControl!)
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
-        //waitingIndicator.hidden = true
         initialLoadData()
         self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
         self.tabBarController?.tabBar.hidden = true
-        activityIndicator()
-        indicator.startAnimation()
-    }
-    
-    func activityIndicator() {
-        //indicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
-        indicator.color = UIColor.themeOrange()
-        indicator.type = NVActivityIndicatorType.Pacman
-        indicator.center = self.view.center
-        self.view.addSubview(indicator)
+        configLoadingIndicator()
+        loadingIndicator.startAnimation()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -69,16 +51,20 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         Flurry.logEvent("CollectionsView")
-        indicator.stopAnimation()
-        tableView.addPullToRefresh(refresher, action: {self.loadData(nil)})
+        loadingIndicator.stopAnimation()
+        self.tableView.addPullToRefresh(refresher, action: {self.refreshData()})
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
-    private func setTableViewFooterView() {
-        let frame = CGRectMake(0, 0, self.view.frame.size.width, 30)
-        footerView = LoadMoreFooterView(frame: frame)
-        footerView?.reset()
-        self.tableView.tableFooterView = footerView
+    private func configLoadingIndicator() {
+        loadingIndicator.color = UIColor.themeOrange()
+        loadingIndicator.type = NVActivityIndicatorType.Pacman
+        loadingIndicator.center = self.view.center
+        self.view.addSubview(loadingIndicator)
     }
     
     private func clearTitleForBackBarButtonItem(){
@@ -86,28 +72,12 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         self.navigationItem.backBarButtonItem = barButtonItem
     }
     
-    func refreshData() {
-        footerView?.reset()
-        //self.waitingIndicator.startAnimating()
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.getCurrentLocation()
-        if (location.lat == nil || location.lon == nil) {
-            return
-        }
-        request.userLocation = location
-        loadData(nil)
-    }
-    
     private func initialLoadData() {
-        footerView?.reset()
-        
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location = appDelegate.currentLocation
         if (location.lat == nil || location.lon == nil) {
             return
         }
-        //self.waitingIndicator.hidden = false
-        //self.waitingIndicator.startAnimating()
         request.userLocation = location
         loadData { (success) -> Void in
             if !success {
@@ -140,11 +110,6 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                     self.tableView.endRefreshing()
                     
                 }
-                self.isLoadingMore = false
-                //self.refreshControl!.endRefreshing()
-                //self.waitingIndicator.stopAnimating()
-                //self.waitingIndicator.hidden = true
-                self.footerView!.activityIndicator.stopAnimating()
             })
             
             
@@ -155,25 +120,22 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         self.selectedCollections.removeAll()
     }
     
-    private func needToLoadMore() -> Bool {
-        return false
+    func refreshData() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let location = appDelegate.getCurrentLocation()
+        if (location.lat == nil || location.lon == nil) {
+            return
+        }
+        request.userLocation = location
+        loadData(nil)
     }
     
-    func loadMore() {
-    }
-    
-    @objc private func refresh(sender:AnyObject) {
+    private func refresh(sender:AnyObject) {
         refreshData()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return SelectedCollectionTableViewCell.height
-        //return 120
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -181,17 +143,14 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if selectedCollections.isEmpty {
-            return 0
-        }
         return 1
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: SelectedCollectionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("SelectedCollectionCell") as? SelectedCollectionTableViewCell
+        var cell: SelectedCollectionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("selectedCollectionCell") as? SelectedCollectionTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "SelectedCollectionCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("SelectedCollectionCell") as? SelectedCollectionTableViewCell
+            tableView.registerNib(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "selectedCollectionCell")
+            cell = tableView.dequeueReusableCellWithIdentifier("selectedCollectionCell") as? SelectedCollectionTableViewCell
         }
         cell?.setUp(selectedCollection: selectedCollections[indexPath.row])
         return cell!
@@ -202,32 +161,13 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         
         self.selectedCellFrame = tableView.convertRect(tableView.cellForRowAtIndexPath(indexPath)!.frame, toView: tableView.superview)
         self.performSegueWithIdentifier("showCollectionMember", sender: indexPath)
-        
-//        
-//        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("restaurantCollectionMembers") as! RestaurantCollectionMembersViewController
-//        controller.selectedCollection = selectedCollections[indexPath.row]
-//        controller.transition = ExpandingCellTransition()
-//        controller.transition!.operation = UINavigationControllerOperation.Push
-//        controller.transition!.duration = 0.80
-//        controller.transition!.selectedCellFrame = self.selectedCellFrame
-//        
-//        presentViewController(controller, animated: true, completion: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showCollectionMember" {
-            //self.navigationController?.delegate = self
             let controller: RestaurantCollectionMembersViewController = segue.destinationViewController as! RestaurantCollectionMembersViewController
             controller.selectedCollection = selectedCollections[(sender as! NSIndexPath).row]
-            //controller.transition = ExpandingCellTransition()
-            //controller.transition!.operation = UINavigationControllerOperation.Push
-            //controller.transition!.duration = 0.80
-            //controller.transition!.selectedCellFrame = self.selectedCellFrame
         }
-    }
-    
-    @objc private func reloadTable() {
-        self.tableView.reloadData()
     }
     
     // MARK: UINavigationControllerDelegate

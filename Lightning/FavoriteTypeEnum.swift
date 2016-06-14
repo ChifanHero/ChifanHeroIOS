@@ -11,5 +11,5 @@ import Foundation
 enum FavoriteTypeEnum{
     case Restaurant
     case Dish
-    case List
+    case SelectedCollection
 }

@@ -18,7 +18,7 @@ class GetFavoritesRequest: HttpRequest{
         } else if type == .Dish {
             self.favoriteType = "dish"
         } else {
-            self.favoriteType = "list"
+            self.favoriteType = "selected_collection"
         }
     }
     

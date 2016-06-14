@@ -95,13 +95,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         if segue.identifier == "showAboutMeDetail" {
             if sender!.section == 2 && sender!.row == 0 {
                 let destinationVC = segue.destinationViewController as! AboutMeDetailViewController
-                destinationVC.detailType = FavoriteTypeEnum.Dish
+                destinationVC.detailType = FavoriteTypeEnum.Restaurant
             } else if sender!.section == 2 && sender!.row == 1 {
                 let destinationVC = segue.destinationViewController as! AboutMeDetailViewController
-                destinationVC.detailType = FavoriteTypeEnum.Restaurant
-            } else if sender!.section == 2 && sender!.row == 2 {
-                let destinationVC = segue.destinationViewController as! AboutMeDetailViewController
-                destinationVC.detailType = FavoriteTypeEnum.List
+                destinationVC.detailType = FavoriteTypeEnum.SelectedCollection
             }
         } else if segue.identifier == "showNickNameChange" {
             let destinationVC = segue.destinationViewController as! NickNameChangeViewController

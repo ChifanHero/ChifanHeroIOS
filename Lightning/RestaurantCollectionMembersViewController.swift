@@ -43,8 +43,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     var headerView: UIView!
     let kTableHeaderHeight: CGFloat = 300.0
     
-    //var transition: ExpandingCellTransition?
-    
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var collectionTitle: UILabel!
     @IBOutlet weak var likeView: UIView!
@@ -68,7 +66,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         self.configureLikeView()
         self.configureFavoriteView()
         self.configureNominationView()
-        //transitioningDelegate = transition
         
         likeCount = selectedCollection?.likeCount
         favoriteCount = selectedCollection?.userFavoriteCount
@@ -180,8 +177,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     }
     
     func loadTableData() {
-        //self.waitingView.hidden = false
-        //self.activityIndicator.startAnimating()
         if selectedCollection?.id != nil {
             let request : GetRestaurantCollectionMembersRequest = GetRestaurantCollectionMembersRequest(id: (selectedCollection?.id!)!)
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantCollectionMembersById(request, responseHandler: { (response) -> Void in
@@ -194,8 +189,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
                             return ScoreComputer.getScoreNum(positive: r1.likeCount, negative: r1.dislikeCount, neutral: r1.neutralCount) > ScoreComputer.getScoreNum(positive: r2.likeCount, negative: r2.dislikeCount, neutral: r2.neutralCount)
                         }
                         self.tableView.reloadData()
-                        //self.activityIndicator.stopAnimating()
-                        //self.waitingView.hidden = true
                         
                     }
                 })
@@ -203,10 +196,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
             })
             
         }
-        
-    }
-    
-    func refresh() {
         
     }
     
@@ -229,11 +218,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
         alertview.setTextTheme(.Dark)
     }
-    
-    @objc private func reloadTable() {
-        self.tableView.reloadData()
-    }
-    
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let restaurantSelected: Restaurant = members[indexPath.row]
@@ -278,23 +262,10 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     @IBAction func handleFavoriteButton(sender: AnyObject) {
         if self.favoriteButton.selected == false {
             if !UserContext.isValidUser() {
-                // Initialize Alert Controller
-                let alertController = UIAlertController(title: "Alert", message: "Are you okay?", preferredStyle: .Alert)
                 
-                // Initialize Actions
-                let yesAction = UIAlertAction(title: "Yes", style: .Default) { (action) -> Void in
-                    print("The user is okay.")
-                }
-                
-                let noAction = UIAlertAction(title: "No", style: .Default) { (action) -> Void in
-                    print("The user is not okay.")
-                }
-                
-                // Add Actions
+                let alertController = UIAlertController(title: "请登录", message: "登录享受更多便利", preferredStyle: .Alert)
+                let yesAction = UIAlertAction(title: "知道了", style: .Default) { (action) -> Void in }
                 alertController.addAction(yesAction)
-                alertController.addAction(noAction)
-                
-                // Present Alert Controller
                 self.presentViewController(alertController, animated: true, completion: nil)
             } else {
                 self.favoriteCount! += 1

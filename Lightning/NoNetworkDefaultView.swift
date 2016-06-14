@@ -18,10 +18,10 @@ class NoNetworkDefaultView: UIView {
     }
     */
     
-    var view : UIView!
-    private var nibName : String = "NoNetworkDefaultView"
+    var view: UIView!
+    private var nibName: String = "NoNetworkDefaultView"
     
-    var parentVC : RefreshableViewController?
+    var parentVC: RefreshableViewController?
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var messageLabel: UILabel!

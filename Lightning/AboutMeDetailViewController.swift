@@ -45,7 +45,6 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         refreshControl.addTarget(self, action: #selector(AboutMeDetailViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.insertSubview(self.refreshControl, atIndex: 0)
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
-        registerCell()
         displayLoadingView()
         loadData()
         // Uncomment the following line to preserve selection between presentations
@@ -79,12 +78,6 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    private func registerCell(){
-        tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
-        tableView.registerNib(UINib(nibName: "NameImageDishCell", bundle: nil), forCellReuseIdentifier: "nameImageDishCell")
-        tableView.registerNib(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "selectedCollectionCell")
     }
     
     private func loadData(){
@@ -149,15 +142,19 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     {
         
         if detailType == FavoriteTypeEnum.Restaurant {
-            let cell: RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+            var cell: RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+            if cell == nil {
+                tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
+                cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+            }
             cell?.setUp(restaurant: restaurants[indexPath.row])
             return cell!
-        } else if self.detailType == FavoriteTypeEnum.Dish {
-            let cell: NameImageDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameImageDishCell") as? NameImageDishTableViewCell
-            cell?.setUp(dish: dishes[indexPath.row])
-            return cell!
         } else {
-            let cell: SelectedCollectionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("selectedCollectionCell") as? SelectedCollectionTableViewCell
+            var cell: SelectedCollectionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("selectedCollectionCell") as? SelectedCollectionTableViewCell
+            if cell == nil {
+                tableView.registerNib(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "selectedCollectionCell")
+                cell = tableView.dequeueReusableCellWithIdentifier("selectedCollectionCell") as? SelectedCollectionTableViewCell
+            }
             cell?.setUp(selectedCollection: selectedCollections[indexPath.row])
             return cell!
         }
@@ -176,7 +173,7 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
             
         } else {
             let selectedCollectionSelected: SelectedCollection = selectedCollections[indexPath.row]
-            performSegueWithIdentifier("AboutMeDetailToList", sender: selectedCollectionSelected.id)
+            performSegueWithIdentifier("AboutMeDetailToSelectedCollection", sender: selectedCollectionSelected)
         }
     }
     
@@ -200,15 +197,15 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "AboutMeDetailToRestaurant" {
-            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            let restaurantController: RestaurantViewController = segue.destinationViewController as! RestaurantViewController
             restaurantController.restaurantId = sender as? String
             self.animateTransition = true
             restaurantController.restaurantImage = self.selectedImageView?.image
             restaurantController.restaurantName = self.selectedRestaurantName
             restaurantController.restaurantId = self.selectedRestaurantId
-        } else if segue.identifier == "AboutMeDetailToList" {
-            //let listMemberController: ListMemberViewController = segue.destinationViewController as! ListMemberViewController
-            //listMemberController.listId = sender as? String
+        } else if segue.identifier == "AboutMeDetailToSelectedCollection" {
+            let collectionMemberVC: RestaurantCollectionMembersViewController = segue.destinationViewController as! RestaurantCollectionMembersViewController
+            collectionMemberVC.selectedCollection = sender as? SelectedCollection
         }
     }
     
@@ -233,16 +230,6 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         self.selectedImageView?.hidden = false
         animateTransition = false
     }
-    
-//    func handleTransition() {
-//        self.animateTransition = true
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantViewController") as! RestaurantViewController
-//        restaurantController.restaurantImage = self.selectedImageView?.image
-//        restaurantController.restaurantName = self.selectedRestaurantName
-//        restaurantController.restaurantId = self.selectedRestaurantId
-//        self.navigationController?.pushViewController(restaurantController, animated: true)
-//    }
     
     func usingAnimatedTransition() -> Bool {
         return animateTransition

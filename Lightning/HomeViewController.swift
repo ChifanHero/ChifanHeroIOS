@@ -603,7 +603,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         imageView.contentMode = self.selectedImageView!.contentMode
         imageView.clipsToBounds = true
         imageView.userInteractionEnabled = false
-//        imageView.frame = self.selectedImageView!.convertRect(self.selectedImageView!.frame, toView: self.view)
         imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
         
         return imageView
