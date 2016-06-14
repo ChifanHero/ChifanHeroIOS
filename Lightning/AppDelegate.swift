@@ -133,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
             let askLocationAlertView = SCLAlertView(appearance: appearance)
             askLocationAlertView.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.askLocationAlertViewDismissed))
-            askLocationAlertView.showInfo("", subTitle: "\n\n您的地理位置信息可以帮助吃饭英雄更精确地搜索附近的餐厅信息\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+            askLocationAlertView.showInfo("", subTitle: "\n\n您的地理位置信息可以帮助吃饭英雄更精确地搜索附近的餐厅信息。\n\n如果您不希望与我们分享您的地理位置，我们将为您设置一个默认城市并以此城市的中心作为您的默认位置。您可以随时去首页左上角“位置”重新设置您的位置信息。", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
         }
         
     }
@@ -415,7 +415,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
                     let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
                     askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))
-                    askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+                    askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n由于我们无法获取您的具体位置，我们将不再显示餐厅与您的距离。 如果您需要重新使用您的实时位置，请点击主页左上角“位置”按钮按照提示重新选择您的位置。", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
                     
                 }
             }
