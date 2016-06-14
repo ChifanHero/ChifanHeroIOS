@@ -71,6 +71,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     var appDelegate : AppDelegate?
     
     override func viewDidLoad() {
+        appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         NSNotificationCenter.defaultCenter().postNotificationName("HomeVCLoaded", object: nil)
         print(LightningColor.themeRed().getColorCode())
         super.viewDidLoad()
@@ -82,7 +83,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         loadingIndicator.hidden = true
         self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
         addLocationSelectionToLeftCorner()
-        appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        
 //        configurePullRefresh()
         initPromotionsTable()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -155,12 +156,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     private func initPromotionsTable(){
         loadingIndicator.hidden = false
         loadingIndicator.startAnimating()
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("usingCustomLocation") {
-            loadData(nil)
-        } else {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
-        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
     }
     
     @objc private func refresh(sender:AnyObject) {
