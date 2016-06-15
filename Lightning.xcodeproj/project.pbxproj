@@ -230,6 +230,8 @@
 		CAA0F0B21CF15EB30061BFBE /* RestaurantNominationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0F0B11CF15EB30061BFBE /* RestaurantNominationViewController.swift */; };
 		CAA0F0B41CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0F0B31CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift */; };
 		CAA33D091D10A491004E9F6A /* ControllerCommonConfigurationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D081D10A491004E9F6A /* ControllerCommonConfigurationDelegate.swift */; };
+		CAA33D0C1D11D7DF004E9F6A /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D0B1D11D7DF004E9F6A /* SCLAlertView.swift */; };
+		CAA33D0E1D11D80E004E9F6A /* SCLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D0D1D11D80E004E9F6A /* SCLExtensions.swift */; };
 		CAC5278F1CDD7B570056AAC8 /* RankColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */; };
 		CAC527921CE1997E0056AAC8 /* RefreshableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527911CE1997E0056AAC8 /* RefreshableViewDelegate.swift */; };
 		CAC527951CE1CAA20056AAC8 /* ExpandingCellTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */; };
@@ -487,6 +489,8 @@
 		CAA0F0B11CF15EB30061BFBE /* RestaurantNominationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantNominationViewController.swift; sourceTree = "<group>"; };
 		CAA0F0B31CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantNominationCollectionViewCell.swift; sourceTree = "<group>"; };
 		CAA33D081D10A491004E9F6A /* ControllerCommonConfigurationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerCommonConfigurationDelegate.swift; sourceTree = "<group>"; };
+		CAA33D0B1D11D7DF004E9F6A /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLAlertView.swift; sourceTree = "<group>"; };
+		CAA33D0D1D11D80E004E9F6A /* SCLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLExtensions.swift; sourceTree = "<group>"; };
 		CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankColorPicker.swift; sourceTree = "<group>"; };
 		CAC527911CE1997E0056AAC8 /* RefreshableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableViewDelegate.swift; sourceTree = "<group>"; };
 		CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingCellTransition.swift; sourceTree = "<group>"; };
@@ -1036,6 +1040,15 @@
 			name = LoadingIndicator;
 			sourceTree = "<group>";
 		};
+		CAA33D0A1D11D552004E9F6A /* SCLAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				CAA33D0B1D11D7DF004E9F6A /* SCLAlertView.swift */,
+				CAA33D0D1D11D80E004E9F6A /* SCLExtensions.swift */,
+			);
+			name = SCLAlertView;
+			sourceTree = "<group>";
+		};
 		CAC527901CE1994E0056AAC8 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -1049,6 +1062,7 @@
 		CAC527931CE1CA870056AAC8 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				CAA33D0A1D11D552004E9F6A /* SCLAlertView */,
 				CA621EC91D0A718400693306 /* LoadingIndicator */,
 				C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */,
 				C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */,
@@ -1484,6 +1498,7 @@
 				C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */,
 				CA203DE71C111EEA00D6F32C /* AppDelegate.swift in Sources */,
 				C4066F151C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift in Sources */,
+				CAA33D0C1D11D7DF004E9F6A /* SCLAlertView.swift in Sources */,
 				C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */,
 				C4A0D5531C11746100BAE246 /* Distance.swift in Sources */,
 				CA203DE91C111EEA00D6F32C /* NickNameChangeViewController.swift in Sources */,
@@ -1542,6 +1557,7 @@
 				CA621EBE1D05E76800693306 /* DOFavoriteButton.swift in Sources */,
 				CA203E051C111EEA00D6F32C /* SimpleDishTableViewCell.swift in Sources */,
 				CA203E061C111EEA00D6F32C /* Rating.swift in Sources */,
+				CAA33D0E1D11D80E004E9F6A /* SCLExtensions.swift in Sources */,
 				CA203E071C111EEA00D6F32C /* StringUtil.swift in Sources */,
 				CADA93881C9A6EA400F3E400 /* Respinner.swift in Sources */,
 				CA203E081C111EEA00D6F32C /* HttpClient.swift in Sources */,

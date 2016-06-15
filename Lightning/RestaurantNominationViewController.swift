@@ -119,17 +119,19 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     @IBAction func completeNomination(sender: AnyObject) {
         DataAccessor(serviceConfiguration: ParseConfiguration()).nominateRestaurantForCollection(nominationRequest, responseHandler: { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                print(response!.result)
-                let alert = UIAlertController(title: "提名成功!", message: "感谢您的提名.\n吃饭英雄会尽快处理您的请求!", preferredStyle: .Alert)
-                let OKAction = UIAlertAction(title: "完成", style: UIAlertActionStyle.Default, handler: {
-                    (_)in
-                    self.performSegueWithIdentifier("unwindToCollectionMember", sender: self)
-                })
-                alert.addAction(OKAction)
-                self.presentViewController(alert, animated: true, completion: nil)
+                let appearance = SCLAlertView.SCLAppearance(
+                    showCloseButton: false
+                )
+                let alertView = SCLAlertView(appearance: appearance)
+                alertView.addButton("完成", target:self, selector:#selector(RestaurantNominationViewController.unwindToCollectionMember))
+                alertView.showSuccess("提名成功", subTitle: "感谢您的提名.\n吃饭英雄会尽快处理您的请求!")
             })
             
         })
+    }
+    
+    func unwindToCollectionMember(){
+        self.performSegueWithIdentifier("unwindToCollectionMember", sender: self)
     }
     
     

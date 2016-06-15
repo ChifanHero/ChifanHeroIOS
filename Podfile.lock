@@ -9,7 +9,6 @@ PODS:
   - PullToMakeSoup (1.1):
     - PullToRefresher (~> 1.0)
   - PullToRefresher (1.3.1)
-  - SCLAlertView (0.5.6)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -19,7 +18,6 @@ DEPENDENCIES:
   - Flurry-iOS-SDK/FlurrySDK
   - Kingfisher (~> 2.1)
   - PullToMakeSoup (~> 1.0)
-  - SCLAlertView
 
 SPEC CHECKSUMS:
   Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
@@ -29,7 +27,6 @@ SPEC CHECKSUMS:
   Kingfisher: 3ac09acad75a25ab22f6d7cef3de10d61dd4792d
   PullToMakeSoup: d84d2980214ca3d3e7d11b92e333741fbb6d0fab
   PullToRefresher: e17cc032b48148824a77fbf4bce5beb81933071a
-  SCLAlertView: c2b916952520d96cf5e886a38053f1b8c3da502e
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 import Flurry_iOS_SDK
+import SCLAlertView
 
 class RestaurantCollectionMembersViewController: UITableViewController, ARNImageTransitionZoomable{
     
@@ -214,11 +215,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         return cell!
     }
     
-    private func popupSigninAlert() {
-        let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
-        alertview.setTextTheme(.Dark)
-    }
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let restaurantSelected: Restaurant = members[indexPath.row]
         let selectedCell: RestaurantCollectionMemberTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantCollectionMemberTableViewCell
@@ -262,11 +258,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     @IBAction func handleFavoriteButton(sender: AnyObject) {
         if self.favoriteButton.selected == false {
             if !UserContext.isValidUser() {
-                
-                let alertController = UIAlertController(title: "请登录", message: "登录享受更多便利", preferredStyle: .Alert)
-                let yesAction = UIAlertAction(title: "知道了", style: .Default) { (action) -> Void in }
-                alertController.addAction(yesAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
             } else {
                 self.favoriteCount! += 1
                 ratingAndFavoriteExecutor?.addToFavorites("selected_collection", objectId: selectedCollection!.id!, failureHandler: { (objectId) -> Void in
