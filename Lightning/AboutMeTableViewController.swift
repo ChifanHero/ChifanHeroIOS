@@ -33,6 +33,8 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         loadUserNickName()
+        self.tabBarController?.tabBar.hidden = false
+        self.navigationController?.navigationBar.translucent = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -83,7 +85,12 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         } else if indexPath.section == 1 && indexPath.row == 0 {
             self.performSegueWithIdentifier("showNickNameChange", sender: indexPath)
         } else if indexPath.section == 2 {
-            self.performSegueWithIdentifier("showAboutMeDetail", sender: indexPath)
+            if indexPath.row == 0 {
+                self.performSegueWithIdentifier("showAboutMeDetail", sender: indexPath)
+            } else if indexPath.row == 1 {
+                self.performSegueWithIdentifier("showSelectedCollection", sender: indexPath)
+            }
+            
         } else {
             self.logOutAction()
         }
@@ -96,10 +103,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             if sender!.section == 2 && sender!.row == 0 {
                 let destinationVC = segue.destinationViewController as! AboutMeDetailViewController
                 destinationVC.detailType = FavoriteTypeEnum.Restaurant
-            } else if sender!.section == 2 && sender!.row == 1 {
-                let destinationVC = segue.destinationViewController as! AboutMeDetailViewController
-                destinationVC.detailType = FavoriteTypeEnum.SelectedCollection
             }
+        } else if segue.identifier == "showSelectedCollection" {
+            let destinationVC = segue.destinationViewController as! SelectedCollectionsTableViewController
+            destinationVC.isFromBookMark = true
         } else if segue.identifier == "showNickNameChange" {
             let destinationVC = segue.destinationViewController as! NickNameChangeViewController
             destinationVC.nickName = self.nickNameLabel.text

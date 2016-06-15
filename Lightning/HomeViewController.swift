@@ -97,7 +97,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
             self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
         self.navigationController?.navigationBar.translucent = false
-        self.tabBarController?.tabBar.hidden = false
+        setTabBarVisible(true, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {

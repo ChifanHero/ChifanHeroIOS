@@ -21,7 +21,7 @@ class NoNetworkDefaultView: UIView {
     var view: UIView!
     private var nibName: String = "NoNetworkDefaultView"
     
-    var parentVC: RefreshableViewController?
+    var parentVC: RefreshableViewDelegate?
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var messageLabel: UILabel!
@@ -69,11 +69,9 @@ class NoNetworkDefaultView: UIView {
         view = loadViewFromNib()
         view.frame = bounds
         view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        addSubview(view)
+        self.addSubview(view)
         
     }
-    
-    
     
     func loadViewFromNib() -> UIView{
         let bundle = NSBundle(forClass: self.dynamicType)

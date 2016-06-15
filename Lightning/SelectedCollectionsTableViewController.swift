@@ -10,9 +10,11 @@ import UIKit
 import PullToMakeSoup
 import Flurry_iOS_SDK
 
-class SelectedCollectionsTableViewController: UITableViewController, UINavigationControllerDelegate, RefreshableViewDelegate {
+class SelectedCollectionsTableViewController: UITableViewController, UINavigationControllerDelegate {
     
     var selectedCollections: [SelectedCollection] = []
+    
+    var isFromBookMark = false
     
     var request: GetSelectedCollectionsByLatAndLonRequest = GetSelectedCollectionsByLatAndLonRequest()
     
@@ -33,8 +35,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         clearTitleForBackBarButtonItem()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         initialLoadData()
-        self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
-        self.tabBarController?.tabBar.hidden = true
+        self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, -49, 0);
         configLoadingIndicator()
         loadingIndicator.startAnimation()
     }
@@ -46,6 +47,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
         self.navigationController?.navigationBar.translucent = true
+        setTabBarVisible(false, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -74,7 +76,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     private func initialLoadData() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.currentLocation
+        let location = appDelegate.getCurrentLocation()
         if (location.lat == nil || location.lon == nil) {
             return
         }
@@ -88,31 +90,43 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getSelectedCollectionByLocation(request) { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                if response == nil {
-                    if refreshHandler != nil {
-                        refreshHandler!(success: false)
-                    }
-                } else {
+        if isFromBookMark == true {
+            let request: GetFavoritesRequest = GetFavoritesRequest(type: FavoriteTypeEnum.SelectedCollection)
+            DataAccessor(serviceConfiguration: ParseConfiguration()).getFavorites(request) { (response) -> Void in
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     self.clearData()
-                    if response!.results.count > 0 {
-                        self.selectedCollections += response!.results
-                        self.tableView.hidden = false
+                    for index in 0..<(response?.results)!.count {
+                        self.selectedCollections.append((response?.results)![index].selectedCollection!)
                     }
-                    
                     self.tableView.reloadData()
-                    
-                    if refreshHandler != nil {
-                        refreshHandler!(success: true)
-                    }
-                    
                     self.tableView.endRefreshing()
-                    
-                }
-            })
-            
-            
+                });
+            }
+        } else {
+            DataAccessor(serviceConfiguration: ParseConfiguration()).getSelectedCollectionByLocation(request) { (response) -> Void in
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    if response == nil {
+                        if refreshHandler != nil {
+                            refreshHandler!(success: false)
+                        }
+                    } else {
+                        self.clearData()
+                        if response!.results.count > 0 {
+                            self.selectedCollections += response!.results
+                            self.tableView.hidden = false
+                        }
+                        
+                        self.tableView.reloadData()
+                        
+                        if refreshHandler != nil {
+                            refreshHandler!(success: true)
+                        }
+                        
+                        self.tableView.endRefreshing()
+                        
+                    }
+                })
+            }
         }
     }
     

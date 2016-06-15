@@ -11,6 +11,8 @@ import UIKit
 
 protocol RefreshableViewDelegate {
     
+    func handleNoNetwork()
+    
     func refreshData()
     
     func loadData(refreshHandler : ((success : Bool) -> Void)?)
