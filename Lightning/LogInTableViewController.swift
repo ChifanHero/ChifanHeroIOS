@@ -42,7 +42,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        Flurry.logEvent("LoginView")
+        TrackingUtil.trackLoginView()
     }
     
     func UISetup() {

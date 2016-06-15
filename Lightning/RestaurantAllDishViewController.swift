@@ -71,7 +71,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         searchBar!.sizeToFit()
         self.navigationItem.titleView = searchBar
         definesPresentationContext = true
-        Flurry.logEvent("RestaurantAllDishView")
+        TrackingUtil.trackRestaurantAllDishView()
     }
     
     override func loadData(refreshHandler: ((success: Bool) -> Void)?) {

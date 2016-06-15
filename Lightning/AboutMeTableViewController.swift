@@ -39,7 +39,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        Flurry.logEvent("ProfileView")
+        TrackingUtil.trackUserProfileView()
     }
 
     override func didReceiveMemoryWarning() {

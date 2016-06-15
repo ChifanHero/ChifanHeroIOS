@@ -40,8 +40,8 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        Flurry.logEvent("NotificationsView")
         self.loadTableData()
+        TrackingUtil.trackNotificationsView()
     }
     
     private func configurePullRefresh(){

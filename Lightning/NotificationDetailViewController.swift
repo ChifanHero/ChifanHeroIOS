@@ -37,7 +37,7 @@ class NotificationDetailViewController: UIViewController, NotificationSelectionD
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        Flurry.logEvent("NotificationCotentView")
+        TrackingUtil.trackNotificationContentView()
     }
     
     func notificationSelected(notification : NSManagedObject) {

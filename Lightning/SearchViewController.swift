@@ -74,7 +74,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.searchResultsTableView.addPullToRefresh(refresher) {
             self.search(offset: 0, limit: self.LIMIT)
         }
-        Flurry.logEvent("SearchView")
+        TrackingUtil.trackSearchView()
     }
     
     func setTableFooterView() {

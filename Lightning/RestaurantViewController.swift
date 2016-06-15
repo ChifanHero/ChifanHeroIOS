@@ -75,12 +75,14 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         self.backgroundImageView.image = restaurantImage
         topViewContainer.name = restaurantName
         self.waitingView.hidden = true
-//        adjustUI()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
-//        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: "edit")
-        let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(RestaurantViewController.addPhoto))
-        editBarButton.tintColor = UIColor.whiteColor()
-        self.navigationItem.rightBarButtonItem = editBarButton
+        #if DEBUG
+            let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(RestaurantViewController.addPhoto))
+            editBarButton.tintColor = UIColor.whiteColor()
+            self.navigationItem.rightBarButtonItem = editBarButton
+        #else
+        #endif
+        
         // Do any additional setup after loading the view.
     }
     
@@ -92,7 +94,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidAppear(animated)
         self.animateTransition = true
         configVCTitle()
-        Flurry.logEvent("RestaurantView")
+        TrackingUtil.trackRestaurantView()
     }
     
     func configVCTitle() {
