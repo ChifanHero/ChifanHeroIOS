@@ -53,13 +53,11 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         super.viewWillAppear(animated)
         fetchDataAndConfigTable()
         locationTable.reloadData()
-        print("selection view will appear")
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        Flurry.logEvent("LocationChangeView")
-        print("selection view did appear")
+        TrackingUtil.trackSelectLocationView()
     }
 
     override func didReceiveMemoryWarning() {

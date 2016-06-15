@@ -61,6 +61,11 @@ class AboutMeDetailViewController: RefreshableViewController, UITableViewDelegat
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        TrackingUtil.trackUserFaroviteAndLikeView()
+    }
+    
     private func displayLoadingView(){
         self.tableView.hidden = true
         self.activityIndicator.hidden = false

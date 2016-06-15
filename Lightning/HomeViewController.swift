@@ -9,7 +9,6 @@
 import UIKit
 import ARNTransitionAnimator
 import SCLAlertView
-import Flurry_iOS_SDK
 import PullToMakeSoup
 
 class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable {
@@ -105,7 +104,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         self.promotionsTable.addPullToRefresh(refresher) {
             self.refreshData()
         }
-        Flurry.logEvent("RecommendationView")
+        TrackingUtil.trackRecommendationView()
+        
     }
     
     override func didReceiveMemoryWarning() {

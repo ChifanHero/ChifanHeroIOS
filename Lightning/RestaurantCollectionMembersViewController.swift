@@ -84,7 +84,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        Flurry.logEvent("CollectionsMemberView")
+        TrackingUtil.trackCollectionsMemberView()
     }
 
     override func didReceiveMemoryWarning() {

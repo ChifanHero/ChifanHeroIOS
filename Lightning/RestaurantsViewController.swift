@@ -8,7 +8,6 @@
 
 import UIKit
 import Kingfisher
-import Flurry_iOS_SDK
 import PullToMakeSoup
 
 class RestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable {
@@ -84,7 +83,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         self.restaurantsTable.addPullToRefresh(refresher) {
             self.refreshData()
         }
-        Flurry.logEvent("RestaurantsView_" + sortBy!)
+        TrackingUtil.trackRestaurantsView()
     }
     
     private func clearTitleForBackBarButtonItem(){

@@ -45,6 +45,11 @@ class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
         self.nickNameTextField.delegate = self
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        TrackingUtil.trackUserNicknameChangeView()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

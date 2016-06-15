@@ -52,9 +52,9 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        Flurry.logEvent("CollectionsView")
         loadingIndicator.stopAnimation()
         self.tableView.addPullToRefresh(refresher, action: {self.refreshData()})
+        TrackingUtil.trackCollectionsView()
     }
     
     override func didReceiveMemoryWarning() {

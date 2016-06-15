@@ -39,7 +39,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        Flurry.logEvent("RestaurantNominationView")
+        TrackingUtil.trackRestaurantNominationView()
     }
 
     override func didReceiveMemoryWarning() {

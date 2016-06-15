@@ -63,6 +63,7 @@
 		C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */; };
 		C47A1C8B1C7DF2A100E0DF3A /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C8A1C7DF2A100E0DF3A /* NotificationTableViewCell.swift */; };
 		C47A1C8D1C7EC66500E0DF3A /* FirstNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */; };
+		C48DD6CC1D110DBA00F529AE /* TrackingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */; };
 		C49427DE1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */; };
 		C49427DF1CD86FC300F94D4F /* ARNImageZoomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */; };
 		C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */; };
@@ -366,6 +367,7 @@
 		C47A1C491C7DDF7B00E0DF3A /* Lightning.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lightning.xcdatamodel; sourceTree = "<group>"; };
 		C47A1C8A1C7DF2A100E0DF3A /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstNotification.swift; sourceTree = "<group>"; };
+		C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingUtil.swift; sourceTree = "<group>"; };
 		C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionNavigationController.swift; sourceTree = "<group>"; };
 		C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageZoomTransition.swift; sourceTree = "<group>"; };
 		C49427E11CD874DA00F94D4F /* ARNTransitionAnimator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARNTransitionAnimator.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Lightning-cdtqhbxirnfcbjegdnunhyimuqez/Build/Products/Debug-iphoneos/ARNTransitionAnimator.framework"; sourceTree = "<group>"; };
@@ -718,6 +720,7 @@
 				C4FD0D351CD5CE380015DDB7 /* PositionConverter.swift */,
 				CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */,
 				C4D983151CED978C0061A088 /* LocationHelper.swift */,
+				C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -1535,6 +1538,7 @@
 				CAC81EE71CDA7BF900338B59 /* GetRestaurantCollectionMembersRequest.swift in Sources */,
 				CA203E011C111EEA00D6F32C /* GetListByIdResponse.swift in Sources */,
 				CA203E021C111EEA00D6F32C /* LoginResponse.swift in Sources */,
+				C48DD6CC1D110DBA00F529AE /* TrackingUtil.swift in Sources */,
 				C44B05E01CE1B48F00337502 /* CityTableViewCell.swift in Sources */,
 				CAC527AB1CEEB6650056AAC8 /* FloatingButton.swift in Sources */,
 				C4A0D55C1C11746100BAE246 /* TuningParams.swift in Sources */,

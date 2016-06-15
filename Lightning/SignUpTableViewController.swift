@@ -38,7 +38,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        Flurry.logEvent("SignupView")
+        TrackingUtil.trackSignupView()
     }
 
     override func didReceiveMemoryWarning() {
