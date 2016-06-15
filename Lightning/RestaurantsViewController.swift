@@ -14,31 +14,31 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     @IBOutlet var restaurantsTable: UITableView!
     
-    private var request : GetRestaurantsRequest = GetRestaurantsRequest()
+    private var request: GetRestaurantsRequest = GetRestaurantsRequest()
     
     var animateTransition = false
     
-    weak var selectedImageView : UIImageView?
+    weak var selectedImageView: UIImageView?
     
-    var selectedRestaurantName : String?
+    var selectedRestaurantName: String?
     
-    var selectedRestaurantId : String?
+    var selectedRestaurantId: String?
     
-    var sortBy : String? {
+    var sortBy: String? {
         didSet {
-            if sortBy == "hottest" {
-                request.sortBy = SortParameter.Hotness
-                request.sortOrder = SortOrder.Descend
-                self.navigationItem.title = "热门餐厅"
-            } else {
-                request.sortBy = SortParameter.Distance
-                request.sortOrder = SortOrder.Ascend
-                self.navigationItem.title = "离我最近"
+            if isFromBookMark == false {
+                if sortBy == "hottest" {
+                    request.sortBy = SortParameter.Hotness
+                    request.sortOrder = SortOrder.Descend
+                    self.navigationItem.title = "热门餐厅"
+                } else {
+                    request.sortBy = SortParameter.Distance
+                    request.sortOrder = SortOrder.Ascend
+                    self.navigationItem.title = "离我最近"
+                }
             }
         }
     }
-    
-//    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
     
     var restaurants : [Restaurant] = []
     
@@ -54,6 +54,14 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     let refresher = PullToMakeSoup()
     
+    var isFromBookMark = false {
+        didSet {
+            if isFromBookMark == true {
+                self.navigationItem.title = "我的餐厅"
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
@@ -61,9 +69,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         self.restaurantsTable.dataSource = self
         self.restaurantsTable.hidden = true
         setTableViewFooterView()
-//        refreshControl.addTarget(self, action: #selector(RestaurantsViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-//        self.restaurantsTable.insertSubview(self.refreshControl, atIndex: 0)
-
         waitingIndicator.hidden = true
         firstLoadData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -131,45 +136,63 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         }
     }
     
-    func clearStates() {
+    func clearData() {
         self.restaurants.removeAll()
     }
     
     override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request) { (response) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                if response == nil {
-                    if refreshHandler != nil {
-                        refreshHandler!(success: false)
+        if isFromBookMark == true {
+            let request: GetFavoritesRequest = GetFavoritesRequest(type: FavoriteTypeEnum.Restaurant)
+            DataAccessor(serviceConfiguration: ParseConfiguration()).getFavorites(request) { (response) -> Void in
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.clearData()
+                    for index in 0..<(response?.results)!.count {
+                        self.restaurants.append((response?.results)![index].restaurant!)
                     }
-//                    self.refreshControl.endRefreshing()
-                    self.restaurantsTable.endRefreshing()
-                    self.waitingIndicator.stopAnimating()
-                    self.waitingIndicator.hidden = true
-                    self.footerView!.activityIndicator.stopAnimating()
-                } else {
-                    if self.request.skip == 0 {
-                        self.clearStates()
-                    }
-                    self.loadResults(response?.results)
                     if self.restaurants.count > 0 && self.restaurantsTable.hidden == true{
                         self.restaurantsTable.hidden = false
                     }
-//                    self.refreshControl.endRefreshing()
-                    self.restaurantsTable.endRefreshing()
                     self.waitingIndicator.stopAnimating()
                     self.waitingIndicator.hidden = true
                     self.footerView!.activityIndicator.stopAnimating()
                     self.restaurantsTable.reloadData()
-                    if refreshHandler != nil {
-                        refreshHandler!(success: true)
+                    self.restaurantsTable.endRefreshing()
+                });
+            }
+        } else {
+            DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request) { (response) -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    if response == nil {
+                        if refreshHandler != nil {
+                            refreshHandler!(success: false)
+                        }
+                        self.restaurantsTable.endRefreshing()
+                        self.waitingIndicator.stopAnimating()
+                        self.waitingIndicator.hidden = true
+                        self.footerView!.activityIndicator.stopAnimating()
+                    } else {
+                        if self.request.skip == 0 {
+                            self.clearData()
+                        }
+                        self.loadResults(response?.results)
+                        if self.restaurants.count > 0 && self.restaurantsTable.hidden == true{
+                            self.restaurantsTable.hidden = false
+                        }
+                        self.restaurantsTable.endRefreshing()
+                        self.waitingIndicator.stopAnimating()
+                        self.waitingIndicator.hidden = true
+                        self.footerView!.activityIndicator.stopAnimating()
+                        self.restaurantsTable.reloadData()
+                        if refreshHandler != nil {
+                            refreshHandler!(success: true)
+                        }
+                        
                     }
+                    self.isLoadingMore = false
                     
-                }
-                self.isLoadingMore = false
-                
-            });
+                });
+            }
         }
     }
     

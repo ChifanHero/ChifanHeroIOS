@@ -239,7 +239,6 @@
 		CAC527A71CEEB5F60056AAC8 /* UIColor+FloatingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527A61CEEB5F60056AAC8 /* UIColor+FloatingMenu.swift */; };
 		CAC527A91CEEB62F0056AAC8 /* FloatingMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527A81CEEB62F0056AAC8 /* FloatingMenuController.swift */; };
 		CAC527AB1CEEB6650056AAC8 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527AA1CEEB6650056AAC8 /* FloatingButton.swift */; };
-		CAC81EDE1CD6854600338B59 /* AboutMeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC81EDD1CD6854600338B59 /* AboutMeDetailViewController.swift */; };
 		CAC81EE51CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAC81EE41CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib */; };
 		CAC81EE71CDA7BF900338B59 /* GetRestaurantCollectionMembersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC81EE61CDA7BF900338B59 /* GetRestaurantCollectionMembersRequest.swift */; };
 		CAC81EE91CDA7C9100338B59 /* GetRestaurantCollectionMembersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC81EE81CDA7C9100338B59 /* GetRestaurantCollectionMembersResponse.swift */; };
@@ -499,7 +498,6 @@
 		CAC527A61CEEB5F60056AAC8 /* UIColor+FloatingMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+FloatingMenu.swift"; sourceTree = "<group>"; };
 		CAC527A81CEEB62F0056AAC8 /* FloatingMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingMenuController.swift; sourceTree = "<group>"; };
 		CAC527AA1CEEB6650056AAC8 /* FloatingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
-		CAC81EDD1CD6854600338B59 /* AboutMeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeDetailViewController.swift; sourceTree = "<group>"; };
 		CAC81EE41CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCollectionMemberCell.xib; sourceTree = "<group>"; };
 		CAC81EE61CDA7BF900338B59 /* GetRestaurantCollectionMembersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRestaurantCollectionMembersRequest.swift; sourceTree = "<group>"; };
 		CAC81EE81CDA7C9100338B59 /* GetRestaurantCollectionMembersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRestaurantCollectionMembersResponse.swift; sourceTree = "<group>"; };
@@ -924,7 +922,6 @@
 				CA882D2C1C86790200D04696 /* LogInTableViewController.swift */,
 				CA882D261C85181200D04696 /* SignUpTableViewController.swift */,
 				CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */,
-				CAC81EDD1CD6854600338B59 /* AboutMeDetailViewController.swift */,
 				CA4A29861BF3C34400BAD7CC /* NickNameChangeViewController.swift */,
 				C4C861921CE043FA00A6C896 /* SelectLocationViewController.swift */,
 			);
@@ -1418,7 +1415,6 @@
 				CA203DAA1C111EEA00D6F32C /* GetRestaurantByIdResponse.swift in Sources */,
 				CA203DAB1C111EEA00D6F32C /* Queue.swift in Sources */,
 				CA203DAC1C111EEA00D6F32C /* ViewItemTopUIView.swift in Sources */,
-				CAC81EDE1CD6854600338B59 /* AboutMeDetailViewController.swift in Sources */,
 				CA203DAD1C111EEA00D6F32C /* ParseConfiguration.swift in Sources */,
 				C4B0A3991C8CCD8D00D05408 /* Reachability.swift in Sources */,
 				CA203DB01C111EEA00D6F32C /* SlideBar.swift in Sources */,
