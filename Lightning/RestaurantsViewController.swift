@@ -76,6 +76,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         if selectedCellIndexPath != nil {
             self.restaurantsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
+        setTabBarVisible(false, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
