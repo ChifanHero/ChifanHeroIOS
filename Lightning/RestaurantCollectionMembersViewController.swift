@@ -273,6 +273,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         if self.favoriteButton.selected == false {
             if !UserContext.isValidUser() {
                 SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
+                favoriteButton.selected = true
             } else {
                 self.favoriteCount! += 1
                 ratingAndFavoriteExecutor?.addToFavorites("selected_collection", objectId: selectedCollection!.id!, failureHandler: { (objectId) -> Void in
