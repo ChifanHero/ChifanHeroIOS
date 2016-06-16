@@ -48,7 +48,7 @@ class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        setTabBarVisible(false, animated: true)
+//        setTabBarVisible(false, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {

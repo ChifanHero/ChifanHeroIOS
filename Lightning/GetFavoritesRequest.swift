@@ -11,6 +11,8 @@ import Foundation
 class GetFavoritesRequest: HttpRequest{
     
     var favoriteType: String
+    var lat: Double?
+    var lon: Double?
     
     init(type: FavoriteTypeEnum){
         if type == FavoriteTypeEnum.Restaurant{
@@ -23,6 +25,10 @@ class GetFavoritesRequest: HttpRequest{
     }
     
     override func getRelativeURL() -> String {
-        return "/favorites?type=" + favoriteType
+        var url = "/favorites?type=" + favoriteType
+        if lat != nil && lon != nil {
+            url = url + "&lat=\(lat!)&lon=\(lon!)"
+        }
+        return url
     }
 }

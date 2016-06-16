@@ -36,7 +36,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         self.clearTitleForBackBarButtonItem()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         initialLoadData()
-        self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, -49, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        self.tabBarController?.tabBar.hidden = true
         configLoadingIndicator()
         loadingIndicator.startAnimation()
     }
@@ -48,7 +49,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
         self.navigationController?.navigationBar.translucent = true
-        setTabBarVisible(false, animated: true)
+//        setTabBarVisible(false, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -90,12 +91,18 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
             DataAccessor(serviceConfiguration: ParseConfiguration()).getFavorites(request) { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     self.clearData()
-                    for index in 0..<(response?.results)!.count {
-                        self.selectedCollections.append((response?.results)![index].selectedCollection!)
+                    if (response != nil && response?.results != nil) {
+                        for index in 0..<(response?.results)!.count {
+                            self.selectedCollections.append((response?.results)![index].selectedCollection!)
+                        }
+                        self.tableView.reloadData()
+                        self.tableView.endRefreshing()
+                        self.loadingIndicator.stopAnimation()
+                    } else {
+                        self.tableView.endRefreshing()
+                        self.loadingIndicator.stopAnimation()
                     }
-                    self.tableView.reloadData()
-                    self.tableView.endRefreshing()
-                    self.loadingIndicator.stopAnimation()
+                    
                 });
             }
         } else {
@@ -110,6 +117,9 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                         if response!.results.count > 0 {
                             self.selectedCollections += response!.results
                             self.tableView.hidden = false
+                        } else {
+                            self.navigationController?.navigationBar.translucent = false
+                            self.tabBarController?.tabBar.hidden = false
                         }
                         
                         self.tableView.reloadData()

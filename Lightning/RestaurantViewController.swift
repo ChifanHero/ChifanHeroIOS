@@ -92,7 +92,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        setTabBarVisible(false, animated: true)
+//        setTabBarVisible(false, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -103,13 +103,16 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func configVCTitle() {
-        vcTitleLabel.text = restaurantName
-        vcTitleLabel.backgroundColor = UIColor.clearColor()
-        vcTitleLabel.textColor = UIColor.whiteColor()
-        vcTitleLabel.sizeToFit()
-        vcTitleLabel.alpha = 1.0
-        self.navigationItem.titleView = vcTitleLabel
-        self.navigationItem.titleView?.alpha = 0.0
+        if self.navigationItem.titleView?.alpha == nil {
+            vcTitleLabel.text = restaurantName
+            vcTitleLabel.backgroundColor = UIColor.clearColor()
+            vcTitleLabel.textColor = UIColor.whiteColor()
+            vcTitleLabel.sizeToFit()
+            vcTitleLabel.alpha = 1.0
+            self.navigationItem.titleView = vcTitleLabel
+            self.navigationItem.titleView?.alpha = 0.0
+        }
+        
     }
     
     func loadData(refreshHandler: ((success: Bool) -> Void)?) {
@@ -613,7 +616,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        print(scrollView.contentOffset.y)
+//        print(scrollView.contentOffset.y)
         let offset = scrollView.contentOffset.y
         let nameLabelBottomY = self.topViewContainer.getNameLabelBottomY() + 200
         if offset > nameLabelBottomY{

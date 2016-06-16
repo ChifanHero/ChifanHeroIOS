@@ -34,7 +34,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         super.viewWillAppear(animated)
         loadUserNickName()
         self.navigationController?.navigationBar.translucent = false
-        setTabBarVisible(true, animated: true)
+//        setTabBarVisible(true, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {

@@ -35,16 +35,28 @@ import UIKit
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
     
+    @IBOutlet weak var actionButton: UIButton!
+    
     @IBAction func takeAction(sender: AnyObject) {
+        var count = 1
+        if votes != nil {
+            count = votes! + 1
+        }
+        self.infoLabel.text = "已有 \(count) 位用户申请开通"
+        self.actionButton.enabled = false
         if restaurantId != nil {
             let request = VoteRestaurantRequest()
             request.restaurantId = self.restaurantId
             DataAccessor(serviceConfiguration: ParseConfiguration()).voteRestaurant(request, responseHandler: { (response) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    let count = response?.result?.votes
-                    if count != nil {
-                        self.infoLabel.text = "已有 \(count!) 位用户申请开通"
+                    if response == nil {
+                        count = count - 1
+                        self.infoLabel.text = "已有 \(count) 位用户申请开通"
                     }
+//                    let count = response?.result?.votes
+//                    if count != nil {
+//                        self.infoLabel.text = "已有 \(count!) 位用户申请开通"
+//                    }
                     
                 });
             })
@@ -70,6 +82,7 @@ import UIKit
         view.frame = bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         self.infoLabel.hidden = true
+        self.actionButton.enabled = true
     }
     
     private func LoadViewFromNib() -> UIView {

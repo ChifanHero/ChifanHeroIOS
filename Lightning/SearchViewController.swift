@@ -70,7 +70,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        setTabBarVisible(true, animated: true)
+//        setTabBarVisible(true, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {

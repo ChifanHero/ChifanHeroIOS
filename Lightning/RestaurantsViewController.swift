@@ -81,7 +81,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         if selectedCellIndexPath != nil {
             self.restaurantsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
-        setTabBarVisible(false, animated: true)
+//        setTabBarVisible(false, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -145,6 +145,10 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         
         if isFromBookMark == true {
             let request: GetFavoritesRequest = GetFavoritesRequest(type: FavoriteTypeEnum.Restaurant)
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let location = appDelegate.getCurrentLocation()
+            request.lat = location.lat
+            request.lon = location.lon
             DataAccessor(serviceConfiguration: ParseConfiguration()).getFavorites(request) { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     self.clearData()

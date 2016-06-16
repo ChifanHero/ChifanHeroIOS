@@ -82,8 +82,9 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         if selectedCellIndexPath != nil {
             self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
-        self.setNavigationBarTranslucent(To: false)
-        self.setTabBarVisible(true, animated: true)
+        self.navigationController?.navigationBar.translucent = false
+//        setTabBarVisible(true, animated: true)
+        self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -600,15 +601,15 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     // MARK: - Scroll view
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
-            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
-            if scrollPosition < 30 {
-                setTabBarVisible(false, animated: true)
-            } else {
-                setTabBarVisible(true, animated: true)
-            }
-        }
-    }
+//    func scrollViewDidScroll(scrollView: UIScrollView) {
+//        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
+//            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
+//            if scrollPosition < 30 {
+//                setTabBarVisible(false, animated: true)
+//            } else {
+//                setTabBarVisible(true, animated: true)
+//            }
+//        }
+//    }
 }
 
