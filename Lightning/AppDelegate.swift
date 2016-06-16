@@ -340,6 +340,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             manager.stopUpdatingLocation()
             let defaults = NSUserDefaults.standardUserDefaults()
             if !defaults.boolForKey("locationPermissionDenied") {
+                TrackingUtil.trackUserDeniedLocation()
                 handleLocationPermissionDenied()
             }
             informUserLocationSettingsIfNecessary()
@@ -359,6 +360,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let defaults = NSUserDefaults.standardUserDefaults()
             if !defaults.boolForKey("locationPermissionDenied") {
                 if !defaults.boolForKey("usingCustomLocation") {
+                    TrackingUtil.trackUserDeniedLocationInSettings()
                     handleLocationPermissionDenied()
                 }
                 
@@ -372,6 +374,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             defaults.setBool(false, forKey: "needsToInformedUserLocationChange")
             defaults.setBool(false, forKey: "locationPermissionDenied")
             defaults.synchronize()
+            TrackingUtil.trackUserOpenedLocationInSettings()
             break
         default:
             break

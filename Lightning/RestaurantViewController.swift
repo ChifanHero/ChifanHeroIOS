@@ -306,6 +306,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         if tableView == infoTableView {
             let currentCell = tableView.cellForRowAtIndexPath(indexPath) as! InfoTableViewCell
             if(currentCell.info == info["address"]){
+                TrackingUtil.trackNavigationUsed()
                 var localSearchRequest:MKLocalSearchRequest!
                 var localSearch:MKLocalSearch!
                 
@@ -332,6 +333,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             }
             
             if currentCell.info == info["phone"] {
+                TrackingUtil.trackPhoneCallUsed()
                 let alert = UIAlertController(title: "呼叫", message: "呼叫\(currentCell.info!)", preferredStyle: UIAlertControllerStyle.ActionSheet)
                 
                 let goAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
@@ -357,6 +359,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func doUsingAppleMap(alertAction: UIAlertAction!) -> Void {
+        TrackingUtil.trackAppleMapUsed()
         let regionDistance:CLLocationDistance = 10000
         let coordinates = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
         
@@ -372,6 +375,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func doUsingGoogleMap(alertAction: UIAlertAction!) -> Void {
+        TrackingUtil.trackGoogleMapUsed()
         let address: String = info["address"]!.stringByReplacingOccurrencesOfString(" ", withString: "+")
         let requestString: String = "comgooglemaps://?q=" + address
         print(requestString)

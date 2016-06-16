@@ -295,6 +295,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
             let defaults = NSUserDefaults.standardUserDefaults()
             defaults.setBool(true, forKey: "usingCustomLocation")
             defaults.synchronize()
+            TrackingUtil.trackUserUsingCity()
             if homeViewController != nil {
                 homeViewController!.prepareForDataRefresh()
             }

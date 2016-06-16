@@ -116,6 +116,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
 //    // For now, search only when the search buttion gets clicked
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        TrackingUtil.trackSearchEvent()
         clearStates()
         self.searchBar?.endEditing(true)
         search(offset: 0, limit: LIMIT)
@@ -317,6 +318,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        TrackingUtil.trackExpectedResultFound()
         let restaurant : Restaurant = self.restaurants[indexPath.row]
         self.searchResultsTableView.deselectRowAtIndexPath(indexPath, animated: true)
         let selectedCell : RestaurantSearchTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantSearchTableViewCell

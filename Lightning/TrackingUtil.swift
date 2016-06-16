@@ -76,5 +76,45 @@ class TrackingUtil {
         Flurry.logEvent("SelectLocationView")
     }
     
+    class func trackUserDeniedLocation() {
+        Flurry.logEvent("UserDeniedLocation")
+    }
+    
+    class func trackUserDeniedLocationInSettings() {
+        Flurry.logEvent("UserDeniedLocationInSettings")
+    }
+    
+    class func trackUserOpenedLocationInSettings() {
+        Flurry.logEvent("UserOpenedLocationInSettings")
+    }
+    
+    class func trackUserUsingCity() {
+        Flurry.logEvent("UserUsingCity")
+    }
+    
+    class func trackPhoneCallUsed() {
+        Flurry.logEvent("PhoneCallUsed")
+    }
+    
+    class func trackNavigationUsed() {
+        Flurry.logEvent("NavigationUsed")
+    }
+    
+    class func trackGoogleMapUsed() {
+        Flurry.logEvent("GoogleMapUsed")
+    }
+    
+    class func trackAppleMapUsed() {
+        Flurry.logEvent("AppleMapUsed")
+    }
+    
+    class func trackSearchEvent() {
+        Flurry.logEvent("SearchEvent")
+    }
+    
+    class func trackExpectedResultFound() {
+        Flurry.logEvent("ExpectedResultFound")
+    }
+    
     
 }
