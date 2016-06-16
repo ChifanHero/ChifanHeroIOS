@@ -69,6 +69,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         definesPresentationContext = true
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setTabBarVisible(true, animated: true)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.searchResultsTableView.addPullToRefresh(refresher) {

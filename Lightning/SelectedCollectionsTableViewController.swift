@@ -52,7 +52,6 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        loadingIndicator.stopAnimation()
         self.tableView.addPullToRefresh(refresher, action: {self.refreshData()})
         TrackingUtil.trackCollectionsView()
     }
@@ -100,6 +99,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                     }
                     self.tableView.reloadData()
                     self.tableView.endRefreshing()
+                    self.loadingIndicator.stopAnimation()
                 });
             }
         } else {
@@ -123,6 +123,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                         }
                         
                         self.tableView.endRefreshing()
+                        self.loadingIndicator.stopAnimation()
                         
                     }
                 })

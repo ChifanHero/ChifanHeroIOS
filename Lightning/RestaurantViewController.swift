@@ -90,6 +90,11 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
 //        
 //    }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setTabBarVisible(false, animated: true)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.animateTransition = true
