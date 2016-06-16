@@ -122,6 +122,13 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
+    func getIsFavorite(request: GetIsFavoriteRequest, responseHandler: (GetIsFavoriteResponse?) -> Void){
+        let defaults = NSUserDefaults.standardUserDefaults()
+        request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
+        
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
     func getSelectedCollectionByLocation(request: GetSelectedCollectionsByLatAndLonRequest, responseHandler : (GetSelectedCollectionsByLatAndLonResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }

@@ -233,6 +233,8 @@
 		CAA33D091D10A491004E9F6A /* ControllerCommonConfigurationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D081D10A491004E9F6A /* ControllerCommonConfigurationDelegate.swift */; };
 		CAA33D0C1D11D7DF004E9F6A /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D0B1D11D7DF004E9F6A /* SCLAlertView.swift */; };
 		CAA33D0E1D11D80E004E9F6A /* SCLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D0D1D11D80E004E9F6A /* SCLExtensions.swift */; };
+		CAA33D101D12241C004E9F6A /* GetIsFavoriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D0F1D12241C004E9F6A /* GetIsFavoriteRequest.swift */; };
+		CAA33D121D1224BA004E9F6A /* GetIsFavoriteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D111D1224BA004E9F6A /* GetIsFavoriteResponse.swift */; };
 		CAC5278F1CDD7B570056AAC8 /* RankColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */; };
 		CAC527921CE1997E0056AAC8 /* RefreshableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527911CE1997E0056AAC8 /* RefreshableViewDelegate.swift */; };
 		CAC527951CE1CAA20056AAC8 /* ExpandingCellTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */; };
@@ -492,6 +494,8 @@
 		CAA33D081D10A491004E9F6A /* ControllerCommonConfigurationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerCommonConfigurationDelegate.swift; sourceTree = "<group>"; };
 		CAA33D0B1D11D7DF004E9F6A /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLAlertView.swift; sourceTree = "<group>"; };
 		CAA33D0D1D11D80E004E9F6A /* SCLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLExtensions.swift; sourceTree = "<group>"; };
+		CAA33D0F1D12241C004E9F6A /* GetIsFavoriteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetIsFavoriteRequest.swift; sourceTree = "<group>"; };
+		CAA33D111D1224BA004E9F6A /* GetIsFavoriteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetIsFavoriteResponse.swift; sourceTree = "<group>"; };
 		CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankColorPicker.swift; sourceTree = "<group>"; };
 		CAC527911CE1997E0056AAC8 /* RefreshableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableViewDelegate.swift; sourceTree = "<group>"; };
 		CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingCellTransition.swift; sourceTree = "<group>"; };
@@ -953,6 +957,7 @@
 				C46CB8D41BA00B5A000D1006 /* GetRestaurantMenuResponse.swift */,
 				C461DB801BD0D747009032C8 /* GetListByIdResponse.swift */,
 				CA37EE601BF6A44300DA3071 /* GetFavoritesResponse.swift */,
+				CAA33D111D1224BA004E9F6A /* GetIsFavoriteResponse.swift */,
 				CA850AE11C03D0FD00D497D4 /* UploadPictureResponse.swift */,
 				CA7A4F6B1BE9C95D0016BC56 /* SignUpResponse.swift */,
 				C4D300121BC1B57B00807C4D /* LoginResponse.swift */,
@@ -1125,6 +1130,7 @@
 				C4B14E391B80493A001E8B62 /* GetRestaurantByIdRequest.swift */,
 				C46CB8D21BA00B50000D1006 /* GetRestaurantMenuRequest.swift */,
 				CA37EE5E1BF6A29500DA3071 /* GetFavoritesRequest.swift */,
+				CAA33D0F1D12241C004E9F6A /* GetIsFavoriteRequest.swift */,
 				CACA84081CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift */,
 				CAC81EE61CDA7BF900338B59 /* GetRestaurantCollectionMembersRequest.swift */,
 				C4D983111CEC34980061A088 /* GetCitiesRequest.swift */,
@@ -1504,6 +1510,7 @@
 				CA203DEA1C111EEA00D6F32C /* NotificationTableViewController.swift in Sources */,
 				CA203DEB1C111EEA00D6F32C /* LoginRequest.swift in Sources */,
 				CA203DEC1C111EEA00D6F32C /* RestaurantTableViewCell.swift in Sources */,
+				CAA33D121D1224BA004E9F6A /* GetIsFavoriteResponse.swift in Sources */,
 				C44C25821C50C97200A345D8 /* ActionButtonView.swift in Sources */,
 				C4C861931CE043FA00A6C896 /* SelectLocationViewController.swift in Sources */,
 				CA621ECF1D0B6D4300693306 /* PullToRefreshControl.swift in Sources */,
@@ -1569,6 +1576,7 @@
 				CA203E0D1C111EEA00D6F32C /* SortParameter.swift in Sources */,
 				CA203E0E1C111EEA00D6F32C /* PhotoCollectionViewCell.swift in Sources */,
 				CA203E0F1C111EEA00D6F32C /* JSONHelper.swift in Sources */,
+				CAA33D101D12241C004E9F6A /* GetIsFavoriteRequest.swift in Sources */,
 				CA203E101C111EEA00D6F32C /* RestaurantViewController.swift in Sources */,
 				C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */,
 				CA203E111C111EEA00D6F32C /* HomeViewController.swift in Sources */,

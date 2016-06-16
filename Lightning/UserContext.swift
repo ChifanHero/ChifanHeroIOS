@@ -20,7 +20,7 @@ class UserContext {
         return userLocation
     }
     
-    static func isRatingTooFrequent(objectId : String) -> Bool{
+    class func isRatingTooFrequent(objectId : String) -> Bool{
         let defaults = NSUserDefaults.standardUserDefaults()
         let now : Int = Int(NSDate().timeIntervalSince1970 * 1000)
         let lastRateTime = defaults.integerForKey(objectId)
@@ -31,10 +31,9 @@ class UserContext {
         }
     }
     
-    static func isValidUser() -> Bool {
+    class func isValidUser() -> Bool {
         let defaults = NSUserDefaults.standardUserDefaults()
         let sessionToken = defaults.stringForKey("sessionToken")
         return sessionToken != nil
     }
-    
 }

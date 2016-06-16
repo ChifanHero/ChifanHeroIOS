@@ -40,7 +40,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         }
     }
     
-    var restaurants : [Restaurant] = []
+    var restaurants: [Restaurant] = []
     
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
     

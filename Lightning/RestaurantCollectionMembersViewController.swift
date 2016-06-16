@@ -81,6 +81,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         }
         self.animateTransition = false
         self.navigationController?.navigationBar.translucent = true
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -138,6 +139,19 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         if let favoriteCount = selectedCollection?.userFavoriteCount {
             favoriteLabel.text = String(favoriteCount)
         }
+        if !UserContext.isValidUser() {
+            favoriteButton.selected = false
+        } else {
+            let request = GetIsFavoriteRequest(type: FavoriteTypeEnum.SelectedCollection, id: selectedCollection!.id!)
+            DataAccessor(serviceConfiguration: ParseConfiguration()).getIsFavorite(request, responseHandler: { (response) -> Void in
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    if response != nil && response?.result != nil {
+                        self.favoriteButton.selected = (response?.result)!
+                    }
+                })
+                
+            })
+        }
     }
     
     func configureNominationView(){
@@ -179,7 +193,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     func loadTableData() {
         if selectedCollection?.id != nil {
-            let request : GetRestaurantCollectionMembersRequest = GetRestaurantCollectionMembersRequest(id: (selectedCollection?.id!)!)
+            let request: GetRestaurantCollectionMembersRequest = GetRestaurantCollectionMembersRequest(id: (selectedCollection?.id!)!)
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantCollectionMembersById(request, responseHandler: { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     if response != nil && !response!.results.isEmpty {
