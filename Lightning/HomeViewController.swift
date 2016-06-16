@@ -627,5 +627,18 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func usingAnimatedTransition() -> Bool {
         return animateTransition
     }
+    
+    
+    // MARK: - Scroll view
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
+            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
+            if scrollPosition < 30 {
+                setTabBarVisible(false, animated: true)
+            } else {
+                setTabBarVisible(true, animated: true)
+            }
+        }
+    }
 }
 
