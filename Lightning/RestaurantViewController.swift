@@ -92,6 +92,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.translucent = false
 //        setTabBarVisible(false, animated: true)
     }
     
