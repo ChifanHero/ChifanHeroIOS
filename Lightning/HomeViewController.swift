@@ -129,12 +129,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
     }
     
-    private func clearTitleForBackBarButtonItem(){
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
-    }
-    
-    
     // MARK: - add location selection button to top left corner
     func addLocationSelectionToLeftCorner() {
         let selectionLocationButton = UIBarButtonItem(title: "位置", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(HomeViewController.editLocation))

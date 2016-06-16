@@ -47,11 +47,6 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         // Dispose of any resources that can be recreated.
     }
     
-    private func clearTitleForBackBarButtonItem(){
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
-    }
-    
     private func setUserProfileImageProperty(){
         self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width / 2
         self.userImageView.clipsToBounds = true

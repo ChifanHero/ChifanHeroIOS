@@ -60,6 +60,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.clearTitleForBackBarButtonItem()
         loadTableData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.setUpHeaderView()

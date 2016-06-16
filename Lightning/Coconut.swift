@@ -79,4 +79,14 @@ extension UIViewController: ControllerCommonConfigurationDelegate{
     func tabBarIsVisible() ->Bool {
         return self.tabBarController?.tabBar.frame.origin.y < CGRectGetMaxY(self.view.frame)
     }
+    
+    func addImageForBackBarButtonItem(){
+        let backBarButtonImage = UIImage(named: "Back_Button")
+        self.navigationController?.navigationBar.backIndicatorImage = backBarButtonImage
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backBarButtonImage
+    }
+    
+    func clearTitleForBackBarButtonItem(){
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+    }
 }

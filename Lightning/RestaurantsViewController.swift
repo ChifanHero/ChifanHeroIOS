@@ -92,11 +92,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         TrackingUtil.trackRestaurantsView()
     }
     
-    private func clearTitleForBackBarButtonItem(){
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
-    }
-    
     func setTableViewFooterView() {
         let frame = CGRectMake(0, 0, self.view.frame.size.width, 30)
         footerView = LoadMoreFooterView(frame: frame)

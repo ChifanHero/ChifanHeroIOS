@@ -23,6 +23,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.clearTitleForBackBarButtonItem()
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
         layout.itemSize = CGSize(width: self.nominationView!.frame.width / 40 * 18, height: self.nominationView!.frame.width / 40 * 25)

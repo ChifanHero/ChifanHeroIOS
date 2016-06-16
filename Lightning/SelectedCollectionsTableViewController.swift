@@ -32,7 +32,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        clearTitleForBackBarButtonItem()
+        self.addImageForBackBarButtonItem()
+        self.clearTitleForBackBarButtonItem()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         initialLoadData()
         self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, -49, 0);
@@ -66,11 +67,6 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         loadingIndicator.type = NVActivityIndicatorType.Pacman
         loadingIndicator.center = self.view.center
         self.view.addSubview(loadingIndicator)
-    }
-    
-    private func clearTitleForBackBarButtonItem(){
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
     }
     
     private func initialLoadData() {
