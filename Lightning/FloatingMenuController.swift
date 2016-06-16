@@ -145,11 +145,11 @@ class FloatingMenuController: UIViewController {
         blurredView.frame = view.bounds
         view.addSubview(blurredView)
         
-        closeButton.addTarget(self, action: "handleCloseMenu:", forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(FloatingMenuController.handleCloseMenu(_:)), forControlEvents: .TouchUpInside)
         view.addSubview(closeButton)
         
         for button in buttonItems {
-            button.addTarget(self, action: "handleMenuButton:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(FloatingMenuController.handleMenuButton(_:)), forControlEvents: .TouchUpInside)
             view.addSubview(button)
         }
         
