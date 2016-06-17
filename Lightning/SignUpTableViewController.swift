@@ -139,8 +139,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
         if title == nil {
             title = "输入错误"
         }
-        let alertview = JSSAlertView().show(self, title: title!, text: message, buttonText: "我知道了")
-        alertview.setTextTheme(.Dark)
+        SCLAlertView().showWarning(title!, subTitle: message!)
     }
     
     private func resetLogInInput(alertAction: UIAlertAction!){

@@ -1284,37 +1284,17 @@
                             <rect key="frame" x="0.0" y="141" width="375" height="413"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sa-j3-3gV">
-                                    <rect key="frame" x="30" y="0.0" width="315" height="44"/>
-                                    <color key="backgroundColor" red="0.92156862750000001" green="0.18823529410000001" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="44" id="oF1-fr-BBr"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                    <state key="normal" title="登录">
-                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="logInButtonTouched:" destination="2xY-J8-DXY" eventType="touchUpInside" id="zAH-CV-Jak"/>
-                                    </connections>
-                                </button>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_InApp" translatesAutoresizingMaskIntoConstraints="NO" id="zSM-Zs-jGn">
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Logo_InApp" translatesAutoresizingMaskIntoConstraints="NO" id="zSM-Zs-jGn">
                                     <rect key="frame" x="97" y="170" width="180" height="180"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator_Line" translatesAutoresizingMaskIntoConstraints="NO" id="O2w-hN-ZfR">
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Separator_Line" translatesAutoresizingMaskIntoConstraints="NO" id="O2w-hN-ZfR">
                                     <rect key="frame" x="120" y="64" width="135" height="6"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="zSM-Zs-jGn" firstAttribute="centerX" secondItem="f1n-lw-9gj" secondAttribute="centerX" id="462-nl-Fbj"/>
-                                <constraint firstItem="6Sa-j3-3gV" firstAttribute="centerX" secondItem="O2w-hN-ZfR" secondAttribute="centerX" id="C3B-an-0cf"/>
-                                <constraint firstAttribute="trailing" secondItem="6Sa-j3-3gV" secondAttribute="trailing" constant="30" id="Cta-vX-jwq"/>
                                 <constraint firstItem="zSM-Zs-jGn" firstAttribute="top" secondItem="O2w-hN-ZfR" secondAttribute="bottom" constant="100" id="LP6-QR-swD"/>
-                                <constraint firstItem="6Sa-j3-3gV" firstAttribute="top" secondItem="f1n-lw-9gj" secondAttribute="top" id="XL5-uy-jep"/>
-                                <constraint firstItem="6Sa-j3-3gV" firstAttribute="leading" secondItem="f1n-lw-9gj" secondAttribute="leading" constant="30" id="YwX-wX-vAi"/>
-                                <constraint firstItem="6Sa-j3-3gV" firstAttribute="centerX" secondItem="zSM-Zs-jGn" secondAttribute="centerX" id="fgD-jj-Wc3"/>
-                                <constraint firstItem="O2w-hN-ZfR" firstAttribute="top" secondItem="6Sa-j3-3gV" secondAttribute="bottom" constant="20" id="xRS-uO-Uom"/>
                             </constraints>
                         </view>
                         <sections>
@@ -1376,7 +1356,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="passwordTextField" destination="EaP-el-a16" id="l5E-zP-ewh"/>
-                        <outlet property="signInButton" destination="6Sa-j3-3gV" id="dp3-AG-iaI"/>
                         <outlet property="usernameTextField" destination="lik-fF-iXk" id="GYQ-uO-Jpe"/>
                         <segue destination="5cV-dy-I2V" kind="show" identifier="signUp" id="KHq-gc-oqf"/>
                     </connections>

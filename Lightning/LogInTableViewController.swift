@@ -14,14 +14,13 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    @IBOutlet weak var signInButton: UIButton!
-    var logInIndicator: UIActivityIndicatorView?
+    let normalLoginButton = LoadingButton(frame: CGRectMake(50, 150, 270, 40), color: UIColor.themeOrange())
+    let wechatLoginButton = LoadingButton(frame: CGRectMake(50, 200, 270, 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         clearTitleForBackBarButtonItem()
-        UISetup()
 
         if isLoggedIn(){
             replaceLoginViewByAboutMeView()
@@ -33,21 +32,22 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogInTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        wechatLoginButton.setLogoImage(UIImage(named: "Wechat")!)
+        wechatLoginButton.setTextContent("微信登录")
+        self.view.addSubview(wechatLoginButton)
+        wechatLoginButton.addTarget(self, action: #selector(LogInTableViewController.wechatLoginEvent), forControlEvents: UIControlEvents.TouchDown)
+        
+        
+        normalLoginButton.setLogoImage(UIImage(named: "Cancel_Button")!)
+        normalLoginButton.setTextContent("登录")
+        self.view.addSubview(normalLoginButton)
+        normalLoginButton.addTarget(self, action: #selector(LogInTableViewController.normalLoginEvent), forControlEvents: UIControlEvents.TouchDown)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
         TrackingUtil.trackLoginView()
-    }
-    
-    func UISetup() {
-        self.signInButton.layer.cornerRadius = 5
-        self.signInButton.enabled = true
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -63,7 +63,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         } else {
             let password = textField.text
             if password?.characters.count > 0{
-                startLogIn()
+                normalLoginEvent()
                 return true
             } else {
                 return false
@@ -116,63 +116,53 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func logInButtonTouched(sender: AnyObject) {
-        startLogIn()
+        normalLoginEvent()
     }
     
-    private func startLogIn() {
-        logInIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
-        logInIndicator?.color = UIColor.grayColor()
-        self.view.addSubview(logInIndicator!)
-        centerIndicator()
-        logInIndicator?.startAnimating()
+    func normalLoginEvent() {
         logIn(username: usernameTextField.text, password: passwordTextField.text)
     }
     
-    private func centerIndicator() {
-//        let midXConstraint : NSLayoutConstraint = NSLayoutConstraint(item: self.logInIndicator!, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute:NSLayoutAttribute.CenterX, multiplier: 1, constant: 0);
-//        let midYConstraint : NSLayoutConstraint = NSLayoutConstraint(item: self.logInIndicator!, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute:NSLayoutAttribute.CenterY, multiplier: 1, constant: 0);
-//        self.view.addConstraints([midXConstraint, midYConstraint])
-//        self.view.layoutIfNeeded()
-        logInIndicator?.center = self.view.center
+    func wechatLoginEvent(){
+        print("btnEvent", terminator: "")
     }
     
     func logIn(username username: String?, password: String?) {
-        self.signInButton.enabled = false
         
         AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, password: password) { (response, user) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                if response == nil {
-                    self.showErrorMessage("登录失败", message: "网络错误")
-                } else {
-                    if response!.success == true {
-                        let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                        defaults.setBool(true, forKey: "isLoggedIn")
-                        self.replaceLoginViewByAboutMeView()
+                let seconds = 2.0
+                let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds
+                let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                
+                dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+                    
+                    self.normalLoginButton.stopLoading()
+                    if response == nil {
+                        self.showErrorMessage("登录失败", message: "网络错误")
                     } else {
-                        print("login failed")
-                        self.showErrorMessage("登录失败", message: "用户名或密码错误")
+                        if response!.success == true {
+                            let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                            defaults.setBool(true, forKey: "isLoggedIn")
+                            self.replaceLoginViewByAboutMeView()
+                        } else {
+                            print("login failed")
+                            self.showErrorMessage("登录失败", message: "用户名或密码错误")
+                        }
                     }
-                }
-                self.logInIndicator?.stopAnimating()
-                self.logInIndicator?.removeFromSuperview()
-                self.signInButton.enabled = true
+                    
+                })
+                
             })
         }
     }
     
     private func showErrorMessage(title : String?, message : String?) {
         var title = title
-//        let alert = UIAlertController(title: "输入错误", message: "请输入有效用户名和密码", preferredStyle: UIAlertControllerStyle.Alert)
-//        
-//        let dismissAction = UIAlertAction(title: "知道了", style: .Default, handler: self.resetLogInInput)
-//        alert.addAction(dismissAction)
-//        
-//        self.presentViewController(alert, animated: true, completion: nil)
         if title == nil {
             title = "输入错误"
         }
-        let alertview = JSSAlertView().show(self, title: title!, text: message, buttonText: "我知道了")
-        alertview.setTextTheme(.Dark)
+        SCLAlertView().showWarning(title!, subTitle: message!)
     }
     private func resetLogInInput(alertAction: UIAlertAction!){
         usernameTextField.text = nil

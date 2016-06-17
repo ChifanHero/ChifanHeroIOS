@@ -251,6 +251,8 @@
 		CACA84091CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA84081CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift */; };
 		CACA84131CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA84121CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift */; };
 		CADA93881C9A6EA400F3E400 /* Respinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADA93871C9A6EA400F3E400 /* Respinner.swift */; };
+		CAE8FC2E1D147CA7002432EE /* MozMaterialDesignSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE8FC2D1D147CA7002432EE /* MozMaterialDesignSpinner.swift */; };
+		CAE8FC301D147CCC002432EE /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE8FC2F1D147CCC002432EE /* LoadingButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -513,6 +515,8 @@
 		CACA84081CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSelectedCollectionsByLatAndLonRequest.swift; sourceTree = "<group>"; };
 		CACA84121CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSelectedCollectionsByLatAndLonResponse.swift; sourceTree = "<group>"; };
 		CADA93871C9A6EA400F3E400 /* Respinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Respinner.swift; sourceTree = "<group>"; };
+		CAE8FC2D1D147CA7002432EE /* MozMaterialDesignSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MozMaterialDesignSpinner.swift; sourceTree = "<group>"; };
+		CAE8FC2F1D147CCC002432EE /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1069,6 +1073,7 @@
 		CAC527931CE1CA870056AAC8 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				CAE8FC2C1D147C8D002432EE /* LoadingButton */,
 				CAA33D0A1D11D552004E9F6A /* SCLAlertView */,
 				CA621EC91D0A718400693306 /* LoadingIndicator */,
 				C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */,
@@ -1173,6 +1178,15 @@
 				CA882D1E1C82619500D04696 /* RemoveFavoriteRequest.swift */,
 			);
 			name = Delete;
+			sourceTree = "<group>";
+		};
+		CAE8FC2C1D147C8D002432EE /* LoadingButton */ = {
+			isa = PBXGroup;
+			children = (
+				CAE8FC2D1D147CA7002432EE /* MozMaterialDesignSpinner.swift */,
+				CAE8FC2F1D147CCC002432EE /* LoadingButton.swift */,
+			);
+			name = LoadingButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1461,6 +1475,7 @@
 				CA203E5F1C18F34600D6F32C /* RatingAndBookmarkExecutor.swift in Sources */,
 				C4D9830E1CE301FC0061A088 /* LocationHeaderView.swift in Sources */,
 				CA203DD01C111EEA00D6F32C /* SortOrder.swift in Sources */,
+				CAE8FC301D147CCC002432EE /* LoadingButton.swift in Sources */,
 				CA203DD21C111EEA00D6F32C /* HeaderViewDelegate.swift in Sources */,
 				C4D00EDC1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift in Sources */,
 				CA203DD31C111EEA00D6F32C /* GetFavoritesResponse.swift in Sources */,
@@ -1497,6 +1512,7 @@
 				CA203DE31C111EEA00D6F32C /* CouponCellSecondView.swift in Sources */,
 				C41298111C82294A0062BC7D /* NominateDishListCandidateResponse.swift in Sources */,
 				CACA84071CD1BEDF000A2794 /* Serializable.swift in Sources */,
+				CAE8FC2E1D147CA7002432EE /* MozMaterialDesignSpinner.swift in Sources */,
 				CA882D311C90B11200D04696 /* CellActionTitle.swift in Sources */,
 				C4066F111C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift in Sources */,
 				CA203DE41C111EEA00D6F32C /* SignUpResponse.swift in Sources */,
