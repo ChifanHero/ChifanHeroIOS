@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Flurry_iOS_SDK
 
-class RefreshableViewController: UIViewController, RefreshableViewDelegate{
+class RefreshableViewController: UIViewController, RefreshableViewDelegate {
     
     
     // MARK: - RefreshableViewDelegate
@@ -88,5 +88,13 @@ extension UIViewController: ControllerCommonConfigurationDelegate{
     
     func clearTitleForBackBarButtonItem(){
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+    }
+    
+    func configureNavigationController() {
+        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
+    }
+    
+    func setNavigationBarTranslucent(To value: Bool){
+        self.navigationController?.navigationBar.translucent = value
     }
 }

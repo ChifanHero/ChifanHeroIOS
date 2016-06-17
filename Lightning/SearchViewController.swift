@@ -23,13 +23,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
     @IBOutlet weak var scrollView: UIScrollView!
-//    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
     
     var restaurants : [Restaurant] = [Restaurant]()
     var dishes : [Dish] = [Dish]()
     var lists : [List] = [List]()
     
-    @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
+    var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
     var searchBar : UISearchBar?
     
@@ -54,9 +53,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configLoadingIndicator()
         clearTitleForBackBarButtonItem()
-        waitingIndicator.hidden = true
-//        configurePullRefresh()
         configureNavigationController()
         setTableFooterView()
         searchResultsTableView.hidden = true
@@ -67,6 +65,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchBar!.sizeToFit()
         self.navigationItem.titleView = searchBar
         definesPresentationContext = true
+        //loadingIndicator.startAnimation()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -89,20 +88,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.searchResultsTableView.tableFooterView = footerView
     }
     
-    private func clearTitleForBackBarButtonItem(){
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
-    }
-    
-//    private func configurePullRefresh(){
-//        self.refreshControl.addTarget(self, action: #selector(SearchViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-//        self.searchResultsTableView.insertSubview(self.refreshControl, atIndex: 0)
-//    }
-    
-    func configureNavigationController() {
-        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
-    }
-    
     @objc private func refresh(sender:AnyObject) {
         search(offset: 0, limit: LIMIT)
     }
@@ -112,9 +97,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
     
+    private func configLoadingIndicator() {
+        loadingIndicator.color = UIColor.themeOrange()
+        loadingIndicator.type = NVActivityIndicatorType.Pacman
+        loadingIndicator.center = self.view.center
+        self.view.addSubview(loadingIndicator)
+    }
     
-    
-//    // For now, search only when the search buttion gets clicked
+    // For now, search only when the search buttion gets clicked
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         TrackingUtil.trackSearchEvent()
         clearStates()
@@ -129,12 +119,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print(keyword)
         if keyword != nil && keyword != "" {
             amplifierStackView.hidden = true
-//            if offset == 0 {
-//                self.clearStates()
-//            }
             if self.searchResultsTableView.hidden == true {
-                waitingIndicator.hidden = false
-                waitingIndicator.startAnimating()
+                loadingIndicator.startAnimation()
             }
             searchRestaurant(keyword: keyword!, offset: offset, limit: limit)
         }
@@ -171,9 +157,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         self.scrollToTop()
                     }
                     self.searchResultsTableView.hidden = false
+                    self.loadingIndicator.stopAnimation()
                 }
-                self.waitingIndicator.hidden = true
-                self.waitingIndicator.stopAnimating()
                 self.footerView!.activityIndicator.stopAnimating()
                 self.isLoadingMore = false
             })
@@ -344,6 +329,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.searchBar?.setShowsCancelButton(false, animated: true)
         self.searchResultsTableView.hidden = true
         amplifierStackView.hidden = false
+        loadingIndicator.stopAnimation()
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {

@@ -68,11 +68,6 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
         
     }
     
-    private func clearTitleForBackBarButtonItem(){
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
-    }
-    
     private func clearTableViewSelection() {
         let selectedCellIndexPath : NSIndexPath? = self.tableView.indexPathForSelectedRow
         if selectedCellIndexPath != nil {

@@ -17,19 +17,15 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     
     @IBOutlet weak var topContainerView: UIView!
     
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    //@IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
-    weak var selectedImageView : UIImageView?
+    weak var selectedImageView: UIImageView?
     
-    var selectedRestaurantName : String?
+    var selectedRestaurantName: String?
     
-    var selectedRestaurantId : String?
+    var selectedRestaurantId: String?
     
     let refresher = PullToMakeSoup()
-    
-//    var navigationOperation: UINavigationControllerOperation?
-//    
-//    var interactivePopTransition: UIPercentDrivenInteractiveTransition!
     
     @IBAction func showHottestRestaurants(sender: AnyObject) {
         self.performSegueWithIdentifier("showRestaurants", sender: "hottest")
@@ -41,17 +37,15 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     
     @IBAction func showDishLists(sender: AnyObject) {
         self.performSegueWithIdentifier("showSelectedCollections", sender: self)
-//        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("selectedCollection") as! SelectedCollectionsTableViewController
-//        presentViewController(controller, animated: true, completion: nil)
     }
     
     @IBOutlet weak var bannerView: UIView!
     
-    var segueType : String?
+    var segueType: String?
     
     var animateTransition = false
     
-    var askLocationAlertView : SCLAlertView?
+    var askLocationAlertView: SCLAlertView?
     
     
     let PROMOTIONS_LIMIT = 10
@@ -61,32 +55,25 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     let LISTS_LIMIT = 10
     let LISTS_OFFSET = 0
 
-//    let refreshControl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
-
     var promotions: [Promotion] = []
     
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
-    var appDelegate : AppDelegate?
+    var appDelegate: AppDelegate?
+    
+    var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
     override func viewDidLoad() {
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         NSNotificationCenter.defaultCenter().postNotificationName("HomeVCLoaded", object: nil)
-        print(LightningColor.themeRed().getColorCode())
         super.viewDidLoad()
-        print("vid did load")
-        self.navigationController!.view.backgroundColor = UIColor.whiteColor()
-        self.extendedLayoutIncludesOpaqueBars = false
-        clearTitleForBackBarButtonItem()
-        configureNavigationController()
-        loadingIndicator.hidden = true
-        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.configLoadingIndicator()
+        self.clearTitleForBackBarButtonItem()
+        self.configureNavigationController()
+        self.generateNavigationItemTitle()
         addLocationSelectionToLeftCorner()
-        
-//        configurePullRefresh()
         initPromotionsTable()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
-        generateNavigationItemTitle()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -95,8 +82,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         if selectedCellIndexPath != nil {
             self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
-        self.navigationController?.navigationBar.translucent = false
-        setTabBarVisible(true, animated: true)
+        self.setNavigationBarTranslucent(To: false)
+        self.setTabBarVisible(true, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -105,7 +92,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
             self.refreshData()
         }
         TrackingUtil.trackRecommendationView()
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -117,16 +103,19 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    private func configLoadingIndicator() {
+        loadingIndicator.color = UIColor.themeOrange()
+        loadingIndicator.type = NVActivityIndicatorType.Pacman
+        loadingIndicator.center = self.view.center
+        self.view.addSubview(loadingIndicator)
+    }
+    
     
     // MARK: - Configure navigation bar
     private func generateNavigationItemTitle() {
         let logo = UIImage(named: "Lightning_Title.png")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
-    }
-    
-    func configureNavigationController() {
-        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
     }
     
     // MARK: - add location selection button to top left corner
@@ -140,16 +129,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         self.performSegueWithIdentifier("editLocation", sender: nil)
     }
     
-    
-    
-//    private func configurePullRefresh(){
-//        self.refreshControl.addTarget(self, action: #selector(HomeViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-//        self.promotionsTable.addSubview(refreshControl)
-//    }
-    
     private func initPromotionsTable(){
-        loadingIndicator.hidden = false
-        loadingIndicator.startAnimating()
+        loadingIndicator.startAnimation()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
     }
@@ -161,7 +142,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
     func handleLocationChange() {
         promotionsTable.hidden = true
         loadingIndicator.hidden = false
-        loadingIndicator.startAnimating()
+        loadingIndicator.startAnimation()
         loadData(nil)
     }
     
@@ -187,7 +168,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
         location = appDelegate!.getCurrentLocation()
         if (location.lat == nil || location.lon == nil) {
             loadingIndicator.hidden = true
-            loadingIndicator.stopAnimating()
+            loadingIndicator.stopAnimation()
             return
         }
         
@@ -217,7 +198,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
                         refreshHandler!(success: true)
                     }
                 }
-                self.loadingIndicator.stopAnimating()
+                self.loadingIndicator.stopAnimation()
                 self.loadingIndicator.hidden = true
 //                self.refreshControl.endRefreshing()
                 self.promotionsTable.endRefreshing()
@@ -254,11 +235,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable 
                 restaurantsController.sortBy = s
             }
         } else if segue.identifier == "showRestaurant" {
-//            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
-//            restaurantController.restaurantImage = self.selectedImageView?.image
-//            restaurantController.restaurantName = self.nameOfSelectedCell
-//            restaurantController.restaurantId = sender as? String
-//            segueType = "showRestaurant"
+            
         } else if segue.identifier == "editLocation" {
             let selectLocationNavigationController : UINavigationController = segue.destinationViewController as! UINavigationController
             let selectLocationController : SelectLocationViewController = selectLocationNavigationController.viewControllers[0] as! SelectLocationViewController
@@ -325,7 +302,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         if promotion.restaurant != nil {
             let restaurant : Restaurant = promotions[indexPath.row].restaurant!
-//            self.performSegueWithIdentifier("showRestaurant", sender: restaurant.id)
             selectedRestaurantId = restaurant.id
         }
         

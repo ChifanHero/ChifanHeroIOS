@@ -76,11 +76,6 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    private func clearTitleForBackBarButtonItem(){
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
-    }
-    
     func dismissKeyboard() {
         view.endEditing(true)
     }

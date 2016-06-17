@@ -42,8 +42,6 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     var restaurants: [Restaurant] = []
     
-    @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
-    
     var loadMoreIndicator : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     
     var footerView : LoadMoreFooterView?
@@ -53,6 +51,8 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     var isLoadingMore = false
     
     let refresher = PullToMakeSoup()
+    
+    var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
     var isFromBookMark = false {
         didSet {
@@ -65,11 +65,11 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
+        configLoadingIndicator()
         self.restaurantsTable.delegate = self
         self.restaurantsTable.dataSource = self
         self.restaurantsTable.hidden = true
         setTableViewFooterView()
-        waitingIndicator.hidden = true
         firstLoadData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
     }
@@ -90,6 +90,13 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             self.refreshData()
         }
         TrackingUtil.trackRestaurantsView()
+    }
+    
+    private func configLoadingIndicator() {
+        loadingIndicator.color = UIColor.themeOrange()
+        loadingIndicator.type = NVActivityIndicatorType.Pacman
+        loadingIndicator.center = self.view.center
+        self.view.addSubview(loadingIndicator)
     }
     
     func setTableViewFooterView() {
@@ -121,8 +128,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
         if (location.lat == nil || location.lon == nil) {
             return
         }
-        waitingIndicator.hidden = false
-        waitingIndicator.startAnimating()
+        loadingIndicator.startAnimation()
         request.userLocation = location
         loadData { (success) -> Void in
             if !success {
@@ -148,8 +154,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                     if self.restaurants.count > 0 && self.restaurantsTable.hidden == true{
                         self.restaurantsTable.hidden = false
                     }
-                    self.waitingIndicator.stopAnimating()
-                    self.waitingIndicator.hidden = true
+                    self.loadingIndicator.stopAnimation()
                     self.footerView!.activityIndicator.stopAnimating()
                     self.restaurantsTable.reloadData()
                     self.restaurantsTable.endRefreshing()
@@ -163,8 +168,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                             refreshHandler!(success: false)
                         }
                         self.restaurantsTable.endRefreshing()
-                        self.waitingIndicator.stopAnimating()
-                        self.waitingIndicator.hidden = true
+                        self.loadingIndicator.stopAnimation()
                         self.footerView!.activityIndicator.stopAnimating()
                     } else {
                         if self.request.skip == 0 {
@@ -175,8 +179,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
                             self.restaurantsTable.hidden = false
                         }
                         self.restaurantsTable.endRefreshing()
-                        self.waitingIndicator.stopAnimating()
-                        self.waitingIndicator.hidden = true
+                        self.loadingIndicator.stopAnimation()
                         self.footerView!.activityIndicator.stopAnimating()
                         self.restaurantsTable.reloadData()
                         if refreshHandler != nil {
