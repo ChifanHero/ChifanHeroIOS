@@ -32,6 +32,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.tabBarController?.tabBar.hidden = true
+//        self.navigationController?.navigationBar.translucent = true
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -47,13 +49,13 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         if selectedCellIndexPath != nil {
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
-        self.navigationController?.navigationBar.translucent = true
-        self.tabBarController?.tabBar.hidden = true
+//        self.navigationController?.setnav
 //        setTabBarVisible(false, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         self.tableView.addPullToRefresh(refresher, action: {self.refreshData()})
         TrackingUtil.trackCollectionsView()
     }
