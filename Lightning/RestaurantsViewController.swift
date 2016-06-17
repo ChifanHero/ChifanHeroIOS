@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 import PullToMakeSoup
 
-class RestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable {
+class RestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable{
     
     @IBOutlet var restaurantsTable: UITableView!
     
@@ -264,6 +264,7 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
             restaurantController.restaurantId = sender as? String
             restaurantController.restaurantImage = self.selectedImageView?.image
             restaurantController.restaurantName = self.selectedRestaurantName
+            restaurantController.parentVCName = self.getId()
         }
     }
     
@@ -470,6 +471,14 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     func usingAnimatedTransition() -> Bool {
         return animateTransition
+    }
+    
+    func getId() -> String {
+        return "RestaurantsViewController"
+    }
+    
+    func getDirectAncestorId() -> String {
+        return ""
     }
 
 }

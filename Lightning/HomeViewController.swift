@@ -11,7 +11,7 @@ import ARNTransitionAnimator
 import SCLAlertView
 import PullToMakeSoup
 
-class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable {
+class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
     @IBOutlet weak var promotionsTable: UITableView!
     
@@ -592,11 +592,20 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantName = self.selectedRestaurantName
         restaurantController.restaurantId = self.selectedRestaurantId
+        restaurantController.parentVCName = self.getId()
         self.navigationController?.pushViewController(restaurantController, animated: true)
     }
     
     func usingAnimatedTransition() -> Bool {
         return animateTransition
+    }
+    
+    func getId() -> String {
+        return "HomeViewController"
+    }
+    
+    func getDirectAncestorId() -> String {
+        return ""
     }
     
     

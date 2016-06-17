@@ -37,7 +37,6 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         initialLoadData()
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        self.tabBarController?.tabBar.hidden = true
         configLoadingIndicator()
         loadingIndicator.startAnimation()
     }
@@ -49,6 +48,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
         self.navigationController?.navigationBar.translucent = true
+        self.tabBarController?.tabBar.hidden = true
 //        setTabBarVisible(false, animated: true)
     }
     

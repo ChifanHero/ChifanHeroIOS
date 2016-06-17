@@ -12,7 +12,7 @@ import MapKit
 import ARNTransitionAnimator
 import Flurry_iOS_SDK
 
-class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ARNImageTransitionZoomable {
+class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
     var restaurantId : String? {
         didSet {
@@ -30,6 +30,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     var restaurant : Restaurant?
     
     var animateTransition = true
+    
+    var parentVCName : String = ""
 
     @IBOutlet weak var messageView: NotAvailableMessageView!
     
@@ -93,7 +95,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.translucent = false
-//        setTabBarVisible(false, animated: true)
+        self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -784,6 +786,14 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     func usingAnimatedTransition() -> Bool {
         return animateTransition
+    }
+    
+    func getId() -> String {
+        return "RestaurantViewController"
+    }
+    
+    func getDirectAncestorId() -> String {
+        return parentVCName
     }
     
     

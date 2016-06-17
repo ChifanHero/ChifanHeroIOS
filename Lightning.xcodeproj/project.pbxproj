@@ -64,6 +64,7 @@
 		C47A1C8B1C7DF2A100E0DF3A /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C8A1C7DF2A100E0DF3A /* NotificationTableViewCell.swift */; };
 		C47A1C8D1C7EC66500E0DF3A /* FirstNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */; };
 		C48DD6CC1D110DBA00F529AE /* TrackingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */; };
+		C48DD6D01D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DD6CF1D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift */; };
 		C49427DE1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */; };
 		C49427DF1CD86FC300F94D4F /* ARNImageZoomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */; };
 		C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */; };
@@ -371,6 +372,7 @@
 		C47A1C8A1C7DF2A100E0DF3A /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstNotification.swift; sourceTree = "<group>"; };
 		C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingUtil.swift; sourceTree = "<group>"; };
+		C48DD6CF1D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionIdentifiable.swift; sourceTree = "<group>"; };
 		C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionNavigationController.swift; sourceTree = "<group>"; };
 		C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageZoomTransition.swift; sourceTree = "<group>"; };
 		C49427E11CD874DA00F94D4F /* ARNTransitionAnimator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARNTransitionAnimator.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Lightning-cdtqhbxirnfcbjegdnunhyimuqez/Build/Products/Debug-iphoneos/ARNTransitionAnimator.framework"; sourceTree = "<group>"; };
@@ -1077,6 +1079,7 @@
 				CAC527AA1CEEB6650056AAC8 /* FloatingButton.swift */,
 				CA621EBD1D05E76800693306 /* DOFavoriteButton.swift */,
 				CA621ECE1D0B6D4300693306 /* PullToRefreshControl.swift */,
+				C48DD6CF1D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -1466,6 +1469,7 @@
 				C4CC99E21C5407A1007CBF64 /* NotAvailableMessageView.swift in Sources */,
 				CA882D271C85181200D04696 /* SignUpTableViewController.swift in Sources */,
 				C412978B1C809E420062BC7D /* TutorialViewController.swift in Sources */,
+				C48DD6D01D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift in Sources */,
 				CA203DD51C111EEA00D6F32C /* GetRestaurantsRequest.swift in Sources */,
 				CA203DD61C111EEA00D6F32C /* Promotion.swift in Sources */,
 				CA203DD71C111EEA00D6F32C /* LoadMoreFooterView.swift in Sources */,

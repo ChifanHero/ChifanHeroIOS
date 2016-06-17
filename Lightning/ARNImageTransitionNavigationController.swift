@@ -58,7 +58,16 @@ class ARNImageTransitionNavigationController: UINavigationController, UINavigati
                 if operation == .Push {
                     return ARNImageZoomTransition.createAnimator(.Push, fromVC: fromVC, toVC: toVC)
                 } else if operation == .Pop {
-                    return ARNImageZoomTransition.createAnimator(.Pop, fromVC: fromVC, toVC: toVC)
+                    if let identifiableSource = fromVC as? ARNImageTransitionIdentifiable, identifiableDestination = toVC as? ARNImageTransitionIdentifiable {
+                        if (identifiableSource.getDirectAncestorId() == identifiableDestination.getId()) {
+                            return ARNImageZoomTransition.createAnimator(.Pop, fromVC: fromVC, toVC: toVC)
+                        } else {
+                            return nil
+                        }
+                    } else {
+                        return ARNImageZoomTransition.createAnimator(.Pop, fromVC: fromVC, toVC: toVC)
+                    }
+                    
                 }
             }
         }

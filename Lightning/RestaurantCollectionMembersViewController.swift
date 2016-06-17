@@ -82,6 +82,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         }
         self.animateTransition = false
         self.navigationController?.navigationBar.translucent = true
+        self.tabBarController?.tabBar.hidden = true
         
     }
     
