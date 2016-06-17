@@ -38,7 +38,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         self.clearTitleForBackBarButtonItem()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         initialLoadData()
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
         configLoadingIndicator()
         loadingIndicator.startAnimation()
     }
@@ -49,6 +49,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         if selectedCellIndexPath != nil {
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
+        self.setNavigationBarTranslucent(To: true)
 //        self.navigationController?.setnav
 //        setTabBarVisible(false, animated: true)
     }
