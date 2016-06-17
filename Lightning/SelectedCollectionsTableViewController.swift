@@ -32,8 +32,6 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.tabBarController?.tabBar.hidden = true
-//        self.navigationController?.navigationBar.translucent = true
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -50,8 +48,6 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
             self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
         }
         self.setNavigationBarTranslucent(To: true)
-//        self.navigationController?.setnav
-//        setTabBarVisible(false, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {

@@ -232,7 +232,7 @@ import UIKit
         }
         rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self.baseVC!)
         if UserContext.isRatingTooFrequent(restaurantId!) {
-            JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
+            SCLAlertView().showWarning("评价太频繁", subTitle: "请勿频繁评价")
         } else {
             likeButtonView.actionCount = likeButtonView.actionCount + 1
             rateAndBookmarkExecutor?.like("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
@@ -247,7 +247,7 @@ import UIKit
         }
         rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self.baseVC!)
         if UserContext.isRatingTooFrequent(restaurantId!) {
-            JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
+            SCLAlertView().showWarning("评价太频繁", subTitle: "请勿频繁评价")
         } else {
             dislikeButtonView.actionCount = dislikeButtonView.actionCount + 1
             rateAndBookmarkExecutor?.dislike("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
@@ -263,7 +263,7 @@ import UIKit
         }
         rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self.baseVC!)
         if UserContext.isRatingTooFrequent(restaurantId!) {
-            JSSAlertView().warning(self.baseVC!, title: "评价太频繁")
+            SCLAlertView().showWarning("评价太频繁", subTitle: "请勿频繁评价")
         } else {
             neutralButtonView.actionCount = neutralButtonView.actionCount + 1
             rateAndBookmarkExecutor?.neutral("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
@@ -279,7 +279,7 @@ import UIKit
         }
         rateAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self.baseVC!)
         if !UserContext.isValidUser() {
-            JSSAlertView().show(self.baseVC!, title: "请登录", text: nil, buttonText: "我知道了")
+            SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
         } else {
             bookmarkButtonView.actionCount = bookmarkButtonView.actionCount + 1
             rateAndBookmarkExecutor?.addToFavorites("restaurant", objectId: restaurantId!, failureHandler: { (objectId) -> Void in
