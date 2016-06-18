@@ -31,24 +31,31 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogInTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        
-        normalLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 150, self.view.frame.width * 0.8, 40), color: UIColor.themeOrange())
+        self.configureLoginButton()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        TrackingUtil.trackLoginView()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func configureLoginButton(){
         wechatLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 200, self.view.frame.width * 0.8, 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
         wechatLoginButton.setLogoImage(UIImage(named: "Wechat")!)
         wechatLoginButton.setTextContent("微信登录")
         self.view.addSubview(wechatLoginButton)
         wechatLoginButton.addTarget(self, action: #selector(LogInTableViewController.wechatLoginEvent), forControlEvents: UIControlEvents.TouchDown)
         
-        
+        normalLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 150, self.view.frame.width * 0.8, 40), color: UIColor.themeOrange())
         normalLoginButton.setLogoImage(UIImage(named: "Cancel_Button")!)
         normalLoginButton.setTextContent("登录")
         self.view.addSubview(normalLoginButton)
         normalLoginButton.addTarget(self, action: #selector(LogInTableViewController.normalLoginEvent), forControlEvents: UIControlEvents.TouchDown)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        TrackingUtil.trackLoginView()
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -70,11 +77,6 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                 return false
             }
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func dismissKeyboard() {
