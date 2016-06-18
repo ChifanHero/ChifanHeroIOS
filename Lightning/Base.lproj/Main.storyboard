@@ -1280,23 +1280,6 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="f1n-lw-9gj">
-                            <rect key="frame" x="0.0" y="141" width="375" height="413"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Logo_InApp" translatesAutoresizingMaskIntoConstraints="NO" id="zSM-Zs-jGn">
-                                    <rect key="frame" x="97" y="170" width="180" height="180"/>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Separator_Line" translatesAutoresizingMaskIntoConstraints="NO" id="O2w-hN-ZfR">
-                                    <rect key="frame" x="120" y="64" width="135" height="6"/>
-                                </imageView>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="zSM-Zs-jGn" firstAttribute="centerX" secondItem="f1n-lw-9gj" secondAttribute="centerX" id="462-nl-Fbj"/>
-                                <constraint firstItem="zSM-Zs-jGn" firstAttribute="top" secondItem="O2w-hN-ZfR" secondAttribute="bottom" constant="100" id="LP6-QR-swD"/>
-                            </constraints>
-                        </view>
                         <sections>
                             <tableViewSection id="ACu-63-KVR">
                                 <cells>

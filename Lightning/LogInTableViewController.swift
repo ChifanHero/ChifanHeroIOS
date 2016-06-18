@@ -14,8 +14,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    let normalLoginButton = LoadingButton(frame: CGRectMake(50, 150, 270, 40), color: UIColor.themeOrange())
-    let wechatLoginButton = LoadingButton(frame: CGRectMake(50, 200, 270, 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
+    var normalLoginButton: LoadingButton!
+    var wechatLoginButton: LoadingButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogInTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        
+        normalLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 150, self.view.frame.width * 0.8, 40), color: UIColor.themeOrange())
+        wechatLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 200, self.view.frame.width * 0.8, 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
         wechatLoginButton.setLogoImage(UIImage(named: "Wechat")!)
         wechatLoginButton.setTextContent("微信登录")
         self.view.addSubview(wechatLoginButton)
