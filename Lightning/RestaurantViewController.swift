@@ -100,9 +100,20 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        if self.tabBarController?.tabBar.hidden == true {
+            showTabbarSmoothly()
+        }
         self.animateTransition = true
         configVCTitle()
         TrackingUtil.trackRestaurantView()
+    }
+    
+    func showTabbarSmoothly() {
+        self.tabBarController?.tabBar.alpha = 0
+        self.tabBarController?.tabBar.hidden = false
+        UIView.animateWithDuration(0.6) {
+            self.tabBarController?.tabBar.alpha = 1
+        }
     }
     
     func configVCTitle() {

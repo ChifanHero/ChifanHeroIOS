@@ -799,7 +799,7 @@
                                 <rect key="frame" x="-4" y="64" width="383" height="554"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aqj-0V-wgK">
-                                        <rect key="frame" x="173" y="258.5" width="37" height="37"/>
+                                        <rect key="frame" x="173" y="258" width="37" height="37"/>
                                         <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -1044,6 +1044,7 @@
                             <outlet property="delegate" destination="QPY-Tj-EdL" id="Mu7-DJ-47k"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="我的主页" id="fMz-Bm-sVj"/>
                     <connections>
                         <outlet property="nickNameLabel" destination="ViJ-cJ-FVb" id="LqI-ea-hoF"/>
@@ -1245,7 +1246,7 @@
         <!--Log In Table View Controller-->
         <scene sceneID="dHd-2j-MYx">
             <objects>
-                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="2xY-J8-DXY" customClass="LogInTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="2xY-J8-DXY" customClass="LogInTableViewController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="FJZ-9y-wum">
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1299,7 +1300,7 @@
                             <outlet property="delegate" destination="2xY-J8-DXY" id="ZUh-2d-KAS"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="7b2-1e-ydc">
                         <barButtonItem key="rightBarButtonItem" title="注册" id="yYB-Sw-tR0">
                             <connections>
@@ -1545,8 +1546,8 @@
         <!--Image Transition Navigation Controller-->
         <scene sceneID="DB4-FS-Iva">
             <objects>
-                <navigationController restorationIdentifier="AboutMeNavigationController" storyboardIdentifier="AboutMeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="t1R-Xe-I0O" customClass="ARNImageTransitionNavigationController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                <navigationController restorationIdentifier="AboutMeNavigationController" storyboardIdentifier="AboutMeNavigationController" id="t1R-Xe-I0O" customClass="ARNImageTransitionNavigationController" customModule="Lightning" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ARK-m0-b7n">
@@ -1631,8 +1632,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="SnI-Ci-tXQ"/>
-        <segue reference="Vt6-Zb-4Nz"/>
         <segue reference="Vi8-Wd-3jG"/>
+        <segue reference="Vt6-Zb-4Nz"/>
         <segue reference="tIf-c0-cls"/>
     </inferredMetricsTieBreakers>
 </document>
