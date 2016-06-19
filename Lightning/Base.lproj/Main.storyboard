@@ -1181,36 +1181,7 @@
                         <view key="tableFooterView" contentMode="scaleToFill" id="vuD-cU-uWE">
                             <rect key="frame" x="0.0" y="155.5" width="375" height="398"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRx-6d-AFV">
-                                    <rect key="frame" x="30" y="0.0" width="315" height="45"/>
-                                    <color key="backgroundColor" red="0.92156862745098034" green="0.18823529411764706" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                    <state key="normal" title="创建用户">
-                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="createButtonTouched:" destination="5cV-dy-I2V" eventType="touchUpInside" id="GeW-D5-EvX"/>
-                                    </connections>
-                                </button>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator_Line" translatesAutoresizingMaskIntoConstraints="NO" id="LkT-Dm-ZUv">
-                                    <rect key="frame" x="120" y="65" width="135" height="6"/>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_InApp" translatesAutoresizingMaskIntoConstraints="NO" id="tZR-Zg-tk8">
-                                    <rect key="frame" x="97" y="171" width="180" height="180"/>
-                                </imageView>
-                            </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="LkT-Dm-ZUv" firstAttribute="centerX" secondItem="zRx-6d-AFV" secondAttribute="centerX" id="0H8-jn-RQI"/>
-                                <constraint firstItem="tZR-Zg-tk8" firstAttribute="top" secondItem="LkT-Dm-ZUv" secondAttribute="bottom" constant="100" id="93T-8G-uWk"/>
-                                <constraint firstItem="tZR-Zg-tk8" firstAttribute="centerX" secondItem="vuD-cU-uWE" secondAttribute="centerX" id="BvS-x2-hbg"/>
-                                <constraint firstItem="LkT-Dm-ZUv" firstAttribute="top" secondItem="vuD-cU-uWE" secondAttribute="top" constant="65" id="DsB-VH-eOI"/>
-                                <constraint firstItem="LkT-Dm-ZUv" firstAttribute="top" secondItem="zRx-6d-AFV" secondAttribute="bottom" constant="20" id="K6A-Xz-OMf"/>
-                                <constraint firstItem="zRx-6d-AFV" firstAttribute="leading" secondItem="vuD-cU-uWE" secondAttribute="leading" constant="30" id="RGv-Pp-0Gw"/>
-                                <constraint firstAttribute="trailing" secondItem="zRx-6d-AFV" secondAttribute="trailing" constant="30" id="Y10-aJ-aju"/>
-                                <constraint firstItem="zRx-6d-AFV" firstAttribute="top" secondItem="vuD-cU-uWE" secondAttribute="top" id="jdg-f7-NCT"/>
-                            </constraints>
                         </view>
                         <sections>
                             <tableViewSection headerTitle="注册成为Lightning用户" id="8xO-C4-d4n">
@@ -1263,7 +1234,6 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
-                        <outlet property="createButton" destination="zRx-6d-AFV" id="7xc-Se-ueM"/>
                         <outlet property="passwordTextField" destination="gUP-9c-6wn" id="gFm-Yl-gd8"/>
                         <outlet property="usernameTextField" destination="3jH-aW-Rll" id="Kxb-68-90U"/>
                     </connections>
@@ -1650,11 +1620,9 @@
         <image name="Chifanhero_Like" width="69" height="66"/>
         <image name="Chifanhero_Nomination" width="74" height="74"/>
         <image name="Lightning_Recommendation" width="250" height="50"/>
-        <image name="Logo_InApp" width="180" height="180"/>
         <image name="Magnifier" width="124" height="124"/>
         <image name="Profile_Picture" width="66" height="66"/>
         <image name="Search_Tab" width="25" height="26"/>
-        <image name="Separator_Line" width="135" height="6"/>
         <image name="home" width="25" height="24"/>
         <image name="hot" width="28" height="28"/>
         <image name="hotList" width="28" height="28"/>
