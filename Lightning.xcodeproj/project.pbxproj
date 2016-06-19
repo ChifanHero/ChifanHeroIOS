@@ -253,6 +253,9 @@
 		CADA93881C9A6EA400F3E400 /* Respinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADA93871C9A6EA400F3E400 /* Respinner.swift */; };
 		CAE8FC2E1D147CA7002432EE /* MozMaterialDesignSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE8FC2D1D147CA7002432EE /* MozMaterialDesignSpinner.swift */; };
 		CAE8FC301D147CCC002432EE /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE8FC2F1D147CCC002432EE /* LoadingButton.swift */; };
+		CAE8FC361D17131D002432EE /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE8FC331D17131D002432EE /* FBSDKCoreKit.framework */; };
+		CAE8FC371D17131D002432EE /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE8FC341D17131D002432EE /* FBSDKLoginKit.framework */; };
+		CAE8FC381D17131D002432EE /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE8FC351D17131D002432EE /* FBSDKShareKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -517,6 +520,9 @@
 		CADA93871C9A6EA400F3E400 /* Respinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Respinner.swift; sourceTree = "<group>"; };
 		CAE8FC2D1D147CA7002432EE /* MozMaterialDesignSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MozMaterialDesignSpinner.swift; sourceTree = "<group>"; };
 		CAE8FC2F1D147CCC002432EE /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
+		CAE8FC331D17131D002432EE /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../FacebookSDKs-iOS-4.13.1/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		CAE8FC341D17131D002432EE /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../FacebookSDKs-iOS-4.13.1/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		CAE8FC351D17131D002432EE /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../FacebookSDKs-iOS-4.13.1/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -555,6 +561,9 @@
 				CA203E2A1C111EEA00D6F32C /* ParseCrashReporting.framework in Frameworks */,
 				CA203E2B1C111EEA00D6F32C /* Bolts.framework in Frameworks */,
 				1519622B33064ADFB1B9FBCD /* Pods_Lightning.framework in Frameworks */,
+				CAE8FC361D17131D002432EE /* FBSDKCoreKit.framework in Frameworks */,
+				CAE8FC371D17131D002432EE /* FBSDKLoginKit.framework in Frameworks */,
+				CAE8FC381D17131D002432EE /* FBSDKShareKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +573,9 @@
 		23D85A71B84862FEE9FC8005 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CAE8FC331D17131D002432EE /* FBSDKCoreKit.framework */,
+				CAE8FC341D17131D002432EE /* FBSDKLoginKit.framework */,
+				CAE8FC351D17131D002432EE /* FBSDKShareKit.framework */,
 				C4021ACA1CF41EE00021343B /* libstdc++.6.tbd */,
 				C49427E11CD874DA00F94D4F /* ARNTransitionAnimator.framework */,
 				C4F039E31BC347C100183AC2 /* libz.tbd */,
