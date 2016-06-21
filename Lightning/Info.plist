@@ -26,12 +26,6 @@
 				<string>prefs</string>
 			</array>
 		</dict>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb1542428632731160</string>
-            </array>
-        </dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>3</string>
@@ -39,10 +33,6 @@
 	<array>
 		<string>googlechromes</string>
 		<string>comgooglemaps</string>
-        <string>fbapi</string>
-        <string>fb-messenger-api</string>
-        <string>fbauth2</string>
-        <string>fbshareextension</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -80,9 +70,25 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
     
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb1542428632731160</string>
+            </array>
+        </dict>
+    </array>
     <key>FacebookAppID</key>
     <string>1542428632731160</string>
     <key>FacebookDisplayName</key>
     <string>ChifanHero</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
+    </array>
 </dict>
 </plist>
