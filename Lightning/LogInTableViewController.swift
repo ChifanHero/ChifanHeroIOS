@@ -33,7 +33,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tap)
         self.configureLoginButton()
         
-        var fbButton = FBSDKLoginButton(frame: CGRectMake(self.view.frame.width * 0.1, 250, self.view.frame.width * 0.8, 40)
+        var fbButton = FBSDKLoginButton(frame: CGRectMake(self.view.frame.width * 0.1, 250, self.view.frame.width * 0.8, 40))
         self.view.addSubview(fbButton)
     }
     
