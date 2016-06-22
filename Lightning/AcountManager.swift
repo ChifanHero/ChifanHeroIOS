@@ -18,6 +18,35 @@ class AccountManager {
         self.serviceConfiguration = serviceConfiguration
     }
     
+    func oauthLogin(oauthLogin oauthLogin: String?, responseHandler: (OauthLoginResponse?) -> Void) {
+        
+        let request: OauthLoginRequest = OauthLoginRequest()
+        request.oauthLogin = oauthLogin
+        let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
+        print(url)
+        
+        let httpClient = HttpClient()
+        httpClient.post(url, headers: nil, parameters: request.getRequestBody()) { (data, response, error) -> Void in
+            var loginResponse: OauthLoginResponse? = nil
+            if data != nil {
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                var jsonData : [String : AnyObject]
+                do {
+                    jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
+                    loginResponse = OauthLoginResponse(data: jsonData)
+                    if loginResponse != nil && loginResponse!.success == true && loginResponse!.user != nil {
+                        self.saveUser(loginResponse?.user, username: loginResponse?.user?.userName, password: "", sessionToken: loginResponse?.sessionToken)
+                    }
+                    
+                } catch {
+                    print(error)
+                }
+            }
+            responseHandler(loginResponse!)
+        }
+        
+    }
+    
     func logIn(username username: String?, password: String?, responseHandler: (LoginResponse?, User?) -> Void) {
         
         let request : LoginRequest = LoginRequest()
@@ -67,11 +96,7 @@ class AccountManager {
                     jsonData = try NSJSONSerialization.JSONObjectWithData((strData?.dataUsingEncoding(NSUTF8StringEncoding)!)!, options: NSJSONReadingOptions.MutableLeaves) as! [String : AnyObject]
                     signUpResponse = SignUpResponse(data: jsonData)
                     if signUpResponse?.success != nil && signUpResponse!.success! == true{
-//                        self.logIn(username: username, password: password){_,_ in
-//                            
-//                        }
                         self.logIn(username: username, password: password, responseHandler: { (success, user) -> Void in
-                            //
                         })
                     }
                     

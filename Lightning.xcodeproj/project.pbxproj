@@ -256,6 +256,8 @@
 		CAE8FC361D17131D002432EE /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE8FC331D17131D002432EE /* FBSDKCoreKit.framework */; };
 		CAE8FC371D17131D002432EE /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE8FC341D17131D002432EE /* FBSDKLoginKit.framework */; };
 		CAE8FC381D17131D002432EE /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE8FC351D17131D002432EE /* FBSDKShareKit.framework */; };
+		CAF16B5D1D1A16740051D7CE /* OauthLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF16B5C1D1A16740051D7CE /* OauthLoginRequest.swift */; };
+		CAF16B5F1D1A17020051D7CE /* OauthLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF16B5E1D1A17020051D7CE /* OauthLoginResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -523,6 +525,8 @@
 		CAE8FC331D17131D002432EE /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../FacebookSDKs-iOS-4.13.1/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		CAE8FC341D17131D002432EE /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../FacebookSDKs-iOS-4.13.1/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		CAE8FC351D17131D002432EE /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../FacebookSDKs-iOS-4.13.1/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		CAF16B5C1D1A16740051D7CE /* OauthLoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthLoginRequest.swift; sourceTree = "<group>"; };
+		CAF16B5E1D1A17020051D7CE /* OauthLoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthLoginResponse.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -978,6 +982,7 @@
 				CAA33D111D1224BA004E9F6A /* GetIsFavoriteResponse.swift */,
 				CA850AE11C03D0FD00D497D4 /* UploadPictureResponse.swift */,
 				CA7A4F6B1BE9C95D0016BC56 /* SignUpResponse.swift */,
+				CAF16B5E1D1A17020051D7CE /* OauthLoginResponse.swift */,
 				C4D300121BC1B57B00807C4D /* LoginResponse.swift */,
 				CA850AE51C0419D300D497D4 /* UpdateInfoResponse.swift */,
 				CA850AE91C06702D00D497D4 /* LogOutResponse.swift */,
@@ -1166,6 +1171,7 @@
 				C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */,
 				CA850ADF1C03CF6800D497D4 /* UploadPictureRequest.swift */,
 				CA7A4F691BE939BB0016BC56 /* SignUpRequest.swift */,
+				CAF16B5C1D1A16740051D7CE /* OauthLoginRequest.swift */,
 				C4D300101BC1B4FC00807C4D /* LoginRequest.swift */,
 				CA850AE31C04188A00D497D4 /* UpdateInfoRequest.swift */,
 				CA850AE71C066FF200D497D4 /* LogOutRequest.swift */,
@@ -1492,6 +1498,7 @@
 				C4D00EDC1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift in Sources */,
 				CA203DD31C111EEA00D6F32C /* GetFavoritesResponse.swift in Sources */,
 				CA203DD41C111EEA00D6F32C /* Restaurant.swift in Sources */,
+				CAF16B5F1D1A17020051D7CE /* OauthLoginResponse.swift in Sources */,
 				C44C25881C5361C900A345D8 /* VoteRestaurantRequest.swift in Sources */,
 				C4CC99E21C5407A1007CBF64 /* NotAvailableMessageView.swift in Sources */,
 				CA882D271C85181200D04696 /* SignUpTableViewController.swift in Sources */,
@@ -1537,6 +1544,7 @@
 				C4066F151C709DEF00BBF0E8 /* ListCandidateNoDishContentView.swift in Sources */,
 				CAA33D0C1D11D7DF004E9F6A /* SCLAlertView.swift in Sources */,
 				C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */,
+				CAF16B5D1D1A16740051D7CE /* OauthLoginRequest.swift in Sources */,
 				C4A0D5531C11746100BAE246 /* Distance.swift in Sources */,
 				CA203DE91C111EEA00D6F32C /* NickNameChangeViewController.swift in Sources */,
 				CA203DEA1C111EEA00D6F32C /* NotificationTableViewController.swift in Sources */,
