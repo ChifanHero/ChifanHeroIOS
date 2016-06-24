@@ -8,20 +8,16 @@
 
 import Foundation
 
-class LoginResponse: Model {
-    
-    var success: Bool?
-    var sessionToken: String?
-    var user: User?
+class LoginResponse: AccountResponse {
     
     required init() {
-        
+        super.init()
     }
     
     required init(data: [String : AnyObject]) {
-        success <-- data["success"]
-        sessionToken <-- data["session_token"]
-        user <-- data["user"]
+        super.init(data: data)
+        self.success <-- data["success"]
+        self.sessionToken <-- data["session_token"]
+        self.user <-- data["user"]
     }
-    
 }

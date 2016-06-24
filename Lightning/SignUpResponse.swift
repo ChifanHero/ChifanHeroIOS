@@ -8,18 +8,14 @@
 
 import Foundation
 
-class SignUpResponse: Model {
-    
-    var success: Bool?
-    var sessionToken: String?
-    var user: User?
-    var error: Error?
+class SignUpResponse: AccountResponse {
     
     required init() {
-        
+        super.init()
     }
     
     required init(data: [String : AnyObject]) {
+        super.init(data: data)
         success <-- data["success"]
         sessionToken <-- data["session_token"]
         user <-- data["user"]

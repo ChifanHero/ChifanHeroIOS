@@ -258,6 +258,8 @@
 		CAE8FC381D17131D002432EE /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE8FC351D17131D002432EE /* FBSDKShareKit.framework */; };
 		CAF16B5D1D1A16740051D7CE /* OauthLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF16B5C1D1A16740051D7CE /* OauthLoginRequest.swift */; };
 		CAF16B5F1D1A17020051D7CE /* OauthLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF16B5E1D1A17020051D7CE /* OauthLoginResponse.swift */; };
+		CAF16B611D1B02AF0051D7CE /* AccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF16B601D1B02AF0051D7CE /* AccountResponse.swift */; };
+		CAF16B631D1DDAA00051D7CE /* AccountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF16B621D1DDAA00051D7CE /* AccountRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -527,6 +529,8 @@
 		CAE8FC351D17131D002432EE /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../FacebookSDKs-iOS-4.13.1/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		CAF16B5C1D1A16740051D7CE /* OauthLoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthLoginRequest.swift; sourceTree = "<group>"; };
 		CAF16B5E1D1A17020051D7CE /* OauthLoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthLoginResponse.swift; sourceTree = "<group>"; };
+		CAF16B601D1B02AF0051D7CE /* AccountResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountResponse.swift; sourceTree = "<group>"; };
+		CAF16B621D1DDAA00051D7CE /* AccountRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRequest.swift; sourceTree = "<group>"; };
 		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1005,7 +1009,9 @@
 			children = (
 				C437282C1B82ED06009121C9 /* HttpRequestProtocol.swift */,
 				CA621EBB1CFF8B3E00693306 /* HttpRequest.swift */,
+				CAF16B621D1DDAA00051D7CE /* AccountRequest.swift */,
 				CA621EB91CFE55D700693306 /* HttpResponseProtocol.swift */,
+				CAF16B601D1B02AF0051D7CE /* AccountResponse.swift */,
 				C4B14E471B805123001E8B62 /* ModelProtocol.swift */,
 				CACA84061CD1BEDF000A2794 /* Serializable.swift */,
 				C43728281B815C8F009121C9 /* JSONHelperExtension.swift */,
@@ -1482,6 +1488,7 @@
 				CA203DC01C111EEA00D6F32C /* GetRestaurantByIdRequest.swift in Sources */,
 				CA203DC21C111EEA00D6F32C /* List.swift in Sources */,
 				C4A0D5551C11746100BAE246 /* Location.swift in Sources */,
+				CAF16B611D1B02AF0051D7CE /* AccountResponse.swift in Sources */,
 				CA203DC61C111EEA00D6F32C /* AllDishesHeaderView.swift in Sources */,
 				CA203DC81C111EEA00D6F32C /* GetPromotionsResponse.swift in Sources */,
 				CA203DCA1C111EEA00D6F32C /* NSDateExtension.swift in Sources */,
@@ -1575,6 +1582,7 @@
 				CA203DF61C111EEA00D6F32C /* ListHeaderViewDelegate.swift in Sources */,
 				CA882D2F1C90A7D400D04696 /* LightningColor.swift in Sources */,
 				C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */,
+				CAF16B631D1DDAA00051D7CE /* AccountRequest.swift in Sources */,
 				CA203DF71C111EEA00D6F32C /* GetRestaurantMenuRequest.swift in Sources */,
 				CA621EBC1CFF8B3E00693306 /* HttpRequest.swift in Sources */,
 				CA203DF91C111EEA00D6F32C /* JSONHelperExtension.swift in Sources */,

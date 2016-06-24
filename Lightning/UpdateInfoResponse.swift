@@ -8,17 +8,14 @@
 
 import Foundation
 
-class UpdateInfoResponse: Model{
-    
-    var success: Bool?
-    var user: User?
-    var error: Error?
+class UpdateInfoResponse: AccountResponse{
     
     required init() {
-        
+        super.init()
     }
     
     required init(data: [String : AnyObject]) {
+        super.init(data: data)
         error <-- data["error"]
         user <-- data["user"]
         success <-- data["success"]

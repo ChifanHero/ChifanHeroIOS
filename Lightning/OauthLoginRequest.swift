@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OauthLoginRequest: HttpRequest {
+class OauthLoginRequest: AccountRequest {
     
     var oauthLogin: String?
     

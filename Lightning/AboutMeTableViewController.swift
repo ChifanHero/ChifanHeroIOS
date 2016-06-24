@@ -155,9 +155,9 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 
                 if response?.result != nil{
-                    AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: response?.result?.id) { (success, user) -> Void in
+                    AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: response?.result?.id) { (response) -> Void in
                         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                            if success == true {
+                            if response!.success == true {
                                 print("Update profile picture succeed")
                             } else {
                                 print("Update profile picture failed")

@@ -23,9 +23,9 @@ class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
     func changeNickName() {
         if nickNameTextField.text != nil {
             
-            AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nickNameTextField.text, pictureId: nil) { (success, user) -> Void in
+            AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nickNameTextField.text, pictureId: nil) { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    if success == true {
+                    if response!.success == true {
                         print("Update nick name succeed")
                     } else {
                         print("Update nick name failed")

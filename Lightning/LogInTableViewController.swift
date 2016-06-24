@@ -170,7 +170,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     func logIn(username username: String?, password: String?) {
         
-        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, password: password) { (response, user) -> Void in
+        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, password: password) { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 let seconds = 2.0
                 let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds

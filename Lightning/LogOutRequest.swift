@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LogOutRequest: HttpRequest{
+class LogOutRequest: AccountRequest{
     
     override func getRequestBody() -> [String : AnyObject] {
         let parameters = Dictionary<String, String>()

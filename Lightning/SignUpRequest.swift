@@ -8,10 +8,7 @@
 
 import Foundation
 
-class SignUpRequest: HttpRequest {
-    
-    var username: String?
-    var password: String?
+class SignUpRequest: AccountRequest {
     
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()

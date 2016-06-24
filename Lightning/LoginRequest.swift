@@ -8,10 +8,7 @@
 
 import Foundation
 
-class LoginRequest: HttpRequest {
-    
-    var username : String?
-    var password : String?
+class LoginRequest: AccountRequest {
     
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UpdateInfoRequest: HttpRequest{
+class UpdateInfoRequest: AccountRequest{
     
     var nickName: String?
     var pictureId: String?

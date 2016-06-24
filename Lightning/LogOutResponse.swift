@@ -8,16 +8,14 @@
 
 import Foundation
 
-class LogOutResponse: Model{
-    
-    var success: Bool?
-    var error: Error?
+class LogOutResponse: AccountResponse{
     
     required init() {
-        
+        super.init()
     }
     
     required init(data: [String : AnyObject]) {
+        super.init()
         error <-- data["error"]
         success <-- data["success"]
     }
