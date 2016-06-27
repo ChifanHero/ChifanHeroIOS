@@ -15,10 +15,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     @IBOutlet weak var promotionsTable: UITableView!
     
-    @IBOutlet weak var topContainerView: UIView!
-    
-    //@IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    
     weak var selectedImageView: UIImageView?
     
     var selectedRestaurantName: String?

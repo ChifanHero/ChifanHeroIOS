@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -29,7 +29,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
-                                                        <state key="normal" image="hot"/>
+                                                        <state key="normal" image="HotRestaurant"/>
                                                         <connections>
                                                             <action selector="showHottestRestaurants:" destination="9pv-A4-QxB" eventType="touchUpInside" id="iLq-aw-gd0"/>
                                                         </connections>
@@ -51,7 +51,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7a-2D-gQH">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
-                                                        <state key="normal" image="hotList"/>
+                                                        <state key="normal" image="SelectedCollection"/>
                                                         <connections>
                                                             <action selector="showDishLists:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Bnc-rc-Vpm"/>
                                                         </connections>
@@ -73,7 +73,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-Lg-ida">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
-                                                        <state key="normal" image="nearby"/>
+                                                        <state key="normal" image="NearbyRestaurant"/>
                                                         <connections>
                                                             <action selector="showNearstRestaurants:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Fen-Mi-Sqy"/>
                                                         </connections>
@@ -148,7 +148,6 @@
                     <connections>
                         <outlet property="bannerView" destination="Aw2-oR-TtF" id="kUP-vR-gnW"/>
                         <outlet property="promotionsTable" destination="Cge-rc-BQk" id="Cgz-6L-Jui"/>
-                        <outlet property="topContainerView" destination="G2S-pL-if8" id="JJq-ao-tGA"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="SnI-Ci-tXQ"/>
                         <segue destination="cBe-Iu-15d" kind="show" identifier="showRestaurants" id="Vt6-Zb-4Nz"/>
                         <segue destination="kbm-Tg-Rz2" kind="presentation" identifier="editLocation" id="EaB-6N-Nfd"/>
@@ -871,7 +870,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="NfB-M6-uoM">
                                 <rect key="frame" x="88" y="197" width="200" height="160"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Magnifier" translatesAutoresizingMaskIntoConstraints="NO" id="Y5i-u7-avL">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y5i-u7-avL">
                                         <rect key="frame" x="40" y="0.0" width="120" height="120"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="M2U-l1-94h"/>
@@ -909,6 +908,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="amplifierStackView" destination="NfB-M6-uoM" id="p3h-DT-8Rm"/>
+                        <outlet property="searchLogoView" destination="Y5i-u7-avL" id="KB3-tC-SZK"/>
                         <outlet property="searchResultsTableView" destination="eb0-n8-VQj" id="QIU-6Y-jds"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="dDa-I7-4We"/>
                     </connections>
@@ -1157,7 +1157,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.99607843137254903" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -1504,7 +1503,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="qIb-UC-V9W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.92156862750000001" green="0.18823529410000001" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -1529,7 +1527,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.92156862750000001" green="0.18823529410000001" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -1554,7 +1551,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -1600,7 +1596,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="WDZ-R9-uYz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -1620,20 +1615,19 @@
         <image name="Chifanhero_Favorite" width="80" height="70"/>
         <image name="Chifanhero_Like" width="69" height="66"/>
         <image name="Chifanhero_Nomination" width="74" height="74"/>
+        <image name="HotRestaurant" width="28" height="28"/>
         <image name="Lightning_Recommendation" width="250" height="50"/>
-        <image name="Magnifier" width="124" height="124"/>
+        <image name="NearbyRestaurant" width="28" height="28"/>
         <image name="Profile_Picture" width="66" height="66"/>
         <image name="Search_Tab" width="25" height="26"/>
+        <image name="SelectedCollection" width="28" height="28"/>
         <image name="home" width="25" height="24"/>
-        <image name="hot" width="28" height="28"/>
-        <image name="hotList" width="28" height="28"/>
-        <image name="nearby" width="28" height="28"/>
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SnI-Ci-tXQ"/>
-        <segue reference="Vi8-Wd-3jG"/>
         <segue reference="Vt6-Zb-4Nz"/>
         <segue reference="tIf-c0-cls"/>
+        <segue reference="Vi8-Wd-3jG"/>
+        <segue reference="SnI-Ci-tXQ"/>
     </inferredMetricsTieBreakers>
 </document>

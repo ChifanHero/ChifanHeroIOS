@@ -98,3 +98,23 @@ extension UIViewController: ControllerCommonConfigurationDelegate{
         self.navigationController?.navigationBar.translucent = value
     }
 }
+
+extension UIView {
+    func renderColorChangableImage(rawImage: UIImage, fillColor: UIColor) {
+        let imageShape = CAShapeLayer()
+        let imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.width / rawImage.size.width * rawImage.size.height)
+        let imgCenterPoint = CGPointMake(CGRectGetMidX(imageFrame), CGRectGetMidY(imageFrame))
+        imageShape.bounds = imageFrame
+        imageShape.position = imgCenterPoint
+        imageShape.path = UIBezierPath(rect: imageFrame).CGPath
+        imageShape.fillColor = fillColor.CGColor
+        
+        imageShape.mask = CALayer()
+        imageShape.mask!.contents = rawImage.CGImage
+        imageShape.mask!.bounds = imageFrame
+        imageShape.mask!.position = imgCenterPoint
+        
+        self.layer.addSublayer(imageShape)
+    }
+}
+

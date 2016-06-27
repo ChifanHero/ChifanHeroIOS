@@ -18,6 +18,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var amplifierStackView: UIStackView!
     
+    @IBOutlet weak var searchLogoView: UIImageView!
+    
     var resultsCount = 0
     
     var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
@@ -65,6 +67,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchBar!.sizeToFit()
         self.navigationItem.titleView = searchBar
         definesPresentationContext = true
+        searchLogoView.renderColorChangableImage(UIImage(named: "SearchLogo.png")!, fillColor: UIColor.themeOrange())
         //loadingIndicator.startAnimation()
     }
     
