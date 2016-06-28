@@ -45,7 +45,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
     
     func configureSignUpButton(){
         signUpButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 150, self.view.frame.width * 0.8, 40), color: UIColor.themeOrange())
-        signUpButton.setLogoImage(UIImage(named: "Cancel_Button")!)
+        signUpButton.setLogoImage(UIImage(named: "LogoWithBorder")!)
         signUpButton.setTextContent("创建用户")
         self.view.addSubview(signUpButton)
         signUpButton.addTarget(self, action: #selector(SignUpTableViewController.createAccountEvent), forControlEvents: UIControlEvents.TouchDown)

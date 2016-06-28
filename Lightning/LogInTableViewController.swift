@@ -35,7 +35,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         
         var fbButton = FBSDKLoginButton(frame: CGRectMake(self.view.frame.width * 0.1, 250, self.view.frame.width * 0.8, 40))
         fbButton.readPermissions = ["public_profile", "email"]
-        self.view.addSubview(fbButton)
+        //self.view.addSubview(fbButton)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -52,7 +52,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         wechatLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 200, self.view.frame.width * 0.8, 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
         wechatLoginButton.setLogoImage(UIImage(named: "Wechat")!)
         wechatLoginButton.setTextContent("微信登录")
-        self.view.addSubview(wechatLoginButton)
+        //self.view.addSubview(wechatLoginButton)
         wechatLoginButton.addTarget(self, action: #selector(LogInTableViewController.wechatLoginEvent), forControlEvents: UIControlEvents.TouchDown)
         
         normalLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 150, self.view.frame.width * 0.8, 40), color: UIColor.themeOrange())
