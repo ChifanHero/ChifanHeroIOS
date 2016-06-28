@@ -45,6 +45,10 @@ class ScoreComputer  {
         let pos = Double(positive!)
         let neg = Double(negative!)
         let neu = Double(neutral!)
+        
+        if(pos + neg + neu == 0){
+            return 0.0
+        }
         let result:Double = (pos * 1.0 + neu * 0.7) / (pos + neg + neu) * 100.00
         return result
     }

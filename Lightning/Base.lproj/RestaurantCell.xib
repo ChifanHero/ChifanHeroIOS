@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -39,41 +39,61 @@
                                 <rect key="frame" x="10" y="10" width="255" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5LL-ki-xph">
-                                        <rect key="frame" x="0.0" y="0.0" width="255" height="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="255" height="20"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="餐厅名称未知" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVl-f0-DzP">
-                                                <rect key="frame" x="0.0" y="0.0" width="255" height="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="220" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yfO-Bu-f0D" userLabel="Rating View">
+                                                <rect key="frame" x="220" y="0.0" width="35" height="20"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jfZ-9T-spP" userLabel="Rating Label">
+                                                        <rect key="frame" x="5" y="5" width="25" height="10"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="jfZ-9T-spP" firstAttribute="leading" secondItem="yfO-Bu-f0D" secondAttribute="leading" constant="5" id="54H-iH-2kF"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jfZ-9T-spP" secondAttribute="trailing" constant="5" id="FkS-Cj-MJX"/>
+                                                    <constraint firstAttribute="height" constant="20" id="PV3-6u-Kns"/>
+                                                    <constraint firstAttribute="width" constant="35" id="Syk-cL-Dvl"/>
+                                                    <constraint firstAttribute="bottom" secondItem="jfZ-9T-spP" secondAttribute="bottom" constant="5" id="VyV-dK-FWZ"/>
+                                                    <constraint firstItem="jfZ-9T-spP" firstAttribute="top" secondItem="yfO-Bu-f0D" secondAttribute="top" constant="5" id="pmC-Jt-1Bo"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址未知" lineBreakMode="clip" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vUj-UJ-3Rt">
-                                        <rect key="frame" x="0.0" y="33.5" width="255" height="14.5"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="地址未知" lineBreakMode="clip" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vUj-UJ-3Rt">
+                                        <rect key="frame" x="0.0" y="34" width="255" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="des-Ae-tIG">
-                                        <rect key="frame" x="0.0" y="65.5" width="255" height="14.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="des-Ae-tIG">
+                                        <rect key="frame" x="0.0" y="66" width="255" height="15"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="好评率" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhD-Ll-f2S">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="14.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="点评人数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhD-Ll-f2S">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="15"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="UEV-Zq-w6d"/>
+                                                    <constraint firstAttribute="width" constant="50" id="UEV-Zq-w6d"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6L-d4-T6B" userLabel="Rating Label">
-                                                <rect key="frame" x="46" y="0.0" width="148" height="14.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="未知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6L-d4-T6B" userLabel="Count Label">
+                                                <rect key="frame" x="56" y="0.0" width="138" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="距离未知" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a02-Xk-BgP">
-                                                <rect key="frame" x="200" y="0.0" width="55" height="14.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="距离未知" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a02-Xk-BgP">
+                                                <rect key="frame" x="200" y="0.0" width="55" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="55" id="vzo-JV-Wyk"/>
                                                 </constraints>
@@ -117,9 +137,11 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="addressLabel" destination="vUj-UJ-3Rt" id="zbM-OA-XGQ"/>
+                <outlet property="countLabel" destination="t6L-d4-T6B" id="nVM-qn-601"/>
                 <outlet property="distanceLabel" destination="a02-Xk-BgP" id="1e4-sN-PAq"/>
                 <outlet property="nameLabel" destination="iVl-f0-DzP" id="eiF-yN-re1"/>
-                <outlet property="ratingLabel" destination="t6L-d4-T6B" id="Ybq-RO-lqR"/>
+                <outlet property="ratingLabel" destination="jfZ-9T-spP" id="43C-Xu-qaK"/>
+                <outlet property="ratingView" destination="yfO-Bu-f0D" id="FYf-fg-BWp"/>
                 <outlet property="restaurantImageView" destination="QyZ-UE-wVz" id="bSU-Rg-Vfi"/>
             </connections>
             <point key="canvasLocation" x="553.5" y="263"/>

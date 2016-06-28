@@ -20,7 +20,8 @@ class RestaurantTableViewCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     
     @IBOutlet weak var distanceLabel: UILabel!
-    
+    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var ratingView: UIView!
     @IBOutlet weak var ratingLabel: UILabel!
     
     override func awakeFromNib() {
@@ -47,14 +48,37 @@ class RestaurantTableViewCell: UITableViewCell {
         } else {
             distanceLabel.text = ""
         }
-        ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
-//        restaurantImageView.image = image
+        
+        self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
+        self.ratingView.backgroundColor = ScoreComputer.getScoreColor(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
+        self.ratingView.layer.cornerRadius = 3
+        
+        self.countLabel.text = getTotalRatingCount(positive: restaurant.likeCount, neutral: restaurant.neutralCount, negative: restaurant.dislikeCount)
+        
         var url = ""
         if restaurant.picture?.original != nil {
             url = restaurant.picture!.original!
         }
         restaurantImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: [.Transition(ImageTransition.Fade(1))])
         
+    }
+    
+    private func getTotalRatingCount(positive positive: Int?, neutral: Int?, negative: Int?) -> String{
+        var positive = positive
+        var neutral = neutral
+        var negative = negative
+        
+        if (positive == nil) {
+            positive = 0
+        }
+        if (negative == nil) {
+            negative = 0
+        }
+        if (neutral == nil) {
+            neutral = 0
+        }
+        
+        return String(positive! + neutral! + negative!)
     }
 
 }
