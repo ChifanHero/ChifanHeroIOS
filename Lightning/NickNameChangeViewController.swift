@@ -41,6 +41,7 @@ class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addImageForBackBarButtonItem()
         self.nickNameTextField.text = self.nickName
         self.nickNameTextField.delegate = self
         // Do any additional setup after loading the view.

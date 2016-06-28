@@ -62,7 +62,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        configVCTitle()
+        self.addImageForBackBarButtonItem()
         hotDishesTableView.allowsSelection = false
         self.waitingView.hidden = false
         self.waitingIndicator.startAnimating()

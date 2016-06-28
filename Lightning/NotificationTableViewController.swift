@@ -29,7 +29,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NotificationTableViewController.notificationArrived), name:"NotificationArrived", object: nil)
-        clearTitleForBackBarButtonItem()
+        self.clearTitleForBackBarButtonItem()
         configurePullRefresh()
         let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NotificationTableViewController.edit))
         editBarButton.tintColor = UIColor.whiteColor()

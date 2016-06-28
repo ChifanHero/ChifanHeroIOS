@@ -64,8 +64,9 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        clearTitleForBackBarButtonItem()
-        configLoadingIndicator()
+        self.addImageForBackBarButtonItem()
+        self.clearTitleForBackBarButtonItem()
+        self.configLoadingIndicator()
         self.restaurantsTable.delegate = self
         self.restaurantsTable.dataSource = self
         self.restaurantsTable.hidden = true

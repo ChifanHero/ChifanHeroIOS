@@ -19,6 +19,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addImageForBackBarButtonItem()
         self.configureSignUpButton()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignUpTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)

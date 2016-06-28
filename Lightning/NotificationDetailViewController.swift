@@ -20,6 +20,7 @@ class NotificationDetailViewController: UIViewController, NotificationSelectionD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addImageForBackBarButtonItem()
         self.notificationDetailView?.hidden = true
         
     }

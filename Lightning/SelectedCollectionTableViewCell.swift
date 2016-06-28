@@ -22,7 +22,7 @@ class SelectedCollectionTableViewCell: UITableViewCell {
         if(url == nil){
             url = ""
         }
-        selectedCollectionImage.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        selectedCollectionImage.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
         title.text = selectedCollection.title
         mask.alpha = 0.2
         mask.backgroundColor = UIColor.blackColor()

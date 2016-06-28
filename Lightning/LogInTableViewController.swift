@@ -20,7 +20,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        clearTitleForBackBarButtonItem()
+        self.clearTitleForBackBarButtonItem()
 
         if isLoggedIn(){
             replaceLoginViewByAboutMeView()
@@ -56,7 +56,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         wechatLoginButton.addTarget(self, action: #selector(LogInTableViewController.wechatLoginEvent), forControlEvents: UIControlEvents.TouchDown)
         
         normalLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 150, self.view.frame.width * 0.8, 40), color: UIColor.themeOrange())
-        normalLoginButton.setLogoImage(UIImage(named: "Cancel_Button")!)
+        normalLoginButton.setLogoImage(UIImage(named: "LogoWithBorder")!)
         normalLoginButton.setTextContent("登录")
         self.view.addSubview(normalLoginButton)
         normalLoginButton.addTarget(self, action: #selector(LogInTableViewController.normalLoginEvent), forControlEvents: UIControlEvents.TouchDown)
