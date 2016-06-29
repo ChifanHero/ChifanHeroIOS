@@ -422,8 +422,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     print("default city is \(defaultCity)")
                     let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
                     let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
-                    askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))
-                    askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n由于无法获取您的具体位置，我们将不再显示餐厅与您的距离.\n\n如果您需要重新使用您的实时位置，请点击主页左上角“位置”按钮重新选择。", closeButtonTitle: "", duration: 0.0, colorStyle: LightningColor.themeRed().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+                    askLocationAlertView!.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))
+                    askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n由于无法获取您的具体位置，我们将不再显示餐厅与您的距离.\n\n如果您需要重新使用您的实时位置，请点击主页左上角“位置”按钮重新选择。", closeButtonTitle: "", duration: 0.0, colorStyle: UIColor.themeOrange().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
                     
                 }
             }
