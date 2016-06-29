@@ -315,8 +315,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     
     private func popupSigninAlert() {
-        let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
-        alertview.setTextTheme(.Dark)
+        SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
     }
     
     @objc private func dismissActionView() {

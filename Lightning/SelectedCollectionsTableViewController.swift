@@ -91,6 +91,10 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     self.clearData()
                     if (response != nil && response?.results != nil) {
+                        if response?.results.count == 0 {
+                            self.navigationController?.navigationBar.translucent = false
+                            self.tabBarController?.tabBar.hidden = false
+                        }
                         for index in 0..<(response?.results)!.count {
                             self.selectedCollections.append((response?.results)![index].selectedCollection!)
                         }
@@ -100,6 +104,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                     } else {
                         self.tableView.endRefreshing()
                         self.loadingIndicator.stopAnimation()
+                        self.navigationController?.navigationBar.translucent = false
+                        self.tabBarController?.tabBar.hidden = false
                     }
                     
                 });
@@ -113,23 +119,32 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                         }
                     } else {
                         self.clearData()
-                        if response!.results.count > 0 {
-                            self.selectedCollections += response!.results
-                            self.tableView.hidden = false
+                        if response != nil && response?.results != nil {
+                            if response!.results.count > 0 {
+                                self.selectedCollections += response!.results
+                                self.tableView.hidden = false
+                            } else {
+                                self.navigationController?.navigationBar.translucent = false
+                                self.tabBarController?.tabBar.hidden = false
+                            }
+                            
+                            self.tableView.reloadData()
+                            
+                            if refreshHandler != nil {
+                                refreshHandler!(success: true)
+                            }
+                            
+                            self.tableView.endRefreshing()
+                            self.loadingIndicator.stopAnimation()
                         } else {
+                            if refreshHandler != nil {
+                                refreshHandler!(success: false)
+                            }
+                            self.tableView.endRefreshing()
+                            self.loadingIndicator.stopAnimation()
                             self.navigationController?.navigationBar.translucent = false
                             self.tabBarController?.tabBar.hidden = false
                         }
-                        
-                        self.tableView.reloadData()
-                        
-                        if refreshHandler != nil {
-                            refreshHandler!(success: true)
-                        }
-                        
-                        self.tableView.endRefreshing()
-                        self.loadingIndicator.stopAnimation()
-                        
                     }
                 })
             }

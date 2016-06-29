@@ -357,8 +357,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     private func popupSigninAlert() {
-        let alertview = JSSAlertView().show(self, title: "请登录", text: nil, buttonText: "我知道了")
-        alertview.setTextTheme(.Dark)
+        SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
     }
     
     private func dismissActionViewWithDelay() {
@@ -415,7 +414,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
             
             if (UserContext.isRatingTooFrequent(objectId)) {
-                JSSAlertView().warning(self, title: "评价太频繁")
+                SCLAlertView().showWarning("评价太频繁", subTitle: "")
             } else {
                 likeCount += 1
                 if self.restaurants[indexPath.row].likeCount == nil {
@@ -433,7 +432,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId)) {
-                JSSAlertView().warning(self, title: "评价太频繁")
+                SCLAlertView().showWarning("评价太频繁", subTitle: "")
             } else {
                 neutralCount += 1
                 if self.restaurants[indexPath.row].neutralCount == nil {
@@ -450,7 +449,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
             if (UserContext.isRatingTooFrequent(objectId)) {
-                JSSAlertView().warning(self, title: "评价太频繁")
+                SCLAlertView().showWarning("评价太频繁", subTitle: "")
             } else {
                 dislikeCount += 1
                 if self.restaurants[indexPath.row].dislikeCount == nil {
