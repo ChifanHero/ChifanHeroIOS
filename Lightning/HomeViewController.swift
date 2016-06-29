@@ -85,9 +85,12 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.promotionsTable.addPullToRefresh(refresher) {
-            self.refreshData()
+        if self.promotionsTable.pullToRefresh == nil {
+            self.promotionsTable.addPullToRefresh(refresher) {
+                self.refreshData()
+            }
         }
+
         TrackingUtil.trackRecommendationView()
     }
     
