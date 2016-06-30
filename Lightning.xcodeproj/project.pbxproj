@@ -463,7 +463,7 @@
 		C4F9CB721B9A7185007F5D9D /* SelectionPanelDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionPanelDelegateProtocol.swift; sourceTree = "<group>"; };
 		C4F9CB741B9A7C9A007F5D9D /* RestaurantAllDishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantAllDishViewController.swift; sourceTree = "<group>"; };
 		C4FD0D351CD5CE380015DDB7 /* PositionConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionConverter.swift; sourceTree = "<group>"; };
-		CA203E4D1C111EEA00D6F32C /* Lightning-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lightning-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA203E4D1C111EEA00D6F32C /* 吃饭英雄-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "吃饭英雄-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA203E511C124AF900D6F32C /* RatingTypeEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingTypeEnum.swift; sourceTree = "<group>"; };
 		CA203E531C12732600D6F32C /* RateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateResponse.swift; sourceTree = "<group>"; };
 		CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToFavoritesRequest.swift; sourceTree = "<group>"; };
@@ -662,7 +662,7 @@
 			children = (
 				C42D9BD61B69EF2D0035C5A6 /* LightningTests.xctest */,
 				C42D9BE11B69EF2D0035C5A6 /* LightningUITests.xctest */,
-				CA203E4D1C111EEA00D6F32C /* Lightning-Test.app */,
+				CA203E4D1C111EEA00D6F32C /* 吃饭英雄-Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1267,7 +1267,7 @@
 			);
 			name = Lightning;
 			productName = SoHungry;
-			productReference = CA203E4D1C111EEA00D6F32C /* Lightning-Test.app */;
+			productReference = CA203E4D1C111EEA00D6F32C /* 吃饭英雄-Test.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2032,7 +2032,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
-				PRODUCT_NAME = "Lightning-Test";
+				PRODUCT_NAME = "吃饭英雄-Test";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lightning/Lightning-Bridging-Header.h";
 			};
@@ -2054,7 +2054,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "吃饭英雄";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lightning/Lightning-Bridging-Header.h";
 			};
