@@ -182,12 +182,11 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                     if response == nil {
                         self.showErrorMessage("登录失败", message: "网络错误")
                     } else {
-                        if response!.success == true {
+                        if response!.success != nil && response!.success! == true {
                             let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
                             defaults.setBool(true, forKey: "isLoggedIn")
                             self.replaceLoginViewByAboutMeView()
                         } else {
-                            print("login failed")
                             self.showErrorMessage("登录失败", message: "用户名或密码错误")
                         }
                     }

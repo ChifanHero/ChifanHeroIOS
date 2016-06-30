@@ -212,16 +212,17 @@ class AccountManager {
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
         
-        Alamofire.request(.POST, url, parameters: request.getRequestBody(), encoding: .JSON, headers: request.getHeaders()).validate().responseJSON { response in
+        Alamofire.request(.POST, url, parameters: request.getRequestBody(), encoding: .JSON, headers: request.getHeaders()).responseJSON { response in
             
             var responseObject: Response?
-            
             switch response.result {
             case .Success:
                 if let value = response.result.value {
                     let json = JSON(value)
                     responseObject = Response(data: json.dictionaryObject!)
-                    afterSuccess(responseObject as? AccountResponse, (request as! AccountRequest).password)
+                    if response.response?.statusCode >= 200 && response.response?.statusCode < 300 {
+                        afterSuccess(responseObject as? AccountResponse, (request as! AccountRequest).password)
+                    }
                 }
             case .Failure(let error):
                 print(error)

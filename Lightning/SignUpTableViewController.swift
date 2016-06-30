@@ -110,9 +110,9 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
                     } else{
                         if let error = response?.error {
                             if error.code == 202 {
-                                self.showErrorMessage("注册失败", message: "用户名已被占用")
+                                self.showErrorMessage("注册失败", message: "该用户名已存在")
                             } else if error.code == 125 {
-                                self.showErrorMessage("注册失败", message: "请用邮箱注册")
+                                self.showErrorMessage("注册失败", message: "请使用邮箱作为用户名")
                             } else {
                                 self.showErrorMessage("注册失败", message: "请提供有效用户名和密码")
                             }

@@ -174,7 +174,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     private func logOutAction(){
         let alert = UIAlertController(title: "退出登录", message: "登出当前用户", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        let confirmAction = UIAlertAction(title: "确认", style: .Destructive, handler: self.confirmLogOut)
+        let confirmAction = UIAlertAction(title: "确认", style: .Default, handler: self.confirmLogOut)
         let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelLogOut)
         
         alert.addAction(confirmAction)
