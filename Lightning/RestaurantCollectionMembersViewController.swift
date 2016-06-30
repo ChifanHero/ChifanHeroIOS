@@ -9,7 +9,6 @@
 import UIKit
 import Kingfisher
 import Flurry_iOS_SDK
-import SCLAlertView
 
 class RestaurantCollectionMembersViewController: UITableViewController, ARNImageTransitionZoomable{
     

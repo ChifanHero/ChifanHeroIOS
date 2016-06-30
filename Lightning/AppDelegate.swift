@@ -9,7 +9,6 @@
 import UIKit
 import Parse
 import CoreData
-import SCLAlertView
 import Flurry_iOS_SDK
 
 @UIApplicationMain

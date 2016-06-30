@@ -8,7 +8,6 @@
 
 import UIKit
 import ARNTransitionAnimator
-import SCLAlertView
 import PullToMakeSoup
 
 class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {

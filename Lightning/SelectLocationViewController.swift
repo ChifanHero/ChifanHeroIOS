@@ -8,7 +8,6 @@
 
 import UIKit
 import Flurry_iOS_SDK
-import SCLAlertView
 
 class SelectLocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
