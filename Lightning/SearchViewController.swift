@@ -78,8 +78,10 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.searchResultsTableView.addPullToRefresh(refresher) {
-            self.search(offset: 0, limit: self.LIMIT)
+        if self.searchResultsTableView.pullToRefresh == nil {
+            self.searchResultsTableView.addPullToRefresh(refresher) {
+                self.search(offset: 0, limit: self.LIMIT)
+            }
         }
         TrackingUtil.trackSearchView()
     }

@@ -87,8 +87,10 @@ class RestaurantsViewController: RefreshableViewController, UITableViewDataSourc
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.restaurantsTable.addPullToRefresh(refresher) {
-            self.refreshData()
+        if self.restaurantsTable.pullToRefresh == nil {
+            self.restaurantsTable.addPullToRefresh(refresher) {
+                self.refreshData()
+            }
         }
         TrackingUtil.trackRestaurantsView()
     }

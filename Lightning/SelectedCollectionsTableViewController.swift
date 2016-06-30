@@ -52,8 +52,9 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.tableView.addPullToRefresh(refresher, action: {self.refreshData()})
+        if self.tableView.pullToRefresh == nil {
+            self.tableView.addPullToRefresh(refresher, action: {self.refreshData()})
+        }
         TrackingUtil.trackCollectionsView()
     }
     
