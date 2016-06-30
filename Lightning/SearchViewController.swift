@@ -64,6 +64,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchBar = UISearchBar()
         searchBar!.delegate = self
         searchBar?.placeholder = "请输入餐厅名称开始搜索"
+        setSearchBarCursorColor()
         searchBar!.sizeToFit()
         self.navigationItem.titleView = searchBar
         definesPresentationContext = true
@@ -563,6 +564,17 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func usingAnimatedTransition() -> Bool {
         return animateTransition
+    }
+    
+    func setSearchBarCursorColor() {
+        let view: UIView = searchBar!.subviews[0]
+        let subViewsArray = view.subviews
+        
+        for subView: UIView in subViewsArray {
+            if subView.isKindOfClass(UITextField){
+                subView.tintColor = UIColor.lightGrayColor()
+            }
+        }
     }
 
     

@@ -514,7 +514,7 @@
                                     <constraint firstItem="YuL-kS-BTj" firstAttribute="top" secondItem="vzl-U0-fO5" secondAttribute="top" constant="-2" id="r0O-Yh-wF1"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IbA-l7-dNm">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IbA-l7-dNm">
                                 <rect key="frame" x="-4" y="40" width="383" height="563"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cKE-ip-P3t">
@@ -1716,8 +1716,8 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SnI-Ci-tXQ"/>
         <segue reference="tIf-c0-cls"/>
+        <segue reference="dDa-I7-4We"/>
         <segue reference="a4w-pg-A3F"/>
         <segue reference="MSe-5N-tgy"/>
     </inferredMetricsTieBreakers>
