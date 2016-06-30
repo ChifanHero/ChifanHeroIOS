@@ -139,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let askLocationAlertView = SCLAlertView(appearance: appearance)
             let alertViewIcon = UIImage(named: "LogoWithBorder")
             askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(AppDelegate.askLocationAlertViewDismissed))
-            askLocationAlertView.showInfo("友情提示", subTitle: "\n\n您的地理位置可以帮助吃饭英雄精确地搜索附近餐厅。\n\n如果您不希望分享位置，我们将为您设置一个默认城市作为您的默认位置。您可以随时去首页左上角“位置”重新设置您的位置信息。", circleIconImage: alertViewIcon, colorStyle: UIColor.themeOrange().getColorCode())
+            askLocationAlertView.showInfo("友情提示", subTitle: "\n\n允许位置服务可以帮助吃饭英雄精确搜索。\n\n如果您不希望共享位置，我们将为您设置一个默认城市。您可以随时去首页左上角“位置”重新设置。", circleIconImage: alertViewIcon, colorStyle: UIColor.themeOrange().getColorCode())
             
         }
         
@@ -422,10 +422,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             if rootVC != nil {
                 if let defaultCity = LocationHelper.getDefaultCityFromCoreData() {
                     print("default city is \(defaultCity)")
-                    let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false, kTitleHeight : 0)
+                    let alertViewIcon = UIImage(named: "LogoWithBorder")
+                    let appearance = SCLAlertView.SCLAppearance(kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: true, kTitleHeight : 0, kCircleIconHeight: 40)
                     let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
                     askLocationAlertView!.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))
-                    askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n由于您关闭了位置服务，我们将不再显示餐厅距离.\n\n如果您需要重新使用实时位置，请点击首页左上角“位置”按钮重新选择。", closeButtonTitle: "", duration: 0.0, colorStyle: UIColor.themeOrange().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: nil)
+                    askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n由于您关闭了位置服务，我们将不再显示餐厅距离.\n\n如果您需要重新使用实时位置，请点击首页左上角“位置”按钮重新选择。", closeButtonTitle: "", duration: 0.0, colorStyle: UIColor.themeOrange().getColorCode(), colorTextButton: 0xFFFFFF, circleIconImage: alertViewIcon)
                     
                 }
             }
