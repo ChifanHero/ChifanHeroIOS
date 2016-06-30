@@ -135,10 +135,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     private func askForLocationAuthorization() {
         let rootVC : UIViewController? = self.window?.rootViewController
         if rootVC != nil {
-            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, showCircularIcon: true, kCircleIconHeight: 40)
             let askLocationAlertView = SCLAlertView(appearance: appearance)
-            askLocationAlertView.addButton("我知道了", target:self, selector:#selector(AppDelegate.askLocationAlertViewDismissed))
-            askLocationAlertView.showInfo("友情提示", subTitle: "\n\n允许位置服务可以帮助吃饭英雄精确搜索。\n\n如果您不希望共享位置，我们将为您设置一个默认城市。您可以随时去首页左上角“位置”重新设置。")
+            let alertViewIcon = UIImage(named: "LogoWithBorder")
+            askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(AppDelegate.askLocationAlertViewDismissed))
+            askLocationAlertView.showInfo("友情提示", subTitle: "\n\n您的地理位置可以帮助吃饭英雄精确地搜索附近餐厅。\n\n如果您不希望分享位置，我们将为您设置一个默认城市作为您的默认位置。您可以随时去首页左上角“位置”重新设置您的位置信息。", circleIconImage: alertViewIcon, colorStyle: UIColor.themeOrange().getColorCode())
+            
         }
         
     }
