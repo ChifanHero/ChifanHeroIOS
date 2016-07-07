@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,18 +19,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_Launch" translatesAutoresizingMaskIntoConstraints="NO" id="Zds-fG-F5A">
-                                <rect key="frame" x="115" y="239" width="90" height="90"/>
+                                <rect key="frame" x="-4" y="-7" width="328" height="582"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="90" id="78K-j1-J7q"/>
-                                    <constraint firstAttribute="width" secondItem="Zds-fG-F5A" secondAttribute="height" multiplier="1:1" id="FNG-oM-ufi"/>
-                                    <constraint firstAttribute="width" constant="90" id="ePY-lc-7ir"/>
+                                    <constraint firstAttribute="width" secondItem="Zds-fG-F5A" secondAttribute="height" multiplier="40:71" id="td0-kj-53J"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Zds-fG-F5A" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="7NQ-fK-5Ya"/>
-                            <constraint firstItem="Zds-fG-F5A" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="SSK-KE-ykV"/>
+                            <constraint firstItem="Zds-fG-F5A" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Rhh-u3-MOS"/>
+                            <constraint firstItem="Zds-fG-F5A" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="eL6-2u-Ihc"/>
+                            <constraint firstItem="Zds-fG-F5A" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hBZ-7J-h6X"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Zds-fG-F5A" secondAttribute="trailing" constant="-20" id="uYg-0T-rgN"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -40,6 +41,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo_Launch" width="166" height="166"/>
+        <image name="Logo_Launch" width="1725" height="3066"/>
     </resources>
 </document>
