@@ -24,18 +24,18 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4OT-lP-E0r">
                                         <rect key="frame" x="31" y="17" width="320" height="56"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aqd-qO-PjW">
-                                                <rect key="frame" x="0.0" y="0.0" width="64" height="56"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aqd-qO-PjW">
+                                                <rect key="frame" x="0.0" y="0.0" width="194" height="56"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ys4-xO-7Qf">
-                                                        <rect key="frame" x="18" y="0.0" width="28" height="28"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="194" height="29"/>
                                                         <state key="normal" image="HotRestaurant"/>
                                                         <connections>
                                                             <action selector="showHottestRestaurants:" destination="9pv-A4-QxB" eventType="touchUpInside" id="iLq-aw-gd0"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="热门餐厅" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="re1-JV-HBL">
-                                                        <rect key="frame" x="0.0" y="37" width="64" height="20"/>
+                                                        <rect key="frame" x="65" y="37" width="64" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -46,8 +46,8 @@
                                                     <outletCollection property="gestureRecognizers" destination="k85-gS-coT" appends="YES" id="u3o-3P-HQY"/>
                                                 </connections>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-Dd-Yxb">
-                                                <rect key="frame" x="128" y="0.0" width="64" height="56"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-Dd-Yxb">
+                                                <rect key="frame" x="193" y="0.0" width="64" height="56"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7a-2D-gQH">
                                                         <rect key="frame" x="18" y="0.0" width="28" height="28"/>
@@ -182,11 +182,11 @@
                         <viewControllerLayoutGuide type="bottom" id="ZdJ-lw-Zm3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1HC-6e-FcA">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCt-9Q-S6W">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="603"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -260,7 +260,7 @@
             <objects>
                 <tableViewController id="Bol-Ce-s2z" customClass="RestaurantCollectionMembersViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8E9-uT-aZE">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="UYa-gB-E10" userLabel="Header View">
@@ -797,8 +797,8 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rtV-Lr-p1N" userLabel="Waiting View">
                                 <rect key="frame" x="-4" y="64" width="383" height="554"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aqj-0V-wgK">
-                                        <rect key="frame" x="173" y="258" width="37" height="37"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aqj-0V-wgK">
+                                        <rect key="frame" x="173" y="282" width="37" height="37"/>
                                         <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -1716,9 +1716,9 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="SnI-Ci-tXQ"/>
+        <segue reference="Vi8-Wd-3jG"/>
+        <segue reference="Vt6-Zb-4Nz"/>
         <segue reference="tIf-c0-cls"/>
-        <segue reference="dDa-I7-4We"/>
-        <segue reference="a4w-pg-A3F"/>
-        <segue reference="MSe-5N-tgy"/>
     </inferredMetricsTieBreakers>
 </document>

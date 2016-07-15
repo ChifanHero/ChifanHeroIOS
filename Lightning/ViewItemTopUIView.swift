@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable class ViewItemTopUIView: UIView {
+@IBDesignable class ViewItemTopUIView: UIView, ImagePickerDelegate{
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -286,6 +286,25 @@ import UIKit
                 self.bookmarkButtonView.actionCount = self.bookmarkButtonView.actionCount - 1
             })
         }
+    }
+    
+    @IBAction func addImagesAction(sender: AnyObject) {
+        if self.baseVC == nil {
+            return
+        }
+        let imagePickerController = ImagePickerController()
+        imagePickerController.delegate = self
+        self.baseVC!.presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func wrapperDidPress(imagePicker: ImagePickerController, images: [UIImage]){
+        
+    }
+    func doneButtonDidPress(imagePicker: ImagePickerController, images: [UIImage]){
+        
+    }
+    func cancelButtonDidPress(imagePicker: ImagePickerController){
+        
     }
     
     
