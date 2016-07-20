@@ -102,8 +102,11 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsW-tl-dJb">
-                            <rect key="frame" x="299" y="7" width="68" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsW-tl-dJb">
+                            <rect key="frame" x="295" y="8" width="70" height="28"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="5B0-L6-ljz"/>
+                            </constraints>
                             <state key="normal" title="添加图片"/>
                             <connections>
                                 <action selector="addImagesAction:" destination="-1" eventType="touchUpInside" id="BhM-gU-qbV"/>
@@ -114,7 +117,10 @@
                     <constraints>
                         <constraint firstItem="x6K-2e-lFz" firstAttribute="leading" secondItem="2I8-ur-tWU" secondAttribute="leading" constant="22" id="Ctt-Vs-cMV"/>
                         <constraint firstItem="x6K-2e-lFz" firstAttribute="centerX" secondItem="2I8-ur-tWU" secondAttribute="centerX" id="Wir-lD-LxE"/>
+                        <constraint firstAttribute="bottom" secondItem="nsW-tl-dJb" secondAttribute="bottom" constant="8" id="d8K-TC-1A1"/>
                         <constraint firstAttribute="height" constant="44" id="eMV-jT-aAR"/>
+                        <constraint firstAttribute="trailing" secondItem="nsW-tl-dJb" secondAttribute="trailing" constant="10" id="fnh-j6-TSM"/>
+                        <constraint firstItem="nsW-tl-dJb" firstAttribute="top" secondItem="2I8-ur-tWU" secondAttribute="top" constant="8" id="jG8-3Z-GMv"/>
                         <constraint firstItem="x6K-2e-lFz" firstAttribute="centerY" secondItem="2I8-ur-tWU" secondAttribute="centerY" id="twQ-yH-2bz"/>
                     </constraints>
                 </view>

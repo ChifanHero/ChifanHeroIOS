@@ -12,43 +12,48 @@ import MapKit
 import ARNTransitionAnimator
 import Flurry_iOS_SDK
 
-class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
+class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, UICollectionViewDelegate, UICollectionViewDataSource{
     
-    var restaurantId : String? {
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    
+    @IBOutlet weak var imagePoolView: UICollectionView!
+    
+    var restaurantId: String? {
         didSet {
             request = GetRestaurantByIdRequest(id: restaurantId!)
         }
     }
     
-    @IBOutlet weak var backgroundImageView: UIImageView!
-    var restaurantImage : UIImage?
+    var imagePool: [Picture] = []
     
-    var restaurantName : String?
+    var restaurantImage: UIImage?
     
-    var request : GetRestaurantByIdRequest?
+    var restaurantName: String?
     
-    var restaurant : Restaurant?
+    var request: GetRestaurantByIdRequest?
+    
+    var restaurant: Restaurant?
     
     var animateTransition = true
     
-    var parentVCName : String = ""
+    var parentVCName: String = ""
 
     @IBOutlet weak var messageView: NotAvailableMessageView!
     
     @IBOutlet weak var waitingView: UIView!
     @IBOutlet weak var containerScrollView: UIScrollView!
     
-    let vcTitleLabel : UILabel = UILabel()
+    let vcTitleLabel: UILabel = UILabel()
     
     @IBOutlet weak var infoTableView: UITableView!
     var info: [String : String] = [String : String]()
     
-    var hotDishes : [Dish] = [Dish]()
+    var hotDishes: [Dish] = [Dish]()
     
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
     
     
-    private let infoToResource : [String : String] = ["address" : "gps", "hours" : "clock", "phone" : "phone"]
+    private let infoToResource: [String : String] = ["address" : "gps", "hours" : "clock", "phone" : "phone"]
     
     var localSearchResponse:MKLocalSearchResponse!
 
@@ -73,6 +78,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
 //                self.noNetworkDefaultView.show()
             }
         }
+        loadImagePool()
         topViewContainer.baseVC = self
         self.backgroundImageView.image = restaurantImage
         topViewContainer.name = restaurantName
@@ -234,6 +240,25 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     func refresh() {
         
+    }
+    
+    func loadImagePool(){
+        let request: GetImagesRequest = GetImagesRequest(restaurantId: restaurantId!)
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getImagesByRestaurantId(request) { (response) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                self.clearData()
+                if (response != nil && response?.results != nil) {
+                    for index in 0..<(response?.results)!.count {
+                        self.imagePool.append((response?.results)![index])
+                    }
+                    self.imagePoolView.reloadData()
+                }
+            });
+        }
+    }
+    
+    private func clearData() {
+        self.imagePool.removeAll()
     }
     
     private func adjustInfoTableViewHeight() {
@@ -445,103 +470,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             return nil
         }
     }
-    
-//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-//        
-//        let dish : Dish = self.hotDishes[indexPath.row]
-//        var favoriteCount : Int = 0
-//        var likeCount : Int = 0
-//        var neutralCount : Int = 0
-//        var dislikeCount : Int = 0
-//        let objectId = dish.id!
-//        
-//        if dish.favoriteCount != nil {
-//            favoriteCount = dish.favoriteCount!
-//        }
-//        if dish.likeCount != nil {
-//            likeCount = dish.likeCount!
-//        }
-//        if dish.neutralCount != nil {
-//            neutralCount = dish.neutralCount!
-//        }
-//        if dish.dislikeCount != nil {
-//            dislikeCount = dish.dislikeCount!
-//        }
-//        
-//        if tableView == hotDishesTableView{
-//            let bookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
-//                if (!UserContext.isValidUser()) {
-//                    self.popupSigninAlert()
-//                } else {
-//                    favoriteCount += 1
-//                    if dish.favoriteCount == nil {
-//                        dish.favoriteCount = 1
-//                    } else {
-//                        dish.favoriteCount! += 1
-//                    }
-//                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
-//                    self.addToFavorites(indexPath)
-//                }
-//                self.dismissActionViewWithDelay()
-//            });
-//            bookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
-//            
-//            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
-//                if (UserContext.isRatingTooFrequent(objectId)) {
-//                    JSSAlertView().warning(self, title: "评价太频繁")
-//                } else {
-//                    likeCount += 1
-//                    if dish.likeCount == nil {
-//                        dish.likeCount = 1
-//                    } else {
-//                        dish.likeCount! += 1
-//                    }
-//                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
-//                    self.rateDish(indexPath, ratingType: RatingTypeEnum.like)
-//                }
-//                self.dismissActionViewWithDelay()
-//            });
-//            likeAction.backgroundColor = LightningColor.likeBackground()
-//            
-//            let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
-//                if (UserContext.isRatingTooFrequent(objectId)) {
-//                    JSSAlertView().warning(self, title: "评价太频繁")
-//                } else {
-//                    neutralCount += 1
-//                    if dish.neutralCount == nil {
-//                        dish.neutralCount = 1
-//                    } else {
-//                        dish.neutralCount! += 1
-//                    }
-//                    action.title = "一般\n\(neutralCount)"
-//                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
-//                    self.rateDish(indexPath, ratingType: RatingTypeEnum.neutral)
-//                }
-//                self.dismissActionViewWithDelay()
-//            });
-//            neutralAction.backgroundColor = LightningColor.neutralOrange()
-//            
-//            let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
-//                if (UserContext.isRatingTooFrequent(objectId)) {
-//                    JSSAlertView().warning(self, title: "评价太频繁")
-//                } else {
-//                    dislikeCount += 1
-//                    if dish.dislikeCount == nil {
-//                        dish.dislikeCount = 1
-//                    } else {
-//                        dish.dislikeCount! += 1
-//                    }
-//                    self.hotDishesTableView.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
-//                    self.rateDish(indexPath, ratingType: RatingTypeEnum.dislike)
-//                }
-//                self.dismissActionViewWithDelay()
-//            });
-//            dislikeAction.backgroundColor = LightningColor.negativeBlue()
-//            
-//            return [bookmarkAction, dislikeAction, neutralAction, likeAction];
-//        }
-//        return [];
-//    }
     
     private func addToFavorites(indexPath: NSIndexPath){
         let dish = self.hotDishes[indexPath.row]
@@ -795,6 +723,27 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         return parentVCName
     }
     
+    // MARK: UICollectionViewDataSource
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of items
+        return imagePool.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell: RestaurantImagePoolCollectionViewCell? = imagePoolView.dequeueReusableCellWithReuseIdentifier("imagePoolCell", forIndexPath: indexPath) as? RestaurantImagePoolCollectionViewCell
+        
+        // Configure the cell
+        cell!.setUp(image: imagePool[indexPath.row])
+        
+        return cell!
+    }
     
     
 }

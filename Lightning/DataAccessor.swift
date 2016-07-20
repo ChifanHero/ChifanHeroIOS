@@ -136,6 +136,11 @@ class DataAccessor {
     func getRestaurantCollectionMembersById(request: GetRestaurantCollectionMembersRequest, responseHandler : (GetRestaurantCollectionMembersResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
+    
+    func getImagesByRestaurantId(request: GetImagesRequest, responseHandler : (GetImagesResponse?) -> Void) {
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
     //--------------------------------------------------------------------------------------------------//
     
     

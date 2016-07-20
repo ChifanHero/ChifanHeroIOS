@@ -29,7 +29,7 @@ import UIKit
     
     private var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
-    var baseVC : UIViewController?
+    var baseVC: UIViewController?
     
     var restaurantId: String?
     
@@ -318,10 +318,12 @@ import UIKit
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         //add actions here
                         print("done");
+                        (self.baseVC as! RestaurantViewController).loadImagePool()
                     });
                 }
             }
         }
+        self.baseVC!.dismissViewControllerAnimated(true, completion: nil)
     }
     func cancelButtonDidPress(imagePicker: ImagePickerController){
         

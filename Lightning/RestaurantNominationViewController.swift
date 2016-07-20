@@ -104,7 +104,6 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
                 
             })
         }
-        
     }
     
     private func cleanStates() {
