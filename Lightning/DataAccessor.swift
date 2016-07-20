@@ -145,7 +145,11 @@ class DataAccessor {
     
     
     //Post----------------------------------------------------------------------------------------------//
-    func uploadPicture(request: UploadPictureRequest, responseHandler : (UploadPictureResponse?) -> Void) {
+    func uploadPicture(request: UploadPictureRequest, responseHandler: (UploadPictureResponse?) -> Void) {
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
+    }
+    
+    func uploadRestaurantPicture(request: UploadRestaurantPictureRequest, responseHandler: (UploadRestaurantPictureResponse?) -> Void) {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     

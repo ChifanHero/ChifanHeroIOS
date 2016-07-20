@@ -247,6 +247,8 @@
 		CAC1D3941D39849D00520733 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3831D39849D00520733 /* LocationManager.swift */; };
 		CAC1D3951D39849D00520733 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3841D39849D00520733 /* Photos.swift */; };
 		CAC1D3961D39849D00520733 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3861D39849D00520733 /* TopView.swift */; };
+		CAC1D39A1D39B6D700520733 /* UploadRestaurantPictureRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3991D39B6D700520733 /* UploadRestaurantPictureRequest.swift */; };
+		CAC1D39C1D39B7AB00520733 /* UploadRestaurantPictureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D39B1D39B7AB00520733 /* UploadRestaurantPictureResponse.swift */; };
 		CAC5278F1CDD7B570056AAC8 /* RankColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */; };
 		CAC527921CE1997E0056AAC8 /* RefreshableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527911CE1997E0056AAC8 /* RefreshableViewDelegate.swift */; };
 		CAC527951CE1CAA20056AAC8 /* ExpandingCellTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */; };
@@ -529,6 +531,8 @@
 		CAC1D3831D39849D00520733 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		CAC1D3841D39849D00520733 /* Photos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		CAC1D3861D39849D00520733 /* TopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
+		CAC1D3991D39B6D700520733 /* UploadRestaurantPictureRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadRestaurantPictureRequest.swift; sourceTree = "<group>"; };
+		CAC1D39B1D39B7AB00520733 /* UploadRestaurantPictureResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadRestaurantPictureResponse.swift; sourceTree = "<group>"; };
 		CAC5278E1CDD7B570056AAC8 /* RankColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankColorPicker.swift; sourceTree = "<group>"; };
 		CAC527911CE1997E0056AAC8 /* RefreshableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableViewDelegate.swift; sourceTree = "<group>"; };
 		CAC527941CE1CAA20056AAC8 /* ExpandingCellTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingCellTransition.swift; sourceTree = "<group>"; };
@@ -1003,6 +1007,7 @@
 				CA37EE601BF6A44300DA3071 /* GetFavoritesResponse.swift */,
 				CAA33D111D1224BA004E9F6A /* GetIsFavoriteResponse.swift */,
 				CA850AE11C03D0FD00D497D4 /* UploadPictureResponse.swift */,
+				CAC1D39B1D39B7AB00520733 /* UploadRestaurantPictureResponse.swift */,
 				CA7A4F6B1BE9C95D0016BC56 /* SignUpResponse.swift */,
 				CAF16B5E1D1A17020051D7CE /* OauthLoginResponse.swift */,
 				C4D300121BC1B57B00807C4D /* LoginResponse.swift */,
@@ -1257,6 +1262,7 @@
 				C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */,
 				C412980E1C82282D0062BC7D /* NominateDishListCandidateRequest.swift */,
 				CA850ADF1C03CF6800D497D4 /* UploadPictureRequest.swift */,
+				CAC1D3991D39B6D700520733 /* UploadRestaurantPictureRequest.swift */,
 				CA7A4F691BE939BB0016BC56 /* SignUpRequest.swift */,
 				CAF16B5C1D1A16740051D7CE /* OauthLoginRequest.swift */,
 				C4D300101BC1B4FC00807C4D /* LoginRequest.swift */,
@@ -1601,6 +1607,7 @@
 				CA621EC01D0A39A500693306 /* NVActivityIndicatorView.swift in Sources */,
 				CA203DD91C111EEA00D6F32C /* UploadPictureRequest.swift in Sources */,
 				C44C25861C53610B00A345D8 /* RestaurantCandidate.swift in Sources */,
+				CAC1D39C1D39B7AB00520733 /* UploadRestaurantPictureResponse.swift in Sources */,
 				C4A0D5611C137DCC00BAE246 /* RestaurantSearchResponse.swift in Sources */,
 				CA203DDC1C111EEA00D6F32C /* RateRequest.swift in Sources */,
 				CA203DDD1C111EEA00D6F32C /* SelectionBar.swift in Sources */,
@@ -1610,6 +1617,7 @@
 				CAC1D38E1D39849D00520733 /* Configuration.swift in Sources */,
 				CA203DE01C111EEA00D6F32C /* DishTableViewCell.swift in Sources */,
 				C41298161C83CDA40062BC7D /* UIImageEffects.swift in Sources */,
+				CAC1D39A1D39B6D700520733 /* UploadRestaurantPictureRequest.swift in Sources */,
 				CA203DE11C111EEA00D6F32C /* HttpRequestProtocol.swift in Sources */,
 				C4D983121CEC34980061A088 /* GetCitiesRequest.swift in Sources */,
 				CAC1D38A1D39849D00520733 /* ImageStack.swift in Sources */,

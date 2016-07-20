@@ -711,22 +711,11 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 
                 if response?.result != nil{
-//                    AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: response?.result?.id) { (success, user) -> Void in
-//                        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                            if success == true {
-//                                print("Update profile picture succeed")
-//                            } else {
-//                                print("Update profile picture failed")
-//                            }
-//                        })
-//                        
-//                    }
                     let updateRestaurantRequest : UpdateRestaurantInfoRequest = UpdateRestaurantInfoRequest()
                     updateRestaurantRequest.restaurantId = self.restaurantId
                     updateRestaurantRequest.imageId = response?.result?.id
                     DataAccessor(serviceConfiguration: ParseConfiguration()).updateRestaurantInfo(updateRestaurantRequest, responseHandler: { (updateResponse) -> Void in
                         if updateResponse?.result != nil {
-//                            self.topViewContainer.backgroundImageURL = updateResponse?.result?.picture?.original
                             let backgroundImage : UIImage?
                             if let imageURL = updateResponse?.result?.picture?.original {
                                 

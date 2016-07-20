@@ -8,11 +8,13 @@
 
 import Foundation
 
-class Picture : Model {
+class Picture: Model {
     
     var id: String?
     var thumbnail: String?
     var original: String?
+    var type: String?
+    var restaurant: Restaurant?
     
     required init() {
         
@@ -22,6 +24,8 @@ class Picture : Model {
         id <-- data["id"]
         thumbnail <-- data["thumbnail"]
         original <-- data["original"]
+        type <-- data["type"]
+        restaurant <-- data["restaurant"]
     }
     
 }

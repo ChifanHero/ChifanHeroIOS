@@ -301,7 +301,27 @@ import UIKit
         
     }
     func doneButtonDidPress(imagePicker: ImagePickerController, images: [UIImage]){
+        let queue = NSOperationQueue()
         
+        for image in images {
+            queue.addOperationWithBlock() {
+                let maxLength = 500000
+                var imageData = UIImageJPEGRepresentation(image, 1.0) //1.0 is compression ratio
+                if imageData?.length > maxLength {
+                    let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.length)!)
+                    imageData = UIImageJPEGRepresentation(image, compressionRatio)
+                }
+                
+                let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
+                let request: UploadRestaurantPictureRequest = UploadRestaurantPictureRequest(restaurantId: self.restaurantId!, type: "restaurant", base64_code: base64_code)
+                DataAccessor(serviceConfiguration: ParseConfiguration()).uploadRestaurantPicture(request) { (response) -> Void in
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        //add actions here
+                        print("done");
+                    });
+                }
+            }
+        }
     }
     func cancelButtonDidPress(imagePicker: ImagePickerController){
         
