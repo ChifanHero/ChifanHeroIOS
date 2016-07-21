@@ -753,6 +753,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             let imagePickerController = ImagePickerController()
             imagePickerController.delegate = self
             self.presentViewController(imagePickerController, animated: true, completion: nil)
+        } else {
+            var photoGallery = PhotoGalleryViewController()
+            photoGallery.currentImage = (collectionView.cellForItemAtIndexPath(indexPath) as! RestaurantImagePoolCollectionViewCell).imageView.image
+            self.presentViewController(photoGallery, animated: false, completion: nil)
         }
     }
     

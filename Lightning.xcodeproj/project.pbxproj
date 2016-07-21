@@ -234,6 +234,7 @@
 		CAA33D0E1D11D80E004E9F6A /* SCLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D0D1D11D80E004E9F6A /* SCLExtensions.swift */; };
 		CAA33D101D12241C004E9F6A /* GetIsFavoriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D0F1D12241C004E9F6A /* GetIsFavoriteRequest.swift */; };
 		CAA33D121D1224BA004E9F6A /* GetIsFavoriteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D111D1224BA004E9F6A /* GetIsFavoriteResponse.swift */; };
+		CAA6C5581D40BB8600CBD871 /* PhotoGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6C5571D40BB8600CBD871 /* PhotoGalleryViewController.swift */; };
 		CAC1D3871D39849D00520733 /* AssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3721D39849D00520733 /* AssetManager.swift */; };
 		CAC1D3881D39849D00520733 /* BottomContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3741D39849D00520733 /* BottomContainerView.swift */; };
 		CAC1D3891D39849D00520733 /* ButtonPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3751D39849D00520733 /* ButtonPicker.swift */; };
@@ -521,6 +522,7 @@
 		CAA33D0D1D11D80E004E9F6A /* SCLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLExtensions.swift; sourceTree = "<group>"; };
 		CAA33D0F1D12241C004E9F6A /* GetIsFavoriteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetIsFavoriteRequest.swift; sourceTree = "<group>"; };
 		CAA33D111D1224BA004E9F6A /* GetIsFavoriteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetIsFavoriteResponse.swift; sourceTree = "<group>"; };
+		CAA6C5571D40BB8600CBD871 /* PhotoGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGalleryViewController.swift; sourceTree = "<group>"; };
 		CAC1D3721D39849D00520733 /* AssetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetManager.swift; sourceTree = "<group>"; };
 		CAC1D3741D39849D00520733 /* BottomContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomContainerView.swift; sourceTree = "<group>"; };
 		CAC1D3751D39849D00520733 /* ButtonPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPicker.swift; sourceTree = "<group>"; };
@@ -983,6 +985,7 @@
 				CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */,
 				CA4A29861BF3C34400BAD7CC /* NickNameChangeViewController.swift */,
 				C4C861921CE043FA00A6C896 /* SelectLocationViewController.swift */,
+				CAA6C5571D40BB8600CBD871 /* PhotoGalleryViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1588,6 +1591,7 @@
 				CA203DCA1C111EEA00D6F32C /* NSDateExtension.swift in Sources */,
 				CA203E581C16561500D6F32C /* AddToFavoritesResponse.swift in Sources */,
 				CA203DCB1C111EEA00D6F32C /* User.swift in Sources */,
+				CAA6C5581D40BB8600CBD871 /* PhotoGalleryViewController.swift in Sources */,
 				CA203DCC1C111EEA00D6F32C /* LogOutRequest.swift in Sources */,
 				CA203DCE1C111EEA00D6F32C /* NameImageDishTableViewCell.swift in Sources */,
 				CA203DCF1C111EEA00D6F32C /* SelectionPanelDelegateProtocol.swift in Sources */,
