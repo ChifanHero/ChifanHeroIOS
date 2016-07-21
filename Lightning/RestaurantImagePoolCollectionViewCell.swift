@@ -19,4 +19,8 @@ class RestaurantImagePoolCollectionViewCell: UICollectionViewCell {
         imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
     }
     
+    func setUpAddingImageCell(){
+        imageView.image = UIImage(named: "CameraAdd")
+    }
+    
 }

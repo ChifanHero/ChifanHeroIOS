@@ -22,11 +22,11 @@ public struct Configuration {
   // MARK: Titles
 
   public static var OKButtonTitle = "OK"
-  public static var cancelButtonTitle = "Cancel"
-  public static var doneButtonTitle = "Done"
-  public static var noImagesTitle = "No images available"
-  public static var noCameraTitle = "Camera is not available"
-  public static var settingsTitle = "Settings"
+  public static var cancelButtonTitle = "取消"
+  public static var doneButtonTitle = "完成"
+  public static var noImagesTitle = "无可用图片"
+  public static var noCameraTitle = "相机不可用"
+  public static var settingsTitle = "设置"
   public static var requestPermissionTitle = "Permission denied"
   public static var requestPermissionMessage = "Please, allow the application to access to your photo library."
 

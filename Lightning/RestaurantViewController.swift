@@ -12,7 +12,7 @@ import MapKit
 import ARNTransitionAnimator
 import Flurry_iOS_SDK
 
-class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, UICollectionViewDelegate, UICollectionViewDataSource{
+class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate{
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     
@@ -733,16 +733,61 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return imagePool.count
+        return imagePool.count + 1
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: RestaurantImagePoolCollectionViewCell? = imagePoolView.dequeueReusableCellWithReuseIdentifier("imagePoolCell", forIndexPath: indexPath) as? RestaurantImagePoolCollectionViewCell
         
         // Configure the cell
-        cell!.setUp(image: imagePool[indexPath.row])
-        
+        if indexPath.row < imagePool.count {
+            cell!.setUp(image: imagePool[indexPath.row])
+        } else {
+            cell!.setUpAddingImageCell()
+        }
         return cell!
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == imagePool.count {
+            let imagePickerController = ImagePickerController()
+            imagePickerController.delegate = self
+            self.presentViewController(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
+    //MARK: ImagePickerDelegate
+    func wrapperDidPress(imagePicker: ImagePickerController, images: [UIImage]){
+        
+    }
+    func doneButtonDidPress(imagePicker: ImagePickerController, images: [UIImage]){
+        let queue = NSOperationQueue()
+        
+        for image in images {
+            queue.addOperationWithBlock() {
+                let maxLength = 500000
+                var imageData = UIImageJPEGRepresentation(image, 1.0) //1.0 is compression ratio
+                if imageData?.length > maxLength {
+                    let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.length)!)
+                    imageData = UIImageJPEGRepresentation(image, compressionRatio)
+                }
+                
+                let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
+                let request: UploadRestaurantPictureRequest = UploadRestaurantPictureRequest(restaurantId: self.restaurantId!, type: "restaurant", base64_code: base64_code)
+                DataAccessor(serviceConfiguration: ParseConfiguration()).uploadRestaurantPicture(request) { (response) -> Void in
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        //add actions here
+                        print("done");
+                        self.imagePool.append((response?.result)!)
+                        self.imagePoolView.reloadData()
+                    });
+                }
+            }
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    func cancelButtonDidPress(imagePicker: ImagePickerController){
+        
     }
     
     

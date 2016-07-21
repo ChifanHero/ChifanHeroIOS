@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable class ViewItemTopUIView: UIView, ImagePickerDelegate{
+@IBDesignable class ViewItemTopUIView: UIView {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -286,47 +286,6 @@ import UIKit
                 self.bookmarkButtonView.actionCount = self.bookmarkButtonView.actionCount - 1
             })
         }
-    }
-    
-    @IBAction func addImagesAction(sender: AnyObject) {
-        if self.baseVC == nil {
-            return
-        }
-        let imagePickerController = ImagePickerController()
-        imagePickerController.delegate = self
-        self.baseVC!.presentViewController(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func wrapperDidPress(imagePicker: ImagePickerController, images: [UIImage]){
-        
-    }
-    func doneButtonDidPress(imagePicker: ImagePickerController, images: [UIImage]){
-        let queue = NSOperationQueue()
-        
-        for image in images {
-            queue.addOperationWithBlock() {
-                let maxLength = 500000
-                var imageData = UIImageJPEGRepresentation(image, 1.0) //1.0 is compression ratio
-                if imageData?.length > maxLength {
-                    let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.length)!)
-                    imageData = UIImageJPEGRepresentation(image, compressionRatio)
-                }
-                
-                let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
-                let request: UploadRestaurantPictureRequest = UploadRestaurantPictureRequest(restaurantId: self.restaurantId!, type: "restaurant", base64_code: base64_code)
-                DataAccessor(serviceConfiguration: ParseConfiguration()).uploadRestaurantPicture(request) { (response) -> Void in
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        //add actions here
-                        print("done");
-                        (self.baseVC as! RestaurantViewController).loadImagePool()
-                    });
-                }
-            }
-        }
-        self.baseVC!.dismissViewControllerAnimated(true, completion: nil)
-    }
-    func cancelButtonDidPress(imagePicker: ImagePickerController){
-        
     }
     
     

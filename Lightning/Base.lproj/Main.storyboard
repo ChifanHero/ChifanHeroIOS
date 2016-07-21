@@ -645,11 +645,11 @@
                                             <size key="itemSize" width="85" height="75"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imagePoolCell" id="Hgq-Wa-qzg" customClass="RestaurantImagePoolCollectionViewCell" customModule="吃饭英雄" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="12.5" width="85" height="75"/>
+                                                <rect key="frame" x="10" y="12.5" width="85" height="75"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="85" height="75"/>
@@ -1762,9 +1762,9 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SnI-Ci-tXQ"/>
-        <segue reference="Vi8-Wd-3jG"/>
-        <segue reference="Vt6-Zb-4Nz"/>
         <segue reference="tIf-c0-cls"/>
+        <segue reference="Vt6-Zb-4Nz"/>
+        <segue reference="Vi8-Wd-3jG"/>
+        <segue reference="FsK-Rc-bJJ"/>
     </inferredMetricsTieBreakers>
 </document>
