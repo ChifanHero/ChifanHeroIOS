@@ -13,7 +13,6 @@ class SelectedCollectionTableViewCell: UITableViewCell {
     
     static var height: CGFloat = 200
     
-    @IBOutlet weak var mask: UIView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var selectedCollectionImage: UIImageView!
     
@@ -24,7 +23,5 @@ class SelectedCollectionTableViewCell: UITableViewCell {
         }
         selectedCollectionImage.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
         title.text = selectedCollection.title
-        mask.alpha = 0.2
-        mask.backgroundColor = UIColor.blackColor()
     }
 }
