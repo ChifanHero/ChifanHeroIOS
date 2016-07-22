@@ -1305,7 +1305,7 @@
                             </constraints>
                         </view>
                         <sections>
-                            <tableViewSection headerTitle="注册成为Lightning用户" id="8xO-C4-d4n">
+                            <tableViewSection headerTitle="注册成为吃饭英雄用户" id="8xO-C4-d4n">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ikM-n3-Ic0">
                                         <rect key="frame" x="0.0" y="49.5" width="375" height="44"/>

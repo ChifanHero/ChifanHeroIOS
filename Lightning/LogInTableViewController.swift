@@ -16,6 +16,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     var normalLoginButton: LoadingButton!
     var wechatLoginButton: LoadingButton!
+    var facebookLoginButton: LoadingButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +33,6 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogInTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         self.configureLoginButton()
-        
-        var fbButton = FBSDKLoginButton(frame: CGRectMake(self.view.frame.width * 0.1, 250, self.view.frame.width * 0.8, 40))
-        fbButton.readPermissions = ["public_profile", "email"]
-        //self.view.addSubview(fbButton)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -49,17 +46,27 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func configureLoginButton(){
-        wechatLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 200, self.view.frame.width * 0.8, 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
+        wechatLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 250, self.view.frame.width * 0.8, 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
         wechatLoginButton.setLogoImage(UIImage(named: "Wechat")!)
         wechatLoginButton.setTextContent("微信登录")
-        //self.view.addSubview(wechatLoginButton)
         wechatLoginButton.addTarget(self, action: #selector(LogInTableViewController.wechatLoginEvent), forControlEvents: UIControlEvents.TouchDown)
+        self.view.addSubview(wechatLoginButton)
+        
+        facebookLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 200, self.view.frame.width * 0.8, 40), color: UIColor(red: 59 / 255  , green: 89 / 255, blue: 152 / 255, alpha: 1.0))
+        facebookLoginButton.setLogoImage(UIImage(named: "Facebook")!)
+        facebookLoginButton.setTextContent("Facebook Login")
+        facebookLoginButton.addTarget(self, action: #selector(LogInTableViewController.facebookLoginEvent), forControlEvents: UIControlEvents.TouchDown)
+        self.view.addSubview(facebookLoginButton)
         
         normalLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 150, self.view.frame.width * 0.8, 40), color: UIColor.themeOrange())
         normalLoginButton.setLogoImage(UIImage(named: "LogoWithBorder")!)
         normalLoginButton.setTextContent("登录")
         self.view.addSubview(normalLoginButton)
         normalLoginButton.addTarget(self, action: #selector(LogInTableViewController.normalLoginEvent), forControlEvents: UIControlEvents.TouchDown)
+        
+        //let fbButton = FBSDKLoginButton(frame: CGRectMake(self.view.frame.width * 0.1, 250, self.view.frame.width * 0.8, 40))
+        //fbButton.readPermissions = ["public_profile", "email"]
+        //self.view.addSubview(fbButton)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -130,42 +137,54 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         logIn(username: usernameTextField.text, password: passwordTextField.text)
     }
     
-    func wechatLoginEvent(){
-        FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields" : "id, name, email"]).startWithCompletionHandler({
-            (connection, result, error: NSError!) -> Void in
-            if error == nil {
-                
-                let email = result["email"] as! String
-                AccountManager(serviceConfiguration: ParseConfiguration()).oauthLogin(oauthLogin: email) { (response) -> Void in
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        let seconds = 1.0
-                        let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds
-                        let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                        
-                        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
-                            
-                            if response == nil {
-                                self.showErrorMessage("登录失败", message: "网络错误")
-                            } else {
-                                if response!.success == true {
-                                    let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                                    defaults.setBool(true, forKey: "isLoggedIn")
-                                    self.replaceLoginViewByAboutMeView()
-                                } else {
-                                    print("login failed")
-                                    self.showErrorMessage("登录失败", message: "用户名或密码错误")
-                                }
-                            }
-                            
-                        })
-                        
-                    })
-                }
+    func facebookLoginEvent() {
+        let login = FBSDKLoginManager()
+        login.logInWithReadPermissions(["public_profile", "email"], fromViewController: self, handler: {(result, error) -> Void in
+            if error != nil {
+                print(error)
+            } else if result.isCancelled {
+                print("Canceled")
             } else {
-                print("\(error)")
+                FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields" : "id, name, email"]).startWithCompletionHandler({
+                    (connection, result, error: NSError!) -> Void in
+                    if error == nil {
+                        
+                        let email = result["email"] as! String
+                        AccountManager(serviceConfiguration: ParseConfiguration()).oauthLogin(oauthLogin: email) { (response) -> Void in
+                            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                                let seconds = 1.0
+                                let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds
+                                let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                
+                                dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+                                    
+                                    if response == nil {
+                                        self.showErrorMessage("登录失败", message: "网络错误")
+                                    } else {
+                                        if response!.success == true {
+                                            let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                                            defaults.setBool(true, forKey: "isLoggedIn")
+                                            self.replaceLoginViewByAboutMeView()
+                                        } else {
+                                            print("login failed")
+                                            self.showErrorMessage("登录失败", message: "用户名或密码错误")
+                                        }
+                                    }
+                                    
+                                })
+                                
+                            })
+                        }
+                    } else {
+                        print("\(error)")
+                    }
+                })
             }
         })
-        //print("btnEvent", terminator: "")
+    }
+    
+    func wechatLoginEvent() {
+        
     }
     
     func logIn(username username: String?, password: String?) {
