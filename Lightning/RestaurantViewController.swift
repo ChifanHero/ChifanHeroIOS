@@ -84,12 +84,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         topViewContainer.name = restaurantName
         self.waitingView.hidden = true
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
-        #if DEBUG
-            let editBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(RestaurantViewController.addPhoto))
-            editBarButton.tintColor = UIColor.whiteColor()
-            self.navigationItem.rightBarButtonItem = editBarButton
-        #else
-        #endif
         
         // Do any additional setup after loading the view.
     }
@@ -574,97 +568,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
 //        }
         
         
-    }
-
-    
-//    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-//        
-//    }
-    
-    func addPhoto() {
-        popUpImageSourceOption()
-    }
-    
-    private func popUpImageSourceOption(){
-        let alert = UIAlertController(title: "更换头像", message: "选取图片来源", preferredStyle: UIAlertControllerStyle.ActionSheet)
-        
-        let takePhotoAction = UIAlertAction(title: "相机", style: .Default, handler: self.takePhotoFromCamera)
-        let chooseFromPhotosAction = UIAlertAction(title: "照片", style: .Default, handler: self.chooseFromPhotoRoll)
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelChoosingImage)
-        
-        alert.addAction(takePhotoAction)
-        alert.addAction(chooseFromPhotosAction)
-        alert.addAction(cancelAction)
-        
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    private func takePhotoFromCamera(alertAction: UIAlertAction!) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera;
-            imagePicker.allowsEditing = true
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-        }
-    }
-    
-    private func chooseFromPhotoRoll(alertAction: UIAlertAction!) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-            imagePicker.allowsEditing = true
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-        }
-    }
-    
-    private func cancelChoosingImage(alertAction: UIAlertAction!) {
-        
-    }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-        self.dismissViewControllerAnimated(true, completion: nil);
-        
-        let maxLength = 500000
-        var imageData = UIImageJPEGRepresentation(image, 1.0) //1.0 is compression ratio
-        if imageData?.length > maxLength {
-            let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.length)!)
-            imageData = UIImageJPEGRepresentation(image, compressionRatio)
-        }
-        
-        let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
-        let request : UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
-        DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                
-                if response?.result != nil{
-                    let updateRestaurantRequest : UpdateRestaurantInfoRequest = UpdateRestaurantInfoRequest()
-                    updateRestaurantRequest.restaurantId = self.restaurantId
-                    updateRestaurantRequest.imageId = response?.result?.id
-                    DataAccessor(serviceConfiguration: ParseConfiguration()).updateRestaurantInfo(updateRestaurantRequest, responseHandler: { (updateResponse) -> Void in
-                        if updateResponse?.result != nil {
-                            let backgroundImage : UIImage?
-                            if let imageURL = updateResponse?.result?.picture?.original {
-                                
-                                let url = NSURL(string: imageURL)
-                                let data = NSData(contentsOfURL: url!)
-                                if data != nil {
-                                    backgroundImage = UIImage(data: data!)
-                                } else {
-                                    backgroundImage = UIImage(named: "restaurant_default_background")
-                                }
-                                
-                            } else {
-                                backgroundImage = UIImage(named: "restaurant_default_background")
-                            }
-                            self.backgroundImageView.image = backgroundImage
-                        }
-                    })
-                }
-                
-            });
-        }
     }
     
     func extractPhoneNumber(originalNumber : String?) -> String{
