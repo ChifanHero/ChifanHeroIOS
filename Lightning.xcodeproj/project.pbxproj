@@ -235,6 +235,7 @@
 		CAA33D101D12241C004E9F6A /* GetIsFavoriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D0F1D12241C004E9F6A /* GetIsFavoriteRequest.swift */; };
 		CAA33D121D1224BA004E9F6A /* GetIsFavoriteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA33D111D1224BA004E9F6A /* GetIsFavoriteResponse.swift */; };
 		CAA6C5581D40BB8600CBD871 /* PhotoGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6C5571D40BB8600CBD871 /* PhotoGalleryViewController.swift */; };
+		CAA6C55A1D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6C5591D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift */; };
 		CAC1D3871D39849D00520733 /* AssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3721D39849D00520733 /* AssetManager.swift */; };
 		CAC1D3881D39849D00520733 /* BottomContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3741D39849D00520733 /* BottomContainerView.swift */; };
 		CAC1D3891D39849D00520733 /* ButtonPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3751D39849D00520733 /* ButtonPicker.swift */; };
@@ -523,6 +524,7 @@
 		CAA33D0F1D12241C004E9F6A /* GetIsFavoriteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetIsFavoriteRequest.swift; sourceTree = "<group>"; };
 		CAA33D111D1224BA004E9F6A /* GetIsFavoriteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetIsFavoriteResponse.swift; sourceTree = "<group>"; };
 		CAA6C5571D40BB8600CBD871 /* PhotoGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGalleryViewController.swift; sourceTree = "<group>"; };
+		CAA6C5591D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		CAC1D3721D39849D00520733 /* AssetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetManager.swift; sourceTree = "<group>"; };
 		CAC1D3741D39849D00520733 /* BottomContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomContainerView.swift; sourceTree = "<group>"; };
 		CAC1D3751D39849D00520733 /* ButtonPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPicker.swift; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 				CAA0F0B31CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift */,
 				C44B05DF1CE1B48F00337502 /* CityTableViewCell.swift */,
 				CA62BA5C1D3F31BB0087A862 /* RestaurantImagePoolCollectionViewCell.swift */,
+				CAA6C5591D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -973,6 +976,7 @@
 				C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */,
 				C43B39851B86F09700516248 /* RestaurantsViewController.swift */,
 				C43B39AD1B890B6000516248 /* RestaurantViewController.swift */,
+				CAA6C5571D40BB8600CBD871 /* PhotoGalleryViewController.swift */,
 				C43B398B1B8703C800516248 /* SelectedCollectionsTableViewController.swift */,
 				C461DB781BD0CA18009032C8 /* RestaurantCollectionMembersViewController.swift */,
 				CAA0F0B11CF15EB30061BFBE /* RestaurantNominationViewController.swift */,
@@ -985,7 +989,6 @@
 				CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */,
 				CA4A29861BF3C34400BAD7CC /* NickNameChangeViewController.swift */,
 				C4C861921CE043FA00A6C896 /* SelectLocationViewController.swift */,
-				CAA6C5571D40BB8600CBD871 /* PhotoGalleryViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1754,6 +1757,7 @@
 				C4021ACD1CF975D10021343B /* GetHotCitiesRequest.swift in Sources */,
 				CA203E151C111EEA00D6F32C /* RestaurantAllDishViewController.swift in Sources */,
 				C47A1C8B1C7DF2A100E0DF3A /* NotificationTableViewCell.swift in Sources */,
+				CAA6C55A1D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift in Sources */,
 				CAC81EED1CDA86E000338B59 /* RestaurantCollectionMemberTableViewCell.swift in Sources */,
 				C412980F1C82282D0062BC7D /* NominateDishListCandidateRequest.swift in Sources */,
 				CA203E181C111EEA00D6F32C /* MenuItem.swift in Sources */,

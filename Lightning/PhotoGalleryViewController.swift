@@ -8,14 +8,17 @@
 
 import UIKit
 
-class PhotoGalleryViewController: UIViewController {
+class PhotoGalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    var currentImage: UIImage?
+    var photoGalleryView: UICollectionView?
+    var parentVC: RestaurantViewController?
+    var currentIndexPath: NSIndexPath?
+    var onceOnly = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
-        self.configureImageView()
+        self.configurePhotoGalleryView()
         self.configureBackButton()
         // Do any additional setup after loading the view.
     }
@@ -25,16 +28,30 @@ class PhotoGalleryViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    private func configureImageView(){
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 100, width: self.view.frame.width, height: 400))
-        imageView.image = currentImage
-        self.view.addSubview(imageView)
+    private func configurePhotoGalleryView(){
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: self.view!.frame.width, height: self.view!.frame.height - 50)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = .Horizontal
+        
+        self.photoGalleryView = UICollectionView(frame: CGRect(x: 0, y: 50, width: self.view.frame.width, height: self.view.frame.height - 50), collectionViewLayout: layout)
+        self.photoGalleryView?.delegate = self
+        self.photoGalleryView?.dataSource = self
+        self.photoGalleryView?.registerClass(PhotoGalleryCollectionViewCell.self, forCellWithReuseIdentifier: "photoGalleryCell")
+        self.photoGalleryView?.pagingEnabled = true
+        self.photoGalleryView?.backgroundColor = UIColor.whiteColor()
+        self.photoGalleryView?.showsHorizontalScrollIndicator = false
+        self.photoGalleryView?.showsVerticalScrollIndicator = false
+        
+        self.view.addSubview(photoGalleryView!)
     }
     
     private func configureBackButton(){
         let backButton = UIButton(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
         backButton.backgroundColor = UIColor.whiteColor()
-        backButton.setImage(UIImage(named: "Cancel_Button"), forState: .Normal)
+        backButton.setImage(UIImage(named: "Back_Button"), forState: .Normal)
         backButton.addTarget(self, action: #selector(self.backButtonAction), forControlEvents: .TouchUpInside)
         self.view.addSubview(backButton)
     }
@@ -48,14 +65,33 @@ class PhotoGalleryViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: UICollectionViewDataSource
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
     }
-    */
+    
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of items
+        return parentVC!.imagePool.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell: PhotoGalleryCollectionViewCell? = photoGalleryView!.dequeueReusableCellWithReuseIdentifier("photoGalleryCell", forIndexPath: indexPath) as? PhotoGalleryCollectionViewCell
+        cell?.setUpImage((parentVC!.imagePoolView.cellForItemAtIndexPath(indexPath) as! RestaurantImagePoolCollectionViewCell).imageView.image!)
+        return cell!
+    }
+    
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        if !onceOnly {
+            let indexToScrollTo = currentIndexPath
+            self.photoGalleryView!.scrollToItemAtIndexPath(indexToScrollTo!, atScrollPosition: .CenteredHorizontally, animated: false)
+            onceOnly = true
+        }
+        
+        
+    }
 
 }
