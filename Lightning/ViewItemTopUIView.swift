@@ -18,14 +18,10 @@ import UIKit
     }
     */
     
-//    @IBOutlet weak var backgroundImageView: UIImageView!
-    
     @IBOutlet weak var nameLabel: UILabel!
     
     
     @IBOutlet weak var nameLabelContainer: UIView!
-
-//    @IBOutlet weak var imageViewContainer: UIView!
     
     private var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
@@ -34,12 +30,6 @@ import UIKit
     var restaurantId: String?
     
     var view: UIView!
-    
-//    var backgroundImage : UIImage? {
-//        didSet {
-//            self.backgroundImageView.image = backgroundImage
-//        }
-//    }
     
     var fullBlurEffectApplied = false
     
@@ -105,32 +95,6 @@ import UIKit
     
     @IBOutlet weak var bookmarkButtonView: ActionButtonView!
     
-    
-//    
-//    @IBInspectable var backgroundImageURL: String? {
-//        didSet {
-//            if let imageURL = backgroundImageURL {
-//                let url = NSURL(string: imageURL)
-//                let data = NSData(contentsOfURL: url!)
-//                if data != nil {
-//                    backgroundImage = UIImage(data: data!)
-//                } else {
-//                    backgroundImage = UIImage(named: "restaurant_default_background")
-//                }
-//                
-//            } else {
-//                backgroundImage = UIImage(named: "restaurant_default_background")
-//            }
-//            self.backgroundImageView.image = backgroundImage
-////            self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
-////            self.fullBlurEffectApplied = true
-//        }
-//    }
-    
-//    private func blurWithEffects(image : UIImage, factor : CGFloat) -> UIImage{
-//        return image.applyBlurWithRadius(10 * factor, tintColor: UIColor(white: 1.0, alpha: 0.7 * factor), saturationDeltaFactor: 1.8)!
-//    }
-    
     func xibSetup() {
         view = loadViewFromNib()
         view.frame = bounds
@@ -144,63 +108,6 @@ import UIKit
         return convertedFrame.origin.y + self.nameLabel.frame.size.height / 2
     }
     
-//    func getImageViewFrame() -> CGRect {
-//        return self.view.convertRect(self.backgroundImageView.frame, fromView : imageViewContainer)
-//    }
-    
-//    func applyBlurEffectToBackgroundImage() {
-//        if !blurEffectApplied {
-//            if self.backgroundImage != nil {
-//                self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: 1.0)
-//                self.nameLabel.hidden = false
-//                self.englishNameLabel.hidden = false
-//                self.blurEffectApplied = true
-//            }
-//        }
-//        
-//    }
-//
-//    func clearBlurEffectToBackgroundImage() {
-//        if blurEffectApplied {
-//            if self.backgroundImage != nil {
-//                self.backgroundImageView.image = self.backgroundImage
-//                self.nameLabel.hidden = true
-//                self.englishNameLabel.hidden = true
-//                self.blurEffectApplied = false
-//            }
-//        }
-//    }
-    
-//    func changeBackgroundImageBlurEffect(offSet : CGFloat) {
-//        let max : CGFloat = 60.0
-//        let threshold : CGFloat = 100.0
-//        var current = fabs(offSet) - threshold
-//        if current < 0.0 {
-//            current = 0.0
-//        }
-//        let factor = (max - current) / max
-//        
-//        if factor < 0.6 {
-//            self.nameLabel.hidden = true
-////            self.englishNameLabel.hidden = true
-//        } else {
-//            self.nameLabel.hidden = false
-////            self.englishNameLabel.hidden = false
-//        }
-//        if self.backgroundImage != nil {
-//            if factor < 1.0 {
-//                self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: factor)
-//                fullBlurEffectApplied = false
-//            }
-//            if factor == 1.0 && fullBlurEffectApplied == false {
-//                self.backgroundImageView.image = self.blurWithEffects(self.backgroundImage!, factor: factor)
-//                fullBlurEffectApplied = true
-//            }
-//            
-//        }
-//        
-//    }
-    
     func loadViewFromNib() -> UIView{
         let bundle = NSBundle(forClass: self.dynamicType)
         let nib = UINib(nibName: "ViewItemTopView", bundle: bundle)
@@ -209,10 +116,7 @@ import UIKit
     }
     
     func UISetup() {
-//        let blur = UIBlurEffect(style: .ExtraLight)
-//        let effectView = UIVisualEffectView(effect: blur)
-//        effectView.frame = CGRectMake(0, 0, self.backgroundImageView.frame.width, self.backgroundImageView.frame.height)
-//        self.backgroundImageView.addSubview(effectView)
+        
     }
     
     override init(frame: CGRect) {

@@ -13,10 +13,24 @@ import ARNTransitionAnimator
 import Flurry_iOS_SDK
 
 class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate{
+
+    
+    @IBOutlet weak var containerScrollView: UIScrollView!
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     
+    @IBOutlet weak var topViewContainer: ViewItemTopUIView!
+    
     @IBOutlet weak var imagePoolView: UICollectionView!
+    
+    @IBOutlet weak var addressLabel: UILabel!
+    
+    @IBOutlet weak var phoneLabel: UILabel!
+    
+    @IBOutlet weak var goButton: UIButton!
+    
+    @IBOutlet weak var callButton: UIButton!
+    
     
     var restaurantId: String? {
         didSet {
@@ -37,30 +51,18 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     var animateTransition = true
     
     var parentVCName: String = ""
-
-    @IBOutlet weak var messageView: NotAvailableMessageView!
-    
-    @IBOutlet weak var waitingView: UIView!
-    @IBOutlet weak var containerScrollView: UIScrollView!
     
     let vcTitleLabel: UILabel = UILabel()
     
-    @IBOutlet weak var infoTableView: UITableView!
-    var info: [String : String] = [String : String]()
+    var address: String?
+    var phone: String?
     
     var hotDishes: [Dish] = [Dish]()
-    
-    @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
-    
     
     private let infoToResource: [String : String] = ["address" : "gps", "hours" : "clock", "phone" : "phone"]
     
     var localSearchResponse:MKLocalSearchResponse!
-
-    @IBOutlet weak var hotDishesContainerView: UIView!
-    @IBOutlet weak var topViewContainer: ViewItemTopUIView!
     
-    @IBOutlet weak var hotDishesTableView: UITableView!
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
     static let INFO_ROW_HEIGHT : CGFloat = 35
@@ -68,9 +70,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addImageForBackBarButtonItem()
-        hotDishesTableView.allowsSelection = false
-        self.waitingView.hidden = false
-        self.waitingIndicator.startAnimating()
         self.containerScrollView.delegate = self
         self.containerScrollView.showsVerticalScrollIndicator = false
         loadData { (success) -> Void in
@@ -82,15 +81,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         topViewContainer.baseVC = self
         self.backgroundImageView.image = restaurantImage
         topViewContainer.name = restaurantName
-        self.waitingView.hidden = true
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
-        
+        self.configureButtons()
         // Do any additional setup after loading the view.
     }
-    
-//    override func refreshData() {
-//        
-//    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -106,6 +100,16 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         self.animateTransition = true
         configVCTitle()
         TrackingUtil.trackRestaurantView()
+    }
+    
+    private func configureButtons(){
+        self.goButton.layer.borderColor = UIColor(red: 49/255, green: 163/255, blue: 67/255, alpha: 1).CGColor
+        self.goButton.layer.borderWidth = 1.0
+        self.goButton.layer.cornerRadius = 3.0
+        
+        self.callButton.layer.borderColor = UIColor(red: 49/255, green: 163/255, blue: 67/255, alpha: 1).CGColor
+        self.callButton.layer.borderWidth = 1.0
+        self.callButton.layer.cornerRadius = 3.0
     }
     
     func showTabbarSmoothly() {
@@ -132,7 +136,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         if (request != nil) {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
-                dispatch_async(dispatch_get_main_queue(), {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     if response == nil {
                         if refreshHandler != nil {
                             refreshHandler!(success: false)
@@ -147,10 +151,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                                 }
                                 self.topViewContainer.englishName = self.restaurant?.englishName
                                 if self.backgroundImageView.image == nil {
-//                                    self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
                                     let backgroundImage : UIImage?
                                     if let imageURL = self.restaurant?.picture?.original {
-                                        
                                         let url = NSURL(string: imageURL)
                                         let data = NSData(contentsOfURL: url!)
                                         if data != nil {
@@ -166,26 +168,16 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                                 }
 //
                                 if self.restaurant?.address != nil {
-                                    self.info["address"] = self.restaurant?.address
-                                }
-                                if self.restaurant?.hours != nil {
-                                    self.info["hours"] = self.restaurant?.hours
+                                    self.address = self.restaurant?.address
+                                    self.addressLabel.text = self.address
                                 }
                                 if self.restaurant?.phone != nil {
-                                    self.info["phone"] = self.restaurant?.phone
+                                    self.phone = self.restaurant?.phone
+                                    self.phoneLabel.text = self.phone
                                 }
                                 if self.restaurant != nil && self.restaurant!.hotDishes != nil {
                                     self.hotDishes.removeAll()
                                     self.hotDishes += (self.restaurant?.hotDishes)!
-                                }
-                                if self.hotDishes.count == 0 {
-                                    self.hotDishesTableView.hidden = true
-                                    self.messageView.hidden = false
-                                    self.messageView.votes = self.restaurant?.votes
-                                    self.messageView.restaurantId = self.restaurant?.id
-                                    
-                                } else {
-                                    self.hotDishesTableView.hidden = false
                                 }
                                 if self.restaurant?.likeCount != nil {
                                     self.topViewContainer.likeCount = self.restaurant?.likeCount
@@ -199,21 +191,12 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                                 if self.restaurant?.favoriteCount != nil {
                                     self.topViewContainer.bookmarkCount = self.restaurant?.favoriteCount
                                 }
-//                                if self.restaurant?.picture != nil {
-//                                    self.topViewContainer.backgroundImageURL = self.restaurant?.picture?.original
-//                                }
-                                self.infoTableView.reloadData()
-                                self.hotDishesTableView.reloadData()
                                 self.adjustUI()
                             }
                             
                         } else {
                             self.topViewContainer.hidden = true
-                            self.infoTableView.hidden = true
-                            self.hotDishesTableView.hidden = true
                         }
-                        self.waitingIndicator.stopAnimating()
-                        self.waitingView.hidden = true
                         if refreshHandler != nil {
                             refreshHandler!(success: true)
                         }
@@ -227,8 +210,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     private func adjustUI() {
-        adjustInfoTableViewHeight()
-        adjustDishTableViewHeight()
         adjustContainerViewHeight()
     }
     
@@ -255,25 +236,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         self.imagePool.removeAll()
     }
     
-    private func adjustInfoTableViewHeight() {
-        let height : CGFloat = CGFloat(self.info.count) * RestaurantViewController.INFO_ROW_HEIGHT
-        let heightConstraint:NSLayoutConstraint = NSLayoutConstraint(item: self.infoTableView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute:NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: height);
-        heightConstraint.priority = 1000
-        self.infoTableView.addConstraint(heightConstraint);
-        self.view.layoutIfNeeded()
-    }
-    
-    private func adjustDishTableViewHeight() {
-        if self.hotDishesTableView.hidden == false {
-            let heightConstraint:NSLayoutConstraint = NSLayoutConstraint(item: self.hotDishesTableView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute:NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.hotDishesTableView.contentSize.height);
-            heightConstraint.priority = 1000
-            self.hotDishesTableView.addConstraint(heightConstraint);
-            self.view.layoutIfNeeded()
-
-        }
-        
-    }
-    
     private func adjustContainerViewHeight() {
 //        var contentRect : CGRect = CGRectZero
 //        for subView : UIView in self.containerScrollView.subviews {
@@ -281,16 +243,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
 //                contentRect = CGRectUnion(contentRect, subView.frame)
 //            }
 //        }
-//        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 200 + self.infoTableView.frame.size.height + self.hotDishesTableView.frame.size.height + 44)
+//        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentRect.height)
 //        self.view.layoutIfNeeded()
-        var contentRect : CGRect = CGRectZero
-        for subView : UIView in self.containerScrollView.subviews {
-            if subView.hidden == false {
-                contentRect = CGRectUnion(contentRect, subView.frame)
-            }
-        }
-        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentRect.height)
-        self.view.layoutIfNeeded()
     }
 
     override func didReceiveMemoryWarning() {
@@ -299,13 +253,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if tableView == infoTableView {
-            return info.count
-        } else if tableView == hotDishesTableView {
-            return hotDishes.count
-        } else {
-            return 0
-        }
+        return 0
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -313,85 +261,52 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if tableView == infoTableView {
-            var cell : InfoTableViewCell? = tableView.dequeueReusableCellWithIdentifier("infoCell") as? InfoTableViewCell
-            if cell == nil {
-                tableView.registerNib(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "infoCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("infoCell") as? InfoTableViewCell
-            }
-            let key = Array(info.keys)[indexPath.row] as String
-            cell!.info = info[key]
-            cell!.iconResourceName = infoToResource[key]
-            return cell!
+        return UITableViewCell()
+    }
+    
+    @IBAction func goAction(sender: AnyObject) {
+        TrackingUtil.trackNavigationUsed()
+        var localSearchRequest:MKLocalSearchRequest!
+        var localSearch:MKLocalSearch!
+        
+        localSearchRequest = MKLocalSearchRequest()
+        localSearchRequest.naturalLanguageQuery = self.address
+        localSearch = MKLocalSearch(request: localSearchRequest)
+        localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
             
-        } else if tableView == hotDishesTableView {
-            var cell : NameOnlyDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
-            if cell == nil {
-                tableView.registerNib(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
-            }
-            let hotDish : Dish = (hotDishes[indexPath.row])
-            cell?.setUp(dish: hotDish)
-            return cell!
-        } else {
-            return UITableViewCell()
+            self.localSearchResponse = localSearchResponse
+            let alert = UIAlertController(title: "打开地图", message: "是否打开地图导航", preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            let goWithAppleAction = UIAlertAction(title: "内置地图", style: .Default, handler: self.doUsingAppleMap)
+            let goWithGoogleAction = UIAlertAction(title: "谷歌地图", style: .Default, handler: self.doUsingGoogleMap)
+            let copyAction = UIAlertAction(title: "复制", style: .Default, handler: self.copyToClipBoard)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelNavigation)
+            
+            alert.addAction(goWithAppleAction)
+            alert.addAction(goWithGoogleAction)
+            alert.addAction(copyAction)
+            alert.addAction(cancelAction)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if tableView == infoTableView {
-            let currentCell = tableView.cellForRowAtIndexPath(indexPath) as! InfoTableViewCell
-            if(currentCell.info == info["address"]){
-                TrackingUtil.trackNavigationUsed()
-                var localSearchRequest:MKLocalSearchRequest!
-                var localSearch:MKLocalSearch!
-                
-                localSearchRequest = MKLocalSearchRequest()
-                localSearchRequest.naturalLanguageQuery = info["address"]
-                localSearch = MKLocalSearch(request: localSearchRequest)
-                localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
-                    
-                    self.localSearchResponse = localSearchResponse
-                    let alert = UIAlertController(title: "打开地图", message: "是否打开地图导航", preferredStyle: UIAlertControllerStyle.ActionSheet)
-                    
-                    let goWithAppleAction = UIAlertAction(title: "内置地图", style: .Default, handler: self.doUsingAppleMap)
-                    let goWithGoogleAction = UIAlertAction(title: "谷歌地图", style: .Default, handler: self.doUsingGoogleMap)
-                    let copyAction = UIAlertAction(title: "复制", style: .Default, handler: self.copyToClipBoard)
-                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelNavigation)
-                    
-                    alert.addAction(goWithAppleAction)
-                    alert.addAction(goWithGoogleAction)
-                    alert.addAction(copyAction)
-                    alert.addAction(cancelAction)
-                    
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
-            }
-            
-            if currentCell.info == info["phone"] {
-                TrackingUtil.trackPhoneCallUsed()
-                let alert = UIAlertController(title: "呼叫", message: "呼叫\(currentCell.info!)", preferredStyle: UIAlertControllerStyle.ActionSheet)
-                
-                let goAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-                    let phoneNumber = self.extractPhoneNumber(currentCell.info)
-                    if let url = NSURL(string: "tel://\(phoneNumber)") {
-                        UIApplication.sharedApplication().openURL(url)
-                    }
-                })
-                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-                
-                alert.addAction(goAction)
-                alert.addAction(cancelAction)
-                
-                self.presentViewController(alert, animated: true, completion: nil)
-                
-            }
-            print(currentCell.info)
-            print(info["phone"])
+    @IBAction func callAction(sender: AnyObject) {
+        TrackingUtil.trackPhoneCallUsed()
+        let alert = UIAlertController(title: "呼叫", message: "呼叫\(self.phone)", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        self.infoTableView.deselectRowAtIndexPath(indexPath, animated: true)    
-        }
+        let doCallAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+            let phoneNumber = self.extractPhoneNumber(self.phone)
+            if let url = NSURL(string: "tel://\(phoneNumber)") {
+                UIApplication.sharedApplication().openURL(url)
+            }
+        })
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
         
+        alert.addAction(doCallAction)
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func doUsingAppleMap(alertAction: UIAlertAction!) -> Void {
@@ -406,13 +321,13 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         ]
         let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
         let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = self.info["address"]
+        mapItem.name = self.address
         mapItem.openInMapsWithLaunchOptions(options)
     }
     
     func doUsingGoogleMap(alertAction: UIAlertAction!) -> Void {
         TrackingUtil.trackGoogleMapUsed()
-        let address: String = info["address"]!.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        let address: String = self.address!.stringByReplacingOccurrencesOfString(" ", withString: "+")
         let requestString: String = "comgooglemaps://?q=" + address
         print(requestString)
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"comgooglemaps://")!)) {
@@ -424,45 +339,11 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func copyToClipBoard(alertAction: UIAlertAction!) -> Void {
-        UIPasteboard.generalPasteboard().string = self.info["address"]
+        UIPasteboard.generalPasteboard().string = self.address
     }
     
     func cancelNavigation(alertAction: UIAlertAction!) {
         
-    }
-    
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if tableView == infoTableView {
-            if indexPath.row <= (info.count - 1) {
-                return RestaurantViewController.INFO_ROW_HEIGHT
-            } else {
-                return 62
-            }
-        } else if tableView == hotDishesTableView {
-            return 49
-        } else {
-            return 0
-        }
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if tableView == infoTableView {
-            return 0
-        } else if tableView == hotDishesTableView {
-            return 44
-        }
-        return 0
-    }
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if tableView == hotDishesTableView {
-            let headerView = AllDishesHeaderView(frame: CGRectMake(0, 0, self.hotDishesTableView.frame.size.width, 44))
-            headerView.delegate = self
-            return headerView
-        } else {
-            return nil
-        }
     }
     
     private func addToFavorites(indexPath: NSIndexPath){
@@ -524,12 +405,10 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @objc private func dismissActionView() {
-        self.hotDishesTableView.setEditing(false, animated: true)
         NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantViewController.reloadTable), userInfo: nil, repeats: false)
     }
     
     @objc private func reloadTable() {
-        self.hotDishesTableView.reloadData()
     }
     
     func headerViewActionButtonPressed() {
@@ -551,23 +430,14 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-//        print(scrollView.contentOffset.y)
         let offset = scrollView.contentOffset.y
         let nameLabelBottomY = self.topViewContainer.getNameLabelBottomY() + 200
         if offset > nameLabelBottomY{
-//            self.topViewContainer.changeBackgroundImageBlurEffect(scrollView.contentOffset.y)
             let scale = (abs(offset) - abs(nameLabelBottomY)) / 40
             self.navigationItem.titleView?.alpha = scale
         } else {
             self.navigationItem.titleView?.alpha = 0.0
         }
-//        if offset > -100 {
-//            self.topViewContainer.applyBlurEffectToBackgroundImage()
-//        } else {
-//            self.topViewContainer.clearBlurEffectToBackgroundImage()
-//        }
-        
-        
     }
     
     func extractPhoneNumber(originalNumber : String?) -> String{
@@ -587,12 +457,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         imageView.contentMode = self.backgroundImageView.contentMode
         imageView.clipsToBounds = true
         imageView.userInteractionEnabled = false
-//        imageView.frame = self.topViewContainer.backgroundImageView!.frame
         imageView.frame = backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view)
-//        imageView.frame = CGRectMake(0, 64, self.view.frame.size.width, 200)
-//        imageView.frame = backgroundImageView.frame
-        print(imageView.frame)
-//        imageView.frame = CGRectMake(0, 44, self.view.frame.size.width, 177)
         return imageView
     }
     
