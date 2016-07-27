@@ -54,8 +54,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     let vcTitleLabel: UILabel = UILabel()
     
-    var address: String?
-    var phone: String?
+    var address: String!
+    var phone: String!
     
     var hotDishes: [Dish] = [Dish]()
     
@@ -295,7 +295,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         TrackingUtil.trackPhoneCallUsed()
         let alert = UIAlertController(title: "呼叫", message: "呼叫\(self.phone)", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        let doCallAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+        let doCallAction = UIAlertAction(title: "确定", style: .Default, handler: { (action) -> Void in
             let phoneNumber = self.extractPhoneNumber(self.phone)
             if let url = NSURL(string: "tel://\(phoneNumber)") {
                 UIApplication.sharedApplication().openURL(url)
