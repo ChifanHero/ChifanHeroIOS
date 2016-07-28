@@ -624,7 +624,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WbU-Ts-MPj">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4WW-ny-dYE">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
@@ -813,7 +813,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6qh-7r-5jD" userLabel="Dish View">
-                                                <rect key="frame" x="0.0" y="520" width="375" height="80"/>
+                                                <rect key="frame" x="0.0" y="520" width="375" height="120"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="推荐菜" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XzZ-0u-YJZ">
                                                         <rect key="frame" x="10" y="0.0" width="365" height="40"/>
@@ -826,10 +826,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1M0-ix-LpY">
-                                                        <rect key="frame" x="0.0" y="40" width="375" height="40"/>
+                                                        <rect key="frame" x="0.0" y="40" width="375" height="80"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="马上推出，敬请期待" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oof-XW-EwD">
-                                                                <rect key="frame" x="10" y="0.0" width="365" height="40"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="马上推出，敬请期待" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oof-XW-EwD">
+                                                                <rect key="frame" x="10" y="0.0" width="365" height="80"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -848,7 +848,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="XzZ-0u-YJZ" secondAttribute="trailing" id="1rL-oO-KdB"/>
                                                     <constraint firstAttribute="bottom" secondItem="1M0-ix-LpY" secondAttribute="bottom" id="2J3-tT-gEZ"/>
-                                                    <constraint firstAttribute="height" constant="80" id="J7v-iM-0wZ"/>
+                                                    <constraint firstAttribute="height" constant="120" id="J7v-iM-0wZ"/>
                                                     <constraint firstItem="1M0-ix-LpY" firstAttribute="leading" secondItem="6qh-7r-5jD" secondAttribute="leading" id="Pqt-Sd-he3"/>
                                                     <constraint firstAttribute="trailing" secondItem="1M0-ix-LpY" secondAttribute="trailing" id="QcG-Ph-W0O"/>
                                                     <constraint firstItem="XzZ-0u-YJZ" firstAttribute="top" secondItem="6qh-7r-5jD" secondAttribute="top" id="bPs-3I-tTH"/>
@@ -865,6 +865,7 @@
                                             <constraint firstItem="eWi-Dd-Kda" firstAttribute="top" secondItem="4WW-ny-dYE" secondAttribute="bottom" id="M4B-OP-haV"/>
                                             <constraint firstItem="4WW-ny-dYE" firstAttribute="leading" secondItem="WbU-Ts-MPj" secondAttribute="leading" id="SdK-7B-kWp"/>
                                             <constraint firstAttribute="trailing" secondItem="6qh-7r-5jD" secondAttribute="trailing" id="V1o-iZ-Xcd"/>
+                                            <constraint firstAttribute="height" constant="700" id="WNg-Wk-zel"/>
                                             <constraint firstAttribute="trailing" secondItem="eWi-Dd-Kda" secondAttribute="trailing" id="X5b-az-8oI"/>
                                             <constraint firstItem="6qh-7r-5jD" firstAttribute="leading" secondItem="WbU-Ts-MPj" secondAttribute="leading" id="XcP-f2-shz"/>
                                             <constraint firstItem="eWi-Dd-Kda" firstAttribute="leading" secondItem="WbU-Ts-MPj" secondAttribute="leading" id="ZiE-Xy-k0h"/>
@@ -909,6 +910,7 @@
                                 <exclude reference="MF5-yl-IpU"/>
                                 <exclude reference="hEm-9A-xkz"/>
                                 <exclude reference="k7T-BS-3z6"/>
+                                <exclude reference="g59-lB-JMq"/>
                             </mask>
                         </variation>
                     </view>
@@ -921,6 +923,7 @@
                         <outlet property="goButton" destination="0JN-DT-tL9" id="quR-yL-oBf"/>
                         <outlet property="imagePoolView" destination="xtJ-Al-4a3" id="cjD-zh-l1D"/>
                         <outlet property="phoneLabel" destination="YWv-DX-EoC" id="Ezx-ZE-Ved"/>
+                        <outlet property="recommendationDishLabel" destination="oof-XW-EwD" id="3RE-q3-jac"/>
                         <outlet property="topViewContainer" destination="eWi-Dd-Kda" id="phL-oe-mEb"/>
                         <segue destination="Zwu-6d-k1R" kind="show" identifier="showAllDishes" id="zvp-M7-zCu"/>
                     </connections>

@@ -31,6 +31,8 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var callButton: UIButton!
     
+    @IBOutlet weak var recommendationDishLabel: UILabel!
+    
     
     var restaurantId: String? {
         didSet {
@@ -191,7 +193,13 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                                 if self.restaurant?.favoriteCount != nil {
                                     self.topViewContainer.bookmarkCount = self.restaurant?.favoriteCount
                                 }
-                                self.adjustUI()
+                                if self.restaurant?.hotDishes != nil && self.restaurant?.hotDishes!.count != 0 {
+                                    self.recommendationDishLabel.text = ""
+                                    for index in 0..<10 {
+                                        self.recommendationDishLabel.text?.appendContentsOf((self.restaurant?.hotDishes![index].name)!)
+                                        self.recommendationDishLabel.text?.appendContentsOf("  ")
+                                    }
+                                }
                             }
                             
                         } else {
@@ -207,10 +215,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 });
             }
         }
-    }
-    
-    private func adjustUI() {
-        adjustContainerViewHeight()
     }
     
     func refresh() {
@@ -234,17 +238,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     
     private func clearData() {
         self.imagePool.removeAll()
-    }
-    
-    private func adjustContainerViewHeight() {
-//        var contentRect : CGRect = CGRectZero
-//        for subView : UIView in self.containerScrollView.subviews {
-//            if subView.hidden == false {
-//                contentRect = CGRectUnion(contentRect, subView.frame)
-//            }
-//        }
-//        self.containerScrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentRect.height)
-//        self.view.layoutIfNeeded()
     }
 
     override func didReceiveMemoryWarning() {
@@ -423,10 +416,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             let restaurantAllDishesController : RestaurantAllDishViewController = segue.destinationViewController as! RestaurantAllDishViewController
             restaurantAllDishesController.restaurantId = sender as? String
         }
-    }
-    
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        adjustContainerViewHeight()
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
