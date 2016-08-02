@@ -12,7 +12,8 @@ import PullToMakeSoup
 
 class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
-    @IBOutlet weak var promotionsTable: UITableView!
+    @IBOutlet weak var homepageTable: UITableView!
+    
     
     weak var selectedImageView: UIImageView?
     
@@ -20,39 +21,11 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     var selectedRestaurantId: String?
     
-    let refresher = PullToMakeSoup()
-    
-    @IBAction func showHottestRestaurants(sender: AnyObject) {
-        self.performSegueWithIdentifier("showRestaurants", sender: "hottest")
-    }
-    
-    @IBAction func showNearstRestaurants(sender: AnyObject) {
-        self.performSegueWithIdentifier("showRestaurants", sender: "nearest")
-    }
-    
-    @IBAction func showDishLists(sender: AnyObject) {
-        self.performSegueWithIdentifier("showSelectedCollections", sender: self)
-    }
-    
-    @IBOutlet weak var bannerView: UIView!
-    
-    var segueType: String?
-    
     var animateTransition = false
     
     var askLocationAlertView: SCLAlertView?
     
-    
-    let PROMOTIONS_LIMIT = 10
-    let PROMOTIONS_OFFSET = 0
-    let RESTAURANTS_LIMIT = 10
-    let RESTAURANTS_OFFSET = 0
-    let LISTS_LIMIT = 10
-    let LISTS_OFFSET = 0
-
-    var promotions: [Promotion] = []
-    
-    var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
+    var homepageSections: [HomepageSection] = []
     
     var appDelegate: AppDelegate?
     
@@ -65,18 +38,15 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         self.configLoadingIndicator()
         self.clearTitleForBackBarButtonItem()
         self.configureNavigationController()
-        self.generateNavigationItemTitle()
         addLocationSelectionToLeftCorner()
-        initPromotionsTable()
-        ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
+        initHomepageTable()
+        
+        homepageTable.delegate = self
+        homepageTable.dataSource = self
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        let selectedCellIndexPath : NSIndexPath? = self.promotionsTable.indexPathForSelectedRow
-        if selectedCellIndexPath != nil {
-            self.promotionsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
-        }
         self.navigationController?.navigationBar.translucent = false
 //        setTabBarVisible(true, animated: true)
         self.tabBarController?.tabBar.hidden = false
@@ -84,12 +54,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if self.promotionsTable.pullToRefresh == nil {
-            self.promotionsTable.addPullToRefresh(refresher) {
-                self.refreshData()
-            }
-        }
-
         TrackingUtil.trackRecommendationView()
     }
     
@@ -109,18 +73,17 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         self.view.addSubview(loadingIndicator)
     }
     
-    
-    // MARK: - Configure navigation bar
-    private func generateNavigationItemTitle() {
-        let logo = UIImage(named: "Lightning_Title.png")
-        let imageView = UIImageView(image:logo)
-        self.navigationItem.titleView = imageView
-    }
-    
     // MARK: - add location selection button to top left corner
     func addLocationSelectionToLeftCorner() {
-        let selectionLocationButton = UIBarButtonItem(title: "位置", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(HomeViewController.editLocation))
-        selectionLocationButton.tintColor = UIColor.whiteColor()
+        let button: UIButton = UIButton(type: .Custom)
+        button.addTarget(self, action: #selector(HomeViewController.editLocation), forControlEvents: UIControlEvents.TouchUpInside)
+        button.frame = CGRectMake(0, 0, 200, 26)
+        button.layer.cornerRadius = 3.0
+        button.setTitle("San Francisco, CA, USA", forState: .Normal)
+        button.titleLabel!.font =  UIFont(name: "Arial", size: 14)
+        button.backgroundColor = UIColor.grayColor()
+        
+        let selectionLocationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = selectionLocationButton
     }
     
@@ -128,15 +91,15 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         self.performSegueWithIdentifier("editLocation", sender: nil)
     }
     
-    private func initPromotionsTable(){
-        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
+    private func initHomepageTable(){
         loadingIndicator.startAnimation()
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("usingCustomLocation") {
-            loadData(nil)
-        }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
+        loadData(nil)
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        if defaults.boolForKey("usingCustomLocation") {
+//            loadData(nil)
+//        }
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
     }
     
     @objc private func refresh(sender:AnyObject) {
@@ -144,7 +107,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     }
     
     func handleLocationChange() {
-        promotionsTable.hidden = true
+        //promotionsTable.hidden = true
         loadingIndicator.hidden = false
         loadingIndicator.startAnimation()
         loadData(nil)
@@ -164,406 +127,60 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     }
 
     override func loadData(refreshHandler : ((success : Bool) -> Void)?) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
-        let getPromotionsRequest = GetPromotionsRequest()
-        
-        var location : Location = appDelegate!.getCurrentLocation()
-
-        location = appDelegate!.getCurrentLocation()
-        if (location.lat == nil || location.lon == nil) {
-            loadingIndicator.hidden = true
-            loadingIndicator.stopAnimation()
-            return
-        }
-        
-        
-        getPromotionsRequest.userLocation = location
-        getPromotionsRequest.limit = PROMOTIONS_LIMIT
-        getPromotionsRequest.skip = PROMOTIONS_OFFSET
-        print(getPromotionsRequest.getRequestBody())
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getPromotions(getPromotionsRequest) { (response) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
+        let request = GetHomepageRequest()
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getHomepage(request) { (response) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if response == nil {
                     if refreshHandler != nil {
                         refreshHandler!(success: false)
                     }
+                    self.loadingIndicator.stopAnimation()
                 } else {
-                    self.promotions.removeAll()
-                    self.loadResults(response!.results)
-                    
-                    if self.promotions.count > 0 {
-                        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-                    } else {
-                        self.promotionsTable.separatorStyle = UITableViewCellSeparatorStyle.None
-                    }
-                    self.promotionsTable.reloadData()
-                    self.adjustUI()
+                    self.clearData()
+                    self.homepageSections += response!.results
+                    self.loadingIndicator.stopAnimation()
+                    self.homepageTable.reloadData()
                     if refreshHandler != nil {
                         refreshHandler!(success: true)
                     }
+                    
                 }
-                self.loadingIndicator.stopAnimation()
-                self.loadingIndicator.hidden = true
-//                self.refreshControl.endRefreshing()
-                self.promotionsTable.endRefreshing()
-                self.promotionsTable.hidden = false
-                
             });
         }
     }
     
-    private func loadResults(results : [Promotion]?) {
-        if results != nil {
-            for promotion : Promotion in results! {
-                if promotion.restaurant == nil && promotion.dish == nil {
-                    continue;
-                }
-                if promotion.restaurant != nil && promotion.dish != nil {
-                    continue;
-                }
-                self.promotions.append(promotion)
-            }
-        }
-    }
-    
-    private func adjustUI() {
-        
+    private func clearData(){
+        homepageSections.removeAll()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        segueType = ""
-        if segue.identifier == "showRestaurants" {
-            self.animateTransition = false
-            let restaurantsController : RestaurantsViewController = segue.destinationViewController as! RestaurantsViewController
-            if let s = sender as? String {
-                restaurantsController.sortBy = s
-            }
-        } else if segue.identifier == "showRestaurant" {
-            
-        } else if segue.identifier == "editLocation" {
-            let selectLocationNavigationController : UINavigationController = segue.destinationViewController as! UINavigationController
-            let selectLocationController : SelectLocationViewController = selectLocationNavigationController.viewControllers[0] as! SelectLocationViewController
-            selectLocationController.homeViewController = self
-        }
+        
     }
     
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return promotions.count
+        return homepageSections.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if promotions.isEmpty {
-            return 0
-        }
         return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        
-        let promotion: Promotion = self.promotions[indexPath.row]
-        
-        if promotion.restaurant != nil {
-            var cell: RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
-            if cell == nil {
-                tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
-            }
-            cell?.setUp(restaurant: promotions[indexPath.row].restaurant!)
-            return cell!
-        } else if promotion.dish != nil {
-            var cell : DishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
-            if cell == nil {
-                tableView.registerNib(UINib(nibName: "DishCell", bundle: nil), forCellReuseIdentifier: "dishCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("dishCell") as? DishTableViewCell
-            }
-            cell?.setUp(dish: promotions[indexPath.row].dish!)
-            return cell!
-        } else {
-            return UITableViewCell()
-        }
+        let cell = HomepageTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "homepageTableCell")
+        cell.setUp(restaurants: homepageSections[indexPath.row].restaurants)
+        return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let promotion: Promotion = self.promotions[indexPath.row]
-        if promotion.restaurant != nil {
-            return RestaurantTableViewCell.height
-        } else if promotion.dish != nil {
-            return DishTableViewCell.height
-        }
-        return 200
+        return 300
     }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let promotion : Promotion = self.promotions[indexPath.row]
-        let selectedCell : RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
-        self.selectedImageView = selectedCell.restaurantImageView
-        selectedRestaurantName = selectedCell.nameLabel.text
         
-        if promotion.restaurant != nil {
-            let restaurant : Restaurant = promotions[indexPath.row].restaurant!
-            selectedRestaurantId = restaurant.id
-        }
-        
-        self.promotionsTable.deselectRowAtIndexPath(indexPath, animated: true)
-        self.handleTransition()
-    }
-    
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) ->
-        [UITableViewRowAction]? {
-            
-        let promotion : Promotion = self.promotions[indexPath.row]
-        var favoriteCount : Int = 0
-        var likeCount : Int = 0
-        var neutralCount : Int = 0
-        var dislikeCount : Int = 0
-        var objectId = ""
-        if promotion.dish != nil {
-            objectId = promotion.dish!.id!
-            if promotion.dish!.favoriteCount != nil {
-                favoriteCount = promotion.dish!.favoriteCount!
-            }
-            if promotion.dish!.likeCount != nil {
-                likeCount = promotion.dish!.likeCount!
-            }
-            if promotion.dish!.neutralCount != nil {
-                neutralCount = promotion.dish!.neutralCount!
-            }
-            if promotion.dish!.dislikeCount != nil {
-                dislikeCount = promotion.dish!.dislikeCount!
-            }
-            
-        } else if promotion.restaurant != nil {
-            objectId = promotion.restaurant!.id!
-            if promotion.restaurant!.favoriteCount != nil {
-                favoriteCount = promotion.restaurant!.favoriteCount!
-            }
-            if promotion.restaurant!.likeCount != nil {
-                likeCount = promotion.restaurant!.likeCount!
-            }
-            if promotion.restaurant!.neutralCount != nil {
-                neutralCount = promotion.restaurant!.neutralCount!
-            }
-            if promotion.restaurant!.dislikeCount != nil {
-                dislikeCount = promotion.restaurant!.dislikeCount!
-            }
-        }
-            
-        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
-            if (!UserContext.isValidUser()) {
-                self.popupSigninAlert()
-            } else {
-                favoriteCount += 1
-                if promotion.dish != nil {
-                    if promotion.dish?.favoriteCount == nil {
-                        promotion.dish?.favoriteCount = 1
-                    } else {
-                        promotion.dish?.favoriteCount! += 1
-                    }
-                } else {
-                    if promotion.restaurant?.favoriteCount == nil {
-                        promotion.restaurant?.favoriteCount = 1
-                    } else {
-                        promotion.restaurant?.favoriteCount! += 1
-                    }
-                }
-                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
-                self.addToFavorites(indexPath)
-            }
-            self.dismissActionViewWithDelay()
-            
-        });
-        addBookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
-        
-            let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
-            if (UserContext.isRatingTooFrequent(objectId)) {
-                SCLAlertView().showWarning("评价太频繁", subTitle: "")
-            } else {
-                likeCount += 1
-                if promotion.dish != nil {
-                    if promotion.dish?.likeCount == nil {
-                        promotion.dish?.likeCount = 1
-                    } else {
-                        promotion.dish?.likeCount! += 1
-                    }
-                } else {
-                    if promotion.restaurant?.likeCount == nil {
-                        promotion.restaurant?.likeCount = 1
-                    } else {
-                        promotion.restaurant?.likeCount! += 1
-                    }
-                }
-                
-                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
-                
-                self.ratePromotion(indexPath, ratingType: RatingTypeEnum.like)
-            }
-            self.dismissActionViewWithDelay()
-        });
-        likeAction.backgroundColor = LightningColor.likeBackground()
-        
-        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
-            if (UserContext.isRatingTooFrequent(objectId)) {
-                SCLAlertView().showWarning("评价太频繁", subTitle: "")
-            } else {
-                neutralCount += 1
-                if promotion.dish != nil {
-                    if promotion.dish?.neutralCount == nil {
-                        promotion.dish?.neutralCount = 1
-                    } else {
-                        promotion.dish?.neutralCount! += 1
-                    }
-                } else {
-                    if promotion.restaurant?.neutralCount == nil {
-                        promotion.restaurant?.neutralCount = 1
-                    } else {
-                        promotion.restaurant?.neutralCount! += 1
-                    }
-                }
-                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
-                self.ratePromotion(indexPath, ratingType: RatingTypeEnum.neutral)
-            }
-            self.dismissActionViewWithDelay()
-        });
-        neutralAction.backgroundColor = LightningColor.neutralOrange()
-        
-        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
-            if (UserContext.isRatingTooFrequent(objectId)) {
-                SCLAlertView().showWarning("评价太频繁", subTitle: "")
-            } else {
-                dislikeCount += 1
-                if promotion.dish != nil {
-                    if promotion.dish?.dislikeCount == nil {
-                        promotion.dish?.dislikeCount = 1
-                    } else {
-                        promotion.dish?.dislikeCount! += 1
-                    }
-                } else {
-                    if promotion.restaurant?.dislikeCount == nil {
-                        promotion.restaurant?.dislikeCount = 1
-                    } else {
-                        promotion.restaurant?.dislikeCount! += 1
-                    }
-                }
-                self.promotionsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
-                self.ratePromotion(indexPath, ratingType: RatingTypeEnum.dislike)
-            }
-            self.dismissActionViewWithDelay()
-        });
-        dislikeAction.backgroundColor = LightningColor.negativeBlue()
-        
-        
-        return [addBookmarkAction, dislikeAction, neutralAction, likeAction];
-    }
-    
-    private func dismissActionViewWithDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(HomeViewController.dismissActionView), userInfo: nil, repeats: false)
-    }
-    
-    @objc private func dismissActionView() {
-        self.promotionsTable.setEditing(false, animated: true)
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(HomeViewController.reloadTable), userInfo: nil, repeats: false)
-    }
-    
-    @objc private func reloadTable() {
-        self.promotionsTable.reloadData()
-    }
-    
-    private func addToFavorites(indexPath: NSIndexPath){
-        
-        let promotion : Promotion = self.promotions[indexPath.row]
-        if promotion.dish != nil {
-            ratingAndBookmarkExecutor?.addToFavorites("dish", objectId: (promotion.dish?.id)!, failureHandler: { (objectId) -> Void in
-                for promotion : Promotion in self.promotions {
-                    if promotion.dish?.id == objectId {
-                        if promotion.dish?.favoriteCount != nil {
-                            promotion.dish?.favoriteCount! -= 1
-                        }
-                    }
-                }
-            })
-        } else if promotion.restaurant != nil {
-            ratingAndBookmarkExecutor?.addToFavorites("restaurant", objectId: (promotion.restaurant?.id)!, failureHandler: { (objectId) -> Void in
-                for promotion : Promotion in self.promotions {
-                    if promotion.restaurant?.id == objectId {
-                        if promotion.restaurant?.favoriteCount != nil {
-                            promotion.restaurant?.favoriteCount! -= 1
-                        }
-                    }
-                }
-            })
-        }
-        
-    }
-    
-    private func ratePromotion(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
-        var type: String?
-        var objectId: String?
-        
-        let promotion : Promotion = self.promotions[indexPath.row]
-        if promotion.dish != nil {
-            type = "dish"
-            objectId = promotion.dish?.id
-        } else if promotion.restaurant != nil {
-            type = "restaurant"
-            objectId = promotion.restaurant?.id
-        }
-        
-        if ratingType == RatingTypeEnum.like {
-            ratingAndBookmarkExecutor?.like(type!, objectId: objectId!, failureHandler: { (objectId) -> Void in
-                for promotion : Promotion in self.promotions {
-                    if promotion.dish?.id == objectId {
-                        if promotion.dish?.likeCount != nil {
-                            promotion.dish?.likeCount! -= 1
-                        }
-                    } else if promotion.restaurant?.id == objectId {
-                        if promotion.restaurant?.likeCount != nil {
-                            promotion.restaurant?.likeCount! -= 1
-                        }
-                    }
-                }
-            })
-        } else if ratingType == RatingTypeEnum.dislike {
-            ratingAndBookmarkExecutor?.dislike(type!, objectId: objectId!,failureHandler: { (objectId) -> Void in
-                for promotion : Promotion in self.promotions {
-                    if promotion.dish?.id == objectId {
-                        if promotion.dish?.dislikeCount != nil {
-                            promotion.dish?.dislikeCount! -= 1
-                        }
-                    } else if promotion.restaurant?.id == objectId {
-                        if promotion.restaurant?.dislikeCount != nil {
-                            promotion.restaurant?.dislikeCount! -= 1
-                        }
-                    }
-                }
-            })
-        } else {
-            ratingAndBookmarkExecutor?.neutral(type!, objectId: objectId!,failureHandler: { (objectId) -> Void in
-                for promotion : Promotion in self.promotions {
-                    if promotion.dish?.id == objectId {
-                        if promotion.dish?.neutralCount != nil {
-                            promotion.dish?.neutralCount! -= 1
-                        }
-                    } else if promotion.restaurant?.id == objectId {
-                        if promotion.restaurant?.neutralCount != nil {
-                            promotion.restaurant?.neutralCount! -= 1
-                        }
-                    }
-                }
-            })
-        }
-    }
- 
-    private func popupSigninAlert() {
-        SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
-    }
-
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        adjustUI()
     }
     
     // MARK: - ARNImageTransitionZoomable
@@ -609,18 +226,5 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func getDirectAncestorId() -> String {
         return ""
     }
-    
-    
-    // MARK: - Scroll view
-//    func scrollViewDidScroll(scrollView: UIScrollView) {
-//        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
-//            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
-//            if scrollPosition < 30 {
-//                setTabBarVisible(false, animated: true)
-//            } else {
-//                setTabBarVisible(true, animated: true)
-//            }
-//        }
-//    }
 }
 

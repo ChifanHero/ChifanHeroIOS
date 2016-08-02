@@ -68,7 +68,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchBar!.sizeToFit()
         self.navigationItem.titleView = searchBar
         definesPresentationContext = true
-        searchLogoView.renderColorChangableImage(UIImage(named: "SearchLogo.png")!, fillColor: UIColor.themeOrange())
+        //searchLogoView.renderColorChangableImage(UIImage(named: "SearchLogo.png")!, fillColor: UIColor.themeOrange())
         //loadingIndicator.startAnimation()
     }
     

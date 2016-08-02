@@ -141,6 +141,10 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
+    func getHomepage(request: GetHomepageRequest, responseHandler : (GetHomepageResponse?) -> Void) {
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
     //--------------------------------------------------------------------------------------------------//
     
     

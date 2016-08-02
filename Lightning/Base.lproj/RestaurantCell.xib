@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="restaurantCell" rowHeight="100" id="sCD-X7-mNc" customClass="RestaurantTableViewCell" customModule="Lightning" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="restaurantCell" rowHeight="100" id="sCD-X7-mNc" customClass="RestaurantTableViewCell" customModule="吃饭英雄" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sCD-X7-mNc" id="wVX-4q-pIH">
@@ -122,18 +122,12 @@
                     <constraint firstAttribute="bottomMargin" secondItem="NRx-Bu-RZr" secondAttribute="bottom" constant="-8" id="Ibl-mI-9Zj"/>
                     <constraint firstItem="NRx-Bu-RZr" firstAttribute="leading" secondItem="5Uq-gj-95M" secondAttribute="trailing" id="Juk-fH-0lE"/>
                     <constraint firstAttribute="bottomMargin" secondItem="5Uq-gj-95M" secondAttribute="bottom" constant="-8" id="NMQ-q1-b6e"/>
-                    <constraint firstItem="NRx-Bu-RZr" firstAttribute="bottom" secondItem="5Uq-gj-95M" secondAttribute="bottom" id="dTS-k4-sTc"/>
                     <constraint firstItem="5Uq-gj-95M" firstAttribute="top" secondItem="wVX-4q-pIH" secondAttribute="topMargin" constant="-8" id="m5A-WA-pVE"/>
                     <constraint firstAttribute="trailingMargin" secondItem="NRx-Bu-RZr" secondAttribute="trailing" constant="-8" id="oGR-ul-u1z"/>
                     <constraint firstItem="NRx-Bu-RZr" firstAttribute="top" secondItem="wVX-4q-pIH" secondAttribute="topMargin" constant="-8" id="sjX-sq-Dd1"/>
                     <constraint firstItem="5Uq-gj-95M" firstAttribute="leading" secondItem="wVX-4q-pIH" secondAttribute="leadingMargin" constant="-8" id="vyt-9P-6VL"/>
                     <constraint firstItem="Ydl-0F-R6l" firstAttribute="leading" secondItem="5Uq-gj-95M" secondAttribute="trailing" constant="10" id="zx7-rR-2na"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="dTS-k4-sTc"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="addressLabel" destination="vUj-UJ-3Rt" id="zbM-OA-XGQ"/>
