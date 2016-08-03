@@ -58,17 +58,17 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.previewCollectionView?.frame = CGRect(x: 0, y: 60, width: self.contentView.frame.width, height: self.contentView.frame.height - 80)
+        self.previewCollectionView?.frame = CGRect(x: 0, y: 60, width: self.contentView.frame.width, height: self.contentView.frame.height - 60)
         
         let layout: CenterCellCollectionViewFlowLayout = CenterCellCollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: self.contentView.frame.width - 60, height: self.contentView.frame.height - 80)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
+        layout.itemSize = CGSize(width: self.contentView.frame.width - 80, height: self.contentView.frame.height - 60)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 40)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 10
         layout.scrollDirection = .Horizontal
         self.previewCollectionView?.setCollectionViewLayout(layout, animated: true)
         
-        self.titleLabel?.frame = CGRect(x: 30, y: 10, width: 200, height: 40)
+        self.titleLabel?.frame = CGRect(x: 40, y: 10, width: 200, height: 40)
     }
     
     func setUp(restaurants restaurants: [Restaurant]) {
