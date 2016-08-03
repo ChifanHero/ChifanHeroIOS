@@ -71,8 +71,8 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
         self.titleLabel?.frame = CGRect(x: 40, y: 10, width: 200, height: 40)
     }
     
-    func setUp(restaurants restaurants: [Restaurant]) {
-        titleLabel!.text = "hello"
+    func setUp(title title: String, restaurants: [Restaurant]) {
+        self.titleLabel!.text = title
         self.restaurants.removeAll()
         self.restaurants += restaurants
     }

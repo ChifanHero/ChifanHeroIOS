@@ -19,7 +19,7 @@ class GetHomepageResponse: HttpResponseProtocol {
     
     required init(data: [String : AnyObject]) {
         error <-- data["error"]
-        if let resultsJson = data["results"] as? [AnyObject] {
+        if let resultsJson = data["homepagesections"] as? [AnyObject] {
             for resultJson in resultsJson {
                 let result = HomepageSection(data: resultJson as! [String : AnyObject])
                 results.append(result)
