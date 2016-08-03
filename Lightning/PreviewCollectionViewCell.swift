@@ -31,14 +31,14 @@ class PreviewCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(restaurantImageView!)
         
         restaurantNameLabel = UILabel()
-        restaurantNameLabel?.font = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
+        restaurantNameLabel?.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
         self.contentView.addSubview(restaurantNameLabel!)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         restaurantImageView?.frame = CGRect(x: 0, y: 0, width: self.contentView.frame.width, height: self.contentView.frame.height - 60)
-        restaurantNameLabel?.frame = CGRect(x: 0, y: self.contentView.frame.height - 601, width: 200, height: 60)
+        restaurantNameLabel?.frame = CGRect(x: 0, y: self.contentView.frame.height - 60, width: 200, height: 60)
     }
     
     func setUp(restaurant restaurant: Restaurant){
