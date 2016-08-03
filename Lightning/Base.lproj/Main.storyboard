@@ -179,7 +179,7 @@
         <!--Selected Collections Table View Controller-->
         <scene sceneID="xje-ul-W9J">
             <objects>
-                <tableViewController storyboardIdentifier="selectedCollection" hidesBottomBarWhenPushed="YES" id="95b-bo-wIe" customClass="SelectedCollectionsTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="selectedCollection" id="95b-bo-wIe" customClass="SelectedCollectionsTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jgp-XE-aRB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1865,7 +1865,7 @@
         <image name="notification" width="25" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SnI-Ci-tXQ"/>
+        <segue reference="FsK-Rc-bJJ"/>
         <segue reference="Vt6-Zb-4Nz"/>
         <segue reference="tIf-c0-cls"/>
     </inferredMetricsTieBreakers>
