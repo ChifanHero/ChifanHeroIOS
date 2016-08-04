@@ -111,27 +111,21 @@ class CenterCellCollectionViewFlowLayout: UICollectionViewFlowLayout {
             
             let cvBounds = cv.bounds
             let halfWidth = cvBounds.size.width * 0.5;
-            let proposedContentOffsetCenterX = proposedContentOffset.x + halfWidth;
             
             if let attributesForVisibleCells = self.layoutAttributesForElementsInRect(cvBounds) {
                 
-                var candidateAttributes : UICollectionViewLayoutAttributes?
+                var candidateAttributes: UICollectionViewLayoutAttributes?
                 for attributes in attributesForVisibleCells {
-                    
                     // == Skip comparison with non-cell items (headers and footers) == //
+                    print(attributes)
                     if attributes.representedElementCategory != UICollectionElementCategory.Cell {
                         continue
                     }
                     
-                    if let candAttrs = candidateAttributes {
-                        
-                        let a = attributes.center.x - proposedContentOffsetCenterX
-                        let b = candAttrs.center.x - proposedContentOffsetCenterX
-                        
-                        if fabsf(Float(a)) < fabsf(Float(b)) {
-                            candidateAttributes = attributes;
+                    if candidateAttributes != nil {
+                        if velocity.x > 0 {
+                            candidateAttributes = attributes
                         }
-                        
                     }
                     else { // == First time in the loop == //
                         
@@ -139,7 +133,6 @@ class CenterCellCollectionViewFlowLayout: UICollectionViewFlowLayout {
                         continue;
                     }
                 }
-                
                 return CGPoint(x: round(candidateAttributes!.center.x - halfWidth), y: proposedContentOffset.y)
             }
         }
