@@ -10,10 +10,12 @@ import Foundation
 
 class GetHomepageRequest: HttpRequest{
     
+    var userLocation: Location?
+    
     override init() {
     }
     
     override func getRelativeURL() -> String {
-        return "/homepage"
+        return "/homepage?lat=" + String((userLocation?.lat)!) + "&lon=" + String((userLocation?.lon)!)
     }
 }

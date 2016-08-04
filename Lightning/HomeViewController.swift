@@ -31,6 +31,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
+    let refresher = PullToMakeSoup()
+    
     override func viewDidLoad() {
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         NSNotificationCenter.defaultCenter().postNotificationName("HomeVCLoaded", object: nil)
@@ -54,6 +56,11 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        if self.homepageTable.pullToRefresh == nil {
+            self.homepageTable.addPullToRefresh(refresher) {
+                self.refreshData()
+            }
+        }
         TrackingUtil.trackRecommendationView()
     }
     
@@ -93,13 +100,19 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     private func initHomepageTable(){
         loadingIndicator.startAnimation()
-        loadData(nil)
-//        let defaults = NSUserDefaults.standardUserDefaults()
-//        if defaults.boolForKey("usingCustomLocation") {
-//            loadData(nil)
+//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//        let location = appDelegate.getCurrentLocation()
+//        if (location.lat == nil || location.lon == nil) {
+//            return
 //        }
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
+//        request.userLocation = location
+//        loadData(nil)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey("usingCustomLocation") {
+            loadData(nil)
+        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
     }
     
     @objc private func refresh(sender:AnyObject) {
@@ -108,7 +121,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     func handleLocationChange() {
         //promotionsTable.hidden = true
-        loadingIndicator.hidden = false
         loadingIndicator.startAnimation()
         loadData(nil)
     }
@@ -128,6 +140,14 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
 
     override func loadData(refreshHandler : ((success : Bool) -> Void)?) {
         let request = GetHomepageRequest()
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
+        let location: Location = appDelegate!.getCurrentLocation()
+        if (location.lat == nil || location.lon == nil) {
+            loadingIndicator.stopAnimation()
+            return
+        }
+        request.userLocation = location
+        print(request.getRelativeURL())
         DataAccessor(serviceConfiguration: ParseConfiguration()).getHomepage(request) { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if response == nil {
