@@ -48,6 +48,7 @@ class PreviewCollectionViewCell: UICollectionViewCell {
         if url == nil {
             url = ""
         }
-        restaurantImageView!.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        let restaurantDefaultImage = DefaultImageGenerator.generateRestaurantDefaultImage()
+        restaurantImageView!.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: restaurantDefaultImage,optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
     }
 }

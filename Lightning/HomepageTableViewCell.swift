@@ -106,7 +106,6 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
 class CenterCellCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        
         if let cv = self.collectionView {
             
             let cvBounds = cv.bounds
