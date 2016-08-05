@@ -12,6 +12,7 @@ pod 'Kingfisher', '~> 2.1'
 pod 'ARNTransitionAnimator'
 pod 'Flurry-iOS-SDK/FlurrySDK', '~> 7.1.1'
 pod 'PullToMakeSoup', '~> 1.0'
+pod 'SlideMenuControllerSwift'
 
 end
 

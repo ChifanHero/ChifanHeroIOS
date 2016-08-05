@@ -95,7 +95,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRestaurants" {
-            let destinationVC = segue.destinationViewController as! RestaurantsViewController
+            let destinationVC = segue.destinationViewController as! OldRestaurantsViewController
             destinationVC.isFromBookMark = true
         } else if segue.identifier == "showSelectedCollection" {
             let destinationVC = segue.destinationViewController as! SelectedCollectionsTableViewController

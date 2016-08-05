@@ -1,5 +1,5 @@
 //
-//  RestaurantsViewController.swift
+//  RestaurantsConnectionViewController.swift
 //  Lightning
 //
 //  Created by Shi Yan on 8/5/16.
@@ -8,21 +8,15 @@
 
 import UIKit
 
-class RestaurantsViewController: UIViewController, UITextFieldDelegate {
-    
-    var containerViewController : RestaurantsContainerViewController?
-    
-    
-    @IBOutlet weak var filterButton: UIBarButtonItem!
-    
-    @IBOutlet weak var searchBar: UITextField!
-    
+class RestaurantsConnectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
-//        filterButton.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        let storyboard = UIStoryboard(name: "RestaurantsAndSearch", bundle: nil)
+        let controller = storyboard.instantiateInitialViewController()! as UIViewController
+        addChildViewController(controller)
+        view.addSubview(controller.view)
+        controller.didMoveToParentViewController(self)
         // Do any additional setup after loading the view.
     }
 
@@ -31,11 +25,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK - TextField methods
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        performSegueWithIdentifier("search", sender: nil)
-        return false
-    }
 
     /*
     // MARK: - Navigation
@@ -46,9 +35,5 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
-    @IBAction func openFilter(sender: AnyObject) {
-        self.containerViewController?.slideMenuController()?.openRight()
-    }
 
 }
