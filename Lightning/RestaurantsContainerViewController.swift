@@ -14,6 +14,7 @@ class RestaurantsContainerViewController: SlideMenuController {
     override func viewDidLoad() {
         super.viewDidLoad()
         SlideMenuOptions.contentViewScale = 1.00
+        SlideMenuOptions.rightViewWidth = 250
         // Do any additional setup after loading the view.
     }
 
