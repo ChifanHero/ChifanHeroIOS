@@ -18,6 +18,8 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
     
     var restaurants: [Restaurant] = []
     
+    var parentVC: UIViewController?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.configureCell()
@@ -71,10 +73,11 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
         self.titleLabel?.frame = CGRect(x: 40, y: 10, width: 200, height: 40)
     }
     
-    func setUp(title title: String, restaurants: [Restaurant]) {
+    func setUp(title title: String, restaurants: [Restaurant], parentVC: UIViewController) {
         self.titleLabel!.text = title
         self.restaurants.removeAll()
         self.restaurants += restaurants
+        self.parentVC = parentVC
     }
     
     // MARK: UICollectionViewDataSource
@@ -98,7 +101,12 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
+        let restaurant = self.restaurants[indexPath.row]
+        let selectedCell = self.previewCollectionView?.cellForItemAtIndexPath(indexPath) as! PreviewCollectionViewCell
+        (self.parentVC as! HomeViewController).selectedImageView = selectedCell.restaurantImageView
+        (self.parentVC as! HomeViewController).selectedRestaurantName = selectedCell.restaurantNameLabel!.text
+        (self.parentVC as! HomeViewController).selectedRestaurantId = restaurant.id
+        (self.parentVC as! HomeViewController).handleTransition()
     }
 
 }
