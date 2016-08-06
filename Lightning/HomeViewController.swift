@@ -59,9 +59,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if self.homepageTable.pullToRefresh == nil {
-            self.homepageTable.addPullToRefresh(refresher) {
-                self.refreshData()
-            }
+            self.homepageTable.addPullToRefresh(refresher, action: {self.refreshData()})
         }
         TrackingUtil.trackRecommendationView()
     }
@@ -172,6 +170,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
                     self.homepageSections.sortInPlace({(sec1, sec2) -> Bool in
                         return sec1.placement < sec2.placement
                     })
+                    self.homepageTable.endRefreshing()
                     self.loadingIndicator.stopAnimation()
                     self.homepageTable.reloadData()
                     if refreshHandler != nil {
