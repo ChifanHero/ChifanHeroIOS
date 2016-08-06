@@ -14,6 +14,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     @IBOutlet weak var homepageTable: UITableView!
     
+    @IBOutlet weak var frontCoverImage: UIImageView!
     
     weak var selectedImageView: UIImageView?
     
@@ -40,6 +41,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         NSNotificationCenter.defaultCenter().postNotificationName("HomeVCLoaded", object: nil)
         super.viewDidLoad()
         self.configLoadingIndicator()
+        self.configureFrontCoverImage()
         self.clearTitleForBackBarButtonItem()
         self.configureNavigationController()
         addLocationSelectionToLeftCorner()
@@ -71,6 +73,28 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    private func configureFrontCoverImage(){
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.Hour, fromDate: date)
+        let hour = components.hour
+        if hour >= 5 && hour < 10 {
+            frontCoverImage.image = UIImage(named: "Homepage_Breakfast")
+        } else if hour >= 10 && hour < 12 {
+            frontCoverImage.image = UIImage(named: "Homepage_Brunch")
+        } else if hour >= 12 && hour < 14 {
+            frontCoverImage.image = UIImage(named: "Homepage_Lunch")
+        } else if hour >= 14 && hour < 17 {
+            frontCoverImage.image = UIImage(named: "Homepage_Tea")
+        } else if hour >= 17 && hour < 21 {
+            frontCoverImage.image = UIImage(named: "Homepage_Dinner")
+        } else if hour >= 21 && hour <= 24 {
+            frontCoverImage.image = UIImage(named: "Homepage_Supper")
+        } else if hour >= 0 && hour < 5 {
+            frontCoverImage.image = UIImage(named: "Homepage_Supper")
+        }
     }
     
     private func configLoadingIndicator() {

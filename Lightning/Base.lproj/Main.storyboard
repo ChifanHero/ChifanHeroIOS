@@ -25,7 +25,7 @@
                                     <rect key="frame" x="0.0" y="64" width="383" height="500"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Homepage_Dinner" translatesAutoresizingMaskIntoConstraints="NO" id="S1w-Fw-2cR">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S1w-Fw-2cR" userLabel="Front Cover Image">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="300"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="300" id="Unm-jG-1hG"/>
@@ -118,6 +118,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="Fh2-KO-OO5" userLabel="Lightning Order"/>
                     <connections>
+                        <outlet property="frontCoverImage" destination="S1w-Fw-2cR" id="eTp-wM-krv"/>
                         <outlet property="homepageTable" destination="I2m-Nf-b4h" id="LTJ-7w-Lqd"/>
                         <segue destination="zJm-Fm-QLl" kind="show" identifier="showRestaurant" id="SnI-Ci-tXQ"/>
                         <segue destination="kbm-Tg-Rz2" kind="presentation" identifier="editLocation" id="EaB-6N-Nfd"/>
@@ -1874,7 +1875,6 @@
         <image name="Chifanhero_Like" width="69" height="66"/>
         <image name="Chifanhero_Nomination" width="74" height="74"/>
         <image name="Collection_Tab" width="25" height="25"/>
-        <image name="Homepage_Dinner" width="150" height="108"/>
         <image name="Homepage_Magnifier" width="215" height="215"/>
         <image name="Homepage_Tab" width="25" height="25"/>
         <image name="Me_Tab" width="25" height="25"/>
