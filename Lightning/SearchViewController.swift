@@ -42,8 +42,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func cancel(sender: AnyObject) {
+        let tabBarController = self.tabBarController
+        tabBarController!.selectedIndex = 2
         
-        self.dismissViewControllerAnimated(false, completion: nil)
+//        self.dismissViewControllerAnimated(false, completion: nil)
         
     }
 

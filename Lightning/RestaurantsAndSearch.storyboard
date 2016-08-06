@@ -119,12 +119,20 @@
                                     <constraint firstItem="Tls-5X-cbD" firstAttribute="top" secondItem="SNY-ks-9nx" secondAttribute="top" constant="7" id="zuN-nT-fo2"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SXb-Ua-5bJ">
+                                <rect key="frame" x="0.0" y="44" width="375" height="559"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="cQq-Pp-MOr" firstAttribute="top" secondItem="SXb-Ua-5bJ" secondAttribute="bottom" id="Hjy-el-wg9"/>
                             <constraint firstAttribute="trailing" secondItem="SNY-ks-9nx" secondAttribute="trailing" id="I23-nP-AAC"/>
                             <constraint firstItem="0x1-bt-s4M" firstAttribute="leading" secondItem="cKX-ky-5SX" secondAttribute="leading" id="L72-ps-hah"/>
                             <constraint firstItem="SNY-ks-9nx" firstAttribute="leading" secondItem="cKX-ky-5SX" secondAttribute="leading" id="Rss-Ko-T2s"/>
+                            <constraint firstItem="SXb-Ua-5bJ" firstAttribute="leading" secondItem="cKX-ky-5SX" secondAttribute="leading" id="VzK-dN-wkF"/>
+                            <constraint firstAttribute="trailing" secondItem="SXb-Ua-5bJ" secondAttribute="trailing" id="WOx-HP-wJk"/>
+                            <constraint firstItem="SXb-Ua-5bJ" firstAttribute="top" secondItem="0x1-bt-s4M" secondAttribute="bottom" id="YSf-Wz-ogS"/>
                             <constraint firstItem="SNY-ks-9nx" firstAttribute="top" secondItem="eZD-Ln-bQ3" secondAttribute="bottom" id="dhb-kK-ebu"/>
                             <constraint firstItem="0x1-bt-s4M" firstAttribute="top" secondItem="SNY-ks-9nx" secondAttribute="bottom" id="ecN-bb-cVX"/>
                             <constraint firstAttribute="trailing" secondItem="0x1-bt-s4M" secondAttribute="trailing" id="xFP-fL-pTe"/>
@@ -189,30 +197,152 @@
         <!--Restaurants Filter View Controller-->
         <scene sceneID="DdF-MP-cop">
             <objects>
-                <viewController storyboardIdentifier="RestaurantsFilter" id="uyc-NL-Eha" customClass="RestaurantsFilterViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="uyc-NL-Eha" customClass="RestaurantsFilterViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Dh2-1Z-5hE"/>
                         <viewControllerLayoutGuide type="bottom" id="kMl-i2-Tl6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="RMy-tk-j5z">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="250" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="57" translatesAutoresizingMaskIntoConstraints="NO" id="RHv-4J-jO9" userLabel="Container Stack View">
+                                <rect key="frame" x="10" y="30" width="230" height="297"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="845-tl-7HD" userLabel="Sort Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="230" height="61"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="排序" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMz-se-OQc">
+                                                <rect key="frame" x="99" y="0.0" width="32" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="GXY-LL-im1"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iGM-ho-zea">
+                                                <rect key="frame" x="0.0" y="31" width="230" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="NOM-FA-AWc"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="按评分"/>
+                                                    <segment title="按距离"/>
+                                                </segments>
+                                            </segmentedControl>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="iGM-ho-zea" secondAttribute="trailing" id="WVX-ff-sfw"/>
+                                            <constraint firstItem="iGM-ho-zea" firstAttribute="leading" secondItem="845-tl-7HD" secondAttribute="leading" id="sIS-fj-ajH"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RBu-NH-BF7" userLabel="Distance Stack View">
+                                        <rect key="frame" x="0.0" y="118" width="230" height="61"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="范围" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gmw-fl-0lN">
+                                                <rect key="frame" x="99" y="0.0" width="32" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="7Wn-K3-o8I"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7fX-b2-yHN">
+                                                <rect key="frame" x="0.0" y="31" width="230" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="RkB-7E-QVB"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="无"/>
+                                                    <segment title="0.5"/>
+                                                    <segment title="1"/>
+                                                    <segment title="5"/>
+                                                    <segment title="20"/>
+                                                </segments>
+                                            </segmentedControl>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="7fX-b2-yHN" secondAttribute="trailing" id="Mf9-vQ-gfe"/>
+                                            <constraint firstItem="7fX-b2-yHN" firstAttribute="leading" secondItem="RBu-NH-BF7" secondAttribute="leading" id="dNX-Zq-rVE"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="mMP-Z3-9iG" userLabel="Rating Stack View">
+                                        <rect key="frame" x="0.0" y="236" width="230" height="61"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户评分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpm-vu-Bsr">
+                                                <rect key="frame" x="83" y="0.0" width="64" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="WbI-wk-Z1S"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sAa-gr-Gs9">
+                                                <rect key="frame" x="0.0" y="31" width="230" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="I63-aC-5JT"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="无"/>
+                                                    <segment title="3"/>
+                                                    <segment title="3.5"/>
+                                                    <segment title="4"/>
+                                                    <segment title="4.5"/>
+                                                    <segment title="5"/>
+                                                </segments>
+                                            </segmentedControl>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="sAa-gr-Gs9" secondAttribute="trailing" id="BDw-Cn-Zlz"/>
+                                            <constraint firstItem="sAa-gr-Gs9" firstAttribute="leading" secondItem="mMP-Z3-9iG" secondAttribute="leading" id="TVv-Fu-d6V"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="845-tl-7HD" secondAttribute="trailing" id="86S-qv-zZv"/>
+                                    <constraint firstAttribute="trailing" secondItem="RBu-NH-BF7" secondAttribute="trailing" id="9Sh-X8-VrM"/>
+                                    <constraint firstAttribute="trailing" secondItem="mMP-Z3-9iG" secondAttribute="trailing" constant="10" id="FV3-bN-3Gt"/>
+                                    <constraint firstItem="mMP-Z3-9iG" firstAttribute="leading" secondItem="RHv-4J-jO9" secondAttribute="leading" id="G7M-2h-OxE"/>
+                                    <constraint firstItem="RBu-NH-BF7" firstAttribute="leading" secondItem="RHv-4J-jO9" secondAttribute="leading" id="PO9-Fm-56t"/>
+                                    <constraint firstAttribute="trailing" secondItem="mMP-Z3-9iG" secondAttribute="trailing" id="Qyc-0Q-foJ"/>
+                                    <constraint firstItem="mMP-Z3-9iG" firstAttribute="leading" secondItem="RHv-4J-jO9" secondAttribute="leading" id="q3S-Ut-rjE"/>
+                                    <constraint firstItem="845-tl-7HD" firstAttribute="leading" secondItem="RHv-4J-jO9" secondAttribute="leading" id="qzo-aq-pjR"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="FV3-bN-3Gt"/>
+                                        <exclude reference="G7M-2h-OxE"/>
+                                    </mask>
+                                </variation>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="RHv-4J-jO9" secondAttribute="trailing" constant="10" id="dZo-MZ-CLP"/>
+                            <constraint firstItem="RHv-4J-jO9" firstAttribute="top" secondItem="Dh2-1Z-5hE" secondAttribute="bottom" constant="30" id="ovL-y0-nRZ"/>
+                            <constraint firstItem="RHv-4J-jO9" firstAttribute="leading" secondItem="RMy-tk-j5z" secondAttribute="leading" constant="10" id="vKU-sR-azb"/>
+                        </constraints>
                     </view>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" id="kW4-TL-BIJ">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="7s7-vP-Kvj"/>
+                        <barButtonItem key="rightBarButtonItem" title="确定" id="f8S-Lk-8VE"/>
+                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="600"/>
+                    <size key="freeformSize" width="250" height="667"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3re-fM-bjX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="768" y="1113"/>
+            <point key="canvasLocation" x="1264" y="1089.5"/>
         </scene>
         <!--Search Navigation Controller-->
         <scene sceneID="dfc-C6-04r">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7Hp-Ns-zQg" userLabel="Search Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="92H-0n-oHd"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ra6-YH-ovY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -226,6 +356,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MZw-nZ-KEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1521.5" y="288.5"/>
+        </scene>
+        <!--Filter Navigation Controller-->
+        <scene sceneID="Iay-Dp-2Px">
+            <objects>
+                <navigationController storyboardIdentifier="RestaurantsFilter" automaticallyAdjustsScrollViewInsets="NO" id="HZx-r8-EXh" userLabel="Filter Navigation Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="89Y-DK-gcY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uyc-NL-Eha" kind="relationship" relationship="rootViewController" id="TBR-o8-xWR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9ee-C6-oCK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="768" y="1113"/>
         </scene>
     </scenes>
 </document>

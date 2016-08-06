@@ -9,6 +9,16 @@
 import UIKit
 
 class RestaurantsFilterViewController: UIViewController {
+    
+    var sort : String?
+    var distance : Double?
+    var rating : Double?
+    
+    private var selectedSort : String?
+    private var selectedDistance : Double?
+    private var selectedRating : Double?
+    
+    var restaurantsVC : RestaurantsViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
