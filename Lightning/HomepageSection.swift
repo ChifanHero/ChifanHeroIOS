@@ -11,6 +11,7 @@ import Foundation
 class HomepageSection: Model{
     
     var title: String?
+    var placement: Int?
     var restaurants: [Restaurant] = [Restaurant]()
     
     required init() {
@@ -19,6 +20,7 @@ class HomepageSection: Model{
     
     required init(data: [String : AnyObject]) {
         title <-- data["title"]
+        placement <-- data["placement"]
         if let resultsJson = data["results"] as? [AnyObject] {
             for resultJson in resultsJson {
                 let result = Restaurant(data: resultJson as! [String : AnyObject])

@@ -29,7 +29,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     var rowOfRealTimeLocationCell = -1
     
-    var homeViewController : HomeViewController?
+    var homeViewController: HomeViewController?
     
     
     struct Sections {
@@ -274,6 +274,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        homeViewController?.currentLocationText = (self.locationTable.cellForRowAtIndexPath(indexPath) as! CityTableViewCell).cityNameLabel.text
         self.locationTable.deselectRowAtIndexPath(indexPath, animated: true)
         var city : City? = nil
         if searching {

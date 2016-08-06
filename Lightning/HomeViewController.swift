@@ -33,6 +33,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     let refresher = PullToMakeSoup()
     
+    var currentLocationText: String?
+    
     override func viewDidLoad() {
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         NSNotificationCenter.defaultCenter().postNotificationName("HomeVCLoaded", object: nil)
@@ -86,7 +88,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         button.addTarget(self, action: #selector(HomeViewController.editLocation), forControlEvents: UIControlEvents.TouchUpInside)
         button.frame = CGRectMake(0, 0, 200, 26)
         button.layer.cornerRadius = 3.0
-        button.setTitle("San Francisco, CA, USA", forState: .Normal)
+        button.setTitle("实时位置", forState: .Normal)
         button.titleLabel!.font =  UIFont(name: "Arial", size: 14)
         button.backgroundColor = UIColor.grayColor()
         
@@ -122,6 +124,16 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     func handleLocationChange() {
         //promotionsTable.hidden = true
         loadingIndicator.startAnimation()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey("usingCustomLocation") {
+            let defaultCity: City = LocationHelper.getDefaultCity()
+            let cityText: String = defaultCity.name! + ", " + defaultCity.state! + ", " + defaultCity.localizedCountryName!
+            (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, forState: .Normal)
+        } else {
+            if currentLocationText != nil{
+                (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(currentLocationText, forState: .Normal)
+            }
+        }
         loadData(nil)
     }
     
@@ -147,7 +159,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
             return
         }
         request.userLocation = location
-        print(request.getRelativeURL())
         DataAccessor(serviceConfiguration: ParseConfiguration()).getHomepage(request) { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if response == nil {
@@ -158,6 +169,9 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
                 } else {
                     self.clearData()
                     self.homepageSections += response!.results
+                    self.homepageSections.sortInPlace({(sec1, sec2) -> Bool in
+                        return sec1.placement < sec2.placement
+                    })
                     self.loadingIndicator.stopAnimation()
                     self.homepageTable.reloadData()
                     if refreshHandler != nil {
@@ -174,7 +188,12 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+        if segue.identifier == "editLocation" {
+            let selectLocationNavigationController: UINavigationController = segue.destinationViewController
+            as! UINavigationController
+            let selectLocationController: SelectLocationViewController = selectLocationNavigationController.viewControllers[0] as! SelectLocationViewController
+            selectLocationController.homeViewController = self
+        }
     }
     
 }
