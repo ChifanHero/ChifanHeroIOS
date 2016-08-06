@@ -88,7 +88,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         button.addTarget(self, action: #selector(HomeViewController.editLocation), forControlEvents: UIControlEvents.TouchUpInside)
         button.frame = CGRectMake(0, 0, 200, 26)
         button.layer.cornerRadius = 3.0
-        button.setTitle("实时位置", forState: .Normal)
+        button.setTitle("使用我的实时位置", forState: .Normal)
         button.titleLabel!.font =  UIFont(name: "Arial", size: 14)
         button.backgroundColor = UIColor.grayColor()
         
