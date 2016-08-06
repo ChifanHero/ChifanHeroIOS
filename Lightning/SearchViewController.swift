@@ -8,6 +8,8 @@
 
 import UIKit
 
+let searchContext : SearchContext = SearchContext()
+
 class SearchViewController: UIViewController, UITextFieldDelegate {
     
     
@@ -43,9 +45,14 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func cancel(sender: AnyObject) {
         let tabBarController = self.tabBarController
-        tabBarController!.selectedIndex = 2
+//        searchContext.keyword = "iphone"
+//        let tabBarController = self.tabBarController
+//        let selectedIndex = tabBarController!.selectedIndex
+//        print(selectedIndex)
         
 //        self.dismissViewControllerAnimated(false, completion: nil)
+//        let storyboard = UIStoryboard(name: "RestaurantsAndSearch", bundle: nil)
+        
         
     }
 

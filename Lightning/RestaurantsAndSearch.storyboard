@@ -59,7 +59,7 @@
                     <connections>
                         <outlet property="filterButton" destination="64y-IN-vb7" id="yxG-Ue-gjh"/>
                         <outlet property="searchBar" destination="0UK-nu-r2W" id="qCo-xK-pHp"/>
-                        <segue destination="7Hp-Ns-zQg" kind="presentation" identifier="search" animates="NO" id="zGM-KE-J0H"/>
+                        <segue destination="nsa-gt-gFD" kind="show" identifier="search" animates="NO" id="NXz-qK-NPE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2P4-AQ-Tnf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -154,7 +154,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G5M-Z2-bzf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2110.5" y="288.5"/>
+            <point key="canvasLocation" x="1485.5" y="288.5"/>
         </scene>
         <!--Restaurants Navigation Controller-->
         <scene sceneID="lKB-PG-GDb">
@@ -336,26 +336,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3re-fM-bjX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1264" y="1089.5"/>
-        </scene>
-        <!--Search Navigation Controller-->
-        <scene sceneID="dfc-C6-04r">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7Hp-Ns-zQg" userLabel="Search Navigation Controller" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="92H-0n-oHd"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ra6-YH-ovY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="nsa-gt-gFD" kind="relationship" relationship="rootViewController" id="RfV-u1-3NM"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MZw-nZ-KEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1521.5" y="288.5"/>
         </scene>
         <!--Filter Navigation Controller-->
         <scene sceneID="Iay-Dp-2Px">
