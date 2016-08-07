@@ -87,7 +87,7 @@
                                             <constraint firstAttribute="height" constant="30" id="F0v-ZK-sIw"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.38256207460000002" blue="0.30303615630000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -105,7 +105,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tls-5X-cbD" userLabel="Keyword Text Bar">
                                         <rect key="frame" x="6" y="7" width="363" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.38256207460000002" blue="0.30303615630000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -122,6 +122,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SXb-Ua-5bJ">
                                 <rect key="frame" x="0.0" y="44" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="nsa-gt-gFD" id="ARM-SY-xTv"/>
+                                    <outlet property="delegate" destination="nsa-gt-gFD" id="sMN-JM-5XZ"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -151,6 +156,7 @@
                         <outlet property="addressBar" destination="Jah-hm-2FC" id="G6G-5O-CI6"/>
                         <outlet property="addressContainerHeight" destination="r1T-Fe-dux" id="56X-ZX-rEh"/>
                         <outlet property="searchBar" destination="Tls-5X-cbD" id="zRa-wb-kKI"/>
+                        <outlet property="suggestionTableView" destination="SXb-Ua-5bJ" id="DC0-w6-peY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G5M-Z2-bzf" userLabel="First Responder" sceneMemberID="firstResponder"/>
