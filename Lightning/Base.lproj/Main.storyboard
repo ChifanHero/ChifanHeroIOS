@@ -48,6 +48,9 @@
                                                         <constraint firstAttribute="width" constant="81" id="e0w-5i-UFG"/>
                                                     </constraints>
                                                     <state key="normal" image="Homepage_Magnifier"/>
+                                                    <connections>
+                                                        <action selector="searchButtonPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="pbR-OK-G36"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="吃 饭 英 雄" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeF-20-aX3">
                                                     <rect key="frame" x="40" y="35" width="200" height="50"/>

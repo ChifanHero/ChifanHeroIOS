@@ -151,8 +151,10 @@ class CameraMan {
   func takePhoto(previewLayer: AVCaptureVideoPreviewLayer, location: CLLocation?, completion: (() -> Void)? = nil) {
     guard let connection = stillImageOutput?.connectionWithMediaType(AVMediaTypeVideo) else { return }
 
+    
+    
     connection.videoOrientation = previewLayer.connection.videoOrientation
-
+    
     dispatch_async(queue) {
       self.stillImageOutput?.captureStillImageAsynchronouslyFromConnection(connection) {
         buffer, error in
@@ -166,8 +168,16 @@ class CameraMan {
             }
             return
         }
-
-        self.savePhoto(image, location: location, completion: completion)
+        var newImage: UIImage?
+        switch UIDevice.currentDevice().orientation{
+            case .LandscapeLeft:
+                newImage = UIImage(CGImage: image.CGImage!, scale: 1.0, orientation: UIImageOrientation.Up)
+            case .LandscapeRight:
+                newImage = UIImage(CGImage: image.CGImage!, scale: 1.0, orientation: UIImageOrientation.Down)
+            default:
+                newImage = image
+            }
+        self.savePhoto(newImage!, location: location, completion: completion)
       }
     }
   }

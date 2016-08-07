@@ -75,6 +75,12 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    @IBAction func searchButtonPressed(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "RestaurantsAndSearch", bundle: nil)
+        let searchViewController = storyboard.instantiateViewControllerWithIdentifier("SearchActionVC") as! SearchViewController
+        self.navigationController?.pushViewController(searchViewController, animated: true)
+    }
+    
     private func configureFrontCoverImage(){
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
