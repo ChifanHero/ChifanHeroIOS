@@ -53,6 +53,9 @@
 		C42C961E1D56AC1300784636 /* SearchHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42C961D1D56AC1300784636 /* SearchHistoryCell.xib */; };
 		C42C96211D56E4E100784636 /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C96201D56E4E100784636 /* SearchHistory.swift */; };
 		C42C96231D56FDFD00784636 /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C96221D56FDFD00784636 /* Bucket.swift */; };
+		C42C96251D57066F00784636 /* RestaurantSearchV2Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C96241D57066F00784636 /* RestaurantSearchV2Request.swift */; };
+		C42C96271D57117300784636 /* SearchHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C96261D57117300784636 /* SearchHistoryTableViewCell.swift */; };
+		C42C96291D5713BB00784636 /* SearchHistoryCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C96281D5713BB00784636 /* SearchHistoryCellDelegate.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */; };
 		C44B05DA1CE1AF3300337502 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B05D91CE1AF3300337502 /* City.swift */; };
@@ -344,6 +347,9 @@
 		C42C961D1D56AC1300784636 /* SearchHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHistoryCell.xib; sourceTree = "<group>"; };
 		C42C96201D56E4E100784636 /* SearchHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		C42C96221D56FDFD00784636 /* Bucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
+		C42C96241D57066F00784636 /* RestaurantSearchV2Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantSearchV2Request.swift; sourceTree = "<group>"; };
+		C42C96261D57117300784636 /* SearchHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		C42C96281D5713BB00784636 /* SearchHistoryCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryCellDelegate.swift; sourceTree = "<group>"; };
 		C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C42D9BC71B69EF2D0035C5A6 /* OldSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldSearchViewController.swift; sourceTree = "<group>"; };
@@ -889,6 +895,7 @@
 				CAA6C5591D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift */,
 				CAA6C55F1D4C619A00CBD871 /* HomepageTableViewCell.swift */,
 				CA02C94F1D4EFF5B00104528 /* PreviewCollectionViewCell.swift */,
+				C42C96261D57117300784636 /* SearchHistoryTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -972,6 +979,7 @@
 				C44C25811C50C97200A345D8 /* ActionButtonView.swift */,
 				C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */,
 				C4D9830D1CE301FC0061A088 /* LocationHeaderView.swift */,
+				C42C96281D5713BB00784636 /* SearchHistoryCellDelegate.swift */,
 			);
 			name = UIElementsClass;
 			sourceTree = "<group>";
@@ -995,6 +1003,7 @@
 				C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */,
 				C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */,
 				C4A0D54C1C11746100BAE246 /* RestaurantSearchRequest.swift */,
+				C42C96241D57066F00784636 /* RestaurantSearchV2Request.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -1702,6 +1711,7 @@
 				CAC527A91CEEB62F0056AAC8 /* FloatingMenuController.swift in Sources */,
 				CA203DDE1C111EEA00D6F32C /* Picture.swift in Sources */,
 				CA203DDF1C111EEA00D6F32C /* PhotoOperations.swift in Sources */,
+				C42C96291D5713BB00784636 /* SearchHistoryCellDelegate.swift in Sources */,
 				CAC1D38E1D39849D00520733 /* Configuration.swift in Sources */,
 				CA203DE01C111EEA00D6F32C /* DishTableViewCell.swift in Sources */,
 				C41298161C83CDA40062BC7D /* UIImageEffects.swift in Sources */,
@@ -1791,6 +1801,7 @@
 				C4FD0D361CD5CE380015DDB7 /* PositionConverter.swift in Sources */,
 				C42C96131D54916400784636 /* RestaurantsConnectionViewController.swift in Sources */,
 				CA02C9521D50575600104528 /* GetHomepageRequest.swift in Sources */,
+				C42C96271D57117300784636 /* SearchHistoryTableViewCell.swift in Sources */,
 				CAC1D3891D39849D00520733 /* ButtonPicker.swift in Sources */,
 				CA203DFD1C111EEA00D6F32C /* FavoriteTypeEnum.swift in Sources */,
 				CAC1D38F1D39849D00520733 /* ConstraintsSetup.swift in Sources */,
@@ -1822,6 +1833,7 @@
 				CA203E0D1C111EEA00D6F32C /* SortParameter.swift in Sources */,
 				CA203E0E1C111EEA00D6F32C /* PhotoCollectionViewCell.swift in Sources */,
 				CAC1D3931D39849D00520733 /* ImagePickerController.swift in Sources */,
+				C42C96251D57066F00784636 /* RestaurantSearchV2Request.swift in Sources */,
 				CA203E0F1C111EEA00D6F32C /* JSONHelper.swift in Sources */,
 				CAA33D101D12241C004E9F6A /* GetIsFavoriteRequest.swift in Sources */,
 				CA203E101C111EEA00D6F32C /* RestaurantViewController.swift in Sources */,

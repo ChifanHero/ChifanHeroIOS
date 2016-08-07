@@ -59,6 +59,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate {
             print("range = \(searchContext.distance)")
             print("rating = \(searchContext.rating)")
             print("sort = \(searchContext.sort)")
+            print("address = \(searchContext.address)")
             searchContext.newSearch = false
         } else {
             print("filter view just closed, but no new search needed")

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITextFieldDelegate {
+class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchHistoryCellDelegate {
     
     
     @IBOutlet weak var addressContainerHeight: NSLayoutConstraint!
@@ -16,6 +16,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addressBar: UITextField!
     
     @IBOutlet weak var searchBar: UITextField!
+    
+    @IBOutlet weak var suggestionTableView: UITableView!
+    
+    private var currentState : CurrentState?
+    
+    var keywordHistory : [String] = [String]()
+    var addressHistory : [String] = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +49,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func cancel(sender: AnyObject) {
-        let tabBarController = self.tabBarController
+//        let tabBarController = self.tabBarController
         self.navigationController?.popViewControllerAnimated(false)
 //        searchContext.keyword = "iphone"
 //        let tabBarController = self.tabBarController
@@ -55,14 +62,116 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // Mark : TextField delegate method
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if textField == searchBar {
+            currentState = CurrentState.KEYWORD
+            if keywordHistory.count == 0 {
+                keywordHistory.appendContentsOf(loadKeywordHistory())
+            }
+        } else if textField == addressBar {
+            currentState = CurrentState.ADDRESS
+            if addressHistory.count == 0 {
+                addressHistory.appendContentsOf(loadAddressHistory())
+            }
+        }
+        suggestionTableView.reloadData()
     }
-    */
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        commitSearchEvent()
+        goToResultsDisplayVC()
+        return true
+    }
+    
+    func commitSearchEvent() {
+        let keyword = searchBar.text
+        let address = addressBar.text
+        if keyword != nil && keyword != "" {
+            searchContext.keyword = keyword
+            SearchHistory.saveKeyword(keyword!)
+        }
+        if address != nil && address != "" {
+            searchContext.address = address
+            SearchHistory.saveAddress(address!)
+        }
+    }
+    
+    func goToResultsDisplayVC() {
+        let tabBarController = self.tabBarController
+        let selectedIndex = tabBarController!.selectedIndex
+        if selectedIndex == 1 {
+            self.navigationController?.popViewControllerAnimated(false)
+        } else {
+            tabBarController!.selectedIndex = 1
+        }
+    }
+    
+    // Mark : TableView methods
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if currentState == CurrentState.KEYWORD {
+            return keywordHistory.count
+        } else {
+            return addressHistory.count
+        }
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell: SearchHistoryTableViewCell? = tableView.dequeueReusableCellWithIdentifier("historyCell") as? SearchHistoryTableViewCell
+        if cell == nil {
+            tableView.registerNib(UINib(nibName: "SearchHistoryCell", bundle: nil), forCellReuseIdentifier: "historyCell")
+            cell = tableView.dequeueReusableCellWithIdentifier("historyCell") as? SearchHistoryTableViewCell
+        }
+        cell?.delegate = self
+        if currentState == CurrentState.KEYWORD {
+            cell?.history = keywordHistory[indexPath.row]
+        } else {
+            cell?.history = addressHistory[indexPath.row]
+        }
+        return cell!
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if currentState == CurrentState.KEYWORD {
+            let keyword = keywordHistory[indexPath.row]
+            searchBar.text = keyword
+        } else {
+            let address = addressHistory[indexPath.row]
+            addressBar.text = address
+        }
+        suggestionTableView.deselectRowAtIndexPath(indexPath, animated: false)
+    }
+    
+    // Mark : history data
+    func loadKeywordHistory() -> [String]{
+        return SearchHistory.getRecentKeywords(10)
+    }
+    
+    func loadAddressHistory() -> [String]{
+        return SearchHistory.getRecentAddress(10)
+    }
+    
+    private enum CurrentState {
+        case KEYWORD
+        case ADDRESS
+    }
+    
+    // Mark : SearchHistoryCellDelegate
+    func deleteHistory(cell: SearchHistoryTableViewCell) {
+        let indexPath :NSIndexPath = self.suggestionTableView.indexPathForCell(cell)!
+        if currentState == CurrentState.KEYWORD {
+            keywordHistory.removeAtIndex(indexPath.row)
+            SearchHistory.removeKeywordFromHistory(cell.history!)
+        } else {
+            addressHistory.removeAtIndex(indexPath.row)
+            SearchHistory.removeAddressFromHistory(cell.history!)
+        }
+        self.suggestionTableView.reloadData()
+    }
 
 }
