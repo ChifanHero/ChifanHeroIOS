@@ -39,8 +39,20 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         UIView.animateWithDuration(0.4, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 6.0, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
             self.view.layoutIfNeeded()
         }) { (success) in
-            // Do nothing
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if !defaults.boolForKey("usingCustomLocation") {
+                self.addressBar.attributedText = self.getHighlightedCurrentLocationText()
+            }
+
         }
+    }
+    
+    private func getHighlightedCurrentLocationText() -> NSAttributedString{
+        let text = "当前位置"
+        let range = NSMakeRange(0, text.characters.count)
+        let attributedString = NSMutableAttributedString(string: text)
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: range)
+        return attributedString
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,14 +100,27 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     func commitSearchEvent() {
         let keyword = searchBar.text
         let address = addressBar.text
+        let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        searchContext.keyword = keyword
         if keyword != nil && keyword != "" {
-            searchContext.keyword = keyword
             SearchHistory.saveKeyword(keyword!)
         }
         if address != nil && address != "" {
-            searchContext.address = address
-            SearchHistory.saveAddress(address!)
+            if address == "当前位置" {
+                searchContext.address = nil
+                searchContext.coordinates = delegate?.currentLocation
+            } else {
+                searchContext.address = address
+                SearchHistory.saveAddress(address!)
+            }
+        } else {
+            searchContext.address = nil
+            let location: Location = delegate!.getCurrentLocation()
+            searchContext.coordinates = location
         }
+        searchContext.offSet = 0
+        searchContext.rating = RatingFilter.NONE
+        searchContext.distance = RangeFilter.TWENTY
     }
     
     func goToResultsDisplayVC() {

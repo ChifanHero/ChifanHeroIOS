@@ -23,6 +23,12 @@ class RestaurantSearchResponse: HttpResponseProtocol {
                 results.append(result)
             }
         }
+        if let resultsJson = data["buckets"] as? [AnyObject] {
+            for resultJson in resultsJson {
+                let result = Bucket(data: resultJson as! [String : AnyObject])
+                buckets.append(result)
+            }
+        }
     }
     
     required init() {

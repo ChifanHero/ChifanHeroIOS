@@ -12,10 +12,27 @@ import CoreData
 
 class LocationHelper {
     
+    class func getLocationFromAddress(address : String,completionHandler : (Location?) -> Void) {
+        let geocoder : CLGeocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { (placeMarks, error) in
+            if placeMarks?.count > 0 {
+                let topResult: CLPlacemark = (placeMarks?[0])!
+                let placemark: MKPlacemark = MKPlacemark(placemark: topResult)
+                let latitude = (placemark.location?.coordinate.latitude)!
+                let longitude = (placemark.location?.coordinate.longitude)!
+                let location : Location = Location()
+                location.lat = latitude
+                location.lon = longitude
+                completionHandler(location)
+            } else {
+                
+            }
+        }
+    }
+    
     class func getCityNameFromLocation(lat : Double, lon : Double, completionHandler: (City) -> Void) {
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
-        let f = CLPlacemark()
         geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
             // Place details
             var placeMark: CLPlacemark!

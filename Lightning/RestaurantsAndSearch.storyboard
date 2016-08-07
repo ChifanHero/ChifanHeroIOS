@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nDN-7X-ZMT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E2066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nDN-7X-ZMT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -40,11 +40,23 @@
                                     <constraint firstAttribute="height" constant="44" id="zNG-MI-QOw"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gZP-ug-CeJ">
+                                <rect key="frame" x="0.0" y="44" width="375" height="559"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="eb9-eE-8FS" id="F5e-h1-7Ub"/>
+                                    <outlet property="delegate" destination="eb9-eE-8FS" id="7bn-AX-RMq"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="gZP-ug-CeJ" firstAttribute="leading" secondItem="vxQ-MS-Cq1" secondAttribute="leading" id="8IK-F1-2wZ"/>
                             <constraint firstItem="y8d-Zt-dE1" firstAttribute="leading" secondItem="vxQ-MS-Cq1" secondAttribute="leading" id="AjO-AA-6qf"/>
+                            <constraint firstAttribute="trailing" secondItem="gZP-ug-CeJ" secondAttribute="trailing" id="DaC-zb-F0g"/>
                             <constraint firstItem="y8d-Zt-dE1" firstAttribute="top" secondItem="lI7-Ca-hwN" secondAttribute="bottom" id="GyH-NC-MBx"/>
+                            <constraint firstItem="yT6-rF-TOD" firstAttribute="top" secondItem="gZP-ug-CeJ" secondAttribute="bottom" id="Zp4-To-Xfk"/>
+                            <constraint firstItem="gZP-ug-CeJ" firstAttribute="top" secondItem="y8d-Zt-dE1" secondAttribute="bottom" id="i00-c5-buf"/>
                             <constraint firstAttribute="trailing" secondItem="y8d-Zt-dE1" secondAttribute="trailing" id="vA1-DC-q9W"/>
                         </constraints>
                     </view>
@@ -59,6 +71,7 @@
                     <connections>
                         <outlet property="filterButton" destination="64y-IN-vb7" id="yxG-Ue-gjh"/>
                         <outlet property="searchBar" destination="0UK-nu-r2W" id="qCo-xK-pHp"/>
+                        <outlet property="searchResultsTable" destination="gZP-ug-CeJ" id="fOP-98-w9E"/>
                         <segue destination="nsa-gt-gFD" kind="show" identifier="search" animates="NO" id="Dcb-fL-o6H"/>
                     </connections>
                 </viewController>
@@ -81,7 +94,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0x1-bt-s4M" userLabel="AddressContainer">
                                 <rect key="frame" x="0.0" y="44" width="375" height="0.0"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jah-hm-2FC" userLabel="Address Text Bar">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="输入搜索中心位置(地址、城市)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Jah-hm-2FC" userLabel="Address Text Bar">
                                         <rect key="frame" x="6" y="-37" width="363" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="F0v-ZK-sIw"/>
@@ -102,7 +115,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SNY-ks-9nx" userLabel="KeywordContainer">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tls-5X-cbD" userLabel="Keyword Text Bar">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="输入餐厅名称" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Tls-5X-cbD" userLabel="Keyword Text Bar">
                                         <rect key="frame" x="6" y="7" width="363" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
@@ -228,7 +241,7 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iGM-ho-zea">
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iGM-ho-zea">
                                                 <rect key="frame" x="0.0" y="31" width="230" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="NOM-FA-AWc"/>
@@ -237,6 +250,7 @@
                                                     <segment title="相关度"/>
                                                     <segment title="按评分"/>
                                                     <segment title="按距离"/>
+                                                    <segment title="按人气"/>
                                                 </segments>
                                                 <connections>
                                                     <action selector="sortingChanged:" destination="uyc-NL-Eha" eventType="valueChanged" id="NBN-dR-LSU"/>

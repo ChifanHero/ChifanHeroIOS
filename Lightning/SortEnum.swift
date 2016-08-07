@@ -12,4 +12,5 @@ enum SortOptions {
     case RATING
     case DISTANCE
     case BESTMATCH
+    case HOTNESS
 }

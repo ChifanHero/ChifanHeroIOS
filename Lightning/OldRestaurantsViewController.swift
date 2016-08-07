@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+
 import PullToMakeSoup
 
 class OldRestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable{

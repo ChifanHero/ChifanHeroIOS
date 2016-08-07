@@ -13,11 +13,13 @@ enum SortParameter : CustomStringConvertible{
     
     case Hotness
     case Distance
+    case Rating
     
     var description : String {
         switch self {
         case .Hotness : return "hotness"
         case .Distance : return "distance"
+        case .Rating : return "rating"
         }
     }
     

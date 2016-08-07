@@ -48,7 +48,7 @@ class RestaurantsContainerViewController: SlideMenuController, SlideMenuControll
     }
     
     func rightDidClose() {
-        restaurantsVC?.performNewSearchIfNeeded()
+        restaurantsVC?.performNewSearchIfNeeded(true)
     }
     
 
