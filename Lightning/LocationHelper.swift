@@ -15,6 +15,7 @@ class LocationHelper {
     class func getCityNameFromLocation(lat : Double, lon : Double, completionHandler: (City) -> Void) {
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
+        let f = CLPlacemark()
         geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
             // Place details
             var placeMark: CLPlacemark!

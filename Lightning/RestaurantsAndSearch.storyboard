@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nDN-7X-ZMT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E2066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nDN-7X-ZMT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -59,7 +59,7 @@
                     <connections>
                         <outlet property="filterButton" destination="64y-IN-vb7" id="yxG-Ue-gjh"/>
                         <outlet property="searchBar" destination="0UK-nu-r2W" id="qCo-xK-pHp"/>
-                        <segue destination="nsa-gt-gFD" kind="show" identifier="search" animates="NO" id="NXz-qK-NPE"/>
+                        <segue destination="nsa-gt-gFD" kind="show" identifier="search" animates="NO" id="Dcb-fL-o6H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2P4-AQ-Tnf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -87,7 +87,7 @@
                                             <constraint firstAttribute="height" constant="30" id="F0v-ZK-sIw"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.38256207460000002" blue="0.30303615630000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -139,9 +139,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="搜索" id="fCe-dl-yRW">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="VDM-J2-ZTr">
+                        <barButtonItem key="backBarButtonItem" id="hrQ-x3-EZF"/>
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="8xs-0P-eUp">
                             <connections>
-                                <action selector="cancel:" destination="nsa-gt-gFD" id="Ni4-69-ypv"/>
+                                <action selector="cancel:" destination="nsa-gt-gFD" id="hzF-hm-wSO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -221,15 +222,19 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iGM-ho-zea">
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iGM-ho-zea">
                                                 <rect key="frame" x="0.0" y="31" width="230" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="NOM-FA-AWc"/>
                                                 </constraints>
                                                 <segments>
+                                                    <segment title="相关度"/>
                                                     <segment title="按评分"/>
                                                     <segment title="按距离"/>
                                                 </segments>
+                                                <connections>
+                                                    <action selector="sortingChanged:" destination="uyc-NL-Eha" eventType="valueChanged" id="NBN-dR-LSU"/>
+                                                </connections>
                                             </segmentedControl>
                                         </subviews>
                                         <constraints>
@@ -261,6 +266,9 @@
                                                     <segment title="5"/>
                                                     <segment title="20"/>
                                                 </segments>
+                                                <connections>
+                                                    <action selector="rangeChanged:" destination="uyc-NL-Eha" eventType="valueChanged" id="Uid-xV-Tmr"/>
+                                                </connections>
                                             </segmentedControl>
                                         </subviews>
                                         <constraints>
@@ -293,6 +301,9 @@
                                                     <segment title="4.5"/>
                                                     <segment title="5"/>
                                                 </segments>
+                                                <connections>
+                                                    <action selector="ratingChanged:" destination="uyc-NL-Eha" eventType="valueChanged" id="m4c-ha-Ki8"/>
+                                                </connections>
                                             </segmentedControl>
                                         </subviews>
                                         <constraints>
@@ -327,11 +338,24 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kW4-TL-BIJ">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="7s7-vP-Kvj"/>
-                        <barButtonItem key="rightBarButtonItem" title="确定" id="f8S-Lk-8VE"/>
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="7s7-vP-Kvj">
+                            <connections>
+                                <action selector="cancel:" destination="uyc-NL-Eha" id="1aL-Eh-IXj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="确定" id="f8S-Lk-8VE">
+                            <connections>
+                                <action selector="commit:" destination="uyc-NL-Eha" id="j2y-jv-FRN"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="250" height="667"/>
+                    <connections>
+                        <outlet property="rangeSC" destination="7fX-b2-yHN" id="Rcj-fR-4wo"/>
+                        <outlet property="ratingSC" destination="sAa-gr-Gs9" id="fay-tu-XPO"/>
+                        <outlet property="sortingSC" destination="iGM-ho-zea" id="Qzo-Wb-9OL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3re-fM-bjX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

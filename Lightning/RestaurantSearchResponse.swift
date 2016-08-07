@@ -12,6 +12,7 @@ import Foundation
 class RestaurantSearchResponse: HttpResponseProtocol {
     
     var results : [Restaurant] = [Restaurant]()
+    var buckets : [Bucket] = [Bucket]()
     var error : Error?
     
     required init(data : [String : AnyObject]) {

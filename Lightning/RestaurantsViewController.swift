@@ -8,6 +8,8 @@
 
 import UIKit
 
+let searchContext : SearchContext = SearchContext()
+
 class RestaurantsViewController: UIViewController, UITextFieldDelegate {
     
     var containerViewController : RestaurantsContainerViewController?
@@ -23,7 +25,14 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate {
         searchBar.delegate = self
 //        filterButton.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        // Do any additional setup after loading the view.
+        setDefaultSearchContext()
+    }
+    
+    private func setDefaultSearchContext() {
+        searchContext.distance = RangeFilter.TWENTY
+        searchContext.rating = RatingFilter.FOUR
+        searchContext.sort = SortOptions.RATING
+        searchContext.newSearch = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,21 +40,32 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        print("restaurants view did appear")
+        super.viewDidAppear(animated)
+        performNewSearchIfNeeded()
+    }
+    
     // MARK - TextField methods
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         performSegueWithIdentifier("search", sender: nil)
         return false
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func performNewSearchIfNeeded() {
+        if searchContext.newSearch {
+            print("filter view just closed. should do a new search here")
+            print("keyword = \(searchContext.keyword)")
+            print("range = \(searchContext.distance)")
+            print("rating = \(searchContext.rating)")
+            print("sort = \(searchContext.sort)")
+            searchContext.newSearch = false
+        } else {
+            print("filter view just closed, but no new search needed")
+        }
+        
     }
-    */
+
 
     @IBAction func openFilter(sender: AnyObject) {
         self.containerViewController?.slideMenuController()?.openRight()

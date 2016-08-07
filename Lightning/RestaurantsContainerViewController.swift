@@ -9,10 +9,14 @@
 import UIKit
 import SlideMenuControllerSwift
 
-class RestaurantsContainerViewController: SlideMenuController {
+class RestaurantsContainerViewController: SlideMenuController, SlideMenuControllerDelegate {
+    
+    var restaurantsVC : RestaurantsViewController?
+    var filterVC : RestaurantsFilterViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegate = self
         SlideMenuOptions.contentViewScale = 1.00
         SlideMenuOptions.rightViewWidth = 250
         // Do any additional setup after loading the view.
@@ -28,22 +32,24 @@ class RestaurantsContainerViewController: SlideMenuController {
             self.mainViewController = controller
             let mainVC : RestaurantsViewController = controller.viewControllers[0] as! RestaurantsViewController
             mainVC.containerViewController = self
+            self.restaurantsVC = mainVC
         }
-        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("RestaurantsFilter") {
+        if let controller : UINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("RestaurantsFilter") as? UINavigationController{
             self.rightViewController = controller
+            let filterVC : RestaurantsFilterViewController = controller.viewControllers[0] as! RestaurantsFilterViewController
+            filterVC.containerVC = self
+            self.filterVC = filterVC
         }
         super.awakeFromNib()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func rightWillOpen() {
+        filterVC?.updateFilters()
     }
-    */
+    
+    func rightDidClose() {
+        restaurantsVC?.performNewSearchIfNeeded()
+    }
+    
 
 }
