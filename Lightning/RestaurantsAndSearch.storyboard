@@ -69,7 +69,7 @@
         <!--Search View Controller-->
         <scene sceneID="PHy-ku-cFH">
             <objects>
-                <viewController id="nsa-gt-gFD" userLabel="Search View Controller" customClass="SearchViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchActionVC" id="nsa-gt-gFD" userLabel="Search View Controller" customClass="SearchViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eZD-Ln-bQ3"/>
                         <viewControllerLayoutGuide type="bottom" id="cQq-Pp-MOr"/>
@@ -222,7 +222,7 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iGM-ho-zea">
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iGM-ho-zea">
                                                 <rect key="frame" x="0.0" y="31" width="230" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="NOM-FA-AWc"/>
