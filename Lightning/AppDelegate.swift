@@ -68,7 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     private func UISetup() {
-        configSplitViewController()
         configNavigationBar()
     }
     
@@ -235,32 +234,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             print("Saved notification")
         } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
-        }
-    }
-    
-    
-    
-    private func configSplitViewController() {
-        let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
-        var viewControllers = tabBarController.viewControllers!
-        for index in 0 ..< viewControllers.count {
-            let vc : UIViewController = viewControllers[index]
-            if vc.restorationIdentifier == "splitViewController" {
-                let splitViewController = vc as! UISplitViewController
-                let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-                detailNavigationController.navigationBar.tintColor = UIColor.whiteColor()
-                detailNavigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
-                let detailController = detailNavigationController.topViewController as! NotificationDetailViewController
-                detailController.navigationItem.leftItemsSupplementBackButton = true
-                let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
-                masterNavigationController.navigationBar.tintColor = UIColor.whiteColor()
-                let masterController = masterNavigationController.topViewController as! NotificationTableViewController
-                
-                masterController.delegate = detailController
-                masterController.detailNavigationController = detailNavigationController
-                detailController.navigationItem.leftBarButtonItem = detailController.splitViewController?.displayModeButtonItem()
-                break
-            }
         }
     }
 

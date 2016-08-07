@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Flurry_iOS_SDK
 
-class NotificationDetailViewController: UIViewController, NotificationSelectionDelegate {
+class NotificationDetailViewController: UIViewController {
     
     
     @IBOutlet weak var notificationDetailView: NotificationDetailView?
@@ -47,6 +47,7 @@ class NotificationDetailViewController: UIViewController, NotificationSelectionD
             let title = notification.valueForKey("title") as! String
             let body = notification.valueForKey("body") as! String
             self.notificationDetailView!.setUp(title, body: body)
+            print(body)
             self.notificationDetailView!.hidden = false
         }
         

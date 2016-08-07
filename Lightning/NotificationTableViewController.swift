@@ -10,20 +10,12 @@ import UIKit
 import CoreData
 import Flurry_iOS_SDK
 
-protocol NotificationSelectionDelegate {
-    func notificationSelected(notification : NSManagedObject)
-}
-
-class NotificationTableViewController: UITableViewController, UISplitViewControllerDelegate {
+class NotificationTableViewController: UITableViewController {
     
     var notifications = [NSManagedObject]()
     private var foregroundNotification: NSObjectProtocol!
     
-    var detailNavigationController : UINavigationController?
-    
-    var delegate : NotificationSelectionDelegate?
-    
-    let refreshCtrl = Respinner(spinningView: UIImageView(image: UIImage(named: "Pull_Refresh")))
+    var detailNavigationController: UINavigationController?
 
     
     override func viewDidLoad() {
@@ -34,8 +26,6 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
         let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NotificationTableViewController.edit))
         editBarButton.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem = editBarButton
-        self.splitViewController?.delegate = self
-//        loadNotificationsInBackground()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -45,27 +35,15 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     }
     
     private func configurePullRefresh(){
-        self.refreshCtrl.addTarget(self, action: #selector(NotificationTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.addSubview(refreshCtrl)
     }
     
     @objc private func refresh(sender:AnyObject) {
         loadTableData()
     }
     
-//    func loadNotificationsInBackground() {
-//        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-//        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-//        dispatch_async(backgroundQueue, {
-//            self.loadTableData()
-//        })
-//    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         clearTableViewSelection()
-//        loadTableData()
-        
     }
     
     private func clearTableViewSelection() {
@@ -78,17 +56,15 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     func notificationArrived() {
         loadTableData()
         recalculateBadgeValue()
-//        let indexPath : NSIndexPath = NSIndexPath(forRow: self.notifications.count - 1, inSection: 0)
-//        self.tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.Top)
     }
     
     func recalculateBadgeValue() {
-        let badgeValue : Int = countNumberOfUnreadItems()
+        let badgeValue: Int = countNumberOfUnreadItems()
         if badgeValue > 0 {
-            self.navigationController?.splitViewController?.tabBarItem.badgeValue = "\(badgeValue)"
+            self.navigationController?.tabBarItem.badgeValue = "\(badgeValue)"
             UIApplication.sharedApplication().applicationIconBadgeNumber = badgeValue;
         } else {
-            self.navigationController?.splitViewController?.tabBarItem.badgeValue = nil
+            self.navigationController?.tabBarItem.badgeValue = nil
             UIApplication.sharedApplication().applicationIconBadgeNumber = 0;
         }
     }
@@ -101,9 +77,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
             let results =
             try managedContext.executeFetchRequest(fetchRequest)
             notifications = results as! [NSManagedObject]
-            print(notifications.count)
             self.tableView.reloadData()
-            self.refreshCtrl.endRefreshing()
             
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
@@ -127,7 +101,7 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : NotificationTableViewCell? = tableView.dequeueReusableCellWithIdentifier("notificationCell") as? NotificationTableViewCell
+        var cell: NotificationTableViewCell? = tableView.dequeueReusableCellWithIdentifier("notificationCell") as? NotificationTableViewCell
         if cell == nil {
             tableView.registerNib(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "notificationCell")
             cell = tableView.dequeueReusableCellWithIdentifier("notificationCell") as? NotificationTableViewCell
@@ -144,14 +118,14 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let notificationSelected : NSManagedObject = notifications[indexPath.row]
         markNotificationAsRead(notificationSelected)
-        self.delegate?.notificationSelected(notificationSelected)
-//        if let detailViewController = self.delegate as? NotificationDetailViewController {
-//            self.navigationController?.splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
-//            
-//            
-//        }
-        self.navigationController?.splitViewController?.showDetailViewController(self.detailNavigationController!, sender: nil)
-//        performSegueWithIdentifier("showMessage", sender: notificationSelected)
+        performSegueWithIdentifier("showNotificationDetail", sender: indexPath)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showNotificationDetail" {
+            let controller: NotificationDetailViewController = segue.destinationViewController as! NotificationDetailViewController
+            controller.notificationSelected(notifications[(sender as! NSIndexPath).row])
+        }
     }
     
     private func markNotificationAsRead(notification : NSManagedObject) {
@@ -206,9 +180,9 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
     }
     
     func clearDetailView() {
-        if let detailViewController = self.delegate as? NotificationDetailViewController {
-            detailViewController.clear()
-        }
+//        if let detailViewController = self.delegate as? NotificationDetailViewController {
+//            detailViewController.clear()
+//        }
     }
     
     private func deleteFromCoreData(object : NSManagedObject) {
@@ -221,14 +195,4 @@ class NotificationTableViewController: UITableViewController, UISplitViewControl
             print("Could not save \(error), \(error.userInfo)")
         }
     }
-    
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
-        clearTableViewSelection()
-        return true
-    }
-    
-    
-    
-    
-
 }

@@ -129,6 +129,10 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         performSegueWithIdentifier("signUp", sender: nil)
     }
     
+    @IBAction func notificationButtonTouched(sender: AnyObject) {
+        performSegueWithIdentifier("showNotification", sender: nil)
+    }
+    
     @IBAction func logInButtonTouched(sender: AnyObject) {
         normalLoginEvent()
     }
