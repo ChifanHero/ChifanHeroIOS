@@ -113,9 +113,8 @@ class OldRestaurantsViewController: RefreshableViewController, UITableViewDataSo
         request.limit = 50
         request.skip = 0
         footerView?.reset()
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.getCurrentLocation()
-        if (location.lat == nil || location.lon == nil) {
+        let location = userLocationManager.getLocationInUse()
+        if (location == nil || location!.lat == nil || location!.lon == nil) {
             return
         }
         request.userLocation = location
@@ -126,9 +125,8 @@ class OldRestaurantsViewController: RefreshableViewController, UITableViewDataSo
         request.limit = 50
         request.skip = 0
         footerView?.reset()
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.getCurrentLocation()
-        if (location.lat == nil || location.lon == nil) {
+        let location = userLocationManager.getLocationInUse()
+        if (location == nil || location!.lat == nil || location!.lon == nil) {
             return
         }
         loadingIndicator.startAnimation()
@@ -148,10 +146,9 @@ class OldRestaurantsViewController: RefreshableViewController, UITableViewDataSo
         
         if isFromBookMark == true {
             let request: GetFavoritesRequest = GetFavoritesRequest(type: FavoriteTypeEnum.Restaurant)
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            let location = appDelegate.getCurrentLocation()
-            request.lat = location.lat
-            request.lon = location.lon
+            let location = userLocationManager.getLocationInUse()
+            request.lat = location!.lat
+            request.lon = location!.lon
             DataAccessor(serviceConfiguration: ParseConfiguration()).getFavorites(request) { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     self.clearData()

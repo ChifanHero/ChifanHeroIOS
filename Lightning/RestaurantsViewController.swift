@@ -45,8 +45,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         searchContext.distance = RangeFilter.AUTO
         searchContext.rating = RatingFilter.FOUR
         searchContext.sort = SortOptions.HOTNESS
-        let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        searchContext.coordinates = delegate?.getCurrentLocation()
+        searchContext.coordinates = userLocationManager.getLocationInUse()
         searchContext.offSet = 0
     }
     
@@ -94,8 +93,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                 LocationHelper.getLocationFromAddress(searchContext.address!, completionHandler: { (location) in
                     NSOperationQueue.mainQueue().addOperationWithBlock({ 
                         if location == nil {
-                            let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
-                            searchContext.coordinates = delegate?.getCurrentLocation()
+                            searchContext.coordinates = userLocationManager.getLocationInUse()
                         } else {
                             searchContext.coordinates = location
                         }

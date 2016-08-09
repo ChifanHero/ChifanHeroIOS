@@ -138,8 +138,7 @@ class OldSearchViewController: UIViewController, UITableViewDelegate, UITableVie
         request.keyword = keyword
         request.offset = offset
         request.limit = limit
-        let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        let userLocation = appDelegate!.getCurrentLocation()
+        let userLocation = userLocationManager.getLocationInUse()
         request.userLocation = userLocation
         let range = Range()
         range.center = userLocation

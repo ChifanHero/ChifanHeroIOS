@@ -100,7 +100,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     func commitSearchEvent() {
         let keyword = searchBar.text
         let address = addressBar.text
-        let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
         searchContext.keyword = keyword
         if keyword != nil && keyword != "" {
             SearchHistory.saveKeyword(keyword!)
@@ -113,14 +112,14 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         if address != nil && address != "" {
             if address == "当前位置" {
                 searchContext.address = nil
-                searchContext.coordinates = delegate?.currentLocation
+                searchContext.coordinates = userLocationManager.getLocationInUse()
             } else {
                 searchContext.address = address
                 SearchHistory.saveAddress(address!)
             }
         } else {
             searchContext.address = nil
-            let location: Location = delegate!.getCurrentLocation()
+            let location: Location? = userLocationManager.getLocationInUse()
             searchContext.coordinates = location
         }
         searchContext.offSet = 0

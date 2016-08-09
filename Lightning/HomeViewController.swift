@@ -116,7 +116,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         button.addTarget(self, action: #selector(HomeViewController.editLocation), forControlEvents: UIControlEvents.TouchUpInside)
         button.frame = CGRectMake(0, 0, 200, 26)
         button.layer.cornerRadius = 3.0
-        button.setTitle("使用我的实时位置", forState: .Normal)
+        button.setTitle("实时位置", forState: .Normal)
         button.titleLabel!.font =  UIFont(name: "Arial", size: 14)
         button.backgroundColor = UIColor.grayColor()
         
@@ -130,19 +130,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     private func initHomepageTable(){
         loadingIndicator.startAnimation()
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        let location = appDelegate.getCurrentLocation()
-//        if (location.lat == nil || location.lon == nil) {
-//            return
-//        }
-//        request.userLocation = location
-//        loadData(nil)
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("usingCustomLocation") {
-            loadData(nil)
-        }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil) // Refresh content whenever the user select a city
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil) // Refresh content the first time user real time location is available
     }
     
     @objc private func refresh(sender:AnyObject) {
@@ -150,17 +139,16 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     }
     
     func handleLocationChange() {
-        //promotionsTable.hidden = true
         loadingIndicator.startAnimation()
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil) // only need this notification once. Already got it, so remove it.
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.boolForKey("usingCustomLocation") {
-            let defaultCity: City = LocationHelper.getDefaultCity()
-            let cityText: String = defaultCity.name! + ", " + defaultCity.state! + ", " + defaultCity.localizedCountryName!
+            let cityInUse = userLocationManager.getCityInUse()
+            let cityText: String = cityInUse!.name! + ", " + cityInUse!.state! + ", " + cityInUse!.localizedCountryName!
             (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, forState: .Normal)
         } else {
-            if currentLocationText != nil{
-                (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(currentLocationText, forState: .Normal)
-            }
+            currentLocationText = "实时位置"
+            (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(currentLocationText, forState: .Normal)
         }
         loadData(nil)
     }
@@ -180,9 +168,9 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
 
     override func loadData(refreshHandler : ((success : Bool) -> Void)?) {
         let request = GetHomepageRequest()
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil)
-        let location: Location = appDelegate!.getCurrentLocation()
-        if (location.lat == nil || location.lon == nil) {
+        
+        let location: Location? = userLocationManager.getLocationInUse()
+        if (location == nil || location!.lat == nil || location!.lon == nil) {
             loadingIndicator.stopAnimation()
             return
         }

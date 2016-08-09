@@ -11,14 +11,14 @@ import Parse
 import CoreData
 import Flurry_iOS_SDK
 
+let userLocationManager : UserLocationManager = UserLocationManager()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
 
     let locationManager = CLLocationManager()
-    
-    var currentLocation : Location = Location()
     
     var application : UIApplication?
     var launchOptions : [NSObject: AnyObject]?
@@ -307,8 +307,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        currentLocation.lat = locValue.latitude
-        currentLocation.lon = locValue.longitude
+        let realtimeLocation = Location()
+        realtimeLocation.lat = locValue.latitude
+        realtimeLocation.lon = locValue.longitude
+        userLocationManager.saveRealtimeLocation(realtimeLocation)
         NSNotificationCenter.defaultCenter().postNotificationName("UserLocationAvailable", object: nil)
 
     }
@@ -367,17 +369,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         defaults.setBool(true, forKey: "usingCustomLocation")
         defaults.synchronize()
         var defaultCity : City = City()
-        if currentLocation.lat != nil && currentLocation.lon != nil {
-            LocationHelper.getCityNameFromLocation(currentLocation.lat!, lon: currentLocation.lon!, completionHandler: { (city) in
+        let currentLocation = userLocationManager.getLocationInUse()
+        if currentLocation != nil && currentLocation!.lat != nil && currentLocation!.lon != nil {
+            LocationHelper.getCityNameFromLocation(currentLocation!.lat!, lon: currentLocation!.lon!, completionHandler: { (city) in
                 defaultCity = city
                 let center = Location()
-                center.lat = self.currentLocation.lat
-                center.lon = self.currentLocation.lon
+                center.lat = currentLocation!.lat
+                center.lon = currentLocation!.lon
                 defaultCity.center = center
-                LocationHelper.saveDefaultCityToCoreData(defaultCity)
+                userLocationManager.saveCityInUse(defaultCity)
             })
         } else {
-            LocationHelper.saveDefaultCityToCoreData(LocationHelper.getDefaultCity())
+            userLocationManager.saveCityInUse(LocationHelper.getDefaultCity())
         }
         
     }
@@ -407,20 +410,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             
         }
         
-    }
-    
-    
-    func getCurrentLocation() -> Location {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("usingCustomLocation") {
-            var defaultCity = LocationHelper.getDefaultCityFromCoreData()
-            if defaultCity == nil {
-                defaultCity = LocationHelper.getDefaultCity()
-            }
-            return defaultCity!.center!
-        } else {
-            return currentLocation
-        }
     }
     
     @objc private func dismissLocationAlerts() {

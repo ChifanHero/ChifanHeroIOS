@@ -299,8 +299,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
             if homeViewController != nil {
                 homeViewController!.prepareForDataRefresh()
             }
-            LocationHelper.saveDefaultCityToCoreData(city!)
-            LocationHelper.saveCityToHistory(city!)
+            userLocationManager.saveCityInUse(city!)
             currentSelection = city
             self.dismissViewControllerAnimated(true, completion: nil)
         }

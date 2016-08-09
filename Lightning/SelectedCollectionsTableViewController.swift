@@ -71,9 +71,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     }
     
     private func initialLoadData() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.getCurrentLocation()
-        if (location.lat == nil || location.lon == nil) {
+        let location = userLocationManager.getLocationInUse()
+        if (location == nil || location!.lat == nil || location!.lon == nil) {
             return
         }
         request.userLocation = location
@@ -157,9 +156,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     }
     
     func refreshData() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let location = appDelegate.getCurrentLocation()
-        if (location.lat == nil || location.lon == nil) {
+        let location = userLocationManager.getLocationInUse()
+        if (location == nil || location!.lat == nil || location!.lon == nil) {
             return
         }
         request.userLocation = location
