@@ -9,7 +9,7 @@
 import Foundation
 
 enum RangeFilter {
-    case NONE
+    case AUTO
     case POINT5
     case ONE
     case FIVE

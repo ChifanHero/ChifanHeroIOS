@@ -12,6 +12,7 @@ class Bucket : Model{
     
     var results : [Restaurant] = [Restaurant]()
     var source : String?
+    var label : String?
     
     required init() {
         
@@ -25,6 +26,7 @@ class Bucket : Model{
             }
         }
         source <-- data["source"]
+        label <-- data["label"]
     }
     
 }

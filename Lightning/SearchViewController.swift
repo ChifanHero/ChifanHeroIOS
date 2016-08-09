@@ -104,6 +104,11 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         searchContext.keyword = keyword
         if keyword != nil && keyword != "" {
             SearchHistory.saveKeyword(keyword!)
+            searchContext.sort = SortOptions.BESTMATCH
+            searchContext.rating = RatingFilter.NONE
+        } else {
+            searchContext.sort = SortOptions.HOTNESS
+            searchContext.rating = RatingFilter.FOUR
         }
         if address != nil && address != "" {
             if address == "当前位置" {
@@ -119,8 +124,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             searchContext.coordinates = location
         }
         searchContext.offSet = 0
-        searchContext.rating = RatingFilter.NONE
-        searchContext.distance = RangeFilter.TWENTY
+        searchContext.distance = RangeFilter.AUTO
+        
     }
     
     func goToResultsDisplayVC() {

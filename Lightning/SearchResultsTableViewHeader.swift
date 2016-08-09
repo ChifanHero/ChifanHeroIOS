@@ -21,11 +21,14 @@ class SearchResultsTableViewHeader: UIView {
         }
     }
     
-    var logo : String? {
+    var source : String? {
         didSet {
-            
+            if source == "google" {
+                logoImageView.image = UIImage(named: "powered_by_google_on_white")
+            }
         }
     }
+    @IBOutlet weak var logoImageView: UIImageView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

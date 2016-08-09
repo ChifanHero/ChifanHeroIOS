@@ -42,7 +42,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     private func setDefaultSearchContext() {
-        searchContext.distance = RangeFilter.TWENTY
+        searchContext.distance = RangeFilter.AUTO
         searchContext.rating = RatingFilter.FOUR
         searchContext.sort = SortOptions.HOTNESS
         let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
@@ -176,7 +176,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         range.center = searchContext.coordinates
         let distance = Distance()
         distance.unit = DistanceUnit.MILE.description
-        if rangeFilter == RangeFilter.NONE {
+        if rangeFilter == RangeFilter.AUTO {
             distance.value = 30.0
         } else if rangeFilter == RangeFilter.POINT5{
             distance.value = 0.5
@@ -221,15 +221,38 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = SearchResultsTableViewHeader()
+        let header = buckets[section].label
+        let source = buckets[section].source
+        headerView.title = header
+        headerView.source = source
         return headerView
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        if buckets[section].label != nil {
+            return 40
+        } else {
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return RestaurantTableViewCell.height
+    }
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        return footerView
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section < buckets.count - 1 {
+            return 10
+        } else {
+            return 0.01
+        }
+        
     }
 
     

@@ -54,7 +54,7 @@ class RestaurantsFilterViewController: UIViewController {
     
     func updateRangeSC() {
         let range = searchContext.distance
-        if range == RangeFilter.NONE {
+        if range == RangeFilter.AUTO {
             rangeSC.selectedSegmentIndex = 0
         } else if range == RangeFilter.POINT5 {
             rangeSC.selectedSegmentIndex = 1
@@ -128,7 +128,7 @@ class RestaurantsFilterViewController: UIViewController {
 
     @IBAction func rangeChanged(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            distance = RangeFilter.NONE
+            distance = RangeFilter.AUTO
         } else if sender.selectedSegmentIndex == 1{
             distance = RangeFilter.POINT5
         } else if sender.selectedSegmentIndex == 2{
