@@ -116,7 +116,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         button.addTarget(self, action: #selector(HomeViewController.editLocation), forControlEvents: UIControlEvents.TouchUpInside)
         button.frame = CGRectMake(0, 0, 200, 26)
         button.layer.cornerRadius = 3.0
-        button.setTitle("实时位置", forState: .Normal)
+        button.setTitle("位置待定", forState: .Normal)
         button.titleLabel!.font =  UIFont(name: "Arial", size: 14)
         button.backgroundColor = UIColor.grayColor()
         
@@ -130,8 +130,18 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     private func initHomepageTable(){
         loadingIndicator.startAnimation()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil) // Refresh content whenever the user select a city
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil) // Refresh content the first time user real time location is available
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if !defaults.boolForKey("usingCustomLocation") {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil) // Refresh content whenever the user select a city
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil) // Refresh content the first time user real time location is available
+        } else {
+            // User restarted the app. Already have all the information we need. No need to observe anything
+            let cityInUse = userLocationManager.getCityInUse()
+            let cityText: String = cityInUse!.name! + ", " + cityInUse!.state! + ", " + cityInUse!.localizedCountryName!
+            (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, forState: .Normal)
+            loadData(nil)
+        }
+        
     }
     
     @objc private func refresh(sender:AnyObject) {
