@@ -106,7 +106,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
             } else {
                 currentState = CurrentState.BROWSE
             }
-            searchContext.newSearch = false
+            
             searchBar.text = searchContext.keyword
             if hideCurrentResults {
                 searchResultsTable.hidden = true
@@ -150,7 +150,8 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     func search(searchRequest : RestaurantSearchV2Request) {
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(searchRequest) { (searchResponse) in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ 
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                searchContext.newSearch = false
                 if let buckets = searchResponse?.buckets {
                     if (buckets.count == 0) {
                         self.loadedAll = true
