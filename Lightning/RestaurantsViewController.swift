@@ -26,6 +26,14 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
     var buckets : [Bucket] = [Bucket]()
+    
+    private var isLoadingMore = false
+    
+    private var loadedAll = false
+    
+    var footerView : LoadMoreFooterView?
+    
+    private var currentState = CurrentState.BROWSE
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,11 +47,12 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         }
         setDefaultSearchContext()
         configLoadingIndicator()
+        setTableViewFooterView()
     }
     
     private func setDefaultSearchContext() {
         searchContext.distance = RangeFilter.AUTO
-        searchContext.rating = RatingFilter.FOUR
+        searchContext.rating = RatingFilter.NONE
         searchContext.sort = SortOptions.HOTNESS
         searchContext.coordinates = userLocationManager.getLocationInUse()
         searchContext.offSet = 0
@@ -54,6 +63,15 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         loadingIndicator.type = NVActivityIndicatorType.Pacman
         loadingIndicator.center = self.view.center
         self.view.addSubview(loadingIndicator)
+    }
+    
+    func setTableViewFooterView() {
+        let frame = CGRectMake(0, 0, self.view.frame.size.width, 30)
+        footerView = LoadMoreFooterView(frame: frame)
+        footerView?.activityIndicator.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        footerView?.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        footerView?.reset()
+        self.searchResultsTable.tableFooterView = footerView
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,12 +101,17 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
             print("rating = \(searchContext.rating)")
             print("sort = \(searchContext.sort)")
             print("address = \(searchContext.address)")
+            if searchContext.keyword != nil || searchContext.address != nil{
+                currentState = CurrentState.SEARCH
+            } else {
+                currentState = CurrentState.BROWSE
+            }
             searchContext.newSearch = false
             searchBar.text = searchContext.keyword
             if hideCurrentResults {
                 searchResultsTable.hidden = true
                 loadingIndicator.startAnimation()
-            } 
+            }
             if searchContext.address != nil && searchContext.address != "" {
                 LocationHelper.getLocationFromAddress(searchContext.address!, completionHandler: { (location) in
                     NSOperationQueue.mainQueue().addOperationWithBlock({ 
@@ -114,6 +137,9 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     func buildSearchRequest() -> RestaurantSearchV2Request{
         var searchRequest : RestaurantSearchV2Request = RestaurantSearchV2Request()
+        if currentState == CurrentState.BROWSE {
+            searchContext.coordinates = userLocationManager.getLocationInUse()
+        }
         searchRequest.keyword = searchContext.keyword
         searchRequest.offset = searchContext.offSet
         searchRequest.limit = searchContext.limit
@@ -126,7 +152,11 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(searchRequest) { (searchResponse) in
             NSOperationQueue.mainQueue().addOperationWithBlock({ 
                 if let buckets = searchResponse?.buckets {
+                    if (buckets.count == 0) {
+                        self.loadedAll = true
+                    }
                     if searchContext.offSet == 0 {
+                        self.footerView?.reset()
                         self.buckets.removeAll()
                     }
                     self.buckets += buckets
@@ -134,7 +164,15 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                     self.searchResultsTable.endRefreshing()
                     self.searchResultsTable.reloadData()
                     self.searchResultsTable.hidden = false
+                    self.isLoadingMore = false
                     self.loadingIndicator.stopAnimation()
+                    self.footerView!.activityIndicator.stopAnimating()
+                } else {
+                    self.searchResultsTable.endRefreshing()
+                    self.isLoadingMore = false
+                    self.loadingIndicator.stopAnimation()
+                    self.footerView!.activityIndicator.stopAnimating()
+
                 }
             })
         }
@@ -196,8 +234,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         performNewSearchIfNeeded(false)
     }
     
-    // MARK - Pagination
-    
     // Mark - UITableViewDelegate, UITableViewDataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return buckets.count
@@ -245,18 +281,45 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section < buckets.count - 1 {
-            return 10
-        } else {
+        if section == buckets.count - 1 {
             return 0.01
+        } else {
+            return 0
         }
         
+    }
+    
+    // Mark - Pagination
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
+            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
+            if scrollPosition < 30 && !self.isLoadingMore {
+                if self.loadedAll {
+                    footerView?.showFinishMessage()
+                } else {
+                    self.loadMore()
+                }
+                
+            }
+        }
+    }
+    
+    private func loadMore() {
+        isLoadingMore = true
+        footerView?.activityIndicator.startAnimating()
+        searchContext.offSet = searchContext.offSet! + searchContext.limit
+        performNewSearchIfNeeded(false)
     }
 
     
     // Mark - Filter
     @IBAction func openFilter(sender: AnyObject) {
         self.containerViewController?.slideMenuController()?.openRight()
+    }
+    
+    private enum CurrentState {
+        case BROWSE
+        case SEARCH
     }
 
 }

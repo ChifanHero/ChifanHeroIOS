@@ -87,13 +87,13 @@ class RestaurantsFilterViewController: UIViewController {
     
     
     @IBAction func commit(sender: AnyObject) {
-        if (distance != nil) {
+        if (distance != nil && distance != searchContext.distance) {
             searchContext.distance = distance!
         }
-        if (rating != nil) {
+        if (rating != nil && rating != searchContext.rating) {
             searchContext.rating = rating!
         }
-        if (sort != nil) {
+        if (sort != nil && sort != searchContext.sort) {
             searchContext.sort = sort!
         }
         clearStates()
