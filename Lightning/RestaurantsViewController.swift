@@ -56,6 +56,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         setDefaultSearchContext()
         configLoadingIndicator()
         setTableViewFooterView()
+        self.configureNavigationController()
         addFilterButton()
         self.clearTitleForBackBarButtonItem()
     }
@@ -203,7 +204,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
             searchRequest.sortBy = SortParameter.Hotness.description
             searchRequest.sortOrder = SortOrder.Descend.description
         } else if sortOption == SortOptions.RATING {
-            searchRequest.sortBy = SortParameter.Hotness.description
+            searchRequest.sortBy = SortParameter.Rating.description
             searchRequest.sortOrder = SortOrder.Descend.description
         }
     }

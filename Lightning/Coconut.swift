@@ -91,7 +91,7 @@ extension UIViewController: ControllerCommonConfigurationDelegate{
     }
     
     func configureNavigationController() {
-        self.navigationController!.navigationBar.tintColor = UIColor.themeOrange()
+        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
     }
     
     func setNavigationBarTranslucent(To value: Bool){
