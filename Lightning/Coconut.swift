@@ -91,7 +91,7 @@ extension UIViewController: ControllerCommonConfigurationDelegate{
     }
     
     func configureNavigationController() {
-        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController!.navigationBar.tintColor = UIColor.themeOrange()
     }
     
     func setNavigationBarTranslucent(To value: Bool){
@@ -115,5 +115,20 @@ extension UIView {
         imageShape.mask!.position = imgCenterPoint
         
         self.layer.addSublayer(imageShape)
+    }
+}
+
+extension UIButton {
+    class func barButtonWithTextAndBorder(title: String, size: CGRect) -> UIButton{
+        let button: UIButton = self.init(type: .Custom)
+        button.frame = size
+        button.layer.cornerRadius = 3.0
+        button.layer.borderWidth = 1.0
+        button.layer.borderColor = UIColor.whiteColor().CGColor
+        button.setTitle(title, forState: .Normal)
+        button.titleLabel!.font =  UIFont(name: "Arial", size: 14)
+        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        button.backgroundColor = UIColor.themeOrange()
+        return button
     }
 }

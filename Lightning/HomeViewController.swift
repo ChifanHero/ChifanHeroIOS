@@ -112,14 +112,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     // MARK: - add location selection button to top left corner
     func addLocationSelectionToLeftCorner() {
-        let button: UIButton = UIButton(type: .Custom)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("位置待定", size: CGRectMake(0, 0, 200, 26))
         button.addTarget(self, action: #selector(HomeViewController.editLocation), forControlEvents: UIControlEvents.TouchUpInside)
-        button.frame = CGRectMake(0, 0, 200, 26)
-        button.layer.cornerRadius = 3.0
-        button.setTitle("位置待定", forState: .Normal)
-        button.titleLabel!.font =  UIFont(name: "Arial", size: 14)
-        button.backgroundColor = UIColor.grayColor()
-        
         let selectionLocationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = selectionLocationButton
     }

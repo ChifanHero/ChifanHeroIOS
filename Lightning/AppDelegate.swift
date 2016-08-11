@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     private func configNavigationBar() {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), forBarPosition: UIBarPosition.Any, barMetrics: UIBarMetrics.Default)
         UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().barTintColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+        UINavigationBar.appearance().barTintColor = UIColor.themeOrange()
     }
     
     private func handleFirstLaunch() {

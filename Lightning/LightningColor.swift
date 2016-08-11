@@ -58,6 +58,10 @@ extension UIColor {
     public class func themeOrange() -> UIColor {
         return UIColor(red: 254/255, green: 80/255, blue: 0/255, alpha: 1.0)
     }
+    
+    public class func chifanHeroGray() -> UIColor {
+        return UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+    }
 }
 
 extension UIColor {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E2066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nDN-7X-ZMT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nDN-7X-ZMT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -25,7 +25,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.38256207460000002" blue="0.30303615630000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="0UK-nu-r2W" secondAttribute="bottom" constant="7" id="4SO-DD-JZi"/>
                                     <constraint firstItem="0UK-nu-r2W" firstAttribute="centerY" secondItem="y8d-Zt-dE1" secondAttribute="centerY" id="6m3-gc-ear"/>
@@ -104,7 +104,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.38256207460000002" blue="0.30303615630000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Jah-hm-2FC" firstAttribute="leading" secondItem="0x1-bt-s4M" secondAttribute="leading" constant="6" id="Ah7-4p-05S"/>
                                     <constraint firstItem="Jah-hm-2FC" firstAttribute="centerX" secondItem="0x1-bt-s4M" secondAttribute="centerX" id="WWJ-Fe-4u0"/>
@@ -122,7 +122,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.38256207460000002" blue="0.30303615630000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="2Xp-g9-Znh"/>
                                     <constraint firstItem="Tls-5X-cbD" firstAttribute="centerY" secondItem="SNY-ks-9nx" secondAttribute="centerY" id="DLF-gZ-f6g"/>
@@ -186,6 +186,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="5Dm-Ef-sPY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
