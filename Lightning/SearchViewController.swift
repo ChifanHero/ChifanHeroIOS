@@ -115,7 +115,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             searchContext.rating = RatingFilter.NONE
         } else {
             searchContext.sort = SortOptions.HOTNESS
-            searchContext.rating = RatingFilter.FOUR
+//            searchContext.rating = RatingFilter.FOUR
         }
         if address != nil && address != "" {
             if address == "当前位置" {
