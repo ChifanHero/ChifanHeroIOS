@@ -17,7 +17,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     @IBOutlet weak var searchResultsTable: UITableView!
     
-    @IBOutlet weak var filterButton: UIBarButtonItem!
+//    @IBOutlet weak var filterButton: UIBarButtonItem!
     
     @IBOutlet weak var searchBar: UITextField!
     
@@ -56,6 +56,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         setDefaultSearchContext()
         configLoadingIndicator()
         setTableViewFooterView()
+        addFilterButton()
     }
     
     private func setDefaultSearchContext() {
@@ -383,8 +384,16 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
 
     
     // Mark - Filter
-    @IBAction func openFilter(sender: AnyObject) {
+    func openFilter(sender: AnyObject) {
         self.containerViewController?.slideMenuController()?.openRight()
+    }
+    
+    
+    func addFilterButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("筛选", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(RestaurantsViewController.openFilter), forControlEvents: UIControlEvents.TouchUpInside)
+        let filterButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = filterButton
     }
     
     private enum CurrentState {

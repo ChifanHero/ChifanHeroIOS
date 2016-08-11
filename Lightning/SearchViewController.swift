@@ -28,6 +28,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         super.viewDidLoad()
         searchBar.delegate = self
         addressBar.delegate = self
+        addCancelButton()
         // Do any additional setup after loading the view.
     }
     
@@ -36,7 +37,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         searchBar.becomeFirstResponder()
         self.view.layoutIfNeeded()
         self.addressContainerHeight.constant = 44
-        UIView.animateWithDuration(0.4, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 6.0, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
+        UIView.animateWithDuration(0.2, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
             self.view.layoutIfNeeded()
         }) { (success) in
             let defaults = NSUserDefaults.standardUserDefaults()
@@ -60,7 +61,14 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func cancel(sender: AnyObject) {
+    func addCancelButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(SearchViewController.cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let cancelButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = cancelButton
+    }
+    
+    func cancel(sender: AnyObject) {
 //        let tabBarController = self.tabBarController
         self.navigationController?.popViewControllerAnimated(false)
 //        searchContext.keyword = "iphone"

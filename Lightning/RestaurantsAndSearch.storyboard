@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nDN-7X-ZMT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E2066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nDN-7X-ZMT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -61,16 +61,9 @@
                             <constraint firstAttribute="trailing" secondItem="y8d-Zt-dE1" secondAttribute="trailing" id="vA1-DC-q9W"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="所有餐厅" id="F9c-YQ-FS3">
-                        <barButtonItem key="rightBarButtonItem" title="筛选" id="64y-IN-vb7">
-                            <connections>
-                                <action selector="openFilter:" destination="eb9-eE-8FS" id="Ch1-Eo-qvv"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="所有餐厅" id="F9c-YQ-FS3"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="filterButton" destination="64y-IN-vb7" id="yxG-Ue-gjh"/>
                         <outlet property="searchBar" destination="0UK-nu-r2W" id="qCo-xK-pHp"/>
                         <outlet property="searchResultsTable" destination="gZP-ug-CeJ" id="fOP-98-w9E"/>
                         <segue destination="nsa-gt-gFD" kind="show" identifier="search" animates="NO" id="Dcb-fL-o6H"/>
@@ -93,7 +86,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0x1-bt-s4M" userLabel="AddressContainer">
-                                <rect key="frame" x="0.0" y="44" width="375" height="0.0"/>
+                                <rect key="frame" x="0.0" y="39" width="375" height="0.0"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="输入搜索中心位置(地址、城市)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Jah-hm-2FC" userLabel="Address Text Bar">
                                         <rect key="frame" x="6" y="-37" width="363" height="30"/>
@@ -114,27 +107,32 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SNY-ks-9nx" userLabel="KeywordContainer">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="输入餐厅名称" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Tls-5X-cbD" userLabel="Keyword Text Bar">
-                                        <rect key="frame" x="6" y="7" width="363" height="30"/>
+                                        <rect key="frame" x="6" y="9" width="363" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="2Xp-g9-Znh"/>
+                                    <constraint firstAttribute="height" constant="39" id="2Xp-g9-Znh"/>
                                     <constraint firstItem="Tls-5X-cbD" firstAttribute="centerY" secondItem="SNY-ks-9nx" secondAttribute="centerY" id="DLF-gZ-f6g"/>
                                     <constraint firstItem="Tls-5X-cbD" firstAttribute="centerX" secondItem="SNY-ks-9nx" secondAttribute="centerX" id="E2z-f2-Ljr"/>
                                     <constraint firstAttribute="trailing" secondItem="Tls-5X-cbD" secondAttribute="trailing" constant="6" id="JLA-Ww-1AG"/>
                                     <constraint firstItem="Tls-5X-cbD" firstAttribute="leading" secondItem="SNY-ks-9nx" secondAttribute="leading" constant="6" id="yw2-7x-Grg"/>
-                                    <constraint firstAttribute="bottom" secondItem="Tls-5X-cbD" secondAttribute="bottom" constant="7" id="zJ5-TW-9by"/>
-                                    <constraint firstItem="Tls-5X-cbD" firstAttribute="top" secondItem="SNY-ks-9nx" secondAttribute="top" constant="7" id="zuN-nT-fo2"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tls-5X-cbD" secondAttribute="bottom" id="zJ5-TW-9by"/>
+                                    <constraint firstItem="Tls-5X-cbD" firstAttribute="top" secondItem="SNY-ks-9nx" secondAttribute="top" constant="9" id="zuN-nT-fo2"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="DLF-gZ-f6g"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SXb-Ua-5bJ">
-                                <rect key="frame" x="0.0" y="44" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="39" width="375" height="564"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
@@ -159,11 +157,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="搜索" id="fCe-dl-yRW">
                         <barButtonItem key="backBarButtonItem" id="hrQ-x3-EZF"/>
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="8xs-0P-eUp">
-                            <connections>
-                                <action selector="cancel:" destination="nsa-gt-gFD" id="hzF-hm-wSO"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -256,6 +249,7 @@
                                                     <segment title="按距离"/>
                                                     <segment title="按人气"/>
                                                 </segments>
+                                                <color key="tintColor" red="0.99607843137254903" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="sortingChanged:" destination="uyc-NL-Eha" eventType="valueChanged" id="NBN-dR-LSU"/>
                                                 </connections>
@@ -290,6 +284,7 @@
                                                     <segment title="5"/>
                                                     <segment title="20"/>
                                                 </segments>
+                                                <color key="tintColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="rangeChanged:" destination="uyc-NL-Eha" eventType="valueChanged" id="Uid-xV-Tmr"/>
                                                 </connections>
@@ -325,6 +320,7 @@
                                                     <segment title="4.5"/>
                                                     <segment title="5"/>
                                                 </segments>
+                                                <color key="tintColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="ratingChanged:" destination="uyc-NL-Eha" eventType="valueChanged" id="m4c-ha-Ki8"/>
                                                 </connections>
@@ -361,18 +357,7 @@
                             <constraint firstItem="RHv-4J-jO9" firstAttribute="leading" secondItem="RMy-tk-j5z" secondAttribute="leading" constant="10" id="vKU-sR-azb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="kW4-TL-BIJ">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="7s7-vP-Kvj">
-                            <connections>
-                                <action selector="cancel:" destination="uyc-NL-Eha" id="1aL-Eh-IXj"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="确定" id="f8S-Lk-8VE">
-                            <connections>
-                                <action selector="commit:" destination="uyc-NL-Eha" id="j2y-jv-FRN"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="kW4-TL-BIJ"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="250" height="667"/>
                     <connections>
