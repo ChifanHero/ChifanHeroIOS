@@ -57,6 +57,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         configLoadingIndicator()
         setTableViewFooterView()
         addFilterButton()
+        self.clearTitleForBackBarButtonItem()
     }
     
     private func setDefaultSearchContext() {
