@@ -43,7 +43,7 @@ class DataAccessor {
             }
         case "POST":
             Alamofire.request(.POST, url, parameters: request.getRequestBody(), encoding: .JSON, headers: request.getHeaders()).validate().responseJSON { response in
-                print(response)
+//                print(response)
                 var responseObject: Response?
                 
                 switch response.result {
