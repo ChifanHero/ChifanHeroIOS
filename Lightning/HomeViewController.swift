@@ -8,7 +8,6 @@
 
 import UIKit
 import ARNTransitionAnimator
-import PullToMakeSoup
 
 class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
@@ -32,7 +31,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
-    let refresher = PullToMakeSoup()
+    var pullRefresher: UIRefreshControl!
     
     var currentLocationText: String?
     
@@ -44,6 +43,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         self.configureFrontCoverImage()
         self.clearTitleForBackBarButtonItem()
         self.configureNavigationController()
+        self.configurePullToRefresh()
         addLocationSelectionToLeftCorner()
         initHomepageTable()
         
@@ -60,9 +60,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if self.homepageTable.pullToRefresh == nil {
-            self.homepageTable.addPullToRefresh(refresher, action: {self.refreshData()})
-        }
+        pullRefresher.addTarget(self, action: #selector(RefreshableViewController.refreshData), forControlEvents: .ValueChanged)
         TrackingUtil.trackRecommendationView()
     }
     
@@ -79,6 +77,15 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         let storyboard = UIStoryboard(name: "RestaurantsAndSearch", bundle: nil)
         let searchViewController = storyboard.instantiateViewControllerWithIdentifier("SearchActionVC") as! SearchViewController
         self.navigationController?.pushViewController(searchViewController, animated: true)
+    }
+    
+    private func configurePullToRefresh(){
+        pullRefresher = UIRefreshControl()
+        let attribute = [ NSForegroundColorAttributeName: UIColor.themeOrange(),
+                          NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
+        pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
+        pullRefresher.tintColor = UIColor.themeOrange()
+        self.homepageTable.addSubview(pullRefresher)
     }
     
     private func configureFrontCoverImage(){
@@ -192,7 +199,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
                     self.homepageSections.sortInPlace({(sec1, sec2) -> Bool in
                         return sec1.placement < sec2.placement
                     })
-                    self.homepageTable.endRefreshing()
+                    self.pullRefresher.endRefreshing()
                     self.loadingIndicator.stopAnimation()
                     self.homepageTable.reloadData()
                     if refreshHandler != nil {
