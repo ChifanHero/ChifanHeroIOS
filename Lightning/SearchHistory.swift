@@ -95,6 +95,7 @@ class SearchHistory {
                     }
                 }
             }
+            try managedContext.save()
         } catch let error as NSError {
             print("Could not delete keyword. error : \(error) \(error.userInfo)")
         }
@@ -119,6 +120,7 @@ class SearchHistory {
                     }
                 }
             }
+            try managedContext.save()
         } catch let error as NSError {
             print("Could not delete address. error : \(error) \(error.userInfo)")
         }

@@ -25,6 +25,26 @@ class RestaurantsFilterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addBarButtons()
+    }
+    
+    func addBarButtons() {
+        addCancelButton()
+        addConfirmButton()
+    }
+    
+    func addCancelButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(RestaurantsFilterViewController.cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let cancelButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = cancelButton
+    }
+    
+    func addConfirmButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("确定", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(RestaurantsFilterViewController.commit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let confirmButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = confirmButton
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,7 +106,7 @@ class RestaurantsFilterViewController: UIViewController {
     }
     
     
-    @IBAction func commit(sender: AnyObject) {
+    func commit(sender: AnyObject) {
         if (distance != nil && distance != searchContext.distance) {
             searchContext.distance = distance!
         }
@@ -101,7 +121,7 @@ class RestaurantsFilterViewController: UIViewController {
         
     }
     
-    @IBAction func cancel(sender: AnyObject) {
+    func cancel(sender: AnyObject) {
         searchContext.newSearch = false
         clearStates()
         self.containerVC?.slideMenuController()?.closeRight()

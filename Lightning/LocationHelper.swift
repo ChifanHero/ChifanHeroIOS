@@ -374,6 +374,7 @@ class LocationHelper {
                 let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
                 managedContext.deleteObject(managedObjectData)
             }
+            try managedContext.save()
         } catch let error as NSError {
             print("Could not delete all data in HotCity error : \(error) \(error.userInfo)")
         }
