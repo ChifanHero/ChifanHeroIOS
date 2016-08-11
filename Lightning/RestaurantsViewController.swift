@@ -11,7 +11,7 @@ import PullToMakeSoup
 
 let searchContext : SearchContext = SearchContext()
 
-class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
     var containerViewController : RestaurantsContainerViewController?
     
@@ -34,6 +34,14 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     var footerView : LoadMoreFooterView?
     
     private var currentState = CurrentState.BROWSE
+    
+    var animateTransition = false
+    
+    weak var selectedImageView: UIImageView?
+    
+    var selectedRestaurantName: String?
+    
+    var selectedRestaurantId: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +91,11 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         print("restaurants view did appear")
         super.viewDidAppear(animated)
         performNewSearchIfNeeded(true)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.animateTransition = false
     }
     
     // MARK - TextField methods
@@ -290,6 +303,29 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let restaurantSelected : Restaurant = buckets[indexPath.section].results[indexPath.row]
+        let selectedCell : RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
+        self.selectedImageView = selectedCell.restaurantImageView
+        selectedRestaurantName = selectedCell.nameLabel.text
+        selectedRestaurantId = restaurantSelected.id
+        showRestaurant(restaurantSelected.id!)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//        performSegueWithIdentifier("showRestaurant", sender: restaurantSelected.id)
+    }
+    
+    // Mark - Navigation
+    func showRestaurant(id : String) {
+        self.animateTransition = true
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantViewController") as! RestaurantViewController
+        restaurantController.restaurantImage = self.selectedImageView?.image
+        restaurantController.restaurantName = self.selectedRestaurantName
+        restaurantController.restaurantId = self.selectedRestaurantId
+        restaurantController.parentVCName = self.getId()
+        self.navigationController?.pushViewController(restaurantController, animated: true)
+    }
+    
     // Mark - Pagination
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
@@ -310,6 +346,39 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         footerView?.activityIndicator.startAnimating()
         searchContext.offSet = searchContext.offSet! + searchContext.limit
         performNewSearchIfNeeded(false)
+    }
+    
+    // MARK: - ARNImageTransitionZoomable
+    
+    func createTransitionImageView() -> UIImageView {
+        let imageView = UIImageView(image: self.selectedImageView!.image)
+        imageView.contentMode = self.selectedImageView!.contentMode
+        imageView.clipsToBounds = true
+        imageView.userInteractionEnabled = false
+        //        imageView.frame = self.selectedImageView!.convertRect(self.selectedImageView!.frame, toView: self.view)
+        imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
+        
+        return imageView
+    }
+    
+    func presentationCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = true
+    }
+    
+    func dismissalCompletionAction(completeTransition: Bool) {
+        self.selectedImageView?.hidden = false
+    }
+    
+    func usingAnimatedTransition() -> Bool {
+        return animateTransition
+    }
+    
+    func getId() -> String {
+        return "RestaurantsViewController"
+    }
+    
+    func getDirectAncestorId() -> String {
+        return ""
     }
 
     
