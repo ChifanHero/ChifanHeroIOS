@@ -81,11 +81,12 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     private func configurePullToRefresh(){
         pullRefresher = UIRefreshControl()
-        let attribute = [ NSForegroundColorAttributeName: UIColor.themeOrange(),
+        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGrayColor(),
                           NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
         pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
-        pullRefresher.tintColor = UIColor.themeOrange()
-        self.homepageTable.addSubview(pullRefresher)
+        pullRefresher.tintColor = UIColor.lightGrayColor()
+//        self.homepageTable.addSubview(pullRefresher)
+        self.homepageTable.insertSubview(pullRefresher, atIndex: 0)
     }
     
     private func configureFrontCoverImage(){
@@ -130,6 +131,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     }
     
     private func initHomepageTable(){
+        homepageTable.separatorStyle = UITableViewCellSeparatorStyle.None
         loadingIndicator.startAnimation()
         let defaults = NSUserDefaults.standardUserDefaults()
         if !defaults.boolForKey("usingCustomLocation") {
@@ -201,6 +203,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
                     })
                     self.pullRefresher.endRefreshing()
                     self.loadingIndicator.stopAnimation()
+                    self.homepageTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+                    self.homepageTable.hidden = false
                     self.homepageTable.reloadData()
                     if refreshHandler != nil {
                         refreshHandler!(success: true)
