@@ -30,6 +30,43 @@ class LocationHelper {
         }
     }
     
+    class func getStreetAddressFromLocation(lat : Double, lon : Double, completionHandler: (String) -> Void) {
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
+        geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            // Place details
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+//            print(placeMark.locality)
+//            print(placeMark.country)
+//            print(placeMark.name)
+//            print(placeMark.thoroughfare)
+//            print(placeMark.subThoroughfare)
+//            print(placeMark.subLocality)
+            
+            //            // Address dictionary
+            //            print(placeMark.addressDictionary)
+            //
+            //            // Location name
+            //            if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
+            //                print(locationName)
+            //            }
+            //
+                        // Street address
+            var address = ""
+            var name = ""
+            var city = ""
+            if placeMark.name != nil {
+                name = placeMark.name!
+            }
+            if placeMark.locality != nil {
+                city = placeMark.locality!
+            }
+            address = "\(name), \(city)"
+            completionHandler(address)
+        }
+    }
+    
     class func getCityNameFromLocation(lat : Double, lon : Double, completionHandler: (City) -> Void) {
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))

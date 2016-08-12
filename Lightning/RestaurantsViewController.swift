@@ -42,6 +42,9 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     var selectedRestaurantName: String?
     
     var selectedRestaurantId: String?
+    
+    @IBOutlet weak var currentLocationLabel: UILabel!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,7 +126,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                 currentState = CurrentState.BROWSE
             }
             
-            searchBar.text = searchContext.keyword
             if hideCurrentResults {
                 searchResultsTable.hidden = true
                 loadingIndicator.startAnimation()
@@ -165,6 +167,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     func search(searchRequest : RestaurantSearchV2Request) {
+        updateSearchbarAndLocationLabel()
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(searchRequest) { (searchResponse) in
             NSOperationQueue.mainQueue().addOperationWithBlock({
                 searchContext.newSearch = false
@@ -243,6 +246,27 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         range.distance = distance
         filters.range = range
         searchRequest.userLocation = searchContext.coordinates
+    }
+    
+    func updateSearchbarAndLocationLabel() {
+        searchBar.text = searchContext.keyword
+        var currentLocation = "位置: "
+        if searchContext.address != nil {
+            currentLocation = currentLocation + searchContext.address!
+            currentLocationLabel.text = currentLocation
+        } else {
+            if let city = userLocationManager.getCityInUse() {
+                currentLocation = currentLocation + city.name! + ", " + city.state!
+                currentLocationLabel.text = currentLocation
+            } else {
+                LocationHelper.getStreetAddressFromLocation((searchContext.coordinates?.lat)!, lon: (searchContext.coordinates?.lon)!, completionHandler: { (street) in
+                    currentLocation = currentLocation + "当前位置(\(street))"
+                    self.currentLocationLabel.text = currentLocation
+                })
+                
+            }
+        }
+        
     }
     
     // MARK - Pull to refresh
