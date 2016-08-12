@@ -38,6 +38,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         initialLoadData()
         self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
         configLoadingIndicator()
+        self.configureNavigationController()
         loadingIndicator.startAnimation()
     }
     
