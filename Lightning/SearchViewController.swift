@@ -36,7 +36,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         super.viewDidAppear(animated)
         searchBar.becomeFirstResponder()
         self.view.layoutIfNeeded()
-        self.addressContainerHeight.constant = 44
+        self.addressContainerHeight.constant = 37
         UIView.animateWithDuration(0.2, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
             self.view.layoutIfNeeded()
         }) { (success) in
