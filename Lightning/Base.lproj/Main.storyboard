@@ -1687,17 +1687,9 @@
                             <constraint firstItem="YVT-fv-O56" firstAttribute="top" secondItem="hXV-Q6-P2Y" secondAttribute="bottom" id="pX4-3l-5e5"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="选择位置" id="uEM-Ch-FAJ">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="h3B-9d-RBb">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="cancel:" destination="CKz-Y4-TRN" id="njz-ne-XH7"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="选择位置" id="uEM-Ch-FAJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="cancelButton" destination="h3B-9d-RBb" id="BVh-8U-F44"/>
                         <outlet property="locationTable" destination="hXV-Q6-P2Y" id="NVP-H9-up7"/>
                         <outlet property="searchBar" destination="QZI-5O-fN7" id="V99-tn-V4U"/>
                     </connections>

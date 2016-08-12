@@ -23,6 +23,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     var keywordHistory : [String] = [String]()
     var addressHistory : [String] = [String]()
+    
+    var pullRefresher: UIRefreshControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()

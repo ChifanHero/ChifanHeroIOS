@@ -28,12 +28,14 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
-    let refresher = PullToMakeSoup()
+//    let refresher = PullToMakeSoup()
+    var pullRefresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
+        self.configPullToRefresh()
         ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
         initialLoadData()
         self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
@@ -53,10 +55,21 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if self.tableView.pullToRefresh == nil {
-            self.tableView.addPullToRefresh(refresher, action: {self.refreshData()})
-        }
+//        if self.tableView.pullToRefresh == nil {
+//            self.tableView.addPullToRefresh(refresher, action: {self.refreshData()})
+//        }
         TrackingUtil.trackCollectionsView()
+    }
+    
+    func configPullToRefresh() {
+        pullRefresher = UIRefreshControl()
+        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+                          NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
+        pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
+        pullRefresher.tintColor = UIColor.lightGrayColor()
+        //        self.homepageTable.addSubview(pullRefresher)
+        pullRefresher.addTarget(self, action: #selector(SelectedCollectionsTableViewController.refreshData), forControlEvents: .ValueChanged)
+        self.tableView.insertSubview(pullRefresher, atIndex: 0)
     }
     
     override func didReceiveMemoryWarning() {
@@ -100,6 +113,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                             self.selectedCollections.append((response?.results)![index].selectedCollection!)
                         }
                         self.tableView.reloadData()
+                        self.pullRefresher.endRefreshing()
                         self.tableView.endRefreshing()
                         self.loadingIndicator.stopAnimation()
                     } else {
@@ -107,6 +121,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                         self.loadingIndicator.stopAnimation()
                         self.navigationController?.navigationBar.translucent = false
                         self.tabBarController?.tabBar.hidden = false
+                        self.pullRefresher.endRefreshing()
                     }
                     
                 });
@@ -115,6 +130,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
             DataAccessor(serviceConfiguration: ParseConfiguration()).getSelectedCollectionByLocation(request) { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     if response == nil {
+                        self.pullRefresher.endRefreshing()
                         if refreshHandler != nil {
                             refreshHandler!(success: false)
                         }
@@ -136,6 +152,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                             }
                             
                             self.tableView.endRefreshing()
+                            self.pullRefresher.endRefreshing()
                             self.loadingIndicator.stopAnimation()
                         } else {
                             if refreshHandler != nil {
@@ -143,6 +160,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                             }
                             self.tableView.endRefreshing()
                             self.loadingIndicator.stopAnimation()
+                            self.pullRefresher.endRefreshing()
                             self.navigationController?.navigationBar.translucent = false
                             self.tabBarController?.tabBar.hidden = false
                         }

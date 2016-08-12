@@ -11,11 +11,6 @@ import Flurry_iOS_SDK
 
 class SelectLocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
-    
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
-    
-    @IBOutlet weak var doneButton: UIBarButtonItem!
-    
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var locationTable: UITableView!
@@ -44,7 +39,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        cancelButton.tintColor = UIColor.whiteColor()
+        addCancelButton()
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
     }
     
@@ -62,6 +57,13 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func addCancelButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(SelectLocationViewController.cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let cancelButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = cancelButton
     }
     
     // MARK: - table configuration
@@ -92,6 +94,9 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     @IBAction func cancel(sender: AnyObject) {
+        if searchBar.isFirstResponder() {
+            searchBar.resignFirstResponder()
+        }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

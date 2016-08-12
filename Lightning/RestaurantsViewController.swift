@@ -21,7 +21,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     @IBOutlet weak var searchBar: UITextField!
     
-    let refresher = PullToMakeSoup()
+//    let refresher = PullToMakeSoup()
     
     var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
@@ -43,6 +43,8 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     var selectedRestaurantId: String?
     
+    var pullRefresher: UIRefreshControl!
+    
     @IBOutlet weak var currentLocationLabel: UILabel!
     
 
@@ -51,16 +53,17 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         searchBar.delegate = self
 //        filterButton.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        if self.searchResultsTable.pullToRefresh == nil {
-            self.searchResultsTable.addPullToRefresh(refresher) {
-                self.refreshData()
-            }
-        }
+//        if self.searchResultsTable.pullToRefresh == nil {
+//            self.searchResultsTable.addPullToRefresh(refresher) {
+//                self.refreshData()
+//            }
+//        }
         setDefaultSearchContext()
         configLoadingIndicator()
         setTableViewFooterView()
         self.configureNavigationController()
         addFilterButton()
+        configPullToRefresh()
         self.clearTitleForBackBarButtonItem()
     }
     
@@ -86,6 +89,17 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         footerView?.backgroundColor = UIColor.groupTableViewBackgroundColor()
         footerView?.reset()
         self.searchResultsTable.tableFooterView = footerView
+    }
+    
+    func configPullToRefresh() {
+        pullRefresher = UIRefreshControl()
+        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+                          NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
+        pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
+        pullRefresher.tintColor = UIColor.lightGrayColor()
+        //        self.homepageTable.addSubview(pullRefresher)
+        pullRefresher.addTarget(self, action: #selector(RestaurantsViewController.refreshData), forControlEvents: .ValueChanged)
+        self.searchResultsTable.insertSubview(pullRefresher, atIndex: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -183,12 +197,14 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                     self.searchResultsTable.allowsSelection = true
                     self.searchResultsTable.endRefreshing()
                     self.searchResultsTable.reloadData()
+                    self.pullRefresher.endRefreshing()
                     self.searchResultsTable.hidden = false
                     self.isLoadingMore = false
                     self.loadingIndicator.stopAnimation()
                     self.footerView!.activityIndicator.stopAnimating()
                 } else {
                     self.searchResultsTable.endRefreshing()
+                    self.pullRefresher.endRefreshing()
                     self.isLoadingMore = false
                     self.loadingIndicator.stopAnimation()
                     self.footerView!.activityIndicator.stopAnimating()
