@@ -29,6 +29,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         searchBar.delegate = self
         addressBar.delegate = self
         addCancelButton()
+        addSearchButton()
         // Do any additional setup after loading the view.
     }
     
@@ -68,6 +69,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
+    func addSearchButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("搜索", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(SearchViewController.confirmSearch), forControlEvents: UIControlEvents.TouchUpInside)
+        let cancelButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = cancelButton
+    }
+    
     func cancel(sender: AnyObject) {
 //        let tabBarController = self.tabBarController
         self.navigationController?.popViewControllerAnimated(false)
@@ -100,9 +108,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        confirmSearch()
+        return true
+    }
+    
+    func confirmSearch() {
         commitSearchEvent()
         goToResultsDisplayVC()
-        return true
     }
     
     func commitSearchEvent() {
