@@ -15,13 +15,28 @@ class SelectedCollectionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var selectedCollectionImage: UIImageView!
+    var imageURL : String = ""
     
     func setUp(selectedCollection selectedCollection: SelectedCollection) {
         var url: String? = selectedCollection.cellImage?.original
         if(url == nil){
             url = ""
         }
-        selectedCollectionImage.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        imageURL = url!
         title.text = selectedCollection.title
+        selectedCollectionImage.kf_setImageWithURL(NSURL(string: imageURL)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: nil, progressBlock: nil) { (image, error, cacheType, imageURL) in
+            var duration : NSTimeInterval?
+            if cacheType == CacheType.Memory {
+                duration = 0.0
+            } else {
+                duration = 1.0
+            }
+            UIView.transitionWithView(self.selectedCollectionImage,
+                                      duration:duration!,
+                                      options: UIViewAnimationOptions.TransitionCrossDissolve,
+                                      animations: { self.selectedCollectionImage.image = image },
+                                      completion: nil)
+        }
     }
+    
 }

@@ -49,6 +49,25 @@ class PreviewCollectionViewCell: UICollectionViewCell {
             url = ""
         }
         let restaurantDefaultImage = DefaultImageGenerator.generateRestaurantDefaultImage()
-        restaurantImageView!.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: restaurantDefaultImage,optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+//        restaurantImageView!.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: restaurantDefaultImage,optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        restaurantImageView!.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: nil, progressBlock: nil) { (image, error, cacheType, imageURL) in
+            var duration : NSTimeInterval?
+            if cacheType == CacheType.Memory {
+                duration = 0.0
+            } else {
+                duration = 1.0
+            }
+            let newImage : UIImage?
+            if image == nil {
+                newImage = restaurantDefaultImage
+            } else {
+                newImage = image
+            }
+            UIView.transitionWithView(self.restaurantImageView!,
+                                      duration:duration!,
+                                      options: UIViewAnimationOptions.TransitionCrossDissolve,
+                                      animations: { self.restaurantImageView!.image = newImage },
+                                      completion: nil)
+        }
     }
 }
