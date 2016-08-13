@@ -60,6 +60,7 @@
 		C42C962D1D57ECBF00784636 /* SearchResultsTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42C962C1D57ECBF00784636 /* SearchResultsTableViewHeader.xib */; };
 		C42C962F1D57ED1700784636 /* SearchResultsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C962E1D57ED1700784636 /* SearchResultsTableViewHeader.swift */; };
 		C42C96321D59B48300784636 /* UserLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C96311D59B48300784636 /* UserLocationManager.swift */; };
+		C42D908A1D5EF410006AC70F /* RestaurantsOnlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D90891D5EF410006AC70F /* RestaurantsOnlyViewController.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */; };
 		C44B05DA1CE1AF3300337502 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B05D91CE1AF3300337502 /* City.swift */; };
@@ -358,6 +359,7 @@
 		C42C962C1D57ECBF00784636 /* SearchResultsTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultsTableViewHeader.xib; sourceTree = "<group>"; };
 		C42C962E1D57ED1700784636 /* SearchResultsTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewHeader.swift; sourceTree = "<group>"; };
 		C42C96311D59B48300784636 /* UserLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationManager.swift; sourceTree = "<group>"; };
+		C42D90891D5EF410006AC70F /* RestaurantsOnlyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantsOnlyViewController.swift; sourceTree = "<group>"; };
 		C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42D9BC51B69EF2D0035C5A6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C42D9BC71B69EF2D0035C5A6 /* OldSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldSearchViewController.swift; sourceTree = "<group>"; };
@@ -1083,6 +1085,7 @@
 				CA4A29861BF3C34400BAD7CC /* NickNameChangeViewController.swift */,
 				C4C861921CE043FA00A6C896 /* SelectLocationViewController.swift */,
 				C42C96121D54916400784636 /* RestaurantsConnectionViewController.swift */,
+				C42D90891D5EF410006AC70F /* RestaurantsOnlyViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1742,6 +1745,7 @@
 				C4D983121CEC34980061A088 /* GetCitiesRequest.swift in Sources */,
 				CAC1D38A1D39849D00520733 /* ImageStack.swift in Sources */,
 				CAC1D3941D39849D00520733 /* LocationManager.swift in Sources */,
+				C42D908A1D5EF410006AC70F /* RestaurantsOnlyViewController.swift in Sources */,
 				CACA84091CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift in Sources */,
 				CA203DE21C111EEA00D6F32C /* GetFavoritesRequest.swift in Sources */,
 				CA621EC41D0A698800693306 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
