@@ -8,7 +8,7 @@ target 'Lightning' do
 
 pod 'Alamofire', '~> 3.4'
 pod 'AlamofireSwiftyJSON'
-pod 'Kingfisher', '~> 2.1'
+pod 'Kingfisher', '~> 2.4'
 pod 'ARNTransitionAnimator'
 pod 'Flurry-iOS-SDK/FlurrySDK', '~> 7.1.1'
 pod 'PullToMakeSoup', '~> 1.0'
