@@ -288,6 +288,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     // MARK - Pull to refresh
     func refreshData() {
         searchContext.offSet = 0
+        searchContext.coordinates = userLocationManager.getLocationInUse()
         performNewSearchIfNeeded(false)
     }
     
