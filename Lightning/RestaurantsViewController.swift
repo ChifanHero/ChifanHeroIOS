@@ -8,6 +8,7 @@
 
 import UIKit
 import PullToMakeSoup
+import MapKit
 
 let searchContext : SearchContext = SearchContext()
 
@@ -44,6 +45,8 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     var selectedRestaurantId: String?
     
     var pullRefresher: UIRefreshControl!
+    
+    var lastUsedLocation : Location?
     
     @IBOutlet weak var currentLocationLabel: UILabel!
     
@@ -127,7 +130,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     // MARK - perform search
     func performNewSearchIfNeeded(hideCurrentResults : Bool) {
-        if searchContext.newSearch {
+        if searchContext.newSearch || needToRefresh(){
             print("search requested. should do a new search here")
             print("keyword = \(searchContext.keyword)")
             print("range = \(searchContext.distance)")
@@ -167,10 +170,36 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         }
     }
     
+    func needToRefresh() -> Bool {
+        if currentState == CurrentState.BROWSE && locationChangedSignificantly() {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func locationChangedSignificantly() -> Bool {
+        let currentLocation = userLocationManager.getLocationInUse()
+        if lastUsedLocation == nil || currentLocation == nil {
+            return false
+        }
+        let currentCLLocation = CLLocation(latitude: (currentLocation?.lat)!, longitude: (currentLocation?.lon)!)
+        let lastCLLocation = CLLocation(latitude: lastUsedLocation!.lat!, longitude: lastUsedLocation!.lon!)
+        let distance : CLLocationDistance = currentCLLocation.distanceFromLocation(lastCLLocation)
+        print(distance)
+        if distance >= 1600 {
+            return true
+        } else {
+            return false
+        }
+        
+    }
+    
     func buildSearchRequest() -> RestaurantSearchV2Request{
         var searchRequest : RestaurantSearchV2Request = RestaurantSearchV2Request()
         if currentState == CurrentState.BROWSE {
             searchContext.coordinates = userLocationManager.getLocationInUse()
+            lastUsedLocation = searchContext.coordinates
         }
         searchRequest.keyword = searchContext.keyword
         searchRequest.offset = searchContext.offSet

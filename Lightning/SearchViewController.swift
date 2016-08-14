@@ -122,12 +122,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     func commitSearchEvent() {
         let keyword = searchBar.text
         let address = addressBar.text
-        searchContext.keyword = keyword
         if keyword != nil && keyword != "" {
+            searchContext.keyword = keyword
             SearchHistory.saveKeyword(keyword!)
             searchContext.sort = SortOptions.BESTMATCH
             searchContext.rating = RatingFilter.NONE
         } else {
+            searchContext.keyword = nil
             searchContext.sort = SortOptions.HOTNESS
 //            searchContext.rating = RatingFilter.FOUR
         }
