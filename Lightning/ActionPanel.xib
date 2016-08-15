@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E2066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActionPanelView" customModule="吃饭英雄" customModuleProvider="target">
+            <connections>
+                <outlet property="dislikeButtonView" destination="L8w-f8-Euw" id="rCG-R1-iP5"/>
+                <outlet property="favoriteButtonView" destination="bzS-tj-Rw0" id="hTI-et-3N1"/>
+                <outlet property="likeButtonView" destination="J0h-0Z-1dx" id="WDN-aq-cK5"/>
+                <outlet property="neutralButtonView" destination="cAv-67-F9R" id="6Ka-1u-6Zf"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0h-0Z-1dx" userLabel="Like Buttion View" customClass="ActionButtonView" customModule="吃饭英雄" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="94" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="uYw-yx-uiG" appends="YES" id="WTF-gt-WfA"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAv-67-F9R" userLabel="Neutral Button View" customClass="ActionButtonView" customModule="吃饭英雄" customModuleProvider="target">
+                    <rect key="frame" x="94" y="0.0" width="94" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="neutral_large"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="LWX-x8-i3Y" appends="YES" id="4Hx-Qe-ARo"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8w-f8-Euw" userLabel="Dislike Button View" customClass="ActionButtonView" customModule="吃饭英雄" customModuleProvider="target">
+                    <rect key="frame" x="188" y="0.0" width="93.5" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="dislike_large"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="ddw-ed-eKZ" appends="YES" id="r0M-rO-6i5"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bzS-tj-Rw0" userLabel="Favorite Button View" customClass="ActionButtonView" customModule="吃饭英雄" customModuleProvider="target">
+                    <rect key="frame" x="281.5" y="0.0" width="94" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="bookmark_large"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="eiP-Jp-GB0" appends="YES" id="sFQ-i9-PhH"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="J0h-0Z-1dx" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5qk-UF-cEu"/>
+                <constraint firstItem="bzS-tj-Rw0" firstAttribute="leading" secondItem="L8w-f8-Euw" secondAttribute="trailing" id="8mR-xJ-DmR"/>
+                <constraint firstItem="cAv-67-F9R" firstAttribute="leading" secondItem="J0h-0Z-1dx" secondAttribute="trailing" id="CNq-5C-93E"/>
+                <constraint firstAttribute="bottom" secondItem="J0h-0Z-1dx" secondAttribute="bottom" id="ETQ-PR-rmQ"/>
+                <constraint firstItem="L8w-f8-Euw" firstAttribute="leading" secondItem="cAv-67-F9R" secondAttribute="trailing" id="GM9-63-gKD"/>
+                <constraint firstItem="L8w-f8-Euw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Hxe-hR-ZdE"/>
+                <constraint firstAttribute="bottom" secondItem="cAv-67-F9R" secondAttribute="bottom" id="KNh-kl-VO0"/>
+                <constraint firstItem="cAv-67-F9R" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="PaQ-eb-ppT"/>
+                <constraint firstItem="bzS-tj-Rw0" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.25" id="Qnr-jY-BFS"/>
+                <constraint firstAttribute="bottom" secondItem="L8w-f8-Euw" secondAttribute="bottom" id="gCu-ZY-F3m"/>
+                <constraint firstItem="J0h-0Z-1dx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lBg-GH-OIr"/>
+                <constraint firstItem="L8w-f8-Euw" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.25" id="nWZ-F8-Thb"/>
+                <constraint firstAttribute="bottom" secondItem="bzS-tj-Rw0" secondAttribute="bottom" id="oJE-jx-bmI"/>
+                <constraint firstItem="cAv-67-F9R" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.25" id="pku-3s-6mX"/>
+                <constraint firstItem="bzS-tj-Rw0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="t2U-Xh-TtI"/>
+                <constraint firstItem="J0h-0Z-1dx" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.25" id="tkI-8V-dsA"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <tapGestureRecognizer id="uYw-yx-uiG" userLabel="Like Tap">
+            <connections>
+                <action selector="like:" destination="-1" id="T6R-V9-hKS"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="LWX-x8-i3Y" userLabel="Neutral Tap">
+            <connections>
+                <action selector="neutral:" destination="-1" id="RMG-oS-QSF"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="ddw-ed-eKZ" userLabel="Dislike Tap">
+            <connections>
+                <action selector="dislike:" destination="-1" id="ffL-Nk-U3j"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="eiP-Jp-GB0" userLabel="Favorite Tap">
+            <connections>
+                <action selector="favorite:" destination="-1" id="kuX-oj-1UH"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="bookmark_large" width="33" height="33"/>
+        <image name="dislike_large" width="33" height="33"/>
+        <image name="neutral_large" width="33" height="33"/>
+    </resources>
+</document>

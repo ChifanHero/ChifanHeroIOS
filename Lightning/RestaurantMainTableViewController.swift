@@ -1,39 +1,35 @@
 //
-//  RestaurantViewController.swift
-//  SoHungry
+//  RestaurantMainTableViewController.swift
+//  Lightning
 //
-//  Created by Shi Yan on 8/22/15.
-//  Copyright © 2015 Shi Yan. All rights reserved.
+//  Created by Shi Yan on 8/15/16.
+//  Copyright © 2016 Lightning. All rights reserved.
 //
 
 import UIKit
-import CoreLocation
 import MapKit
-import ARNTransitionAnimator
-import Flurry_iOS_SDK
 
-
-class RestaurantViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HeaderViewDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate{
-
+class RestaurantMainTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
-    @IBOutlet weak var containerScrollView: UIScrollView!
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     
-    @IBOutlet weak var topViewContainer: ViewItemTopUIView!
-    
-    @IBOutlet weak var imagePoolView: UICollectionView!
-    
+    @IBOutlet weak var nameLabel: UILabel!
+
     @IBOutlet weak var addressLabel: UILabel!
     
     @IBOutlet weak var phoneLabel: UILabel!
     
-    @IBOutlet weak var goButton: UIButton!
-    
-    @IBOutlet weak var callButton: UIButton!
     
     @IBOutlet weak var recommendationDishLabel: UILabel!
     
+    
+    @IBOutlet weak var imagePoolView: UICollectionView!
+    
+    
+    @IBOutlet weak var actionPanelView: ActionPanelView!
+    
+    var localSearchResponse:MKLocalSearchResponse!
     
     var restaurantId: String? {
         didSet {
@@ -41,68 +37,41 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    var imagePool: [Picture] = []
-    
-    var restaurantImage: UIImage?
-    
-    var restaurantName: String?
-    
     var request: GetRestaurantByIdRequest?
     
     var restaurant: Restaurant?
+    
+    var restaurantImage: UIImage?
+    var restaurantName: String?
+    var address: String?
+    var phone: String?
+    var hotDishes: [Dish] = [Dish]()
+    
+    var imagePool: [Picture] = []
+    
+    
+    @IBOutlet weak var goButton: UIButton!
+    
+    @IBOutlet weak var callButton: UIButton!
     
     var animateTransition = true
     
     var parentVCName: String = ""
     
-    let vcTitleLabel: UILabel = UILabel()
-    
-    var address: String!
-    var phone: String!
-    
-    var hotDishes: [Dish] = [Dish]()
-    
-    private let infoToResource: [String : String] = ["address" : "gps", "hours" : "clock", "phone" : "phone"]
-    
-    var localSearchResponse:MKLocalSearchResponse!
-    
-    var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
-    
-    static let INFO_ROW_HEIGHT : CGFloat = 35
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addImageForBackBarButtonItem()
-        self.containerScrollView.delegate = self
-        self.containerScrollView.showsVerticalScrollIndicator = false
+        self.tableView.showsVerticalScrollIndicator = false
         loadData { (success) -> Void in
             if !success {
-//                self.noNetworkDefaultView.show()
+                //                self.noNetworkDefaultView.show()
             }
         }
+        backgroundImageView.image = restaurantImage
+        nameLabel.text = restaurantName
         loadImagePool()
-        topViewContainer.baseVC = self
-        self.backgroundImageView.image = restaurantImage
-        topViewContainer.name = restaurantName
-        ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
+        actionPanelView.baseVC = self
         self.configureButtons()
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.translucent = false
-        self.tabBarController?.tabBar.hidden = false
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        if self.tabBarController?.tabBar.hidden == true {
-            showTabbarSmoothly()
-        }
-        self.animateTransition = true
-        configVCTitle()
-        TrackingUtil.trackRestaurantView()
     }
     
     private func configureButtons(){
@@ -114,28 +83,13 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
         self.callButton.layer.borderWidth = 1.0
         self.callButton.layer.cornerRadius = 3.0
     }
-    
-    func showTabbarSmoothly() {
-        self.tabBarController?.tabBar.alpha = 0
-        self.tabBarController?.tabBar.hidden = false
-        UIView.animateWithDuration(0.6) {
-            self.tabBarController?.tabBar.alpha = 1
-        }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
-    func configVCTitle() {
-        if self.navigationItem.titleView?.alpha == nil {
-            vcTitleLabel.text = restaurantName
-            vcTitleLabel.backgroundColor = UIColor.clearColor()
-            vcTitleLabel.textColor = UIColor.whiteColor()
-            vcTitleLabel.sizeToFit()
-            vcTitleLabel.alpha = 1.0
-            self.navigationItem.titleView = vcTitleLabel
-            self.navigationItem.titleView?.alpha = 0.0
-        }
-        
-    }
-    
+    // MARK: - Data
     func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         if (request != nil) {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
@@ -148,11 +102,11 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                         if response?.result != nil {
                             self.restaurant = (response?.result)!
                             if self.restaurant != nil {
-                                self.topViewContainer.restaurantId = self.restaurant?.id
-                                if self.topViewContainer.name != nil {
-                                    self.topViewContainer.name = self.restaurant?.name
+                                self.actionPanelView.restaurantId = self.restaurant?.id
+                                
+                                if self.restaurantName != nil {
+                                    self.restaurantName = self.restaurant?.name
                                 }
-                                self.topViewContainer.englishName = self.restaurant?.englishName
                                 if self.backgroundImageView.image == nil {
                                     let backgroundImage : UIImage?
                                     if let imageURL = self.restaurant?.picture?.original {
@@ -169,7 +123,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                                     }
                                     self.backgroundImageView.image = backgroundImage
                                 }
-//
+                                //
                                 if self.restaurant?.address != nil {
                                     self.address = self.restaurant?.address
                                     self.addressLabel.text = self.address
@@ -183,16 +137,16 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                                     self.hotDishes += (self.restaurant?.hotDishes)!
                                 }
                                 if self.restaurant?.likeCount != nil {
-                                    self.topViewContainer.likeCount = self.restaurant?.likeCount
+                                    self.actionPanelView.likeCount = self.restaurant?.likeCount
                                 }
                                 if self.restaurant?.dislikeCount != nil {
-                                    self.topViewContainer.dislikeCount = self.restaurant?.dislikeCount
+                                    self.actionPanelView.dislikeCount = self.restaurant?.dislikeCount
                                 }
                                 if self.restaurant?.neutralCount != nil {
-                                    self.topViewContainer.neutralCount = self.restaurant?.neutralCount
+                                    self.actionPanelView.neutralCount = self.restaurant?.neutralCount
                                 }
                                 if self.restaurant?.favoriteCount != nil {
-                                    self.topViewContainer.bookmarkCount = self.restaurant?.favoriteCount
+                                    self.actionPanelView.favoriteCount = self.restaurant?.favoriteCount
                                 }
                                 if self.restaurant?.hotDishes != nil && self.restaurant?.hotDishes!.count != 0 {
                                     self.recommendationDishLabel.text = ""
@@ -204,7 +158,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                             }
                             
                         } else {
-                            self.topViewContainer.hidden = true
+                            self.actionPanelView.hidden = true
                         }
                         if refreshHandler != nil {
                             refreshHandler!(success: true)
@@ -216,10 +170,6 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
                 });
             }
         }
-    }
-    
-    func refresh() {
-        
     }
     
     func loadImagePool(){
@@ -240,25 +190,9 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     private func clearData() {
         self.imagePool.removeAll()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 0
-    }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-    
-    @IBAction func goAction(sender: AnyObject) {
+    @IBAction func go(sender: AnyObject) {
         TrackingUtil.trackNavigationUsed()
         var localSearchRequest:MKLocalSearchRequest!
         var localSearch:MKLocalSearch!
@@ -283,24 +217,7 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             
             self.presentViewController(alert, animated: true, completion: nil)
         }
-    }
-    
-    @IBAction func callAction(sender: AnyObject) {
-        TrackingUtil.trackPhoneCallUsed()
-        let alert = UIAlertController(title: "呼叫", message: "呼叫\(self.phone)", preferredStyle: UIAlertControllerStyle.ActionSheet)
-        
-        let doCallAction = UIAlertAction(title: "确定", style: .Default, handler: { (action) -> Void in
-            let phoneNumber = self.extractPhoneNumber(self.phone)
-            if let url = NSURL(string: "tel://\(phoneNumber)") {
-                UIApplication.sharedApplication().openURL(url)
-            }
-        })
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-        
-        alert.addAction(doCallAction)
-        alert.addAction(cancelAction)
-        
-        self.presentViewController(alert, animated: true, completion: nil)
+
     }
     
     func doUsingAppleMap(alertAction: UIAlertAction!) -> Void {
@@ -339,97 +256,24 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func cancelNavigation(alertAction: UIAlertAction!) {
         
     }
-    
-    private func addToFavorites(indexPath: NSIndexPath){
-        let dish = self.hotDishes[indexPath.row]
-        ratingAndFavoriteExecutor?.addToFavorites("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
-            for dish : Dish in self.hotDishes {
-                if dish.id == objectId {
-                    if dish.favoriteCount != nil {
-                        dish.favoriteCount! -= 1
-                    }
-                }
+
+    @IBAction func call(sender: AnyObject) {
+        TrackingUtil.trackPhoneCallUsed()
+        let alert = UIAlertController(title: "呼叫", message: "呼叫\(self.phone)", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let doCallAction = UIAlertAction(title: "确定", style: .Default, handler: { (action) -> Void in
+            let phoneNumber = self.extractPhoneNumber(self.phone)
+            if let url = NSURL(string: "tel://\(phoneNumber)") {
+                UIApplication.sharedApplication().openURL(url)
             }
         })
-    }
-    
-    private func rateDish(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
-        let objectId: String? = self.hotDishes[indexPath.row].id
-        let type = "dish"
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
         
-        if ratingType == RatingTypeEnum.like {
-            ratingAndFavoriteExecutor?.like(type, objectId: objectId!, failureHandler: { (objectId) -> Void in
-                for dish : Dish in self.hotDishes {
-                    if dish.id == objectId {
-                        if dish.likeCount != nil {
-                            dish.likeCount! -= 1
-                        }
-                    }
-                }
-            })
-        } else if ratingType == RatingTypeEnum.dislike {
-            ratingAndFavoriteExecutor?.dislike(type, objectId: objectId!,failureHandler: { (objectId) -> Void in
-                for dish : Dish in self.hotDishes {
-                    if dish.id == objectId {
-                        if dish.dislikeCount != nil {
-                            dish.dislikeCount! -= 1
-                        }
-                    }
-                }
-            })
-        } else {
-            ratingAndFavoriteExecutor?.neutral(type, objectId: objectId!,failureHandler: { (objectId) -> Void in
-                for dish : Dish in self.hotDishes {
-                    if dish.id == objectId {
-                        if dish.neutralCount != nil {
-                            dish.neutralCount! -= 1
-                        }
-                    }
-                }
-            })
-        }
+        alert.addAction(doCallAction)
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
-    
-    private func popupSigninAlert() {
-        SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
-    }
-    
-    private func dismissActionViewWithDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantViewController.dismissActionView), userInfo: nil, repeats: false)
-    }
-    
-    @objc private func dismissActionView() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantViewController.reloadTable), userInfo: nil, repeats: false)
-    }
-    
-    @objc private func reloadTable() {
-    }
-    
-    func headerViewActionButtonPressed() {
-        self.performSegueWithIdentifier("showAllDishes", sender: self.restaurantId)
-    }
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let barButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = barButtonItem
-        if segue.identifier == "showAllDishes" {
-            self.animateTransition = false
-            let restaurantAllDishesController : RestaurantAllDishViewController = segue.destinationViewController as! RestaurantAllDishViewController
-            restaurantAllDishesController.restaurantId = sender as? String
-        }
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y
-        let nameLabelBottomY = self.topViewContainer.getNameLabelBottomY() + 200
-        if offset > nameLabelBottomY{
-            let scale = (abs(offset) - abs(nameLabelBottomY)) / 40
-            self.navigationItem.titleView?.alpha = scale
-        } else {
-            self.navigationItem.titleView?.alpha = 0.0
-        }
-    }
-    
     func extractPhoneNumber(originalNumber : String?) -> String{
         if originalNumber == nil {
             return ""
@@ -438,6 +282,77 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
             NSCharacterSet.decimalDigitCharacterSet().invertedSet)
         let newString = stringArray.joinWithSeparator("")
         return newString
+    }
+    // MARK: - Table view data source
+    
+    // MARK: UICollectionViewDataSource
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of items
+        return imagePool.count + 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell: RestaurantImagePoolCollectionViewCell? = imagePoolView.dequeueReusableCellWithReuseIdentifier("restaurantImagePoolCell", forIndexPath: indexPath) as? RestaurantImagePoolCollectionViewCell
+        
+        // Configure the cell
+        if indexPath.row < imagePool.count {
+            cell!.setUp(image: imagePool[indexPath.row])
+        } else {
+            cell!.setUpAddingImageCell()
+        }
+        return cell!
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == imagePool.count {
+            let imagePickerController = ImagePickerController()
+            imagePickerController.delegate = self
+            self.presentViewController(imagePickerController, animated: true, completion: nil)
+        } else {
+            let photoGallery = PhotoGalleryViewController()
+            photoGallery.parentVC = self
+            photoGallery.currentIndexPath = indexPath
+            self.presentViewController(photoGallery, animated: false, completion: nil)
+        }
+    }
+    
+    //MARK: ImagePickerDelegate
+    func wrapperDidPress(imagePicker: ImagePickerController, images: [UIImage]){
+        
+    }
+    func doneButtonDidPress(imagePicker: ImagePickerController, images: [UIImage]){
+        let queue = NSOperationQueue()
+        
+        for image in images {
+            queue.addOperationWithBlock() {
+                let maxLength = 500000
+                var imageData = UIImageJPEGRepresentation(image, 1.0) //1.0 is compression ratio
+                if imageData?.length > maxLength {
+                    let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.length)!)
+                    imageData = UIImageJPEGRepresentation(image, compressionRatio)
+                }
+                
+                let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
+                let request: UploadRestaurantPictureRequest = UploadRestaurantPictureRequest(restaurantId: self.restaurantId!, type: "restaurant", base64_code: base64_code)
+                DataAccessor(serviceConfiguration: ParseConfiguration()).uploadRestaurantPicture(request) { (response) -> Void in
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        //add actions here
+                        print("done");
+                        self.imagePool.append((response?.result)!)
+                        self.imagePoolView.reloadData()
+                    });
+                }
+            }
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    func cancelButtonDidPress(imagePicker: ImagePickerController){
+        
     }
     
     // MARK: - ARNImageTransitionZoomable
@@ -480,78 +395,61 @@ class RestaurantViewController: UIViewController, UITableViewDataSource, UITable
     func getDirectAncestorId() -> String {
         return parentVCName
     }
-    
-    // MARK: UICollectionViewDataSource
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+
+
+    /*
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+
+        // Configure the cell...
+
+        return cell
     }
-    
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return imagePool.count + 1
+    */
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
     }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell: RestaurantImagePoolCollectionViewCell? = imagePoolView.dequeueReusableCellWithReuseIdentifier("imagePoolCell", forIndexPath: indexPath) as? RestaurantImagePoolCollectionViewCell
-        
-        // Configure the cell
-        if indexPath.row < imagePool.count {
-            cell!.setUp(image: imagePool[indexPath.row])
-        } else {
-            cell!.setUpAddingImageCell()
-        }
-        return cell!
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
     }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == imagePool.count {
-            let imagePickerController = ImagePickerController()
-            imagePickerController.delegate = self
-            self.presentViewController(imagePickerController, animated: true, completion: nil)
-        } else {
-            let photoGallery = PhotoGalleryViewController()
-//            photoGallery.parentVC = self
-            photoGallery.currentIndexPath = indexPath
-            self.presentViewController(photoGallery, animated: false, completion: nil)
-        }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+
     }
-    
-    //MARK: ImagePickerDelegate
-    func wrapperDidPress(imagePicker: ImagePickerController, images: [UIImage]){
-        
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
     }
-    func doneButtonDidPress(imagePicker: ImagePickerController, images: [UIImage]){
-        let queue = NSOperationQueue()
-        
-        for image in images {
-            queue.addOperationWithBlock() {
-                let maxLength = 500000
-                var imageData = UIImageJPEGRepresentation(image, 1.0) //1.0 is compression ratio
-                if imageData?.length > maxLength {
-                    let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.length)!)
-                    imageData = UIImageJPEGRepresentation(image, compressionRatio)
-                }
-                
-                let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
-                let request: UploadRestaurantPictureRequest = UploadRestaurantPictureRequest(restaurantId: self.restaurantId!, type: "restaurant", base64_code: base64_code)
-                DataAccessor(serviceConfiguration: ParseConfiguration()).uploadRestaurantPicture(request) { (response) -> Void in
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        //add actions here
-                        print("done");
-                        self.imagePool.append((response?.result)!)
-                        self.imagePoolView.reloadData()
-                    });
-                }
-            }
-        }
-        self.dismissViewControllerAnimated(true, completion: nil)
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
-    func cancelButtonDidPress(imagePicker: ImagePickerController){
-        
-    }
-    
-    
+    */
+
 }

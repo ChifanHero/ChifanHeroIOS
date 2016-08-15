@@ -278,7 +278,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func handleTransition() {
         self.animateTransition = true
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantViewController") as! RestaurantViewController
+        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantName = self.selectedRestaurantName
         restaurantController.restaurantId = self.selectedRestaurantId

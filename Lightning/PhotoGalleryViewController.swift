@@ -11,7 +11,7 @@ import UIKit
 class PhotoGalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var photoGalleryView: UICollectionView?
-    var parentVC: RestaurantViewController?
+    var parentVC: RestaurantMainTableViewController?
     var currentIndexPath: NSIndexPath?
     var onceOnly = false
     
