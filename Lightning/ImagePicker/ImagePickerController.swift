@@ -111,8 +111,7 @@ public class ImagePickerController: UIViewController {
 
     _ = try? AVAudioSession.sharedInstance().setActive(true)
 
-    statusBarHidden = UIApplication.sharedApplication().statusBarHidden
-    UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
+    
   }
 
   public override func viewDidAppear(animated: Bool) {
@@ -133,6 +132,8 @@ public class ImagePickerController: UIViewController {
 
     initialFrame = galleryView.frame
     initialContentOffset = galleryView.collectionView.contentOffset
+    statusBarHidden = UIApplication.sharedApplication().statusBarHidden
+    UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
   }
 
   public override func viewWillDisappear(animated: Bool) {
@@ -245,9 +246,9 @@ public class ImagePickerController: UIViewController {
 
   // MARK: - Helpers
 
-  public override func prefersStatusBarHidden() -> Bool {
-    return true
-  }
+//  public override func prefersStatusBarHidden() -> Bool {
+//    return true
+//  }
 
   public func collapseGalleryView(completion: (() -> Void)?) {
     galleryView.collectionViewLayout.invalidateLayout()
