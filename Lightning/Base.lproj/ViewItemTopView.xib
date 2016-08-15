@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E2066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -89,6 +89,7 @@
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
+                            <exclude reference="hnt-pL-hmN"/>
                             <exclude reference="VfJ-aV-qZn"/>
                         </mask>
                     </variation>
@@ -110,6 +111,11 @@
                         <constraint firstAttribute="height" constant="44" id="eMV-jT-aAR"/>
                         <constraint firstItem="x6K-2e-lFz" firstAttribute="centerY" secondItem="2I8-ur-tWU" secondAttribute="centerY" id="twQ-yH-2bz"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="eMV-jT-aAR"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -120,6 +126,8 @@
                 <constraint firstAttribute="trailing" secondItem="2I8-ur-tWU" secondAttribute="trailing" id="ae6-EK-5ok"/>
                 <constraint firstItem="6TS-Zp-D0Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gAL-fF-zB2"/>
                 <constraint firstAttribute="bottom" secondItem="6TS-Zp-D0Z" secondAttribute="bottom" id="k3t-HL-hVj"/>
+                <constraint firstItem="6TS-Zp-D0Z" firstAttribute="height" secondItem="2I8-ur-tWU" secondAttribute="height" id="tKx-6m-zBd"/>
+                <constraint firstItem="2I8-ur-tWU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xXj-bf-x6s"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
