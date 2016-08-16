@@ -83,6 +83,13 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         self.callButton.layer.borderWidth = 1.0
         self.callButton.layer.cornerRadius = 3.0
     }
+    
+//    override func viewDidLayoutSubviews() {
+//        if let rect = self.navigationController?.navigationBar.frame {
+//            let y = rect.size.height + rect.origin.y
+//            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+//        }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
