@@ -49,6 +49,9 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     var imagePool: [Picture] = []
     
+    let vcTitleLabel: UILabel = UILabel()
+    
+    @IBOutlet weak var headerView: UIView!
     
     @IBOutlet weak var goButton: UIButton!
     
@@ -57,6 +60,8 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     var animateTransition = true
     
     var parentVCName: String = ""
+    
+    let kTableHeaderHeight: CGFloat = 264.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +73,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
             }
         }
         backgroundImageView.image = restaurantImage
+        
         nameLabel.text = restaurantName
         loadImagePool()
         actionPanelView.baseVC = self
@@ -84,12 +90,58 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         self.callButton.layer.cornerRadius = 3.0
     }
     
+    private func configureHeaderView(){
+        if self.tableView.tableHeaderView != nil {
+            headerView = self.tableView.tableHeaderView
+            self.tableView.tableHeaderView = nil
+            self.tableView.addSubview(headerView)
+            self.tableView.contentInset = UIEdgeInsets(top: kTableHeaderHeight, left: 0, bottom: 0, right: 0)
+            self.tableView.contentOffset = CGPoint(x: 0, y: -kTableHeaderHeight)
+            updateHeaderView()
+        }
+        
+//        print(backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view))
+    }
+    
 //    override func viewDidLayoutSubviews() {
 //        if let rect = self.navigationController?.navigationBar.frame {
 //            let y = rect.size.height + rect.origin.y
 //            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
 //        }
 //    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.tabBarController?.tabBar.hidden == true {
+            showTabbarSmoothly()
+        }
+        self.animateTransition = true
+        configVCTitle()
+        self.configureHeaderView()
+        TrackingUtil.trackRestaurantView()
+    }
+    
+    
+    func showTabbarSmoothly() {
+        self.tabBarController?.tabBar.alpha = 0
+        self.tabBarController?.tabBar.hidden = false
+        UIView.animateWithDuration(0.6) {
+            self.tabBarController?.tabBar.alpha = 1
+        }
+    }
+    
+    func configVCTitle() {
+        if self.navigationItem.titleView?.alpha == nil {
+            vcTitleLabel.text = restaurantName
+            vcTitleLabel.backgroundColor = UIColor.clearColor()
+            vcTitleLabel.textColor = UIColor.whiteColor()
+            vcTitleLabel.sizeToFit()
+            vcTitleLabel.alpha = 1.0
+            self.navigationItem.titleView = vcTitleLabel
+            self.navigationItem.titleView?.alpha = 0.0
+        }
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -362,6 +414,32 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         
     }
     
+    // MARK: - ScrollView
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        updateHeaderView()
+        let offset = scrollView.contentOffset.y
+        let nameLabelBottomY = getNameLabelBottomY() + 200
+        if offset > nameLabelBottomY{
+            let scale = (abs(offset) - abs(nameLabelBottomY)) / 40
+            self.navigationItem.titleView?.alpha = scale
+        } else {
+            self.navigationItem.titleView?.alpha = 0.0
+        }
+    }
+    
+    private func updateHeaderView(){
+        var headerRect = CGRect(x: 0, y: -kTableHeaderHeight, width: self.tableView.bounds.width, height: kTableHeaderHeight)
+        if tableView.contentOffset.y < -kTableHeaderHeight {
+            headerRect.origin.y = self.tableView.contentOffset.y
+            headerRect.size.height = -self.tableView.contentOffset.y
+        }
+        headerView.frame = headerRect
+    }
+    
+    func getNameLabelBottomY() -> CGFloat {
+        return self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height / 2
+    }
+    
     // MARK: - ARNImageTransitionZoomable
     
     func createTransitionImageView() -> UIImageView {
@@ -369,7 +447,9 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         imageView.contentMode = self.backgroundImageView.contentMode
         imageView.clipsToBounds = true
         imageView.userInteractionEnabled = false
-        imageView.frame = backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view)
+//        imageView.frame = backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view)
+//        print(backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view))
+        imageView.frame = CGRectMake(0.0, 0.0, 414.0, 264.0)
         return imageView
     }
     
