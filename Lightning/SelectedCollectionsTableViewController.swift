@@ -9,6 +9,7 @@
 import UIKit
 import PullToMakeSoup
 import Flurry_iOS_SDK
+import MapKit
 
 class SelectedCollectionsTableViewController: UITableViewController, UINavigationControllerDelegate {
     
@@ -30,6 +31,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
 //    let refresher = PullToMakeSoup()
     var pullRefresher: UIRefreshControl!
+    
+    var lastUsedLocation : Location?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +62,27 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
 //            self.tableView.addPullToRefresh(refresher, action: {self.refreshData()})
 //        }
         TrackingUtil.trackCollectionsView()
+        if !isFromBookMark && locationChangedSignificantly() {
+            loadingIndicator.startAnimation()
+            refreshData()
+        }
+    }
+    
+    func locationChangedSignificantly() -> Bool {
+        let currentLocation = userLocationManager.getLocationInUse()
+        if lastUsedLocation == nil || currentLocation == nil {
+            return false
+        }
+        let currentCLLocation = CLLocation(latitude: (currentLocation?.lat)!, longitude: (currentLocation?.lon)!)
+        let lastCLLocation = CLLocation(latitude: lastUsedLocation!.lat!, longitude: lastUsedLocation!.lon!)
+        let distance : CLLocationDistance = currentCLLocation.distanceFromLocation(lastCLLocation)
+        print(distance)
+        if distance >= 1600 {
+            return true
+        } else {
+            return false
+        }
+        
     }
     
     func configPullToRefresh() {
@@ -129,6 +153,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         } else {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getSelectedCollectionByLocation(request) { (response) -> Void in
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.lastUsedLocation = self.request.userLocation
                     if response == nil {
                         self.pullRefresher.endRefreshing()
                         if refreshHandler != nil {

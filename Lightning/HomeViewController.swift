@@ -8,6 +8,7 @@
 
 import UIKit
 import ARNTransitionAnimator
+import MapKit
 
 class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
@@ -34,6 +35,10 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     var pullRefresher: UIRefreshControl!
     
     var currentLocationText: String?
+    
+    var autoRefresh = false
+    
+    var lastUsedLocation : Location?
     
     override func viewDidLoad() {
         appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
@@ -62,6 +67,27 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         super.viewDidAppear(animated)
         pullRefresher.addTarget(self, action: #selector(RefreshableViewController.refreshData), forControlEvents: .ValueChanged)
         TrackingUtil.trackRecommendationView()
+        if autoRefresh && locationChangedSignificantly() {
+            loadingIndicator.startAnimation()
+            loadData(nil)
+        }
+    }
+    
+    func locationChangedSignificantly() -> Bool {
+        let currentLocation = userLocationManager.getLocationInUse()
+        if lastUsedLocation == nil || currentLocation == nil {
+            return false
+        }
+        let currentCLLocation = CLLocation(latitude: (currentLocation?.lat)!, longitude: (currentLocation?.lon)!)
+        let lastCLLocation = CLLocation(latitude: lastUsedLocation!.lat!, longitude: lastUsedLocation!.lon!)
+        let distance : CLLocationDistance = currentCLLocation.distanceFromLocation(lastCLLocation)
+        print(distance)
+        if distance >= 1600 {
+            return true
+        } else {
+            return false
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -177,6 +203,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         } else {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
         }
+        autoRefresh = false
     }
 
     override func loadData(refreshHandler : ((success : Bool) -> Void)?) {
@@ -211,6 +238,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
                     }
                     
                 }
+                self.autoRefresh = true
+                self.lastUsedLocation = request.userLocation
             });
         }
     }
