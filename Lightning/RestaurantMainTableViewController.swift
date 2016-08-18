@@ -20,14 +20,15 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     @IBOutlet weak var phoneLabel: UILabel!
     
-    
     @IBOutlet weak var recommendationDishLabel: UILabel!
-    
     
     @IBOutlet weak var imagePoolView: UICollectionView!
     
-    
     @IBOutlet weak var actionPanelView: ActionPanelView!
+    
+    @IBOutlet weak var goButton: UIButton!
+    
+    @IBOutlet weak var callButton: UIButton!
     
     var localSearchResponse:MKLocalSearchResponse!
     
@@ -51,17 +52,13 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     let vcTitleLabel: UILabel = UILabel()
     
-    @IBOutlet weak var headerView: UIView!
+    var headerView: UIView!
     
-    @IBOutlet weak var goButton: UIButton!
-    
-    @IBOutlet weak var callButton: UIButton!
+    let kTableHeaderHeight: CGFloat = 200.0
     
     var animateTransition = true
     
     var parentVCName: String = ""
-    
-    let kTableHeaderHeight: CGFloat = 264.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +75,8 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         loadImagePool()
         actionPanelView.baseVC = self
         self.configureButtons()
+        
+        self.configureHeaderView()
     }
     
     private func configureButtons(){
@@ -91,16 +90,12 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     }
     
     private func configureHeaderView(){
-        if self.tableView.tableHeaderView != nil {
-            headerView = self.tableView.tableHeaderView
-            self.tableView.tableHeaderView = nil
-            self.tableView.addSubview(headerView)
-            self.tableView.contentInset = UIEdgeInsets(top: kTableHeaderHeight, left: 0, bottom: 0, right: 0)
-            self.tableView.contentOffset = CGPoint(x: 0, y: -kTableHeaderHeight)
-            updateHeaderView()
-        }
-        
-//        print(backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view))
+        headerView = self.tableView.tableHeaderView
+        self.tableView.tableHeaderView = nil
+        self.tableView.addSubview(headerView)
+        self.tableView.contentInset = UIEdgeInsets(top: kTableHeaderHeight, left: 0, bottom: 0, right: 0)
+        self.tableView.contentOffset = CGPoint(x: 0, y: -kTableHeaderHeight)
+        updateHeaderView()
     }
     
 //    override func viewDidLayoutSubviews() {
@@ -117,7 +112,6 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         }
         self.animateTransition = true
         configVCTitle()
-        self.configureHeaderView()
         TrackingUtil.trackRestaurantView()
     }
     
@@ -447,9 +441,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         imageView.contentMode = self.backgroundImageView.contentMode
         imageView.clipsToBounds = true
         imageView.userInteractionEnabled = false
-//        imageView.frame = backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view)
-//        print(backgroundImageView.superview!.convertRect(backgroundImageView.frame, toView: self.view))
-        imageView.frame = CGRectMake(0.0, 0.0, 414.0, 264.0)
+        imageView.frame = CGRectMake(0.0, 0.0, self.tableView.frame.width, 264.0)
         return imageView
     }
     
