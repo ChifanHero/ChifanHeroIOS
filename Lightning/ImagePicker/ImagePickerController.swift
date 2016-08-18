@@ -292,7 +292,6 @@ public class ImagePickerController: UIViewController {
   func enableGestures(enabled: Bool) {
     galleryView.alpha = enabled ? 1 : 0
     bottomContainer.pickerButton.enabled = enabled
-    bottomContainer.tapGestureRecognizer.enabled = enabled
     topView.flashButton.enabled = enabled
     topView.rotateCamera.enabled = Configuration.canRotateCamera
   }
@@ -305,7 +304,6 @@ public class ImagePickerController: UIViewController {
     guard isBelowImageLimit() && !isTakingPicture else { return }
     isTakingPicture = true
     bottomContainer.pickerButton.enabled = false
-    bottomContainer.stackView.startLoader()
     let action: Void -> Void = { [unowned self] in
       self.cameraController.takePicture { self.isTakingPicture = false }
     }
