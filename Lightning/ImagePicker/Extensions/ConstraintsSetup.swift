@@ -97,7 +97,7 @@ extension ImagePickerController {
 
   func setupConstraints() {
     let attributes: [NSLayoutAttribute] = [.Bottom, .Right, .Width]
-    let topViewAttributes: [NSLayoutAttribute] = [.Left, .Width]
+    let topViewAttributes: [NSLayoutAttribute] = [.Left, .Top, .Width]
 
     for attribute in attributes {
       view.addConstraint(NSLayoutConstraint(item: bottomContainer, attribute: attribute,
@@ -110,10 +110,6 @@ extension ImagePickerController {
         relatedBy: .Equal, toItem: view, attribute: attribute,
         multiplier: 1, constant: 0))
     }
-
-    view.addConstraint(NSLayoutConstraint(item: topView, attribute: .Top,
-        relatedBy: .Equal, toItem: self.view, attribute: .Top,
-        multiplier: 1, constant: 20))
     
     for attribute in topViewAttributes {
       view.addConstraint(NSLayoutConstraint(item: topView, attribute: attribute,
