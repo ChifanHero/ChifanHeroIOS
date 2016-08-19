@@ -94,7 +94,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         self.searchResultsTable.tableFooterView = footerView
     }
     
-    func configPullToRefresh() {
+    private func configPullToRefresh() {
         pullRefresher = UIRefreshControl()
         let attribute = [ NSForegroundColorAttributeName: UIColor.lightGrayColor(),
                           NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]

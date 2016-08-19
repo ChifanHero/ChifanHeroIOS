@@ -8,8 +8,6 @@
 
 import UIKit
 
-import PullToMakeSoup
-
 class OldRestaurantsViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable{
     
     @IBOutlet var restaurantsTable: UITableView!
@@ -50,7 +48,7 @@ class OldRestaurantsViewController: RefreshableViewController, UITableViewDataSo
     
     var isLoadingMore = false
     
-    let refresher = PullToMakeSoup()
+    var pullRefresher: UIRefreshControl!
     
     var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
@@ -87,12 +85,17 @@ class OldRestaurantsViewController: RefreshableViewController, UITableViewDataSo
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if self.restaurantsTable.pullToRefresh == nil {
-            self.restaurantsTable.addPullToRefresh(refresher) {
-                self.refreshData()
-            }
-        }
         TrackingUtil.trackRestaurantsView()
+    }
+    
+    private func configPullToRefresh() {
+        pullRefresher = UIRefreshControl()
+        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+                          NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
+        pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
+        pullRefresher.tintColor = UIColor.lightGrayColor()
+        pullRefresher.addTarget(self, action: #selector(OldRestaurantsViewController.refreshData), forControlEvents: .ValueChanged)
+        self.restaurantsTable.insertSubview(pullRefresher, atIndex: 0)
     }
     
     private func configLoadingIndicator() {
@@ -161,7 +164,7 @@ class OldRestaurantsViewController: RefreshableViewController, UITableViewDataSo
                     self.loadingIndicator.stopAnimation()
                     self.footerView!.activityIndicator.stopAnimating()
                     self.restaurantsTable.reloadData()
-                    self.restaurantsTable.endRefreshing()
+                    self.pullRefresher.endRefreshing()
                 });
             }
         } else {
@@ -171,7 +174,7 @@ class OldRestaurantsViewController: RefreshableViewController, UITableViewDataSo
                         if refreshHandler != nil {
                             refreshHandler!(success: false)
                         }
-                        self.restaurantsTable.endRefreshing()
+                        self.pullRefresher.endRefreshing()
                         self.loadingIndicator.stopAnimation()
                         self.footerView!.activityIndicator.stopAnimating()
                     } else {
@@ -182,7 +185,7 @@ class OldRestaurantsViewController: RefreshableViewController, UITableViewDataSo
                         if self.restaurants.count > 0 && self.restaurantsTable.hidden == true{
                             self.restaurantsTable.hidden = false
                         }
-                        self.restaurantsTable.endRefreshing()
+                        self.pullRefresher.endRefreshing()
                         self.loadingIndicator.stopAnimation()
                         self.footerView!.activityIndicator.stopAnimating()
                         self.restaurantsTable.reloadData()

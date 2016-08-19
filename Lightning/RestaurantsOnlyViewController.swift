@@ -8,8 +8,6 @@
 
 import UIKit
 
-import PullToMakeSoup
-
 class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
     @IBOutlet var restaurantsTable: UITableView!
@@ -24,22 +22,6 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
     
     var selectedRestaurantId: String?
     
-    var sortBy: String? {
-        didSet {
-            if isFromBookMark == false {
-                if sortBy == "hottest" {
-                    request.sortBy = SortParameter.Hotness
-                    request.sortOrder = SortOrder.Descend
-                    self.navigationItem.title = "热门餐厅"
-                } else {
-                    request.sortBy = SortParameter.Distance
-                    request.sortOrder = SortOrder.Ascend
-                    self.navigationItem.title = "离我最近"
-                }
-            }
-        }
-    }
-    
     var restaurants: [Restaurant] = []
     
     var loadMoreIndicator : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
@@ -50,7 +32,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
     
     var isLoadingMore = false
     
-    let refresher = PullToMakeSoup()
+    var pullRefresher: UIRefreshControl!
     
     var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
@@ -67,6 +49,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
         self.configLoadingIndicator()
+        self.configPullToRefresh()
         self.restaurantsTable.delegate = self
         self.restaurantsTable.dataSource = self
         self.restaurantsTable.hidden = true
@@ -87,12 +70,17 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if self.restaurantsTable.pullToRefresh == nil {
-            self.restaurantsTable.addPullToRefresh(refresher) {
-                self.refreshData()
-            }
-        }
         TrackingUtil.trackRestaurantsView()
+    }
+    
+    private func configPullToRefresh() {
+        pullRefresher = UIRefreshControl()
+        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+                          NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
+        pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
+        pullRefresher.tintColor = UIColor.lightGrayColor()
+        pullRefresher.addTarget(self, action: #selector(RestaurantsOnlyViewController.refreshData), forControlEvents: .ValueChanged)
+        self.restaurantsTable.insertSubview(pullRefresher, atIndex: 0)
     }
     
     private func configLoadingIndicator() {
@@ -161,7 +149,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
                     self.loadingIndicator.stopAnimation()
                     self.footerView!.activityIndicator.stopAnimating()
                     self.restaurantsTable.reloadData()
-                    self.restaurantsTable.endRefreshing()
+                    self.pullRefresher.endRefreshing()
                 });
             }
         } else {
@@ -171,7 +159,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
                         if refreshHandler != nil {
                             refreshHandler!(success: false)
                         }
-                        self.restaurantsTable.endRefreshing()
+                        self.pullRefresher.endRefreshing()
                         self.loadingIndicator.stopAnimation()
                         self.footerView!.activityIndicator.stopAnimating()
                     } else {
@@ -182,7 +170,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
                         if self.restaurants.count > 0 && self.restaurantsTable.hidden == true{
                             self.restaurantsTable.hidden = false
                         }
-                        self.restaurantsTable.endRefreshing()
+                        self.pullRefresher.endRefreshing()
                         self.loadingIndicator.stopAnimation()
                         self.footerView!.activityIndicator.stopAnimating()
                         self.restaurantsTable.reloadData()
@@ -276,175 +264,32 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let restaurant : Restaurant = self.restaurants[indexPath.row]
-        var favoriteCount : Int = 0
-        var likeCount : Int = 0
-        var neutralCount : Int = 0
-        var dislikeCount : Int = 0
+        let restaurant: Restaurant = self.restaurants[indexPath.row]
         let objectId = restaurant.id
-        if restaurant.favoriteCount != nil {
-            favoriteCount = restaurant.favoriteCount!
-        }
-        if restaurant.likeCount != nil {
-            likeCount = restaurant.likeCount!
-        }
-        if restaurant.neutralCount != nil {
-            neutralCount = restaurant.neutralCount!
-        }
-        if restaurant.dislikeCount != nil {
-            dislikeCount = restaurant.dislikeCount!
-        }
         
-        let addBookmarkAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.bookMark(favoriteCount), handler:{(action, indexpath) -> Void in
-            favoriteCount += 1
-            if restaurant.favoriteCount == nil {
-                restaurant.favoriteCount = 1
-            } else {
-                restaurant.favoriteCount! += 1
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Destructive, title: "删除", handler:{(action, indexpath) -> Void in
+            
+            let request = RemoveFavoriteRequest()
+            request.type = "restaurant"
+            request.objectId = objectId
+            DataAccessor(serviceConfiguration: ParseConfiguration()).removeFavorite(request) { (response) -> Void in
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    
+                });
             }
-            self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.bookMark(favoriteCount), index: 0)
-            self.addToFavorites(indexPath)
-            self.dismissActionViewWithDelay()
+            
+            self.restaurantsTable.beginUpdates()
+            self.restaurants.removeAtIndex(indexPath.row)
+            self.restaurantsTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            self.restaurantsTable.endUpdates()
+            
         });
-        addBookmarkAction.backgroundColor = LightningColor.bookMarkYellow()
         
-        let likeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.positive(likeCount), handler:{(action, indexpath) -> Void in
-            if (UserContext.isRatingTooFrequent(objectId!)) {
-                SCLAlertView().showWarning("评价太频繁", subTitle: "")
-            } else {
-                likeCount += 1
-                if restaurant.likeCount == nil {
-                    restaurant.likeCount = 1
-                } else {
-                    restaurant.likeCount! += 1
-                }
-                self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.positive(likeCount), index: 3)
-                self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.like)
-            }
-            self.dismissActionViewWithDelay()
-        });
-        likeAction.backgroundColor = LightningColor.likeBackground()
-        
-        let neutralAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.neutral(neutralCount), handler:{(action, indexpath) -> Void in
-            if (UserContext.isRatingTooFrequent(objectId!)) {
-                SCLAlertView().showWarning("评价太频繁", subTitle: "")
-            } else {
-                neutralCount += 1
-                if restaurant.neutralCount == nil {
-                    restaurant.neutralCount = 1
-                } else {
-                    restaurant.neutralCount! += 1
-                }
-                action.title = "一般\n\(neutralCount)"
-                self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.neutral(neutralCount), index: 2)
-                self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.neutral)
-            }
-            self.dismissActionViewWithDelay()
-        });
-        neutralAction.backgroundColor = LightningColor.neutralOrange()
-        
-        let dislikeAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: CellActionTitle.negative(dislikeCount), handler:{(action, indexpath) -> Void in
-            if (UserContext.isRatingTooFrequent(objectId!)) {
-                SCLAlertView().showWarning("评价太频繁", subTitle: "")
-            } else {
-                dislikeCount += 1
-                if restaurant.dislikeCount == nil {
-                    restaurant.dislikeCount = 1
-                } else {
-                    restaurant.dislikeCount! += 1
-                }
-                self.restaurantsTable.cellForRowAtIndexPath(indexPath)?.changeTitleForActionView(CellActionTitle.negative(dislikeCount), index: 1)
-                self.rateRestaurant(indexPath, ratingType: RatingTypeEnum.dislike)
-            }
-            self.dismissActionViewWithDelay()
-        });
-        dislikeAction.backgroundColor = LightningColor.negativeBlue()
-        
-        
-        return [addBookmarkAction, dislikeAction, neutralAction, likeAction];
+        return [deleteAction];
     }
     
     private func popupSigninAlert() {
         SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
-    }
-    
-    private func dismissActionViewWithDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantsOnlyViewController.dismissActionView), userInfo: nil, repeats: false)
-    }
-    
-    @objc private func dismissActionView() {
-        self.restaurantsTable.setEditing(false, animated: true)
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantsOnlyViewController.reloadTable), userInfo: nil, repeats: false)
-    }
-    
-    @objc private func reloadTable() {
-        self.restaurantsTable.reloadData()
-    }
-    
-    private func addToFavorites(indexPath: NSIndexPath){
-        let restaurant = self.restaurants[indexPath.row]
-        ratingAndFavoriteExecutor?.addToFavorites("restaurant", objectId: restaurant.id!, failureHandler: { (objectId) -> Void in
-            for restaurant : Restaurant in self.restaurants {
-                if restaurant.id == objectId {
-                    if restaurant.favoriteCount != nil {
-                        restaurant.favoriteCount! -= 1
-                    }
-                }
-            }
-        })
-    }
-    
-    private func rateRestaurant(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
-        
-        let objectId: String? = restaurants[indexPath.row].id
-        let type = "restaurant"
-        
-        if ratingType == RatingTypeEnum.like {
-            ratingAndFavoriteExecutor?.like(type, objectId: objectId!, failureHandler: { (objectId) -> Void in
-                for restaurant : Restaurant in self.restaurants {
-                    if restaurant.id == objectId {
-                        if restaurant.likeCount != nil {
-                            restaurant.likeCount! -= 1
-                        }
-                    }
-                }
-            })
-        } else if ratingType == RatingTypeEnum.dislike {
-            ratingAndFavoriteExecutor?.dislike(type, objectId: objectId!,failureHandler: { (objectId) -> Void in
-                for restaurant : Restaurant in self.restaurants {
-                    if restaurant.id == objectId {
-                        if restaurant.dislikeCount != nil {
-                            restaurant.dislikeCount! -= 1
-                        }
-                    }
-                }
-            })
-        } else {
-            ratingAndFavoriteExecutor?.neutral(type, objectId: objectId!,failureHandler: { (objectId) -> Void in
-                for restaurant : Restaurant in self.restaurants {
-                    if restaurant.id == objectId {
-                        if restaurant.neutralCount != nil {
-                            restaurant.neutralCount! -= 1
-                        }
-                    }
-                }
-            })
-        }
-        
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
-            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
-            if scrollPosition < 30 && !self.isLoadingMore {
-                if self.needToLoadMore() {
-                    self.loadMore()
-                } else {
-                    footerView?.showFinishMessage()
-                }
-                
-            }
-        }
     }
     
     // MARK: - ARNImageTransitionZoomable
