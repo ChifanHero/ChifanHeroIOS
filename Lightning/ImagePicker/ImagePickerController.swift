@@ -246,9 +246,9 @@ public class ImagePickerController: UIViewController {
 
   // MARK: - Helpers
 
-//  public override func prefersStatusBarHidden() -> Bool {
-//    return true
-//  }
+  public override func prefersStatusBarHidden() -> Bool {
+    return true
+  }
 
   public func collapseGalleryView(completion: (() -> Void)?) {
     galleryView.collectionViewLayout.invalidateLayout()
