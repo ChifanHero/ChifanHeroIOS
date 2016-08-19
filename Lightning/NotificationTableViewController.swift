@@ -22,16 +22,22 @@ class NotificationTableViewController: UITableViewController {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NotificationTableViewController.notificationArrived), name:"NotificationArrived", object: nil)
         self.clearTitleForBackBarButtonItem()
+        self.addImageForBackBarButtonItem()
         configurePullRefresh()
-        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NotificationTableViewController.edit))
-        editBarButton.tintColor = UIColor.whiteColor()
-        self.navigationItem.leftBarButtonItem = editBarButton
+        addEditButton()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.loadTableData()
         TrackingUtil.trackNotificationsView()
+    }
+    
+    private func addEditButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("编辑", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(NotificationTableViewController.edit), forControlEvents: UIControlEvents.TouchUpInside)
+        let editButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = editButton
     }
     
     private func configurePullRefresh(){
@@ -154,17 +160,19 @@ class NotificationTableViewController: UITableViewController {
     }
     
     func edit() {
-        let doneBarButton = UIBarButtonItem(title: "完成", style: UIBarButtonItemStyle.Done, target: self, action: #selector(NotificationTableViewController.done))
-        doneBarButton.tintColor = UIColor.whiteColor()
-        self.navigationItem.leftBarButtonItem = doneBarButton
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("完成", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(NotificationTableViewController.done), forControlEvents: UIControlEvents.TouchUpInside)
+        let doneButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = doneButton
         self.tableView.editing = true
         
     }
     
     func done() {
-        let editBarButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NotificationTableViewController.edit))
-        editBarButton.tintColor = UIColor.whiteColor()
-        self.navigationItem.leftBarButtonItem = editBarButton
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("编辑", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(NotificationTableViewController.edit), forControlEvents: UIControlEvents.TouchUpInside)
+        let editButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = editButton
         self.tableView.editing = false
     }
     

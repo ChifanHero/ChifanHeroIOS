@@ -461,7 +461,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     
-    func addFilterButton() {
+    private func addFilterButton() {
         let button: UIButton = UIButton.barButtonWithTextAndBorder("筛选", size: CGRectMake(0, 0, 80, 26))
         button.addTarget(self, action: #selector(RestaurantsViewController.openFilter), forControlEvents: UIControlEvents.TouchUpInside)
         let filterButton = UIBarButtonItem(customView: button)

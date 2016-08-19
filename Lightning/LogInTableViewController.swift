@@ -33,6 +33,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogInTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         self.configureLoginButton()
+        self.addNotificationButton()
+        self.addSignUpButton()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -43,6 +45,28 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func addNotificationButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("消息", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(LogInTableViewController.showNotification), forControlEvents: UIControlEvents.TouchUpInside)
+        let notificationButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = notificationButton
+    }
+    
+    private func addSignUpButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("注册", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(LogInTableViewController.showSignUp), forControlEvents: UIControlEvents.TouchUpInside)
+        let signUpButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = signUpButton
+    }
+    
+    func showNotification(){
+        performSegueWithIdentifier("showNotification", sender: nil)
+    }
+    
+    func showSignUp(){
+        performSegueWithIdentifier("signUp", sender: nil)
     }
     
     func configureLoginButton(){
@@ -121,16 +145,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     private func getAboutMeNavigationController() -> UINavigationController {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let aboutMeNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("AboutMeNavigationController") as! UINavigationController
-        aboutMeNC.tabBarItem = UITabBarItem(title: "我的主页", image: UIImage(named: "AboutMe"), tag: 3)
+        aboutMeNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)
         return aboutMeNC
-    }
-    
-    @IBAction func signUpButtonTouched(sender: AnyObject) {
-        performSegueWithIdentifier("signUp", sender: nil)
-    }
-    
-    @IBAction func notificationButtonTouched(sender: AnyObject) {
-        performSegueWithIdentifier("showNotification", sender: nil)
     }
     
     @IBAction func logInButtonTouched(sender: AnyObject) {
@@ -238,6 +254,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
             signUpTableViewController.loginViewController = self;
         }
     }
+    
+    
 
     // MARK: - Table view data source
 

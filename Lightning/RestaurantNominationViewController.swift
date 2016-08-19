@@ -15,11 +15,11 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
 
     @IBOutlet weak var nominationView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var completeButton: UIBarButtonItem!
     
     let nominationRequest: NominateRestaurantRequest = NominateRestaurantRequest()
     var restaurants: [Restaurant] = [Restaurant]()
     var selectedCollection: SelectedCollection?
+    var doneButton: UIBarButtonItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +33,9 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         self.nominationView?.collectionViewLayout = layout
         
         self.searchBar.delegate = self
-        completeButton.enabled = false
         self.navigationController?.navigationBar.translucent = false
+        self.addDoneButton()
+        doneButton?.enabled = false
 
     }
     
@@ -46,6 +47,28 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func addDoneButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("完成", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(RestaurantNominationViewController.completeNomination), forControlEvents: UIControlEvents.TouchUpInside)
+        let doneButton = UIBarButtonItem(customView: button)
+        self.doneButton = doneButton
+        self.navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    func completeNomination(){
+        DataAccessor(serviceConfiguration: ParseConfiguration()).nominateRestaurantForCollection(nominationRequest, responseHandler: { (response) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                let appearance = SCLAlertView.SCLAppearance(
+                    showCloseButton: false
+                )
+                let alertView = SCLAlertView(appearance: appearance)
+                alertView.addButton("完成", target:self, selector:#selector(RestaurantNominationViewController.unwindToCollectionMember))
+                alertView.showSuccess("提名成功", subTitle: "感谢您的提名.\n吃饭英雄会尽快处理您的请求!")
+            })
+            
+        })
     }
 
     /*
@@ -81,7 +104,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        completeButton.enabled = true
+        doneButton?.enabled = true
         nominationRequest.collectionId = selectedCollection?.id
         nominationRequest.restaurantId = restaurants[indexPath.row].id
     }
@@ -113,21 +136,6 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         self.searchBar?.endEditing(true)
         searchRestaurant(keyword: self.searchBar.text!)
-    }
-    
-    
-    @IBAction func completeNomination(sender: AnyObject) {
-        DataAccessor(serviceConfiguration: ParseConfiguration()).nominateRestaurantForCollection(nominationRequest, responseHandler: { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                let appearance = SCLAlertView.SCLAppearance(
-                    showCloseButton: false
-                )
-                let alertView = SCLAlertView(appearance: appearance)
-                alertView.addButton("完成", target:self, selector:#selector(RestaurantNominationViewController.unwindToCollectionMember))
-                alertView.showSuccess("提名成功", subTitle: "感谢您的提名.\n吃饭英雄会尽快处理您的请求!")
-            })
-            
-        })
     }
     
     func unwindToCollectionMember(){

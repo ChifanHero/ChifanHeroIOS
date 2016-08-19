@@ -22,7 +22,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         loadUserNickName()
         loadUserPicture()
         setUserProfileImageProperty()
-        
+        addNotificationButton()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -45,6 +45,17 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func addNotificationButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("消息", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(AboutMeTableViewController.showNotification), forControlEvents: UIControlEvents.TouchUpInside)
+        let notificationButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = notificationButton
+    }
+    
+    func showNotification(){
+        performSegueWithIdentifier("showNotification", sender: nil)
     }
     
     private func setUserProfileImageProperty(){
@@ -217,8 +228,9 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     private func getLogInNavigationController() -> UINavigationController{
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let logInNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("LogInNavigationController") as! UINavigationController
-        logInNC.tabBarItem = UITabBarItem(title: "我的主页", image: UIImage(named: "AboutMe"), tag: 3)
+        logInNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)
         return logInNC
     }
+    
 
 }

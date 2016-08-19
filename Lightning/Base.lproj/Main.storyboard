@@ -184,12 +184,12 @@
             <objects>
                 <tableViewController storyboardIdentifier="selectedCollection" id="95b-bo-wIe" customClass="SelectedCollectionsTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jgp-XE-aRB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5iX-Dn-eRx">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5iX-Dn-eRx" id="Mce-wm-GnK">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -218,11 +218,11 @@
             <objects>
                 <tableViewController id="Bol-Ce-s2z" customClass="RestaurantCollectionMembersViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8E9-uT-aZE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="UYa-gB-E10" userLabel="Header View">
-                            <rect key="frame" x="0.0" y="64" width="375" height="300"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wLe-cz-yEh" userLabel="Header Image">
@@ -407,7 +407,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ruu-dM-11o">
-                                <rect key="frame" x="0.0" y="392" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="328" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ruu-dM-11o" id="wCd-1G-gQI">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -451,10 +451,10 @@
                         <viewControllerLayoutGuide type="bottom" id="Xij-O1-xFU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8b0-ws-ke6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vzl-U0-fO5" userLabel="Search View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzl-U0-fO5" userLabel="Search View">
                                 <rect key="frame" x="-8" y="0.0" width="391" height="40"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" placeholder="请输入餐厅名称" translatesAutoresizingMaskIntoConstraints="NO" id="YuL-kS-BTj">
@@ -546,16 +546,9 @@
                             <constraint firstItem="vzl-U0-fO5" firstAttribute="top" secondItem="HIk-4w-qAt" secondAttribute="bottom" id="z2a-HO-6WK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="JML-Sc-UYy">
-                        <barButtonItem key="rightBarButtonItem" title="完成" id="VqB-80-kCC">
-                            <connections>
-                                <action selector="completeNomination:" destination="CUa-OE-7Gk" id="IjC-Uy-iwq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="JML-Sc-UYy"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="completeButton" destination="VqB-80-kCC" id="eJx-yY-nuE"/>
                         <outlet property="nominationView" destination="IbA-l7-dNm" id="3BL-x5-0tX"/>
                         <outlet property="searchBar" destination="YuL-kS-BTj" id="noC-l8-vpG"/>
                         <segue destination="71f-EJ-kij" kind="unwind" identifier="unwindToCollectionMember" unwindAction="unwindToCollectionMember:" id="puP-5s-nys"/>
@@ -1308,7 +1301,7 @@
                         <viewControllerLayoutGuide type="bottom" id="TuO-r1-wfP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Q8B-ue-KhO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCx-yh-LaH" customClass="SlideBar" customModule="吃饭英雄" customModuleProvider="target">
@@ -1333,12 +1326,12 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zlm-pG-XiO">
-                                <rect key="frame" x="-4" y="102" width="383" height="516"/>
+                                <rect key="frame" x="-4" y="102" width="383" height="565"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rtV-Lr-p1N" userLabel="Waiting View">
-                                <rect key="frame" x="-4" y="64" width="383" height="554"/>
+                                <rect key="frame" x="-4" y="64" width="383" height="603"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aqj-0V-wgK">
                                         <rect key="frame" x="173" y="282" width="37" height="37"/>
@@ -1594,6 +1587,7 @@
                         <segue destination="pdu-ak-44S" kind="show" identifier="showNickNameChange" id="NxX-s2-cN4"/>
                         <segue destination="cBe-Iu-15d" kind="show" identifier="showRestaurants" id="a4w-pg-A3F"/>
                         <segue destination="95b-bo-wIe" kind="show" identifier="showSelectedCollection" id="Xwu-Fr-gz6"/>
+                        <segue destination="yTn-ho-gAS" kind="show" identifier="showNotification" id="C2u-Od-8Qe"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JBw-sd-q8k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1955,18 +1949,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <navigationItem key="navigationItem" id="7b2-1e-ydc">
-                        <barButtonItem key="leftBarButtonItem" title="消息" id="Nqs-Tb-ugD">
-                            <connections>
-                                <action selector="notificationButtonTouched:" destination="2xY-J8-DXY" id="Rbd-LO-2hl"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="注册" id="yYB-Sw-tR0">
-                            <connections>
-                                <action selector="signUpButtonTouched:" destination="2xY-J8-DXY" id="mdg-qU-FMq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="7b2-1e-ydc"/>
                     <connections>
                         <outlet property="passwordTextField" destination="EaP-el-a16" id="l5E-zP-ewh"/>
                         <outlet property="usernameTextField" destination="lik-fF-iXk" id="GYQ-uO-Jpe"/>
@@ -1990,7 +1973,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8N9-A8-yrI" userLabel="Message Detail View" customClass="NotificationDetailView" customModule="吃饭英雄" customModuleProvider="target">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8N9-A8-yrI" userLabel="Message Detail View" customClass="NotificationDetailView" customModule="吃饭英雄" customModuleProvider="target">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -2136,7 +2119,7 @@
             <objects>
                 <navigationController restorationIdentifier="LogInNavigationController" storyboardIdentifier="LogInNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="uD7-Qe-tHo" userLabel="Personal View Navigation Controller" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="我的主页" image="Me_Tab" selectedImage="Me_Tab" id="FW4-TG-ZV5"/>
+                    <tabBarItem key="tabBarItem" title="个人" image="Me_Tab" selectedImage="Me_Tab" id="FW4-TG-ZV5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="JpX-m4-a5C">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2234,7 +2217,8 @@
         <image name="Restaurants_Tab" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3sn-ku-ffw"/>
+        <segue reference="Xwu-Fr-gz6"/>
+        <segue reference="C2u-Od-8Qe"/>
         <segue reference="FsK-Rc-bJJ"/>
     </inferredMetricsTieBreakers>
 </document>
