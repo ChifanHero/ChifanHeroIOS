@@ -10,7 +10,7 @@ import UIKit
 
 import PullToMakeSoup
 
-class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable{
+class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
     @IBOutlet var restaurantsTable: UITableView!
     

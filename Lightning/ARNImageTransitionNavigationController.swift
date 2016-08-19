@@ -27,6 +27,9 @@ class ARNImageTransitionNavigationController: UINavigationController, UINavigati
         fromViewController fromVC: UIViewController,
         toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
+        if toVC is SelectedCollectionsTableViewController && !(fromVC is RestaurantCollectionMembersViewController){
+            return nil
+        }
         
         if fromVC is RestaurantCollectionMembersViewController{
             if operation == .Push{

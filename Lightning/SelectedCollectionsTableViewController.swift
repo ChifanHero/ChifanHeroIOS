@@ -254,7 +254,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         
         if operation == UINavigationControllerOperation.Push {
             transition.operation = UINavigationControllerOperation.Push
-            transition.duration = 0.40
+            transition.duration = 0.80
             transition.selectedCellFrame = self.selectedCellFrame
             
             return transition
@@ -262,7 +262,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         
         if operation == UINavigationControllerOperation.Pop {
             transition.operation = UINavigationControllerOperation.Pop
-            transition.duration = 0.20
+            transition.duration = 0.80
             
             return transition
         }

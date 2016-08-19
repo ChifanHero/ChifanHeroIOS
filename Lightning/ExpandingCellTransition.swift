@@ -104,16 +104,17 @@ class ExpandingCellTransition: NSObject, UIViewControllerAnimatedTransitioning, 
         self.imageViewTop!.frame = startFrameTop
         self.imageViewBottom!.frame = startFrameBottom
         
-        destinationView.alpha = 0
-        sourceView.alpha = 0
+        destinationView.alpha = 1
+        sourceView.alpha = 1
         
-        let backgroundView = UIView(frame: bounds)
-        backgroundView.backgroundColor = UIColor.blackColor()
+        //let backgroundView = UIView(frame: bounds)
+        //backgroundView.backgroundColor = UIColor.blackColor()
         
         if self.operation == UINavigationControllerOperation.Pop {
             sourceView.alpha = 1
+            destinationView.alpha = 0
             
-            container.addSubview(backgroundView)
+            //container.addSubview(backgroundView)
             container.addSubview(sourceView)
             container.addSubview(destinationView)
             container.addSubview(self.imageViewTop!)
@@ -134,7 +135,7 @@ class ExpandingCellTransition: NSObject, UIViewControllerAnimatedTransitioning, 
             })
             
         } else {
-            container.addSubview(backgroundView)
+            //container.addSubview(backgroundView)
             container.addSubview(destinationView)
             container.addSubview(self.imageViewTop!)
             container.addSubview(self.imageViewBottom!)
