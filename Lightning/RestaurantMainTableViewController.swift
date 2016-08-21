@@ -60,6 +60,8 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     var parentVCName: String = ""
     
+    var isFromGoogleSearch = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addImageForBackBarButtonItem()
@@ -74,6 +76,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         nameLabel.text = restaurantName
         loadImagePool()
         actionPanelView.baseVC = self
+        actionPanelView.isFromGoogleSearch = self.isFromGoogleSearch
         self.configureButtons()
         
         self.configureHeaderView()
@@ -97,13 +100,6 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         self.tableView.contentOffset = CGPoint(x: 0, y: -kTableHeaderHeight)
         updateHeaderView()
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        if let rect = self.navigationController?.navigationBar.frame {
-//            let y = rect.size.height + rect.origin.y
-//            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-//        }
-//    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)

@@ -50,13 +50,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-//        filterButton.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.shadowImage = UIImage()
-//        if self.searchResultsTable.pullToRefresh == nil {
-//            self.searchResultsTable.addPullToRefresh(refresher) {
-//                self.refreshData()
-//            }
-//        }
         setDefaultSearchContext()
         configLoadingIndicator()
         setTableViewFooterView()
@@ -373,18 +367,22 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let restaurantSelected : Restaurant = buckets[indexPath.section].results[indexPath.row]
-        let selectedCell : RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
+        print(buckets)
+        let restaurantSelected: Restaurant = buckets[indexPath.section].results[indexPath.row]
+        let selectedCell: RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
         self.selectedImageView = selectedCell.restaurantImageView
         selectedRestaurantName = selectedCell.nameLabel.text
         selectedRestaurantId = restaurantSelected.id
-        showRestaurant(restaurantSelected.id!)
+        if buckets[indexPath.section].source == "google" {
+            showRestaurant(restaurantSelected.id!, isFromGoogleSearch: true)
+        } else {
+            showRestaurant(restaurantSelected.id!, isFromGoogleSearch: false)
+        }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-//        performSegueWithIdentifier("showRestaurant", sender: restaurantSelected.id)
     }
     
     // Mark - Navigation
-    func showRestaurant(id : String) {
+    func showRestaurant(id: String, isFromGoogleSearch: Bool) {
         self.animateTransition = true
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
@@ -392,6 +390,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         restaurantController.restaurantName = self.selectedRestaurantName
         restaurantController.restaurantId = self.selectedRestaurantId
         restaurantController.parentVCName = self.getId()
+        restaurantController.isFromGoogleSearch = isFromGoogleSearch
         self.navigationController?.pushViewController(restaurantController, animated: true)
     }
     

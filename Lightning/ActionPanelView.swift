@@ -18,6 +18,8 @@ class ActionPanelView: UIView {
     
     var view: UIView!
     
+    var isFromGoogleSearch = false
+    
     @IBOutlet weak var likeButtonView: ActionButtonView!
     
     @IBOutlet weak var neutralButtonView: ActionButtonView!
@@ -93,6 +95,10 @@ class ActionPanelView: UIView {
     }
 
     @IBAction func like(sender: AnyObject) {
+        if isFromGoogleSearch {
+            SCLAlertView().showWarning("该餐厅来自谷歌搜索", subTitle: "评价功能暂不支持第三方搜索服务")
+            return
+        }
         if self.baseVC == nil {
             return
         }
@@ -109,6 +115,10 @@ class ActionPanelView: UIView {
     
     
     @IBAction func neutral(sender: AnyObject) {
+        if isFromGoogleSearch {
+            SCLAlertView().showWarning("该餐厅来自谷歌搜索", subTitle: "评价功能暂不支持第三方搜索服务")
+            return
+        }
         if self.baseVC == nil {
             return
         }
@@ -124,6 +134,10 @@ class ActionPanelView: UIView {
     }
     
     @IBAction func dislike(sender: AnyObject) {
+        if isFromGoogleSearch {
+            SCLAlertView().showWarning("该餐厅来自谷歌搜索", subTitle: "评价功能暂不支持第三方搜索服务")
+            return
+        }
         if self.baseVC == nil {
             return
         }
@@ -139,6 +153,10 @@ class ActionPanelView: UIView {
     }
     
     @IBAction func favorite(sender: AnyObject) {
+        if isFromGoogleSearch {
+            SCLAlertView().showWarning("该餐厅来自谷歌搜索", subTitle: "收藏功能暂不支持第三方搜索服务")
+            return
+        }
         if self.baseVC == nil {
             return
         }
