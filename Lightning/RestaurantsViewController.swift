@@ -367,7 +367,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print(buckets)
         let restaurantSelected: Restaurant = buckets[indexPath.section].results[indexPath.row]
         let selectedCell: RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
         self.selectedImageView = selectedCell.restaurantImageView
