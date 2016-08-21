@@ -248,7 +248,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRestaurant" {
-            let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            let restaurantController : RestaurantMainTableViewController = segue.destinationViewController as! RestaurantMainTableViewController
             restaurantController.restaurantId = sender as? String
             restaurantController.restaurantImage = self.selectedImageView?.image
             restaurantController.restaurantName = self.selectedRestaurantName

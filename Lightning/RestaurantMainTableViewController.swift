@@ -45,7 +45,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     var restaurantImage: UIImage?
     var restaurantName: String?
     var address: String?
-    var phone: String?
+    var phone: String!
     var hotDishes: [Dish] = [Dish]()
     
     var imagePool: [Picture] = []
@@ -312,7 +312,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
 
     @IBAction func call(sender: AnyObject) {
         TrackingUtil.trackPhoneCallUsed()
-        let alert = UIAlertController(title: "呼叫", message: "呼叫\(self.phone)", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let alert = UIAlertController(title: "呼叫", message: "\(self.phone)", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
         let doCallAction = UIAlertAction(title: "确定", style: .Default, handler: { (action) -> Void in
             let phoneNumber = self.extractPhoneNumber(self.phone)

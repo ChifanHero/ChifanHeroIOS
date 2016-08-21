@@ -240,7 +240,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRestaurant" {
-            let controller: RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+            let controller: RestaurantMainTableViewController = segue.destinationViewController as! RestaurantMainTableViewController
             controller.restaurantId = sender as? String
             controller.restaurantImage = self.selectedImageView?.image
             controller.restaurantName = self.selectedRestaurantName

@@ -18,11 +18,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     @IBOutlet weak var searchResultsTable: UITableView!
     
-//    @IBOutlet weak var filterButton: UIBarButtonItem!
-    
     @IBOutlet weak var searchBar: UITextField!
-    
-//    let refresher = PullToMakeSoup()
     
     var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
     
@@ -391,7 +387,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     func showRestaurant(id : String) {
         self.animateTransition = true
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantViewController") as! RestaurantViewController
+        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantName = self.selectedRestaurantName
         restaurantController.restaurantId = self.selectedRestaurantId
