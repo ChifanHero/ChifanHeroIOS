@@ -134,7 +134,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     private func configLoadingIndicator() {
         loadingIndicator.color = UIColor.themeOrange()
         loadingIndicator.type = NVActivityIndicatorType.Pacman
-        loadingIndicator.center = self.view.center
+        loadingIndicator.center = (UIApplication.sharedApplication().keyWindow?.center)!
         self.view.addSubview(loadingIndicator)
     }
     
