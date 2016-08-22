@@ -373,15 +373,15 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         selectedRestaurantName = selectedCell.nameLabel.text
         selectedRestaurantId = restaurantSelected.id
         if buckets[indexPath.section].source == "google" {
-            showRestaurant(restaurantSelected.id!, isFromGoogleSearch: true)
+            showRestaurant(restaurantSelected.id!, restaurant: restaurantSelected, isFromGoogleSearch: true)
         } else {
-            showRestaurant(restaurantSelected.id!, isFromGoogleSearch: false)
+            showRestaurant(restaurantSelected.id!, restaurant: restaurantSelected, isFromGoogleSearch: false)
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     // Mark - Navigation
-    func showRestaurant(id: String, isFromGoogleSearch: Bool) {
+    func showRestaurant(id: String, restaurant: Restaurant, isFromGoogleSearch: Bool) {
         self.animateTransition = true
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
@@ -390,6 +390,9 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         restaurantController.restaurantId = self.selectedRestaurantId
         restaurantController.parentVCName = self.getId()
         restaurantController.isFromGoogleSearch = isFromGoogleSearch
+        if isFromGoogleSearch {
+            restaurantController.restaurantFromGoogle = restaurant
+        }
         self.navigationController?.pushViewController(restaurantController, animated: true)
     }
     

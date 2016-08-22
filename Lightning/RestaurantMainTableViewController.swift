@@ -43,6 +43,8 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     var restaurant: Restaurant?
     
+    var restaurantFromGoogle: Restaurant?
+    
     var restaurantImage: UIImage?
     var restaurantName: String?
     var address: String?
@@ -83,6 +85,18 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         self.configureButtons()
         
         self.configureHeaderView()
+        self.configureRestaurantIfFromGoogle()
+    }
+    
+    private func configureRestaurantIfFromGoogle(){
+        if isFromGoogleSearch {
+            if restaurantFromGoogle?.address != nil {
+                self.addressLabel.text = restaurantFromGoogle?.address
+            }
+            if restaurantFromGoogle?.phone != nil {
+                self.phoneLabel.text = restaurantFromGoogle?.phone
+            }
+        }
     }
     
     private func configureButtons(){
