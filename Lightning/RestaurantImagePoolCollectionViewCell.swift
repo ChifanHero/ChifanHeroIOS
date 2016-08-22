@@ -18,11 +18,9 @@ class RestaurantImagePoolCollectionViewCell: UICollectionViewCell {
         self.imageView.clipsToBounds = true
     }
     
-    func setUp(image image: Picture) {
+    func setUp(image image: UIImage) {
         self.configureCell()
-        var url: String = ""
-        url = image.original!
-        imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        imageView.image = image
     }
     
     func setUpAddingImageCell(){

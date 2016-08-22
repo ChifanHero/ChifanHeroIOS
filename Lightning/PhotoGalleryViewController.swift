@@ -80,7 +80,7 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDelegate, UI
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: PhotoGalleryCollectionViewCell? = photoGalleryView!.dequeueReusableCellWithReuseIdentifier("photoGalleryCell", forIndexPath: indexPath) as? PhotoGalleryCollectionViewCell
-        cell?.setUpImage((parentVC!.imagePoolView.cellForItemAtIndexPath(indexPath) as! RestaurantImagePoolCollectionViewCell).imageView.image!)
+        cell?.setUpImage(parentVC!.imagePoolContent[indexPath.row].image!)
         return cell!
     }
     

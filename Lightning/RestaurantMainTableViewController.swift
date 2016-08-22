@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Kingfisher
 
 class RestaurantMainTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
@@ -49,6 +50,8 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     var hotDishes: [Dish] = [Dish]()
     
     var imagePool: [Picture] = []
+    
+    var imagePoolContent: [UIImageView] = []
     
     let vcTitleLabel: UILabel = UILabel()
     
@@ -139,6 +142,19 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     }
     
     // MARK: - Data
+    
+    private func downloadImages(){
+        for image in imagePool {
+            let imageView = UIImageView()
+            var url: String = ""
+            url = image.original!
+            imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
+                self.imagePoolView.reloadData()
+            })
+            imagePoolContent.append(imageView)
+        }
+    }
+    
     func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         if (request != nil) {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
@@ -230,7 +246,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                     for index in 0..<(response?.results)!.count {
                         self.imagePool.append((response?.results)![index])
                     }
-                    self.imagePoolView.reloadData()
+                    self.downloadImages()
                 }
             });
         }
@@ -350,7 +366,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         
         // Configure the cell
         if indexPath.row < imagePool.count {
-            cell!.setUp(image: imagePool[indexPath.row])
+            cell!.setUp(image: imagePoolContent[indexPath.row].image!)
         } else {
             cell!.setUpAddingImageCell()
         }
@@ -470,61 +486,4 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     func getDirectAncestorId() -> String {
         return parentVCName
     }
-
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

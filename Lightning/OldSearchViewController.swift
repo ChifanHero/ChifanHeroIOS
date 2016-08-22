@@ -320,7 +320,7 @@ class OldSearchViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let restaurantController : RestaurantViewController = segue.destinationViewController as! RestaurantViewController
+        let restaurantController : RestaurantMainTableViewController = segue.destinationViewController as! RestaurantMainTableViewController
         self.animateTransition = true
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantName = self.selectedRestaurantName
