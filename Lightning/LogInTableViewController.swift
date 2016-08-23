@@ -74,13 +74,13 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         wechatLoginButton.setLogoImage(UIImage(named: "Wechat")!)
         wechatLoginButton.setTextContent("微信登录")
         wechatLoginButton.addTarget(self, action: #selector(LogInTableViewController.wechatLoginEvent), forControlEvents: UIControlEvents.TouchDown)
-        self.view.addSubview(wechatLoginButton)
+        //self.view.addSubview(wechatLoginButton)
         
         facebookLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 200, self.view.frame.width * 0.8, 40), color: UIColor(red: 59 / 255  , green: 89 / 255, blue: 152 / 255, alpha: 1.0))
         facebookLoginButton.setLogoImage(UIImage(named: "Facebook")!)
         facebookLoginButton.setTextContent("Facebook Login")
         facebookLoginButton.addTarget(self, action: #selector(LogInTableViewController.facebookLoginEvent), forControlEvents: UIControlEvents.TouchDown)
-        self.view.addSubview(facebookLoginButton)
+        //self.view.addSubview(facebookLoginButton)
         
         normalLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 150, self.view.frame.width * 0.8, 40), color: UIColor.themeOrange())
         normalLoginButton.setLogoImage(UIImage(named: "LogoWithBorder")!)
