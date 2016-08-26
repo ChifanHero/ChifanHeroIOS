@@ -63,7 +63,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     private func setDefaultSearchContext() {
         searchContext.distance = RangeFilter.AUTO
         searchContext.rating = RatingFilter.NONE
-        searchContext.sort = SortOptions.HOTNESS
+        searchContext.sort = SortOptions.DISTANCE
         searchContext.coordinates = userLocationManager.getLocationInUse()
         searchContext.offSet = 0
     }

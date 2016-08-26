@@ -169,6 +169,16 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         }
     }
     
+    private func downloadNewAddedImage(image: Picture){
+        let imageView = UIImageView()
+        var url: String = ""
+        url = image.original!
+        imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
+            self.imagePoolView.reloadData()
+        })
+        imagePoolContent.append(imageView)
+    }
+    
     func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         if (request != nil) {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
@@ -252,6 +262,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     }
     
     func loadImagePool(){
+        imagePool.removeAll()
         let request: GetImagesRequest = GetImagesRequest(restaurantId: restaurantId!)
         DataAccessor(serviceConfiguration: ParseConfiguration()).getImagesByRestaurantId(request) { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -423,7 +434,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                         //add actions here
                         print("done");
                         self.imagePool.append((response?.result)!)
-                        self.imagePoolView.reloadData()
+                        self.downloadNewAddedImage((response?.result)!)
                     });
                 }
             }
