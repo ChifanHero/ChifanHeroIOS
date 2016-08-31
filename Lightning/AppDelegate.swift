@@ -105,6 +105,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             trackAppVersion()
             defaults.setBool(true, forKey: "hasLaunchedOnce")
             defaults.synchronize()
+        } else {
+            // Common logic. Needed everytime user start the app.
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
         }
         
     }
