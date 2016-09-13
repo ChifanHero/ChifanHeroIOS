@@ -35,7 +35,7 @@
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="JXv-iG-6ue" firstAttribute="leading" secondItem="w73-g0-uG4" secondAttribute="trailing" constant="20" id="7Hf-pv-DjT"/>
                 <constraint firstItem="w73-g0-uG4" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="AvC-FA-Snc"/>

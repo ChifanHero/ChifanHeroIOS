@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GooglePlaces
+
 
 class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchHistoryCellDelegate {
     
@@ -23,6 +25,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     var keywordHistory : [String] = [String]()
     var addressHistory : [String] = [String]()
+    var addressAutoCompletion : [NSAttributedString] = [NSAttributedString]()
     
     var pullRefresher: UIRefreshControl!
 
@@ -30,6 +33,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         super.viewDidLoad()
         searchBar.delegate = self
         addressBar.delegate = self
+        addressBar.addTarget(self, action: #selector(SearchViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
         addCancelButton()
         addSearchButton()
         // Do any additional setup after loading the view.
@@ -100,6 +104,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             if keywordHistory.count == 0 {
                 keywordHistory.appendContentsOf(loadKeywordHistory())
             }
+            addressAutoCompletion.removeAll()
         } else if textField == addressBar {
             currentState = CurrentState.ADDRESS
             if addressHistory.count == 0 {
@@ -113,6 +118,17 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         confirmSearch()
         return true
     }
+    
+    func textFieldDidChange(textField: UITextField) {
+        if textField.text?.characters.count > 0 {
+            addressAutoComplete()
+        } else {
+            addressAutoCompletion.removeAll()
+            suggestionTableView.reloadData()
+        }
+        
+    }
+    
     
     func confirmSearch() {
         commitSearchEvent()
@@ -165,7 +181,12 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         if currentState == CurrentState.KEYWORD {
             return keywordHistory.count
         } else {
-            return addressHistory.count
+            if addressAutoCompletion.count > 0 {
+                return addressAutoCompletion.count + 1
+            } else {
+                return addressHistory.count
+            }
+            
         }
     }
     
@@ -174,18 +195,38 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: SearchHistoryTableViewCell? = tableView.dequeueReusableCellWithIdentifier("historyCell") as? SearchHistoryTableViewCell
-        if cell == nil {
-            tableView.registerNib(UINib(nibName: "SearchHistoryCell", bundle: nil), forCellReuseIdentifier: "historyCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("historyCell") as? SearchHistoryTableViewCell
+        if addressAutoCompletion.count > 0 {
+            if indexPath.row <= addressAutoCompletion.count - 1 { // Auto completion cell
+                var cell: AddressAutoCompletionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("autoCompletionCell") as? AddressAutoCompletionTableViewCell
+                if cell == nil {
+                    tableView.registerNib(UINib(nibName: "AddressAutoCompletionCell", bundle: nil), forCellReuseIdentifier: "autoCompletionCell")
+                    cell = tableView.dequeueReusableCellWithIdentifier("autoCompletionCell") as? AddressAutoCompletionTableViewCell
+                }
+                cell!.suggestionLabel.attributedText = addressAutoCompletion[indexPath.row]
+                return cell!
+            } else { // google logo cell
+                var cell: GoogleLogoTableViewCell? = tableView.dequeueReusableCellWithIdentifier("googleLogoCell") as? GoogleLogoTableViewCell
+                if cell == nil {
+                    tableView.registerNib(UINib(nibName: "GoogleLogoCell", bundle: nil), forCellReuseIdentifier: "googleLogoCell")
+                    cell = tableView.dequeueReusableCellWithIdentifier("googleLogoCell") as? GoogleLogoTableViewCell
+                }
+                return cell!
+            }
+        } else { // history cell
+            var cell: SearchHistoryTableViewCell? = tableView.dequeueReusableCellWithIdentifier("historyCell") as? SearchHistoryTableViewCell
+            if cell == nil {
+                tableView.registerNib(UINib(nibName: "SearchHistoryCell", bundle: nil), forCellReuseIdentifier: "historyCell")
+                cell = tableView.dequeueReusableCellWithIdentifier("historyCell") as? SearchHistoryTableViewCell
+            }
+            cell?.delegate = self
+            if currentState == CurrentState.KEYWORD {
+                cell?.history = keywordHistory[indexPath.row]
+            } else {
+                cell?.history = addressHistory[indexPath.row]
+            }
+            return cell!
         }
-        cell?.delegate = self
-        if currentState == CurrentState.KEYWORD {
-            cell?.history = keywordHistory[indexPath.row]
-        } else {
-            cell?.history = addressHistory[indexPath.row]
-        }
-        return cell!
+        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -224,6 +265,27 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             SearchHistory.removeAddressFromHistory(cell.history!)
         }
         self.suggestionTableView.reloadData()
+    }
+    
+    // Mark : Google Places API Address autocomplete
+    func addressAutoComplete() {
+        let filter = GMSAutocompleteFilter()
+        let placesClient = GMSPlacesClient()
+        filter.type = .Address
+        filter.country = "us"
+        placesClient.autocompleteQuery(addressBar.text!, bounds: nil, filter: filter, callback: { (results, error: NSError?) -> Void in
+            guard error == nil else {
+                print("Autocomplete error \(error)")
+                return
+            }
+            
+            self.addressAutoCompletion.removeAll()
+            for result in results! {
+                self.addressAutoCompletion.append(result.attributedFullText)
+                print("Result \(result.attributedFullText) with placeID \(result.placeID)")
+            }
+            self.suggestionTableView.reloadData()
+        })
     }
 
 }

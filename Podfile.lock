@@ -5,6 +5,9 @@ PODS:
     - SwiftyJSON (~> 2.3)
   - ARNTransitionAnimator (1.1.0)
   - Flurry-iOS-SDK/FlurrySDK (7.1.1)
+  - GoogleMaps/Base (2.0.1)
+  - GooglePlaces (2.0.1):
+    - GoogleMaps/Base (= 2.0.1)
   - Kingfisher (2.4.2)
   - PullToMakeSoup (1.1):
     - PullToRefresher (~> 1.0)
@@ -17,6 +20,7 @@ DEPENDENCIES:
   - AlamofireSwiftyJSON
   - ARNTransitionAnimator
   - Flurry-iOS-SDK/FlurrySDK (~> 7.1.1)
+  - GooglePlaces
   - Kingfisher (~> 2.4)
   - PullToMakeSoup (~> 1.0)
   - SlideMenuControllerSwift
@@ -26,6 +30,8 @@ SPEC CHECKSUMS:
   AlamofireSwiftyJSON: 4787ff07c7e6687b787f1723229e729653e3359f
   ARNTransitionAnimator: b8b35ce733d08f137eadb0e0c6e53011ea3fb28d
   Flurry-iOS-SDK: 83fd4f40ae66e80d122fd2f6698f0e0c31021a63
+  GoogleMaps: f09da64fc987c1aa29394567c3cab5a3df83c402
+  GooglePlaces: 72fab1d1651c6df0322f2aad245ffb15b80d3c56
   Kingfisher: 05bf8d04408aaa70fcd2c8c81b9f1d0f1ad313dd
   PullToMakeSoup: d84d2980214ca3d3e7d11b92e333741fbb6d0fab
   PullToRefresher: e17cc032b48148824a77fbf4bce5beb81933071a

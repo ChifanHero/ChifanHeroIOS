@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import CoreData
 import Flurry_iOS_SDK
+import GooglePlaces
 
 let userLocationManager : UserLocationManager = UserLocationManager()
 
@@ -53,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     private func initialize() {
         Parse.setApplicationId("Z6ND8ho1yR4aY3NSq1zNNU0kPc0GDOD1UZJ5rgxM", clientKey: "t9TxZ7HPgwEl84gH9A2R9qisn8giNIdtKuAyt9Q4")
+        GMSPlacesClient.provideAPIKey("AIzaSyDoBwLxj_Ij9SnIwfKD7khalqjUObIs6xE")
         #if DEBUG
             print("debug mode")
             Flurry.startSession("N4DY3VDK76YVF8S72RZ7")
