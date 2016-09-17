@@ -41,7 +41,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        searchBar.text = searchContext.keyword
         searchBar.becomeFirstResponder()
+        searchBar.selectAll(nil)
         self.view.layoutIfNeeded()
         self.addressContainerHeight.constant = 37
         UIView.animateWithDuration(0.2, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
@@ -49,19 +51,26 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         }) { (success) in
             let defaults = NSUserDefaults.standardUserDefaults()
             if !defaults.boolForKey("usingCustomLocation") {
-                self.addressBar.attributedText = self.getHighlightedCurrentLocationText()
+//                self.addressBar.attributedText = self.getHighlightedCurrentLocationText()
+                self.addressBar.placeholder = "当前位置"
+            } else {
+                let cityInUse = userLocationManager.getCityInUse()
+                if cityInUse != nil && cityInUse?.name != nil && cityInUse?.state != nil {
+                    let fullCityName = cityInUse!.name! + ", " + cityInUse!.state!
+                    self.addressBar.placeholder = fullCityName
+                }
             }
 
         }
     }
     
-    private func getHighlightedCurrentLocationText() -> NSAttributedString{
-        let text = "当前位置"
-        let range = NSMakeRange(0, text.characters.count)
-        let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: range)
-        return attributedString
-    }
+//    private func getHighlightedCurrentLocationText() -> NSAttributedString{
+//        let text = "当前位置"
+//        let range = NSMakeRange(0, text.characters.count)
+//        let attributedString = NSMutableAttributedString(string: text)
+//        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: range)
+//        return attributedString
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -107,6 +116,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             addressAutoCompletion.removeAll()
         } else if textField == addressBar {
             currentState = CurrentState.ADDRESS
+            if addressBar.text?.characters.count > 0 {
+                addressAutoComplete()
+            }
             if addressHistory.count == 0 {
                 addressHistory.appendContentsOf(loadAddressHistory())
             }
@@ -156,13 +168,15 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
                 searchContext.address = address
                 SearchHistory.saveAddress(address!)
             }
+            searchContext.distance = RangeFilter.FIVE
         } else {
             searchContext.address = nil
             let location: Location? = userLocationManager.getLocationInUse()
             searchContext.coordinates = location
+            searchContext.distance = RangeFilter.AUTO
         }
         searchContext.offSet = 0
-        searchContext.distance = RangeFilter.AUTO
+        
         
     }
     
@@ -234,7 +248,14 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             let keyword = keywordHistory[indexPath.row]
             searchBar.text = keyword
         } else {
-            let address = addressHistory[indexPath.row]
+            var address : String = ""
+            if addressAutoCompletion.count > indexPath.row {
+                address = addressAutoCompletion[indexPath.row].string
+            } else {
+                if addressHistory.count > indexPath.row {
+                    address = addressHistory[indexPath.row]
+                }
+            }
             addressBar.text = address
         }
         suggestionTableView.deselectRowAtIndexPath(indexPath, animated: false)
@@ -269,6 +290,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     // Mark : Google Places API Address autocomplete
     func addressAutoComplete() {
+        let regularFont = UIFont.systemFontOfSize(15.0)
+        let boldFont = UIFont.boldSystemFontOfSize(15.0)
         let filter = GMSAutocompleteFilter()
         let placesClient = GMSPlacesClient()
         filter.type = .Address
@@ -281,7 +304,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             
             self.addressAutoCompletion.removeAll()
             for result in results! {
-                self.addressAutoCompletion.append(result.attributedFullText)
+                let bolded = result.attributedFullText.mutableCopy() as! NSMutableAttributedString
+                
+                bolded.enumerateAttribute(kGMSAutocompleteMatchAttribute, inRange: NSMakeRange(0, bolded.length), options: NSAttributedStringEnumerationOptions.LongestEffectiveRangeNotRequired) { (value, range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+                    let font = (value == nil) ? regularFont : boldFont
+                    bolded.addAttribute(NSFontAttributeName, value: font, range: range)
+                }
+                self.addressAutoCompletion.append(bolded)
                 print("Result \(result.attributedFullText) with placeID \(result.placeID)")
             }
             self.suggestionTableView.reloadData()
