@@ -10,6 +10,8 @@ import UIKit
 import MapKit
 import Kingfisher
 import SKPhotoBrowser
+import DKImagePickerController
+
 
 class RestaurantMainTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
@@ -39,6 +41,8 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
             request = GetRestaurantByIdRequest(id: restaurantId!)
         }
     }
+    
+    var uploadingAlertView : SCLAlertView?
     
     var request: GetRestaurantByIdRequest?
     
@@ -168,7 +172,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
             imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
                 self.imagePoolView.reloadData()
             })
-            imagePoolContent.append(imageView)
+            self.imagePoolContent.append(imageView)
         }
     }
     
@@ -178,8 +182,10 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         url = image.original!
         imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
             self.imagePoolView.reloadData()
+            self.hideAlertView()
         })
-        imagePoolContent.append(imageView)
+        self.imagePoolContent.append(imageView)
+        
     }
     
     func loadData(refreshHandler: ((success: Bool) -> Void)?) {
@@ -403,9 +409,20 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == imagePool.count {
-            let imagePickerController = ImagePickerController()
-            imagePickerController.delegate = self
-            self.presentViewController(imagePickerController, animated: true, completion: nil)
+//            let imagePickerController = ImagePickerController()
+//            imagePickerController.delegate = self
+//            self.presentViewController(imagePickerController, animated: true, completion: nil)
+            let alert = UIAlertController(title: "选择图片来源", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            let albumAction = UIAlertAction(title: "相册", style: .Default, handler: self.goToAlbum)
+            let cameraAction = UIAlertAction(title: "拍摄", style: .Default, handler: self.goToCamera)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelNavigation)
+            
+            alert.addAction(albumAction)
+            alert.addAction(cameraAction)
+            alert.addAction(cancelAction)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
         } else {
 //            let photoGallery = PhotoGalleryViewController()
 //            photoGallery.parentVC = self
@@ -422,11 +439,50 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         }
     }
     
+    // MARK: Photo selection
+    func goToAlbum(alertAction: UIAlertAction!) -> Void {
+        let pickerController = DKImagePickerController()
+        pickerController.singleSelect = false
+        pickerController.maxSelectableCount = 10
+        pickerController.assetType = DKImagePickerControllerAssetType.AllPhotos
+        pickerController.sourceType = DKImagePickerControllerSourceType.Photo
+        pickerController.allowMultipleTypes = false
+        pickerController.allowsLandscape = false
+        pickerController.didSelectAssets = { (assets: [DKAsset]) in
+            self.processSelectedPhotosFromPhotoLibrary(assets)
+        }
+        self.presentViewController(pickerController, animated: true) {}
+    }
+    
+    func goToCamera(alertAction: UIAlertAction!) -> Void {
+        let imagePickerController = ImagePickerController()
+        imagePickerController.delegate = self
+        self.presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func processSelectedPhotosFromPhotoLibrary(assets: [DKAsset]) {
+        var images : [UIImage] = []
+        for asset in assets {
+            asset.fetchOriginalImageWithCompleteBlock({ (image, info) in
+                images.append(image!)
+                if images.count == assets.count {
+                    self.uploadImages(images)
+                }
+            })
+        }
+    }
+    
     //MARK: ImagePickerDelegate
     func wrapperDidPress(imagePicker: ImagePickerController, images: [UIImage]){
         
     }
     func doneButtonDidPress(imagePicker: ImagePickerController, images: [UIImage]){
+        uploadImages(images)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func uploadImages(images: [UIImage]) {
+        showUploadingAlert()
         let queue = NSOperationQueue()
         
         for image in images {
@@ -450,8 +506,25 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                 }
             }
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    func showUploadingAlert() {
+        let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, showCircularIcon: true, kCircleIconHeight: 40)
+        uploadingAlertView = SCLAlertView(appearance: appearance)
+        uploadingAlertView!.duration = 2.0
+        let alertViewIcon = UIImage(named: "LogoWithBorder")
+        uploadingAlertView!.addButton("隐藏", backgroundColor: UIColor.themeOrange(), showDurationStatus: true, target:self, selector:#selector(RestaurantMainTableViewController.hideAlertView))
+        uploadingAlertView!.showInfo("正在上传图片", subTitle: "正在后台上传，请稍等...", duration: 5.0, circleIconImage: alertViewIcon, colorStyle: UIColor.themeOrange().getColorCode())
+    }
+    
+    func hideAlertView() {
+        if uploadingAlertView != nil {
+            uploadingAlertView?.hideView()
+            uploadingAlertView = nil
+        }
+        
+    }
+    
     func cancelButtonDidPress(imagePicker: ImagePickerController){
         
     }

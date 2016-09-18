@@ -4,6 +4,11 @@ PODS:
     - Alamofire (~> 3.4)
     - SwiftyJSON (~> 2.3)
   - ARNTransitionAnimator (1.1.0)
+  - DKImagePickerController (3.3.4):
+    - DKImagePickerController/Camera (= 3.3.4)
+    - DKImagePickerController/ImageManager (= 3.3.4)
+  - DKImagePickerController/Camera (3.3.4)
+  - DKImagePickerController/ImageManager (3.3.4)
   - Flurry-iOS-SDK/FlurrySDK (7.1.1)
   - GoogleMaps/Base (2.0.1)
   - GooglePlaces (2.0.1):
@@ -20,6 +25,7 @@ DEPENDENCIES:
   - Alamofire (~> 3.4)
   - AlamofireSwiftyJSON
   - ARNTransitionAnimator
+  - DKImagePickerController
   - Flurry-iOS-SDK/FlurrySDK (~> 7.1.1)
   - GooglePlaces
   - Kingfisher (~> 2.4)
@@ -31,6 +37,7 @@ SPEC CHECKSUMS:
   Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
   AlamofireSwiftyJSON: 4787ff07c7e6687b787f1723229e729653e3359f
   ARNTransitionAnimator: b8b35ce733d08f137eadb0e0c6e53011ea3fb28d
+  DKImagePickerController: 4de1703ad3ba8bc216753447cbb00e482d8d4604
   Flurry-iOS-SDK: 83fd4f40ae66e80d122fd2f6698f0e0c31021a63
   GoogleMaps: f09da64fc987c1aa29394567c3cab5a3df83c402
   GooglePlaces: 72fab1d1651c6df0322f2aad245ffb15b80d3c56

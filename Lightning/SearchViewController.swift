@@ -49,18 +49,21 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         UIView.animateWithDuration(0.2, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
             self.view.layoutIfNeeded()
         }) { (success) in
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if !defaults.boolForKey("usingCustomLocation") {
-//                self.addressBar.attributedText = self.getHighlightedCurrentLocationText()
-                self.addressBar.placeholder = "当前位置"
+            if searchContext.address != nil && searchContext.address != "" {
+                self.addressBar.text = searchContext.address
             } else {
-                let cityInUse = userLocationManager.getCityInUse()
-                if cityInUse != nil && cityInUse?.name != nil && cityInUse?.state != nil {
-                    let fullCityName = cityInUse!.name! + ", " + cityInUse!.state!
-                    self.addressBar.placeholder = fullCityName
+                let defaults = NSUserDefaults.standardUserDefaults()
+                if !defaults.boolForKey("usingCustomLocation") {
+                    //                self.addressBar.attributedText = self.getHighlightedCurrentLocationText()
+                    self.addressBar.placeholder = "当前位置"
+                } else {
+                    let cityInUse = userLocationManager.getCityInUse()
+                    if cityInUse != nil && cityInUse?.name != nil && cityInUse?.state != nil {
+                        let fullCityName = cityInUse!.name! + ", " + cityInUse!.state!
+                        self.addressBar.placeholder = fullCityName
+                    }
                 }
             }
-
         }
     }
     

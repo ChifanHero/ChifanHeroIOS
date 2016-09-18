@@ -15,6 +15,7 @@ pod 'PullToMakeSoup', '~> 1.0'
 pod 'SlideMenuControllerSwift'
 pod 'GooglePlaces'
 pod 'SKPhotoBrowser'
+pod 'DKImagePickerController'
 
 end
 
