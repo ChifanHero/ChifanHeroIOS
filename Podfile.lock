@@ -12,6 +12,7 @@ PODS:
   - PullToMakeSoup (1.1):
     - PullToRefresher (~> 1.0)
   - PullToRefresher (1.3.1)
+  - SKPhotoBrowser (3.1.2)
   - SlideMenuControllerSwift (2.2.2)
   - SwiftyJSON (2.3.2)
 
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - GooglePlaces
   - Kingfisher (~> 2.4)
   - PullToMakeSoup (~> 1.0)
+  - SKPhotoBrowser
   - SlideMenuControllerSwift
 
 SPEC CHECKSUMS:
@@ -35,6 +37,7 @@ SPEC CHECKSUMS:
   Kingfisher: 05bf8d04408aaa70fcd2c8c81b9f1d0f1ad313dd
   PullToMakeSoup: d84d2980214ca3d3e7d11b92e333741fbb6d0fab
   PullToRefresher: e17cc032b48148824a77fbf4bce5beb81933071a
+  SKPhotoBrowser: e942c03c3206b5cf229fd4ce56b872bce800124a
   SlideMenuControllerSwift: e257221100c39d49edccaaeb0238b55a0c67953a
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 

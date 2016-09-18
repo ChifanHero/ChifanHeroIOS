@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Kingfisher
+import SKPhotoBrowser
 
 class RestaurantMainTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
@@ -54,6 +55,8 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     var imagePool: [Picture] = []
     
     var imagePoolContent: [UIImageView] = []
+    
+    var imagePoolSKPhoto : [SKPhoto] = [SKPhoto]()
     
     let vcTitleLabel: UILabel = UILabel()
     
@@ -404,10 +407,18 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
             imagePickerController.delegate = self
             self.presentViewController(imagePickerController, animated: true, completion: nil)
         } else {
-            let photoGallery = PhotoGalleryViewController()
-            photoGallery.parentVC = self
-            photoGallery.currentIndexPath = indexPath
-            self.presentViewController(photoGallery, animated: false, completion: nil)
+//            let photoGallery = PhotoGalleryViewController()
+//            photoGallery.parentVC = self
+//            photoGallery.currentIndexPath = indexPath
+//            self.presentViewController(photoGallery, animated: false, completion: nil)
+            var images = [SKPhoto]()
+            for imageView in imagePoolContent {
+                let photo = SKPhoto.photoWithImage(imageView.image!)// add some UIImage
+                images.append(photo)
+            }
+            let browser = SKPhotoBrowser(photos: images)
+            browser.initializePageIndex(indexPath.row)
+            presentViewController(browser, animated: true, completion: {})
         }
     }
     
