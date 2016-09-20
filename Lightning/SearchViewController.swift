@@ -51,17 +51,16 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         }) { (success) in
             if searchContext.address != nil && searchContext.address != "" {
                 self.addressBar.text = searchContext.address
+            }
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if !defaults.boolForKey("usingCustomLocation") {
+                //                self.addressBar.attributedText = self.getHighlightedCurrentLocationText()
+                self.addressBar.placeholder = "当前位置"
             } else {
-                let defaults = NSUserDefaults.standardUserDefaults()
-                if !defaults.boolForKey("usingCustomLocation") {
-                    //                self.addressBar.attributedText = self.getHighlightedCurrentLocationText()
-                    self.addressBar.placeholder = "当前位置"
-                } else {
-                    let cityInUse = userLocationManager.getCityInUse()
-                    if cityInUse != nil && cityInUse?.name != nil && cityInUse?.state != nil {
-                        let fullCityName = cityInUse!.name! + ", " + cityInUse!.state!
-                        self.addressBar.placeholder = fullCityName
-                    }
+                let cityInUse = userLocationManager.getCityInUse()
+                if cityInUse != nil && cityInUse?.name != nil && cityInUse?.state != nil {
+                    let fullCityName = cityInUse!.name! + ", " + cityInUse!.state!
+                    self.addressBar.placeholder = fullCityName
                 }
             }
         }
@@ -171,7 +170,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
                 searchContext.address = address
                 SearchHistory.saveAddress(address!)
             }
-            searchContext.distance = RangeFilter.FIVE
+            searchContext.distance = RangeFilter.TWENTY
         } else {
             searchContext.address = nil
             let location: Location? = userLocationManager.getLocationInUse()
