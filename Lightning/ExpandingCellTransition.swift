@@ -33,7 +33,7 @@ class ExpandingCellTransition: NSObject, UIViewControllerAnimatedTransitioning, 
             }
         }
         
-        let container = transitionContext.containerView()!
+        let container = transitionContext.containerView()
         
         self.selectedCellFrame = CGRectMake(self.selectedCellFrame.origin.x, self.selectedCellFrame.origin.y + self.selectedCellFrame.height, self.selectedCellFrame.width, self.selectedCellFrame.height)
         
@@ -45,7 +45,7 @@ class ExpandingCellTransition: NSObject, UIViewControllerAnimatedTransitioning, 
             
             sourceView.drawViewHierarchyInRect(bounds, afterScreenUpdates: false)
             
-            snapShot = UIGraphicsGetImageFromCurrentImageContext()
+            snapShot = UIGraphicsGetImageFromCurrentImageContext()!
             
             UIGraphicsEndImageContext()
             

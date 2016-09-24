@@ -1495,6 +1495,7 @@
 					};
 					CA203DA01C111EEA00D6F32C = {
 						DevelopmentTeam = JVM24QRUX3;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -2227,6 +2228,7 @@
 				PRODUCT_NAME = "吃饭英雄-Test";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lightning/Lightning-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -2249,6 +2251,7 @@
 				PRODUCT_NAME = "吃饭英雄";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lightning/Lightning-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

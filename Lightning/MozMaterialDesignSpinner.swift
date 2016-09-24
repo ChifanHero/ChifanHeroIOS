@@ -54,7 +54,7 @@ class MozMaterialDesignSpinner: UIView {
         self.progressLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))
         updatePath()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetAnimations", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MozMaterialDesignSpinner.resetAnimations), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
     deinit{
