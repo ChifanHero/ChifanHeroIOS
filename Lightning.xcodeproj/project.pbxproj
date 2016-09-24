@@ -80,6 +80,21 @@
 		C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */; };
 		C47A1C8B1C7DF2A100E0DF3A /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C8A1C7DF2A100E0DF3A /* NotificationTableViewCell.swift */; };
 		C47A1C8D1C7EC66500E0DF3A /* FirstNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */; };
+		C48D09311D9702DF0046CD4C /* DKImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C48D09261D9702DF0046CD4C /* DKImagePickerController.bundle */; };
+		C48D09321D9702DF0046CD4C /* DKImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09281D9702DF0046CD4C /* DKImagePickerController.swift */; };
+		C48D09331D9702DF0046CD4C /* DKImagePickerControllerDefaultUIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09291D9702DF0046CD4C /* DKImagePickerControllerDefaultUIDelegate.swift */; };
+		C48D09341D9702DF0046CD4C /* DKImageResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D092A1D9702DF0046CD4C /* DKImageResource.swift */; };
+		C48D09351D9702DF0046CD4C /* DKPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D092B1D9702DF0046CD4C /* DKPopoverViewController.swift */; };
+		C48D09361D9702DF0046CD4C /* DKAssetGroupDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D092D1D9702DF0046CD4C /* DKAssetGroupDetailVC.swift */; };
+		C48D09371D9702DF0046CD4C /* DKAssetGroupGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D092E1D9702DF0046CD4C /* DKAssetGroupGridLayout.swift */; };
+		C48D09381D9702DF0046CD4C /* DKAssetGroupListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D092F1D9702DF0046CD4C /* DKAssetGroupListVC.swift */; };
+		C48D09391D9702DF0046CD4C /* DKPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09301D9702DF0046CD4C /* DKPermissionView.swift */; };
+		C48D093D1D9702EC0046CD4C /* DKCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D093B1D9702EC0046CD4C /* DKCamera.swift */; };
+		C48D093E1D9702EC0046CD4C /* DKCameraResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C48D093C1D9702EC0046CD4C /* DKCameraResource.bundle */; };
+		C48D09461D9702F40046CD4C /* DKGroupDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09411D9702F40046CD4C /* DKGroupDataManager.swift */; };
+		C48D09471D9702F40046CD4C /* DKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09431D9702F40046CD4C /* DKAsset.swift */; };
+		C48D09481D9702F40046CD4C /* DKAssetGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09441D9702F40046CD4C /* DKAssetGroup.swift */; };
+		C48D09491D9702F40046CD4C /* DKImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09451D9702F40046CD4C /* DKImageManager.swift */; };
 		C48DD6CC1D110DBA00F529AE /* TrackingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */; };
 		C48DD6D01D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DD6CF1D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift */; };
 		C49427DE1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */; };
@@ -433,6 +448,23 @@
 		C47A1C491C7DDF7B00E0DF3A /* Lightning.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lightning.xcdatamodel; sourceTree = "<group>"; };
 		C47A1C8A1C7DF2A100E0DF3A /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		C47A1C8C1C7EC66500E0DF3A /* FirstNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstNotification.swift; sourceTree = "<group>"; };
+		C48D09261D9702DF0046CD4C /* DKImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DKImagePickerController.bundle; sourceTree = "<group>"; };
+		C48D09271D9702DF0046CD4C /* DKImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKImagePickerController.h; sourceTree = "<group>"; };
+		C48D09281D9702DF0046CD4C /* DKImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKImagePickerController.swift; sourceTree = "<group>"; };
+		C48D09291D9702DF0046CD4C /* DKImagePickerControllerDefaultUIDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKImagePickerControllerDefaultUIDelegate.swift; sourceTree = "<group>"; };
+		C48D092A1D9702DF0046CD4C /* DKImageResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKImageResource.swift; sourceTree = "<group>"; };
+		C48D092B1D9702DF0046CD4C /* DKPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKPopoverViewController.swift; sourceTree = "<group>"; };
+		C48D092D1D9702DF0046CD4C /* DKAssetGroupDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKAssetGroupDetailVC.swift; sourceTree = "<group>"; };
+		C48D092E1D9702DF0046CD4C /* DKAssetGroupGridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKAssetGroupGridLayout.swift; sourceTree = "<group>"; };
+		C48D092F1D9702DF0046CD4C /* DKAssetGroupListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKAssetGroupListVC.swift; sourceTree = "<group>"; };
+		C48D09301D9702DF0046CD4C /* DKPermissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKPermissionView.swift; sourceTree = "<group>"; };
+		C48D093B1D9702EC0046CD4C /* DKCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKCamera.swift; sourceTree = "<group>"; };
+		C48D093C1D9702EC0046CD4C /* DKCameraResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DKCameraResource.bundle; sourceTree = "<group>"; };
+		C48D09411D9702F40046CD4C /* DKGroupDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKGroupDataManager.swift; sourceTree = "<group>"; };
+		C48D09431D9702F40046CD4C /* DKAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKAsset.swift; sourceTree = "<group>"; };
+		C48D09441D9702F40046CD4C /* DKAssetGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKAssetGroup.swift; sourceTree = "<group>"; };
+		C48D09451D9702F40046CD4C /* DKImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKImageManager.swift; sourceTree = "<group>"; };
+		C48D094A1D9703340046CD4C /* DKImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKImagePickerController.h; sourceTree = "<group>"; };
 		C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingUtil.swift; sourceTree = "<group>"; };
 		C48DD6CF1D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionIdentifiable.swift; sourceTree = "<group>"; };
 		C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionNavigationController.swift; sourceTree = "<group>"; };
@@ -723,6 +755,7 @@
 		C41298141C83CD7D0062BC7D /* OpenSource */ = {
 			isa = PBXGroup;
 			children = (
+				C48D09241D9702CB0046CD4C /* DKImagePickerController */,
 				CAC1D3711D39849D00520733 /* ImagePicker */,
 				C4C8618C1CE0093F00A6C896 /* JSSAlertView */,
 				C41298151C83CDA40062BC7D /* UIImageEffects.swift */,
@@ -1007,6 +1040,78 @@
 				C494EA551D61B1EA000AE8BB /* ActionPanelView.swift */,
 			);
 			name = UIElementsClass;
+			sourceTree = "<group>";
+		};
+		C48D09241D9702CB0046CD4C /* DKImagePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				C48D094A1D9703340046CD4C /* DKImagePickerController.h */,
+				C48D093F1D9702F40046CD4C /* DKImageManager */,
+				C48D093A1D9702EC0046CD4C /* DKCamera */,
+				C48D09251D9702DF0046CD4C /* DKImagePickerController */,
+			);
+			name = DKImagePickerController;
+			sourceTree = "<group>";
+		};
+		C48D09251D9702DF0046CD4C /* DKImagePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				C48D09261D9702DF0046CD4C /* DKImagePickerController.bundle */,
+				C48D09271D9702DF0046CD4C /* DKImagePickerController.h */,
+				C48D09281D9702DF0046CD4C /* DKImagePickerController.swift */,
+				C48D09291D9702DF0046CD4C /* DKImagePickerControllerDefaultUIDelegate.swift */,
+				C48D092A1D9702DF0046CD4C /* DKImageResource.swift */,
+				C48D092B1D9702DF0046CD4C /* DKPopoverViewController.swift */,
+				C48D092C1D9702DF0046CD4C /* View */,
+			);
+			path = DKImagePickerController;
+			sourceTree = "<group>";
+		};
+		C48D092C1D9702DF0046CD4C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C48D092D1D9702DF0046CD4C /* DKAssetGroupDetailVC.swift */,
+				C48D092E1D9702DF0046CD4C /* DKAssetGroupGridLayout.swift */,
+				C48D092F1D9702DF0046CD4C /* DKAssetGroupListVC.swift */,
+				C48D09301D9702DF0046CD4C /* DKPermissionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C48D093A1D9702EC0046CD4C /* DKCamera */ = {
+			isa = PBXGroup;
+			children = (
+				C48D093B1D9702EC0046CD4C /* DKCamera.swift */,
+				C48D093C1D9702EC0046CD4C /* DKCameraResource.bundle */,
+			);
+			path = DKCamera;
+			sourceTree = "<group>";
+		};
+		C48D093F1D9702F40046CD4C /* DKImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				C48D09401D9702F40046CD4C /* Data */,
+				C48D09451D9702F40046CD4C /* DKImageManager.swift */,
+			);
+			path = DKImageManager;
+			sourceTree = "<group>";
+		};
+		C48D09401D9702F40046CD4C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C48D09411D9702F40046CD4C /* DKGroupDataManager.swift */,
+				C48D09421D9702F40046CD4C /* Model */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C48D09421D9702F40046CD4C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C48D09431D9702F40046CD4C /* DKAsset.swift */,
+				C48D09441D9702F40046CD4C /* DKAssetGroup.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C4A0D55D1C137AED00BAE246 /* LocationComponent */ = {
@@ -1549,6 +1654,7 @@
 				C41297DB1C80B8BA0062BC7D /* LoadMoreFooterView.xib in Resources */,
 				C41297BA1C80B8850062BC7D /* NameImageDishCell.xib in Resources */,
 				C41297CC1C80B8A40062BC7D /* InfoCouponCell.xib in Resources */,
+				C48D093E1D9702EC0046CD4C /* DKCameraResource.bundle in Resources */,
 				C41297C31C80B8950062BC7D /* NotificationDetailView.xib in Resources */,
 				C41297A51C80B85A0062BC7D /* TutorialChildViewController.xib in Resources */,
 				CA203E321C111EEA00D6F32C /* LaunchScreen.storyboard in Resources */,
@@ -1580,6 +1686,7 @@
 				C42C96071D546E6400784636 /* RestaurantsAndSearch.storyboard in Resources */,
 				C41297FF1C80B94A0062BC7D /* RestaurantSearchCell.xib in Resources */,
 				C45E18F01D87EBA0002D1D82 /* AddressAutoCompletionCell.xib in Resources */,
+				C48D09311D9702DF0046CD4C /* DKImagePickerController.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1717,6 +1824,7 @@
 				CAE8FC301D147CCC002432EE /* LoadingButton.swift in Sources */,
 				CA62BA5F1D3F64CF0087A862 /* GetImagesRequest.swift in Sources */,
 				CA203DD21C111EEA00D6F32C /* HeaderViewDelegate.swift in Sources */,
+				C48D09341D9702DF0046CD4C /* DKImageResource.swift in Sources */,
 				C4D00EDC1CB8D578008C24FB /* UpdateRestaurantInfoRequest.swift in Sources */,
 				CA203DD31C111EEA00D6F32C /* GetFavoritesResponse.swift in Sources */,
 				CA203DD41C111EEA00D6F32C /* Restaurant.swift in Sources */,
@@ -1729,13 +1837,16 @@
 				CA203DD51C111EEA00D6F32C /* GetRestaurantsRequest.swift in Sources */,
 				CA203DD61C111EEA00D6F32C /* Promotion.swift in Sources */,
 				CA203DD71C111EEA00D6F32C /* LoadMoreFooterView.swift in Sources */,
+				C48D09321D9702DF0046CD4C /* DKImagePickerController.swift in Sources */,
 				CA621EBA1CFE55D700693306 /* HttpResponseProtocol.swift in Sources */,
 				C4A0D5541C11746100BAE246 /* DistanceUnit.swift in Sources */,
 				CA203DD81C111EEA00D6F32C /* AcountManager.swift in Sources */,
 				C49427DE1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift in Sources */,
 				CA621EC01D0A39A500693306 /* NVActivityIndicatorView.swift in Sources */,
+				C48D09491D9702F40046CD4C /* DKImageManager.swift in Sources */,
 				CA203DD91C111EEA00D6F32C /* UploadPictureRequest.swift in Sources */,
 				C494EA561D61B1EA000AE8BB /* ActionPanelView.swift in Sources */,
+				C48D09391D9702DF0046CD4C /* DKPermissionView.swift in Sources */,
 				C44C25861C53610B00A345D8 /* RestaurantCandidate.swift in Sources */,
 				CAC1D39C1D39B7AB00520733 /* UploadRestaurantPictureResponse.swift in Sources */,
 				C4A0D5611C137DCC00BAE246 /* RestaurantSearchResponse.swift in Sources */,
@@ -1780,6 +1891,7 @@
 				C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */,
 				CAF16B5D1D1A16740051D7CE /* OauthLoginRequest.swift in Sources */,
 				C4A0D5531C11746100BAE246 /* Distance.swift in Sources */,
+				C48D09481D9702F40046CD4C /* DKAssetGroup.swift in Sources */,
 				CA9147691D54261100CF8401 /* DefaultImageGenerator.swift in Sources */,
 				CA203DE91C111EEA00D6F32C /* NickNameChangeViewController.swift in Sources */,
 				CA203DEA1C111EEA00D6F32C /* NotificationTableViewController.swift in Sources */,
@@ -1792,12 +1904,14 @@
 				CA203DED1C111EEA00D6F32C /* SlideBarDelegateProtocol.swift in Sources */,
 				C42C961C1D56958300784636 /* RatingEnum.swift in Sources */,
 				C4B0A39B1C8CE69500D05408 /* Coconut.swift in Sources */,
+				C48D09331D9702DF0046CD4C /* DKImagePickerControllerDefaultUIDelegate.swift in Sources */,
 				CA203DEE1C111EEA00D6F32C /* ServiceConfiguration.swift in Sources */,
 				CA02C9561D5058B800104528 /* HomepageSection.swift in Sources */,
 				CAC1D3921D39849D00520733 /* ImageGalleryViewDataSource.swift in Sources */,
 				CA203DEF1C111EEA00D6F32C /* SignUpRequest.swift in Sources */,
 				CAC1D38C1D39849D00520733 /* CameraMan.swift in Sources */,
 				CA882D231C8263AE00D04696 /* RemoveFavoriteResponse.swift in Sources */,
+				C48D09371D9702DF0046CD4C /* DKAssetGroupGridLayout.swift in Sources */,
 				CA203DF01C111EEA00D6F32C /* GetDishByIdResponse.swift in Sources */,
 				CA203DF11C111EEA00D6F32C /* GetListsResponse.swift in Sources */,
 				CA02C9501D4EFF5B00104528 /* PreviewCollectionViewCell.swift in Sources */,
@@ -1827,12 +1941,15 @@
 				C4B0A3951C8CB52500D05408 /* NoNetworkDefaultView.swift in Sources */,
 				CAC1D3951D39849D00520733 /* Photos.swift in Sources */,
 				CAC1D3871D39849D00520733 /* AssetManager.swift in Sources */,
+				C48D09471D9702F40046CD4C /* DKAsset.swift in Sources */,
 				C41298131C822B1B0062BC7D /* DishListCandidate.swift in Sources */,
 				C4BCB3581C54BAC70049D74A /* RestaurantSearchTableViewCell.swift in Sources */,
 				C41297861C809AE60062BC7D /* TutorialChildViewController.swift in Sources */,
 				C4215A991C63009A0052A613 /* DishListTableViewCell.swift in Sources */,
+				C48D09381D9702DF0046CD4C /* DKAssetGroupListVC.swift in Sources */,
 				CACA84131CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift in Sources */,
 				C4FD0D361CD5CE380015DDB7 /* PositionConverter.swift in Sources */,
+				C48D09361D9702DF0046CD4C /* DKAssetGroupDetailVC.swift in Sources */,
 				C42C96131D54916400784636 /* RestaurantsConnectionViewController.swift in Sources */,
 				CA02C9521D50575600104528 /* GetHomepageRequest.swift in Sources */,
 				C42C96271D57117300784636 /* SearchHistoryTableViewCell.swift in Sources */,
@@ -1865,6 +1982,7 @@
 				CAA0F0B41CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift in Sources */,
 				CA02C9541D5057DA00104528 /* GetHomepageResponse.swift in Sources */,
 				C42C960A1D54769500784636 /* RestaurantsContainerViewController.swift in Sources */,
+				C48D09461D9702F40046CD4C /* DKGroupDataManager.swift in Sources */,
 				C44C25841C52022900A345D8 /* ScoreComputer.swift in Sources */,
 				CA203E0D1C111EEA00D6F32C /* SortParameter.swift in Sources */,
 				CA203E0E1C111EEA00D6F32C /* PhotoCollectionViewCell.swift in Sources */,
@@ -1888,8 +2006,10 @@
 				C494EA131D61A631000AE8BB /* RestaurantMainTableViewController.swift in Sources */,
 				CAA6C55A1D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift in Sources */,
 				CAC81EED1CDA86E000338B59 /* RestaurantCollectionMemberTableViewCell.swift in Sources */,
+				C48D09351D9702DF0046CD4C /* DKPopoverViewController.swift in Sources */,
 				C412980F1C82282D0062BC7D /* NominateDishListCandidateRequest.swift in Sources */,
 				CA203E181C111EEA00D6F32C /* MenuItem.swift in Sources */,
+				C48D093D1D9702EC0046CD4C /* DKCamera.swift in Sources */,
 				CA203E191C111EEA00D6F32C /* SimpleCouponTableViewCell.swift in Sources */,
 				C42C962B1D57D43F00784636 /* Filters.swift in Sources */,
 				CA203E1A1C111EEA00D6F32C /* NotificationDetailView.swift in Sources */,
