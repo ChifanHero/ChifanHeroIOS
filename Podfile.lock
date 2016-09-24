@@ -1,5 +1,9 @@
 PODS:
-  - Alamofire (3.5.0)
+  - Alamofire (3.4.0)
+  - AlamofireSwiftyJSON (0.1.1):
+    - Alamofire (~> 3.4)
+    - SwiftyJSON (~> 2.3)
+  - ARNTransitionAnimator (1.1.0)
   - DKImagePickerController (3.3.4):
     - DKImagePickerController/Camera (= 3.3.4)
     - DKImagePickerController/ImageManager (= 3.3.4)
@@ -10,26 +14,38 @@ PODS:
   - GooglePlaces (2.0.1):
     - GoogleMaps/Base (= 2.0.1)
   - Kingfisher (2.4.2)
+  - PullToMakeSoup (1.1):
+    - PullToRefresher (~> 1.0)
+  - PullToRefresher (1.3.1)
   - SKPhotoBrowser (3.1.2)
   - SlideMenuControllerSwift (2.2.2)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
+  - AlamofireSwiftyJSON
+  - ARNTransitionAnimator
   - DKImagePickerController
   - Flurry-iOS-SDK/FlurrySDK (~> 7.1.1)
   - GooglePlaces
-  - Kingfisher
+  - Kingfisher (~> 2.4)
+  - PullToMakeSoup (~> 1.0)
   - SKPhotoBrowser
   - SlideMenuControllerSwift
 
 SPEC CHECKSUMS:
-  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
+  AlamofireSwiftyJSON: 4787ff07c7e6687b787f1723229e729653e3359f
+  ARNTransitionAnimator: b8b35ce733d08f137eadb0e0c6e53011ea3fb28d
   DKImagePickerController: 4de1703ad3ba8bc216753447cbb00e482d8d4604
   Flurry-iOS-SDK: 83fd4f40ae66e80d122fd2f6698f0e0c31021a63
   GoogleMaps: f09da64fc987c1aa29394567c3cab5a3df83c402
   GooglePlaces: 72fab1d1651c6df0322f2aad245ffb15b80d3c56
   Kingfisher: 05bf8d04408aaa70fcd2c8c81b9f1d0f1ad313dd
+  PullToMakeSoup: d84d2980214ca3d3e7d11b92e333741fbb6d0fab
+  PullToRefresher: e17cc032b48148824a77fbf4bce5beb81933071a
   SKPhotoBrowser: e942c03c3206b5cf229fd4ce56b872bce800124a
   SlideMenuControllerSwift: e257221100c39d49edccaaeb0238b55a0c67953a
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0
