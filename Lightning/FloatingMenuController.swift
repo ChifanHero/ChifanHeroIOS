@@ -79,7 +79,7 @@ class FloatingMenuController: UIViewController {
             closeButton.alpha = 0
             closeButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
             
-            for (index, button) in buttonItems.enumerate() {
+            for (_, button) in buttonItems.enumerate() {
                 button.center = center
                 button.alpha = 0
                 button.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ARNTransitionAnimator
 import MapKit
 
 class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {

@@ -107,7 +107,7 @@ public class ARNTransitionAnimator: UIPercentDrivenInteractiveTransition {
     private func registerPanGesture() {
         self.unregisterPanGesture()
         
-        self.gesture = UIPanGestureRecognizer(target: self, action: "handlePan:")
+        self.gesture = UIPanGestureRecognizer(target: self, action: #selector(ARNTransitionAnimator.handlePan(_:)))
         self.gesture!.delegate = self
         self.gesture!.maximumNumberOfTouches = 1
         
@@ -339,11 +339,11 @@ extension ARNTransitionAnimator: UIViewControllerAnimatedTransitioning {
         let containerView = transitionContext.containerView()
         
         self.transitionContext = transitionContext
-        self.fireBeforeHandler(containerView!, transitionContext: transitionContext)
+        self.fireBeforeHandler(containerView, transitionContext: transitionContext)
         
         self.animateWithDuration(
             self.transitionDuration(transitionContext),
-            containerView: containerView!,
+            containerView: containerView,
             completeTransition: true) {
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
         }
@@ -403,7 +403,7 @@ extension ARNTransitionAnimator {
         }
         
         self.transitionContext = transitionContext
-        self.fireBeforeHandler(containerView!, transitionContext: transitionContext)
+        self.fireBeforeHandler(containerView, transitionContext: transitionContext)
     }
 }
 
@@ -415,7 +415,7 @@ extension ARNTransitionAnimator {
         super.updateInteractiveTransition(percentComplete)
         if let transitionContext = self.transitionContext {
             let containerView = transitionContext.containerView()
-            self.fireAnimationHandler(containerView!, percentComplete: percentComplete)
+            self.fireAnimationHandler(containerView, percentComplete: percentComplete)
         }
     }
     
@@ -425,7 +425,7 @@ extension ARNTransitionAnimator {
             let containerView = transitionContext.containerView()
             self.animateWithDuration(
                 animated ? self.transitionDuration(transitionContext) : 0,
-                containerView: containerView!,
+                containerView: containerView,
                 completeTransition: true) {
                     transitionContext.completeTransition(true)
             }
@@ -438,7 +438,7 @@ extension ARNTransitionAnimator {
             let containerView = transitionContext.containerView()
             self.animateWithDuration(
                 animated ? self.transitionDuration(transitionContext) : 0,
-                containerView: containerView!,
+                containerView: containerView,
                 completeTransition: false) {
                     transitionContext.completeTransition(false)
             }

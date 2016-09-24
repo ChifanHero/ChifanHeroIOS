@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PullToMakeSoup
 import MapKit
 
 let searchContext : SearchContext = SearchContext()
@@ -214,7 +213,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                     }
                     self.buckets += buckets
                     self.searchResultsTable.allowsSelection = true
-                    self.searchResultsTable.endRefreshing()
                     self.searchResultsTable.reloadData()
                     self.pullRefresher.endRefreshing()
                     self.searchResultsTable.hidden = false
@@ -222,7 +220,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                     self.loadingIndicator.stopAnimation()
                     self.footerView!.activityIndicator.stopAnimating()
                 } else {
-                    self.searchResultsTable.endRefreshing()
                     self.pullRefresher.endRefreshing()
                     self.isLoadingMore = false
                     self.loadingIndicator.stopAnimation()

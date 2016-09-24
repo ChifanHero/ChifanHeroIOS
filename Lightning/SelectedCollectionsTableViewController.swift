@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PullToMakeSoup
 import Flurry_iOS_SDK
 import MapKit
 
@@ -138,10 +137,8 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                         }
                         self.tableView.reloadData()
                         self.pullRefresher.endRefreshing()
-                        self.tableView.endRefreshing()
                         self.loadingIndicator.stopAnimation()
                     } else {
-                        self.tableView.endRefreshing()
                         self.loadingIndicator.stopAnimation()
                         self.navigationController?.navigationBar.translucent = false
                         self.tabBarController?.tabBar.hidden = false
@@ -176,14 +173,12 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                                 refreshHandler!(success: true)
                             }
                             
-                            self.tableView.endRefreshing()
                             self.pullRefresher.endRefreshing()
                             self.loadingIndicator.stopAnimation()
                         } else {
                             if refreshHandler != nil {
                                 refreshHandler!(success: false)
                             }
-                            self.tableView.endRefreshing()
                             self.loadingIndicator.stopAnimation()
                             self.pullRefresher.endRefreshing()
                             self.navigationController?.navigationBar.translucent = false

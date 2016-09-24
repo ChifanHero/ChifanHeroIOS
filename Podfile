@@ -11,7 +11,8 @@ pod 'Kingfisher', '~> 2.6.0'
 pod 'Flurry-iOS-SDK/FlurrySDK', '~> 7.1.1'
 pod 'SlideMenuControllerSwift', '~> 2.3.0'
 pod 'GooglePlaces'
-pod 'SKPhotoBrowser', '~> 3.1.3'
+pod 'SKPhotoBrowser', '~> 3.1.2'
+pod 'SwiftyJSON', '~> 2.4.0'
 
 end
 

@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 import Kingfisher
 import SKPhotoBrowser
-import DKImagePickerController
 
 
 class RestaurantMainTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {

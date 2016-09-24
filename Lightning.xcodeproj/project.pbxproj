@@ -95,6 +95,7 @@
 		C48D09471D9702F40046CD4C /* DKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09431D9702F40046CD4C /* DKAsset.swift */; };
 		C48D09481D9702F40046CD4C /* DKAssetGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09441D9702F40046CD4C /* DKAssetGroup.swift */; };
 		C48D09491D9702F40046CD4C /* DKImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09451D9702F40046CD4C /* DKImageManager.swift */; };
+		C48D094C1D9706CA0046CD4C /* ARNTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D094B1D9706CA0046CD4C /* ARNTransitionAnimator.swift */; };
 		C48DD6CC1D110DBA00F529AE /* TrackingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */; };
 		C48DD6D01D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DD6CF1D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift */; };
 		C49427DE1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */; };
@@ -465,6 +466,7 @@
 		C48D09441D9702F40046CD4C /* DKAssetGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKAssetGroup.swift; sourceTree = "<group>"; };
 		C48D09451D9702F40046CD4C /* DKImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKImageManager.swift; sourceTree = "<group>"; };
 		C48D094A1D9703340046CD4C /* DKImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKImagePickerController.h; sourceTree = "<group>"; };
+		C48D094B1D9706CA0046CD4C /* ARNTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNTransitionAnimator.swift; sourceTree = "<group>"; };
 		C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingUtil.swift; sourceTree = "<group>"; };
 		C48DD6CF1D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionIdentifiable.swift; sourceTree = "<group>"; };
 		C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionNavigationController.swift; sourceTree = "<group>"; };
@@ -1307,6 +1309,7 @@
 		CA621EC91D0A718400693306 /* LoadingIndicator */ = {
 			isa = PBXGroup;
 			children = (
+				C48D094B1D9706CA0046CD4C /* ARNTransitionAnimator.swift */,
 				CA621EBF1D0A39A500693306 /* NVActivityIndicatorView.swift */,
 				CA621EC11D0A3A0500693306 /* NVActivityIndicatorAnimationDelegate.swift */,
 				CA621EC31D0A698800693306 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */,
@@ -1587,7 +1590,7 @@
 		C42D9BB81B69EF2D0035C5A6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Lightning;
 				TargetAttributes = {
 					C42D9BD51B69EF2D0035C5A6 = {
@@ -1848,6 +1851,7 @@
 				C494EA561D61B1EA000AE8BB /* ActionPanelView.swift in Sources */,
 				C48D09391D9702DF0046CD4C /* DKPermissionView.swift in Sources */,
 				C44C25861C53610B00A345D8 /* RestaurantCandidate.swift in Sources */,
+				C48D094C1D9706CA0046CD4C /* ARNTransitionAnimator.swift in Sources */,
 				CAC1D39C1D39B7AB00520733 /* UploadRestaurantPictureResponse.swift in Sources */,
 				C4A0D5611C137DCC00BAE246 /* RestaurantSearchResponse.swift in Sources */,
 				CA203DDC1C111EEA00D6F32C /* RateRequest.swift in Sources */,
@@ -2212,8 +2216,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2256,8 +2262,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2276,7 +2284,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2333,6 +2341,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90904D921B49E7397CD1A26E /* Pods-Lightning.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2356,6 +2365,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9F4E1D025DE105092EEBD4B9 /* Pods-Lightning.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution";
