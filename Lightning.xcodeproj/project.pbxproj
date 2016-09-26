@@ -96,6 +96,12 @@
 		C48D09481D9702F40046CD4C /* DKAssetGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09441D9702F40046CD4C /* DKAssetGroup.swift */; };
 		C48D09491D9702F40046CD4C /* DKImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09451D9702F40046CD4C /* DKImageManager.swift */; };
 		C48D094C1D9706CA0046CD4C /* ARNTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D094B1D9706CA0046CD4C /* ARNTransitionAnimator.swift */; };
+		C48D094E1D97ADEB0046CD4C /* Restaurant.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C48D094D1D97ADEB0046CD4C /* Restaurant.storyboard */; };
+		C48D09501D97AE220046CD4C /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C48D094F1D97AE220046CD4C /* User.storyboard */; };
+		C48D09521D9871DD0046CD4C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D09511D9871DD0046CD4C /* MainTabBarController.swift */; };
+		C48D09541D9874BD0046CD4C /* Selection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C48D09531D9874BD0046CD4C /* Selection.storyboard */; };
+		C48D09561D98F7040046CD4C /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C48D09551D98F7040046CD4C /* Home.storyboard */; };
+		C48D09581D98F7C40046CD4C /* LocationSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C48D09571D98F7C40046CD4C /* LocationSelection.storyboard */; };
 		C48DD6CC1D110DBA00F529AE /* TrackingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */; };
 		C48DD6D01D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DD6CF1D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift */; };
 		C49427DE1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */; };
@@ -467,6 +473,12 @@
 		C48D09451D9702F40046CD4C /* DKImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKImageManager.swift; sourceTree = "<group>"; };
 		C48D094A1D9703340046CD4C /* DKImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKImagePickerController.h; sourceTree = "<group>"; };
 		C48D094B1D9706CA0046CD4C /* ARNTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNTransitionAnimator.swift; sourceTree = "<group>"; };
+		C48D094D1D97ADEB0046CD4C /* Restaurant.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Restaurant.storyboard; sourceTree = "<group>"; };
+		C48D094F1D97AE220046CD4C /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		C48D09511D9871DD0046CD4C /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		C48D09531D9874BD0046CD4C /* Selection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selection.storyboard; sourceTree = "<group>"; };
+		C48D09551D98F7040046CD4C /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		C48D09571D98F7C40046CD4C /* LocationSelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LocationSelection.storyboard; path = ../LocationSelection.storyboard; sourceTree = "<group>"; };
 		C48DD6CB1D110DBA00F529AE /* TrackingUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingUtil.swift; sourceTree = "<group>"; };
 		C48DD6CF1D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionIdentifiable.swift; sourceTree = "<group>"; };
 		C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionNavigationController.swift; sourceTree = "<group>"; };
@@ -832,6 +844,7 @@
 			isa = PBXGroup;
 			children = (
 				CA72AEDA1D9E0D4700DE5464 /* 吃饭英雄-Test.entitlements */,
+				C48D09591D98FD190046CD4C /* StoryBoards */,
 				C42C96301D59B41C00784636 /* Location */,
 				C42C961F1D56E4C700784636 /* Search */,
 				CAC527931CE1CA870056AAC8 /* Animation */,
@@ -841,11 +854,7 @@
 				C4D300161BC2478200807C4D /* KeychainWrapper */,
 				C4D300141BC2449F00807C4D /* BridgeHeader */,
 				C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */,
-				C42D9BC91B69EF2D0035C5A6 /* Main.storyboard */,
-				C42C96061D546E6400784636 /* RestaurantsAndSearch.storyboard */,
-				C41297881C809D880062BC7D /* Tutorial.storyboard */,
 				C42D9BCC1B69EF2D0035C5A6 /* Assets.xcassets */,
-				C42D9BCE1B69EF2D0035C5A6 /* LaunchScreen.storyboard */,
 				C42D9BD11B69EF2D0035C5A6 /* Info.plist */,
 				C476C54A1B843F2C0051B0E5 /* UIElementsClass */,
 				C476C5471B843C710051B0E5 /* UIElementsXib */,
@@ -1118,6 +1127,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C48D09591D98FD190046CD4C /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				C48D09531D9874BD0046CD4C /* Selection.storyboard */,
+				C48D094D1D97ADEB0046CD4C /* Restaurant.storyboard */,
+				C42D9BC91B69EF2D0035C5A6 /* Main.storyboard */,
+				C42C96061D546E6400784636 /* RestaurantsAndSearch.storyboard */,
+				C41297881C809D880062BC7D /* Tutorial.storyboard */,
+				C48D094F1D97AE220046CD4C /* User.storyboard */,
+				C42D9BCE1B69EF2D0035C5A6 /* LaunchScreen.storyboard */,
+				C48D09551D98F7040046CD4C /* Home.storyboard */,
+				C48D09571D98F7C40046CD4C /* LocationSelection.storyboard */,
+			);
+			name = StoryBoards;
+			sourceTree = "<group>";
+		};
 		C4A0D55D1C137AED00BAE246 /* LocationComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -1197,6 +1222,7 @@
 				C42C96121D54916400784636 /* RestaurantsConnectionViewController.swift */,
 				C42D90891D5EF410006AC70F /* RestaurantsOnlyViewController.swift */,
 				C494EA121D61A631000AE8BB /* RestaurantMainTableViewController.swift */,
+				C48D09511D9871DD0046CD4C /* MainTabBarController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1666,9 +1692,12 @@
 				C41297C31C80B8950062BC7D /* NotificationDetailView.xib in Resources */,
 				C41297A51C80B85A0062BC7D /* TutorialChildViewController.xib in Resources */,
 				CA203E321C111EEA00D6F32C /* LaunchScreen.storyboard in Resources */,
+				C48D09541D9874BD0046CD4C /* Selection.storyboard in Resources */,
+				C48D09501D97AE220046CD4C /* User.storyboard in Resources */,
 				C4D9830C1CE3014B0061A088 /* LocationTableHeader.xib in Resources */,
 				C41297F61C80B9390062BC7D /* ActionButtonView.xib in Resources */,
 				C4B0A3931C8C0B4B00D05408 /* NoNetworkDefaultView.xib in Resources */,
+				C48D09581D98F7C40046CD4C /* LocationSelection.storyboard in Resources */,
 				C44B05DE1CE1B37B00337502 /* CityCell.xib in Resources */,
 				C41297AE1C80B8720062BC7D /* DishCell.xib in Resources */,
 				CA882D291C8556E300D04696 /* Assets.xcassets in Resources */,
@@ -1686,7 +1715,9 @@
 				C42C961E1D56AC1300784636 /* SearchHistoryCell.xib in Resources */,
 				C41297F31C80B9310062BC7D /* NameAddressRestaurantCell.xib in Resources */,
 				C41297891C809D880062BC7D /* Tutorial.storyboard in Resources */,
+				C48D094E1D97ADEB0046CD4C /* Restaurant.storyboard in Resources */,
 				C41297A81C80B85F0062BC7D /* SlideBar.xib in Resources */,
+				C48D09561D98F7040046CD4C /* Home.storyboard in Resources */,
 				CA203E461C111EEA00D6F32C /* Main.storyboard in Resources */,
 				C41298021C80B94F0062BC7D /* DishListCell.xib in Resources */,
 				C41297B11C80B8780062BC7D /* SelectedCollectionCell.xib in Resources */,
@@ -1921,6 +1952,7 @@
 				CAC1D38C1D39849D00520733 /* CameraMan.swift in Sources */,
 				CA882D231C8263AE00D04696 /* RemoveFavoriteResponse.swift in Sources */,
 				C48D09371D9702DF0046CD4C /* DKAssetGroupGridLayout.swift in Sources */,
+				C48D09521D9871DD0046CD4C /* MainTabBarController.swift in Sources */,
 				CA203DF01C111EEA00D6F32C /* GetDishByIdResponse.swift in Sources */,
 				CA203DF11C111EEA00D6F32C /* GetListsResponse.swift in Sources */,
 				CA02C9501D4EFF5B00104528 /* PreviewCollectionViewCell.swift in Sources */,
