@@ -23,6 +23,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.layoutIfNeeded()
         self.clearTitleForBackBarButtonItem()
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         

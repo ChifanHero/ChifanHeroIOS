@@ -60,6 +60,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private func configureCheckMarkImage(){
+        self.view.layoutIfNeeded()
         checkmarkImageOne.renderColorChangableImage(UIImage(named: "CheckMark.png")!, fillColor: UIColor.greenColor())
         checkmarkImageOne.hidden = true
         checkmarkImageTwo.renderColorChangableImage(UIImage(named: "CheckMark.png")!, fillColor: UIColor.greenColor())

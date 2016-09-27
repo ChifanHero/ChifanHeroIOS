@@ -19,8 +19,9 @@ class RestaurantsContainerViewController: SlideMenuController, SlideMenuControll
         self.delegate = self
         SlideMenuOptions.contentViewScale = 1.00
         SlideMenuOptions.rightViewWidth = 250
-        SlideMenuOptions.panFromBezel = false
+        SlideMenuOptions.panFromBezel = true
         SlideMenuOptions.simultaneousGestureRecognizers = false
+        SlideMenuOptions.hideStatusBar = false
         // Do any additional setup after loading the view.
     }
 

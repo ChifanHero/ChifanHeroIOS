@@ -146,7 +146,10 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     }
     
     func editLocation() {
-        self.performSegueWithIdentifier("editLocation", sender: nil)
+        let selectLocationNavigationController: UINavigationController = UIStoryboard(name: "LocationSelection", bundle: nil).instantiateViewControllerWithIdentifier("LocationNavigationController") as! UINavigationController
+        let selectLocationController: SelectLocationViewController = selectLocationNavigationController.viewControllers[0] as! SelectLocationViewController
+        selectLocationController.homeViewController = self
+        self.presentViewController(selectLocationNavigationController, animated: true, completion: nil)
     }
     
     private func initHomepageTable(){
@@ -240,15 +243,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     private func clearData(){
         homepageSections.removeAll()
     }
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "editLocation" {
-            let selectLocationNavigationController: UINavigationController = segue.destinationViewController
-            as! UINavigationController
-            let selectLocationController: SelectLocationViewController = selectLocationNavigationController.viewControllers[0] as! SelectLocationViewController
-            selectLocationController.homeViewController = self
-        }
-    }
     
 }
 
@@ -299,7 +293,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func handleTransition() {
         self.animateTransition = true
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Restaurant", bundle: nil)
         let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantName = self.selectedRestaurantName

@@ -8,10 +8,11 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegate = self
         createChildrenControllers()
        // setTabBarIcons()
        //let tabBarItems = tabBar.items! as [UITabBarItem]
@@ -34,7 +35,7 @@ class MainTabBarController: UITabBarController {
         let restaurantsStoryboard:UIStoryboard = UIStoryboard(name: "RestaurantsAndSearch", bundle: nil)
         let restaurantsViewController:UIViewController = restaurantsStoryboard.instantiateViewControllerWithIdentifier("RestaurantsContainer") as UIViewController
         
-        let selectionsStoryBoard: UIStoryboard = UIStoryboard(name: "Selection", bundle: nil)
+        let selectionsStoryBoard: UIStoryboard = UIStoryboard(name: "Collection", bundle: nil)
         let selectionsViewController: UIViewController = selectionsStoryBoard.instantiateViewControllerWithIdentifier("CollectionsNavigationController") as UIViewController
         
         let userStoryBoard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
@@ -42,6 +43,10 @@ class MainTabBarController: UITabBarController {
         
         
         self.viewControllers = [homePageViewController, restaurantsViewController, selectionsViewController, usersViewController]
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        print("tapped")
     }
     
 

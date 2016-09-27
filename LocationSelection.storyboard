@@ -9,7 +9,7 @@
         <!--Location Selection Navigation Controller-->
         <scene sceneID="czd-lU-0XD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UMi-Xm-Arp" userLabel="Location Selection Navigation Controller" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LocationNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="UMi-Xm-Arp" userLabel="Location Selection Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="1tJ-Eh-sXw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -66,7 +66,7 @@
                                         <rect key="frame" x="0.0" y="88" width="383" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0l0-pf-lPv" id="HFF-LA-CNa">
-                                            <frame key="frameInset" width="383" height="43"/>
+                                            <frame key="frameInset" width="383" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>

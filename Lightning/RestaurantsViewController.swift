@@ -380,7 +380,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     // Mark - Navigation
     func showRestaurant(id: String, restaurant: Restaurant, isFromGoogleSearch: Bool) {
         self.animateTransition = true
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Restaurant", bundle: nil)
         let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantName = self.selectedRestaurantName

@@ -413,7 +413,7 @@
         <!--Restaurants-->
         <scene sceneID="NTY-zy-Waj">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="PEm-DQ-IUT" userLabel="Restaurants" customClass="RestaurantsOnlyViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RestaurantsOnlyViewController" extendedLayoutIncludesOpaqueBars="YES" id="PEm-DQ-IUT" userLabel="Restaurants" customClass="RestaurantsOnlyViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="G2F-mf-G66"/>
                         <viewControllerLayoutGuide type="bottom" id="ucZ-P9-I6N"/>

@@ -59,6 +59,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func setUserProfileImageProperty(){
+        self.view.layoutIfNeeded()
         self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width / 2
         self.userImageView.clipsToBounds = true
         self.userImageView.layer.borderWidth = 3.0
@@ -80,7 +81,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         let defaults = NSUserDefaults.standardUserDefaults()
         
         if let userPicURL = defaults.stringForKey("userPicURL"){
-//            userImageView.image = UIImage(data: NSData(contentsOfURL: NSURL(string: userPicURL)!)!)
+            userImageView.image = UIImage(data: NSData(contentsOfURL: NSURL(string: userPicURL)!)!)
             userImageView.kf_setImageWithURL(NSURL(string: userPicURL)!, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
         }
     }
@@ -92,9 +93,9 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             self.performSegueWithIdentifier("showNickNameChange", sender: indexPath)
         } else if indexPath.section == 2 {
             if indexPath.row == 0 {
-                self.performSegueWithIdentifier("showRestaurants", sender: indexPath)
+                showRestaurants()
             } else if indexPath.row == 1 {
-                self.performSegueWithIdentifier("showSelectedCollection", sender: indexPath)
+                showSelectedCollection()
             }
             
         } else {
@@ -104,14 +105,23 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    func showRestaurants() {
+        let storyboard = UIStoryboard(name: "RestaurantsAndSearch", bundle: nil)
+        let restaurantsController = storyboard.instantiateViewControllerWithIdentifier("RestaurantsOnlyViewController") as! RestaurantsOnlyViewController
+        restaurantsController.isFromBookMark = true
+        self.navigationController?.pushViewController(restaurantsController, animated: true)
+    }
+    
+    func showSelectedCollection() {
+        let storyboard = UIStoryboard(name: "Collection", bundle: nil)
+        let collectionsController = storyboard.instantiateViewControllerWithIdentifier("selectedCollection") as! SelectedCollectionsTableViewController
+        collectionsController.isFromBookMark = true
+        self.navigationController?.pushViewController(collectionsController, animated: true)
+    }
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showRestaurants" {
-            let destinationVC = segue.destinationViewController as! RestaurantsOnlyViewController
-            destinationVC.isFromBookMark = true
-        } else if segue.identifier == "showSelectedCollection" {
-            let destinationVC = segue.destinationViewController as! SelectedCollectionsTableViewController
-            destinationVC.isFromBookMark = true
-        } else if segue.identifier == "showNickNameChange" {
+         if segue.identifier == "showNickNameChange" {
             let destinationVC = segue.destinationViewController as! NickNameChangeViewController
             destinationVC.nickName = self.nickNameLabel.text
         }
@@ -226,7 +236,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func getLogInNavigationController() -> UINavigationController{
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard : UIStoryboard = UIStoryboard(name: "User", bundle: nil)
         let logInNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("LogInNavigationController") as! UINavigationController
         logInNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)
         return logInNC

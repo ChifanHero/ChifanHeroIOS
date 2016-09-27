@@ -314,8 +314,8 @@
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="nzj-aN-9dt"/>
                                                             <exclude reference="We4-or-KcQ"/>
+                                                            <exclude reference="nzj-aN-9dt"/>
                                                         </mask>
                                                     </variation>
                                                 </imageView>
@@ -355,10 +355,10 @@
                             <constraint firstItem="0qR-ws-40N" firstAttribute="top" secondItem="ejv-ub-BFg" secondAttribute="bottom" id="MKC-jo-eEG"/>
                             <constraint firstItem="RhD-lV-se3" firstAttribute="top" secondItem="pk8-lz-LMB" secondAttribute="bottom" id="UJ8-ec-Vnt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RhD-lV-se3" secondAttribute="trailing" constant="-24" id="cf3-rR-N3b"/>
+                            <constraint firstItem="ejv-ub-BFg" firstAttribute="leading" secondItem="CeW-mO-uGc" secondAttribute="leading" id="krQ-zu-373"/>
                             <constraint firstItem="ejv-ub-BFg" firstAttribute="top" secondItem="RhD-lV-se3" secondAttribute="bottom" id="r9F-i1-d22"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ejv-ub-BFg" secondAttribute="trailing" constant="-20" id="tCb-WP-4rc"/>
+                            <constraint firstAttribute="trailing" secondItem="ejv-ub-BFg" secondAttribute="trailing" id="sa6-Wf-JwU"/>
                             <constraint firstItem="RhD-lV-se3" firstAttribute="leading" secondItem="CeW-mO-uGc" secondAttribute="leadingMargin" constant="-24" id="y1k-Kb-93A"/>
-                            <constraint firstItem="ejv-ub-BFg" firstAttribute="leading" secondItem="CeW-mO-uGc" secondAttribute="leadingMargin" constant="-20" id="zBR-bE-viM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XdG-1F-dWc"/>

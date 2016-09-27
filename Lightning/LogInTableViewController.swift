@@ -32,6 +32,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogInTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        self.configureNavigationController()
         self.configureLoginButton()
         self.addNotificationButton()
         self.addSignUpButton()
@@ -143,7 +144,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private func getAboutMeNavigationController() -> UINavigationController {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard : UIStoryboard = UIStoryboard(name: "User", bundle: nil)
         let aboutMeNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("AboutMeNavigationController") as! UINavigationController
         aboutMeNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)
         return aboutMeNC

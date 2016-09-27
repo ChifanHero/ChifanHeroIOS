@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 import Flurry_iOS_SDK
 
-class RestaurantCollectionMembersViewController: UITableViewController, ARNImageTransitionZoomable{
+class RestaurantCollectionMembersViewController: UITableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable{
     
     var selectedCollection: SelectedCollection?
     
@@ -59,6 +59,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configActionButton()
         self.clearTitleForBackBarButtonItem()
         loadTableData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
@@ -71,6 +72,13 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         likeCount = selectedCollection?.likeCount
         favoriteCount = selectedCollection?.userFavoriteCount
         // Do any additional setup after loading the view.
+    }
+    
+    private func configActionButton() {
+        self.view.layoutIfNeeded()
+        likeButton.image = UIImage(named: "Chifanhero_Like")
+        favoriteButton.image = UIImage(named: "Chifanhero_Favorite")
+        nominationButton.image = UIImage(named: "Chifanhero_Nomination")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -235,7 +243,19 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         self.selectedImageView = selectedCell.restaurantImage
         self.selectedRestaurantName = selectedCell.restaurantName.text
         self.animateTransition = true
-        performSegueWithIdentifier("showRestaurant", sender: restaurantSelected.id)
+        showRestaurant(restaurantSelected.id!, restaurant: restaurantSelected)
+    }
+    
+    func showRestaurant(id: String, restaurant: Restaurant) {
+        self.animateTransition = true
+        let storyboard = UIStoryboard(name: "Restaurant", bundle: nil)
+        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
+        restaurantController.restaurantImage = self.selectedImageView?.image
+        restaurantController.restaurantName = self.selectedRestaurantName
+        restaurantController.restaurantId = id
+        restaurantController.parentVCName = self.getId()
+        restaurantController.isFromGoogleSearch = false
+        self.navigationController?.pushViewController(restaurantController, animated: true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -318,6 +338,14 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     func usingAnimatedTransition() -> Bool {
         return animateTransition
+    }
+    
+    func getId() -> String {
+        return "RestaurantsCollectionMemberController"
+    }
+    
+    func getDirectAncestorId() -> String {
+        return "SelectedCollectionTableViewController"
     }
 
 }
