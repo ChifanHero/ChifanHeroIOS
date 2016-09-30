@@ -580,6 +580,7 @@
 		CA62BA5C1D3F31BB0087A862 /* RestaurantImagePoolCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantImagePoolCollectionViewCell.swift; sourceTree = "<group>"; };
 		CA62BA5E1D3F64CF0087A862 /* GetImagesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetImagesRequest.swift; sourceTree = "<group>"; };
 		CA62BA601D3F658A0087A862 /* GetImagesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetImagesResponse.swift; sourceTree = "<group>"; };
+		CA72AEDA1D9E0D4700DE5464 /* 吃饭英雄-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "吃饭英雄-Test.entitlements"; sourceTree = "<group>"; };
 		CA7A4F691BE939BB0016BC56 /* SignUpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		CA7A4F6B1BE9C95D0016BC56 /* SignUpResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
 		CA7A4F711BF179980016BC56 /* AboutMeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeTableViewController.swift; sourceTree = "<group>"; };
@@ -830,6 +831,7 @@
 		C42D9BC21B69EF2D0035C5A6 /* Lightning */ = {
 			isa = PBXGroup;
 			children = (
+				CA72AEDA1D9E0D4700DE5464 /* 吃饭英雄-Test.entitlements */,
 				C42C96301D59B41C00784636 /* Location */,
 				C42C961F1D56E4C700784636 /* Search */,
 				CAC527931CE1CA870056AAC8 /* Animation */,
@@ -1608,6 +1610,9 @@
 							com.apple.InAppPurchase = {
 								enabled = 0;
 							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -2343,6 +2348,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Lightning/吃饭英雄-Test.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2367,6 +2373,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Lightning/吃饭英雄-Test.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
