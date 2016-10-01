@@ -116,5 +116,9 @@ class TrackingUtil {
         Flurry.logEvent("ExpectedResultFound")
     }
     
+    class func trackRestaurantsFilterOpen() {
+        Flurry.logEvent("RestaurantsFilterOpen")
+    }
+    
     
 }
