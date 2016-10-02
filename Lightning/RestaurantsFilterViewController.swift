@@ -28,6 +28,11 @@ class RestaurantsFilterViewController: UIViewController {
         addBarButtons()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        TrackingUtil.trackRestaurantsFilterOpen()
+    }
+    
     func addBarButtons() {
         addCancelButton()
         addConfirmButton()

@@ -41,6 +41,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        TrackingUtil.trackSearchView()
         searchBar.text = searchContext.keyword
         searchBar.becomeFirstResponder()
         searchBar.selectAll(nil)

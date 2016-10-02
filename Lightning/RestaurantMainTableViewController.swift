@@ -14,6 +14,19 @@ import SKPhotoBrowser
 
 class RestaurantMainTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
+    @IBOutlet weak var blurContainer: UIVisualEffectView!
+    
+    
+    @IBOutlet weak var distanceBlurContainer: UIVisualEffectView!
+    
+    
+    @IBOutlet weak var blurContainerWidthContraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var favoriteButton: DOFavoriteButton!
+    
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    @IBOutlet weak var distanceLabel: UILabel!
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     
@@ -65,7 +78,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     var headerView: UIView!
     
-    let kTableHeaderHeight: CGFloat = 200.0
+    let kTableHeaderHeight: CGFloat = 250.0
     
     var animateTransition = true
     
@@ -76,6 +89,11 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addImageForBackBarButtonItem()
+        prepareBlurContainer()
+        distanceBlurContainer.layer.cornerRadius = 4
+        distanceLabel.text = "25.5 mi"
+        scoreLabel.layer.cornerRadius = 4
+        configActionButton()
         self.tableView.showsVerticalScrollIndicator = false
         loadData { (success) -> Void in
             if !success {
@@ -94,6 +112,13 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         self.configureRestaurantIfFromGoogle()
     }
     
+    private func prepareBlurContainer() {
+        let nameWidth : CGFloat = (restaurantName! as NSString).sizeWithAttributes([NSFontAttributeName : nameLabel.font]).width
+        blurContainerWidthContraint.constant = nameWidth + 60
+        self.view.layoutIfNeeded()
+        blurContainer.layer.cornerRadius = 4
+    }
+    
     private func configureRestaurantIfFromGoogle(){
         if isFromGoogleSearch {
             if restaurantFromGoogle?.address != nil {
@@ -103,6 +128,34 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                 self.phoneLabel.text = restaurantFromGoogle?.phone
             }
         }
+    }
+    
+    private func configActionButton() {
+        self.view.layoutIfNeeded()
+        favoriteButton.image = UIImage(named: "Chifanhero_Favorite")
+    }
+    
+    func configureFavoriteView(){
+//        favoriteView.layer.borderWidth = 1.0
+//        favoriteView.layer.borderColor = UIColor.whiteColor().CGColor
+//        favoriteView.layer.cornerRadius = 10.0
+//        favoriteButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.favoriteButtonTapped(_:)), forControlEvents: .TouchUpInside)
+//        if let favoriteCount = selectedCollection?.userFavoriteCount {
+//            favoriteLabel.text = String(favoriteCount)
+//        }
+//        if !UserContext.isValidUser() {
+//            favoriteButton.selected = false
+//        } else {
+//            let request = GetIsFavoriteRequest(type: FavoriteTypeEnum.SelectedCollection, id: selectedCollection!.id!)
+//            DataAccessor(serviceConfiguration: ParseConfiguration()).getIsFavorite(request, responseHandler: { (response) -> Void in
+//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                    if response != nil && response?.result != nil {
+//                        self.favoriteButton.selected = (response?.result)!
+//                    }
+//                })
+//                
+//            })
+//        }
     }
     
     private func configureButtons(){
@@ -561,7 +614,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         imageView.contentMode = self.backgroundImageView.contentMode
         imageView.clipsToBounds = true
         imageView.userInteractionEnabled = false
-        imageView.frame = CGRectMake(0.0, 0.0, self.tableView.frame.width, 264.0)
+        imageView.frame = CGRectMake(0.0, 0.0, self.tableView.frame.width, 314.0)
         return imageView
     }
     

@@ -102,6 +102,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     override func viewDidAppear(animated: Bool) {
         print("restaurants view did appear")
         super.viewDidAppear(animated)
+        TrackingUtil.trackRestaurantsView()
         performNewSearchIfNeeded(true)
     }
     
