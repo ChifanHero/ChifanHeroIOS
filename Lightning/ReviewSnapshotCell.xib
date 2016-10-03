@@ -59,7 +59,7 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9aq-vX-eGE" userLabel="Bottom Container View">
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="991-cP-LBc">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="991-cP-LBc">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">最近天气转凉 特别想吃火锅
 这家井格应该是成都口味的火锅 本来不太能吃辣的 但是吃了以后发现辣锅除了很香之外 并没有那么辣 锅底里应该是加了牛油的 菜和肉涮起来都很香

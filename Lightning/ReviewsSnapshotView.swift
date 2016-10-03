@@ -21,6 +21,8 @@ import UIKit
     private var view : UIView!
     private var nibName : String = "ReviewsSnapshotView"
     
+    var parentViewController : UIViewController?
+    
     @IBOutlet weak var reviewsTableView: UITableView!
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -86,6 +88,8 @@ import UIKit
                 tableView.registerNib(UINib(nibName: "EditableReviewCell", bundle: nil), forCellReuseIdentifier: "editableReviewCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("editableReviewCell") as? EditableReviewTableViewCell
             }
+            cell?.selectionStyle = UITableViewCellSelectionStyle.None
+            cell?.addDetailReviewButton.addTarget(self, action: #selector(ReviewsSnapshotView.writeNewReview), forControlEvents: UIControlEvents.TouchUpInside)
             return cell!
         } else {
             var cell: ReviewSnapshotTableViewCell? = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell
@@ -96,6 +100,22 @@ import UIKit
             return cell!
         }
 
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell : UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+        if indexPath.section > 0 {
+            showReview()
+        }
+        cell.selected = false
+    }
+    
+    func writeNewReview() {
+        parentViewController?.performSegueWithIdentifier("writeReview", sender: nil)
+    }
+    
+    func showReview() {
+        parentViewController?.performSegueWithIdentifier("showReview", sender: nil)
     }
 
 }

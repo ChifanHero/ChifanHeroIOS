@@ -12,15 +12,15 @@ class EditableReviewTableViewCell: UITableViewCell {
     
     
     
-    @IBOutlet weak var rateButton1: UIButton!
+    @IBOutlet weak var rateButton1: RateButton!
     
-    @IBOutlet weak var rateButton2: UIButton!
+    @IBOutlet weak var rateButton2: RateButton!
     
-    @IBOutlet weak var rateButton3: UIButton!
+    @IBOutlet weak var rateButton3: RateButton!
     
-    @IBOutlet weak var rateButton4: UIButton!
+    @IBOutlet weak var rateButton4: RateButton!
     
-    @IBOutlet weak var rateButton5: UIButton!
+    @IBOutlet weak var rateButton5: RateButton!
     
     @IBOutlet weak var quickReviewView: UIView!
     
@@ -28,6 +28,9 @@ class EditableReviewTableViewCell: UITableViewCell {
     
     var unselectedColor : UIColor?
     
+    var rateButtons : [RateButton] = []
+    
+    var rated = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,6 +43,11 @@ class EditableReviewTableViewCell: UITableViewCell {
         rateButton5.layer.cornerRadius = rateButton5.frame.size.width / 2
         addDetailReviewButton.layer.cornerRadius = 4
         unselectedColor = rateButton1.backgroundColor
+        rateButtons.append(rateButton1)
+        rateButtons.append(rateButton2)
+        rateButtons.append(rateButton3)
+        rateButtons.append(rateButton4)
+        rateButtons.append(rateButton5)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -50,70 +58,70 @@ class EditableReviewTableViewCell: UITableViewCell {
     
     
     @IBAction func rate1(sender: AnyObject) {
-        toggleRateButton(1, selected: true)
+        toggleButton(1)
 //        showConfirmView()
     }
     
     @IBAction func rate2(sender: AnyObject) {
-        toggleRateButton(1, selected: true)
-        toggleRateButton(2, selected: true)
+        toggleButton(2)
 //        showConfirmView()
     }
     
     @IBAction func rate3(sender: AnyObject) {
-        toggleRateButton(1, selected: true)
-        toggleRateButton(2, selected: true)
-        toggleRateButton(3, selected: true)
+        toggleButton(3)
 //        showConfirmView()
     }
     
     @IBAction func rate4(sender: AnyObject) {
-        toggleRateButton(1, selected: true)
-        toggleRateButton(2, selected: true)
-        toggleRateButton(3, selected: true)
-        toggleRateButton(4, selected: true)
+        toggleButton(4)
 //        showConfirmView()
     }
     
-    private func toggleRateButton(rate : Int, selected : Bool) {
-        var color = UIColor.redColor()
-        var button : UIButton?
-        
-        if rate == 1 {
+    
+    @IBAction func rate5(sender: AnyObject) {
+        toggleButton(5)
+//        showConfirmView()
+    }
+    
+    private func toggleButton(id : Int) {
+        var button : RateButton?
+        if id == 1 {
             button = rateButton1
-        } else if rate == 2 {
+        } else if id == 2 {
             button = rateButton2
-        } else if rate == 3 {
+        } else if id == 3 {
             button = rateButton3
-        } else if rate == 4 {
+        } else if id == 4 {
             button = rateButton4
         } else {
             button = rateButton5
         }
-        if selected == false {
-            color = unselectedColor!
+        if rated == true {
+            for rateButton in rateButtons {
+                rateButton.deselect()
+            }
+            deleteRate()
+            rated = false
+        } else {
+            for index in 0...(id - 1) {
+                rateButtons[index].select()
+            }
+            rate()
+            rated = true
         }
-        UIView.animateWithDuration(0.2, animations: {
-            button?.alpha = 0
-            }) { (done) in
-                button?.backgroundColor = color
-                UIView.animateWithDuration(0.2, delay: 0.5, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
-                    button?.alpha = 1
-                    }, completion: nil)
-        }
+    }
+    
+    private func deleteRate() {
         
     }
     
-    @IBAction func rate5(sender: AnyObject) {
-        toggleRateButton(1, selected: true)
-        toggleRateButton(2, selected: true)
-        toggleRateButton(3, selected: true)
-        toggleRateButton(4, selected: true)
-        toggleRateButton(5, selected: true)
-//        showConfirmView()
+    private func rate() {
+        
     }
     
     @IBAction func detailReviewViewPressed(sender: AnyObject) {
     }
     
 }
+
+

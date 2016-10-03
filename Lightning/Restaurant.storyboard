@@ -5,6 +5,53 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--New Review View Controller-->
+        <scene sceneID="fqE-eW-O5T">
+            <objects>
+                <viewController id="pf1-ZZ-fad" userLabel="New Review View Controller" customClass="NewReviewViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7hD-jn-bXx"/>
+                        <viewControllerLayoutGuide type="bottom" id="H0K-kQ-UKM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fxg-Po-yeW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zws-sc-QxC" userLabel="Rating View">
+                                <frame key="frameInset" minY="64" width="375" height="82"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qsY-5T-gGI" userLabel="Review View">
+                                <frame key="frameInset" minY="154" width="375" height="366"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EVC-66-5C7" userLabel="Photos View">
+                                <frame key="frameInset" minY="528" width="375" height="139"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="okf-U7-gbF">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="L9I-eZ-Vpm">
+                            <connections>
+                                <action selector="cancel:" destination="pf1-ZZ-fad" id="P0s-K6-dBv"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="6Ft-lH-paj">
+                            <connections>
+                                <action selector="submit:" destination="pf1-ZZ-fad" id="PEk-Se-jyk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sgN-Eu-ibx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3820" y="62.518740629685162"/>
+        </scene>
         <!--Restaurant Main Table View Controller-->
         <scene sceneID="XAx-wI-Z6G">
             <objects>
@@ -120,7 +167,7 @@
                             <tableViewSection id="p0u-Ml-3GE" userLabel="Info Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="0cx-16-C6x">
-                                        <rect key="frame" x="0.0" y="320" width="375" height="120"/>
+                                        <rect key="frame" x="0.0" y="300" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0cx-16-C6x" id="hSP-9l-Tra">
                                             <frame key="frameInset" width="375" height="120"/>
@@ -255,7 +302,7 @@
                             <tableViewSection id="i2n-iv-dpl" userLabel="Photo Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="180" id="vUV-bJ-Z3d">
-                                        <rect key="frame" x="0.0" y="440" width="375" height="180"/>
+                                        <rect key="frame" x="0.0" y="420" width="375" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vUV-bJ-Z3d" id="gbK-O3-F5d">
                                             <frame key="frameInset" width="375" height="180"/>
@@ -297,7 +344,7 @@
                                                             </collectionViewFlowLayout>
                                                             <cells>
                                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="restaurantImagePoolCell" id="dgf-K0-4Xn" customClass="RestaurantImagePoolCollectionViewCell" customModule="吃饭英雄" customModuleProvider="target">
-                                                                    <rect key="frame" x="10" y="5" width="140" height="130"/>
+                                                                    <rect key="frame" x="10" y="0.0" width="140" height="130"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                         <rect key="frame" x="0.0" y="0.0" width="140" height="130"/>
@@ -372,13 +419,13 @@
                             <tableViewSection id="aCM-W3-oJ4" userLabel="Reviews Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="330" id="pOX-7Z-vsl">
-                                        <rect key="frame" x="0.0" y="620" width="375" height="330"/>
+                                        <rect key="frame" x="0.0" y="600" width="375" height="330"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pOX-7Z-vsl" id="iPY-84-XrX">
                                             <frame key="frameInset" width="375" height="330"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rod-7Z-FcB" userLabel="Dish Container View">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rod-7Z-FcB" userLabel="Review Container View">
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yWy-88-846" userLabel="Reviews Header View">
                                                             <subviews>
@@ -387,11 +434,21 @@
                                                                     <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kjD-oV-iZ6" userLabel="Show All Reviews Button">
+                                                                    <state key="normal" title="查看所有评论&gt;">
+                                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="showAllReviews:" destination="Zjm-a4-imU" eventType="touchUpInside" id="eV8-Wn-qYJ"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="bottom" secondItem="p5U-4s-jBA" secondAttribute="bottom" constant="5" id="4eg-iG-9lJ"/>
+                                                                <constraint firstAttribute="trailing" secondItem="kjD-oV-iZ6" secondAttribute="trailing" constant="10" id="9vh-V8-JHP"/>
                                                                 <constraint firstAttribute="height" constant="40" id="ck9-Q6-jbY"/>
+                                                                <constraint firstItem="kjD-oV-iZ6" firstAttribute="centerY" secondItem="p5U-4s-jBA" secondAttribute="centerY" id="p0M-gX-PTg"/>
                                                                 <constraint firstItem="p5U-4s-jBA" firstAttribute="leading" secondItem="yWy-88-846" secondAttribute="leading" constant="25" id="y4k-ZQ-nE7"/>
                                                             </constraints>
                                                         </view>
@@ -424,7 +481,7 @@
                             <tableViewSection id="Q7X-nt-lYa" userLabel="Dish Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="9jg-mF-9rG">
-                                        <rect key="frame" x="0.0" y="950" width="375" height="120"/>
+                                        <rect key="frame" x="0.0" y="930" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9jg-mF-9rG" id="WF2-mT-m6t">
                                             <frame key="frameInset" width="375" height="120"/>
@@ -500,15 +557,96 @@
                         <outlet property="nameLabel" destination="CbE-Gs-CAZ" id="t6e-nh-ffu"/>
                         <outlet property="phoneLabel" destination="M7x-kg-rE6" id="HUc-Xz-xV4"/>
                         <outlet property="recommendationDishLabel" destination="box-WR-ISH" id="bW5-Wv-3rE"/>
+                        <outlet property="reviewsSnapshotView" destination="fOr-ab-TSg" id="QsS-h8-LNz"/>
                         <outlet property="scoreLabel" destination="qNf-Ur-Bmr" id="XtE-h6-bjd"/>
+                        <segue destination="1Ka-rf-7mL" kind="presentation" identifier="writeReview" id="onk-Sc-CSm"/>
+                        <segue destination="Br6-4x-Ln9" kind="show" identifier="showReviews" id="hW8-Qx-QcI"/>
+                        <segue destination="bcJ-71-jKK" kind="show" identifier="showReview" id="NAa-N2-s2v"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lxg-GC-FDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4100" y="646.32683658170924"/>
+            <point key="canvasLocation" x="1428" y="28.335832083958024"/>
+        </scene>
+        <!--New Review Navigation Controller-->
+        <scene sceneID="701-Ym-RlJ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Ka-rf-7mL" userLabel="New Review Navigation Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dIu-ID-PR8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pf1-ZZ-fad" kind="relationship" relationship="rootViewController" id="IrF-H2-XIg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FtL-aN-QpS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2655" y="42"/>
+        </scene>
+        <!--Reviews View Controller-->
+        <scene sceneID="KbX-7p-0k0">
+            <objects>
+                <viewController id="Br6-4x-Ln9" userLabel="Reviews View Controller" customClass="ReviewsViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kSV-ma-6gV"/>
+                        <viewControllerLayoutGuide type="bottom" id="U1O-TN-b5Y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Rhb-c6-u0S">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vRi-ut-akb">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Br6-4x-Ln9" id="t4f-Qb-fCk"/>
+                                    <outlet property="delegate" destination="Br6-4x-Ln9" id="L1Y-k6-jHT"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vRi-ut-akb" firstAttribute="leading" secondItem="Rhb-c6-u0S" secondAttribute="leading" id="3WR-aC-CRc"/>
+                            <constraint firstItem="U1O-TN-b5Y" firstAttribute="top" secondItem="vRi-ut-akb" secondAttribute="bottom" id="6YY-ab-ebX"/>
+                            <constraint firstItem="vRi-ut-akb" firstAttribute="top" secondItem="kSV-ma-6gV" secondAttribute="bottom" id="Ksp-Jp-Um7"/>
+                            <constraint firstAttribute="trailing" secondItem="vRi-ut-akb" secondAttribute="trailing" id="kRz-VZ-wwU"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="bcJ-71-jKK" kind="show" identifier="showReview" id="96M-Wd-Nz9"/>
+                        <segue destination="1Ka-rf-7mL" kind="presentation" identifier="writeReview" id="XnR-ES-IvU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jal-Yo-ZyO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1428" y="827"/>
+        </scene>
+        <!--Review Detail View Controller-->
+        <scene sceneID="FD9-8l-NBy">
+            <objects>
+                <viewController id="bcJ-71-jKK" customClass="ReviewDetailViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="816-Na-Xj4"/>
+                        <viewControllerLayoutGuide type="bottom" id="DuZ-Ax-mu9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="N4B-IU-I3H">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8HP-dW-RQu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2369" y="824"/>
         </scene>
     </scenes>
     <resources>
         <image name="Chifanhero_Favorite" width="69" height="66"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="XnR-ES-IvU"/>
+        <segue reference="96M-Wd-Nz9"/>
+    </inferredMetricsTieBreakers>
 </document>

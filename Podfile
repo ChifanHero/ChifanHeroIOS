@@ -13,6 +13,7 @@ pod 'SlideMenuControllerSwift', '~> 2.3.0'
 pod 'GooglePlaces'
 pod 'SKPhotoBrowser', '~> 3.1.2'
 pod 'SwiftyJSON', '~> 2.4.0'
+pod 'BTNavigationDropdownMenu', :git => 'https://github.com/PhamBaTho/BTNavigationDropdownMenu.git', :branch => 'swift-2.3'
 
 end
 

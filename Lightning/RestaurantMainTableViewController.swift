@@ -46,6 +46,9 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     @IBOutlet weak var callButton: UIButton!
     
+    @IBOutlet weak var reviewsSnapshotView: ReviewsSnapshotView!
+    
+    
     var localSearchResponse:MKLocalSearchResponse!
     
     var restaurantId: String? {
@@ -88,7 +91,9 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        reviewsSnapshotView.parentViewController = self
         self.addImageForBackBarButtonItem()
+        self.clearTitleForBackBarButtonItem()
         prepareBlurContainer()
 //        distanceBlurContainer.layer.cornerRadius = 4
         distanceLabel.text = "25.5 mi"
@@ -177,11 +182,16 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         updateHeaderView()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if self.tabBarController?.tabBar.hidden == true {
             showTabbarSmoothly()
         }
+        showNavigationBarSmoothly()
         self.animateTransition = true
         configVCTitle()
         TrackingUtil.trackRestaurantView()
@@ -193,6 +203,12 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         self.tabBarController?.tabBar.hidden = false
         UIView.animateWithDuration(0.6) {
             self.tabBarController?.tabBar.alpha = 1
+        }
+    }
+    
+    func showNavigationBarSmoothly() {
+        UIView.animateWithDuration(0.6) {
+            self.setNavigationBarTranslucent(To: false)
         }
     }
     
@@ -407,6 +423,15 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     func cancelNavigation(alertAction: UIAlertAction!) {
         
     }
+    
+    @IBAction func showAllReviews(sender: AnyObject) {
+        performSegueWithIdentifier("showReviews", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        animateTransition = false
+    }
+    
 
     @IBAction func call(sender: AnyObject) {
         TrackingUtil.trackPhoneCallUsed()
