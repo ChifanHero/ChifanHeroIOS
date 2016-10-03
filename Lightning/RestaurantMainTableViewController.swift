@@ -17,7 +17,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     @IBOutlet weak var blurContainer: UIVisualEffectView!
     
     
-    @IBOutlet weak var distanceBlurContainer: UIVisualEffectView!
+//    @IBOutlet weak var distanceBlurContainer: UIVisualEffectView!
     
     
     @IBOutlet weak var blurContainerWidthContraint: NSLayoutConstraint!
@@ -40,7 +40,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     @IBOutlet weak var imagePoolView: UICollectionView!
     
-    @IBOutlet weak var actionPanelView: ActionPanelView!
+//    @IBOutlet weak var actionPanelView: ActionPanelView!
     
     @IBOutlet weak var goButton: UIButton!
     
@@ -90,7 +90,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         super.viewDidLoad()
         self.addImageForBackBarButtonItem()
         prepareBlurContainer()
-        distanceBlurContainer.layer.cornerRadius = 4
+//        distanceBlurContainer.layer.cornerRadius = 4
         distanceLabel.text = "25.5 mi"
         scoreLabel.layer.cornerRadius = 4
         configActionButton()
@@ -104,8 +104,8 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         
         nameLabel.text = restaurantName
         loadImagePool()
-        actionPanelView.baseVC = self
-        actionPanelView.isFromGoogleSearch = self.isFromGoogleSearch
+//        actionPanelView.baseVC = self
+//        actionPanelView.isFromGoogleSearch = self.isFromGoogleSearch
         self.configureButtons()
         
         self.configureHeaderView()
@@ -252,7 +252,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                         if response?.result != nil {
                             self.restaurant = (response?.result)!
                             if self.restaurant != nil {
-                                self.actionPanelView.restaurantId = self.restaurant?.id
+//                                self.actionPanelView.restaurantId = self.restaurant?.id
                                 
                                 if self.restaurantName != nil {
                                     self.restaurantName = self.restaurant?.name
@@ -286,18 +286,18 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                                     self.hotDishes.removeAll()
                                     self.hotDishes += (self.restaurant?.hotDishes)!
                                 }
-                                if self.restaurant?.likeCount != nil {
-                                    self.actionPanelView.likeCount = self.restaurant?.likeCount
-                                }
-                                if self.restaurant?.dislikeCount != nil {
-                                    self.actionPanelView.dislikeCount = self.restaurant?.dislikeCount
-                                }
-                                if self.restaurant?.neutralCount != nil {
-                                    self.actionPanelView.neutralCount = self.restaurant?.neutralCount
-                                }
-                                if self.restaurant?.favoriteCount != nil {
-                                    self.actionPanelView.favoriteCount = self.restaurant?.favoriteCount
-                                }
+//                                if self.restaurant?.likeCount != nil {
+//                                    self.actionPanelView.likeCount = self.restaurant?.likeCount
+//                                }
+//                                if self.restaurant?.dislikeCount != nil {
+//                                    self.actionPanelView.dislikeCount = self.restaurant?.dislikeCount
+//                                }
+//                                if self.restaurant?.neutralCount != nil {
+//                                    self.actionPanelView.neutralCount = self.restaurant?.neutralCount
+//                                }
+//                                if self.restaurant?.favoriteCount != nil {
+//                                    self.actionPanelView.favoriteCount = self.restaurant?.favoriteCount
+//                                }
                                 if self.restaurant?.hotDishes != nil && self.restaurant?.hotDishes!.count != 0 {
                                     self.recommendationDishLabel.text = ""
                                     for index in 0..<10 {
@@ -308,7 +308,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                             }
                             
                         } else {
-                            self.actionPanelView.hidden = true
+//                            self.actionPanelView.hidden = true
                         }
                         if refreshHandler != nil {
                             refreshHandler!(success: true)
