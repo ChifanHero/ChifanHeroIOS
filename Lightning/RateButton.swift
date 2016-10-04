@@ -19,7 +19,7 @@ import UIKit
     }
     @IBInspectable var selectedColor : UIColor = UIColor.themeOrange()
     
-    func select() {
+    func rate(handler : (()->Void)) {
         rated = true
         UIView.animateWithDuration(0.2, animations: {
             self.alpha = 0
@@ -27,11 +27,14 @@ import UIKit
             self.backgroundColor = self.selectedColor
             UIView.animateWithDuration(0.2, delay: 0.5, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
                 self.alpha = 1
-                }, completion: nil)
+                }, completion:  { (complete) in
+                    handler()
+            })
+            
         }
     }
     
-    func deselect() {
+    func unRate(handler : (()->Void)) {
         rated = false
         UIView.animateWithDuration(0.2, animations: {
             self.alpha = 0

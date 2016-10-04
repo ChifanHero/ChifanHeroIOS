@@ -100,17 +100,25 @@ class EditableReviewTableViewCell: UITableViewCell {
         }
         if rated == true {
             for rateButton in rateButtons {
-                rateButton.deselect()
+                rateButton.unRate({ 
+                    self.showBannerAlert()
+                })
             }
             deleteRate()
             rated = false
         } else {
             for index in 0...(id - 1) {
-                rateButtons[index].select()
+                rateButtons[index].rate({ 
+                    self.showBannerAlert()
+                })
             }
             rate()
             rated = true
         }
+        
+    }
+    
+    private func showBannerAlert() {
         MILAlertViewManager.sharedInstance.show(.Classic,
                                                 text: "MILAlertView Test!",
                                                 backgroundColor: UIColor.purpleColor(),

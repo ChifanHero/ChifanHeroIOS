@@ -41,7 +41,7 @@ public class MILAlertViewManager: NSObject {
         self.milAlertView = MILAlertView.buildAlert(alertType, text: text, textColor: textColor, textFont: textFont, backgroundColor: backgroundColor, reloadImage: reloadImage, inView: inView, underView: underView, toHeight: toHeight, callback: callback)
         
         //animate showing alert view
-        UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             self.milAlertView.frame.origin.y = (self.milAlertView.frame.size.height + self.bottomHeight - 10) - self.milAlertView.frame.size.height
             }, completion: { finished -> Void in
                 if finished{
