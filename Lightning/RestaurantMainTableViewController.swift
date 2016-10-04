@@ -91,6 +91,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.layoutIfNeeded()
         reviewsSnapshotView.parentViewController = self
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()

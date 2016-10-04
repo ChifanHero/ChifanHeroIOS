@@ -44,6 +44,11 @@
 		C4269E341DA306A2000836A4 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4269E331DA306A2000836A4 /* ReviewsViewController.swift */; };
 		C4269E361DA306B3000836A4 /* NewReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4269E351DA306B3000836A4 /* NewReviewViewController.swift */; };
 		C4269E381DA306C5000836A4 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4269E371DA306C5000836A4 /* ReviewDetailViewController.swift */; };
+		C4269E461DA32303000836A4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C4269E3C1DA32303000836A4 /* LICENSE */; };
+		C4269E471DA32303000836A4 /* MILAlertViewImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4269E3D1DA32303000836A4 /* MILAlertViewImages.xcassets */; };
+		C4269E481DA32303000836A4 /* MILAlertViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4269E3E1DA32303000836A4 /* MILAlertViewManager.swift */; };
+		C4269E4A1DA32303000836A4 /* MILAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4269E411DA32303000836A4 /* MILAlertView.swift */; };
+		C4269E4B1DA32303000836A4 /* MILAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4269E421DA32303000836A4 /* MILAlertView.xib */; };
 		C42C96071D546E6400784636 /* RestaurantsAndSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42C96061D546E6400784636 /* RestaurantsAndSearch.storyboard */; };
 		C42C960A1D54769500784636 /* RestaurantsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C96091D54769500784636 /* RestaurantsContainerViewController.swift */; };
 		C42C960D1D5477BC00784636 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C960C1D5477BC00784636 /* RestaurantsViewController.swift */; };
@@ -378,6 +383,11 @@
 		C4269E331DA306A2000836A4 /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		C4269E351DA306B3000836A4 /* NewReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReviewViewController.swift; sourceTree = "<group>"; };
 		C4269E371DA306C5000836A4 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
+		C4269E3C1DA32303000836A4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		C4269E3D1DA32303000836A4 /* MILAlertViewImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MILAlertViewImages.xcassets; sourceTree = "<group>"; };
+		C4269E3E1DA32303000836A4 /* MILAlertViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MILAlertViewManager.swift; sourceTree = "<group>"; };
+		C4269E411DA32303000836A4 /* MILAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MILAlertView.swift; sourceTree = "<group>"; };
+		C4269E421DA32303000836A4 /* MILAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MILAlertView.xib; sourceTree = "<group>"; };
 		C42C96061D546E6400784636 /* RestaurantsAndSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RestaurantsAndSearch.storyboard; sourceTree = "<group>"; };
 		C42C96091D54769500784636 /* RestaurantsContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantsContainerViewController.swift; sourceTree = "<group>"; };
 		C42C960C1D5477BC00784636 /* RestaurantsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantsViewController.swift; sourceTree = "<group>"; };
@@ -788,12 +798,33 @@
 		C41298141C83CD7D0062BC7D /* OpenSource */ = {
 			isa = PBXGroup;
 			children = (
+				C4269E391DA32303000836A4 /* MILAlertView */,
 				C48D09241D9702CB0046CD4C /* DKImagePickerController */,
 				CAC1D3711D39849D00520733 /* ImagePicker */,
 				C4C8618C1CE0093F00A6C896 /* JSSAlertView */,
 				C41298151C83CDA40062BC7D /* UIImageEffects.swift */,
 			);
 			name = OpenSource;
+			sourceTree = "<group>";
+		};
+		C4269E391DA32303000836A4 /* MILAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				C4269E3C1DA32303000836A4 /* LICENSE */,
+				C4269E3D1DA32303000836A4 /* MILAlertViewImages.xcassets */,
+				C4269E3E1DA32303000836A4 /* MILAlertViewManager.swift */,
+				C4269E401DA32303000836A4 /* Views */,
+			);
+			path = MILAlertView;
+			sourceTree = "<group>";
+		};
+		C4269E401DA32303000836A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C4269E411DA32303000836A4 /* MILAlertView.swift */,
+				C4269E421DA32303000836A4 /* MILAlertView.xib */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		C42C96081D546F4400784636 /* RestaurantsAndSearchFlow */ = {
@@ -1769,6 +1800,7 @@
 				C41297AE1C80B8720062BC7D /* DishCell.xib in Resources */,
 				CA882D291C8556E300D04696 /* Assets.xcassets in Resources */,
 				C45E18EC1D87DF6B002D1D82 /* GoogleLogoCell.xib in Resources */,
+				C4269E471DA32303000836A4 /* MILAlertViewImages.xcassets in Resources */,
 				C44E7E231DA22E8B001C589F /* ReviewSnapshotCell.xib in Resources */,
 				CAC81EE51CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib in Resources */,
 				C41298051C80B9590062BC7D /* NameOnlyDishCell.xib in Resources */,
@@ -1786,6 +1818,7 @@
 				C48D094E1D97ADEB0046CD4C /* Restaurant.storyboard in Resources */,
 				C44E7E1F1DA1E627001C589F /* ReviewsSnapshotView.xib in Resources */,
 				C49223041DA0DA9400D9916E /* EditableReviewCell.xib in Resources */,
+				C4269E461DA32303000836A4 /* LICENSE in Resources */,
 				C41297A81C80B85F0062BC7D /* SlideBar.xib in Resources */,
 				C48D09561D98F7040046CD4C /* Home.storyboard in Resources */,
 				CA203E461C111EEA00D6F32C /* Main.storyboard in Resources */,
@@ -1793,6 +1826,7 @@
 				C41297B11C80B8780062BC7D /* SelectedCollectionCell.xib in Resources */,
 				C41297D21C80B8AC0062BC7D /* SelectionBar.xib in Resources */,
 				C42C96071D546E6400784636 /* RestaurantsAndSearch.storyboard in Resources */,
+				C4269E4B1DA32303000836A4 /* MILAlertView.xib in Resources */,
 				C41297FF1C80B94A0062BC7D /* RestaurantSearchCell.xib in Resources */,
 				C45E18F01D87EBA0002D1D82 /* AddressAutoCompletionCell.xib in Resources */,
 				C48D09311D9702DF0046CD4C /* DKImagePickerController.bundle in Resources */,
@@ -1884,6 +1918,7 @@
 				CA203DAA1C111EEA00D6F32C /* GetRestaurantByIdResponse.swift in Sources */,
 				CA203DAB1C111EEA00D6F32C /* Queue.swift in Sources */,
 				CA203DAC1C111EEA00D6F32C /* ViewItemTopUIView.swift in Sources */,
+				C4269E481DA32303000836A4 /* MILAlertViewManager.swift in Sources */,
 				CA203DAD1C111EEA00D6F32C /* ParseConfiguration.swift in Sources */,
 				C4B0A3991C8CCD8D00D05408 /* Reachability.swift in Sources */,
 				CAC1D3961D39849D00520733 /* TopView.swift in Sources */,
@@ -2094,6 +2129,7 @@
 				CADA93881C9A6EA400F3E400 /* Respinner.swift in Sources */,
 				CA203E081C111EEA00D6F32C /* HttpClient.swift in Sources */,
 				CAC81EE91CDA7C9100338B59 /* GetRestaurantCollectionMembersResponse.swift in Sources */,
+				C4269E4A1DA32303000836A4 /* MILAlertView.swift in Sources */,
 				C4D983161CED978C0061A088 /* LocationHelper.swift in Sources */,
 				C4017D311C91CCE8002840FB /* StringExtension.swift in Sources */,
 				CAA0F0B41CF166B70061BFBE /* RestaurantNominationCollectionViewCell.swift in Sources */,

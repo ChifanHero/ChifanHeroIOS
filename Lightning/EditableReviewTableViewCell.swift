@@ -31,6 +31,8 @@ class EditableReviewTableViewCell: UITableViewCell {
     var rateButtons : [RateButton] = []
     
     var rated = false
+    
+    var parentViewController : UIViewController?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -109,6 +111,13 @@ class EditableReviewTableViewCell: UITableViewCell {
             rate()
             rated = true
         }
+        MILAlertViewManager.sharedInstance.show(.Classic,
+                                                text: "MILAlertView Test!",
+                                                backgroundColor: UIColor.purpleColor(),
+                                                inView: self.parentViewController?.view,
+                                                toHeight: 0,
+                                                forSeconds:0.5,
+                                                callback: nil)
     }
     
     private func deleteRate() {

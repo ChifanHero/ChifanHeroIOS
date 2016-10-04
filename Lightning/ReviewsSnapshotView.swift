@@ -90,6 +90,7 @@ import UIKit
             }
             cell?.selectionStyle = UITableViewCellSelectionStyle.None
             cell?.addDetailReviewButton.addTarget(self, action: #selector(ReviewsSnapshotView.writeNewReview), forControlEvents: UIControlEvents.TouchUpInside)
+            cell?.parentViewController = self.parentViewController
             return cell!
         } else {
             var cell: ReviewSnapshotTableViewCell? = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell

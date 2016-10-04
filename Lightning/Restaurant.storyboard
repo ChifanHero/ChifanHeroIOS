@@ -643,7 +643,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Chifanhero_Favorite" width="69" height="66"/>
+        <image name="Chifanhero_Favorite" width="13" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XnR-ES-IvU"/>
