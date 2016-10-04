@@ -64,7 +64,7 @@ import UIKit
         if indexPath.section == 0 {
             return 120
         } else {
-            return 160
+            return 166
         }
         
     }

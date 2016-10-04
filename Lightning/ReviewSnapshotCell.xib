@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewSnapshotCell" rowHeight="167" id="6Ha-q3-BzL" customClass="ReviewSnapshotTableViewCell" customModule="吃饭英雄" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewSnapshotCell" rowHeight="166" id="6Ha-q3-BzL" customClass="ReviewSnapshotTableViewCell" customModule="吃饭英雄" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="167"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Ha-q3-BzL" id="5oE-u1-xoR">
@@ -59,31 +59,45 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9aq-vX-eGE" userLabel="Bottom Container View">
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="991-cP-LBc">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="991-cP-LBc">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="Meg-71-o15"/>
+                                </constraints>
                                 <string key="text">最近天气转凉 特别想吃火锅
 这家井格应该是成都口味的火锅 本来不太能吃辣的 但是吃了以后发现辣锅除了很香之外 并没有那么辣 锅底里应该是加了牛油的 菜和肉涮起来都很香
 小料自助的种类非常多 小西红柿和西瓜也可以无限量自取
 我们点的鸳鸯锅 番茄和辣锅双拼 味道挺浓郁的
 菜的话竹荪和蘑菇涮起来都很好吃
 青笋切的块太大了 不好熟 建议下次切小点</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1个月前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHw-1Y-MyP">
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nZB-PU-Bno" userLabel="Padding View">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1个月前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iau-8P-oY8">
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="iau-8P-oY8" secondAttribute="trailing" constant="10" id="bqf-p7-TD1"/>
+                                    <constraint firstItem="iau-8P-oY8" firstAttribute="centerY" secondItem="nZB-PU-Bno" secondAttribute="centerY" id="czX-Gt-Kos"/>
+                                    <constraint firstAttribute="height" constant="20" id="fmc-P1-AGr"/>
+                                    <constraint firstItem="iau-8P-oY8" firstAttribute="height" secondItem="nZB-PU-Bno" secondAttribute="height" id="kZz-fh-rSb"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="mHw-1Y-MyP" secondAttribute="trailing" constant="10" id="H31-nz-BVv"/>
                             <constraint firstItem="991-cP-LBc" firstAttribute="leading" secondItem="9aq-vX-eGE" secondAttribute="leading" constant="5" id="If8-Fc-Wlu"/>
-                            <constraint firstAttribute="bottom" secondItem="991-cP-LBc" secondAttribute="bottom" constant="40" id="L7M-Lw-SoR"/>
                             <constraint firstItem="991-cP-LBc" firstAttribute="top" secondItem="9aq-vX-eGE" secondAttribute="top" id="MH8-7D-03w"/>
                             <constraint firstAttribute="trailing" secondItem="991-cP-LBc" secondAttribute="trailing" constant="10" id="MZH-hQ-I1E"/>
-                            <constraint firstItem="mHw-1Y-MyP" firstAttribute="top" secondItem="991-cP-LBc" secondAttribute="bottom" constant="10" id="rhJ-jK-k3Q"/>
+                            <constraint firstItem="nZB-PU-Bno" firstAttribute="leading" secondItem="9aq-vX-eGE" secondAttribute="leading" id="XeH-SC-NOg"/>
+                            <constraint firstAttribute="trailing" secondItem="nZB-PU-Bno" secondAttribute="trailing" id="nNf-Cx-2pk"/>
+                            <constraint firstAttribute="bottom" secondItem="nZB-PU-Bno" secondAttribute="bottom" id="wR8-k2-pKb"/>
                         </constraints>
                     </view>
                 </subviews>

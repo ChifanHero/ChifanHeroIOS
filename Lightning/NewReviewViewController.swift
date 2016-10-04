@@ -9,10 +9,13 @@
 import UIKit
 
 class NewReviewViewController: UIViewController {
+    
+    
+    @IBOutlet weak var bottomDistanceConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        observeKeyboard()
         // Do any additional setup after loading the view.
     }
 
@@ -28,6 +31,17 @@ class NewReviewViewController: UIViewController {
     
     @IBAction func submit(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func observeKeyboard() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewReviewViewController.handleKeyboardDidShowNotification(_:)), name: UIKeyboardWillShowNotification, object: nil)
+    }
+    
+    func handleKeyboardDidShowNotification(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            bottomDistanceConstraint.constant = keyboardSize.height
+            self.view.layoutIfNeeded()
+        }
     }
 
     /*

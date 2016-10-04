@@ -25,6 +25,7 @@
                                             <constraint firstAttribute="height" constant="30" id="pcH-G7-2q5"/>
                                             <constraint firstAttribute="width" constant="30" id="xUg-Ki-IEq"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="1">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -46,6 +47,7 @@
                                             <constraint firstAttribute="height" constant="30" id="aPR-JG-pCA"/>
                                             <constraint firstAttribute="width" constant="30" id="uJj-43-nOj"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="2">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -67,6 +69,7 @@
                                             <constraint firstAttribute="height" constant="30" id="DS2-EM-TrI"/>
                                             <constraint firstAttribute="width" constant="30" id="H7w-7A-vAj"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="3">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -88,6 +91,7 @@
                                             <constraint firstAttribute="height" constant="30" id="Jzu-H5-2BE"/>
                                             <constraint firstAttribute="width" constant="30" id="vVc-jj-STM"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="4">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -109,6 +113,7 @@
                                             <constraint firstAttribute="height" constant="30" id="And-M6-E4d"/>
                                             <constraint firstAttribute="width" constant="30" id="vc9-xU-Znh"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="5">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
