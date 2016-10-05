@@ -7,16 +7,42 @@
 //
 
 import UIKit
+import SKPhotoBrowser
 
-class NewReviewViewController: UIViewController {
+class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate {
     
+    @IBOutlet weak var rate1Button: RateButton!
+    
+    @IBOutlet weak var rate2Button: RateButton!
+    
+    @IBOutlet weak var rate3Button: RateButton!
+    
+    @IBOutlet weak var rate4Button: RateButton!
+    
+    @IBOutlet weak var rate5Button: RateButton!
+    
+    @IBOutlet weak var imagePoolView: UICollectionView!
     
     @IBOutlet weak var bottomDistanceConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var reviewTextView: UITextView!
+//    var imagePool: [Picture] = []
+    
+    var images: [UIImage] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.view.layoutIfNeeded()
+        addCancelButton()
+        addDoneButton()
+        roundRateButtons()
         observeKeyboard()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.reviewTextView.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,7 +50,29 @@ class NewReviewViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func addCancelButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(NewReviewViewController.cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let cancelButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = cancelButton
+    }
+    
+    func addDoneButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("提交", size: CGRectMake(0, 0, 80, 26))
+        button.addTarget(self, action: #selector(NewReviewViewController.submit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let cancelButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = cancelButton
+    }
+    
+    func roundRateButtons() {
+        let buttons = [rate1Button, rate2Button, rate3Button, rate4Button, rate5Button]
+        for button in buttons {
+            button.layer.cornerRadius = 15
+        }
+    }
+    
     @IBAction func cancel(sender: AnyObject) {
+        self.reviewTextView.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -43,15 +91,143 @@ class NewReviewViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count + 1
     }
-    */
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell: RestaurantImagePoolCollectionViewCell? = imagePoolView.dequeueReusableCellWithReuseIdentifier("restaurantImagePoolCell", forIndexPath: indexPath) as? RestaurantImagePoolCollectionViewCell
+        
+        // Configure the cell
+        if indexPath.row < images.count {
+            cell!.setUp(image: images[indexPath.row])
+        } else {
+            cell!.setUpAddingImageCell()
+        }
+        return cell!
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == images.count {
+            let alert = UIAlertController(title: "选择图片来源", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            let albumAction = UIAlertAction(title: "相册", style: .Default, handler: self.goToAlbum)
+            let cameraAction = UIAlertAction(title: "拍摄", style: .Default, handler: self.goToCamera)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelNavigation)
+            
+            alert.addAction(albumAction)
+            alert.addAction(cameraAction)
+            alert.addAction(cancelAction)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            var photos = [SKPhoto]()
+            for image in images {
+                let photo = SKPhoto.photoWithImage(image)// add some UIImage
+                photos.append(photo)
+            }
+            let browser = SKPhotoBrowser(photos: photos)
+            browser.initializePageIndex(indexPath.row)
+            presentViewController(browser, animated: true, completion: {})
+        }
+    }
+    
+    // MARK: Photo selection
+    func goToAlbum(alertAction: UIAlertAction!) -> Void {
+        let pickerController = DKImagePickerController()
+        pickerController.singleSelect = false
+        pickerController.maxSelectableCount = 10
+        pickerController.assetType = DKImagePickerControllerAssetType.AllPhotos
+        pickerController.sourceType = DKImagePickerControllerSourceType.Photo
+        pickerController.allowMultipleTypes = false
+        pickerController.allowsLandscape = false
+        pickerController.didSelectAssets = { (assets: [DKAsset]) in
+            self.processSelectedPhotosFromPhotoLibrary(assets)
+        }
+        self.presentViewController(pickerController, animated: true) {}
+    }
+    
+    func goToCamera(alertAction: UIAlertAction!) -> Void {
+        let imagePickerController = ImagePickerController()
+        imagePickerController.delegate = self
+        self.presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func cancelNavigation(alertAction: UIAlertAction!) {
+        
+    }
+    
+    func processSelectedPhotosFromPhotoLibrary(assets: [DKAsset]) {
+        var images : [UIImage] = []
+        for asset in assets {
+            asset.fetchOriginalImageWithCompleteBlock({ (image, info) in
+                images.append(image!)
+                if images.count == assets.count {
+//                    self.reviewTextView.becomeFirstResponder()
+                    self.displayImages(images)
+                }
+            })
+        }
+    }
+    
+    //MARK: ImagePickerDelegate
+    func wrapperDidPress(imagePicker: ImagePickerController, images: [UIImage]) {
+        
+    }
+    func doneButtonDidPress(imagePicker: ImagePickerController, images: [UIImage]) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+//        self.reviewTextView.becomeFirstResponder()
+        displayImages(images)
+    }
+    func cancelButtonDidPress(imagePicker: ImagePickerController) {
+//        self.reviewTextView.becomeFirstResponder()
+    }
+    
+    func displayImages(images: [UIImage]) {
+        self.images.appendContentsOf(images)
+        imagePoolView.reloadData()
+    }
+    
+    //MARK: RateButton actions
+
+    @IBAction func rate1(sender: AnyObject) {
+        toggleButton(1)
+    }
+    
+    @IBAction func rate2(sender: AnyObject) {
+        toggleButton(2)
+    }
+    
+    @IBAction func rate3(sender: AnyObject) {
+        toggleButton(3)
+    }
+    
+    @IBAction func rate4(sender: AnyObject) {
+        toggleButton(4)
+    }
+    
+    @IBAction func rate5(sender: AnyObject) {
+        toggleButton(5)
+    }
+    
+    private func toggleButton(id : Int) {
+        let rateButtons = [rate1Button, rate2Button, rate3Button, rate4Button, rate5Button]
+        for index in 0...(rateButtons.count - 1) {
+            if index > (id - 1) {
+                rateButtons[index].unRate({
+                    
+                })
+            } else {
+                rateButtons[index].rate({
+                    
+                })
+            }
+            
+        }
+        
+    }
+
+ 
 
 }

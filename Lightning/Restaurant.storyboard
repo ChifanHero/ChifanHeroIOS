@@ -15,41 +15,128 @@
                         <viewControllerLayoutGuide type="bottom" id="H0K-kQ-UKM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fxg-Po-yeW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zws-sc-QxC" userLabel="Rating View">
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7E-8y-BAZ">
-                                        <frame key="frameInset" minX="20" minY="15" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="1"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zyi-6B-dx0">
-                                        <frame key="frameInset" minX="60" minY="15" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="2"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZP6-rp-NDT">
-                                        <frame key="frameInset" minX="100" minY="15" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                        <state key="normal" title="3"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYQ-R0-5gl">
-                                        <frame key="frameInset" minX="140" minY="15" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="4"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eGc-RZ-2BY">
-                                        <frame key="frameInset" minX="164" minY="15" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="5"/>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="xUg-1q-vPo">
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7E-8y-BAZ" customClass="RateButton" customModule="吃饭英雄" customModuleProvider="target">
+                                                <color key="backgroundColor" red="0.84745592950000004" green="0.84745592950000004" blue="0.84745592950000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="aXj-XX-GmX"/>
+                                                    <constraint firstAttribute="width" constant="30" id="r0Z-rj-DVj"/>
+                                                </constraints>
+                                                <state key="normal" title="1">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="unselectedColor">
+                                                        <color key="value" red="0.84745592950000004" green="0.84745592950000004" blue="0.84745592950000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                        <color key="value" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="rate1:" destination="pf1-ZZ-fad" eventType="touchUpInside" id="RBF-LZ-e7a"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zyi-6B-dx0" customClass="RateButton" customModule="吃饭英雄" customModuleProvider="target">
+                                                <color key="backgroundColor" red="0.84745592950000004" green="0.84745592950000004" blue="0.84745592950000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="Ddb-R0-XOV"/>
+                                                    <constraint firstAttribute="height" constant="30" id="snx-jF-fBf"/>
+                                                </constraints>
+                                                <state key="normal" title="2">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="unselectedColor">
+                                                        <color key="value" red="0.84745592950000004" green="0.84745592950000004" blue="0.84745592950000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                        <color key="value" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="rate2:" destination="pf1-ZZ-fad" eventType="touchUpInside" id="Q3E-xZ-dNI"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZP6-rp-NDT" customClass="RateButton" customModule="吃饭英雄" customModuleProvider="target">
+                                                <color key="backgroundColor" red="0.84745592950000004" green="0.84745592950000004" blue="0.84745592950000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="9RQ-ov-zRX"/>
+                                                    <constraint firstAttribute="height" constant="30" id="Hpn-78-OJF"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                                <state key="normal" title="3">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="unselectedColor">
+                                                        <color key="value" red="0.84745592950000004" green="0.84745592950000004" blue="0.84745592950000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                        <color key="value" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="rate3:" destination="pf1-ZZ-fad" eventType="touchUpInside" id="6GS-VX-wHE"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYQ-R0-5gl" customClass="RateButton" customModule="吃饭英雄" customModuleProvider="target">
+                                                <color key="backgroundColor" red="0.84745592950000004" green="0.84745592950000004" blue="0.84745592950000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="6Wj-Ue-wkF"/>
+                                                    <constraint firstAttribute="height" constant="30" id="oBO-er-hv0"/>
+                                                </constraints>
+                                                <state key="normal" title="4">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="unselectedColor">
+                                                        <color key="value" red="0.84745592950000004" green="0.84745592950000004" blue="0.84745592950000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                        <color key="value" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="rate4:" destination="pf1-ZZ-fad" eventType="touchUpInside" id="Abx-xG-F2P"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eGc-RZ-2BY" customClass="RateButton" customModule="吃饭英雄" customModuleProvider="target">
+                                                <color key="backgroundColor" red="0.84745592950000004" green="0.84745592950000004" blue="0.84745592950000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="Zd7-cM-ilK"/>
+                                                    <constraint firstAttribute="height" constant="30" id="z6e-fG-6g9"/>
+                                                </constraints>
+                                                <state key="normal" title="5">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="unselectedColor">
+                                                        <color key="value" red="0.84745592950000004" green="0.84745592950000004" blue="0.84745592950000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                        <color key="value" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="rate5:" destination="pf1-ZZ-fad" eventType="touchUpInside" id="L9u-r3-gWG"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="xUg-1q-vPo" firstAttribute="centerX" secondItem="zws-sc-QxC" secondAttribute="centerX" id="AhH-7V-QLO"/>
+                                    <constraint firstItem="xUg-1q-vPo" firstAttribute="centerY" secondItem="zws-sc-QxC" secondAttribute="centerY" id="Ldb-5Q-Ft5"/>
                                     <constraint firstAttribute="height" constant="60" id="MJt-5U-Ayw"/>
+                                    <constraint firstItem="xUg-1q-vPo" firstAttribute="width" secondItem="zws-sc-QxC" secondAttribute="width" multiplier="0.8" id="qeC-PD-OcJ"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qsY-5T-gGI" userLabel="Review View">
@@ -70,17 +157,49 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVC-66-5C7" userLabel="Photos View">
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRX-RB-MsF">
-                                        <frame key="frameInset" minX="166" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QHW-Tm-LoS">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dfP-DI-QzP">
+                                            <size key="itemSize" width="90" height="90"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="5" minY="5" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="restaurantImagePoolCell" id="ceG-wT-7Wy" customClass="RestaurantImagePoolCollectionViewCell" customModule="吃饭英雄" customModuleProvider="target">
+                                                <rect key="frame" x="5" y="8" width="90" height="90"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y4C-jN-Pmm"/>
+                                                    </subviews>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="Y4C-jN-Pmm" secondAttribute="bottom" id="G7x-GV-1Rk"/>
+                                                    <constraint firstItem="Y4C-jN-Pmm" firstAttribute="top" secondItem="ceG-wT-7Wy" secondAttribute="top" id="Uu8-aE-T5V"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Y4C-jN-Pmm" secondAttribute="trailing" id="jfx-yf-Tq6"/>
+                                                    <constraint firstItem="Y4C-jN-Pmm" firstAttribute="leading" secondItem="ceG-wT-7Wy" secondAttribute="leading" id="oJQ-h9-Tnv"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="imageView" destination="Y4C-jN-Pmm" id="e3Z-dT-D2d"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="pf1-ZZ-fad" id="hpC-fO-ZCC"/>
+                                            <outlet property="delegate" destination="pf1-ZZ-fad" id="xD9-3g-FMX"/>
+                                        </connections>
+                                    </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="2Tn-eF-8bq"/>
+                                    <constraint firstAttribute="height" constant="100" id="2Tn-eF-8bq"/>
+                                    <constraint firstItem="QHW-Tm-LoS" firstAttribute="top" secondItem="EVC-66-5C7" secondAttribute="top" id="3wc-Ai-dF1"/>
+                                    <constraint firstAttribute="trailing" secondItem="QHW-Tm-LoS" secondAttribute="trailing" id="gn5-Wu-q4v"/>
+                                    <constraint firstItem="QHW-Tm-LoS" firstAttribute="leading" secondItem="EVC-66-5C7" secondAttribute="leading" id="hGY-wm-ZCm"/>
+                                    <constraint firstAttribute="bottom" secondItem="QHW-Tm-LoS" secondAttribute="bottom" id="ud8-SD-QBX"/>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AtK-tX-tt9" userLabel="Separator">
@@ -107,20 +226,16 @@
                             <constraint firstItem="qsY-5T-gGI" firstAttribute="top" secondItem="zws-sc-QxC" secondAttribute="bottom" constant="1" id="jkx-hW-8vB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="okf-U7-gbF">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="L9I-eZ-Vpm">
-                            <connections>
-                                <action selector="cancel:" destination="pf1-ZZ-fad" id="P0s-K6-dBv"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="6Ft-lH-paj">
-                            <connections>
-                                <action selector="submit:" destination="pf1-ZZ-fad" id="PEk-Se-jyk"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="okf-U7-gbF"/>
                     <connections>
                         <outlet property="bottomDistanceConstraint" destination="iAM-SC-vW1" id="koe-He-gfl"/>
+                        <outlet property="imagePoolView" destination="QHW-Tm-LoS" id="2Io-W8-vf6"/>
+                        <outlet property="rate1Button" destination="x7E-8y-BAZ" id="Dgt-lJ-vkT"/>
+                        <outlet property="rate2Button" destination="Zyi-6B-dx0" id="2Vl-5g-NZP"/>
+                        <outlet property="rate3Button" destination="ZP6-rp-NDT" id="4so-mV-Qby"/>
+                        <outlet property="rate4Button" destination="OYQ-R0-5gl" id="c3p-Yj-Hno"/>
+                        <outlet property="rate5Button" destination="eGc-RZ-2BY" id="GS2-NB-4ka"/>
+                        <outlet property="reviewTextView" destination="gq9-qd-1Cz" id="HAd-1D-kJs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sgN-Eu-ibx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -646,9 +761,10 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Ka-rf-7mL" userLabel="New Review Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dIu-ID-PR8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="dIu-ID-PR8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -716,7 +832,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Chifanhero_Favorite" width="13" height="15"/>
+        <image name="Chifanhero_Favorite" width="69" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="onk-Sc-CSm"/>

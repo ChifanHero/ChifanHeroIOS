@@ -21,28 +21,32 @@ import UIKit
     
     func rate(handler : (()->Void)) {
         rated = true
-        UIView.animateWithDuration(0.2, animations: {
-            self.alpha = 0
-        }) { (done) in
-            self.backgroundColor = self.selectedColor
-            UIView.animateWithDuration(0.2, delay: 0.5, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
-                self.alpha = 1
-                }, completion:  { (complete) in
-                    handler()
-            })
-            
-        }
+        self.backgroundColor = self.selectedColor
+        handler()
+//        UIView.animateWithDuration(0.2, animations: {
+//            self.alpha = 0
+//        }) { (done) in
+//            self.backgroundColor = self.selectedColor
+//            UIView.animateWithDuration(0.2, delay: 0.5, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
+//                self.alpha = 1
+//                }, completion:  { (complete) in
+//                    handler()
+//            })
+//            
+//        }
     }
     
     func unRate(handler : (()->Void)) {
         rated = false
-        UIView.animateWithDuration(0.2, animations: {
-            self.alpha = 0
-        }) { (done) in
-            self.backgroundColor = self.unselectedColor
-            UIView.animateWithDuration(0.2, delay: 0.5, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
-                self.alpha = 1
-                }, completion: nil)
-        }
+        self.backgroundColor = self.unselectedColor
+        handler()
+//        UIView.animateWithDuration(0.2, animations: {
+//            self.alpha = 0
+//        }) { (done) in
+//            self.backgroundColor = self.unselectedColor
+//            UIView.animateWithDuration(0.2, delay: 0.5, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
+//                self.alpha = 1
+//                }, completion: nil)
+//        }
     }
 }
