@@ -81,6 +81,10 @@
 		C44C25861C53610B00A345D8 /* RestaurantCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25851C53610B00A345D8 /* RestaurantCandidate.swift */; };
 		C44C25881C5361C900A345D8 /* VoteRestaurantRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */; };
 		C44C258A1C53627700A345D8 /* VoteRestaurantResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C25891C53627700A345D8 /* VoteRestaurantResponse.swift */; };
+		C44D9BDF1DA777BD007FBB95 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = C44D9BDA1DA777BD007FBB95 /* .gitkeep */; };
+		C44D9BE01DA777BD007FBB95 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = C44D9BDC1DA777BD007FBB95 /* .gitkeep */; };
+		C44D9BE11DA777BD007FBB95 /* TRMosaicColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44D9BDD1DA777BD007FBB95 /* TRMosaicColumn.swift */; };
+		C44D9BE21DA777BD007FBB95 /* TRMosaicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44D9BDE1DA777BD007FBB95 /* TRMosaicLayout.swift */; };
 		C44E7E1F1DA1E627001C589F /* ReviewsSnapshotView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44E7E1E1DA1E627001C589F /* ReviewsSnapshotView.xib */; };
 		C44E7E211DA1E86C001C589F /* ReviewsSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E7E201DA1E86C001C589F /* ReviewsSnapshotView.swift */; };
 		C44E7E231DA22E8B001C589F /* ReviewSnapshotCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44E7E221DA22E8B001C589F /* ReviewSnapshotCell.xib */; };
@@ -460,6 +464,10 @@
 		C44C25851C53610B00A345D8 /* RestaurantCandidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantCandidate.swift; sourceTree = "<group>"; };
 		C44C25871C5361C900A345D8 /* VoteRestaurantRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteRestaurantRequest.swift; sourceTree = "<group>"; };
 		C44C25891C53627700A345D8 /* VoteRestaurantResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteRestaurantResponse.swift; sourceTree = "<group>"; };
+		C44D9BDA1DA777BD007FBB95 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		C44D9BDC1DA777BD007FBB95 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		C44D9BDD1DA777BD007FBB95 /* TRMosaicColumn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TRMosaicColumn.swift; sourceTree = "<group>"; };
+		C44D9BDE1DA777BD007FBB95 /* TRMosaicLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TRMosaicLayout.swift; sourceTree = "<group>"; };
 		C44E7E1E1DA1E627001C589F /* ReviewsSnapshotView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewsSnapshotView.xib; sourceTree = "<group>"; };
 		C44E7E201DA1E86C001C589F /* ReviewsSnapshotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsSnapshotView.swift; sourceTree = "<group>"; };
 		C44E7E221DA22E8B001C589F /* ReviewSnapshotCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewSnapshotCell.xib; sourceTree = "<group>"; };
@@ -798,6 +806,7 @@
 		C41298141C83CD7D0062BC7D /* OpenSource */ = {
 			isa = PBXGroup;
 			children = (
+				C44D9BD81DA777BD007FBB95 /* TRMosaicLayout */,
 				C4269E391DA32303000836A4 /* MILAlertView */,
 				C48D09241D9702CB0046CD4C /* DKImagePickerController */,
 				CAC1D3711D39849D00520733 /* ImagePicker */,
@@ -1050,6 +1059,33 @@
 				C44C257D1C50B88300A345D8 /* UITableViewCellExtension.swift */,
 			);
 			name = "Local Extensions";
+			sourceTree = "<group>";
+		};
+		C44D9BD81DA777BD007FBB95 /* TRMosaicLayout */ = {
+			isa = PBXGroup;
+			children = (
+				C44D9BD91DA777BD007FBB95 /* Assets */,
+				C44D9BDB1DA777BD007FBB95 /* Classes */,
+			);
+			path = TRMosaicLayout;
+			sourceTree = "<group>";
+		};
+		C44D9BD91DA777BD007FBB95 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				C44D9BDA1DA777BD007FBB95 /* .gitkeep */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		C44D9BDB1DA777BD007FBB95 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C44D9BDC1DA777BD007FBB95 /* .gitkeep */,
+				C44D9BDD1DA777BD007FBB95 /* TRMosaicColumn.swift */,
+				C44D9BDE1DA777BD007FBB95 /* TRMosaicLayout.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		C461DB841BD2CE44009032C8 /* DownloadPhotoQueue */ = {
@@ -1796,8 +1832,10 @@
 				C41297F61C80B9390062BC7D /* ActionButtonView.xib in Resources */,
 				C4B0A3931C8C0B4B00D05408 /* NoNetworkDefaultView.xib in Resources */,
 				C48D09581D98F7C40046CD4C /* LocationSelection.storyboard in Resources */,
+				C44D9BE01DA777BD007FBB95 /* .gitkeep in Resources */,
 				C44B05DE1CE1B37B00337502 /* CityCell.xib in Resources */,
 				C41297AE1C80B8720062BC7D /* DishCell.xib in Resources */,
+				C44D9BDF1DA777BD007FBB95 /* .gitkeep in Resources */,
 				CA882D291C8556E300D04696 /* Assets.xcassets in Resources */,
 				C45E18EC1D87DF6B002D1D82 /* GoogleLogoCell.xib in Resources */,
 				C4269E471DA32303000836A4 /* MILAlertViewImages.xcassets in Resources */,
@@ -1906,6 +1944,7 @@
 			files = (
 				CA203E521C124AF900D6F32C /* RatingTypeEnum.swift in Sources */,
 				CA203DA41C111EEA00D6F32C /* LogOutResponse.swift in Sources */,
+				C44D9BE21DA777BD007FBB95 /* TRMosaicLayout.swift in Sources */,
 				CA203DA51C111EEA00D6F32C /* Favorite.swift in Sources */,
 				C44B05DC1CE1AF3D00337502 /* State.swift in Sources */,
 				CA203DA81C111EEA00D6F32C /* GetDishesResponse.swift in Sources */,
@@ -2143,6 +2182,7 @@
 				C42C96251D57066F00784636 /* RestaurantSearchV2Request.swift in Sources */,
 				CA203E0F1C111EEA00D6F32C /* JSONHelper.swift in Sources */,
 				CAA33D101D12241C004E9F6A /* GetIsFavoriteRequest.swift in Sources */,
+				C44D9BE11DA777BD007FBB95 /* TRMosaicColumn.swift in Sources */,
 				C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */,
 				CA203E111C111EEA00D6F32C /* HomeViewController.swift in Sources */,
 				CA621EC61D0A6BA300693306 /* NVActivityIndicatorShape.swift in Sources */,
