@@ -167,7 +167,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="restaurantImagePoolCell" id="ceG-wT-7Wy" customClass="RestaurantImagePoolCollectionViewCell" customModule="吃饭英雄" customModuleProvider="target">
-                                                <rect key="frame" x="5" y="8" width="90" height="90"/>
+                                                <rect key="frame" x="5" y="7.5" width="90" height="90"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
@@ -357,7 +357,7 @@
                             <tableViewSection id="p0u-Ml-3GE" userLabel="Info Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="0cx-16-C6x">
-                                        <rect key="frame" x="0.0" y="320" width="375" height="120"/>
+                                        <rect key="frame" x="0.0" y="300" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0cx-16-C6x" id="hSP-9l-Tra">
                                             <frame key="frameInset" width="375" height="120"/>
@@ -491,7 +491,7 @@
                             <tableViewSection id="i2n-iv-dpl" userLabel="Photo Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="180" id="vUV-bJ-Z3d">
-                                        <rect key="frame" x="0.0" y="440" width="375" height="180"/>
+                                        <rect key="frame" x="0.0" y="420" width="375" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vUV-bJ-Z3d" id="gbK-O3-F5d">
                                             <frame key="frameInset" width="375" height="180"/>
@@ -501,6 +501,14 @@
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsS-CN-CGC" userLabel="Photo Header View">
                                                             <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1rG-DY-ai8">
+                                                                    <state key="normal" title="查看所有照片&gt;">
+                                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="showAllPhotos:" destination="Zjm-a4-imU" eventType="touchUpInside" id="nuZ-gg-eDi"/>
+                                                                    </connections>
+                                                                </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="照片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySY-eI-5dS">
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                                     <nil key="highlightedColor"/>
@@ -508,10 +516,12 @@
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="1rG-DY-ai8" secondAttribute="trailing" constant="10" id="6OW-EU-g8s"/>
                                                                 <constraint firstAttribute="bottom" secondItem="ySY-eI-5dS" secondAttribute="bottom" constant="5" id="Dst-HY-aPo"/>
                                                                 <constraint firstItem="ySY-eI-5dS" firstAttribute="leading" secondItem="tsS-CN-CGC" secondAttribute="leading" constant="25" id="P1S-vn-A6P"/>
                                                                 <constraint firstAttribute="height" constant="40" id="tFn-kG-hg6"/>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="xHo-GG-1aF"/>
+                                                                <constraint firstItem="1rG-DY-ai8" firstAttribute="centerY" secondItem="ySY-eI-5dS" secondAttribute="centerY" id="yoW-eD-0PD"/>
                                                             </constraints>
                                                             <variation key="default">
                                                                 <mask key="constraints">
@@ -532,7 +542,7 @@
                                                             </collectionViewFlowLayout>
                                                             <cells>
                                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="restaurantImagePoolCell" id="dgf-K0-4Xn" customClass="RestaurantImagePoolCollectionViewCell" customModule="吃饭英雄" customModuleProvider="target">
-                                                                    <rect key="frame" x="10" y="0.0" width="140" height="130"/>
+                                                                    <rect key="frame" x="10" y="5" width="140" height="130"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                         <rect key="frame" x="0.0" y="0.0" width="140" height="130"/>
@@ -607,7 +617,7 @@
                             <tableViewSection id="aCM-W3-oJ4" userLabel="Reviews Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="340" id="pOX-7Z-vsl">
-                                        <rect key="frame" x="0.0" y="620" width="375" height="340"/>
+                                        <rect key="frame" x="0.0" y="600" width="375" height="340"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pOX-7Z-vsl" id="iPY-84-XrX">
                                             <frame key="frameInset" width="375" height="340"/>
@@ -669,7 +679,7 @@
                             <tableViewSection id="Q7X-nt-lYa" userLabel="Dish Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="9jg-mF-9rG">
-                                        <rect key="frame" x="0.0" y="960" width="375" height="120"/>
+                                        <rect key="frame" x="0.0" y="940" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9jg-mF-9rG" id="WF2-mT-m6t">
                                             <frame key="frameInset" width="375" height="120"/>
@@ -750,18 +760,65 @@
                         <segue destination="1Ka-rf-7mL" kind="presentation" identifier="writeReview" id="onk-Sc-CSm"/>
                         <segue destination="Br6-4x-Ln9" kind="show" identifier="showReviews" id="hW8-Qx-QcI"/>
                         <segue destination="bcJ-71-jKK" kind="show" identifier="showReview" id="NAa-N2-s2v"/>
+                        <segue destination="qI8-U5-uuN" kind="show" identifier="showAllPhotos" id="ldj-pe-SsK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lxg-GC-FDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1428" y="28.335832083958024"/>
         </scene>
+        <!--Photos Collection View Controller-->
+        <scene sceneID="IYb-G4-Cwu">
+            <objects>
+                <collectionViewController id="qI8-U5-uuN" customClass="PhotosCollectionViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="J02-T6-dun">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZkR-9i-OWx">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="mosaicImageCell" id="m8C-ey-Ip6">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dTp-D4-fcS"/>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="dTp-D4-fcS" secondAttribute="bottom" id="0I9-Ga-dSb"/>
+                                    <constraint firstAttribute="trailing" secondItem="dTp-D4-fcS" secondAttribute="trailing" id="5ai-7p-kFu"/>
+                                    <constraint firstItem="dTp-D4-fcS" firstAttribute="top" secondItem="m8C-ey-Ip6" secondAttribute="top" id="MyA-ps-V3m"/>
+                                    <constraint firstItem="dTp-D4-fcS" firstAttribute="leading" secondItem="m8C-ey-Ip6" secondAttribute="leading" id="f0H-vY-ZYS"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="dTp-D4-fcS" id="FAt-7D-ANH"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="qI8-U5-uuN" id="fB2-h4-OsY"/>
+                            <outlet property="delegate" destination="qI8-U5-uuN" id="lZL-Jb-ERo"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dZ9-Li-H1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2134" y="-601"/>
+        </scene>
         <!--New Review Navigation Controller-->
         <scene sceneID="701-Ym-RlJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Ka-rf-7mL" userLabel="New Review Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="dIu-ID-PR8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="dIu-ID-PR8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

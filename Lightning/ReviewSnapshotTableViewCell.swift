@@ -13,6 +13,27 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var ratingLabel: UILabel!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var levelNameLabel: UILabel!
+    
+    
+    @IBOutlet weak var reviewTextView: UITextView!
+    
+    var userName : String? {
+        didSet {
+            nameLabel.text = userName
+        }
+    }
+    
+    var review : String? {
+        didSet {
+            reviewTextView.text = review
+        }
+    }
+    
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

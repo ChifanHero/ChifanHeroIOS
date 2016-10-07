@@ -57,7 +57,7 @@ import UIKit
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -98,6 +98,11 @@ import UIKit
                 tableView.registerNib(UINib(nibName: "ReviewSnapshotCell", bundle: nil), forCellReuseIdentifier: "reviewSnapshotCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell
             }
+            if indexPath.section == 2 {
+                cell?.userName = "Peter Huang"
+                cell?.profileImageView.image = UIImage(named: "peter")
+                cell?.review = "Who tm cares?"
+            }
             return cell!
         }
 
@@ -117,6 +122,10 @@ import UIKit
     
     func showReview() {
         parentViewController?.performSegueWithIdentifier("showReview", sender: nil)
+    }
+    
+    func getHeight() -> CGFloat {
+        return 472
     }
 
 }

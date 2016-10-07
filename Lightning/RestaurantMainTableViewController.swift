@@ -429,8 +429,21 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         performSegueWithIdentifier("showReviews", sender: nil)
     }
     
+    @IBAction func showAllPhotos(sender: AnyObject) {
+        performSegueWithIdentifier("showAllPhotos", sender: nil)
+    }
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         animateTransition = false
+        if segue.identifier == "showAllPhotos" {
+            let photosVC: PhotosCollectionViewController = segue.destinationViewController as! PhotosCollectionViewController
+            var images : [UIImage] = []
+            for imageView in imagePoolContent {
+                images.append(imageView.image!)
+            }
+            photosVC.images = images
+        }
     }
     
 
@@ -601,6 +614,20 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
             uploadingAlertView = nil
         }
         
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 120
+        } else if indexPath.section == 1 {
+            return 180
+        } else if indexPath.section == 2 {
+            return 522
+        } else if indexPath.section == 3 {
+            return 120
+        } else {
+            return 0
+        }
     }
     
     func cancelButtonDidPress(imagePicker: ImagePickerController){

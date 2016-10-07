@@ -85,6 +85,7 @@
 		C44D9BE01DA777BD007FBB95 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = C44D9BDC1DA777BD007FBB95 /* .gitkeep */; };
 		C44D9BE11DA777BD007FBB95 /* TRMosaicColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44D9BDD1DA777BD007FBB95 /* TRMosaicColumn.swift */; };
 		C44D9BE21DA777BD007FBB95 /* TRMosaicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44D9BDE1DA777BD007FBB95 /* TRMosaicLayout.swift */; };
+		C44D9BE61DA782C9007FBB95 /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44D9BE51DA782C9007FBB95 /* PhotosCollectionViewController.swift */; };
 		C44E7E1F1DA1E627001C589F /* ReviewsSnapshotView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44E7E1E1DA1E627001C589F /* ReviewsSnapshotView.xib */; };
 		C44E7E211DA1E86C001C589F /* ReviewsSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E7E201DA1E86C001C589F /* ReviewsSnapshotView.swift */; };
 		C44E7E231DA22E8B001C589F /* ReviewSnapshotCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44E7E221DA22E8B001C589F /* ReviewSnapshotCell.xib */; };
@@ -468,6 +469,7 @@
 		C44D9BDC1DA777BD007FBB95 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		C44D9BDD1DA777BD007FBB95 /* TRMosaicColumn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TRMosaicColumn.swift; sourceTree = "<group>"; };
 		C44D9BDE1DA777BD007FBB95 /* TRMosaicLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TRMosaicLayout.swift; sourceTree = "<group>"; };
+		C44D9BE51DA782C9007FBB95 /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		C44E7E1E1DA1E627001C589F /* ReviewsSnapshotView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewsSnapshotView.xib; sourceTree = "<group>"; };
 		C44E7E201DA1E86C001C589F /* ReviewsSnapshotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsSnapshotView.swift; sourceTree = "<group>"; };
 		C44E7E221DA22E8B001C589F /* ReviewSnapshotCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewSnapshotCell.xib; sourceTree = "<group>"; };
@@ -1266,6 +1268,7 @@
 				C4269E331DA306A2000836A4 /* ReviewsViewController.swift */,
 				C4269E351DA306B3000836A4 /* NewReviewViewController.swift */,
 				C4269E371DA306C5000836A4 /* ReviewDetailViewController.swift */,
+				C44D9BE51DA782C9007FBB95 /* PhotosCollectionViewController.swift */,
 			);
 			name = Restaurant;
 			sourceTree = "<group>";
@@ -2071,6 +2074,7 @@
 				C42C96231D56FDFD00784636 /* Bucket.swift in Sources */,
 				C42C960F1D54784D00784636 /* SearchViewController.swift in Sources */,
 				CAC527951CE1CAA20056AAC8 /* ExpandingCellTransition.swift in Sources */,
+				C44D9BE61DA782C9007FBB95 /* PhotosCollectionViewController.swift in Sources */,
 				CA203DE51C111EEA00D6F32C /* SelectionPanel.swift in Sources */,
 				CA203DE61C111EEA00D6F32C /* GetRestaurantsResponse.swift in Sources */,
 				CA203E561C1655D800D6F32C /* AddToFavoritesRequest.swift in Sources */,

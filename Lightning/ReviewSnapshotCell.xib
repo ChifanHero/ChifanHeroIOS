@@ -113,8 +113,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="levelNameLabel" destination="zhv-gb-2ly" id="ZQI-kf-c7R"/>
+                <outlet property="nameLabel" destination="8rz-Yt-MWw" id="M1m-am-r2B"/>
                 <outlet property="profileImageView" destination="67C-cw-rRl" id="d2S-ag-E9x"/>
                 <outlet property="ratingLabel" destination="t1F-Ns-fb4" id="7Wj-NX-EGG"/>
+                <outlet property="reviewTextView" destination="991-cP-LBc" id="JyC-m7-iuP"/>
             </connections>
             <point key="canvasLocation" x="110" y="115.5"/>
         </tableViewCell>
