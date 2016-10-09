@@ -43,7 +43,6 @@
 		C4269E321DA2E294000836A4 /* RateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4269E311DA2E294000836A4 /* RateButton.swift */; };
 		C4269E341DA306A2000836A4 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4269E331DA306A2000836A4 /* ReviewsViewController.swift */; };
 		C4269E361DA306B3000836A4 /* NewReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4269E351DA306B3000836A4 /* NewReviewViewController.swift */; };
-		C4269E381DA306C5000836A4 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4269E371DA306C5000836A4 /* ReviewDetailViewController.swift */; };
 		C4269E461DA32303000836A4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C4269E3C1DA32303000836A4 /* LICENSE */; };
 		C4269E471DA32303000836A4 /* MILAlertViewImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4269E3D1DA32303000836A4 /* MILAlertViewImages.xcassets */; };
 		C4269E481DA32303000836A4 /* MILAlertViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4269E3E1DA32303000836A4 /* MILAlertViewManager.swift */; };
@@ -142,6 +141,7 @@
 		C4A0D5631C137DDB00BAE246 /* DishSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5621C137DDB00BAE246 /* DishSearchResponse.swift */; };
 		C4A0D5651C137DEA00BAE246 /* DishListSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5641C137DEA00BAE246 /* DishListSearchResponse.swift */; };
 		C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5671C138B9700BAE246 /* SearchServiceConfiguration.swift */; };
+		C4A847E21DAACE7300231BE1 /* ReviewDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A847E11DAACE7300231BE1 /* ReviewDetailTableViewController.swift */; };
 		C4B0A3931C8C0B4B00D05408 /* NoNetworkDefaultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4B0A3921C8C0B4B00D05408 /* NoNetworkDefaultView.xib */; };
 		C4B0A3951C8CB52500D05408 /* NoNetworkDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */; };
 		C4B0A3991C8CCD8D00D05408 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0A3981C8CCD8D00D05408 /* Reachability.swift */; };
@@ -387,7 +387,6 @@
 		C4269E311DA2E294000836A4 /* RateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateButton.swift; sourceTree = "<group>"; };
 		C4269E331DA306A2000836A4 /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		C4269E351DA306B3000836A4 /* NewReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReviewViewController.swift; sourceTree = "<group>"; };
-		C4269E371DA306C5000836A4 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
 		C4269E3C1DA32303000836A4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		C4269E3D1DA32303000836A4 /* MILAlertViewImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MILAlertViewImages.xcassets; sourceTree = "<group>"; };
 		C4269E3E1DA32303000836A4 /* MILAlertViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MILAlertViewManager.swift; sourceTree = "<group>"; };
@@ -543,6 +542,7 @@
 		C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponCellSecondView.swift; sourceTree = "<group>"; };
+		C4A847E11DAACE7300231BE1 /* ReviewDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailTableViewController.swift; sourceTree = "<group>"; };
 		C4B0A3921C8C0B4B00D05408 /* NoNetworkDefaultView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoNetworkDefaultView.xib; sourceTree = "<group>"; };
 		C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNetworkDefaultView.swift; sourceTree = "<group>"; };
 		C4B0A3981C8CCD8D00D05408 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -1267,8 +1267,8 @@
 				C494EA121D61A631000AE8BB /* RestaurantMainTableViewController.swift */,
 				C4269E331DA306A2000836A4 /* ReviewsViewController.swift */,
 				C4269E351DA306B3000836A4 /* NewReviewViewController.swift */,
-				C4269E371DA306C5000836A4 /* ReviewDetailViewController.swift */,
 				C44D9BE51DA782C9007FBB95 /* PhotosCollectionViewController.swift */,
+				C4A847E11DAACE7300231BE1 /* ReviewDetailTableViewController.swift */,
 			);
 			name = Restaurant;
 			sourceTree = "<group>";
@@ -2052,7 +2052,6 @@
 				CA203DE01C111EEA00D6F32C /* DishTableViewCell.swift in Sources */,
 				C41298161C83CDA40062BC7D /* UIImageEffects.swift in Sources */,
 				CAC1D39A1D39B6D700520733 /* UploadRestaurantPictureRequest.swift in Sources */,
-				C4269E381DA306C5000836A4 /* ReviewDetailViewController.swift in Sources */,
 				CA203DE11C111EEA00D6F32C /* HttpRequestProtocol.swift in Sources */,
 				C45E18EA1D866EDC002D1D82 /* AddressAutoCompletionTableViewCell.swift in Sources */,
 				C4D983121CEC34980061A088 /* GetCitiesRequest.swift in Sources */,
@@ -2147,6 +2146,7 @@
 				C48D09361D9702DF0046CD4C /* DKAssetGroupDetailVC.swift in Sources */,
 				CA02C9521D50575600104528 /* GetHomepageRequest.swift in Sources */,
 				C42C96271D57117300784636 /* SearchHistoryTableViewCell.swift in Sources */,
+				C4A847E21DAACE7300231BE1 /* ReviewDetailTableViewController.swift in Sources */,
 				CAC1D3891D39849D00520733 /* ButtonPicker.swift in Sources */,
 				CA203DFD1C111EEA00D6F32C /* FavoriteTypeEnum.swift in Sources */,
 				CAC1D38F1D39849D00520733 /* ConstraintsSetup.swift in Sources */,
