@@ -142,6 +142,8 @@
 		C4A0D5651C137DEA00BAE246 /* DishListSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5641C137DEA00BAE246 /* DishListSearchResponse.swift */; };
 		C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5671C138B9700BAE246 /* SearchServiceConfiguration.swift */; };
 		C4A847E21DAACE7300231BE1 /* ReviewDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A847E11DAACE7300231BE1 /* ReviewDetailTableViewController.swift */; };
+		C4A847E61DAAF79100231BE1 /* RemovablePhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A847E51DAAF79100231BE1 /* RemovablePhotoCell.xib */; };
+		C4A847E81DAAF80700231BE1 /* RemovablePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A847E71DAAF80700231BE1 /* RemovablePhotoCollectionViewCell.swift */; };
 		C4B0A3931C8C0B4B00D05408 /* NoNetworkDefaultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4B0A3921C8C0B4B00D05408 /* NoNetworkDefaultView.xib */; };
 		C4B0A3951C8CB52500D05408 /* NoNetworkDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */; };
 		C4B0A3991C8CCD8D00D05408 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0A3981C8CCD8D00D05408 /* Reachability.swift */; };
@@ -543,6 +545,8 @@
 		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponCellSecondView.swift; sourceTree = "<group>"; };
 		C4A847E11DAACE7300231BE1 /* ReviewDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailTableViewController.swift; sourceTree = "<group>"; };
+		C4A847E51DAAF79100231BE1 /* RemovablePhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemovablePhotoCell.xib; sourceTree = "<group>"; };
+		C4A847E71DAAF80700231BE1 /* RemovablePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemovablePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		C4B0A3921C8C0B4B00D05408 /* NoNetworkDefaultView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoNetworkDefaultView.xib; sourceTree = "<group>"; };
 		C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNetworkDefaultView.swift; sourceTree = "<group>"; };
 		C4B0A3981C8CCD8D00D05408 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -1026,6 +1030,7 @@
 				C45E18ED1D87DFA8002D1D82 /* GoogleLogoTableViewCell.swift */,
 				C49223051DA0DFED00D9916E /* EditableReviewTableViewCell.swift */,
 				C44E7E241DA23F13001C589F /* ReviewSnapshotTableViewCell.swift */,
+				C4A847E71DAAF80700231BE1 /* RemovablePhotoCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1606,6 +1611,7 @@
 				C45E18EF1D87EBA0002D1D82 /* AddressAutoCompletionCell.xib */,
 				C49223031DA0DA9400D9916E /* EditableReviewCell.xib */,
 				C44E7E221DA22E8B001C589F /* ReviewSnapshotCell.xib */,
+				C4A847E51DAAF79100231BE1 /* RemovablePhotoCell.xib */,
 			);
 			name = CellXib;
 			sourceTree = "<group>";
@@ -1844,6 +1850,7 @@
 				C4269E471DA32303000836A4 /* MILAlertViewImages.xcassets in Resources */,
 				C44E7E231DA22E8B001C589F /* ReviewSnapshotCell.xib in Resources */,
 				CAC81EE51CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib in Resources */,
+				C4A847E61DAAF79100231BE1 /* RemovablePhotoCell.xib in Resources */,
 				C41298051C80B9590062BC7D /* NameOnlyDishCell.xib in Resources */,
 				C494EA541D61AF8F000AE8BB /* ActionPanel.xib in Resources */,
 				C41297FC1C80B9430062BC7D /* OwnerInfoDishCell.xib in Resources */,
@@ -2111,6 +2118,7 @@
 				CA02C9501D4EFF5B00104528 /* PreviewCollectionViewCell.swift in Sources */,
 				C4A0D5631C137DDB00BAE246 /* DishSearchResponse.swift in Sources */,
 				CAA0F0B21CF15EB30061BFBE /* RestaurantNominationViewController.swift in Sources */,
+				C4A847E81DAAF80700231BE1 /* RemovablePhotoCollectionViewCell.swift in Sources */,
 				C4F207BF1C13D9710024C287 /* SelectionBarDelegate.swift in Sources */,
 				CA621EB61CF557C000693306 /* NominateRestaurantRequest.swift in Sources */,
 				CA621EC81D0A6F5F00693306 /* NVActivityIndicatorAnimationPacman.swift in Sources */,

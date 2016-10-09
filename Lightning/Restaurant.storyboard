@@ -157,7 +157,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVC-66-5C7" userLabel="Photos View">
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QHW-Tm-LoS">
+                                    <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QHW-Tm-LoS">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dfP-DI-QzP">
                                             <size key="itemSize" width="90" height="90"/>
@@ -165,28 +165,7 @@
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="5" minY="5" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
-                                        <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="restaurantImagePoolCell" id="ceG-wT-7Wy" customClass="RestaurantImagePoolCollectionViewCell" customModule="吃饭英雄" customModuleProvider="target">
-                                                <rect key="frame" x="5" y="7.5" width="90" height="90"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y4C-jN-Pmm"/>
-                                                    </subviews>
-                                                </view>
-                                                <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="Y4C-jN-Pmm" secondAttribute="bottom" id="G7x-GV-1Rk"/>
-                                                    <constraint firstItem="Y4C-jN-Pmm" firstAttribute="top" secondItem="ceG-wT-7Wy" secondAttribute="top" id="Uu8-aE-T5V"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Y4C-jN-Pmm" secondAttribute="trailing" id="jfx-yf-Tq6"/>
-                                                    <constraint firstItem="Y4C-jN-Pmm" firstAttribute="leading" secondItem="ceG-wT-7Wy" secondAttribute="leading" id="oJQ-h9-Tnv"/>
-                                                </constraints>
-                                                <connections>
-                                                    <outlet property="imageView" destination="Y4C-jN-Pmm" id="e3Z-dT-D2d"/>
-                                                </connections>
-                                            </collectionViewCell>
-                                        </cells>
+                                        <cells/>
                                         <connections>
                                             <outlet property="dataSource" destination="pf1-ZZ-fad" id="hpC-fO-ZCC"/>
                                             <outlet property="delegate" destination="pf1-ZZ-fad" id="xD9-3g-FMX"/>
@@ -542,7 +521,7 @@
                                                             </collectionViewFlowLayout>
                                                             <cells>
                                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="restaurantImagePoolCell" id="dgf-K0-4Xn" customClass="RestaurantImagePoolCollectionViewCell" customModule="吃饭英雄" customModuleProvider="target">
-                                                                    <rect key="frame" x="10" y="0.0" width="140" height="130"/>
+                                                                    <rect key="frame" x="10" y="5" width="140" height="130"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                         <rect key="frame" x="0.0" y="0.0" width="140" height="130"/>
@@ -1051,7 +1030,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Chifanhero_Favorite" width="69" height="66"/>
+        <image name="Chifanhero_Favorite" width="640" height="426"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XnR-ES-IvU"/>

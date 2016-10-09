@@ -37,6 +37,9 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         addDoneButton()
         roundRateButtons()
         observeKeyboard()
+//        self.imagePoolView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "removablePhotoCell")
+        
+        imagePoolView.registerNib(UINib(nibName: "RemovablePhotoCell", bundle: nil), forCellWithReuseIdentifier: "removablePhotoCell")
         // Do any additional setup after loading the view.
     }
     
@@ -97,7 +100,7 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell: RestaurantImagePoolCollectionViewCell? = imagePoolView.dequeueReusableCellWithReuseIdentifier("restaurantImagePoolCell", forIndexPath: indexPath) as? RestaurantImagePoolCollectionViewCell
+        let cell: RemovablePhotoCollectionViewCell? = imagePoolView.dequeueReusableCellWithReuseIdentifier("removablePhotoCell", forIndexPath: indexPath) as? RemovablePhotoCollectionViewCell
         
         // Configure the cell
         if indexPath.row < images.count {
