@@ -861,6 +861,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="reviewsTable" destination="vRi-ut-akb" id="OFd-rU-RkM"/>
                         <segue destination="1Ka-rf-7mL" kind="presentation" identifier="writeReview" id="XnR-ES-IvU"/>
                         <segue destination="t9r-R6-aeD" kind="show" identifier="showReview" id="9AR-Ib-2HZ"/>
                     </connections>
