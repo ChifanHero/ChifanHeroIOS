@@ -40,8 +40,8 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     private func addBarButton() {
-        let selectionLocationButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(ReviewsViewController.addNewReview))
-        self.navigationItem.rightBarButtonItem = selectionLocationButton
+        let addNewReviewButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(ReviewsViewController.addNewReview))
+        self.navigationItem.rightBarButtonItem = addNewReviewButton
     }
     
     func addNewReview() {

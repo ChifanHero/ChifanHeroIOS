@@ -433,6 +433,10 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         performSegueWithIdentifier("showAllPhotos", sender: nil)
     }
     
+    @IBAction func showAllRecommendations(sender: AnyObject) {
+        performSegueWithIdentifier("showRecommendations", sender: nil)
+    }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         animateTransition = false

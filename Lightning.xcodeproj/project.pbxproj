@@ -89,6 +89,11 @@
 		C44E7E211DA1E86C001C589F /* ReviewsSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E7E201DA1E86C001C589F /* ReviewsSnapshotView.swift */; };
 		C44E7E231DA22E8B001C589F /* ReviewSnapshotCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44E7E221DA22E8B001C589F /* ReviewSnapshotCell.xib */; };
 		C44E7E251DA23F13001C589F /* ReviewSnapshotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E7E241DA23F13001C589F /* ReviewSnapshotTableViewCell.swift */; };
+		C454281A1DACAEDE00AC342F /* RecommendationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45428191DACAEDE00AC342F /* RecommendationsViewController.swift */; };
+		C454281C1DACB04400AC342F /* CreateRecommendationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454281B1DACB04400AC342F /* CreateRecommendationViewController.swift */; };
+		C454281E1DACB05900AC342F /* RecommendationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454281D1DACB05900AC342F /* RecommendationDetailTableViewController.swift */; };
+		C45428201DACBAE400AC342F /* RecommendationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C454281F1DACBAE400AC342F /* RecommendationCell.xib */; };
+		C45428221DACC21200AC342F /* RecommendationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45428211DACC21200AC342F /* RecommendationTableViewCell.swift */; };
 		C45E18EA1D866EDC002D1D82 /* AddressAutoCompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45E18E91D866EDC002D1D82 /* AddressAutoCompletionTableViewCell.swift */; };
 		C45E18EC1D87DF6B002D1D82 /* GoogleLogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45E18EB1D87DF6B002D1D82 /* GoogleLogoCell.xib */; };
 		C45E18EE1D87DFA8002D1D82 /* GoogleLogoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45E18ED1D87DFA8002D1D82 /* GoogleLogoTableViewCell.swift */; };
@@ -475,6 +480,11 @@
 		C44E7E201DA1E86C001C589F /* ReviewsSnapshotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsSnapshotView.swift; sourceTree = "<group>"; };
 		C44E7E221DA22E8B001C589F /* ReviewSnapshotCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewSnapshotCell.xib; sourceTree = "<group>"; };
 		C44E7E241DA23F13001C589F /* ReviewSnapshotTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewSnapshotTableViewCell.swift; sourceTree = "<group>"; };
+		C45428191DACAEDE00AC342F /* RecommendationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationsViewController.swift; sourceTree = "<group>"; };
+		C454281B1DACB04400AC342F /* CreateRecommendationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateRecommendationViewController.swift; sourceTree = "<group>"; };
+		C454281D1DACB05900AC342F /* RecommendationDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationDetailTableViewController.swift; sourceTree = "<group>"; };
+		C454281F1DACBAE400AC342F /* RecommendationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecommendationCell.xib; sourceTree = "<group>"; };
+		C45428211DACC21200AC342F /* RecommendationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationTableViewCell.swift; sourceTree = "<group>"; };
 		C454B2701BCE2F2E0091A5BC /* LoadMoreFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreFooterView.swift; sourceTree = "<group>"; };
 		C45E18E91D866EDC002D1D82 /* AddressAutoCompletionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressAutoCompletionTableViewCell.swift; sourceTree = "<group>"; };
 		C45E18EB1D87DF6B002D1D82 /* GoogleLogoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoogleLogoCell.xib; sourceTree = "<group>"; };
@@ -1031,6 +1041,7 @@
 				C49223051DA0DFED00D9916E /* EditableReviewTableViewCell.swift */,
 				C44E7E241DA23F13001C589F /* ReviewSnapshotTableViewCell.swift */,
 				C4A847E71DAAF80700231BE1 /* RemovablePhotoCollectionViewCell.swift */,
+				C45428211DACC21200AC342F /* RecommendationTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1274,6 +1285,9 @@
 				C4269E351DA306B3000836A4 /* NewReviewViewController.swift */,
 				C44D9BE51DA782C9007FBB95 /* PhotosCollectionViewController.swift */,
 				C4A847E11DAACE7300231BE1 /* ReviewDetailTableViewController.swift */,
+				C45428191DACAEDE00AC342F /* RecommendationsViewController.swift */,
+				C454281B1DACB04400AC342F /* CreateRecommendationViewController.swift */,
+				C454281D1DACB05900AC342F /* RecommendationDetailTableViewController.swift */,
 			);
 			name = Restaurant;
 			sourceTree = "<group>";
@@ -1612,6 +1626,7 @@
 				C49223031DA0DA9400D9916E /* EditableReviewCell.xib */,
 				C44E7E221DA22E8B001C589F /* ReviewSnapshotCell.xib */,
 				C4A847E51DAAF79100231BE1 /* RemovablePhotoCell.xib */,
+				C454281F1DACBAE400AC342F /* RecommendationCell.xib */,
 			);
 			name = CellXib;
 			sourceTree = "<group>";
@@ -1851,6 +1866,7 @@
 				C44E7E231DA22E8B001C589F /* ReviewSnapshotCell.xib in Resources */,
 				CAC81EE51CDA6BE100338B59 /* RestaurantCollectionMemberCell.xib in Resources */,
 				C4A847E61DAAF79100231BE1 /* RemovablePhotoCell.xib in Resources */,
+				C45428201DACBAE400AC342F /* RecommendationCell.xib in Resources */,
 				C41298051C80B9590062BC7D /* NameOnlyDishCell.xib in Resources */,
 				C494EA541D61AF8F000AE8BB /* ActionPanel.xib in Resources */,
 				C41297FC1C80B9430062BC7D /* OwnerInfoDishCell.xib in Resources */,
@@ -2033,6 +2049,7 @@
 				C48DD6D01D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift in Sources */,
 				CA203DD51C111EEA00D6F32C /* GetRestaurantsRequest.swift in Sources */,
 				CA203DD61C111EEA00D6F32C /* Promotion.swift in Sources */,
+				C454281A1DACAEDE00AC342F /* RecommendationsViewController.swift in Sources */,
 				CA203DD71C111EEA00D6F32C /* LoadMoreFooterView.swift in Sources */,
 				C48D09321D9702DF0046CD4C /* DKImagePickerController.swift in Sources */,
 				CA621EBA1CFE55D700693306 /* HttpResponseProtocol.swift in Sources */,
@@ -2056,6 +2073,7 @@
 				C4269E361DA306B3000836A4 /* NewReviewViewController.swift in Sources */,
 				C42C96291D5713BB00784636 /* SearchHistoryCellDelegate.swift in Sources */,
 				CAC1D38E1D39849D00520733 /* Configuration.swift in Sources */,
+				C45428221DACC21200AC342F /* RecommendationTableViewCell.swift in Sources */,
 				CA203DE01C111EEA00D6F32C /* DishTableViewCell.swift in Sources */,
 				C41298161C83CDA40062BC7D /* UIImageEffects.swift in Sources */,
 				CAC1D39A1D39B6D700520733 /* UploadRestaurantPictureRequest.swift in Sources */,
@@ -2139,6 +2157,7 @@
 				CAA6C5601D4C619A00CBD871 /* HomepageTableViewCell.swift in Sources */,
 				C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */,
 				CA203DFA1C111EEA00D6F32C /* AboutMeTableViewController.swift in Sources */,
+				C454281C1DACB04400AC342F /* CreateRecommendationViewController.swift in Sources */,
 				C4A0D5591C11746100BAE246 /* RestaurantSearchRequest.swift in Sources */,
 				C4B0A3951C8CB52500D05408 /* NoNetworkDefaultView.swift in Sources */,
 				CAC1D3951D39849D00520733 /* Photos.swift in Sources */,
@@ -2159,6 +2178,7 @@
 				CA203DFD1C111EEA00D6F32C /* FavoriteTypeEnum.swift in Sources */,
 				CAC1D38F1D39849D00520733 /* ConstraintsSetup.swift in Sources */,
 				CA203DFE1C111EEA00D6F32C /* MessageTableViewCell.swift in Sources */,
+				C454281E1DACB05900AC342F /* RecommendationDetailTableViewController.swift in Sources */,
 				CA203DFF1C111EEA00D6F32C /* ModelTableViewCellProtocol.swift in Sources */,
 				CA203E001C111EEA00D6F32C /* SelectedCollectionsTableViewController.swift in Sources */,
 				C42C962F1D57ED1700784636 /* SearchResultsTableViewHeader.swift in Sources */,
