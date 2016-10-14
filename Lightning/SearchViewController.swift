@@ -28,6 +28,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     var addressAutoCompletion : [NSAttributedString] = [NSAttributedString]()
     
     var pullRefresher: UIRefreshControl!
+    
+    var bounds : GMSCoordinateBounds?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -297,9 +299,19 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         let boldFont = UIFont.boldSystemFontOfSize(15.0)
         let filter = GMSAutocompleteFilter()
         let placesClient = GMSPlacesClient()
-        filter.type = .Address
+        filter.type = .NoFilter
         filter.country = "us"
-        placesClient.autocompleteQuery(addressBar.text!, bounds: nil, filter: filter, callback: { (results, error: NSError?) -> Void in
+        if bounds == nil {
+            let boundingBox : BoundingBox = BoundingBox.getBoundingBox(userLocationManager.getLocationInUse()!, radiusInKm: 50)
+            let neBoundsCorner = CLLocationCoordinate2D(latitude: boundingBox.maxPoint!.lat!, longitude: boundingBox.maxPoint!.lon!)
+            let swBoundsCorner = CLLocationCoordinate2D(latitude: boundingBox.minPoint!.lat!, longitude: boundingBox.minPoint!.lon!)
+            bounds = GMSCoordinateBounds(coordinate: neBoundsCorner, coordinate: swBoundsCorner)
+            print(neBoundsCorner)
+            print(swBoundsCorner)
+        }
+        
+        
+        placesClient.autocompleteQuery(addressBar.text!, bounds: bounds, filter: filter, callback: { (results, error: NSError?) -> Void in
             guard error == nil else {
                 print("Autocomplete error \(error)")
                 return
@@ -314,7 +326,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
                     bolded.addAttribute(NSFontAttributeName, value: font, range: range)
                 }
                 self.addressAutoCompletion.append(bolded)
-                print("Result \(result.attributedFullText) with placeID \(result.placeID)")
+//                print("Result \(result.attributedFullText) with placeID \(result.placeID)")
             }
             self.suggestionTableView.reloadData()
         })

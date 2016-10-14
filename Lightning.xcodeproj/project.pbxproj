@@ -132,6 +132,7 @@
 		C494EA131D61A631000AE8BB /* RestaurantMainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494EA121D61A631000AE8BB /* RestaurantMainTableViewController.swift */; };
 		C494EA541D61AF8F000AE8BB /* ActionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = C494EA531D61AF8F000AE8BB /* ActionPanel.xib */; };
 		C494EA561D61B1EA000AE8BB /* ActionPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494EA551D61B1EA000AE8BB /* ActionPanelView.swift */; };
+		C497E92C1DB0A454002060E0 /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E92B1DB0A454002060E0 /* BoundingBox.swift */; };
 		C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */; };
 		C4A0D5521C11746100BAE246 /* DishSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */; };
 		C4A0D5531C11746100BAE246 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5461C11746100BAE246 /* Distance.swift */; };
@@ -536,6 +537,7 @@
 		C494EA121D61A631000AE8BB /* RestaurantMainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantMainTableViewController.swift; sourceTree = "<group>"; };
 		C494EA531D61AF8F000AE8BB /* ActionPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionPanel.xib; sourceTree = "<group>"; };
 		C494EA551D61B1EA000AE8BB /* ActionPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionPanelView.swift; sourceTree = "<group>"; };
+		C497E92B1DB0A454002060E0 /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		C49BF32C1BC4EA940097CBE0 /* SelectionBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionBar.swift; sourceTree = "<group>"; };
 		C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishListSearchRequest.swift; sourceTree = "<group>"; };
 		C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishSearchRequest.swift; sourceTree = "<group>"; };
@@ -889,6 +891,7 @@
 			children = (
 				C4D983151CED978C0061A088 /* LocationHelper.swift */,
 				C42C96311D59B48300784636 /* UserLocationManager.swift */,
+				C497E92B1DB0A454002060E0 /* BoundingBox.swift */,
 			);
 			name = Location;
 			sourceTree = "<group>";
@@ -2075,6 +2078,7 @@
 				CAC1D38E1D39849D00520733 /* Configuration.swift in Sources */,
 				C45428221DACC21200AC342F /* RecommendationTableViewCell.swift in Sources */,
 				CA203DE01C111EEA00D6F32C /* DishTableViewCell.swift in Sources */,
+				C497E92C1DB0A454002060E0 /* BoundingBox.swift in Sources */,
 				C41298161C83CDA40062BC7D /* UIImageEffects.swift in Sources */,
 				CAC1D39A1D39B6D700520733 /* UploadRestaurantPictureRequest.swift in Sources */,
 				CA203DE11C111EEA00D6F32C /* HttpRequestProtocol.swift in Sources */,
