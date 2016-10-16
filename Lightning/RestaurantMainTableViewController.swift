@@ -582,11 +582,13 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         
         for image in images {
             queue.addOperationWithBlock() {
-                let maxLength = 500000
+                let maxLength = 99999
                 var imageData = UIImageJPEGRepresentation(image, 1.0) //1.0 is compression ratio
+                print(imageData?.length)
                 if imageData?.length > maxLength {
                     let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.length)!)
-                    imageData = UIImageJPEGRepresentation(image, compressionRatio)
+                    imageData = UIImageJPEGRepresentation(image, 0.0)
+                    print(imageData?.length)
                 }
                 
                 let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
@@ -595,8 +597,10 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         //add actions here
                         print("done");
-                        self.imagePool.append((response?.result)!)
-                        self.downloadNewAddedImage((response?.result)!)
+                        if response != nil && response?.result != nil {
+                            self.imagePool.append((response?.result)!)
+                            self.downloadNewAddedImage((response?.result)!)
+                        }
                     });
                 }
             }

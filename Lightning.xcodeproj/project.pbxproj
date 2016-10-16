@@ -13,6 +13,10 @@
 		C4021ACD1CF975D10021343B /* GetHotCitiesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4021ACC1CF975D10021343B /* GetHotCitiesRequest.swift */; };
 		C4066F111C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */; };
 		C41041831DB0B5EF00834E5F /* RecommendationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41041821DB0B5EF00834E5F /* RecommendationDetailViewController.swift */; };
+		C41041851DB3065F00834E5F /* PhotoUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41041841DB3065F00834E5F /* PhotoUploadManager.swift */; };
+		C41041871DB306BD00834E5F /* UploadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41041861DB306BD00834E5F /* UploadState.swift */; };
+		C41041891DB308CA00834E5F /* PhotoUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41041881DB308CA00834E5F /* PhotoUploader.swift */; };
+		C410418B1DB3340200834E5F /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410418A1DB3340200834E5F /* AsynchronousOperation.swift */; };
 		C41297861C809AE60062BC7D /* TutorialChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41297841C809AE60062BC7D /* TutorialChildViewController.swift */; };
 		C41297891C809D880062BC7D /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41297881C809D880062BC7D /* Tutorial.storyboard */; };
 		C412978B1C809E420062BC7D /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C412978A1C809E420062BC7D /* TutorialViewController.swift */; };
@@ -362,6 +366,10 @@
 		C4021ACC1CF975D10021343B /* GetHotCitiesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetHotCitiesRequest.swift; sourceTree = "<group>"; };
 		C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameOnlyDishTableViewCell.swift; sourceTree = "<group>"; };
 		C41041821DB0B5EF00834E5F /* RecommendationDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationDetailViewController.swift; sourceTree = "<group>"; };
+		C41041841DB3065F00834E5F /* PhotoUploadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoUploadManager.swift; sourceTree = "<group>"; };
+		C41041861DB306BD00834E5F /* UploadState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadState.swift; sourceTree = "<group>"; };
+		C41041881DB308CA00834E5F /* PhotoUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoUploader.swift; sourceTree = "<group>"; };
+		C410418A1DB3340200834E5F /* AsynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		C41297841C809AE60062BC7D /* TutorialChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialChildViewController.swift; sourceTree = "<group>"; };
 		C41297881C809D880062BC7D /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
 		C412978A1C809E420062BC7D /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
@@ -1052,6 +1060,7 @@
 		C43B9A541BDF04A900FD50FF /* OperationQueue */ = {
 			isa = PBXGroup;
 			children = (
+				C410418A1DB3340200834E5F /* AsynchronousOperation.swift */,
 				C43B9A551BDF04B500FD50FF /* UploadPhotoQueue */,
 				C461DB841BD2CE44009032C8 /* DownloadPhotoQueue */,
 			);
@@ -1061,6 +1070,9 @@
 		C43B9A551BDF04B500FD50FF /* UploadPhotoQueue */ = {
 			isa = PBXGroup;
 			children = (
+				C41041841DB3065F00834E5F /* PhotoUploadManager.swift */,
+				C41041861DB306BD00834E5F /* UploadState.swift */,
+				C41041881DB308CA00834E5F /* PhotoUploader.swift */,
 			);
 			name = UploadPhotoQueue;
 			sourceTree = "<group>";
@@ -1994,6 +2006,7 @@
 				CAC5278F1CDD7B570056AAC8 /* RankColorPicker.swift in Sources */,
 				CA203DB21C111EEA00D6F32C /* GetRestaurantMenuResponse.swift in Sources */,
 				C49427DF1CD86FC300F94D4F /* ARNImageZoomTransition.swift in Sources */,
+				C41041851DB3065F00834E5F /* PhotoUploadManager.swift in Sources */,
 				CA203DB31C111EEA00D6F32C /* DataAccessor.swift in Sources */,
 				CAC1D38B1D39849D00520733 /* StackView.swift in Sources */,
 				C4269E321DA2E294000836A4 /* RateButton.swift in Sources */,
@@ -2077,6 +2090,7 @@
 				C42C96291D5713BB00784636 /* SearchHistoryCellDelegate.swift in Sources */,
 				CAC1D38E1D39849D00520733 /* Configuration.swift in Sources */,
 				C45428221DACC21200AC342F /* RecommendationTableViewCell.swift in Sources */,
+				C410418B1DB3340200834E5F /* AsynchronousOperation.swift in Sources */,
 				CA203DE01C111EEA00D6F32C /* DishTableViewCell.swift in Sources */,
 				C497E92C1DB0A454002060E0 /* BoundingBox.swift in Sources */,
 				C41298161C83CDA40062BC7D /* UIImageEffects.swift in Sources */,
@@ -2112,6 +2126,7 @@
 				C41041831DB0B5EF00834E5F /* RecommendationDetailViewController.swift in Sources */,
 				C42C96111D54787800784636 /* RestaurantsFilterViewController.swift in Sources */,
 				C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */,
+				C41041891DB308CA00834E5F /* PhotoUploader.swift in Sources */,
 				CAF16B5D1D1A16740051D7CE /* OauthLoginRequest.swift in Sources */,
 				C4A0D5531C11746100BAE246 /* Distance.swift in Sources */,
 				C48D09481D9702F40046CD4C /* DKAssetGroup.swift in Sources */,
@@ -2242,6 +2257,7 @@
 				CA203E191C111EEA00D6F32C /* SimpleCouponTableViewCell.swift in Sources */,
 				C42C962B1D57D43F00784636 /* Filters.swift in Sources */,
 				CA203E1A1C111EEA00D6F32C /* NotificationDetailView.swift in Sources */,
+				C41041871DB306BD00834E5F /* UploadState.swift in Sources */,
 				C44B05DA1CE1AF3300337502 /* City.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
