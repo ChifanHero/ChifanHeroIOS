@@ -12,6 +12,7 @@
 		C4021ACB1CF41EE00021343B /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4021ACA1CF41EE00021343B /* libstdc++.6.tbd */; };
 		C4021ACD1CF975D10021343B /* GetHotCitiesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4021ACC1CF975D10021343B /* GetHotCitiesRequest.swift */; };
 		C4066F111C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */; };
+		C41041831DB0B5EF00834E5F /* RecommendationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41041821DB0B5EF00834E5F /* RecommendationDetailViewController.swift */; };
 		C41297861C809AE60062BC7D /* TutorialChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41297841C809AE60062BC7D /* TutorialChildViewController.swift */; };
 		C41297891C809D880062BC7D /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41297881C809D880062BC7D /* Tutorial.storyboard */; };
 		C412978B1C809E420062BC7D /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C412978A1C809E420062BC7D /* TutorialViewController.swift */; };
@@ -91,7 +92,6 @@
 		C44E7E251DA23F13001C589F /* ReviewSnapshotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E7E241DA23F13001C589F /* ReviewSnapshotTableViewCell.swift */; };
 		C454281A1DACAEDE00AC342F /* RecommendationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45428191DACAEDE00AC342F /* RecommendationsViewController.swift */; };
 		C454281C1DACB04400AC342F /* CreateRecommendationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454281B1DACB04400AC342F /* CreateRecommendationViewController.swift */; };
-		C454281E1DACB05900AC342F /* RecommendationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454281D1DACB05900AC342F /* RecommendationDetailTableViewController.swift */; };
 		C45428201DACBAE400AC342F /* RecommendationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C454281F1DACBAE400AC342F /* RecommendationCell.xib */; };
 		C45428221DACC21200AC342F /* RecommendationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45428211DACC21200AC342F /* RecommendationTableViewCell.swift */; };
 		C45E18EA1D866EDC002D1D82 /* AddressAutoCompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45E18E91D866EDC002D1D82 /* AddressAutoCompletionTableViewCell.swift */; };
@@ -361,6 +361,7 @@
 		C4021ACA1CF41EE00021343B /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		C4021ACC1CF975D10021343B /* GetHotCitiesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetHotCitiesRequest.swift; sourceTree = "<group>"; };
 		C4066F101C6F4BBA00BBF0E8 /* NameOnlyDishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameOnlyDishTableViewCell.swift; sourceTree = "<group>"; };
+		C41041821DB0B5EF00834E5F /* RecommendationDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationDetailViewController.swift; sourceTree = "<group>"; };
 		C41297841C809AE60062BC7D /* TutorialChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialChildViewController.swift; sourceTree = "<group>"; };
 		C41297881C809D880062BC7D /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
 		C412978A1C809E420062BC7D /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
@@ -483,7 +484,6 @@
 		C44E7E241DA23F13001C589F /* ReviewSnapshotTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewSnapshotTableViewCell.swift; sourceTree = "<group>"; };
 		C45428191DACAEDE00AC342F /* RecommendationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationsViewController.swift; sourceTree = "<group>"; };
 		C454281B1DACB04400AC342F /* CreateRecommendationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateRecommendationViewController.swift; sourceTree = "<group>"; };
-		C454281D1DACB05900AC342F /* RecommendationDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationDetailTableViewController.swift; sourceTree = "<group>"; };
 		C454281F1DACBAE400AC342F /* RecommendationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecommendationCell.xib; sourceTree = "<group>"; };
 		C45428211DACC21200AC342F /* RecommendationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationTableViewCell.swift; sourceTree = "<group>"; };
 		C454B2701BCE2F2E0091A5BC /* LoadMoreFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreFooterView.swift; sourceTree = "<group>"; };
@@ -1290,7 +1290,7 @@
 				C4A847E11DAACE7300231BE1 /* ReviewDetailTableViewController.swift */,
 				C45428191DACAEDE00AC342F /* RecommendationsViewController.swift */,
 				C454281B1DACB04400AC342F /* CreateRecommendationViewController.swift */,
-				C454281D1DACB05900AC342F /* RecommendationDetailTableViewController.swift */,
+				C41041821DB0B5EF00834E5F /* RecommendationDetailViewController.swift */,
 			);
 			name = Restaurant;
 			sourceTree = "<group>";
@@ -2109,6 +2109,7 @@
 				C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */,
 				CA203DE71C111EEA00D6F32C /* AppDelegate.swift in Sources */,
 				CAA33D0C1D11D7DF004E9F6A /* SCLAlertView.swift in Sources */,
+				C41041831DB0B5EF00834E5F /* RecommendationDetailViewController.swift in Sources */,
 				C42C96111D54787800784636 /* RestaurantsFilterViewController.swift in Sources */,
 				C4F207BD1C13A1060024C287 /* UserContext.swift in Sources */,
 				CAF16B5D1D1A16740051D7CE /* OauthLoginRequest.swift in Sources */,
@@ -2182,7 +2183,6 @@
 				CA203DFD1C111EEA00D6F32C /* FavoriteTypeEnum.swift in Sources */,
 				CAC1D38F1D39849D00520733 /* ConstraintsSetup.swift in Sources */,
 				CA203DFE1C111EEA00D6F32C /* MessageTableViewCell.swift in Sources */,
-				C454281E1DACB05900AC342F /* RecommendationDetailTableViewController.swift in Sources */,
 				CA203DFF1C111EEA00D6F32C /* ModelTableViewCellProtocol.swift in Sources */,
 				CA203E001C111EEA00D6F32C /* SelectedCollectionsTableViewController.swift in Sources */,
 				C42C962F1D57ED1700784636 /* SearchResultsTableViewHeader.swift in Sources */,
