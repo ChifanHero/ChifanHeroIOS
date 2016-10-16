@@ -70,6 +70,7 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
         return cell
     }
     
+    
 
     // MARK: UICollectionViewDelegate
 
@@ -101,6 +102,7 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
     
     }
     */
+    
     
     func collectionView(collectionView:UICollectionView, mosaicCellSizeTypeAtIndexPath indexPath:NSIndexPath) -> TRMosaicCellType {
         return indexPath.item % 3 == 0 ? TRMosaicCellType.Big : TRMosaicCellType.Small

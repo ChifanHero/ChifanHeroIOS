@@ -106,6 +106,7 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
         (self.parentVC as! HomeViewController).selectedImageView = selectedCell.restaurantImageView
         (self.parentVC as! HomeViewController).selectedRestaurantName = selectedCell.restaurantNameLabel!.text
         (self.parentVC as! HomeViewController).selectedRestaurantId = restaurant.id
+        (self.parentVC as! HomeViewController).selectedRestaurant = restaurant
         (self.parentVC as! HomeViewController).handleTransition()
     }
 

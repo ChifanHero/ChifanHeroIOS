@@ -68,8 +68,10 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     var restaurantImage: UIImage?
     var restaurantName: String?
     var address: String?
-    var phone: String!
+    var phone: String?
+    var distance: Distance?
     var hotDishes: [Dish] = [Dish]()
+    var rating: Double?
     
     var imagePool: [Picture] = []
     
@@ -97,7 +99,21 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         self.clearTitleForBackBarButtonItem()
         prepareBlurContainer()
 //        distanceBlurContainer.layer.cornerRadius = 4
-        distanceLabel.text = "25.5 mi"
+        if distance != nil && distance?.value != nil && distance?.unit != nil{
+            let distanceValue = String(format: "%.2f", distance!.value!)
+            distanceLabel.text = "\(distanceValue) \(distance!.unit!)"
+        }
+        if rating != nil {
+            let ratingValue = String(format: "%.1f", rating!)
+            scoreLabel.text = ratingValue
+            scoreLabel.backgroundColor = ScoreComputer.getScoreColor(rating!)
+        }
+        if address != nil {
+            addressLabel.text = address!
+        }
+        if phone != nil {
+            phoneLabel.text = phone!
+        }
         scoreLabel.layer.cornerRadius = 4
         configActionButton()
         self.tableView.showsVerticalScrollIndicator = false
@@ -250,6 +266,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         var url: String = ""
         url = image.original!
         imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
+            print("download finish time \(NSDate().timeIntervalSince1970)")
             self.imagePoolView.reloadData()
             self.hideAlertView()
         })
@@ -577,6 +594,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     }
     
     func uploadImages(images: [UIImage]) {
+        print("start upload time \(NSDate().timeIntervalSince1970)")
         showUploadingAlert()
         let queue = NSOperationQueue()
         
@@ -593,11 +611,13 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                 
                 let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
                 let request: UploadRestaurantPictureRequest = UploadRestaurantPictureRequest(restaurantId: self.restaurantId!, type: "restaurant", base64_code: base64_code)
+                print("upload to server time \(NSDate().timeIntervalSince1970)")
                 DataAccessor(serviceConfiguration: ParseConfiguration()).uploadRestaurantPicture(request) { (response) -> Void in
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         //add actions here
                         print("done");
                         if response != nil && response?.result != nil {
+                            print("upload finish time \(NSDate().timeIntervalSince1970)")
                             self.imagePool.append((response?.result)!)
                             self.downloadNewAddedImage((response?.result)!)
                         }

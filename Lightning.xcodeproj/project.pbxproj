@@ -17,6 +17,8 @@
 		C41041871DB306BD00834E5F /* UploadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41041861DB306BD00834E5F /* UploadState.swift */; };
 		C41041891DB308CA00834E5F /* PhotoUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41041881DB308CA00834E5F /* PhotoUploader.swift */; };
 		C410418B1DB3340200834E5F /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410418A1DB3340200834E5F /* AsynchronousOperation.swift */; };
+		C410418D1DB363E700834E5F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410418C1DB363E700834E5F /* Review.swift */; };
+		C410418F1DB3659900834E5F /* ReviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410418E1DB3659900834E5F /* ReviewRequest.swift */; };
 		C41297861C809AE60062BC7D /* TutorialChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41297841C809AE60062BC7D /* TutorialChildViewController.swift */; };
 		C41297891C809D880062BC7D /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41297881C809D880062BC7D /* Tutorial.storyboard */; };
 		C412978B1C809E420062BC7D /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C412978A1C809E420062BC7D /* TutorialViewController.swift */; };
@@ -370,6 +372,8 @@
 		C41041861DB306BD00834E5F /* UploadState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadState.swift; sourceTree = "<group>"; };
 		C41041881DB308CA00834E5F /* PhotoUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoUploader.swift; sourceTree = "<group>"; };
 		C410418A1DB3340200834E5F /* AsynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
+		C410418C1DB363E700834E5F /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		C410418E1DB3659900834E5F /* ReviewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewRequest.swift; sourceTree = "<group>"; };
 		C41297841C809AE60062BC7D /* TutorialChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialChildViewController.swift; sourceTree = "<group>"; };
 		C41297881C809D880062BC7D /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
 		C412978A1C809E420062BC7D /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
@@ -992,6 +996,7 @@
 				CA02C9551D5058B800104528 /* HomepageSection.swift */,
 				C42C96221D56FDFD00784636 /* Bucket.swift */,
 				C42C962A1D57D43F00784636 /* Filters.swift */,
+				C410418C1DB363E700834E5F /* Review.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1698,6 +1703,7 @@
 				CA850AE71C066FF200D497D4 /* LogOutRequest.swift */,
 				CA850AED1C0F834400D497D4 /* RateRequest.swift */,
 				CA203E551C1655D800D6F32C /* AddToFavoritesRequest.swift */,
+				C410418E1DB3659900834E5F /* ReviewRequest.swift */,
 			);
 			name = Post;
 			sourceTree = "<group>";
@@ -2234,6 +2240,7 @@
 				CA203E0F1C111EEA00D6F32C /* JSONHelper.swift in Sources */,
 				CAA33D101D12241C004E9F6A /* GetIsFavoriteRequest.swift in Sources */,
 				C44D9BE11DA777BD007FBB95 /* TRMosaicColumn.swift in Sources */,
+				C410418F1DB3659900834E5F /* ReviewRequest.swift in Sources */,
 				C4A0D5681C138B9700BAE246 /* SearchServiceConfiguration.swift in Sources */,
 				CA203E111C111EEA00D6F32C /* HomeViewController.swift in Sources */,
 				CA621EC61D0A6BA300693306 /* NVActivityIndicatorShape.swift in Sources */,
@@ -2251,6 +2258,7 @@
 				CAA6C55A1D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift in Sources */,
 				CAC81EED1CDA86E000338B59 /* RestaurantCollectionMemberTableViewCell.swift in Sources */,
 				C48D09351D9702DF0046CD4C /* DKPopoverViewController.swift in Sources */,
+				C410418D1DB363E700834E5F /* Review.swift in Sources */,
 				C412980F1C82282D0062BC7D /* NominateDishListCandidateRequest.swift in Sources */,
 				CA203E181C111EEA00D6F32C /* MenuItem.swift in Sources */,
 				C48D093D1D9702EC0046CD4C /* DKCamera.swift in Sources */,

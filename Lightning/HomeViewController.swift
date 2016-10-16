@@ -21,6 +21,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     var selectedRestaurantId: String?
     
+    var selectedRestaurant: Restaurant?
+    
     var animateTransition = false
     
     var askLocationAlertView: SCLAlertView?
@@ -297,6 +299,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantName = self.selectedRestaurantName
+        restaurantController.distance = self.selectedRestaurant?.distance
+        restaurantController.rating = self.selectedRestaurant?.rating
+        restaurantController.address = self.selectedRestaurant?.address
+        restaurantController.phone = self.selectedRestaurant?.phone
         restaurantController.restaurantId = self.selectedRestaurantId
         restaurantController.parentVCName = self.getId()
         self.navigationController?.pushViewController(restaurantController, animated: true)
