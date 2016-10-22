@@ -51,6 +51,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         self.configureNavigationController()
         self.configurePullToRefresh()
         addLocationSelectionToLeftCorner()
+        addEnvironmentControlToRightCorner()
         initHomepageTable()
         
         homepageTable.delegate = self
@@ -145,6 +146,46 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         button.addTarget(self, action: #selector(HomeViewController.editLocation), forControlEvents: UIControlEvents.TouchUpInside)
         let selectionLocationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = selectionLocationButton
+    }
+    
+    func addEnvironmentControlToRightCorner() {
+        #if DEBUG
+            var title = ""
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if defaults.boolForKey("usingStaging") {
+                title = "正在使用Staging"
+            } else {
+                title = "正在使用Production"
+            }
+            let button: UIButton = UIButton.barButtonWithTextAndBorder(title, size: CGRectMake(0, 0, 150, 26))
+            button.addTarget(self, action: #selector(HomeViewController.changeEnvironment), forControlEvents: UIControlEvents.TouchUpInside)
+            let selectionLocationButton = UIBarButtonItem(customView: button)
+            self.navigationItem.rightBarButtonItem = selectionLocationButton
+        #endif
+    }
+        
+    func changeEnvironment() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var afterChangeEnv = ""
+        if defaults.boolForKey("usingStaging") {
+            defaults.setBool(false, forKey: "usingStaging")
+            afterChangeEnv = "Production"
+            (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setTitle("正在使用Production", forState: .Normal)
+        } else {
+            defaults.setBool(true, forKey: "usingStaging")
+            afterChangeEnv = "Staging"
+            (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setTitle("正在使用Staging", forState: .Normal)
+        }
+        let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, showCircularIcon: true, kCircleIconHeight: 40)
+        let askLocationAlertView = SCLAlertView(appearance: appearance)
+        let alertViewIcon = UIImage(named: "LogoWithBorder")
+        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(HomeViewController.doNothing))
+        askLocationAlertView.showInfo("正在使用\(afterChangeEnv)", subTitle: "\(ParseConfiguration().hostEndpoint())", circleIconImage: alertViewIcon, colorStyle: UIColor.themeOrange().getColorCode())
+        
+    }
+    
+    func doNothing() {
+        
     }
     
     func editLocation() {
