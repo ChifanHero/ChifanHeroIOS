@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PhotoUploader: AsynchronousOperation {
+class PhotoUploadOperation: AsynchronousOperation {
     
     private var success = false
     
