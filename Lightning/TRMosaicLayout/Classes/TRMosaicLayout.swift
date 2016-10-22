@@ -45,6 +45,10 @@ public class TRMosaicLayout: UICollectionViewLayout {
         configureMosaicLayout()
     }
     
+    public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        return cachedCellLayoutAttributes[indexPath]
+    }
+    
     /**
      Iterates throught all items in section and
      creates new layouts for each item as a mosaic cell

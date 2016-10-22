@@ -32,19 +32,19 @@
         <!--Home View Controller-->
         <scene sceneID="ton-T8-sfI">
             <objects>
-                <viewController storyboardIdentifier="homeVC" extendedLayoutIncludesOpaqueBars="YES" id="4mr-24-f8g" customClass="HomeViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeVC" id="4mr-24-f8g" customClass="HomeViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4O0-OG-8US"/>
                         <viewControllerLayoutGuide type="bottom" id="gyV-f2-D1g"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="D8s-Xe-XUu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oFq-hJ-yGc">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="1SZ-7U-xDP">
-                                    <rect key="frame" x="0.0" y="64" width="383" height="500"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="500"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9em-ug-eiK" userLabel="Front Cover Image">
@@ -116,7 +116,6 @@
                             <constraint firstItem="gyV-f2-D1g" firstAttribute="top" secondItem="oFq-hJ-yGc" secondAttribute="bottom" id="Ymo-3j-248"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="u4i-fS-GAn" userLabel="Lightning Order"/>
                     <connections>
                         <outlet property="frontCoverImage" destination="9em-ug-eiK" id="hoE-4g-IXF"/>

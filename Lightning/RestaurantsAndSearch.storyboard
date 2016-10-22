@@ -9,12 +9,12 @@
         <!--Restaurants View Controller-->
         <scene sceneID="ENg-FL-sAd">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="eb9-eE-8FS" userLabel="Restaurants View Controller" customClass="RestaurantsViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="eb9-eE-8FS" userLabel="Restaurants View Controller" customClass="RestaurantsViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lI7-Ca-hwN"/>
                         <viewControllerLayoutGuide type="bottom" id="yT6-rF-TOD"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vxQ-MS-Cq1">
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="vxQ-MS-Cq1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -98,6 +98,8 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="所有餐厅" id="F9c-YQ-FS3"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="currentLocationLabel" destination="UcF-zK-Edb" id="vS8-UY-eS6"/>
                         <outlet property="searchBar" destination="0UK-nu-r2W" id="qCo-xK-pHp"/>
@@ -112,13 +114,13 @@
         <!--Search View Controller-->
         <scene sceneID="PHy-ku-cFH">
             <objects>
-                <viewController storyboardIdentifier="SearchActionVC" id="nsa-gt-gFD" userLabel="Search View Controller" customClass="SearchViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchActionVC" automaticallyAdjustsScrollViewInsets="NO" id="nsa-gt-gFD" userLabel="Search View Controller" customClass="SearchViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eZD-Ln-bQ3"/>
                         <viewControllerLayoutGuide type="bottom" id="cQq-Pp-MOr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cKX-ky-5SX">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0x1-bt-s4M" userLabel="AddressContainer">
@@ -186,6 +188,7 @@
                             <constraint firstAttribute="trailing" secondItem="0x1-bt-s4M" secondAttribute="trailing" id="xFP-fL-pTe"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="搜索" id="fCe-dl-yRW">
                         <barButtonItem key="backBarButtonItem" id="hrQ-x3-EZF"/>
                     </navigationItem>
@@ -226,7 +229,7 @@
         <!--Container View Controller-->
         <scene sceneID="g9Q-12-596">
             <objects>
-                <viewController storyboardIdentifier="RestaurantsContainer" id="nDN-7X-ZMT" userLabel="Container View Controller" customClass="RestaurantsContainerViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RestaurantsContainer" extendedLayoutIncludesOpaqueBars="YES" id="nDN-7X-ZMT" userLabel="Container View Controller" customClass="RestaurantsContainerViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8os-Bl-jrL"/>
                         <viewControllerLayoutGuide type="bottom" id="a4F-CU-b7x"/>

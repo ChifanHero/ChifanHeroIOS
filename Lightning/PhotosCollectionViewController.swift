@@ -25,7 +25,7 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
         let mosaicLayout = TRMosaicLayout()
         self.collectionView?.collectionViewLayout = mosaicLayout
         mosaicLayout.delegate = self
-
+        
         // Do any additional setup after loading the view.
     }
 
