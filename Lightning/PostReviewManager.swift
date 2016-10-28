@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+class PostReviewManager {
+    
+    lazy var queue : NSOperationQueue = {
+        var queue = NSOperationQueue()
+        queue.name = "Post Review"
+        queue.maxConcurrentOperationCount = 5
+        return queue
+    }()
+    
+}

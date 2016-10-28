@@ -21,7 +21,7 @@ import UIKit
     private var view : UIView!
     private var nibName : String = "ReviewsSnapshotView"
     
-    var parentViewController : UIViewController?
+    var parentViewController : RestaurantMainTableViewController?
     
     @IBOutlet weak var reviewsTableView: UITableView!
     override init(frame: CGRect) {

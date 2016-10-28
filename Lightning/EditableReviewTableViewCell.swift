@@ -32,7 +32,7 @@ class EditableReviewTableViewCell: UITableViewCell {
     
     var rated = false
     
-    var parentViewController : UIViewController?
+    var parentViewController : RestaurantMainTableViewController?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -119,13 +119,14 @@ class EditableReviewTableViewCell: UITableViewCell {
     }
     
     private func showBannerAlert() {
-        MILAlertViewManager.sharedInstance.show(.Classic,
-                                                text: "MILAlertView Test!",
-                                                backgroundColor: UIColor.purpleColor(),
-                                                inView: self.parentViewController?.view,
-                                                toHeight: 0,
-                                                forSeconds:0.5,
-                                                callback: nil)
+//        MILAlertViewManager.sharedInstance.show(.Classic,
+//                                                text: "MILAlertView Test!",
+//                                                backgroundColor: UIColor.purpleColor(),
+//                                                inView: self.parentViewController?.view,
+//                                                toHeight: 0,
+//                                                forSeconds:0.5,
+//                                                callback: nil)
+        self.parentViewController?.showBannerAlert("。。")
     }
     
     private func deleteRate() {

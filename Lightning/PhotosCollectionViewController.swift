@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import Kingfisher
+import SKPhotoBrowser
 
 private let reuseIdentifier = "mosaicImageCell"
 
 class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayoutDelegate {
     
     var images : [UIImage] = []
+    
+    var pictures: [Picture] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,15 +58,20 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return images.count
+        return pictures.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
 //
         // Configure the cell
+//        let imageView = UIImageView()
+//        imageView.image = images[indexPath.item]
         let imageView = UIImageView()
-        imageView.image = images[indexPath.item]
+        let url: String = pictures[indexPath.item].original!
+        imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
+            
+        })
         imageView.frame = cell.frame
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         imageView.clipsToBounds = true
@@ -103,17 +112,30 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
     }
     */
     
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        var images = [SKPhoto]()
+        for picture in pictures {
+            if picture.original != nil {
+                let photo = SKPhoto.photoWithImageURL(picture.original!)
+                images.append(photo)
+            }
+        }
+        let browser = SKPhotoBrowser(photos: images)
+        browser.initializePageIndex(indexPath.row)
+        presentViewController(browser, animated: true, completion: {})
+    }
+    
     
     func collectionView(collectionView:UICollectionView, mosaicCellSizeTypeAtIndexPath indexPath:NSIndexPath) -> TRMosaicCellType {
         return indexPath.item % 3 == 0 ? TRMosaicCellType.Big : TRMosaicCellType.Small
     }
     
     func collectionView(collectionView:UICollectionView, layout collectionViewLayout: TRMosaicLayout, insetAtSection:Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
+        return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 3)
     }
     
     func heightForSmallMosaicCell() -> CGFloat {
-        return 150
+        return 180
     }
 
 }

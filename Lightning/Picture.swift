@@ -15,6 +15,9 @@ class Picture: Model {
     var original: String?
     var type: String?
     var restaurant: Restaurant?
+    var description: String?
+    var ownerType: String?
+    var ownerId: String?
     
     required init() {
         
@@ -26,6 +29,7 @@ class Picture: Model {
         original <-- data["original"]
         type <-- data["type"]
         restaurant <-- data["restaurant"]
+        description <-- data["description"]
     }
     
 }

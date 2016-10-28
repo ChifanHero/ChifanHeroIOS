@@ -12,7 +12,7 @@ import Kingfisher
 import SKPhotoBrowser
 
 
-class RestaurantMainTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
+class RestaurantMainTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, SKPhotoBrowserDelegate {
     
     @IBOutlet weak var blurContainer: UIVisualEffectView!
     
@@ -77,8 +77,6 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     var imagePoolContent: [UIImageView] = []
     
-    var imagePoolSKPhoto : [SKPhoto] = [SKPhoto]()
-    
     let vcTitleLabel: UILabel = UILabel()
     
     var headerView: UIView!
@@ -93,14 +91,15 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.layoutIfNeeded()
+//        self.view.layoutIfNeeded()
         reviewsSnapshotView.parentViewController = self
+        self.view.layoutIfNeeded()
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
         prepareBlurContainer()
 //        distanceBlurContainer.layer.cornerRadius = 4
         if distance != nil && distance?.value != nil && distance?.unit != nil{
-            let distanceValue = String(format: "%.2f", distance!.value!)
+            let distanceValue = String(format: "%.1f", distance!.value!)
             distanceLabel.text = "\(distanceValue) \(distance!.unit!)"
         }
         if rating != nil {
@@ -261,18 +260,6 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         }
     }
     
-    private func downloadNewAddedImage(image: Picture){
-        let imageView = UIImageView()
-        var url: String = ""
-        url = image.original!
-        imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
-            print("download finish time \(NSDate().timeIntervalSince1970)")
-            self.imagePoolView.reloadData()
-            self.hideAlertView()
-        })
-        self.imagePoolContent.append(imageView)
-        
-    }
     
     func loadData(refreshHandler: ((success: Bool) -> Void)?) {
         if (request != nil) {
@@ -459,11 +446,15 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         animateTransition = false
         if segue.identifier == "showAllPhotos" {
             let photosVC: PhotosCollectionViewController = segue.destinationViewController as! PhotosCollectionViewController
-            var images : [UIImage] = []
-            for imageView in imagePoolContent {
-                images.append(imageView.image!)
+//            var images : [UIImage] = []
+//            for imageView in imagePoolContent {
+//                images.append(imageView.image!)
+//            }
+            var pictures: [Picture] = []
+            for picture in imagePool {
+                pictures.append(picture)
             }
-            photosVC.images = images
+            photosVC.pictures = pictures
         }
     }
     
@@ -541,9 +532,18 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
 //            photoGallery.currentIndexPath = indexPath
 //            self.presentViewController(photoGallery, animated: false, completion: nil)
             var images = [SKPhoto]()
-            for imageView in imagePoolContent {
-                let photo = SKPhoto.photoWithImage(imageView.image!)// add some UIImage
-                images.append(photo)
+            for picture in imagePool {
+//                let photo = SKPhoto.photoWithImage(imageView.image!)// add some UIImage
+                if picture.original != nil {
+                    let photo = SKPhoto.photoWithImageURL(picture.original!)
+                    images.append(photo)
+//                    photo.caption = picture.description
+                    photo.caption = "这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼"
+                } else {
+                    let photo = SKPhoto.photoWithImage(UIImage(named: "restaurant_default_background")!)
+                    images.append(photo)
+                    photo.caption = picture.description
+                }
             }
             let browser = SKPhotoBrowser(photos: images)
             browser.initializePageIndex(indexPath.row)
@@ -605,7 +605,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                 print(imageData?.length)
                 if imageData?.length > maxLength {
                     let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.length)!)
-                    imageData = UIImageJPEGRepresentation(image, 0.0)
+                    imageData = UIImageJPEGRepresentation(image, compressionRatio)
                     print(imageData?.length)
                 }
                 
@@ -617,15 +617,52 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                         //add actions here
                         print("done");
                         if response != nil && response?.result != nil {
-                            print("upload finish time \(NSDate().timeIntervalSince1970)")
-                            self.imagePool.append((response?.result)!)
-                            self.downloadNewAddedImage((response?.result)!)
+                            if response?.error == nil {
+                                print("upload finish time \(NSDate().timeIntervalSince1970)")
+                                self.imagePool.append((response?.result)!)
+                                //                            self.downloadNewAddedImage((response?.result)!)
+                                self.showNewAddedImage(image)
+                            } else {
+                                #if DEBUG
+                                    self.showBannerAlert("图片上传失败。error:\(response?.error?.message)")
+                                #else
+                                    self.showBannerAlert("图片上传失败。请稍后再试。")
+                                #endif
+                            }
+                            
+                        } else {
+                            #if DEBUG
+                                self.showBannerAlert("图片上传失败。error: response is nil")
+                            #else
+                                self.showBannerAlert("图片上传失败。请稍后再试。")
+                            #endif
                         }
                     });
                 }
             }
         }
     }
+    
+    func showBannerAlert(message: String) {
+        self.view.layoutIfNeeded()
+        print(self.view.frame)
+        print(self.view.bounds)
+        MILAlertViewManager.sharedInstance.show(.Classic,
+                                                text: message,
+                                                backgroundColor: UIColor.purpleColor(),
+                                                inView: nil,
+                                                toHeight: 0,
+                                                forSeconds:0.5,
+                                                callback: nil)
+    }
+    
+    private func showNewAddedImage(image: UIImage) {
+        let imageView = UIImageView()
+        imageView.image = image
+        self.imagePoolContent.append(imageView)
+        self.imagePoolView.reloadData()
+    }
+    
     
     func showUploadingAlert() {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, showCircularIcon: true, kCircleIconHeight: 40)

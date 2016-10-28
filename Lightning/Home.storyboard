@@ -9,7 +9,8 @@
         <!--Home View Navigation Controller-->
         <scene sceneID="rMw-cu-Sdf">
             <objects>
-                <navigationController storyboardIdentifier="HomeNavigationController" id="qQN-FB-EhL" userLabel="Home View Navigation Controller" customClass="ARNImageTransitionNavigationController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="qQN-FB-EhL" userLabel="Home View Navigation Controller" customClass="ARNImageTransitionNavigationController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="首页" image="Homepage_Tab" selectedImage="Homepage_Tab" id="Aeo-QO-YTg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="NUs-sw-g4z">
