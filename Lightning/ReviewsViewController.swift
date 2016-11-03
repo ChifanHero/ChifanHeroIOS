@@ -61,7 +61,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         if indexPath.row == 2 {
             cell?.userName = "Peter Huang"
-            cell?.profileImageView.image = UIImage(named: "peter")
+            //cell?.profileImageView.image = UIImage(named: "peter")
             cell?.review = "Who tm cares?"
         }
         return cell!

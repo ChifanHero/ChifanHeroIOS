@@ -318,6 +318,7 @@
 		CAA6C5581D40BB8600CBD871 /* PhotoGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6C5571D40BB8600CBD871 /* PhotoGalleryViewController.swift */; };
 		CAA6C55A1D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6C5591D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift */; };
 		CAA6C5601D4C619A00CBD871 /* HomepageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6C55F1D4C619A00CBD871 /* HomepageTableViewCell.swift */; };
+		CABE8D0A1DC843E3006CED85 /* UserActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABE8D091DC843E3006CED85 /* UserActivityTableViewController.swift */; };
 		CAC1D3871D39849D00520733 /* AssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3721D39849D00520733 /* AssetManager.swift */; };
 		CAC1D3881D39849D00520733 /* BottomContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3741D39849D00520733 /* BottomContainerView.swift */; };
 		CAC1D3891D39849D00520733 /* ButtonPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1D3751D39849D00520733 /* ButtonPicker.swift */; };
@@ -351,6 +352,8 @@
 		CACA84091CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA84081CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift */; };
 		CACA84131CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA84121CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift */; };
 		CADA93881C9A6EA400F3E400 /* Respinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADA93871C9A6EA400F3E400 /* Respinner.swift */; };
+		CAE625BA1DCAA76500B7A020 /* UserActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAE625B91DCAA76500B7A020 /* UserActivityCell.xib */; };
+		CAE625BC1DCAA79A00B7A020 /* UserActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE625BB1DCAA79A00B7A020 /* UserActivityTableViewCell.swift */; };
 		CAE8FC2E1D147CA7002432EE /* MozMaterialDesignSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE8FC2D1D147CA7002432EE /* MozMaterialDesignSpinner.swift */; };
 		CAE8FC301D147CCC002432EE /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE8FC2F1D147CCC002432EE /* LoadingButton.swift */; };
 		CAE8FC361D17131D002432EE /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE8FC331D17131D002432EE /* FBSDKCoreKit.framework */; };
@@ -692,6 +695,7 @@
 		CAA6C5571D40BB8600CBD871 /* PhotoGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGalleryViewController.swift; sourceTree = "<group>"; };
 		CAA6C5591D474E0100CBD871 /* PhotoGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		CAA6C55F1D4C619A00CBD871 /* HomepageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomepageTableViewCell.swift; sourceTree = "<group>"; };
+		CABE8D091DC843E3006CED85 /* UserActivityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTableViewController.swift; sourceTree = "<group>"; };
 		CAC1D3721D39849D00520733 /* AssetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetManager.swift; sourceTree = "<group>"; };
 		CAC1D3741D39849D00520733 /* BottomContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomContainerView.swift; sourceTree = "<group>"; };
 		CAC1D3751D39849D00520733 /* ButtonPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPicker.swift; sourceTree = "<group>"; };
@@ -725,6 +729,8 @@
 		CACA84081CD1C829000A2794 /* GetSelectedCollectionsByLatAndLonRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSelectedCollectionsByLatAndLonRequest.swift; sourceTree = "<group>"; };
 		CACA84121CD584BD000A2794 /* GetSelectedCollectionsByLatAndLonResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSelectedCollectionsByLatAndLonResponse.swift; sourceTree = "<group>"; };
 		CADA93871C9A6EA400F3E400 /* Respinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Respinner.swift; sourceTree = "<group>"; };
+		CAE625B91DCAA76500B7A020 /* UserActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserActivityCell.xib; sourceTree = "<group>"; };
+		CAE625BB1DCAA79A00B7A020 /* UserActivityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTableViewCell.swift; sourceTree = "<group>"; };
 		CAE8FC2D1D147CA7002432EE /* MozMaterialDesignSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MozMaterialDesignSpinner.swift; sourceTree = "<group>"; };
 		CAE8FC2F1D147CCC002432EE /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		CAE8FC331D17131D002432EE /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../FacebookSDKs-iOS-4.13.1/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
@@ -1065,6 +1071,7 @@
 				C44E7E241DA23F13001C589F /* ReviewSnapshotTableViewCell.swift */,
 				C4A847E71DAAF80700231BE1 /* RemovablePhotoCollectionViewCell.swift */,
 				C45428211DACC21200AC342F /* RecommendationTableViewCell.swift */,
+				CAE625BB1DCAA79A00B7A020 /* UserActivityTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1316,6 +1323,7 @@
 				C45428191DACAEDE00AC342F /* RecommendationsViewController.swift */,
 				C454281B1DACB04400AC342F /* CreateRecommendationViewController.swift */,
 				C41041821DB0B5EF00834E5F /* RecommendationDetailViewController.swift */,
+				CABE8D091DC843E3006CED85 /* UserActivityTableViewController.swift */,
 			);
 			name = Restaurant;
 			sourceTree = "<group>";
@@ -1664,6 +1672,7 @@
 				C44E7E221DA22E8B001C589F /* ReviewSnapshotCell.xib */,
 				C4A847E51DAAF79100231BE1 /* RemovablePhotoCell.xib */,
 				C454281F1DACBAE400AC342F /* RecommendationCell.xib */,
+				CAE625B91DCAA76500B7A020 /* UserActivityCell.xib */,
 			);
 			name = CellXib;
 			sourceTree = "<group>";
@@ -1910,6 +1919,7 @@
 				C41297FC1C80B9430062BC7D /* OwnerInfoDishCell.xib in Resources */,
 				C41297AB1C80B8630062BC7D /* RestaurantCell.xib in Resources */,
 				C41297B71C80B8800062BC7D /* ViewItemTopView.xib in Resources */,
+				CAE625BA1DCAA76500B7A020 /* UserActivityCell.xib in Resources */,
 				C42C962D1D57ECBF00784636 /* SearchResultsTableViewHeader.xib in Resources */,
 				C412980B1C80B9620062BC7D /* NotificationCell.xib in Resources */,
 				C41297C91C80B89E0062BC7D /* InfoCell.xib in Resources */,
@@ -2085,6 +2095,7 @@
 				C49223061DA0DFED00D9916E /* EditableReviewTableViewCell.swift in Sources */,
 				C412978B1C809E420062BC7D /* TutorialViewController.swift in Sources */,
 				CAC1D38D1D39849D00520733 /* CameraView.swift in Sources */,
+				CAE625BC1DCAA79A00B7A020 /* UserActivityTableViewCell.swift in Sources */,
 				C48DD6D01D13CC8F00F529AE /* ARNImageTransitionIdentifiable.swift in Sources */,
 				CA203DD51C111EEA00D6F32C /* GetRestaurantsRequest.swift in Sources */,
 				CA203DD61C111EEA00D6F32C /* Promotion.swift in Sources */,
@@ -2195,6 +2206,7 @@
 				C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */,
 				CAF16B631D1DDAA00051D7CE /* AccountRequest.swift in Sources */,
 				CA203DF71C111EEA00D6F32C /* GetRestaurantMenuRequest.swift in Sources */,
+				CABE8D0A1DC843E3006CED85 /* UserActivityTableViewController.swift in Sources */,
 				CA621EBC1CFF8B3E00693306 /* HttpRequest.swift in Sources */,
 				C42C960D1D5477BC00784636 /* RestaurantsViewController.swift in Sources */,
 				CA203DF91C111EEA00D6F32C /* JSONHelperExtension.swift in Sources */,

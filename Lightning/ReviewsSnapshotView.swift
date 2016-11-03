@@ -98,9 +98,11 @@ import UIKit
                 tableView.registerNib(UINib(nibName: "ReviewSnapshotCell", bundle: nil), forCellReuseIdentifier: "reviewSnapshotCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell
             }
+            cell?.profileImageButton.addTarget(self, action: "showUserActivity", forControlEvents: .TouchUpInside)
+            
             if indexPath.section == 2 {
                 cell?.userName = "Peter Huang"
-                cell?.profileImageView.image = UIImage(named: "peter")
+                //cell?.profileImageView.image = UIImage(named: "peter")
                 cell?.review = "Who tm cares?"
             }
             return cell!
@@ -122,6 +124,10 @@ import UIKit
     
     func showReview() {
         parentViewController?.performSegueWithIdentifier("showReview", sender: nil)
+    }
+    
+    func showUserActivity() {
+        parentViewController?.performSegueWithIdentifier("showUserActivity", sender: nil)
     }
     
     func getHeight() -> CGFloat {

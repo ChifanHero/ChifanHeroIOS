@@ -10,14 +10,13 @@ import UIKit
 
 class ReviewSnapshotTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageButton: UIButton!
     
     @IBOutlet weak var ratingLabel: UILabel!
     
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var levelNameLabel: UILabel!
-    
     
     @IBOutlet weak var reviewTextView: UITextView!
     
@@ -39,7 +38,7 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.layoutIfNeeded()
-        profileImageView.layer.cornerRadius = 4
+        //profileImageView.layer.cornerRadius = 4
         ratingLabel.layer.cornerRadius = ratingLabel.frame.size.width / 2
     }
 
@@ -48,5 +47,4 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }
