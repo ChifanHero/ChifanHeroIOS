@@ -1,39 +1,35 @@
 //
-//  ReviewRequest.swift
+//  RecommendDishRequest.swift
 //  Lightning
 //
-//  Created by Shi Yan on 10/16/16.
+//  Created by Shi Yan on 11/3/16.
 //  Copyright © 2016 Lightning. All rights reserved.
 //
 
 import Foundation
 
-
 //{
-    // 	"rating" : 5,
-    // 	"content" : "this is a good restaurant",
-    // 	"photos" : ["s8gh3ksg2d", "s8gi4hsgs7"],
-    // 	"id" : "9wigjh2d8u",
-    //
-class ReviewRequest: HttpRequest{
+//    "restaurant_id" : "DC6UEqAWLA",
+//    "dish_name" : "土豆丝",
+//    "photos" : ["XIFMuc0trN", "4lxgoiNoyv"]
+//}
+class RecommendDishRequest: HttpRequest{
     
-    var content: String?
-    var rating: String?
     var restaurantId: String?
+    var dishName: String?
+    var dishId: String?
     var photos: [String] = []
-    var id: String?
     
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["content"] = content
-        parameters["rating"] = rating
         parameters["restaurant_id"] = restaurantId
-        parameters["id"] = id
+        parameters["dish_name"] = dishName
+        parameters["dish_id"] = dishId
         parameters["photos"] = photos
         return parameters
     }
     
     override func getRelativeURL() -> String {
-        return "/reviews"
+        return "/dishRecommendations"
     }
 }
