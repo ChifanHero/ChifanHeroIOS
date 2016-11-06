@@ -23,6 +23,8 @@ import UIKit
     
     var parentViewController : RestaurantMainTableViewController?
     
+    var reviews: [Review]?
+    
     @IBOutlet weak var reviewsTableView: UITableView!
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,6 +36,10 @@ import UIKit
         
         Setup() // Setup when this component is used from Code
     }
+    
+    private var newReviewCellHeight: CGFloat = 120
+    private var reviewCellHeight: CGFloat = 166
+    private var spaceBetweenSections: CGFloat = 10
     
     private func Setup(){
         view = LoadViewFromNib()
@@ -53,11 +59,20 @@ import UIKit
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if section == 0 {
+            return 1
+        } else {
+            if reviews == nil {
+                return 0
+            } else {
+                return reviews!.count
+            }
+//            return 2
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -76,7 +91,16 @@ import UIKit
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
+        if reviews == nil || reviews?.count == 0 {
+            return 0
+        } else {
+            if section == 0 {
+                return 10
+            } else {
+                return 0.1
+            }
+        }
+        
     }
     
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -93,18 +117,26 @@ import UIKit
             cell?.parentViewController = self.parentViewController
             return cell!
         } else {
+            let review: Review = reviews![indexPath.row]
             var cell: ReviewSnapshotTableViewCell? = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell
             if cell == nil {
                 tableView.registerNib(UINib(nibName: "ReviewSnapshotCell", bundle: nil), forCellReuseIdentifier: "reviewSnapshotCell")
                 cell = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell
             }
-            cell?.profileImageButton.addTarget(self, action: "showUserActivity", forControlEvents: .TouchUpInside)
-            
-            if indexPath.section == 2 {
-                cell?.userName = "Peter Huang"
-                //cell?.profileImageView.image = UIImage(named: "peter")
-                cell?.review = "Who tm cares?"
+            cell?.profileImageButton.addTarget(self, action: #selector(ReviewsSnapshotView.showUserActivity), forControlEvents: .TouchUpInside)
+            cell?.review = review.content
+            let user = review.user
+            if user == nil || user?.nickName == nil {
+                cell?.userName = "匿名用户"
+            } else {
+                cell?.userName = user?.nickName
             }
+            
+//            if indexPath.section == 2 {
+//                cell?.userName = "Peter Huang"
+//                //cell?.profileImageView.image = UIImage(named: "peter")
+//                cell?.review = "Who tm cares?"
+//            }
             return cell!
         }
 
@@ -118,6 +150,10 @@ import UIKit
         cell.selected = false
     }
     
+    func reloadData() {
+        self.reviewsTableView.reloadData()
+    }
+    
     func writeNewReview() {
         parentViewController?.performSegueWithIdentifier("writeReview", sender: nil)
     }
@@ -129,9 +165,14 @@ import UIKit
     func showUserActivity() {
         parentViewController?.performSegueWithIdentifier("showUserActivity", sender: nil)
     }
+
     
     func getHeight() -> CGFloat {
-        return 472
+        if reviews == nil || reviews?.count == 0 {
+            return newReviewCellHeight
+        } else {
+            return newReviewCellHeight + spaceBetweenSections + reviewCellHeight * CGFloat(reviews!.count)
+        }
     }
 
 }

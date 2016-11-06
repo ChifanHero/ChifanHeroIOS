@@ -33,6 +33,7 @@ class Review: Model{
         goodReview <-- data["good_review"]
         pointsRewarded <-- data["points_rewarded"]
         restaurant <-- data["restaurant"]
+        id <-- data["id"]
         
     }
 

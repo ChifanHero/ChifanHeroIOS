@@ -238,4 +238,12 @@ class DataAccessor {
     func nominateRestaurantForCollection(request: NominateRestaurantRequest, responseHandler: (NominateRestaurantResponse?) -> Void){
         self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
     }
+    
+    func review(request: ReviewRequest, responseHandler: (ReviewResponse?) -> Void){
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.stringForKey("sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
+        }
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
+    }
 }

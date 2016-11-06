@@ -139,6 +139,8 @@
 		C494EA541D61AF8F000AE8BB /* ActionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = C494EA531D61AF8F000AE8BB /* ActionPanel.xib */; };
 		C494EA561D61B1EA000AE8BB /* ActionPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494EA551D61B1EA000AE8BB /* ActionPanelView.swift */; };
 		C497E92C1DB0A454002060E0 /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E92B1DB0A454002060E0 /* BoundingBox.swift */; };
+		C49FA7841DCFA27F00131117 /* ReviewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49FA7831DCFA27F00131117 /* ReviewInfo.swift */; };
+		C49FA7861DCFA28C00131117 /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49FA7851DCFA28C00131117 /* PhotoInfo.swift */; };
 		C4A0D5511C11746100BAE246 /* DishListSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */; };
 		C4A0D5521C11746100BAE246 /* DishSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */; };
 		C4A0D5531C11746100BAE246 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D5461C11746100BAE246 /* Distance.swift */; };
@@ -568,6 +570,8 @@
 		C494EA551D61B1EA000AE8BB /* ActionPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionPanelView.swift; sourceTree = "<group>"; };
 		C497E92B1DB0A454002060E0 /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		C49BF32C1BC4EA940097CBE0 /* SelectionBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionBar.swift; sourceTree = "<group>"; };
+		C49FA7831DCFA27F00131117 /* ReviewInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewInfo.swift; sourceTree = "<group>"; };
+		C49FA7851DCFA28C00131117 /* PhotoInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
 		C4A0D5441C11746100BAE246 /* DishListSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishListSearchRequest.swift; sourceTree = "<group>"; };
 		C4A0D5451C11746100BAE246 /* DishSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishSearchRequest.swift; sourceTree = "<group>"; };
 		C4A0D5461C11746100BAE246 /* Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
@@ -1034,6 +1038,8 @@
 				C4B2DAE51DCC4B3E00694E1D /* UserActivity.swift */,
 				C4B2DAE71DCC4BDF00694E1D /* DishRecommendation.swift */,
 				C4B2DAE91DCC4CD900694E1D /* ImageUploadActivity.swift */,
+				C49FA7831DCFA27F00131117 /* ReviewInfo.swift */,
+				C49FA7851DCFA28C00131117 /* PhotoInfo.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2065,6 +2071,7 @@
 				CA203DAB1C111EEA00D6F32C /* Queue.swift in Sources */,
 				CA203DAC1C111EEA00D6F32C /* ViewItemTopUIView.swift in Sources */,
 				C4269E481DA32303000836A4 /* MILAlertViewManager.swift in Sources */,
+				C49FA7861DCFA28C00131117 /* PhotoInfo.swift in Sources */,
 				CA203DAD1C111EEA00D6F32C /* ParseConfiguration.swift in Sources */,
 				C4B0A3991C8CCD8D00D05408 /* Reachability.swift in Sources */,
 				CAC1D3961D39849D00520733 /* TopView.swift in Sources */,
@@ -2126,6 +2133,7 @@
 				C44C25881C5361C900A345D8 /* VoteRestaurantRequest.swift in Sources */,
 				CA882D271C85181200D04696 /* SignUpTableViewController.swift in Sources */,
 				C49223061DA0DFED00D9916E /* EditableReviewTableViewCell.swift in Sources */,
+				C49FA7841DCFA27F00131117 /* ReviewInfo.swift in Sources */,
 				C412978B1C809E420062BC7D /* TutorialViewController.swift in Sources */,
 				CAC1D38D1D39849D00520733 /* CameraView.swift in Sources */,
 				CAE625BC1DCAA79A00B7A020 /* UserActivityTableViewCell.swift in Sources */,

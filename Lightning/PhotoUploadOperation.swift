@@ -48,8 +48,9 @@ class PhotoUploadOperation: AsynchronousOperation {
             if self.cancelled {
                 self.state = .Finished
             } else {
-                if response != nil && response?.result != nil {
+                if response != nil && response?.result != nil && response?.result?.id != nil{
                     self.uploaded = response!.result
+                    self.success = true
                 } else {
                     if self.retryTimes > 0 {
                         self.retryTimes = self.retryTimes - 1

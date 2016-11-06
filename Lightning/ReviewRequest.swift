@@ -18,9 +18,9 @@ import Foundation
 class ReviewRequest: HttpRequest{
     
     var content: String?
-    var rating: String?
+    var rating: Int?
     var restaurantId: String?
-    var photos: [String] = []
+    var photos: [String]?
     var id: String?
     
     override func getRequestBody() -> [String : AnyObject] {

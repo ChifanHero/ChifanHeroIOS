@@ -13,6 +13,7 @@ class UploadRestaurantPictureRequest: HttpRequest{
     var restaurantId: String
     var type: String
     var base64_code: String
+    var eventId: String?
     
     init(restaurantId: String, type: String, base64_code: String){
         self.restaurantId = restaurantId
@@ -25,6 +26,7 @@ class UploadRestaurantPictureRequest: HttpRequest{
         parameters["restaurant_id"] = restaurantId
         parameters["type"] = type
         parameters["base64_code"] = base64_code
+        parameters["event_id"] = eventId
         return parameters
     }
     

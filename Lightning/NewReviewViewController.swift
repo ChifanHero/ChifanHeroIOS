@@ -9,7 +9,7 @@
 import UIKit
 import SKPhotoBrowser
 
-class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate {
+class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var rate1Button: RateButton!
     
@@ -24,6 +24,10 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var imagePoolView: UICollectionView!
     
     @IBOutlet weak var bottomDistanceConstraint: NSLayoutConstraint!
+    
+    var restaurantId: String?
+    
+    var rating = 0
     
     @IBOutlet weak var reviewTextView: UITextView!
 //    var imagePool: [Picture] = []
@@ -81,6 +85,26 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     
     @IBAction func submit(sender: AnyObject) {
+        if restaurantId != nil {
+            let reviewManager = PostReviewManager()
+            let reviewOperation = PostReviewOperation(reviewId: nil, rating: 5, content: reviewTextView.text, restaurantId: restaurantId!, retryTimes: 3) { (success, review) in
+                print(success)
+                print(review?.id)
+            }
+            for image in self.images {
+                let uploadOperation = PhotoUploadOperation(photo: image, retryTimes: 3, completion: { (success, picture) in
+                    print(success)
+                    print(picture?.id)
+                    if success {
+                        reviewOperation.addPhotoId(picture!.id!)
+                    }
+                    
+                })
+                reviewOperation.addDependency(uploadOperation)
+                reviewManager.queue.addOperation(uploadOperation)
+            }
+            reviewManager.queue.addOperation(reviewOperation)
+        }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -103,12 +127,34 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         let cell: RemovablePhotoCollectionViewCell? = imagePoolView.dequeueReusableCellWithReuseIdentifier("removablePhotoCell", forIndexPath: indexPath) as? RemovablePhotoCollectionViewCell
         
         // Configure the cell
-        if indexPath.row < images.count {
-            cell!.setUp(image: images[indexPath.row])
+        if indexPath.item < images.count {
+            cell!.setUp(image: images[indexPath.item])
+//            cell?.showDeleteButton()
+            cell?.layoutIfNeeded()
+            cell!.deleteButton.layer.cornerRadius = cell!.deleteButton.frame.size.width / 2
+            cell?.deleteButton.image = UIImage(named: "Cancel_Button.png")
+            cell?.bringSubviewToFront((cell?.deleteButton)!)
+            cell!.deleteButton.renderColorChangableImage(UIImage(named: "Cancel_Button.png")!, fillColor: UIColor.redColor())
+            cell!.deleteButton.hidden = false
+            
+            cell?.deleteButton.tag = indexPath.item
+            let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewReviewViewController.deleteImage(_:)))
+            tap.delegate = self
+            cell?.deleteButton.addGestureRecognizer(tap)
         } else {
             cell!.setUpAddingImageCell()
+            
         }
         return cell!
+    }
+    
+    func deleteImage(gestureRecognizer: UITapGestureRecognizer) {
+        //tappedImageView will be the image view that was tapped.
+        //dismiss it, animate it off screen, whatever.
+        let tappedImageView = gestureRecognizer.view!
+        let id = tappedImageView.tag
+        self.images.removeAtIndex(id)
+        self.imagePoolView.reloadData()
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

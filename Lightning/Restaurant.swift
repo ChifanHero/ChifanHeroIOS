@@ -27,6 +27,8 @@ class Restaurant: Model{
     var votes: Int?
     var dishes: [String]?
     var rating: Double?
+    var reviewInfo: ReviewInfo?
+    var photoInfo: PhotoInfo?
     
     required init() {
         
@@ -55,5 +57,7 @@ class Restaurant: Model{
         dishes <-- data["dishes"]
         votes <-- data["votes"]
         rating <-- data["rating"]
+        reviewInfo <-- data["review_info"]
+        photoInfo <-- data["photo_info"]
     }
 }

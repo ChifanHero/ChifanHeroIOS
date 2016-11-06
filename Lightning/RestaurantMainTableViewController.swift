@@ -124,7 +124,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         backgroundImageView.image = restaurantImage
         
         nameLabel.text = restaurantName
-        loadImagePool()
+//        loadImagePool()
 //        actionPanelView.baseVC = self
 //        actionPanelView.isFromGoogleSearch = self.isFromGoogleSearch
         self.configureButtons()
@@ -326,6 +326,17 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                                         self.recommendationDishLabel.text?.appendContentsOf("  ")
                                     }
                                 }
+                                if self.restaurant?.photoInfo != nil {
+                                    if self.restaurant?.photoInfo!.photos != nil {
+                                        self.loadImagePool(self.restaurant!.photoInfo!.photos)
+                                    }
+                                    
+                                }
+                                if self.restaurant?.reviewInfo != nil {
+                                    self.reviewsSnapshotView.reviews = self.restaurant!.reviewInfo!.reviews
+                                    self.reviewsSnapshotView.reloadData()
+                                }
+                                self.tableView.reloadData()
                             }
                             
                         } else {
@@ -343,20 +354,28 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         }
     }
     
-    func loadImagePool(){
+//    func loadImagePool(){
+//        imagePool.removeAll()
+//        let request: GetImagesRequest = GetImagesRequest(restaurantId: restaurantId!)
+//        DataAccessor(serviceConfiguration: ParseConfiguration()).getImagesByRestaurantId(request) { (response) -> Void in
+//            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                self.clearData()
+//                if (response != nil && response?.results != nil) {
+//                    for index in 0..<(response?.results)!.count {
+//                        self.imagePool.append((response?.results)![index])
+//                    }
+//                    self.downloadImages()
+//                }
+//            });
+//        }
+//    }
+    
+    func loadImagePool(photos: [Picture]){
         imagePool.removeAll()
-        let request: GetImagesRequest = GetImagesRequest(restaurantId: restaurantId!)
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getImagesByRestaurantId(request) { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                self.clearData()
-                if (response != nil && response?.results != nil) {
-                    for index in 0..<(response?.results)!.count {
-                        self.imagePool.append((response?.results)![index])
-                    }
-                    self.downloadImages()
-                }
-            });
+        for photo in photos {
+            self.imagePool.append(photo)
         }
+        self.downloadImages()
     }
     
     private func clearData() {
@@ -455,6 +474,10 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                 pictures.append(picture)
             }
             photosVC.pictures = pictures
+        } else if segue.identifier == "writeReview" {
+            let newReviewNavigationVC: UINavigationController = segue.destinationViewController as! UINavigationController
+            let newReviewVC: NewReviewViewController = newReviewNavigationVC.viewControllers[0] as! NewReviewViewController
+            newReviewVC.restaurantId = self.restaurantId
         }
     }
     
@@ -597,6 +620,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         print("start upload time \(NSDate().timeIntervalSince1970)")
         showUploadingAlert()
         let queue = NSOperationQueue()
+        let uniqueId = IdGenerator.newId()
         
         for image in images {
             queue.addOperationWithBlock() {
@@ -611,6 +635,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                 
                 let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
                 let request: UploadRestaurantPictureRequest = UploadRestaurantPictureRequest(restaurantId: self.restaurantId!, type: "restaurant", base64_code: base64_code)
+                request.eventId = uniqueId
                 print("upload to server time \(NSDate().timeIntervalSince1970)")
                 DataAccessor(serviceConfiguration: ParseConfiguration()).uploadRestaurantPicture(request) { (response) -> Void in
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -687,7 +712,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         } else if indexPath.section == 1 {
             return 180
         } else if indexPath.section == 2 {
-            return 522
+            return self.reviewsSnapshotView.getHeight() + 40
         } else if indexPath.section == 3 {
             return 120
         } else {

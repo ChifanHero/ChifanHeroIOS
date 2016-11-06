@@ -11,6 +11,7 @@ import Foundation
 class UploadPictureRequest: HttpRequest{
     
     var base64_code: String
+    var eventId: String?
     
     init(base64_code: String){
         self.base64_code = base64_code
@@ -19,6 +20,7 @@ class UploadPictureRequest: HttpRequest{
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["base64_code"] = base64_code
+        parameters["event_id"] = eventId
         return parameters
     }
     
