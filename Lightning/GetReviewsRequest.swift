@@ -10,29 +10,13 @@ import Foundation
 
 class GetReviewsRequest: HttpRequest{
     
-    var limit: Int?
-    var skip: Int?
+    var limit: Int = 50
+    var skip: Int = 0
     var restaurantId: String?
-    var sort: String?
+    var sort: String = "quality"
     
     override func getRelativeURL() -> String {
-        return "/reviews"
+        return "/reviews?restaurant_id=\(restaurantId!)&limit=\(limit)&skip=\(skip)&sort=\(sort)"
     }
     
-    override func getRequestBody() -> [String : AnyObject] {
-        var parameters = Dictionary<String, AnyObject>()
-        if limit != nil {
-            parameters["limit"] = String(limit!)
-        }
-        if skip != nil {
-            parameters["offset"] = String(skip!)
-        }
-        if restaurantId != nil {
-            parameters["restaurant_id"] = restaurantId
-        }
-        if skip != nil {
-            parameters["sort"] = sort
-        }
-        return parameters
-    }
 }

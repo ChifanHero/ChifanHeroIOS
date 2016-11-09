@@ -478,6 +478,9 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
             let newReviewNavigationVC: UINavigationController = segue.destinationViewController as! UINavigationController
             let newReviewVC: NewReviewViewController = newReviewNavigationVC.viewControllers[0] as! NewReviewViewController
             newReviewVC.restaurantId = self.restaurantId
+        } else if segue.identifier == "showReviews" {
+            let reviewsVC: ReviewsViewController = segue.destinationViewController as! ReviewsViewController
+            reviewsVC.restaurantId = self.restaurantId
         }
     }
     

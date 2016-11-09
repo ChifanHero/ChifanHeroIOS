@@ -13,15 +13,24 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     @IBOutlet weak var reviewsTable: UITableView!
+    
+    var reviews: [Review] = []
+    
+    var restaurantId: String?
+    
+    private static var SORT_LATEST = "latest"
+    private static var SORT_QUALITY = "quality"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.view.layoutIfNeeded()
         configDropDownMenu()
+        
         addBarButton()
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
         // Do any additional setup after loading the view.
+        loadData(50, skip: 0, sort: ReviewsViewController.SORT_QUALITY)
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,13 +39,38 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     private func configDropDownMenu() {
-        let items = ["按时间", "默认"]
-        let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, title: "评论排序", items: items)
+        let items = ["排序：按时间", "排序：默认"]
+        let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, title: "排序：默认", items: items)
         self.navigationItem.titleView = menuView
         menuView.didSelectItemAtIndexHandler = {[weak self] (indexPath: Int) -> () in
             print("Did select item at index: \(indexPath)")
 //            menuView
 //            self.selectedCellLabel.text = "排序: \(items[indexPath])"
+            if indexPath == 0 {
+                self!.loadData(50, skip: 0, sort: ReviewsViewController.SORT_LATEST)
+            } else {
+                
+                self!.loadData(50, skip: 0, sort: ReviewsViewController.SORT_QUALITY)
+            }
+        }
+    }
+    
+    private func loadData(limit: Int, skip: Int, sort: String) {
+        let getReviewsRequest: GetReviewsRequest = GetReviewsRequest()
+        getReviewsRequest.limit = limit
+        getReviewsRequest.skip = skip
+        getReviewsRequest.sort = sort
+        getReviewsRequest.restaurantId = self.restaurantId
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getReviews(getReviewsRequest) { (response) in
+            if response != nil && response?.error == nil {
+                if skip == 0 {
+                    self.reviews.removeAll()
+                }
+                self.reviews.appendContentsOf(response!.results)
+                self.reviewsTable.reloadData()
+            } else {
+                
+            }
         }
     }
     
@@ -50,7 +84,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return reviews.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -59,11 +93,13 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
             tableView.registerNib(UINib(nibName: "ReviewSnapshotCell", bundle: nil), forCellReuseIdentifier: "reviewSnapshotCell")
             cell = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell
         }
-        if indexPath.row == 2 {
-            cell?.userName = "Peter Huang"
-            //cell?.profileImageView.image = UIImage(named: "peter")
-            cell?.review = "Who tm cares?"
+        let review = reviews[indexPath.row]
+        if review.user?.nickName == nil {
+            cell?.userName = "匿名用户"
+        } else {
+            cell?.userName = review.user?.nickName
         }
+        cell?.review = review.content
         return cell!
     }
     

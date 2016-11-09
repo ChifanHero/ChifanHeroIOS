@@ -246,4 +246,8 @@ class DataAccessor {
         }
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
+    
+    func getReviews(request: GetReviewsRequest, responseHandler: (GetReviewsResponse?) -> Void) {
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
 }
