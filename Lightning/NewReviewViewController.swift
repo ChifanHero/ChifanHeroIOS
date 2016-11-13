@@ -9,6 +9,7 @@
 import UIKit
 import SKPhotoBrowser
 
+let reviewManager = PostReviewManager()
 class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var rate1Button: RateButton!
@@ -86,7 +87,6 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     @IBAction func submit(sender: AnyObject) {
         if restaurantId != nil {
-            let reviewManager = PostReviewManager()
             let reviewOperation = PostReviewOperation(reviewId: nil, rating: 5, content: reviewTextView.text, restaurantId: restaurantId!, retryTimes: 3) { (success, review) in
                 print(success)
                 print(review?.id)

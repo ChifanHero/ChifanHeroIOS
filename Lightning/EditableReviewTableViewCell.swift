@@ -10,7 +10,7 @@ import UIKit
 
 class EditableReviewTableViewCell: UITableViewCell {
     
-    
+    let reviewManager = PostReviewManager()
     
     @IBOutlet weak var rateButton1: RateButton!
     
@@ -33,6 +33,9 @@ class EditableReviewTableViewCell: UITableViewCell {
     var rated = false
     
     var parentViewController : RestaurantMainTableViewController?
+    
+    var reviewId: String?
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -101,7 +104,7 @@ class EditableReviewTableViewCell: UITableViewCell {
         if rated == true {
             for rateButton in rateButtons {
                 rateButton.unRate({ 
-                    self.showBannerAlert()
+//                    self.showBannerAlert()
                 })
             }
             deleteRate()
@@ -109,32 +112,46 @@ class EditableReviewTableViewCell: UITableViewCell {
         } else {
             for index in 0...(id - 1) {
                 rateButtons[index].rate({ 
-                    self.showBannerAlert()
+//                    self.showBannerAlert()
                 })
             }
-            rate()
+            rate(id)
             rated = true
         }
         
     }
     
-    private func showBannerAlert() {
-//        MILAlertViewManager.sharedInstance.show(.Classic,
-//                                                text: "MILAlertView Test!",
-//                                                backgroundColor: UIColor.purpleColor(),
-//                                                inView: self.parentViewController?.view,
-//                                                toHeight: 0,
-//                                                forSeconds:0.5,
-//                                                callback: nil)
-        self.parentViewController?.showBannerAlert("。。")
+    private func showBannerAlert(alert: String) {
+        self.parentViewController?.showBannerAlert(alert)
     }
     
     private func deleteRate() {
         
     }
     
-    private func rate() {
-        
+    private func rate(id : Int) {
+        let restaurantId = parentViewController?.restaurantId
+        if restaurantId != nil {
+            let reviewOperation = PostReviewOperation(reviewId: reviewId, rating: id, content: nil, restaurantId: restaurantId!, retryTimes: 3) { (success, review) in
+                if success {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                        self.showBannerAlert("打分成功！")
+                        self.reviewId = review?.id
+                    })
+                    
+                } else {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({
+                        self.showBannerAlert("打分失败，请稍后重试")
+                    })
+                    
+                }
+            }
+            if reviewManager.previousReviews[restaurantId!] != nil {
+                reviewOperation.addDependency(reviewManager.previousReviews[restaurantId!]!)
+            }
+            reviewManager.previousReviews[restaurantId!] = reviewOperation
+            reviewManager.queue.addOperation(reviewOperation)
+        }
     }
     
     @IBAction func detailReviewViewPressed(sender: AnyObject) {

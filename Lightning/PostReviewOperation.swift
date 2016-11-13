@@ -26,7 +26,7 @@ class PostReviewOperation: AsynchronousOperation {
     
     private var photos: [String]?
     
-    init(reviewId: String?, rating: Int, content: String, restaurantId: String,retryTimes: Int, completion: (Bool, Review?) -> Void) {
+    init(reviewId: String?, rating: Int, content: String?, restaurantId: String,retryTimes: Int, completion: (Bool, Review?) -> Void) {
         super.init()
         self.rating = rating
         self.content = content

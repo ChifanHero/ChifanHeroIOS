@@ -17,4 +17,6 @@ class PostReviewManager {
         return queue
     }()
     
+    var previousReviews: [String: PostReviewOperation] = [:]
+    
 }
