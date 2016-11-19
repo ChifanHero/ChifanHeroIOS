@@ -10,8 +10,8 @@ import Foundation
 
 class GetUserActivitiesRequest: HttpRequest{
     
-    var limit : Int?
-    var skip : Int?
+    var limit: Int?
+    var skip: Int?
     var userId: String?
     
     override func getRequestBody() -> [String : AnyObject] {

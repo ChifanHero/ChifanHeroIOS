@@ -145,6 +145,11 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
+    func getUserActivities(request: GetUserActivitiesRequest, responseHandler : (GetUserActivitiesResponse?) -> Void) {
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
+    
     //--------------------------------------------------------------------------------------------------//
     
     

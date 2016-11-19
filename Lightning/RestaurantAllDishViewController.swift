@@ -24,10 +24,10 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     @IBOutlet weak var slideBarHeightConstraint: NSLayoutConstraint!
     
-    private var dishes : [Dish] = []
-    private var menuItems : [MenuItem] = []
-    private var menuNames : [String] = []
-    private var dishToMenuDic : Dictionary<String, String> = Dictionary<String, String>()
+    private var dishes: [Dish] = []
+    private var menuItems: [MenuItem] = []
+    private var menuNames: [String] = []
+    private var dishToMenuDic: Dictionary<String, String> = Dictionary<String, String>()
     private var shouldChangeSlideBarState = true
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
