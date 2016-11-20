@@ -99,6 +99,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             cell?.userName = review.user?.nickName
         }
+        cell?.time = review.lastUpdateTime
         cell?.review = review.content
         return cell!
     }
