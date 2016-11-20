@@ -131,6 +131,7 @@ import UIKit
             } else {
                 cell?.userName = user?.nickName
             }
+            cell?.time = review.lastUpdateTime
             
 //            if indexPath.section == 2 {
 //                cell?.userName = "Peter Huang"

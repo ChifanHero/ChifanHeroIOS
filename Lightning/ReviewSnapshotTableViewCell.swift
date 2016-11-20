@@ -19,6 +19,7 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
     @IBOutlet weak var levelNameLabel: UILabel!
     
     @IBOutlet weak var reviewTextView: UITextView!
+    @IBOutlet weak var timeLabel: UILabel!
     
     var userName : String? {
         didSet {
@@ -32,6 +33,43 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
         }
     }
     
+    let dateFormatter: NSDateFormatter = NSDateFormatter()
+    
+    var time: String? {
+        didSet {
+            if time != nil {
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+                let date: NSDate? = dateFormatter.dateFromString(time!)
+                if date != nil {
+                    let calender: NSCalendar = NSCalendar.currentCalendar()
+                    let components = calender.componentsInTimeZone(NSTimeZone.localTimeZone(), fromDate: date!)
+                    let currentComponets = calender.componentsInTimeZone(NSTimeZone.localTimeZone(), fromDate: NSDate())
+                    var timeString = ""
+                    let year = components.year
+                    let currentYear = currentComponets.year
+                    let month = components.month
+                    let currentMonth = currentComponets.month
+                    let day = components.day
+                    let currentDay = currentComponets.day
+                    let hour = components.hour
+                    let min = components.minute
+                    if year == currentYear {
+                        if month == currentMonth && day == currentDay {
+                            timeString = "\(hour):\(min)"
+                        } else {
+                            timeString = "\(month)-\(day) \(hour):\(min)"
+                        }
+                        
+                    } else {
+                        timeString = "\(year)-\(month)-\(day)"
+                    }
+                    timeLabel.text = timeString
+                }
+                
+            }
+            
+        }
+    }
     
 
     override func awakeFromNib() {
@@ -40,6 +78,9 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
         self.layoutIfNeeded()
         //profileImageView.layer.cornerRadius = 4
         ratingLabel.layer.cornerRadius = ratingLabel.frame.size.width / 2
+        profileImageButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFill
+        profileImageButton.layer.cornerRadius = 2
+        profileImageButton.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
