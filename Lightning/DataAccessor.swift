@@ -149,6 +149,14 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
+    func getReviews(request: GetReviewsRequest, responseHandler: (GetReviewsResponse?) -> Void) {
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
+    func getReviewById(request: GetReviewByIdRequest, responseHandler: (GetReviewByIdResponse?) -> Void) {
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
     
     //--------------------------------------------------------------------------------------------------//
     
@@ -250,9 +258,5 @@ class DataAccessor {
             request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
         }
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
-    }
-    
-    func getReviews(request: GetReviewsRequest, responseHandler: (GetReviewsResponse?) -> Void) {
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
 }

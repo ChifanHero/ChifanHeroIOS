@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class UserActivityTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -20,9 +21,12 @@ class UserActivityTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
     
     var userUploadedImagePool: [Picture] = []
     
+    var userUploadedImagePoolContent: [UIImageView] = []
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureUserUploadedImagePoolView()
+        self.loadData()
         // Initialization code
     }
 
@@ -45,6 +49,37 @@ class UserActivityTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         self.userUploadedImagePoolView?.showsVerticalScrollIndicator = false
         
         self.cellHeight = 200
+    }
+    
+    private func loadData(){
+        let request: GetReviewByIdRequest = GetReviewByIdRequest(id: "LPkb7btsVY")
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getReviewById(request) { (response) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                if response?.result?.photos != nil {
+                    self.loadUserUploadedImagePool((response?.result?.photos)!)
+                }
+            });
+        }
+    }
+    
+    private func loadUserUploadedImagePool(photos: [Picture]){
+        userUploadedImagePool.removeAll()
+        for photo in photos {
+            self.userUploadedImagePool.append(photo)
+        }
+        self.downloadImages()
+    }
+    
+    private func downloadImages(){
+        for image in userUploadedImagePool {
+            let imageView = UIImageView()
+            var url: String = ""
+            url = image.original!
+            imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
+                self.userUploadedImagePoolView.reloadData()
+            })
+            self.userUploadedImagePoolContent.append(imageView)
+        }
     }
     
     func setUp(userActivity: UserActivity){
@@ -70,15 +105,14 @@ class UserActivityTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        //return userUploadedImagePool.count
-        return 10
+        return userUploadedImagePool.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: UserUploadedImageCollectionViewCell? = userUploadedImagePoolView.dequeueReusableCellWithReuseIdentifier("userUploadedImageCell", forIndexPath: indexPath) as? UserUploadedImageCollectionViewCell
         
         // Configure the cell
-        cell?.setUpImage(UIImage(named: "Back_Button")!)
+        cell?.setUpImage(userUploadedImagePoolContent[indexPath.row].image!)
         return cell!
     }
 

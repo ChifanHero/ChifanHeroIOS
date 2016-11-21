@@ -18,6 +18,7 @@ class Review: Model{
     var reviewQuality: Int?
     var goodReview: Bool?
     var pointsRewarded: Int?
+    var photos: [Picture] = []
     var restaurant: Restaurant?
     
     required init() {
@@ -34,7 +35,12 @@ class Review: Model{
         pointsRewarded <-- data["points_rewarded"]
         restaurant <-- data["restaurant"]
         id <-- data["id"]
-        
+        if let resultsJson = data["photos"] as? [AnyObject] {
+            for resultJson in resultsJson {
+                let result = Picture(data: resultJson as! [String : AnyObject])
+                photos.append(result)
+            }
+        }
     }
 
 
