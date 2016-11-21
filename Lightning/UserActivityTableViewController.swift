@@ -10,7 +10,7 @@ import UIKit
 
 class UserActivityTableViewController: UITableViewController {
 
-    var userId: String!
+    var userId: String! = "v44vNqdgbe"
     var userActivities: [UserActivity] = []
     
     override func viewDidLoad() {
@@ -41,11 +41,15 @@ class UserActivityTableViewController: UITableViewController {
             tableView.registerNib(UINib(nibName: "UserActivityCell", bundle: nil), forCellReuseIdentifier: "userActivityCell")
             cell = tableView.dequeueReusableCellWithIdentifier("userActivityCell") as? UserActivityTableViewCell
         }
+        cell?.setUp(userActivities[indexPath.row])
         return cell!
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
+        if let cell = tableView.dequeueReusableCellWithIdentifier("userActivityCell") as? UserActivityTableViewCell {
+            return cell.cellHeight
+        }
+        return UITableViewAutomaticDimension
     }
     
     private func loadData(){
@@ -53,10 +57,11 @@ class UserActivityTableViewController: UITableViewController {
         request.userId = self.userId
         DataAccessor(serviceConfiguration: ParseConfiguration()).getUserActivities(request) { (response) -> Void in
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                self.userActivities.removeAll()
                 for index in 0..<(response?.results)!.count {
-                    self.userActivities.removeAll()
                     self.userActivities.append((response?.results)![index])
                 }
+                self.tableView.reloadData()
             });
         }
     }
