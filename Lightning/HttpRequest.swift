@@ -15,6 +15,14 @@ class HttpRequest: HttpRequestProtocol{
     init(){
         self.headers["Content-Type"] = "application/json"
         self.headers["Accept"] = "application/json"
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey("usingStaging") {
+            self.headers["X-Parse-Application-Id"] = "Z6ND8ho1yR4aY3NSq1zNNU0kPc0GDOD1UZJ5rgxM"
+            self.headers["X-Parse-Master-Key"] = "KheL2NaRmyVKr11LZ7yC0uvMHxNv8RpX389oUf8F"
+        } else {
+            self.headers["X-Parse-Application-Id"] = "28BX7btLUKGGsFGCSyGGv9Pzj1nCWDl9EV6GpMBQ"
+            self.headers["X-Parse-Master-Key"] = "rj0pEKLhfWX8310qDj9s0rUEAo4ukQJrTNtCP11j"
+        }
     }
     
     func getRelativeURL() -> String{

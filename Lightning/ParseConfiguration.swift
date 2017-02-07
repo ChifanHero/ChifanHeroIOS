@@ -14,9 +14,9 @@ class ParseConfiguration: ServiceConfiguration {
     func hostEndpoint() -> String {
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.boolForKey("usingStaging") {
-            return "http://staging.internal.service.lightningorder.com"
+            return "Custom-env-2.zwjspztzpv.us-east-1.elasticbeanstalk.com"
         } else {
-            return "http://internal.service.lightningorder.com"
+            return "chifanhero.us-east-1.elasticbeanstalk.com"
         }
         
     }
