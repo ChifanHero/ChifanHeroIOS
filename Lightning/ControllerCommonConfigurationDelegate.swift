@@ -9,6 +9,6 @@
 import UIKit
 
 protocol ControllerCommonConfigurationDelegate {
-    func setTabBarVisible(visible:Bool, animated:Bool)
+    func setTabBarVisible(_ visible:Bool, animated:Bool)
     func tabBarIsVisible() ->Bool
 }

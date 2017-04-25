@@ -7,21 +7,22 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class GetHomepageResponse: HttpResponseProtocol {
     
-    var results: [HomepageSection] = [HomepageSection]()
+    var results: [HomepageSection] = []
     var error: Error?
     
     required init() {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        error <-- data["error"]
-        if let resultsJson = data["homepagesections"] as? [AnyObject] {
+    required init(data: JSON) {
+        error = Error(data: data["error"])
+        if let resultsJson = data["homepagesections"].array {
             for resultJson in resultsJson {
-                let result = HomepageSection(data: resultJson as! [String : AnyObject])
+                let result = HomepageSection(data: resultJson)
                 results.append(result)
             }
         }

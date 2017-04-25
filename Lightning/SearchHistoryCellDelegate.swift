@@ -10,6 +10,6 @@ import Foundation
 
 protocol SearchHistoryCellDelegate {
     
-    func deleteHistory (cell : SearchHistoryTableViewCell)
+    func deleteHistory (_ cell : SearchHistoryTableViewCell)
     
 }

@@ -14,8 +14,8 @@ class Filters: Serializable {
     
     func getProperties() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["range"] = range?.getProperties()
-        parameters["min_rating"] = minRating
+        parameters["range"] = range?.getProperties() as AnyObject
+        parameters["min_rating"] = minRating as AnyObject
         return parameters
     }
 }

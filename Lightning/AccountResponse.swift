@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class AccountResponse: HttpResponseProtocol{
     var success: Bool?
@@ -16,5 +17,5 @@ class AccountResponse: HttpResponseProtocol{
     
     required init() {}
     
-    required init(data: [String : AnyObject]) {}
+    required init(data: JSON) {}
 }

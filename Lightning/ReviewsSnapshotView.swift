@@ -18,8 +18,8 @@ import UIKit
     }
     */
     
-    private var view : UIView!
-    private var nibName : String = "ReviewsSnapshotView"
+    fileprivate var view : UIView!
+    fileprivate var nibName : String = "ReviewsSnapshotView"
     
     var parentViewController : RestaurantMainTableViewController?
     
@@ -37,28 +37,28 @@ import UIKit
         Setup() // Setup when this component is used from Code
     }
     
-    private var newReviewCellHeight: CGFloat = 120
-    private var reviewCellHeight: CGFloat = 166
-    private var spaceBetweenSections: CGFloat = 10
+    fileprivate var newReviewCellHeight: CGFloat = 120
+    fileprivate var reviewCellHeight: CGFloat = 166
+    fileprivate var spaceBetweenSections: CGFloat = 10
     
-    private func Setup(){
+    fileprivate func Setup(){
         view = LoadViewFromNib()
         addSubview(view)
         view.frame = bounds
-        view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        view.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
         reviewsTableView.delegate = self
         reviewsTableView.dataSource = self
-        reviewsTableView.scrollEnabled = false
+        reviewsTableView.isScrollEnabled = false
     }
     
-    private func LoadViewFromNib() -> UIView {
-        let bundle = NSBundle(forClass: self.dynamicType)
+    fileprivate func LoadViewFromNib() -> UIView {
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nibName, bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
         } else {
@@ -71,11 +71,11 @@ import UIKit
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 120
         } else {
@@ -84,13 +84,13 @@ import UIKit
         
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView()
-        footerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        footerView.backgroundColor = UIColor.groupTableViewBackground
         return footerView
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if reviews == nil || reviews?.count == 0 {
             return 0
         } else {
@@ -105,25 +105,25 @@ import UIKit
     
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
     // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            var cell: EditableReviewTableViewCell? = tableView.dequeueReusableCellWithIdentifier("editableReviewCell") as? EditableReviewTableViewCell
+            var cell: EditableReviewTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "editableReviewCell") as? EditableReviewTableViewCell
             if cell == nil {
-                tableView.registerNib(UINib(nibName: "EditableReviewCell", bundle: nil), forCellReuseIdentifier: "editableReviewCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("editableReviewCell") as? EditableReviewTableViewCell
+                tableView.register(UINib(nibName: "EditableReviewCell", bundle: nil), forCellReuseIdentifier: "editableReviewCell")
+                cell = tableView.dequeueReusableCell(withIdentifier: "editableReviewCell") as? EditableReviewTableViewCell
             }
-            cell?.selectionStyle = UITableViewCellSelectionStyle.None
-            cell?.addDetailReviewButton.addTarget(self, action: #selector(ReviewsSnapshotView.writeNewReview), forControlEvents: UIControlEvents.TouchUpInside)
+            cell?.selectionStyle = UITableViewCellSelectionStyle.none
+            cell?.addDetailReviewButton.addTarget(self, action: #selector(ReviewsSnapshotView.writeNewReview), for: UIControlEvents.touchUpInside)
             cell?.parentViewController = self.parentViewController
             return cell!
         } else {
             let review: Review = reviews![indexPath.row]
-            var cell: ReviewSnapshotTableViewCell? = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell
+            var cell: ReviewSnapshotTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as? ReviewSnapshotTableViewCell
             if cell == nil {
-                tableView.registerNib(UINib(nibName: "ReviewSnapshotCell", bundle: nil), forCellReuseIdentifier: "reviewSnapshotCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell
+                tableView.register(UINib(nibName: "ReviewSnapshotCell", bundle: nil), forCellReuseIdentifier: "reviewSnapshotCell")
+                cell = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as? ReviewSnapshotTableViewCell
             }
-            cell?.profileImageButton.addTarget(self, action: #selector(ReviewsSnapshotView.showUserActivity), forControlEvents: .TouchUpInside)
+            cell?.profileImageButton.addTarget(self, action: #selector(ReviewsSnapshotView.showUserActivity), for: .touchUpInside)
             cell?.review = review.content
             let user = review.user
             if user == nil || user?.nickName == nil {
@@ -143,12 +143,12 @@ import UIKit
 
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell : UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell : UITableViewCell = tableView.cellForRow(at: indexPath)!
         if indexPath.section > 0 {
             showReview()
         }
-        cell.selected = false
+        cell.isSelected = false
     }
     
     func reloadData() {
@@ -156,15 +156,15 @@ import UIKit
     }
     
     func writeNewReview() {
-        parentViewController?.performSegueWithIdentifier("writeReview", sender: nil)
+        parentViewController?.performSegue(withIdentifier: "writeReview", sender: nil)
     }
     
     func showReview() {
-        parentViewController?.performSegueWithIdentifier("showReview", sender: nil)
+        parentViewController?.performSegue(withIdentifier: "showReview", sender: nil)
     }
     
     func showUserActivity() {
-        parentViewController?.performSegueWithIdentifier("showUserActivity", sender: nil)
+        parentViewController?.performSegue(withIdentifier: "showUserActivity", sender: nil)
     }
 
     

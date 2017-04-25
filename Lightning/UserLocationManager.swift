@@ -13,12 +13,12 @@ import Foundation
  */
 class UserLocationManager {
     
-    private var realtimeLocation : Location?
-    private var cityInUse : City?
+    fileprivate var realtimeLocation : Location?
+    fileprivate var cityInUse : City?
     
     func getLocationInUse() -> Location? {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("usingCustomLocation") {
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "usingCustomLocation") {
             let city = getCityInUse()
             return city?.center
         } else {
@@ -27,13 +27,13 @@ class UserLocationManager {
         
     }
     
-    func saveRealtimeLocation(location : Location) {
+    func saveRealtimeLocation(_ location : Location) {
         realtimeLocation = location
     }
     
     func getCityInUse() -> City? {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("usingCustomLocation") {
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "usingCustomLocation") {
             if cityInUse == nil {
                 let cityFromCoreData : City? = LocationHelper.getDefaultCityFromCoreData()
                 if cityFromCoreData != nil {
@@ -49,7 +49,7 @@ class UserLocationManager {
         
     }
     
-    func saveCityInUse(city : City) {
+    func saveCityInUse(_ city : City) {
         cityInUse = city
         LocationHelper.saveDefaultCityToCoreData(city)
         LocationHelper.saveCityToHistory(city)

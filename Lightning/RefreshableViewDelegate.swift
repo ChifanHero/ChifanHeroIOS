@@ -15,5 +15,5 @@ protocol RefreshableViewDelegate {
     
     func refreshData()
     
-    func loadData(refreshHandler : ((success : Bool) -> Void)?)
+    func loadData(_ refreshHandler : ((_ success : Bool) -> Void)?)
 }

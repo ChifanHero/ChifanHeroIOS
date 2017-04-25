@@ -17,7 +17,7 @@ class SimpleCouponTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tryLuckButton: UIButton!
     
-    @IBAction func tryLuck(sender: AnyObject) {
+    @IBAction func tryLuck(_ sender: AnyObject) {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,16 +25,16 @@ class SimpleCouponTableViewCell: UITableViewCell {
         setUp()
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
     func setUp() {
-        containerView.layer.borderColor = UIColor.blackColor().CGColor
+        containerView.layer.borderColor = UIColor.black.cgColor
         containerView.layer.borderWidth = 0.4
-        containerView.backgroundColor = UIColor.clearColor()
+        containerView.backgroundColor = UIColor.clear
     }
 
 }

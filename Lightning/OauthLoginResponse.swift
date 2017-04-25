@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class OauthLoginResponse: Model {
     
@@ -18,10 +19,10 @@ class OauthLoginResponse: Model {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        success <-- data["success"]
-        sessionToken <-- data["session_token"]
-        user <-- data["user"]
+    required init(data: JSON) {
+        success = data["success"].bool
+        sessionToken = data["session_token"].string
+        user = User(data: data["user"])
     }
     
 }

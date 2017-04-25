@@ -17,7 +17,7 @@ class NominateRestaurantRequest: HttpRequest{
         var parameters = Dictionary<String, String>()
         parameters["restaurant_id"] = restaurantId
         parameters["collection_id"] = collectionId
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     override func getRelativeURL() -> String {

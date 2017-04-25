@@ -15,9 +15,9 @@ class GetFavoritesRequest: HttpRequest{
     var lon: Double?
     
     init(type: FavoriteTypeEnum){
-        if type == FavoriteTypeEnum.Restaurant{
+        if type == FavoriteTypeEnum.restaurant{
             self.favoriteType = "restaurant"
-        } else if type == .Dish {
+        } else if type == .dish {
             self.favoriteType = "dish"
         } else {
             self.favoriteType = "selected_collection"

@@ -22,10 +22,10 @@ class RecommendDishRequest: HttpRequest{
     
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["restaurant_id"] = restaurantId
-        parameters["dish_name"] = dishName
-        parameters["dish_id"] = dishId
-        parameters["photos"] = photos
+        parameters["restaurant_id"] = restaurantId as AnyObject
+        parameters["dish_name"] = dishName as AnyObject
+        parameters["dish_id"] = dishId as AnyObject
+        parameters["photos"] = photos as AnyObject
         return parameters
     }
     

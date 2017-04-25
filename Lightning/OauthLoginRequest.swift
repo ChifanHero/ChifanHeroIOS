@@ -15,7 +15,7 @@ class OauthLoginRequest: AccountRequest {
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["oauth_login"] = oauthLogin
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     override func getRelativeURL() -> String {

@@ -15,7 +15,7 @@ class OutputParams: Serializable{
     func getProperties() -> [String : AnyObject] {
         var properties = Dictionary<String, String>()
         properties["distance_unit"] = distanceUnit
-        return properties
+        return properties as [String : AnyObject]
     }
     
 }

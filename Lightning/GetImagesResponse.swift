@@ -7,21 +7,22 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class GetImagesResponse: HttpResponseProtocol {
     
-    var results: [Picture] = [Picture]()
+    var results: [Picture] = []
     var error: Error?
     
     required init() {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        error <-- data["error"]
-        if let resultsJson = data["results"] as? [AnyObject] {
+    required init(data: JSON) {
+        error = Error(data: data["error"])
+        if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
-                let result = Picture(data: resultJson as! [String : AnyObject])
+                let result = Picture(data: resultJson)
                 results.append(result)
             }
         }

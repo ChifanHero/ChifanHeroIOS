@@ -19,13 +19,13 @@ class RecommendationsViewController: UIViewController, UITableViewDelegate, UITa
         // Do any additional setup after loading the view.
     }
     
-    private func addBarButton() {
-        let addNewRecommendationButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(RecommendationsViewController.addNewRecommendation))
+    fileprivate func addBarButton() {
+        let addNewRecommendationButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(RecommendationsViewController.addNewRecommendation))
         self.navigationItem.rightBarButtonItem = addNewRecommendationButton
     }
     
     func addNewRecommendation() {
-        performSegueWithIdentifier("createRecommendation", sender: nil)
+        performSegue(withIdentifier: "createRecommendation", sender: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,34 +33,34 @@ class RecommendationsViewController: UIViewController, UITableViewDelegate, UITa
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 300
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = UIView()
-        footer.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        footer.backgroundColor = UIColor.groupTableViewBackground
         return footer
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: RecommendationTableViewCell? = tableView.dequeueReusableCellWithIdentifier("recommendationCell") as? RecommendationTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: RecommendationTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "recommendationCell") as? RecommendationTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "RecommendationCell", bundle: nil), forCellReuseIdentifier: "recommendationCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("recommendationCell") as? RecommendationTableViewCell
+            tableView.register(UINib(nibName: "RecommendationCell", bundle: nil), forCellReuseIdentifier: "recommendationCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "recommendationCell") as? RecommendationTableViewCell
         }
         return cell!
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 

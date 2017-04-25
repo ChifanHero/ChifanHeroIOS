@@ -8,25 +8,25 @@
 
 import Foundation
 
-extension NSDate {
+extension Date {
     
     func toISO8601() -> String {
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
-        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)!
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        return formatter.stringFromDate(self)
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter.string(from: self)
     }
     
-    convenience
+    
     init(dateString : String) {
-        let dateStringFormatter = NSDateFormatter()
+        let dateStringFormatter = DateFormatter()
         dateStringFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
-        dateStringFormatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        dateStringFormatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)!
-        dateStringFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        let d = dateStringFormatter.dateFromString(dateString)!
-        self.init(timeInterval:0, sinceDate:d)
+        dateStringFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateStringFormatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+        dateStringFormatter.locale = Locale(identifier: "en_US_POSIX")
+        let d = dateStringFormatter.date(from: dateString)!
+        self.init(timeInterval: 0, since: d)
     }
 }

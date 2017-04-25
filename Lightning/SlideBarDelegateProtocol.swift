@@ -11,6 +11,6 @@ import UIKit
 
 protocol SlideBarDelegate {
     
-    func slideBar(slideBar : SlideBar, didSelectElementAtIndex index : Int) -> Void
+    func slideBar(_ slideBar : SlideBar, didSelectElementAtIndex index : Int) -> Void
 
 }

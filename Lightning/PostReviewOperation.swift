@@ -10,23 +10,23 @@ import Foundation
 
 class PostReviewOperation: AsynchronousOperation {
     
-    private var success = false
+    fileprivate var success = false
     
-    private var rating: Int = 0
+    fileprivate var rating: Int = 0
     
-    private var content: String?
+    fileprivate var content: String?
     
-    private var retryTimes = 0
+    fileprivate var retryTimes = 0
     
-    private var savedReview: Review?
+    fileprivate var savedReview: Review?
     
-    private var reviewId: String?
+    fileprivate var reviewId: String?
     
-    private var restaurantId = ""
+    fileprivate var restaurantId = ""
     
-    private var photos: [String]?
+    fileprivate var photos: [String]?
     
-    init(reviewId: String?, rating: Int, content: String?, restaurantId: String,retryTimes: Int, completion: (Bool, Review?) -> Void) {
+    init(reviewId: String?, rating: Int, content: String?, restaurantId: String,retryTimes: Int, completion: @escaping (Bool, Review?) -> Void) {
         super.init()
         self.rating = rating
         self.content = content
@@ -34,7 +34,7 @@ class PostReviewOperation: AsynchronousOperation {
         self.reviewId = reviewId
         self.retryTimes = retryTimes
         self.completionBlock = {
-            if self.cancelled {
+            if self.isCancelled {
                 completion(false, nil)
             } else {
                 completion(self.success, self.savedReview)
@@ -42,7 +42,7 @@ class PostReviewOperation: AsynchronousOperation {
         }
     }
     
-    func addPhotoId(id: String) {
+    func addPhotoId(_ id: String) {
         if photos == nil {
             photos = [String]()
         }
@@ -54,7 +54,7 @@ class PostReviewOperation: AsynchronousOperation {
         review()
     }
     
-    private func review() {
+    fileprivate func review() {
         let request: ReviewRequest = ReviewRequest()
         request.id = reviewId
         request.content = content
@@ -62,8 +62,8 @@ class PostReviewOperation: AsynchronousOperation {
         request.restaurantId = restaurantId
         request.photos = photos
         DataAccessor(serviceConfiguration: ParseConfiguration()).review(request) { (response) in
-            if self.cancelled {
-                self.state = .Finished
+            if self.isCancelled {
+                self.state = .finished
             } else {
                 if response != nil && response?.result != nil {
                     self.savedReview = response!.result
@@ -74,7 +74,7 @@ class PostReviewOperation: AsynchronousOperation {
                         self.review()
                     }
                 }
-                self.state = .Finished
+                self.state = .finished
             }
         }
 

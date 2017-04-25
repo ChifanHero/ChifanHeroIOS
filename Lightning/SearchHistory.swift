@@ -11,17 +11,17 @@ import CoreData
 
 class SearchHistory {
     
-    static func saveKeyword(keyword : String) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    static func saveKeyword(_ keyword : String) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let entity = NSEntityDescription.entityForName("SearchHistory", inManagedObjectContext: managedContext)
-        let fetchRequest = NSFetchRequest(entityName: "SearchHistory")
+        let entity = NSEntityDescription.entity(forEntityName: "SearchHistory", in: managedContext)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SearchHistory")
         do {
             var keywordObject : NSManagedObject?
-            if let results = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count != 0 {
                     for savedKeyword : NSManagedObject in results {
-                        var savedKeywordValue = savedKeyword.valueForKey("keyword") as! String?
+                        var savedKeywordValue = savedKeyword.value(forKey: "keyword") as! String?
                         if savedKeywordValue == nil {
                             savedKeywordValue = ""
                         }
@@ -33,10 +33,10 @@ class SearchHistory {
                 }
             }
             if (keywordObject == nil) {
-                keywordObject = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+                keywordObject = NSManagedObject(entity: entity!, insertInto: managedContext)
                 keywordObject!.setValue(keyword, forKey: "keyword")
             }
-            keywordObject!.setValue(NSDate().timeIntervalSince1970, forKey: "last_used_time")
+            keywordObject!.setValue(Date().timeIntervalSince1970, forKey: "last_used_time")
             try managedContext.save()
         } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
@@ -44,17 +44,17 @@ class SearchHistory {
         
     }
     
-    static func saveAddress(address : String) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    static func saveAddress(_ address : String) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let entity = NSEntityDescription.entityForName("SearchAddressHistory", inManagedObjectContext: managedContext)
-        let fetchRequest = NSFetchRequest(entityName: "SearchAddressHistory")
+        let entity = NSEntityDescription.entity(forEntityName: "SearchAddressHistory", in: managedContext)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SearchAddressHistory")
         do {
             var addressObject : NSManagedObject?
-            if let results = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count != 0 {
                     for savedAddress : NSManagedObject in results {
-                        var savedAddressValue = savedAddress.valueForKey("address") as! String?
+                        var savedAddressValue = savedAddress.value(forKey: "address") as! String?
                         if savedAddressValue == nil {
                             savedAddressValue = ""
                         }
@@ -66,10 +66,10 @@ class SearchHistory {
                 }
             }
             if (addressObject == nil) {
-                addressObject = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+                addressObject = NSManagedObject(entity: entity!, insertInto: managedContext)
                 addressObject!.setValue(address, forKey: "address")
             }
-            addressObject!.setValue(NSDate().timeIntervalSince1970, forKey: "last_used_time")
+            addressObject!.setValue(Date().timeIntervalSince1970, forKey: "last_used_time")
             try managedContext.save()
         } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
@@ -77,19 +77,19 @@ class SearchHistory {
         
     }
     
-    static func removeKeywordFromHistory (keyword : String) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    static func removeKeywordFromHistory (_ keyword : String) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "SearchHistory")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SearchHistory")
         fetchRequest.returnsObjectsAsFaults = false
         do
         {
-            if let results = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count != 0 {
                     for result : NSManagedObject in results {
-                        if let resultValue = result.valueForKey("keyword") as? String {
+                        if let resultValue = result.value(forKey: "keyword") as? String {
                             if resultValue == keyword {
-                                managedContext.deleteObject(result)
+                                managedContext.delete(result)
                             }
                         }
                     }
@@ -102,19 +102,19 @@ class SearchHistory {
         
     }
     
-    static func removeAddressFromHistory (address : String) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    static func removeAddressFromHistory (_ address : String) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "SearchAddressHistory")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SearchAddressHistory")
         fetchRequest.returnsObjectsAsFaults = false
         do
         {
-            if let results = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count != 0 {
                     for result : NSManagedObject in results {
-                        if let resultValue = result.valueForKey("address") as? String {
+                        if let resultValue = result.value(forKey: "address") as? String {
                             if resultValue == address {
-                                managedContext.deleteObject(result)
+                                managedContext.delete(result)
                             }
                         }
                     }
@@ -127,21 +127,21 @@ class SearchHistory {
         
     }
     
-    static func getRecentKeywords (count : Int) -> [String]{
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    static func getRecentKeywords (_ count : Int) -> [String]{
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "SearchHistory")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SearchHistory")
         let sortDescriptor : NSSortDescriptor = NSSortDescriptor(key: "last_used_time", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         var keywords = [String]()
         do {
-            if let results : [NSManagedObject] = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results : [NSManagedObject] = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count != 0 {
                     for result : NSManagedObject in results {
                         if (keywords.count >= count) {
                             break
                         }
-                        if let value = result.valueForKey("keyword") as? String {
+                        if let value = result.value(forKey: "keyword") as? String {
                             keywords.append(value)
                         }
                         
@@ -155,21 +155,21 @@ class SearchHistory {
         return keywords
     }
     
-    static func getRecentAddress (count : Int) -> [String]{
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    static func getRecentAddress (_ count : Int) -> [String]{
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "SearchAddressHistory")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SearchAddressHistory")
         let sortDescriptor : NSSortDescriptor = NSSortDescriptor(key: "last_used_time", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         var addresses = [String]()
         do {
-            if let results : [NSManagedObject] = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results : [NSManagedObject] = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count != 0 {
                     for result : NSManagedObject in results {
                         if (addresses.count >= count) {
                             break
                         }
-                        if let value = result.valueForKey("address") as? String {
+                        if let value = result.value(forKey: "address") as? String {
                             addresses.append(value)
                         }
                         

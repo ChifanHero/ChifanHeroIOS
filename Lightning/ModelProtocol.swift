@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 protocol Model {
-    init(data : [String : AnyObject])
+    init(data : JSON)
     init()
 }

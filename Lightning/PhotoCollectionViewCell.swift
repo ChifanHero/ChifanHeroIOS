@@ -17,7 +17,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    func addPhoto(photo : UIImage) {
+    func addPhoto(_ photo : UIImage) {
         imageView.image = photo
     }
     

@@ -34,20 +34,20 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    private func configureCell(){
+    fileprivate func configureCell(){
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         self.previewCollectionView = UICollectionView(frame: CGRect() , collectionViewLayout: layout)
         self.previewCollectionView?.delegate = self
         self.previewCollectionView?.dataSource = self
-        self.previewCollectionView?.registerClass(PreviewCollectionViewCell.self, forCellWithReuseIdentifier: "previewCollectionCell")
+        self.previewCollectionView?.register(PreviewCollectionViewCell.self, forCellWithReuseIdentifier: "previewCollectionCell")
         //self.previewCollectionView?.pagingEnabled = true
-        self.previewCollectionView?.backgroundColor = UIColor.whiteColor()
+        self.previewCollectionView?.backgroundColor = UIColor.white
         self.previewCollectionView?.showsHorizontalScrollIndicator = false
         self.previewCollectionView?.showsVerticalScrollIndicator = false
         self.previewCollectionView?.decelerationRate = UIScrollViewDecelerationRateFast
@@ -67,13 +67,13 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
         layout.sectionInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 40)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 10
-        layout.scrollDirection = .Horizontal
+        layout.scrollDirection = .horizontal
         self.previewCollectionView?.setCollectionViewLayout(layout, animated: true)
         
         self.titleLabel?.frame = CGRect(x: 40, y: 10, width: 200, height: 40)
     }
     
-    func setUp(title title: String, restaurants: [Restaurant], parentVC: UIViewController) {
+    func setUp(title: String, restaurants: [Restaurant], parentVC: UIViewController) {
         self.titleLabel!.text = title
         self.restaurants.removeAll()
         self.restaurants += restaurants
@@ -82,27 +82,27 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
     
     // MARK: UICollectionViewDataSource
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         //return restaurants.count
         return restaurants.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = previewCollectionView!.dequeueReusableCellWithReuseIdentifier("previewCollectionCell", forIndexPath: indexPath) as! PreviewCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = previewCollectionView!.dequeueReusableCell(withReuseIdentifier: "previewCollectionCell", for: indexPath) as! PreviewCollectionViewCell
         cell.setUp(restaurant: restaurants[indexPath.row])
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let restaurant = self.restaurants[indexPath.row]
-        let selectedCell = self.previewCollectionView?.cellForItemAtIndexPath(indexPath) as! PreviewCollectionViewCell
+        let selectedCell = self.previewCollectionView?.cellForItem(at: indexPath) as! PreviewCollectionViewCell
         (self.parentVC as! HomeViewController).selectedImageView = selectedCell.restaurantImageView
         (self.parentVC as! HomeViewController).selectedRestaurantName = selectedCell.restaurantNameLabel!.text
         (self.parentVC as! HomeViewController).selectedRestaurantId = restaurant.id
@@ -114,18 +114,18 @@ class HomepageTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
 
 class CenterCellCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
-    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         if let cv = self.collectionView {
             
             let cvBounds = cv.bounds
             let halfWidth = cvBounds.size.width * 0.5;
             
-            if let attributesForVisibleCells = self.layoutAttributesForElementsInRect(cvBounds) {
+            if let attributesForVisibleCells = self.layoutAttributesForElements(in: cvBounds) {
                 
                 var candidateAttributes: UICollectionViewLayoutAttributes?
                 for attributes in attributesForVisibleCells {
                     // == Skip comparison with non-cell items (headers and footers) == //
-                    if attributes.representedElementCategory != UICollectionElementCategory.Cell {
+                    if attributes.representedElementCategory != UICollectionElementCategory.cell {
                         continue
                     }
                     
@@ -145,7 +145,7 @@ class CenterCellCollectionViewFlowLayout: UICollectionViewFlowLayout {
         }
         
         // Fallback
-        return super.targetContentOffsetForProposedContentOffset(proposedContentOffset)
+        return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
     }
     
 }

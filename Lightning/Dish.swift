@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Dish: Model{
     
@@ -24,15 +25,15 @@ class Dish: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        id <-- data["id"]
-        name <-- data["name"]
-        picture <-- data["picture"]
-        englishName <-- data["english_name"]
-        favoriteCount <-- data["favorite_count"]
-        likeCount <-- data["like_count"]
-        dislikeCount <-- data["dislike_count"]
-        neutralCount <-- data["neutral_count"]
-        fromRestaurant <-- data["from_restaurant"]
+    required init(data: JSON) {
+        id = data["id"].string
+        name = data["name"].string
+        picture = Picture(data: data["picture"])
+        englishName = data["english_name"].string
+        favoriteCount = data["favorite_count"].int
+        likeCount = data["like_count"].int
+        dislikeCount = data["dislike_count"].int
+        neutralCount = data["neutral_count"].int
+        fromRestaurant = Restaurant(data: data["from_restaurant"])
     }
 }

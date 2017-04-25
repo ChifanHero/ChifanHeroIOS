@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class PhotoInfo: Model{
     
@@ -17,11 +18,11 @@ class PhotoInfo: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        totalCount <-- data["total_count"]
-        if let resultsJson = data["photos"] as? [AnyObject] {
+    required init(data: JSON) {
+        totalCount = data["total_count"].int
+        if let resultsJson = data["photos"].array {
             for resultJson in resultsJson {
-                let result = Picture(data: resultJson as! [String : AnyObject])
+                let result = Picture(data: resultJson)
                 photos.append(result)
             }
         }

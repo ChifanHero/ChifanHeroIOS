@@ -14,9 +14,9 @@ class GetIsFavoriteRequest: HttpRequest{
     var id: String
     
     init(type: FavoriteTypeEnum, id: String){
-        if type == FavoriteTypeEnum.Restaurant{
+        if type == FavoriteTypeEnum.restaurant{
             self.favoriteType = "restaurant"
-        } else if type == .Dish {
+        } else if type == .dish {
             self.favoriteType = "dish"
         } else {
             self.favoriteType = "selected_collection"

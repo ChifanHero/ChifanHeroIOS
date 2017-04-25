@@ -8,7 +8,7 @@ import UIKit
 /**
 *  The view presented when an alert is triggered
 */
-public class MILAlertView : UIView {
+open class MILAlertView : UIView {
     
     //// Label of the alert
     @IBOutlet weak var alertLabel : UILabel!
@@ -25,7 +25,7 @@ public class MILAlertView : UIView {
     - Classic:     Classic alert with a refresh button
     */
     enum AlertType {
-        case Classic
+        case classic
     }
     
     /**
@@ -33,8 +33,8 @@ public class MILAlertView : UIView {
     
     :returns: And instance of MILAlertView
     */
-    private class func classicAlertFromNib() -> MILAlertView {
-        return UINib(nibName: "MILAlertView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MILAlertView
+    fileprivate class func classicAlertFromNib() -> MILAlertView {
+        return UINib(nibName: "MILAlertView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! MILAlertView
     }
 
     
@@ -54,7 +54,7 @@ public class MILAlertView : UIView {
     
     :returns: An initialized MILAlertView
     */
-    class func buildAlert(alertType: AlertType!, text: String!, textColor: UIColor? = nil, textFont: UIFont? = nil, backgroundColor: UIColor? = nil, reloadImage: UIImage? = nil, inView: UIView? = nil, underView: UIView? = nil, toHeight: CGFloat? = nil, callback: (()->())!)-> MILAlertView{
+    class func buildAlert(_ alertType: AlertType!, text: String!, textColor: UIColor? = nil, textFont: UIFont? = nil, backgroundColor: UIColor? = nil, reloadImage: UIImage? = nil, inView: UIView? = nil, underView: UIView? = nil, toHeight: CGFloat? = nil, callback: (()->())!)-> MILAlertView{
         var milAlert : MILAlertView!
         if let _ = toHeight {
             MILAlertViewManager.sharedInstance.bottomHeight = toHeight
@@ -67,17 +67,17 @@ public class MILAlertView : UIView {
         if let type = alertType {
             typeOfAlert = type
         } else { //if nil, default is .Classic
-            typeOfAlert = .Classic
+            typeOfAlert = .classic
         }
         
         switch typeOfAlert {
-        case .Classic:
+        case .classic:
             milAlert = MILAlertView.classicAlertFromNib() as MILAlertView
         }
         milAlert.alertType = typeOfAlert
         
         //temporarily disable user interaction while building and showing alert
-        milAlert.userInteractionEnabled = false
+        milAlert.isUserInteractionEnabled = false
         
         // setup text
         if let txt = text {
@@ -97,8 +97,8 @@ public class MILAlertView : UIView {
         
         // setup reload button image
         if let image = reloadImage {
-            if milAlert.alertType == .Classic { //change reload image only if classic type
-                milAlert.reloadButton.setImage(image, forState: UIControlState.Normal)
+            if milAlert.alertType == .classic { //change reload image only if classic type
+                milAlert.reloadButton.setImage(image, for: UIControlState())
             }
         }
         
@@ -107,7 +107,7 @@ public class MILAlertView : UIView {
         if let view = inView {
             onView = view
         } else {
-            onView = UIApplication.sharedApplication().keyWindow!
+            onView = UIApplication.shared.keyWindow!
         }
         
         if let under = underView {
@@ -117,8 +117,8 @@ public class MILAlertView : UIView {
         }
         
         //set origin, width, and bottom
-        milAlert.frame.origin = CGPointMake(0, milAlert.frame.origin.y)
-        milAlert.frame.size.width = UIScreen.mainScreen().bounds.width
+        milAlert.frame.origin = CGPoint(x: 0, y: milAlert.frame.origin.y)
+        milAlert.frame.size.width = UIScreen.main.bounds.width
         milAlert.frame.origin.y = MILAlertViewManager.sharedInstance.bottomHeight - milAlert.frame.size.height
         
         
@@ -133,15 +133,15 @@ public class MILAlertView : UIView {
     
     :param: callback The callback function that is to be executed when the MILAlertView or reload button is tapped
     */
-    private func setCallbackFunc(callback:(()->())!){
+    fileprivate func setCallbackFunc(_ callback:(()->())!){
         var tapGesture = UITapGestureRecognizer(target: MILAlertViewManager.sharedInstance, action: #selector(MILAlertViewManager.hide)) //hide if no callback
         if let cb = callback {
-            self.reloadButton.hidden = false
+            self.reloadButton.isHidden = false
             self.callback = cb
             tapGesture = UITapGestureRecognizer(target: MILAlertViewManager.sharedInstance, action: #selector(MILAlertViewManager.reload)) //reload then hide if callback
-            self.reloadButton.addTarget(MILAlertViewManager.sharedInstance, action: #selector(MILAlertViewManager.reload), forControlEvents: UIControlEvents.TouchUpInside)
+            self.reloadButton.addTarget(MILAlertViewManager.sharedInstance, action: #selector(MILAlertViewManager.reload), for: UIControlEvents.touchUpInside)
         }else{
-            self.reloadButton.hidden = true
+            self.reloadButton.isHidden = true
         }
         self.addGestureRecognizer(tapGesture)
     }

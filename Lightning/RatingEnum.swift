@@ -9,10 +9,10 @@
 import Foundation
 
 enum RatingFilter {
-    case NONE
-    case THREE
-    case THREEHALF
-    case FOUR
-    case FOURHALF
-    case FIVE
+    case none
+    case three
+    case threehalf
+    case four
+    case fourhalf
+    case five
 }

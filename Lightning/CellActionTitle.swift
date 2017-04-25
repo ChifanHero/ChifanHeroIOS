@@ -11,19 +11,19 @@ import UIKit
 class CellActionTitle {
     
     //7 blank
-    internal class func positive(count: Int) -> String {
+    internal class func positive(_ count: Int) -> String {
         return "       \n\(count)"
     }
     
-    internal class func neutral(count: Int) -> String {
+    internal class func neutral(_ count: Int) -> String {
         return "       \n\(count)"
     }
     
-    internal class func negative(count: Int) -> String {
+    internal class func negative(_ count: Int) -> String {
         return "       \n\(count)"
     }
     
-    internal class func bookMark(count: Int) -> String {
+    internal class func bookMark(_ count: Int) -> String {
         return "       \n\(count)"
     }
     

@@ -14,38 +14,38 @@ import UIKit
     
     // Present, Push
     
-    optional
+    @objc optional
     func presentationBeforeAction()
     
-    optional
-    func presentationAnimationAction(percentComplete: CGFloat)
+    @objc optional
+    func presentationAnimationAction(_ percentComplete: CGFloat)
     
-    optional
+    @objc optional
     func presentationCancelAnimationAction()
     
-    optional
-    func presentationCompletionAction(completeTransition: Bool)
+    @objc optional
+    func presentationCompletionAction(_ completeTransition: Bool)
     
     // Dismiss, Pop
     
-    optional
+    @objc optional
     func dismissalBeforeAction()
     
-    optional
-    func dismissalAnimationAction(percentComplete: CGFloat)
+    @objc optional
+    func dismissalAnimationAction(_ percentComplete: CGFloat)
     
-    optional
+    @objc optional
     func dismissalCancelAnimationAction()
     
-    optional
-    func dismissalCompletionAction(completeTransition: Bool)
+    @objc optional
+    func dismissalCompletionAction(_ completeTransition: Bool)
     
     func usingAnimatedTransition() -> Bool
 }
 
 class ARNImageZoomTransition {
     
-    class func createAnimator(operationType: ARNTransitionAnimatorOperation, fromVC: UIViewController, toVC: UIViewController) -> ARNTransitionAnimator {
+    class func createAnimator(_ operationType: ARNTransitionAnimatorOperation, fromVC: UIViewController, toVC: UIViewController) -> ARNTransitionAnimator {
         let animator = ARNTransitionAnimator(operationType: operationType, fromVC: fromVC, toVC: toVC)
         
         if let sourceTransition = fromVC as? ARNImageTransitionZoomable, let destinationTransition = toVC as? ARNImageTransitionZoomable {
@@ -88,7 +88,7 @@ class ARNImageZoomTransition {
             animator.dismissalBeforeHandler = { [weak fromVC, weak toVC
                 , weak sourceTransition, weak destinationTransition] (containerView: UIView, transitionContext: UIViewControllerContextTransitioning) in
                 containerView.addSubview(toVC!.view)
-                containerView.bringSubviewToFront(fromVC!.view)
+                containerView.bringSubview(toFront: fromVC!.view)
                 
                 let sourceImageView = sourceTransition!.createTransitionImageView()
                 let destinationImageView = destinationTransition!.createTransitionImageView()

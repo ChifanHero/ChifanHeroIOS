@@ -19,16 +19,16 @@ class NoNetworkDefaultView: UIView {
     */
     
     var view: UIView!
-    private var nibName: String = "NoNetworkDefaultView"
+    fileprivate var nibName: String = "NoNetworkDefaultView"
     
     var parentVC: RefreshableViewDelegate?
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var messageLabel: UILabel!
     
-    @IBAction func refresh(sender: AnyObject) {
-        messageLabel.hidden = true
-        activityIndicator.hidden = false
+    @IBAction func refresh(_ sender: AnyObject) {
+        messageLabel.isHidden = true
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         if parentVC != nil {
             parentVC!.loadData({ (success) -> Void in
@@ -43,15 +43,15 @@ class NoNetworkDefaultView: UIView {
     }
     
     func show() {
-        self.hidden = false
-        self.activityIndicator.hidden = true
+        self.isHidden = false
+        self.activityIndicator.isHidden = true
         self.activityIndicator.stopAnimating()
-        self.messageLabel.hidden = false
+        self.messageLabel.isHidden = false
     }
     
     func hide() {
         self.activityIndicator.stopAnimating()
-        self.hidden = true
+        self.isHidden = true
     }
     
     
@@ -68,15 +68,15 @@ class NoNetworkDefaultView: UIView {
     func xibSetup() {
         view = loadViewFromNib()
         view.frame = bounds
-        view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
         
     }
     
     func loadViewFromNib() -> UIView{
-        let bundle = NSBundle(forClass: self.dynamicType)
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nibName, bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
 

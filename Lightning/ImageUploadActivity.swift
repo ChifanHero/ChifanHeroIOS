@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class ImageUploadActivity: Model{
     
@@ -15,7 +16,7 @@ class ImageUploadActivity: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
+    required init(data: JSON) {
     }
     
     

@@ -27,7 +27,7 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
     @IBOutlet weak var rankView: UIView!
     @IBOutlet weak var rankLabel: UILabel!
     
-    func setUp(restaurant restaurant: Restaurant, rank: Int) {
+    func setUp(restaurant: Restaurant, rank: Int) {
         self.restaurant = restaurant
         self.rank = rank
         
@@ -41,7 +41,7 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
         if restaurant.picture?.original != nil {
             url = restaurant.picture!.original!
         }
-        restaurantImage.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        restaurantImage.kf.setImage(with: URL(string: url)!, placeholder: UIImage(named: "restaurant_default_background"), options: [.transition(ImageTransition.fade(0.5))])
         
         self.makeRoundedCorner()
         self.configureRatingView()
@@ -49,24 +49,24 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
         self.configureBorderColor()
     }
     
-    private func makeRoundedCorner(){
+    fileprivate func makeRoundedCorner(){
         self.actualContentView.layer.cornerRadius = cellCornerRadius
     }
     
-    private func configureRatingView(){
+    fileprivate func configureRatingView(){
         self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant!.likeCount, negative: restaurant!.dislikeCount, neutral: restaurant!.neutralCount)
         self.ratingView.backgroundColor = ScoreComputer.getScoreColor(positive: restaurant!.likeCount, negative: restaurant!.dislikeCount, neutral: restaurant!.neutralCount)
         self.ratingView.layer.cornerRadius = ratingLabelCornerRadius
     }
     
-    private func configureRankView(){
+    fileprivate func configureRankView(){
         self.rankView.backgroundColor = RankColorPicker.colorPicker(rank: self.rank!)
         self.rankView.layer.cornerRadius = self.rankView.frame.size.width / 2
         self.rankLabel.text = String(self.rank!)
     }
     
-    private func configureBorderColor(){
+    fileprivate func configureBorderColor(){
         self.actualContentView.layer.borderWidth = 0.2
-        self.actualContentView.layer.borderColor = UIColor.grayColor().CGColor
+        self.actualContentView.layer.borderColor = UIColor.gray.cgColor
     }
 }

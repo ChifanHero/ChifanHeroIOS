@@ -11,7 +11,7 @@ import Foundation
 
 class StringUtil {
     
-    class func LevenshteinDistance(s1:NSString, s2:NSString) -> Int {
+    class func LevenshteinDistance(_ s1:NSString, s2:NSString) -> Int {
         let n = s1.length
         let m = s2.length
         if (n == 0) { return 0 }
@@ -24,10 +24,10 @@ class StringUtil {
         for i in 0..<n {
             v1[0] = i + 1
             for j in 0..<m {
-                let sChar = s1.substringWithRange(NSRange(location: i, length: 1)) as NSString
-                let tChar = s2.substringWithRange(NSRange(location: j, length: 1)) as NSString
+                let sChar = s1.substring(with: NSRange(location: i, length: 1)) as NSString
+                let tChar = s2.substring(with: NSRange(location: j, length: 1)) as NSString
                 
-                let cost:Int = sChar.isEqualToString(tChar as String) ? 0 : 1
+                let cost:Int = sChar.isEqual(to: tChar as String) ? 0 : 1
                 
                 v1[j+1] = min(v1[j] + 1, v0[j+1] + 1, v0[j] + cost)
             }
@@ -39,14 +39,14 @@ class StringUtil {
         return v1[m]
     }
     
-    class func getRelevanceScore(baseString : String?, searchText str2 : String?) -> Float{
+    class func getRelevanceScore(_ baseString : String?, searchText str2 : String?) -> Float{
         if baseString == nil || str2 == nil {
             return 0.0
         } else {
             var score : Float = 0.0
             if let searchTextArr : [String]? = tokenize(str2) {
                 for str : String  in searchTextArr! {
-                    let distance = LevenshteinDistance(baseString!, s2: str)
+                    let distance = LevenshteinDistance(baseString! as NSString, s2: str as NSString)
                     let bigger = max(baseString!.characters.count, str.characters.count)
                     let pct = Float(bigger-distance)/Float(bigger)
                     score += pct
@@ -56,23 +56,23 @@ class StringUtil {
         }
     }
     
-    class func tokenize(str : String?) -> [String]? {
+    class func tokenize(_ str : String?) -> [String]? {
         if str == nil {
             return nil
         } else {
-            return str!.componentsSeparatedByString(" ")
+            return str!.components(separatedBy: " ")
         }
     }
     
-    class func capitalizeString(original : String) -> String {
+    class func capitalizeString(_ original : String) -> String {
         let tokens : [String] = StringUtil.tokenize(original)!
         var result = ""
         for token in tokens {
             if token == "" {
                 continue
             }
-            let lowercaseToken = token.lowercaseString
-            result += lowercaseToken.stringByReplacingCharactersInRange(lowercaseToken.startIndex...lowercaseToken.startIndex, withString: String(lowercaseToken[lowercaseToken.startIndex]).uppercaseString)
+            let lowercaseToken = token.lowercased()
+            result += lowercaseToken.replacingCharacters(in: lowercaseToken.startIndex..<lowercaseToken.startIndex, with: String(lowercaseToken[lowercaseToken.startIndex]).uppercased())
             result += " "
         }
         return String(result.characters.dropLast())

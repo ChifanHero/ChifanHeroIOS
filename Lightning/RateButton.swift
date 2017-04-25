@@ -12,14 +12,14 @@ import UIKit
     
     var rated : Bool = false
     
-    @IBInspectable var unselectedColor : UIColor = UIColor.lightGrayColor() {
+    @IBInspectable var unselectedColor : UIColor = UIColor.lightGray {
         didSet {
             backgroundColor = unselectedColor
         }
     }
     @IBInspectable var selectedColor : UIColor = UIColor.themeOrange()
     
-    func rate(handler : (()->Void)) {
+    func rate(_ handler : (()->Void)) {
         rated = true
         self.backgroundColor = self.selectedColor
         handler()
@@ -36,7 +36,7 @@ import UIKit
 //        }
     }
     
-    func unRate(handler : (()->Void)) {
+    func unRate(_ handler : (()->Void)) {
         rated = false
         self.backgroundColor = self.unselectedColor
         handler()

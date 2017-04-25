@@ -10,9 +10,9 @@ import UIKit
 
 class RestaurantsFilterViewController: UIViewController {
     
-    private var sort : SortOptions?
-    private var distance : RangeFilter?
-    private var rating : RatingFilter?
+    fileprivate var sort : SortOptions?
+    fileprivate var distance : RangeFilter?
+    fileprivate var rating : RatingFilter?
     
     
     @IBOutlet weak var sortingSC: UISegmentedControl!
@@ -28,7 +28,7 @@ class RestaurantsFilterViewController: UIViewController {
         addBarButtons()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackRestaurantsFilterOpen()
     }
@@ -39,15 +39,15 @@ class RestaurantsFilterViewController: UIViewController {
     }
     
     func addCancelButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(RestaurantsFilterViewController.cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(RestaurantsFilterViewController.cancel(_:)), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
     func addConfirmButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("确定", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(RestaurantsFilterViewController.commit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("确定", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(RestaurantsFilterViewController.commit(_:)), for: UIControlEvents.touchUpInside)
         let confirmButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = confirmButton
     }
@@ -66,52 +66,52 @@ class RestaurantsFilterViewController: UIViewController {
     
     func updateSortSC() {
         let sort = searchContext.sort
-        if sort == SortOptions.BESTMATCH {
+        if sort == SortOptions.bestmatch {
             sortingSC.selectedSegmentIndex = 0
-        } else if sort == SortOptions.RATING {
+        } else if sort == SortOptions.rating {
             sortingSC.selectedSegmentIndex = 1
-        } else if sort == SortOptions.DISTANCE {
+        } else if sort == SortOptions.distance {
             sortingSC.selectedSegmentIndex = 2
-        } else if sort == SortOptions.HOTNESS {
+        } else if sort == SortOptions.hotness {
             sortingSC.selectedSegmentIndex = 3
         }
     }
     
     func updateRangeSC() {
         let range = searchContext.distance
-        if range == RangeFilter.AUTO {
+        if range == RangeFilter.auto {
             rangeSC.selectedSegmentIndex = 0
-        } else if range == RangeFilter.POINT5 {
+        } else if range == RangeFilter.point5 {
             rangeSC.selectedSegmentIndex = 1
-        } else if range == RangeFilter.ONE {
+        } else if range == RangeFilter.one {
             rangeSC.selectedSegmentIndex = 2
-        } else if range == RangeFilter.FIVE {
+        } else if range == RangeFilter.five {
             rangeSC.selectedSegmentIndex = 3
-        } else if range == RangeFilter.TWENTY {
+        } else if range == RangeFilter.twenty {
             rangeSC.selectedSegmentIndex = 4
         }
     }
     
     func updateRatingSC() {
         let rating = searchContext.rating
-        if rating == RatingFilter.NONE {
+        if rating == RatingFilter.none {
             ratingSC.selectedSegmentIndex = 0
-        } else if rating == RatingFilter.THREE {
+        } else if rating == RatingFilter.three {
             ratingSC.selectedSegmentIndex = 1
-        } else if rating == RatingFilter.THREEHALF {
+        } else if rating == RatingFilter.threehalf {
             ratingSC.selectedSegmentIndex = 2
-        } else if rating == RatingFilter.FOUR {
+        } else if rating == RatingFilter.four {
             ratingSC.selectedSegmentIndex = 3
-        } else if rating == RatingFilter.FOURHALF {
+        } else if rating == RatingFilter.fourhalf {
             ratingSC.selectedSegmentIndex = 4
-        } else if rating == RatingFilter.FIVE {
+        } else if rating == RatingFilter.five {
             ratingSC.selectedSegmentIndex = 5
         }
         
     }
     
     
-    func commit(sender: AnyObject) {
+    func commit(_ sender: AnyObject) {
         if (distance != nil && distance != searchContext.distance) {
             searchContext.distance = distance!
         }
@@ -126,58 +126,58 @@ class RestaurantsFilterViewController: UIViewController {
         
     }
     
-    func cancel(sender: AnyObject) {
+    func cancel(_ sender: AnyObject) {
         searchContext.newSearch = false
         clearStates()
         self.containerVC?.slideMenuController()?.closeRight()
     }
     
-    private func clearStates() {
+    fileprivate func clearStates() {
         distance = nil
         sort = nil
         rating = nil
     }
 
 
-    @IBAction func sortingChanged(sender: UISegmentedControl) {
+    @IBAction func sortingChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            sort = SortOptions.BESTMATCH
+            sort = SortOptions.bestmatch
         } else if sender.selectedSegmentIndex == 1 {
-            sort = SortOptions.RATING
+            sort = SortOptions.rating
         } else if sender.selectedSegmentIndex == 2 {
-            sort = SortOptions.DISTANCE
+            sort = SortOptions.distance
         } else if sender.selectedSegmentIndex == 3 {
-            sort = SortOptions.HOTNESS
+            sort = SortOptions.hotness
         }
     }
 
-    @IBAction func rangeChanged(sender: UISegmentedControl) {
+    @IBAction func rangeChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            distance = RangeFilter.AUTO
+            distance = RangeFilter.auto
         } else if sender.selectedSegmentIndex == 1{
-            distance = RangeFilter.POINT5
+            distance = RangeFilter.point5
         } else if sender.selectedSegmentIndex == 2{
-            distance = RangeFilter.ONE
+            distance = RangeFilter.one
         } else if sender.selectedSegmentIndex == 3{
-            distance = RangeFilter.FIVE
+            distance = RangeFilter.five
         } else if sender.selectedSegmentIndex == 4{
-            distance = RangeFilter.TWENTY
+            distance = RangeFilter.twenty
         }
     }
 
-    @IBAction func ratingChanged(sender: UISegmentedControl) {
+    @IBAction func ratingChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            rating = RatingFilter.NONE
+            rating = RatingFilter.none
         } else if sender.selectedSegmentIndex == 1{
-            rating = RatingFilter.THREE
+            rating = RatingFilter.three
         } else if sender.selectedSegmentIndex == 2{
-            rating = RatingFilter.THREEHALF
+            rating = RatingFilter.threehalf
         } else if sender.selectedSegmentIndex == 3{
-            rating = RatingFilter.FOUR
+            rating = RatingFilter.four
         } else if sender.selectedSegmentIndex == 4{
-            rating = RatingFilter.FOURHALF
+            rating = RatingFilter.fourhalf
         } else if sender.selectedSegmentIndex == 5{
-            rating = RatingFilter.FIVE
+            rating = RatingFilter.five
         }
     }
 }

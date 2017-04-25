@@ -10,7 +10,7 @@ import UIKit
 
 class ActionPanelView: UIView {
 
-    private var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
+    fileprivate var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
     var baseVC: UIViewController?
     
@@ -82,19 +82,19 @@ class ActionPanelView: UIView {
     func xibSetup() {
         view = loadViewFromNib()
         view.frame = bounds
-        view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
         
     }
     
     func loadViewFromNib() -> UIView{
-        let bundle = NSBundle(forClass: self.dynamicType)
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "ActionPanel", bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
 
-    @IBAction func like(sender: AnyObject) {
+    @IBAction func like(_ sender: AnyObject) {
         if isFromGoogleSearch {
             SCLAlertView().showWarning("该餐厅来自谷歌搜索", subTitle: "评价功能暂不支持第三方搜索服务")
             return
@@ -114,7 +114,7 @@ class ActionPanelView: UIView {
     }
     
     
-    @IBAction func neutral(sender: AnyObject) {
+    @IBAction func neutral(_ sender: AnyObject) {
         if isFromGoogleSearch {
             SCLAlertView().showWarning("该餐厅来自谷歌搜索", subTitle: "评价功能暂不支持第三方搜索服务")
             return
@@ -133,7 +133,7 @@ class ActionPanelView: UIView {
         }
     }
     
-    @IBAction func dislike(sender: AnyObject) {
+    @IBAction func dislike(_ sender: AnyObject) {
         if isFromGoogleSearch {
             SCLAlertView().showWarning("该餐厅来自谷歌搜索", subTitle: "评价功能暂不支持第三方搜索服务")
             return
@@ -152,7 +152,7 @@ class ActionPanelView: UIView {
         }
     }
     
-    @IBAction func favorite(sender: AnyObject) {
+    @IBAction func favorite(_ sender: AnyObject) {
         if isFromGoogleSearch {
             SCLAlertView().showWarning("该餐厅来自谷歌搜索", subTitle: "收藏功能暂不支持第三方搜索服务")
             return

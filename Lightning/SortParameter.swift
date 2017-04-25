@@ -11,15 +11,15 @@ import Foundation
 
 enum SortParameter : CustomStringConvertible{
     
-    case Hotness
-    case Distance
-    case Rating
+    case hotness
+    case distance
+    case rating
     
     var description : String {
         switch self {
-        case .Hotness : return "hotness"
-        case .Distance : return "distance"
-        case .Rating : return "rating"
+        case .hotness : return "hotness"
+        case .distance : return "distance"
+        case .rating : return "rating"
         }
     }
     

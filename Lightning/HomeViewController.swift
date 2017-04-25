@@ -8,6 +8,19 @@
 
 import UIKit
 import MapKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
@@ -31,7 +44,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     var appDelegate: AppDelegate?
     
-    var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
+    var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     
     var pullRefresher: UIRefreshControl!
     
@@ -42,8 +55,8 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     var lastUsedLocation : Location?
     
     override func viewDidLoad() {
-        appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        NSNotificationCenter.defaultCenter().postNotificationName("HomeVCLoaded", object: nil)
+        appDelegate = UIApplication.shared.delegate as? AppDelegate
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "HomeVCLoaded"), object: nil)
         super.viewDidLoad()
         self.configLoadingIndicator()
         self.configureFrontCoverImage()
@@ -58,16 +71,16 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         homepageTable.dataSource = self
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.isTranslucent = false
 //        setTabBarVisible(true, animated: true)
-        self.tabBarController?.tabBar.hidden = false
+        self.tabBarController?.tabBar.isHidden = false
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        pullRefresher.addTarget(self, action: #selector(RefreshableViewController.refreshData), forControlEvents: .ValueChanged)
+        pullRefresher.addTarget(self, action: #selector(RefreshableViewController.refreshData), for: .valueChanged)
         TrackingUtil.trackRecommendationView()
         if autoRefresh && locationChangedSignificantly() {
             loadingIndicator.startAnimation()
@@ -82,7 +95,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         }
         let currentCLLocation = CLLocation(latitude: (currentLocation?.lat)!, longitude: (currentLocation?.lon)!)
         let lastCLLocation = CLLocation(latitude: lastUsedLocation!.lat!, longitude: lastUsedLocation!.lon!)
-        let distance : CLLocationDistance = currentCLLocation.distanceFromLocation(lastCLLocation)
+        let distance : CLLocationDistance = currentCLLocation.distance(from: lastCLLocation)
         print(distance)
         if distance >= 1600 {
             return true
@@ -98,52 +111,52 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    private func configurePullToRefresh(){
+    fileprivate func configurePullToRefresh(){
         pullRefresher = UIRefreshControl()
-        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGray,
                           NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
         pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
-        pullRefresher.tintColor = UIColor.lightGrayColor()
+        pullRefresher.tintColor = UIColor.lightGray
 //        self.homepageTable.addSubview(pullRefresher)
-        self.homepageTable.insertSubview(pullRefresher, atIndex: 0)
+        self.homepageTable.insertSubview(pullRefresher, at: 0)
     }
     
-    private func configureFrontCoverImage(){
-        let date = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.Hour, fromDate: date)
+    fileprivate func configureFrontCoverImage(){
+        let date = Date()
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components(.hour, from: date)
         let hour = components.hour
-        if hour >= 5 && hour < 10 {
+        if hour! >= 5 && hour! < 10 {
             frontCoverImage.image = UIImage(named: "Homepage_Breakfast")
-        } else if hour >= 10 && hour < 12 {
+        } else if hour! >= 10 && hour! < 12 {
             frontCoverImage.image = UIImage(named: "Homepage_Brunch")
-        } else if hour >= 12 && hour < 14 {
+        } else if hour! >= 12 && hour! < 14 {
             frontCoverImage.image = UIImage(named: "Homepage_Lunch")
-        } else if hour >= 14 && hour < 17 {
+        } else if hour! >= 14 && hour! < 17 {
             frontCoverImage.image = UIImage(named: "Homepage_Tea")
-        } else if hour >= 17 && hour < 21 {
+        } else if hour! >= 17 && hour! < 21 {
             frontCoverImage.image = UIImage(named: "Homepage_Dinner")
-        } else if hour >= 21 && hour <= 24 {
+        } else if hour! >= 21 && hour! <= 24 {
             frontCoverImage.image = UIImage(named: "Homepage_Supper")
-        } else if hour >= 0 && hour < 5 {
+        } else if hour! >= 0 && hour! < 5 {
             frontCoverImage.image = UIImage(named: "Homepage_Supper")
         }
     }
     
-    private func configLoadingIndicator() {
+    fileprivate func configLoadingIndicator() {
         loadingIndicator.color = UIColor.themeOrange()
-        loadingIndicator.type = NVActivityIndicatorType.Pacman
-        loadingIndicator.center = (UIApplication.sharedApplication().keyWindow?.center)!
+        loadingIndicator.type = NVActivityIndicatorType.pacman
+        loadingIndicator.center = (UIApplication.shared.keyWindow?.center)!
         self.view.addSubview(loadingIndicator)
     }
     
     // MARK: - add location selection button to top left corner
     func addLocationSelectionToLeftCorner() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("位置待定", size: CGRectMake(0, 0, 200, 26))
-        button.addTarget(self, action: #selector(HomeViewController.editLocation), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("位置待定", size: CGRect(x: 0, y: 0, width: 200, height: 26))
+        button.addTarget(self, action: #selector(HomeViewController.editLocation), for: UIControlEvents.touchUpInside)
         let selectionLocationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = selectionLocationButton
     }
@@ -151,36 +164,39 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     func addEnvironmentControlToRightCorner() {
         #if DEBUG
             var title = ""
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if defaults.boolForKey("usingStaging") {
+            let defaults = UserDefaults.standard
+            if defaults.bool(forKey: "usingStaging") {
                 title = "正在使用Staging"
             } else {
                 title = "正在使用Production"
             }
-            let button: UIButton = UIButton.barButtonWithTextAndBorder(title, size: CGRectMake(0, 0, 150, 26))
-            button.addTarget(self, action: #selector(HomeViewController.changeEnvironment), forControlEvents: UIControlEvents.TouchUpInside)
+            let button: UIButton = UIButton.barButtonWithTextAndBorder(title, size: CGRect(x: 0, y: 0, width: 150, height: 26))
+            button.addTarget(self, action: #selector(HomeViewController.changeEnvironment), for: UIControlEvents.touchUpInside)
             let selectionLocationButton = UIBarButtonItem(customView: button)
             self.navigationItem.rightBarButtonItem = selectionLocationButton
         #endif
     }
         
     func changeEnvironment() {
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         var afterChangeEnv = ""
-        if defaults.boolForKey("usingStaging") {
-            defaults.setBool(false, forKey: "usingStaging")
+        if defaults.bool(forKey: "usingStaging") {
+            defaults.set(false, forKey: "usingStaging")
             afterChangeEnv = "Production"
-            (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setTitle("正在使用Production", forState: .Normal)
+            (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setTitle("正在使用Production", for: UIControlState())
         } else {
-            defaults.setBool(true, forKey: "usingStaging")
+            defaults.set(true, forKey: "usingStaging")
             afterChangeEnv = "Staging"
-            (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setTitle("正在使用Staging", forState: .Normal)
+            (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setTitle("正在使用Staging", for: UIControlState())
         }
-        let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, showCircularIcon: true, kCircleIconHeight: 40)
+        var appearance = SCLAlertView.SCLAppearance()
+        appearance.showCloseButton = false
+        appearance.showCircularIcon = true
+        appearance.setkWindowHeight(40)
         let askLocationAlertView = SCLAlertView(appearance: appearance)
         let alertViewIcon = UIImage(named: "LogoWithBorder")
         askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(HomeViewController.doNothing))
-        askLocationAlertView.showInfo("正在使用\(afterChangeEnv)", subTitle: "\(ParseConfiguration().hostEndpoint())", circleIconImage: alertViewIcon, colorStyle: UIColor.themeOrange().getColorCode())
+        askLocationAlertView.showInfo("正在使用\(afterChangeEnv)", subTitle: "\(ParseConfiguration().hostEndpoint())", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
         
     }
     
@@ -189,44 +205,44 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     }
     
     func editLocation() {
-        let selectLocationNavigationController: UINavigationController = UIStoryboard(name: "LocationSelection", bundle: nil).instantiateViewControllerWithIdentifier("LocationNavigationController") as! UINavigationController
+        let selectLocationNavigationController: UINavigationController = UIStoryboard(name: "LocationSelection", bundle: nil).instantiateViewController(withIdentifier: "LocationNavigationController") as! UINavigationController
         let selectLocationController: SelectLocationViewController = selectLocationNavigationController.viewControllers[0] as! SelectLocationViewController
         selectLocationController.homeViewController = self
-        self.presentViewController(selectLocationNavigationController, animated: true, completion: nil)
+        self.present(selectLocationNavigationController, animated: true, completion: nil)
     }
     
-    private func initHomepageTable(){
-        homepageTable.separatorStyle = UITableViewCellSeparatorStyle.None
+    fileprivate func initHomepageTable(){
+        homepageTable.separatorStyle = UITableViewCellSeparatorStyle.none
         loadingIndicator.startAnimation()
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if !defaults.boolForKey("usingCustomLocation") {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil) // Refresh content whenever the user select a city
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil) // Refresh content the first time user real time location is available
+        let defaults = UserDefaults.standard
+        if !defaults.bool(forKey: "usingCustomLocation") {
+            NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:NSNotification.Name(rawValue: "DefaultCityChanged"), object: nil) // Refresh content whenever the user select a city
+            NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:NSNotification.Name(rawValue: "UserLocationAvailable"), object: nil) // Refresh content the first time user real time location is available
         } else {
             // User restarted the app. Already have all the information we need. No need to observe anything
             let cityInUse = userLocationManager.getCityInUse()
             let cityText: String = cityInUse!.name! + ", " + cityInUse!.state! + ", " + cityInUse!.localizedCountryName!
-            (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, forState: .Normal)
+            (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, for: UIControlState())
             loadData(nil)
         }
         
     }
     
-    @objc private func refresh(sender:AnyObject) {
+    @objc fileprivate func refresh(_ sender:AnyObject) {
         loadData(nil)
     }
     
     func handleLocationChange() {
         loadingIndicator.startAnimation()
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "UserLocationAvailable", object: nil) // only need this notification once. Already got it, so remove it.
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("usingCustomLocation") {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "UserLocationAvailable"), object: nil) // only need this notification once. Already got it, so remove it.
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "usingCustomLocation") {
             let cityInUse = userLocationManager.getCityInUse()
             let cityText: String = cityInUse!.name! + ", " + cityInUse!.state! + ", " + cityInUse!.localizedCountryName!
-            (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, forState: .Normal)
+            (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, for: UIControlState())
         } else {
             currentLocationText = "实时位置"
-            (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(currentLocationText, forState: .Normal)
+            (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(currentLocationText, for: UIControlState())
         }
         loadData(nil)
     }
@@ -236,16 +252,16 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     }
     
     func prepareForDataRefresh() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("usingCustomLocation") {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"DefaultCityChanged", object: nil)
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "usingCustomLocation") {
+            NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:NSNotification.Name(rawValue: "DefaultCityChanged"), object: nil)
         } else {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:"UserLocationAvailable", object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:NSNotification.Name(rawValue: "UserLocationAvailable"), object: nil)
         }
         autoRefresh = false
     }
 
-    override func loadData(refreshHandler : ((success : Bool) -> Void)?) {
+    override func loadData(_ refreshHandler : ((_ success : Bool) -> Void)?) {
         let request = GetHomepageRequest()
         
         let location: Location? = userLocationManager.getLocationInUse()
@@ -255,25 +271,25 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         }
         request.userLocation = location
         DataAccessor(serviceConfiguration: ParseConfiguration()).getHomepage(request) { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
                 if response == nil {
                     if refreshHandler != nil {
-                        refreshHandler!(success: false)
+                        refreshHandler!(false)
                     }
                     self.loadingIndicator.stopAnimation()
                 } else {
                     self.clearData()
                     self.homepageSections += response!.results
-                    self.homepageSections.sortInPlace({(sec1, sec2) -> Bool in
+                    self.homepageSections.sort(by: {(sec1, sec2) -> Bool in
                         return sec1.placement < sec2.placement
                     })
                     self.pullRefresher.endRefreshing()
                     self.loadingIndicator.stopAnimation()
-                    self.homepageTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-                    self.homepageTable.hidden = false
+                    self.homepageTable.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+                    self.homepageTable.isHidden = false
                     self.homepageTable.reloadData()
                     if refreshHandler != nil {
-                        refreshHandler!(success: true)
+                        refreshHandler!(true)
                     }
                     
                 }
@@ -283,33 +299,33 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         }
     }
     
-    private func clearData(){
+    fileprivate func clearData(){
         homepageSections.removeAll()
     }
     
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return homepageSections.count
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = HomepageTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "homepageTableCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = HomepageTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "homepageTableCell")
         cell.setUp(title: homepageSections[indexPath.row].title!, restaurants: homepageSections[indexPath.row].restaurants, parentVC: self)
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 350
     }
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
     
@@ -319,25 +335,25 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let imageView = UIImageView(image: self.selectedImageView!.image)
         imageView.contentMode = self.selectedImageView!.contentMode
         imageView.clipsToBounds = true
-        imageView.userInteractionEnabled = false
+        imageView.isUserInteractionEnabled = false
         imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
         
         return imageView
     }
     
-    func presentationCompletionAction(completeTransition: Bool) {
-        self.selectedImageView?.hidden = true
+    func presentationCompletionAction(_ completeTransition: Bool) {
+        self.selectedImageView?.isHidden = true
     }
     
-    func dismissalCompletionAction(completeTransition: Bool) {
-        self.selectedImageView?.hidden = false
+    func dismissalCompletionAction(_ completeTransition: Bool) {
+        self.selectedImageView?.isHidden = false
         animateTransition = false
     }
     
     func handleTransition() {
         self.animateTransition = true
         let storyboard = UIStoryboard(name: "Restaurant", bundle: nil)
-        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
+        let restaurantController = storyboard.instantiateViewController(withIdentifier: "RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantName = self.selectedRestaurantName
         restaurantController.distance = self.selectedRestaurant?.distance

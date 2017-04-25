@@ -29,7 +29,7 @@ class ReviewDetailTableViewController: UITableViewController, UICollectionViewDe
         super.viewDidLoad()
         addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
-        photosCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "attachmentCell")
+        photosCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "attachmentCell")
         reviewTextView.text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccc"
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         self.view.layoutIfNeeded()
@@ -45,7 +45,7 @@ class ReviewDetailTableViewController: UITableViewController, UICollectionViewDe
         // Dispose of any resources that can be recreated.
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let section = indexPath.section
         if section == 0 {
             return 66
@@ -60,7 +60,7 @@ class ReviewDetailTableViewController: UITableViewController, UICollectionViewDe
     
     func getReviewSectionHeight() -> CGFloat {
         reviewTextView.layoutIfNeeded()
-        let reviewHeight = reviewTextView.sizeThatFits(CGSizeMake(reviewTextView.frame.size.width, CGFloat.max)).height
+        let reviewHeight = reviewTextView.sizeThatFits(CGSize(width: reviewTextView.frame.size.width, height: CGFloat.greatestFiniteMagnitude)).height
         return reviewHeight
     }
     
@@ -70,20 +70,20 @@ class ReviewDetailTableViewController: UITableViewController, UICollectionViewDe
         return self.photosCollectionView.contentSize.height
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return 10
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("attachmentCell", forIndexPath: indexPath)
+        let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "attachmentCell", for: indexPath)
         //
         // Configure the cell
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Homepage_Brunch")
         imageView.frame = cell.frame
-        imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        imageView.contentMode = UIViewContentMode.scaleAspectFill
         imageView.clipsToBounds = true
         cell.backgroundView = imageView
         return cell

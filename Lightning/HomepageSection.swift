@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class HomepageSection: Model{
     
@@ -18,12 +19,12 @@ class HomepageSection: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        title <-- data["title"]
-        placement <-- data["placement"]
-        if let resultsJson = data["results"] as? [AnyObject] {
+    required init(data: JSON) {
+        title = data["title"].string
+        placement = data["placement"].int
+        if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
-                let result = Restaurant(data: resultJson as! [String : AnyObject])
+                let result = Restaurant(data: resultJson)
                 restaurants.append(result)
             }
         }

@@ -28,19 +28,19 @@ class SearchHistoryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        clockIcon.renderColorChangableImage(UIImage(named: "history_clock.png")!, fillColor: UIColor.lightGrayColor())
-        deleteButtonImageView.renderColorChangableImage(UIImage(named: "close.png")!, fillColor: UIColor.lightGrayColor())
+        clockIcon.renderColorChangableImage(UIImage(named: "history_clock.png")!, fillColor: UIColor.lightGray)
+        deleteButtonImageView.renderColorChangableImage(UIImage(named: "close.png")!, fillColor: UIColor.lightGray)
         let tap = UITapGestureRecognizer(target: self, action: #selector(SearchHistoryTableViewCell.deleteHistory(_:)))
         deleteButton.addGestureRecognizer(tap)
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
-    func deleteHistory(sender: AnyObject) {
+    func deleteHistory(_ sender: AnyObject) {
         delegate?.deleteHistory(self)
     }
 }

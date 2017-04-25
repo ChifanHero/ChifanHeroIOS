@@ -7,21 +7,22 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class GetFavoritesResponse: HttpResponseProtocol{
     
     var error: Error?
-    var results: [Favorite] = [Favorite]()
+    var results: [Favorite] = []
     
     required init() {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        error <-- data["error"]
-        if let resultsJson = data["results"] as? [AnyObject] {
+    required init(data: JSON) {
+        error = Error(data: data["error"])
+        if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
-                let result = Favorite(data: resultJson as! [String : AnyObject])
+                let result = Favorite(data: resultJson)
                 results.append(result)
             }
         }

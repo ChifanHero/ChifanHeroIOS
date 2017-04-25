@@ -7,23 +7,47 @@
 //
 
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class PhotoUploadOperation: AsynchronousOperation {
     
-    private var success = false
+    fileprivate var success = false
     
-    private var photo: UIImage?
+    fileprivate var photo: UIImage?
     
-    private var retryTimes = 0
+    fileprivate var retryTimes = 0
     
-    private var uploaded: Picture?
+    fileprivate var uploaded: Picture?
     
-    init(photo : UIImage, retryTimes: Int, completion: (Bool, Picture?) -> Void) {
+    init(photo : UIImage, retryTimes: Int, completion: @escaping (Bool, Picture?) -> Void) {
         super.init()
         self.photo = photo
         self.retryTimes = retryTimes
         self.completionBlock = {
-            if self.cancelled {
+            if self.isCancelled {
                 completion(false, nil)
             } else {
                 completion(self.success, self.uploaded)
@@ -35,18 +59,18 @@ class PhotoUploadOperation: AsynchronousOperation {
         upload()
     }
     
-    private func upload() {
+    fileprivate func upload() {
         let maxLength = 100000 // 100KB
         var imageData = UIImageJPEGRepresentation(photo!, 1.0) //1.0 is compression ratio
-        if imageData?.length > maxLength {
-            let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.length)!)
+        if imageData?.count > maxLength {
+            let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.count)!)
             imageData = UIImageJPEGRepresentation(photo!, compressionRatio)
         }
-        let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
+        let base64_code: String = (imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters))!
         let request : UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
         DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
-            if self.cancelled {
-                self.state = .Finished
+            if self.isCancelled {
+                self.state = .finished
             } else {
                 if response != nil && response?.result != nil && response?.result?.id != nil{
                     self.uploaded = response!.result
@@ -57,7 +81,7 @@ class PhotoUploadOperation: AsynchronousOperation {
                         self.upload()
                     }
                 }
-                self.state = .Finished
+                self.state = .finished
             }
             
         }

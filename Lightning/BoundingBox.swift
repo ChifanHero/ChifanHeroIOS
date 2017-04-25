@@ -18,10 +18,10 @@ class BoundingBox {
         self.minPoint = minPoint
     }
     
-    private static let WGS84_a : Double = 6378137.0
-    private static let WGS84_b : Double = 6356752.3
+    fileprivate static let WGS84_a : Double = 6378137.0
+    fileprivate static let WGS84_b : Double = 6356752.3
     
-    static func getBoundingBox(center : Location, radiusInKm : Double) -> BoundingBox {
+    static func getBoundingBox(_ center : Location, radiusInKm : Double) -> BoundingBox {
         // Bounding box surrounding the point at given coordinates,
         // assuming local approximation of Earth surface as a sphere
         // of radius given by WGS84
@@ -49,15 +49,15 @@ class BoundingBox {
         return boundingBox
     }
     
-    private class func degreeToRadian(degrees : Double) -> Double {
+    fileprivate class func degreeToRadian(_ degrees : Double) -> Double {
         return M_PI * degrees / 180.0
     }
     
-    private class func radianToDegree(radians : Double) -> Double {
+    fileprivate class func radianToDegree(_ radians : Double) -> Double {
         return 180.0 * radians / M_PI
     }
     
-    private class func getWGS84EarthRadius(lat : Double) -> Double {
+    fileprivate class func getWGS84EarthRadius(_ lat : Double) -> Double {
         let an = WGS84_a * WGS84_a * cos(lat)
         let bn = WGS84_b * WGS84_b * sin(lat)
         let ad = WGS84_a * cos(lat)

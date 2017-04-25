@@ -17,7 +17,7 @@ class UpdateInfoRequest: AccountRequest{
         var parameters = Dictionary<String, String>()
         parameters["nick_name"] = nickName
         parameters["pictureId"] = pictureId
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     override func getRelativeURL() -> String {

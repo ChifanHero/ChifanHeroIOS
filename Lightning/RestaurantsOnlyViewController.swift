@@ -12,7 +12,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
     
     @IBOutlet var restaurantsTable: UITableView!
     
-    private var request: GetRestaurantsRequest = GetRestaurantsRequest()
+    fileprivate var request: GetRestaurantsRequest = GetRestaurantsRequest()
     
     var animateTransition = false
     
@@ -24,7 +24,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
     
     var restaurants: [Restaurant] = []
     
-    var loadMoreIndicator : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    var loadMoreIndicator : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     var footerView : LoadMoreFooterView?
     
@@ -34,7 +34,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
     
     var pullRefresher: UIRefreshControl!
     
-    var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
+    var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     
     var isFromBookMark = false {
         didSet {
@@ -52,46 +52,46 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         self.configPullToRefresh()
         self.restaurantsTable.delegate = self
         self.restaurantsTable.dataSource = self
-        self.restaurantsTable.hidden = true
+        self.restaurantsTable.isHidden = true
         setTableViewFooterView()
         firstLoadData()
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.animateTransition = false
-        let selectedCellIndexPath : NSIndexPath? = self.restaurantsTable.indexPathForSelectedRow
+        let selectedCellIndexPath : IndexPath? = self.restaurantsTable.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
-            self.restaurantsTable.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+            self.restaurantsTable.deselectRow(at: selectedCellIndexPath!, animated: false)
         }
         //        setTabBarVisible(false, animated: true)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackRestaurantsView()
     }
     
-    private func configPullToRefresh() {
+    fileprivate func configPullToRefresh() {
         pullRefresher = UIRefreshControl()
-        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGray,
                           NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
         pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
-        pullRefresher.tintColor = UIColor.lightGrayColor()
-        pullRefresher.addTarget(self, action: #selector(RestaurantsOnlyViewController.refreshData), forControlEvents: .ValueChanged)
-        self.restaurantsTable.insertSubview(pullRefresher, atIndex: 0)
+        pullRefresher.tintColor = UIColor.lightGray
+        pullRefresher.addTarget(self, action: #selector(RestaurantsOnlyViewController.refreshData), for: .valueChanged)
+        self.restaurantsTable.insertSubview(pullRefresher, at: 0)
     }
     
-    private func configLoadingIndicator() {
+    fileprivate func configLoadingIndicator() {
         loadingIndicator.color = UIColor.themeOrange()
-        loadingIndicator.type = NVActivityIndicatorType.Pacman
-        loadingIndicator.center = (UIApplication.sharedApplication().keyWindow?.center)!
+        loadingIndicator.type = NVActivityIndicatorType.pacman
+        loadingIndicator.center = (UIApplication.shared.keyWindow?.center)!
         self.view.addSubview(loadingIndicator)
     }
     
     func setTableViewFooterView() {
-        let frame = CGRectMake(0, 0, self.view.frame.size.width, 30)
+        let frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 30)
         footerView = LoadMoreFooterView(frame: frame)
         footerView?.reset()
         self.restaurantsTable.tableFooterView = footerView
@@ -130,21 +130,21 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         self.restaurants.removeAll()
     }
     
-    override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
+    override func loadData(_ refreshHandler: ((_ success: Bool) -> Void)?) {
         
         if isFromBookMark == true {
-            let request: GetFavoritesRequest = GetFavoritesRequest(type: FavoriteTypeEnum.Restaurant)
+            let request: GetFavoritesRequest = GetFavoritesRequest(type: FavoriteTypeEnum.restaurant)
             let location = userLocationManager.getLocationInUse()
             request.lat = location!.lat
             request.lon = location!.lon
             DataAccessor(serviceConfiguration: ParseConfiguration()).getFavorites(request) { (response) -> Void in
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                OperationQueue.main.addOperation({ () -> Void in
                     self.clearData()
                     for index in 0..<(response?.results)!.count {
                         self.restaurants.append((response?.results)![index].restaurant!)
                     }
-                    if self.restaurants.count > 0 && self.restaurantsTable.hidden == true{
-                        self.restaurantsTable.hidden = false
+                    if self.restaurants.count > 0 && self.restaurantsTable.isHidden == true{
+                        self.restaurantsTable.isHidden = false
                     }
                     self.loadingIndicator.stopAnimation()
                     self.footerView!.activityIndicator.stopAnimating()
@@ -154,10 +154,10 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
             }
         } else {
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request) { (response) -> Void in
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     if response == nil {
                         if refreshHandler != nil {
-                            refreshHandler!(success: false)
+                            refreshHandler!(false)
                         }
                         self.pullRefresher.endRefreshing()
                         self.loadingIndicator.stopAnimation()
@@ -167,15 +167,15 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
                             self.clearData()
                         }
                         self.loadResults(response?.results)
-                        if self.restaurants.count > 0 && self.restaurantsTable.hidden == true{
-                            self.restaurantsTable.hidden = false
+                        if self.restaurants.count > 0 && self.restaurantsTable.isHidden == true{
+                            self.restaurantsTable.isHidden = false
                         }
                         self.pullRefresher.endRefreshing()
                         self.loadingIndicator.stopAnimation()
                         self.footerView!.activityIndicator.stopAnimating()
                         self.restaurantsTable.reloadData()
                         if refreshHandler != nil {
-                            refreshHandler!(success: true)
+                            refreshHandler!(true)
                         }
                         
                     }
@@ -186,7 +186,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         }
     }
     
-    func loadResults(results : [Restaurant]?) {
+    func loadResults(_ results : [Restaurant]?) {
         if results != nil {
             for restaurant in results! {
                 self.restaurants.append(restaurant)
@@ -195,7 +195,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
     }
     
     
-    @objc private func refresh(sender:AnyObject) {
+    @objc fileprivate func refresh(_ sender:AnyObject) {
         refreshData()
     }
     
@@ -204,24 +204,24 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return RestaurantTableViewCell.height
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return restaurants.count
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell: RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+        var cell: RestaurantTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as? RestaurantTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+            tableView.register(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as? RestaurantTableViewCell
         }
         cell?.setUp(restaurant: restaurants[indexPath.row])
         return cell!
@@ -236,19 +236,19 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let restaurantSelected : Restaurant = restaurants[indexPath.row]
-        let selectedCell : RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
+        let selectedCell : RestaurantTableViewCell = tableView.cellForRow(at: indexPath) as! RestaurantTableViewCell
         self.selectedImageView = selectedCell.restaurantImageView
         selectedRestaurantName = selectedCell.nameLabel.text
         selectedRestaurantId = restaurantSelected.id
         self.animateTransition = true
-        performSegueWithIdentifier("showRestaurant", sender: restaurantSelected.id)
+        performSegue(withIdentifier: "showRestaurant", sender: restaurantSelected.id)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showRestaurant" {
-            let restaurantController : RestaurantMainTableViewController = segue.destinationViewController as! RestaurantMainTableViewController
+            let restaurantController : RestaurantMainTableViewController = segue.destination as! RestaurantMainTableViewController
             restaurantController.restaurantId = sender as? String
             restaurantController.restaurantImage = self.selectedImageView?.image
             restaurantController.restaurantName = self.selectedRestaurantName
@@ -256,31 +256,31 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         }
     }
     
-    private func loadMore() {
+    fileprivate func loadMore() {
         request.skip = (request.skip)! + (request.limit)!
         isLoadingMore = true
         footerView?.activityIndicator.startAnimating()
         loadData(nil)
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let restaurant: Restaurant = self.restaurants[indexPath.row]
         let objectId = restaurant.id
         
-        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Destructive, title: "删除", handler:{(action, indexpath) -> Void in
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "删除", handler:{(action, indexpath) -> Void in
             
             let request = RemoveFavoriteRequest()
             request.type = "restaurant"
             request.objectId = objectId
             DataAccessor(serviceConfiguration: ParseConfiguration()).removeFavorite(request) { (response) -> Void in
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                OperationQueue.main.addOperation({ () -> Void in
                     
                 });
             }
             
             self.restaurantsTable.beginUpdates()
-            self.restaurants.removeAtIndex(indexPath.row)
-            self.restaurantsTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            self.restaurants.remove(at: indexPath.row)
+            self.restaurantsTable.deleteRows(at: [indexPath], with: .fade)
             self.restaurantsTable.endUpdates()
             
         });
@@ -288,7 +288,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         return [deleteAction];
     }
     
-    private func popupSigninAlert() {
+    fileprivate func popupSigninAlert() {
         SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
     }
     
@@ -298,19 +298,19 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         let imageView = UIImageView(image: self.selectedImageView!.image)
         imageView.contentMode = self.selectedImageView!.contentMode
         imageView.clipsToBounds = true
-        imageView.userInteractionEnabled = false
+        imageView.isUserInteractionEnabled = false
         //        imageView.frame = self.selectedImageView!.convertRect(self.selectedImageView!.frame, toView: self.view)
         imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
         
         return imageView
     }
     
-    func presentationCompletionAction(completeTransition: Bool) {
-        self.selectedImageView?.hidden = true
+    func presentationCompletionAction(_ completeTransition: Bool) {
+        self.selectedImageView?.isHidden = true
     }
     
-    func dismissalCompletionAction(completeTransition: Bool) {
-        self.selectedImageView?.hidden = false
+    func dismissalCompletionAction(_ completeTransition: Bool) {
+        self.selectedImageView?.isHidden = false
     }
     
     func usingAnimatedTransition() -> Bool {

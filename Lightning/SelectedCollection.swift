@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class SelectedCollection: Model{
     
@@ -25,16 +26,16 @@ class SelectedCollection: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        id <-- data["id"]
-        title <-- data["title"]
-        description <-- data["description"]
-        typeId <-- data["type_id"]
-        memberCount <-- data["member_count"]
-        likeCount <-- data["like_count"]
-        userFavoriteCount <-- data["user_favorite_count"]
-        cellImage <-- data["cell_image"]
-        coverageCenterGeo <-- data["coverage_center_geo"]
-        coverageRadius <-- data["coverage_radius"]
+    required init(data: JSON) {
+        id = data["id"].string
+        title = data["title"].string
+        description = data["description"].string
+        typeId = data["type_id"].int
+        memberCount = data["member_count"].int
+        likeCount = data["like_count"].int
+        userFavoriteCount = data["user_favorite_count"].int
+        cellImage = Picture(data: data["cell_image"])
+        coverageCenterGeo = Location(data: data["coverage_center_geo"])
+        coverageRadius = data["coverage_radius"].int
     }
 }

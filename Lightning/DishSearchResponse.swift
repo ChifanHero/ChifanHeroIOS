@@ -7,17 +7,18 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class DishSearchResponse: HttpResponseProtocol {
     
-    var results : [Dish] = [Dish]()
+    var results : [Dish] = []
     var error : Error?
     
-    required init(data : [String : AnyObject]) {
-        error <-- data["error"]
-        if let resultsJson = data["results"] as? [AnyObject] {
+    required init(data : JSON) {
+        error = Error(data: data["error"])
+        if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
-                let result = Dish(data: resultJson as! [String : AnyObject])
+                let result = Dish(data: resultJson)
                 results.append(result)
             }
         }

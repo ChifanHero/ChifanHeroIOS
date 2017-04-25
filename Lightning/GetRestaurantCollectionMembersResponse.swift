@@ -7,24 +7,25 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class GetRestaurantCollectionMembersResponse: HttpResponseProtocol{
     
-    var results: [Restaurant] = [Restaurant]()
+    var results: [Restaurant] = []
     var error: Error?
     
     required init() {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        if let resultsJson = data["results"] as? [AnyObject] {
+    required init(data: JSON) {
+        if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
-                let result = Restaurant(data: resultJson as! [String : AnyObject])
+                let result = Restaurant(data: resultJson)
                 results.append(result)
             }
         }
-        error <-- data["error"]
+        error = Error(data: data["error"])
     }
     
 }

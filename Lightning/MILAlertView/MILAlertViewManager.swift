@@ -8,15 +8,15 @@ import UIKit
 /**
 *  Class that manages the creation, display, hiding, and deletion of the MILAlertView
 */
-public class MILAlertViewManager: NSObject {
+open class MILAlertViewManager: NSObject {
     /// sharedInstance of MILAlertViewManager
     static let sharedInstance = MILAlertViewManager()
     /// The MILAlertView. Private to just this class
-    private var milAlertView : MILAlertView!
+    fileprivate var milAlertView : MILAlertView!
     /// Height at which to place the bottom of the MILAlertView
     var bottomHeight: CGFloat! = 0
     /// Timer to auto hide alert after a certain amount of time
-    var autoHideTimer: NSTimer? = nil
+    var autoHideTimer: Timer? = nil
     
     
     /**
@@ -34,20 +34,20 @@ public class MILAlertViewManager: NSObject {
     :param: forSeconds      NSTimeInterval (Double) for how many seconds the MILAlertView should stay shown before hiding, but only if callback is nil. If callback is nil, the alert will auto-hide after forSeconds seconds. If callback is not nil, forSeconds will be overwritten and the alert will not hide until tapped. If forSeconds is nil or not set (and callback is nil), the alert will also not hide until tapped.
     :param: callback        Callback method to execute when the MILAlertView or its reload button is tapped (required). If callback is nil, reloadButton will be hidden (and alert will hide on tap)
     */
-    func show(alertType: MILAlertView.AlertType!, text: String!, textColor: UIColor? = nil, textFont: UIFont? = nil, backgroundColor: UIColor? = nil, reloadImage: UIImage? = nil, inView: UIView? = nil, underView: UIView? = nil, toHeight: CGFloat? = nil, forSeconds: NSTimeInterval? = nil, callback: (()->())!) {
+    func show(_ alertType: MILAlertView.AlertType!, text: String!, textColor: UIColor? = nil, textFont: UIFont? = nil, backgroundColor: UIColor? = nil, reloadImage: UIImage? = nil, inView: UIView? = nil, underView: UIView? = nil, toHeight: CGFloat? = nil, forSeconds: TimeInterval? = nil, callback: (()->())!) {
         
         self.resetAlert()
         
         self.milAlertView = MILAlertView.buildAlert(alertType, text: text, textColor: textColor, textFont: textFont, backgroundColor: backgroundColor, reloadImage: reloadImage, inView: inView, underView: underView, toHeight: toHeight, callback: callback)
         
         //animate showing alert view
-        UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: UIViewAnimationOptions(), animations: { () -> Void in
             self.milAlertView.frame.origin.y = (self.milAlertView.frame.size.height + self.bottomHeight - 10) - self.milAlertView.frame.size.height
             }, completion: { finished -> Void in
                 if finished{
                     self.setAutoHide(forSeconds)
                     if let alertview = self.milAlertView {
-                        alertview.userInteractionEnabled = true    //now allow user to touch after done animating
+                        alertview.isUserInteractionEnabled = true    //now allow user to touch after done animating
                     }
                 }
         })
@@ -57,10 +57,10 @@ public class MILAlertViewManager: NSObject {
     /**
     Method to remove the MILAlertView from its superview and set it to nil, and reset MILAlertViewManager properties
     */
-    private func resetAlert() {
+    fileprivate func resetAlert() {
         // reset values in case any alerts are currently shown
         if let alert = self.milAlertView {
-            alert.userInteractionEnabled = false
+            alert.isUserInteractionEnabled = false
             alert.removeFromSuperview()
             if let timer = self.autoHideTimer {
                 timer.invalidate()
@@ -77,7 +77,7 @@ public class MILAlertViewManager: NSObject {
     
     :param: forSeconds NSTimeInterval (Double) for how long the alert should stay shown before hiding
     */
-    private func setAutoHide(forSeconds: NSTimeInterval?) {
+    fileprivate func setAutoHide(_ forSeconds: TimeInterval?) {
         if let _ = self.milAlertView.callback { //callback exists, so keep alert up until tapped (no auto hide timer)
             if let timer = self.autoHideTimer {
                 timer.invalidate()
@@ -85,7 +85,7 @@ public class MILAlertViewManager: NSObject {
             }
         } else { //no callback, so hide after a time if given
             if let time = forSeconds {
-                self.autoHideTimer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: #selector(MILAlertViewManager.hide), userInfo: nil, repeats: false)
+                self.autoHideTimer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(MILAlertViewManager.hide), userInfo: nil, repeats: false)
             } else { //no time given, so keep alert up until tapped
                 if let timer = self.autoHideTimer {
                     timer.invalidate()
@@ -102,8 +102,8 @@ public class MILAlertViewManager: NSObject {
     */
     func hide() {
         if let alert = self.milAlertView{
-            alert.userInteractionEnabled = false
-            UIView.animateWithDuration(1, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            alert.isUserInteractionEnabled = false
+            UIView.animate(withDuration: 1, delay: 0, options: UIViewAnimationOptions(), animations: { () -> Void in
                 self.milAlertView.frame.origin.y = self.bottomHeight - self.milAlertView.frame.size.height
                 }, completion: { finished -> Void in
                     if finished {
@@ -117,7 +117,7 @@ public class MILAlertViewManager: NSObject {
     /**
     Removes the MILAlertView from its superview and sets it to nil
     */
-    private func remove(){
+    fileprivate func remove(){
         if let alert = self.milAlertView {
             alert.removeFromSuperview()
             self.milAlertView = nil

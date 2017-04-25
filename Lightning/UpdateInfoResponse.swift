@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class UpdateInfoResponse: AccountResponse{
     
@@ -14,10 +15,10 @@ class UpdateInfoResponse: AccountResponse{
         super.init()
     }
     
-    required init(data: [String : AnyObject]) {
+    required init(data: JSON) {
         super.init(data: data)
-        error <-- data["error"]
-        user <-- data["user"]
-        success <-- data["success"]
+        error = Error(data: data["error"])
+        user = User(data: data["user"])
+        success = data["success"].bool
     }
 }

@@ -18,8 +18,8 @@ class LoadMoreFooterView: UIView {
     }
     */
     
-    private var view : UIView!
-    private var nibName : String = "LoadMoreFooterView"
+    fileprivate var view : UIView!
+    fileprivate var nibName : String = "LoadMoreFooterView"
     
     @IBOutlet weak var finishMessageLabel: UILabel!
     
@@ -38,25 +38,25 @@ class LoadMoreFooterView: UIView {
     }
     
     func showFinishMessage() {
-        self.finishMessageLabel.hidden = false
+        self.finishMessageLabel.isHidden = false
     }
     
     func reset() {
         self.activityIndicator.stopAnimating()
-        self.finishMessageLabel.hidden = true
+        self.finishMessageLabel.isHidden = true
     }
     
-    private func Setup(){
+    fileprivate func Setup(){
         view = LoadViewFromNib()
         addSubview(view)
         view.frame = bounds
-        view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        view.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
     }
     
-    private func LoadViewFromNib() -> UIView {
-        let bundle = NSBundle(forClass: self.dynamicType)
+    fileprivate func LoadViewFromNib() -> UIView {
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nibName, bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
 

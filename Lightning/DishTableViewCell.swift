@@ -29,7 +29,7 @@ class DishTableViewCell: UITableViewCell {
         
     }
     
-    func setUp(dish dish : Dish) {
+    func setUp(dish : Dish) {
         nameLabel.text = dish.name
         restaurantLabel.text = dish.fromRestaurant?.name
         scoreLabel.text = String(9.99)
@@ -37,10 +37,10 @@ class DishTableViewCell: UITableViewCell {
         if dish.picture?.thumbnail != nil {
             url = dish.picture!.thumbnail!
         }
-        dishImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        dishImageView.kf.setImage(with: URL(string: url)!, placeholder: UIImage(named: "food placeholder2"),options: [.transition(ImageTransition.fade(0.5))])
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

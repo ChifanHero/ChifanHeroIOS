@@ -27,27 +27,27 @@ import UIKit
 
 class Respinner: UIControl {
     var animationDuration = 2.0
-    var scrollViewDefaultContentInset = UIEdgeInsetsZero
-    private var spinningView: UIView!
-    private var height: CGFloat!
-    private (set) var refreshing: Bool = false
-    private var previousYOffset = CGFloat(0.0)
+    var scrollViewDefaultContentInset = UIEdgeInsets.zero
+    fileprivate var spinningView: UIView!
+    fileprivate var height: CGFloat!
+    fileprivate (set) var refreshing: Bool = false
+    fileprivate var previousYOffset = CGFloat(0.0)
     
     convenience init(spinningView: UIView) {
         self.init(spinningView: spinningView, height: 60.0)
     }
     
     init(spinningView: UIView, height: CGFloat) {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
         self.spinningView = spinningView
         self.height = height
-        autoresizingMask = .FlexibleWidth
-        backgroundColor = UIColor.clearColor()
+        autoresizingMask = .flexibleWidth
+        backgroundColor = UIColor.clear
         addSubview(spinningView)
     }
     
-    private override init(frame: CGRect) {
+    fileprivate override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
@@ -61,7 +61,7 @@ class Respinner: UIControl {
         if let scrollView = self.superview as? UIScrollView {
             frame = CGRect(x: 0.0, y: -height, width: scrollView.frame.size.width, height: height)
             
-            scrollView.addObserver(self, forKeyPath: "contentOffset", options: .Initial, context: nil)
+            scrollView.addObserver(self, forKeyPath: "contentOffset", options: .initial, context: nil)
         }
     }
     
@@ -71,7 +71,7 @@ class Respinner: UIControl {
         spinningView.center = CGPoint(x: frame.size.width / 2.0, y: frame.size.height / 2.0)
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         let scrollView = self.superview as! UIScrollView
         
@@ -80,15 +80,15 @@ class Respinner: UIControl {
                 let yOffsetWithoutInsets = scrollView.contentOffset.y + scrollViewDefaultContentInset.top
                 
                 if yOffsetWithoutInsets < -frame.size.height {
-                    if !scrollView.dragging && !refreshing {
+                    if !scrollView.isDragging && !refreshing {
                         beginRefreshing()
                         
-                        sendActionsForControlEvents(.ValueChanged)
+                        sendActions(for: .valueChanged)
                     } else if !refreshing {
-                        spinningView.transform = CGAffineTransformMakeRotation(-(yOffsetWithoutInsets / frame.size.height) * 2.0 * CGFloat(M_PI))
+                        spinningView.transform = CGAffineTransform(rotationAngle: -(yOffsetWithoutInsets / frame.size.height) * 2.0 * CGFloat(M_PI))
                     }
                 } else if !refreshing {
-                    spinningView.transform = CGAffineTransformMakeRotation(-(yOffsetWithoutInsets / frame.size.height) * 2.0 * CGFloat(M_PI))
+                    spinningView.transform = CGAffineTransform(rotationAngle: -(yOffsetWithoutInsets / frame.size.height) * 2.0 * CGFloat(M_PI))
                 }
                 
                 previousYOffset = scrollView.contentOffset.y
@@ -102,19 +102,19 @@ class Respinner: UIControl {
         let animation = CABasicAnimation()
         animation.keyPath = "transform.rotation.z"
         animation.duration = animationDuration
-        animation.removedOnCompletion = false
+        animation.isRemovedOnCompletion = false
         animation.fillMode = kCAFillModeForwards
         animation.repeatCount = Float.infinity
-        animation.additive = true
+        animation.isAdditive = true
         animation.fromValue = CGFloat(0.0)
         animation.toValue = CGFloat(2.0 * M_PI)
         
-        spinningView.layer.addAnimation(animation, forKey: "rotate")
+        spinningView.layer.add(animation, forKey: "rotate")
         
         let scrollView = self.superview as! UIScrollView
         scrollView.contentOffset.y = previousYOffset
         
-        UIView.animateWithDuration(0.3, delay: 0.0, options: .AllowUserInteraction, animations: { () -> Void in
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .allowUserInteraction, animations: { () -> Void in
             scrollView.contentInset.top += self.frame.size.height
             scrollView.contentOffset.y = -scrollView.contentInset.top
             }, completion: nil)
@@ -123,11 +123,11 @@ class Respinner: UIControl {
     func endRefreshing() {
         refreshing = false
         
-        spinningView.layer.removeAnimationForKey("rotate")
+        spinningView.layer.removeAnimation(forKey: "rotate")
         
         let scrollView = self.superview as! UIScrollView
         
-        UIView.animateWithDuration(0.3, delay: 0.0, options: .AllowUserInteraction, animations: { () -> Void in
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .allowUserInteraction, animations: { () -> Void in
             scrollView.contentInset = self.scrollViewDefaultContentInset
             }, completion: nil)
     }

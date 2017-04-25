@@ -23,7 +23,7 @@ class Restaurant: Model{
     var neutralCount: Int?
     var phone: String?
     var hours: String?
-    var hotDishes: [Dish]?
+    var hotDishes: [Dish] = []
     var votes: Int?
     var dishes: [String]?
     var rating: Double?
@@ -34,30 +34,34 @@ class Restaurant: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        id <-- data["id"]
-        name <-- data["name"]
-        englishName <-- data["english_name"]
-        picture <-- data["picture"]
-        address <-- data["address"]
-        distance <-- data["distance"]
-        favoriteCount <-- data["favorite_count"]
-        likeCount <-- data["like_count"]
-        dislikeCount <-- data["dislike_count"]
-        neutralCount <-- data["neutral_count"]
-        phone <-- data["phone"]
-        hours <-- data["hours"]
-        if let resultsJson = data["hot_dishes"] as? [AnyObject] {
-            hotDishes = [Dish]()
+    required init(data: JSON) {
+        id = data["id"].string
+        name = data["name"].string
+        englishName = data["english_name"].string
+        picture = Picture(data: data["picture"])
+        address = data["address"].string
+        distance = Distance(data: data["distance"])
+        favoriteCount = data["favorite_count"].int
+        likeCount = data["like_count"].int
+        dislikeCount = data["dislike_count"].int
+        neutralCount = data["neutral_count"].int
+        phone = data["phone"].string
+        hours = data["hours"].string
+        if let resultsJson = data["hot_dishes"].array {
             for resultJson in resultsJson {
-                let result = Dish(data: resultJson as! [String : AnyObject])
-                hotDishes?.append(result)
+                let result = Dish(data: resultJson)
+                hotDishes.append(result)
             }
         }
-        dishes <-- data["dishes"]
-        votes <-- data["votes"]
-        rating <-- data["rating"]
-        reviewInfo <-- data["review_info"]
-        photoInfo <-- data["photo_info"]
+        if let resultsJson = data["dishes"].array {
+            for resultJson in resultsJson {
+                let dish = resultJson.string
+                dishes?.append(dish!)
+            }
+        }
+        votes = data["votes"].int
+        rating = data["rating"].double
+        reviewInfo = ReviewInfo(data: data["review_info"])
+        photoInfo = PhotoInfo(data: data["photo_info"])
     }
 }

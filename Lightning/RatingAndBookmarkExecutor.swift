@@ -13,36 +13,36 @@ class RatingAndBookmarkExecutor {
     
     var baseViewController: UIViewController?
     
-    var popUpView=UILabel(frame: CGRectMake(0, 0, 100, 60))
+    var popUpView=UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 60))
     
     required init(baseVC: UIViewController){
         self.baseViewController = baseVC
     }
     
     
-    func like(type: String, objectId: String, failureHandler: ((String) -> Void)?){
+    func like(_ type: String, objectId: String, failureHandler: ((String) -> Void)?){
         rate(type, action: "like", objectId: objectId, failureHandler: failureHandler)
     }
     
-    func dislike(type: String, objectId: String, failureHandler: ((String) -> Void)?){
+    func dislike(_ type: String, objectId: String, failureHandler: ((String) -> Void)?){
         rate(type, action: "dislike", objectId: objectId, failureHandler: failureHandler)
     }
     
-    func neutral(type: String, objectId: String, failureHandler: ((String) -> Void)?){
+    func neutral(_ type: String, objectId: String, failureHandler: ((String) -> Void)?){
         rate(type, action: "neutral", objectId: objectId, failureHandler: failureHandler)
     }
     
-    private func rate(type: String, action: String, objectId: String, failureHandler: ((String) -> Void)?){
+    fileprivate func rate(_ type: String, action: String, objectId: String, failureHandler: ((String) -> Void)?){
         let request: RateRequest = RateRequest()
         request.action = action
         request.type = type
         request.objectId = objectId
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let now : Int = Int(NSDate().timeIntervalSince1970 * 1000)
-        defaults.setInteger(now, forKey: objectId)
+        let defaults = UserDefaults.standard
+        let now : Int = Int(Date().timeIntervalSince1970 * 1000)
+        defaults.set(now, forKey: objectId)
         
         DataAccessor(serviceConfiguration: ParseConfiguration()).rate(request) { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
                 
                 if response == nil || response?.error != nil{
                     if failureHandler != nil {
@@ -54,13 +54,13 @@ class RatingAndBookmarkExecutor {
         }
     }
     
-    func addToFavorites(type: String, objectId: String, failureHandler: ((String) -> Void)?){
+    func addToFavorites(_ type: String, objectId: String, failureHandler: ((String) -> Void)?){
         let request: AddToFavoritesRequest = AddToFavoritesRequest()
         request.type = type
         request.objectId = objectId
         
         DataAccessor(serviceConfiguration: ParseConfiguration()).addToFavorites(request) { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
                 
                 if response?.error == nil {
                     
@@ -75,13 +75,13 @@ class RatingAndBookmarkExecutor {
         
     }
     
-    func removeFavorite(type: String, objectId: String, successHandler: (() -> Void)?){
+    func removeFavorite(_ type: String, objectId: String, successHandler: (() -> Void)?){
         let request: RemoveFavoriteRequest = RemoveFavoriteRequest()
         request.type = type
         request.objectId = objectId
         
         DataAccessor(serviceConfiguration: ParseConfiguration()).removeFavorite(request) { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
                 
                 if response?.error == nil {
                     if successHandler != nil {
@@ -97,15 +97,15 @@ class RatingAndBookmarkExecutor {
     }
     
     
-    private func configureSuccessPopup(popUpText: String) {
+    fileprivate func configureSuccessPopup(_ popUpText: String) {
         self.popUpView.center = CGPoint(x: self.baseViewController!.view.frame.width / 2, y: self.baseViewController!.view.frame.height / 2)
         self.popUpView.text = popUpText
-        self.popUpView.textAlignment = NSTextAlignment.Center
-        self.popUpView.backgroundColor=UIColor.grayColor()
+        self.popUpView.textAlignment = NSTextAlignment.center
+        self.popUpView.backgroundColor=UIColor.gray
     }
     
     func popUpDismiss(){
         self.popUpView.removeFromSuperview()
-        self.baseViewController!.view.userInteractionEnabled = true
+        self.baseViewController!.view.isUserInteractionEnabled = true
     }
 }

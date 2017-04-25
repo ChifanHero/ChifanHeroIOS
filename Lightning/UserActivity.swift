@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class UserActivity: Model{
     
@@ -22,14 +23,14 @@ class UserActivity: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        id <-- data["id"]
-        user <-- data["user"]
-        lastUpdateTime <-- data["last_update_time"]
-        type <-- data["type"]
-        recommendDish <-- data["recommend_dish"]
-        review <-- data["review"]
-        imageUpload <-- data["upload_image"]
+    required init(data: JSON) {
+        id = data["id"].string
+        user = User(data: data["user"])
+        lastUpdateTime = data["last_update_time"].string
+        type = data["type"].string
+        recommendDish = DishRecommendation(data: data["recommend_dish"])
+        review = Review(data: data["review"])
+        imageUpload = ImageUploadActivity(data: data["upload_image"])
         
     }
     

@@ -23,13 +23,13 @@ import UIKit
     @IBInspectable var boarderColor : UIColor? {
         didSet {
             for button in buttons {
-                button.layer.borderColor = boarderColor?.CGColor
+                button.layer.borderColor = boarderColor?.cgColor
             }
         }
     }
     
-    private var view : UIView!
-    private var nibName : String = "SelectionBar"
+    fileprivate var view : UIView!
+    fileprivate var nibName : String = "SelectionBar"
     
     var scope : String = "restaurant"
     
@@ -51,38 +51,38 @@ import UIKit
         Setup() // Setup when this component is used from Code
     }
     
-    private func Setup(){
+    fileprivate func Setup(){
         view = LoadViewFromNib()
         addSubview(view)
         view.frame = bounds
-        view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        view.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
         UISetup()
     }
     
-    private func LoadViewFromNib() -> UIView {
-        let bundle = NSBundle(forClass: self.dynamicType)
+    fileprivate func LoadViewFromNib() -> UIView {
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nibName, bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
     
-    private func UISetup() {
+    fileprivate func UISetup() {
         for button in buttons {
-           button.layer.borderColor = boarderColor?.CGColor
+           button.layer.borderColor = boarderColor?.cgColor
             button.layer.cornerRadius = 5
             button.layer.borderWidth = 0
         }
         buttons[0].layer.borderWidth = 1
     }
 
-    @IBAction func restaurantButtonClicked(sender: AnyObject) {
+    @IBAction func restaurantButtonClicked(_ sender: AnyObject) {
         previousScope = scope
         scope = "restaurant"
         toggleButtonStatus(sender)
         delegate?.restaurantButtonClicked()
     }
 
-    @IBAction func dishButtonPressed(sender: AnyObject) {
+    @IBAction func dishButtonPressed(_ sender: AnyObject) {
         previousScope = scope
         scope = "dish"
         toggleButtonStatus(sender)
@@ -90,14 +90,14 @@ import UIKit
     }
     
     
-    @IBAction func listButtonPressed(sender: AnyObject) {
+    @IBAction func listButtonPressed(_ sender: AnyObject) {
         previousScope = scope
         scope = "list"
         toggleButtonStatus(sender)
         delegate?.listButtonPressed()
     }
     
-    private func toggleButtonStatus(sender: AnyObject) {
+    fileprivate func toggleButtonStatus(_ sender: AnyObject) {
         let button : UIButton = sender as! UIButton
         for button in buttons {
             button.layer.borderWidth = 0

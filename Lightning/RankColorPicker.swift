@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class RankColorPicker {
-    static func colorPicker(rank rank: Int) -> UIColor{
+    static func colorPicker(rank: Int) -> UIColor{
         switch rank {
         case 1:
             return UIColor(red: 0 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1.0) //black

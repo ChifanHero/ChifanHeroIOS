@@ -15,8 +15,8 @@ class HttpRequest: HttpRequestProtocol{
     init(){
         self.headers["Content-Type"] = "application/json"
         self.headers["Accept"] = "application/json"
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.boolForKey("usingStaging") {
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "usingStaging") {
             self.headers["X-Parse-Application-Id"] = "28BX7btLUKGGsFGCSyGGv9Pzj1nCWDl9EV6GpMBQ"
             self.headers["X-Parse-Master-Key"] = "rj0pEKLhfWX8310qDj9s0rUEAo4ukQJrTNtCP11j"
         } else {
@@ -31,14 +31,14 @@ class HttpRequest: HttpRequestProtocol{
     
     func getRequestBody() -> [String : AnyObject] {
         let parameters = Dictionary<String, String>()
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     func getHeaders() -> [String : String] {
         return self.headers
     }
     
-    func addHeader(key key: String, value: String) -> Void{
+    func addHeader(key: String, value: String) -> Void{
         self.headers[key] = value
     }
 }

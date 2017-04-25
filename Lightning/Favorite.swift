@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Favorite: Model {
     
@@ -21,12 +22,12 @@ class Favorite: Model {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        id <-- data["id"]
-        user <-- data["user"]
-        dish <-- data["dish"]
-        restaurant <-- data["restaurant"]
-        selectedCollection <-- data["selected_collection"]
-        type <-- data["type"]
+    required init(data: JSON) {
+        id = data["id"].string
+        user = User(data: data["user"])
+        dish = Dish(data: data["dish"])
+        restaurant = Restaurant(data: data["restaurant"])
+        selectedCollection = SelectedCollection(data: data["selected_collection"])
+        type = data["type"].string
     }
 }

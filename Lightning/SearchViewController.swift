@@ -8,6 +8,30 @@
 
 import UIKit
 import GooglePlaces
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 
 class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchHistoryCellDelegate {
@@ -21,7 +45,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     @IBOutlet weak var suggestionTableView: UITableView!
     
-    private var currentState : CurrentState?
+    fileprivate var currentState : CurrentState?
     
     var keywordHistory : [String] = [String]()
     var addressHistory : [String] = [String]()
@@ -35,13 +59,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         super.viewDidLoad()
         searchBar.delegate = self
         addressBar.delegate = self
-        addressBar.addTarget(self, action: #selector(SearchViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        addressBar.addTarget(self, action: #selector(SearchViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         addCancelButton()
         addSearchButton()
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackSearchView()
         searchBar.text = searchContext.keyword
@@ -49,14 +73,14 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         searchBar.selectAll(nil)
         self.view.layoutIfNeeded()
         self.addressContainerHeight.constant = 37
-        UIView.animateWithDuration(0.2, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.AllowAnimatedContent, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.allowAnimatedContent, animations: {
             self.view.layoutIfNeeded()
         }) { (success) in
             if searchContext.address != nil && searchContext.address != "" {
                 self.addressBar.text = searchContext.address
             }
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if !defaults.boolForKey("usingCustomLocation") {
+            let defaults = UserDefaults.standard
+            if !defaults.bool(forKey: "usingCustomLocation") {
                 //                self.addressBar.attributedText = self.getHighlightedCurrentLocationText()
                 self.addressBar.placeholder = "当前位置"
             } else {
@@ -83,22 +107,22 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     }
     
     func addCancelButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(SearchViewController.cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(SearchViewController.cancel(_:)), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
     func addSearchButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("搜索", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(SearchViewController.confirmSearch), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("搜索", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(SearchViewController.confirmSearch), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = cancelButton
     }
     
-    func cancel(sender: AnyObject) {
+    func cancel(_ sender: AnyObject) {
 //        let tabBarController = self.tabBarController
-        self.navigationController?.popViewControllerAnimated(false)
+        self.navigationController?.popViewController(animated: false)
 //        searchContext.keyword = "iphone"
 //        let tabBarController = self.tabBarController
 //        let selectedIndex = tabBarController!.selectedIndex
@@ -112,31 +136,31 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
 
     
     // Mark : TextField delegate method
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == searchBar {
-            currentState = CurrentState.KEYWORD
+            currentState = CurrentState.keyword
             if keywordHistory.count == 0 {
-                keywordHistory.appendContentsOf(loadKeywordHistory())
+                keywordHistory.append(contentsOf: loadKeywordHistory())
             }
             addressAutoCompletion.removeAll()
         } else if textField == addressBar {
-            currentState = CurrentState.ADDRESS
+            currentState = CurrentState.address
             if addressBar.text?.characters.count > 0 {
                 addressAutoComplete()
             }
             if addressHistory.count == 0 {
-                addressHistory.appendContentsOf(loadAddressHistory())
+                addressHistory.append(contentsOf: loadAddressHistory())
             }
         }
         suggestionTableView.reloadData()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         confirmSearch()
         return true
     }
     
-    func textFieldDidChange(textField: UITextField) {
+    func textFieldDidChange(_ textField: UITextField) {
         if textField.text?.characters.count > 0 {
             addressAutoComplete()
         } else {
@@ -158,11 +182,11 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         if keyword != nil && keyword != "" {
             searchContext.keyword = keyword
             SearchHistory.saveKeyword(keyword!)
-            searchContext.sort = SortOptions.BESTMATCH
-            searchContext.rating = RatingFilter.NONE
+            searchContext.sort = SortOptions.bestmatch
+            searchContext.rating = RatingFilter.none
         } else {
             searchContext.keyword = nil
-            searchContext.sort = SortOptions.HOTNESS
+            searchContext.sort = SortOptions.hotness
 //            searchContext.rating = RatingFilter.FOUR
         }
         if address != nil && address != "" {
@@ -173,12 +197,12 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
                 searchContext.address = address
                 SearchHistory.saveAddress(address!)
             }
-            searchContext.distance = RangeFilter.TWENTY
+            searchContext.distance = RangeFilter.twenty
         } else {
             searchContext.address = nil
             let location: Location? = userLocationManager.getLocationInUse()
             searchContext.coordinates = location
-            searchContext.distance = RangeFilter.AUTO
+            searchContext.distance = RangeFilter.auto
         }
         searchContext.offSet = 0
         
@@ -189,15 +213,15 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         let tabBarController = self.tabBarController
         let selectedIndex = tabBarController!.selectedIndex
         if selectedIndex == 1 {
-            self.navigationController?.popViewControllerAnimated(false)
+            self.navigationController?.popViewController(animated: false)
         } else {
             tabBarController!.selectedIndex = 1
         }
     }
     
     // Mark : TableView methods
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if currentState == CurrentState.KEYWORD {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if currentState == CurrentState.keyword {
             return keywordHistory.count
         } else {
             if addressAutoCompletion.count > 0 {
@@ -209,36 +233,36 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if addressAutoCompletion.count > 0 {
             if indexPath.row <= addressAutoCompletion.count - 1 { // Auto completion cell
-                var cell: AddressAutoCompletionTableViewCell? = tableView.dequeueReusableCellWithIdentifier("autoCompletionCell") as? AddressAutoCompletionTableViewCell
+                var cell: AddressAutoCompletionTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "autoCompletionCell") as? AddressAutoCompletionTableViewCell
                 if cell == nil {
-                    tableView.registerNib(UINib(nibName: "AddressAutoCompletionCell", bundle: nil), forCellReuseIdentifier: "autoCompletionCell")
-                    cell = tableView.dequeueReusableCellWithIdentifier("autoCompletionCell") as? AddressAutoCompletionTableViewCell
+                    tableView.register(UINib(nibName: "AddressAutoCompletionCell", bundle: nil), forCellReuseIdentifier: "autoCompletionCell")
+                    cell = tableView.dequeueReusableCell(withIdentifier: "autoCompletionCell") as? AddressAutoCompletionTableViewCell
                 }
                 cell!.suggestionLabel.attributedText = addressAutoCompletion[indexPath.row]
                 return cell!
             } else { // google logo cell
-                var cell: GoogleLogoTableViewCell? = tableView.dequeueReusableCellWithIdentifier("googleLogoCell") as? GoogleLogoTableViewCell
+                var cell: GoogleLogoTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "googleLogoCell") as? GoogleLogoTableViewCell
                 if cell == nil {
-                    tableView.registerNib(UINib(nibName: "GoogleLogoCell", bundle: nil), forCellReuseIdentifier: "googleLogoCell")
-                    cell = tableView.dequeueReusableCellWithIdentifier("googleLogoCell") as? GoogleLogoTableViewCell
+                    tableView.register(UINib(nibName: "GoogleLogoCell", bundle: nil), forCellReuseIdentifier: "googleLogoCell")
+                    cell = tableView.dequeueReusableCell(withIdentifier: "googleLogoCell") as? GoogleLogoTableViewCell
                 }
                 return cell!
             }
         } else { // history cell
-            var cell: SearchHistoryTableViewCell? = tableView.dequeueReusableCellWithIdentifier("historyCell") as? SearchHistoryTableViewCell
+            var cell: SearchHistoryTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "historyCell") as? SearchHistoryTableViewCell
             if cell == nil {
-                tableView.registerNib(UINib(nibName: "SearchHistoryCell", bundle: nil), forCellReuseIdentifier: "historyCell")
-                cell = tableView.dequeueReusableCellWithIdentifier("historyCell") as? SearchHistoryTableViewCell
+                tableView.register(UINib(nibName: "SearchHistoryCell", bundle: nil), forCellReuseIdentifier: "historyCell")
+                cell = tableView.dequeueReusableCell(withIdentifier: "historyCell") as? SearchHistoryTableViewCell
             }
             cell?.delegate = self
-            if currentState == CurrentState.KEYWORD {
+            if currentState == CurrentState.keyword {
                 cell?.history = keywordHistory[indexPath.row]
             } else {
                 cell?.history = addressHistory[indexPath.row]
@@ -248,8 +272,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if currentState == CurrentState.KEYWORD {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if currentState == CurrentState.keyword {
             let keyword = keywordHistory[indexPath.row]
             searchBar.text = keyword
         } else {
@@ -263,7 +287,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             }
             addressBar.text = address
         }
-        suggestionTableView.deselectRowAtIndexPath(indexPath, animated: false)
+        suggestionTableView.deselectRow(at: indexPath, animated: false)
     }
     
     // Mark : history data
@@ -275,19 +299,19 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         return SearchHistory.getRecentAddress(10)
     }
     
-    private enum CurrentState {
-        case KEYWORD
-        case ADDRESS
+    fileprivate enum CurrentState {
+        case keyword
+        case address
     }
     
     // Mark : SearchHistoryCellDelegate
-    func deleteHistory(cell: SearchHistoryTableViewCell) {
-        let indexPath :NSIndexPath = self.suggestionTableView.indexPathForCell(cell)!
-        if currentState == CurrentState.KEYWORD {
-            keywordHistory.removeAtIndex(indexPath.row)
+    func deleteHistory(_ cell: SearchHistoryTableViewCell) {
+        let indexPath :IndexPath = self.suggestionTableView.indexPath(for: cell)!
+        if currentState == CurrentState.keyword {
+            keywordHistory.remove(at: indexPath.row)
             SearchHistory.removeKeywordFromHistory(cell.history!)
         } else {
-            addressHistory.removeAtIndex(indexPath.row)
+            addressHistory.remove(at: indexPath.row)
             SearchHistory.removeAddressFromHistory(cell.history!)
         }
         self.suggestionTableView.reloadData()
@@ -295,11 +319,11 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     // Mark : Google Places API Address autocomplete
     func addressAutoComplete() {
-        let regularFont = UIFont.systemFontOfSize(15.0)
-        let boldFont = UIFont.boldSystemFontOfSize(15.0)
+        let regularFont = UIFont.systemFont(ofSize: 15.0)
+        let boldFont = UIFont.boldSystemFont(ofSize: 15.0)
         let filter = GMSAutocompleteFilter()
         let placesClient = GMSPlacesClient()
-        filter.type = .NoFilter
+        filter.type = .noFilter
         filter.country = "us"
         if bounds == nil {
             let boundingBox : BoundingBox = BoundingBox.getBoundingBox(userLocationManager.getLocationInUse()!, radiusInKm: 50)
@@ -310,8 +334,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             print(swBoundsCorner)
         }
         
-        
-        placesClient.autocompleteQuery(addressBar.text!, bounds: bounds, filter: filter, callback: { (results, error: NSError?) -> Void in
+        placesClient.autocompleteQuery(addressBar.text!, bounds: bounds, filter: filter, callback: { (results, error) -> Void in
             guard error == nil else {
                 print("Autocomplete error \(error)")
                 return
@@ -321,7 +344,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             for result in results! {
                 let bolded = result.attributedFullText.mutableCopy() as! NSMutableAttributedString
                 
-                bolded.enumerateAttribute(kGMSAutocompleteMatchAttribute, inRange: NSMakeRange(0, bolded.length), options: NSAttributedStringEnumerationOptions.LongestEffectiveRangeNotRequired) { (value, range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+                bolded.enumerateAttribute(kGMSAutocompleteMatchAttribute, in: NSMakeRange(0, bolded.length), options: NSAttributedString.EnumerationOptions.longestEffectiveRangeNotRequired) { (value, range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
                     let font = (value == nil) ? regularFont : boldFont
                     bolded.addAttribute(NSFontAttributeName, value: font, range: range)
                 }

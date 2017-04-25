@@ -16,7 +16,7 @@ class UpdateRestaurantInfoRequest: HttpRequest{
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["image_id"] = imageId
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     override func getRelativeURL() -> String {

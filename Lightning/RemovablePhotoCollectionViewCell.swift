@@ -14,13 +14,13 @@ class RemovablePhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     
-    private func configureCell() {
+    fileprivate func configureCell() {
         
         imageView.clipsToBounds = true
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
     }
     
-    func setUp(image image: UIImage) {
+    func setUp(image: UIImage) {
         self.configureCell()
         imageView.image = image
         
@@ -29,11 +29,11 @@ class RemovablePhotoCollectionViewCell: UICollectionViewCell {
     
     func showDeleteButton() {
         deleteButton.layer.cornerRadius = deleteButton.frame.size.width / 2
-        deleteButton.renderColorChangableImage(UIImage(named: "Cancel_Button.png")!, fillColor: UIColor.redColor())
+        deleteButton.renderColorChangableImage(UIImage(named: "Cancel_Button.png")!, fillColor: UIColor.red)
     }
     
     func setUpAddingImageCell(){
         imageView.image = UIImage(named: "CameraAdd")
-        deleteButton.hidden = true
+        deleteButton.isHidden = true
     }
 }

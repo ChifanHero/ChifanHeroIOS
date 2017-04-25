@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class AddToFavoritesResponse: HttpResponseProtocol{
     
@@ -17,8 +18,8 @@ class AddToFavoritesResponse: HttpResponseProtocol{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        result <-- data["result"]
-        error <-- data["error"]
+    required init(data: JSON) {
+        result = Favorite(data: data["result"])
+        error = Error(data: data["error"])
     }
 }

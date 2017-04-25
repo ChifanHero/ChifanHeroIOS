@@ -41,9 +41,6 @@
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dgo-0d-iGN">
                         <rect key="frame" x="98" y="48" width="269" height="100"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="100" id="wHw-Db-aaT"/>
-                        </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UXc-sD-EHV">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -60,6 +57,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="dgo-0d-iGN" secondAttribute="trailing" constant="20" id="4VX-CF-BVl"/>
                     <constraint firstItem="dgo-0d-iGN" firstAttribute="top" secondItem="rjP-RU-hPA" secondAttribute="bottom" constant="10" id="HL8-p8-t9U"/>
                     <constraint firstItem="dgo-0d-iGN" firstAttribute="leading" secondItem="rjP-RU-hPA" secondAttribute="leading" id="IHE-8f-CxH"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="dgo-0d-iGN" secondAttribute="bottom" constant="10" id="IQI-ac-xb1"/>
                     <constraint firstItem="Hkf-zI-QWZ" firstAttribute="leading" secondItem="n5E-DP-KtG" secondAttribute="leadingMargin" constant="10" id="Z6g-xz-eOv"/>
                     <constraint firstItem="rjP-RU-hPA" firstAttribute="leading" secondItem="Hkf-zI-QWZ" secondAttribute="trailing" constant="20" id="a5H-ic-fVR"/>
                     <constraint firstItem="rjP-RU-hPA" firstAttribute="top" secondItem="n5E-DP-KtG" secondAttribute="topMargin" constant="10" id="mYN-bz-PkO"/>

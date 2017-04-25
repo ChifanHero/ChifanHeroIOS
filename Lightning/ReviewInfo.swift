@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class ReviewInfo: Model{
     
@@ -17,11 +18,11 @@ class ReviewInfo: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        totalCount <-- data["total_count"]
-        if let resultsJson = data["reviews"] as? [AnyObject] {
+    required init(data: JSON) {
+        totalCount = data["total_count"].int
+        if let resultsJson = data["reviews"].array {
             for resultJson in resultsJson {
-                let result = Review(data: resultJson as! [String : AnyObject])
+                let result = Review(data: resultJson)
                 reviews.append(result)
             }
         }

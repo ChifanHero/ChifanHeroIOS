@@ -7,26 +7,50 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 enum PhotoRecordState {
-    case New, Downloaded, Failed, Native
+    case new, downloaded, failed, native
 }
 
 class PhotoRecord {
     
-    static let DEFAULT = PhotoRecord(name: "", url: NSURL(), defaultImage: nil)
+    static let DEFAULT = PhotoRecord(name: "", url: URL(string: "")!, defaultImage: nil)
     
     let name : String
-    let url : NSURL
-    var state = PhotoRecordState.New
+    let url : URL
+    var state = PhotoRecordState.new
     var image = UIImage(named: "food placeholder2")
     
-    init(name : String, url : NSURL) {
+    init(name : String, url : URL) {
         self.name = name
         self.url = url
     }
     
-    init(name : String, url : NSURL, defaultImage : UIImage?) {
+    init(name : String, url : URL, defaultImage : UIImage?) {
         if defaultImage == nil {
             self.image = UIImage()
         } else {
@@ -40,15 +64,15 @@ class PhotoRecord {
 class PendingOperations {
     
     // A lazy stored property is a property whose initial value is not calculated until the first time it is used.
-    lazy var downloadsInProgress = [NSIndexPath : NSOperation]()
-    lazy var downloadQueue : NSOperationQueue = {
-        var queue = NSOperationQueue()
+    lazy var downloadsInProgress = [IndexPath : Operation]()
+    lazy var downloadQueue : OperationQueue = {
+        var queue = OperationQueue()
         queue.name = "Download queue"
         return queue
     }()
 }
 
-class ImageDownloader : NSOperation {
+class ImageDownloader : Operation {
     
     let photoRecord : PhotoRecord
     
@@ -59,22 +83,22 @@ class ImageDownloader : NSOperation {
     override func main() {
         
         // Check for cancellation before starting. Operations should regularly check if they have been cancelled before attempting long or intensive work
-        if self.cancelled {
+        if self.isCancelled {
             return
         }
         
-        let imageData = NSData(contentsOfURL: self.photoRecord.url)
+        let imageData = try? Data(contentsOf: self.photoRecord.url)
         
         // Check again for cancellation
-        if self.cancelled {
+        if self.isCancelled {
             return
         }
         
-        if imageData?.length > 0 {
+        if imageData?.count > 0 {
             self.photoRecord.image = UIImage(data: imageData!)
-            self.photoRecord.state = .Downloaded
+            self.photoRecord.state = .downloaded
         } else {
-            self.photoRecord.state = .Failed
+            self.photoRecord.state = .failed
         }
     }
     

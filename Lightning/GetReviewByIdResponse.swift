@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class GetReviewByIdResponse: HttpResponseProtocol{
     
@@ -17,9 +18,9 @@ class GetReviewByIdResponse: HttpResponseProtocol{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        error <-- data["error"]
-        result <-- data["result"]
+    required init(data: JSON) {
+        error = Error(data: data["error"])
+        result = Review(data: data["result"])
     }
     
 }

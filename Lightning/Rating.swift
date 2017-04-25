@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Rating: Model {
     
@@ -16,19 +17,17 @@ class Rating: Model {
     var user: User?
     var dish: Dish?
     var restaurant: Restaurant?
-    var list: List?
     
     required init() {
        
     }
     
-    required init(data: [String : AnyObject]) {
-        id <-- data["id"]
-        type <-- data["type"]
-        action <-- data["action"]
-        user <-- data["user"]
-        dish <-- data["dish"]
-        restaurant <-- data["restaurant"]
-        list <-- data["list"]
+    required init(data: JSON) {
+        id = data["id"].string
+        type = data["type"].string
+        action = data["action"].string
+        user = User(data: data["user"])
+        dish = Dish(data: data["dish"])
+        restaurant = Restaurant(data: data["restaurant"])
     }
 }

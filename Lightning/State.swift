@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class State : Model{
     
@@ -18,10 +19,10 @@ class State : Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        name <-- data["name"]
-        localizedCountryName <-- data["localized_country_name"]
-        abbr <-- data["abbr"]
+    required init(data: JSON) {
+        name = data["name"].string
+        localizedCountryName = data["localized_country_name"].string
+        abbr = data["abbr"].string
     }
     
 }

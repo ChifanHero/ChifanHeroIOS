@@ -8,6 +8,30 @@
 
 import UIKit
 import Flurry_iOS_SDK
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class LogInTableViewController: UITableViewController, UITextFieldDelegate {
 
@@ -38,7 +62,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         self.addSignUpButton()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         TrackingUtil.trackLoginView()
     }
@@ -48,56 +72,56 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    private func addNotificationButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("消息", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(LogInTableViewController.showNotification), forControlEvents: UIControlEvents.TouchUpInside)
+    fileprivate func addNotificationButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("消息", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(LogInTableViewController.showNotification), for: UIControlEvents.touchUpInside)
         let notificationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = notificationButton
     }
     
-    private func addSignUpButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("注册", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(LogInTableViewController.showSignUp), forControlEvents: UIControlEvents.TouchUpInside)
+    fileprivate func addSignUpButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("注册", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(LogInTableViewController.showSignUp), for: UIControlEvents.touchUpInside)
         let signUpButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = signUpButton
     }
     
     func showNotification(){
-        performSegueWithIdentifier("showNotification", sender: nil)
+        performSegue(withIdentifier: "showNotification", sender: nil)
     }
     
     func showSignUp(){
-        performSegueWithIdentifier("signUp", sender: nil)
+        performSegue(withIdentifier: "signUp", sender: nil)
     }
     
     func configureLoginButton(){
-        wechatLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 250, self.view.frame.width * 0.8, 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
+        wechatLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 250, width: self.view.frame.width * 0.8, height: 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
         wechatLoginButton.setLogoImage(UIImage(named: "Wechat")!)
         wechatLoginButton.setTextContent("微信登录")
-        wechatLoginButton.addTarget(self, action: #selector(LogInTableViewController.wechatLoginEvent), forControlEvents: UIControlEvents.TouchDown)
+        wechatLoginButton.addTarget(self, action: #selector(LogInTableViewController.wechatLoginEvent), for: UIControlEvents.touchDown)
         //self.view.addSubview(wechatLoginButton)
         
-        facebookLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 200, self.view.frame.width * 0.8, 40), color: UIColor(red: 59 / 255  , green: 89 / 255, blue: 152 / 255, alpha: 1.0))
+        facebookLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 200, width: self.view.frame.width * 0.8, height: 40), color: UIColor(red: 59 / 255  , green: 89 / 255, blue: 152 / 255, alpha: 1.0))
         facebookLoginButton.setLogoImage(UIImage(named: "Facebook")!)
         facebookLoginButton.setTextContent("Facebook Login")
-        facebookLoginButton.addTarget(self, action: #selector(LogInTableViewController.facebookLoginEvent), forControlEvents: UIControlEvents.TouchDown)
+        facebookLoginButton.addTarget(self, action: #selector(getter: LogInTableViewController.facebookLoginButton), for: UIControlEvents.touchDown)
         //self.view.addSubview(facebookLoginButton)
         
-        normalLoginButton = LoadingButton(frame: CGRectMake(self.view.frame.width * 0.1, 150, self.view.frame.width * 0.8, 40), color: UIColor.themeOrange())
+        normalLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 150, width: self.view.frame.width * 0.8, height: 40), color: UIColor.themeOrange())
         normalLoginButton.setLogoImage(UIImage(named: "LogoWithBorder")!)
         normalLoginButton.setTextContent("登录")
         self.view.addSubview(normalLoginButton)
-        normalLoginButton.addTarget(self, action: #selector(LogInTableViewController.normalLoginEvent), forControlEvents: UIControlEvents.TouchDown)
+        normalLoginButton.addTarget(self, action: #selector(LogInTableViewController.normalLoginEvent), for: UIControlEvents.touchDown)
         
         //let fbButton = FBSDKLoginButton(frame: CGRectMake(self.view.frame.width * 0.1, 250, self.view.frame.width * 0.8, 40))
         //fbButton.readPermissions = ["public_profile", "email"]
         //self.view.addSubview(fbButton)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameTextField {
             let username = textField.text
-            if username?.characters.count > 0 && username?.containsString("@") == true{
+            if username?.characters.count > 0 && username?.contains("@") == true{
                 textField.resignFirstResponder()
                 passwordTextField.becomeFirstResponder()
                 return true
@@ -119,9 +143,9 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     
-    private func isLoggedIn() -> Bool{
-        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if let result: Bool? = defaults.boolForKey("isLoggedIn"){
+    fileprivate func isLoggedIn() -> Bool{
+        let defaults: UserDefaults = UserDefaults.standard
+        if let result: Bool? = defaults.bool(forKey: "isLoggedIn"){
             return result!
         } else{
             return false
@@ -129,28 +153,28 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func replaceLoginViewByAboutMeView() {
-        let tabBarController : UITabBarController = UIApplication.sharedApplication().keyWindow?.rootViewController as! UITabBarController
+        let tabBarController : UITabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
         var viewControllers = tabBarController.viewControllers!
         for index in 0 ..< viewControllers.count {
             let vc : UIViewController = viewControllers[index]
             if vc.restorationIdentifier == "LogInNavigationController" {
-                viewControllers.removeAtIndex(index)
+                viewControllers.remove(at: index)
                 let aboutMeNC = getAboutMeNavigationController()
-                viewControllers.insert(aboutMeNC, atIndex: index)
+                viewControllers.insert(aboutMeNC, at: index)
                 break
             }
         }
         tabBarController.setViewControllers(viewControllers, animated: false)
     }
     
-    private func getAboutMeNavigationController() -> UINavigationController {
+    fileprivate func getAboutMeNavigationController() -> UINavigationController {
         let storyBoard : UIStoryboard = UIStoryboard(name: "User", bundle: nil)
-        let aboutMeNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("AboutMeNavigationController") as! UINavigationController
+        let aboutMeNC : UINavigationController = storyBoard.instantiateViewController(withIdentifier: "AboutMeNavigationController") as! UINavigationController
         aboutMeNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)
         return aboutMeNC
     }
     
-    @IBAction func logInButtonTouched(sender: AnyObject) {
+    @IBAction func logInButtonTouched(_ sender: AnyObject) {
         normalLoginEvent()
     }
     
@@ -158,33 +182,33 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         logIn(username: usernameTextField.text, password: passwordTextField.text)
     }
     
-    func facebookLoginEvent() {
+    /*func facebookLoginEvent() {
         let login = FBSDKLoginManager()
-        login.logInWithReadPermissions(["public_profile", "email"], fromViewController: self, handler: {(result, error) -> Void in
+        login.logIn(withReadPermissions: ["public_profile", "email"], from: self, handler: {(result, error) -> Void in
             if error != nil {
                 print(error)
-            } else if result.isCancelled {
+            } else if (result?.isCancelled)! {
                 print("Canceled")
             } else {
-                FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields" : "id, name, email"]).startWithCompletionHandler({
+                FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields" : "id, name, email"]).start(completionHandler: {
                     (connection, result, error: NSError!) -> Void in
                     if error == nil {
                         
                         let email = result["email"] as! String
                         AccountManager(serviceConfiguration: ParseConfiguration()).oauthLogin(oauthLogin: email) { (response) -> Void in
-                            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                            OperationQueue.main.addOperation({ () -> Void in
                                 let seconds = 1.0
                                 let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds
-                                let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                let dispatchTime = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                                 
-                                dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+                                DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
                                     
                                     if response == nil {
                                         self.showErrorMessage("登录失败", message: "网络错误")
                                     } else {
                                         if response!.success == true {
-                                            let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                                            defaults.setBool(true, forKey: "isLoggedIn")
+                                            let defaults: UserDefaults = UserDefaults.standard
+                                            defaults.set(true, forKey: "isLoggedIn")
                                             self.replaceLoginViewByAboutMeView()
                                         } else {
                                             print("login failed")
@@ -202,29 +226,29 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                 })
             }
         })
-    }
+    }*/
     
     func wechatLoginEvent() {
         
     }
     
-    func logIn(username username: String?, password: String?) {
+    func logIn(username: String?, password: String?) {
         
         AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, password: password) { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
                 let seconds = 2.0
                 let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds
-                let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                let dispatchTime = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                 
-                dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+                DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
                     
                     self.normalLoginButton.stopLoading()
                     if response == nil {
                         self.showErrorMessage("登录失败", message: "网络错误")
                     } else {
                         if response!.success != nil && response!.success! == true {
-                            let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                            defaults.setBool(true, forKey: "isLoggedIn")
+                            let defaults: UserDefaults = UserDefaults.standard
+                            defaults.set(true, forKey: "isLoggedIn")
                             self.replaceLoginViewByAboutMeView()
                         } else {
                             self.showErrorMessage("登录失败", message: "用户名或密码错误")
@@ -237,21 +261,21 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    private func showErrorMessage(title : String?, message : String?) {
+    fileprivate func showErrorMessage(_ title : String?, message : String?) {
         var title = title
         if title == nil {
             title = "输入错误"
         }
         SCLAlertView().showWarning(title!, subTitle: message!)
     }
-    private func resetLogInInput(alertAction: UIAlertAction!){
+    fileprivate func resetLogInInput(_ alertAction: UIAlertAction!){
         usernameTextField.text = nil
         passwordTextField.text = nil
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "signUp"){
-            let signUpTableViewController: SignUpTableViewController = segue.destinationViewController as! SignUpTableViewController
+            let signUpTableViewController: SignUpTableViewController = segue.destination as! SignUpTableViewController
             signUpTableViewController.loginViewController = self;
         }
     }

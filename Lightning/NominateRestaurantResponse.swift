@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class NominateRestaurantResponse: HttpResponseProtocol{
     
@@ -17,9 +18,9 @@ class NominateRestaurantResponse: HttpResponseProtocol{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        result <-- data["result"]!["count"]
-        error <-- data["error"]
+    required init(data: JSON) {
+        result = data["result"]["count"].int
+        error = Error(data: data["error"])
     }
     
 }

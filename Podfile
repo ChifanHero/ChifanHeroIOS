@@ -1,19 +1,17 @@
 source 'https://github.com/CocoaPods/Specs.git'
-# Uncomment this line to define a global platform for your project
-platform :ios, '9.0'
-# Uncomment this line if you're using Swift
+platform :ios, ’9.0’
 use_frameworks!
 
 target 'Lightning' do
 
-pod 'Alamofire', '~> 3.5.0'
-pod 'Kingfisher', '~> 2.6.0'
+pod 'Alamofire', '~> 4.4’
+pod 'Kingfisher', '~> 3.6.2’
 pod 'Flurry-iOS-SDK/FlurrySDK', '~> 7.1.1'
-pod 'SlideMenuControllerSwift', '~> 2.3.0'
+pod 'SlideMenuControllerSwift’
 pod 'GooglePlaces'
-pod 'SKPhotoBrowser', '~> 3.1.2'
-pod 'SwiftyJSON', '~> 2.4.0'
-pod 'BTNavigationDropdownMenu', :git => 'https://github.com/PhamBaTho/BTNavigationDropdownMenu.git', :branch => 'swift-2.3'
+pod 'SKPhotoBrowser’, ‘~> 4.0.1’
+pod 'SwiftyJSON'
+pod 'BTNavigationDropdownMenu', :git => 'https://github.com/PhamBaTho/BTNavigationDropdownMenu.git', :branch => 'swift-3.0’
 
 end
 
@@ -23,12 +21,4 @@ end
 
 target 'LightningUITests' do
 
-end
-
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-            config.build_settings['SWIFT_VERSION'] = '2.3'
-        end
-    end
 end

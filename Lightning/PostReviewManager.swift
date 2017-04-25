@@ -10,8 +10,8 @@ import Foundation
 
 class PostReviewManager {
     
-    lazy var queue : NSOperationQueue = {
-        var queue = NSOperationQueue()
+    lazy var queue : OperationQueue = {
+        var queue = OperationQueue()
         queue.name = "Post Review"
         queue.maxConcurrentOperationCount = 5
         return queue

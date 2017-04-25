@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class LogOutResponse: AccountResponse{
     
@@ -14,9 +15,9 @@ class LogOutResponse: AccountResponse{
         super.init()
     }
     
-    required init(data: [String : AnyObject]) {
+    required init(data: JSON) {
         super.init()
-        error <-- data["error"]
-        success <-- data["success"]
+        error = Error(data: data["error"])
+        success = data["success"].bool
     }
 }

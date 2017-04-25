@@ -33,17 +33,17 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
         }
     }
     
-    let dateFormatter: NSDateFormatter = NSDateFormatter()
+    let dateFormatter: DateFormatter = DateFormatter()
     
     var time: String? {
         didSet {
             if time != nil {
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-                let date: NSDate? = dateFormatter.dateFromString(time!)
+                let date: Date? = dateFormatter.date(from: time!)
                 if date != nil {
-                    let calender: NSCalendar = NSCalendar.currentCalendar()
-                    let components = calender.componentsInTimeZone(NSTimeZone.localTimeZone(), fromDate: date!)
-                    let currentComponets = calender.componentsInTimeZone(NSTimeZone.localTimeZone(), fromDate: NSDate())
+                    let calender: Calendar = Calendar.current
+                    let components = calender.dateComponents(in: TimeZone.autoupdatingCurrent, from: date!)
+                    let currentComponets = calender.dateComponents(in: TimeZone.autoupdatingCurrent, from: Date())
                     var timeString = ""
                     let year = components.year
                     let currentYear = currentComponets.year
@@ -78,12 +78,12 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
         self.layoutIfNeeded()
         //profileImageView.layer.cornerRadius = 4
         ratingLabel.layer.cornerRadius = ratingLabel.frame.size.width / 2
-        profileImageButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFill
+        profileImageButton.imageView?.contentMode = UIViewContentMode.scaleAspectFill
         profileImageButton.layer.cornerRadius = 2
         profileImageButton.clipsToBounds = true
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

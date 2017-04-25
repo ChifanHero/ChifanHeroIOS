@@ -7,24 +7,25 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class GetCitiesResponse: HttpResponseProtocol {
 
-    var results: [City] = [City]()
+    var results: [City] = []
     var error: Error?
     
     required init() {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        if let resultsJson = data["results"] as? [AnyObject] {
+    required init(data: JSON) {
+        if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
-                let result = City(data: resultJson as! [String : AnyObject])
+                let result = City(data: resultJson)
                 results.append(result)
             }
         }
-        error <-- data["error"]
+        error = Error(data: data["error"])
     }
 
 }

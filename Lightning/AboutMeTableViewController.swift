@@ -30,14 +30,14 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadUserNickName()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.isTranslucent = false
 //        setTabBarVisible(true, animated: true)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         TrackingUtil.trackUserProfileView()
     }
@@ -47,29 +47,29 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         // Dispose of any resources that can be recreated.
     }
     
-    private func addNotificationButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("消息", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(AboutMeTableViewController.showNotification), forControlEvents: UIControlEvents.TouchUpInside)
+    fileprivate func addNotificationButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("消息", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(AboutMeTableViewController.showNotification), for: UIControlEvents.touchUpInside)
         let notificationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = notificationButton
     }
     
     func showNotification(){
-        performSegueWithIdentifier("showNotification", sender: nil)
+        performSegue(withIdentifier: "showNotification", sender: nil)
     }
     
-    private func setUserProfileImageProperty(){
+    fileprivate func setUserProfileImageProperty(){
         self.view.layoutIfNeeded()
         self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width / 2
         self.userImageView.clipsToBounds = true
         self.userImageView.layer.borderWidth = 3.0
-        self.userImageView.layer.borderColor = UIColor.whiteColor().CGColor
+        self.userImageView.layer.borderColor = UIColor.white.cgColor
     }
     
-    private func loadUserNickName(){
-        let defaults = NSUserDefaults.standardUserDefaults()
+    fileprivate func loadUserNickName(){
+        let defaults = UserDefaults.standard
         
-        if let nickname = defaults.stringForKey("userNickName"){
+        if let nickname = defaults.string(forKey: "userNickName"){
             nickNameLabel.text = nickname
         } else{
             nickNameLabel.text = "未设定"
@@ -77,20 +77,20 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         
     }
     
-    private func loadUserPicture(){
-        let defaults = NSUserDefaults.standardUserDefaults()
+    fileprivate func loadUserPicture(){
+        let defaults = UserDefaults.standard
         
-        if let userPicURL = defaults.stringForKey("userPicURL"){
-            userImageView.image = UIImage(data: NSData(contentsOfURL: NSURL(string: userPicURL)!)!)
-            userImageView.kf_setImageWithURL(NSURL(string: userPicURL)!, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        if let userPicURL = defaults.string(forKey: "userPicURL"){
+            userImageView.image = UIImage(data: try! Data(contentsOf: URL(string: userPicURL)!))
+            userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         if indexPath.section == 0 && indexPath.row == 0 {
             self.popUpImageSourceOption()
         } else if indexPath.section == 1 && indexPath.row == 0 {
-            self.performSegueWithIdentifier("showNickNameChange", sender: indexPath)
+            self.performSegue(withIdentifier: "showNickNameChange", sender: indexPath)
         } else if indexPath.section == 2 {
             if indexPath.row == 0 {
                 showRestaurants()
@@ -102,82 +102,82 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             self.logOutAction()
         }
         //make table cell not stay highlighted
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func showRestaurants() {
         let storyboard = UIStoryboard(name: "RestaurantsAndSearch", bundle: nil)
-        let restaurantsController = storyboard.instantiateViewControllerWithIdentifier("RestaurantsOnlyViewController") as! RestaurantsOnlyViewController
+        let restaurantsController = storyboard.instantiateViewController(withIdentifier: "RestaurantsOnlyViewController") as! RestaurantsOnlyViewController
         restaurantsController.isFromBookMark = true
         self.navigationController?.pushViewController(restaurantsController, animated: true)
     }
     
     func showSelectedCollection() {
         let storyboard = UIStoryboard(name: "Collection", bundle: nil)
-        let collectionsController = storyboard.instantiateViewControllerWithIdentifier("selectedCollection") as! SelectedCollectionsTableViewController
+        let collectionsController = storyboard.instantiateViewController(withIdentifier: "selectedCollection") as! SelectedCollectionsTableViewController
         collectionsController.isFromBookMark = true
         self.navigationController?.pushViewController(collectionsController, animated: true)
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          if segue.identifier == "showNickNameChange" {
-            let destinationVC = segue.destinationViewController as! NickNameChangeViewController
+            let destinationVC = segue.destination as! NickNameChangeViewController
             destinationVC.nickName = self.nickNameLabel.text
         }
     }
     
-    private func popUpImageSourceOption(){
-        let alert = UIAlertController(title: "更换头像", message: "选取图片来源", preferredStyle: UIAlertControllerStyle.ActionSheet)
+    fileprivate func popUpImageSourceOption(){
+        let alert = UIAlertController(title: "更换头像", message: "选取图片来源", preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        let takePhotoAction = UIAlertAction(title: "相机", style: .Default, handler: self.takePhotoFromCamera)
-        let chooseFromPhotosAction = UIAlertAction(title: "照片", style: .Default, handler: self.chooseFromPhotoRoll)
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelChoosingImage)
+        let takePhotoAction = UIAlertAction(title: "相机", style: .default, handler: self.takePhotoFromCamera)
+        let chooseFromPhotosAction = UIAlertAction(title: "照片", style: .default, handler: self.chooseFromPhotoRoll)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: self.cancelChoosingImage)
         
         alert.addAction(takePhotoAction)
         alert.addAction(chooseFromPhotosAction)
         alert.addAction(cancelAction)
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
-    private func takePhotoFromCamera(alertAction: UIAlertAction!) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+    fileprivate func takePhotoFromCamera(_ alertAction: UIAlertAction!) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera;
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
             imagePicker.allowsEditing = true
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+            self.present(imagePicker, animated: true, completion: nil)
         }
     }
     
-    private func chooseFromPhotoRoll(alertAction: UIAlertAction!) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+    fileprivate func chooseFromPhotoRoll(_ alertAction: UIAlertAction!) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
             imagePicker.allowsEditing = true
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+            self.present(imagePicker, animated: true, completion: nil)
         }
     }
     
-    private func cancelChoosingImage(alertAction: UIAlertAction!) {
+    fileprivate func cancelChoosingImage(_ alertAction: UIAlertAction!) {
         
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [AnyHashable: Any]!) {
         userImageView.image = image
-        self.dismissViewControllerAnimated(true, completion: nil);
+        self.dismiss(animated: true, completion: nil);
         
         let imageData = UIImageJPEGRepresentation(image, 0.1) //0.1 is compression ratio
-        let base64_code: String = (imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
+        let base64_code: String = (imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters))!
         let request : UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
         DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
                 
                 if response?.result != nil{
                     AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: response?.result?.id) { (response) -> Void in
-                        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        OperationQueue.main.addOperation({ () -> Void in
                             if response!.success == true {
                                 print("Update profile picture succeed")
                             } else {
@@ -192,52 +192,52 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         }
     }
     
-    private func logOutAction(){
-        let alert = UIAlertController(title: "退出登录", message: "登出当前用户", preferredStyle: UIAlertControllerStyle.ActionSheet)
+    fileprivate func logOutAction(){
+        let alert = UIAlertController(title: "退出登录", message: "登出当前用户", preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        let confirmAction = UIAlertAction(title: "确认", style: .Default, handler: self.confirmLogOut)
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelLogOut)
+        let confirmAction = UIAlertAction(title: "确认", style: .default, handler: self.confirmLogOut)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: self.cancelLogOut)
         
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
-    private func confirmLogOut(alertAction: UIAlertAction!) {
-        let defaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        defaults.setBool(false, forKey: "isLoggedIn")
+    fileprivate func confirmLogOut(_ alertAction: UIAlertAction!) {
+        let defaults : UserDefaults = UserDefaults.standard
+        defaults.set(false, forKey: "isLoggedIn")
         self.replaceAboutMeViewByLogInView()
         AccountManager(serviceConfiguration: ParseConfiguration()).logOut() { (success) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
                 // do nothing for now
             })
             
         }
     }
     
-    private func cancelLogOut(alertAction: UIAlertAction!) {
+    fileprivate func cancelLogOut(_ alertAction: UIAlertAction!) {
         
     }
     
-    private func replaceAboutMeViewByLogInView(){
-        let tabBarController : UITabBarController = UIApplication.sharedApplication().keyWindow?.rootViewController as! UITabBarController
+    fileprivate func replaceAboutMeViewByLogInView(){
+        let tabBarController : UITabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
         var viewControllers = tabBarController.viewControllers!
         for index in 0 ..< viewControllers.count {
             let vc : UIViewController = viewControllers[index]
             if vc.restorationIdentifier == "AboutMeNavigationController" {
-                viewControllers.removeAtIndex(index)
+                viewControllers.remove(at: index)
                 let logInNC = getLogInNavigationController()
-                viewControllers.insert(logInNC, atIndex: index)
+                viewControllers.insert(logInNC, at: index)
                 break
             }
         }
         tabBarController.setViewControllers(viewControllers, animated: false)
     }
     
-    private func getLogInNavigationController() -> UINavigationController{
+    fileprivate func getLogInNavigationController() -> UINavigationController{
         let storyBoard : UIStoryboard = UIStoryboard(name: "User", bundle: nil)
-        let logInNC : UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("LogInNavigationController") as! UINavigationController
+        let logInNC : UINavigationController = storyBoard.instantiateViewController(withIdentifier: "LogInNavigationController") as! UINavigationController
         logInNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)
         return logInNC
     }

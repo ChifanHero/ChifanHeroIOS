@@ -24,15 +24,14 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     @IBOutlet weak var slideBarHeightConstraint: NSLayoutConstraint!
     
-    private var dishes: [Dish] = []
-    private var menuItems: [MenuItem] = []
-    private var menuNames: [String] = []
-    private var dishToMenuDic: Dictionary<String, String> = Dictionary<String, String>()
-    private var shouldChangeSlideBarState = true
+    fileprivate var dishes: [Dish] = []
+    fileprivate var menuNames: [String] = []
+    fileprivate var dishToMenuDic: Dictionary<String, String> = Dictionary<String, String>()
+    fileprivate var shouldChangeSlideBarState = true
     
     var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
     
-    private var searchResults : [DishWrapper] = []
+    fileprivate var searchResults : [DishWrapper] = []
     
     @IBOutlet weak var waitingView: UIView!
     
@@ -51,11 +50,11 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         slideBar.delegate = self
         dishTableView.delegate = self
         dishTableView.dataSource = self
-        dishTableView.hidden = true
+        dishTableView.isHidden = true
         dishTableView.allowsSelection = false
         
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
-        waitingView.hidden = false
+        waitingView.isHidden = false
         waitingIndicator.startAnimating()
         loadData { (success) -> Void in
             if !success {
@@ -64,7 +63,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchBar = UISearchBar()
         searchBar!.delegate = self
@@ -74,42 +73,15 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         TrackingUtil.trackRestaurantAllDishView()
     }
     
-    override func loadData(refreshHandler: ((success: Bool) -> Void)?) {
-        if restaurantId != nil {
-            let request : GetRestaurantMenuRequest = GetRestaurantMenuRequest(restaurantId: restaurantId!)
-            DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantMenu(request, responseHandler: { (response) -> Void in
-                dispatch_async(dispatch_get_main_queue(), {
-                    if response == nil {
-                        if refreshHandler != nil {
-                            refreshHandler!(success: false)
-                        }
-                    } else {
-                        if response!.results.count > 0 {
-                            self.clearStates()
-                            self.menuItems = (response!.results)
-                            self.retriveMenuAndDishInformation()
-                            self.dishTableView.hidden = false
-                            self.dishTableView.reloadData()
-                            self.slideBar.setUpScrollView(titles: self.menuNames, defaultSelection: nil)
-                        }
-                        if refreshHandler != nil {
-                            refreshHandler!(success: true)
-                        }
-                    }
-                    self.waitingView.hidden = true
-                    self.waitingIndicator.stopAnimating()
-                    
-                });
-            })
-        }
+    override func loadData(_ refreshHandler: ((_ success: Bool) -> Void)?) {
+        
     }
     
     func clearStates() {
         self.dishes.removeAll()
-        self.menuItems.removeAll()
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
         searchResults.removeAll()
         searching = true
@@ -117,7 +89,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         self.dishTableView.reloadData()
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         print("")
         searching = false
         searchBar.resignFirstResponder()
@@ -129,31 +101,15 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
 
     
-    private func retriveMenuAndDishInformation() {
-        for menuItem : MenuItem in menuItems {
-            if menuItem.name != nil {
-                menuNames.append(menuItem.name!)
-                if (menuItem.dishes != nil) {
-                    for dish : Dish in menuItem.dishes! {
-                        dishToMenuDic[dish.name!] = menuItem.name
-                    }
-                    dishes += menuItem.dishes!
-                }
-            }
-        }
+    fileprivate func retriveMenuAndDishInformation() {
+        
     }
     
-    func slideBar(slideBar : SlideBar, didSelectElementAtIndex index : Int) -> Void {
-        // scroll table view
-        shouldChangeSlideBarState = false
-        if index >= 0 && index < menuItems.count {
-            let indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection: index)
-            self.dishTableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
-            
-        }
+    func slideBar(_ slideBar : SlideBar, didSelectElementAtIndex index : Int) -> Void {
+        
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if !searching {
             if shouldChangeSlideBarState {
                 changeSlideBarState()
@@ -162,7 +118,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         
     }
     
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         shouldChangeSlideBarState = true
     }
     
@@ -260,7 +216,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
 //        return [bookmarkAction, dislikeAction, neutralAction, likeAction];
 //    }
     
-    private func addToFavorites(indexPath: NSIndexPath){
+    fileprivate func addToFavorites(_ indexPath: IndexPath){
         let dish : Dish = getDishAtIndexPath(indexPath)!
         ratingAndFavoriteExecutor?.addToFavorites("dish", objectId: dish.id!, failureHandler: { (objectId) -> Void in
             for dish : Dish in self.dishes {
@@ -273,7 +229,7 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         })
     }
     
-    private func rateDish(indexPath: NSIndexPath, ratingType: RatingTypeEnum){
+    fileprivate func rateDish(_ indexPath: IndexPath, ratingType: RatingTypeEnum){
         let objectId: String? = getDishAtIndexPath(indexPath)!.id
         let type = "dish"
         
@@ -310,86 +266,70 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         }
     }
     
-    private func dismissActionViewWithDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantAllDishViewController.dismissActionView), userInfo: nil, repeats: false)
+    fileprivate func dismissActionViewWithDelay() {
+        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(RestaurantAllDishViewController.dismissActionView), userInfo: nil, repeats: false)
     }
     
-    private func popupSigninAlert() {
+    fileprivate func popupSigninAlert() {
         SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
     }
     
-    @objc private func dismissActionView() {
+    @objc fileprivate func dismissActionView() {
         self.dishTableView.setEditing(false, animated: true)
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(RestaurantAllDishViewController.reloadTable), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(RestaurantAllDishViewController.reloadTable), userInfo: nil, repeats: false)
     }
     
-    @objc private func reloadTable() {
+    @objc fileprivate func reloadTable() {
         self.dishTableView.reloadData()
     }
     
-    private func changeSlideBarState() {
-        if let indicesForVisibleRows : [NSIndexPath]? = self.dishTableView.indexPathsForVisibleRows {
-            let indexForFirstVisibleRow : NSIndexPath = indicesForVisibleRows![0]
-            let dishCell : NameOnlyDishTableViewCell = self.dishTableView.cellForRowAtIndexPath(indexForFirstVisibleRow) as! NameOnlyDishTableViewCell
+    fileprivate func changeSlideBarState() {
+        if let indicesForVisibleRows : [IndexPath]? = self.dishTableView.indexPathsForVisibleRows {
+            let indexForFirstVisibleRow : IndexPath = indicesForVisibleRows![0]
+            let dishCell : NameOnlyDishTableViewCell = self.dishTableView.cellForRow(at: indexForFirstVisibleRow) as! NameOnlyDishTableViewCell
             let menuName = dishToMenuDic[dishCell.nameLabel.text!]
-            let position = menuNames.indexOf(menuName!)
+            let position = menuNames.index(of: menuName!)
             self.slideBar.markElementAsSelected(atIndex: position!)
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searching {
-            return searchResults.count
-        } else {
-            if section >= 0 && section < menuItems.count {
-                let menuItem : MenuItem = self.menuItems[section]
-                if menuItem.dishes != nil {
-                    return menuItem.dishes!.count
-                } else {
-                    return 0
-                }
-            } else {
-                return 0
-            }
-        }
-        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : NameOnlyDishTableViewCell? = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell : NameOnlyDishTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "nameOnlyDishCell") as? NameOnlyDishTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("nameOnlyDishCell") as? NameOnlyDishTableViewCell
+            tableView.register(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "nameOnlyDishCell") as? NameOnlyDishTableViewCell
         }
         let dish : Dish?
         if !self.searching {
-            dish = menuItems[indexPath.section].dishes?[indexPath.row]
         } else {
             dish = self.searchResults[indexPath.row].dish
         }
-        cell?.setUp(dish: dish!)
         return cell!
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 49
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if searching {
             return 1
         } else {
-            return menuItems.count
+            return 1
         }
 //        return menuItems.count
         
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
     
-    private func filterContentForSearchText(searchText : String) {
+    fileprivate func filterContentForSearchText(_ searchText : String) {
         for dish : Dish in dishes {
             let relevanceScore : Float = getRelevanceScore(dish.name, searchText: searchText)
             if relevanceScore > 0 {
@@ -399,67 +339,58 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
             }
         }
         if searchResults.count > 0 {
-            searchResults = searchResults.sort{$0.relevanceScore > $1.relevanceScore}
+            searchResults = searchResults.sorted{$0.relevanceScore > $1.relevanceScore}
         }
         for elem : DishWrapper in searchResults {
             print("\(elem.dish.name) score = \(elem.relevanceScore)")
         }
     }
     
-    private func getRelevanceScore(str : String?, searchText : String?) -> Float {
+    fileprivate func getRelevanceScore(_ str : String?, searchText : String?) -> Float {
         var score : Float =  StringUtil.getRelevanceScore(str, searchText: searchText)
         if str != nil && searchText != nil {
-            if str!.rangeOfString(searchText!) != nil || searchText!.rangeOfString(str!) != nil {
+            if str!.range(of: searchText!) != nil || searchText!.range(of: str!) != nil {
                 score += 1.0
             }
         }
         return score
     }
     
-    private func hideSlideBar() {
+    fileprivate func hideSlideBar() {
         if !slideBarHidden {
             slideBarHeightConstraint.constant = 0
-            UIView.animateWithDuration(0) { () -> Void in
+            UIView.animate(withDuration: 0, animations: { () -> Void in
                 self.view.layoutIfNeeded()
                 self.slideBarHidden = true
-            }
+            }) 
         }
         
     }
     
-    private func getDishAtIndexPath(indexPath : NSIndexPath) -> Dish?{
-        if searching == false {
-            if menuItems[indexPath.section].dishes != nil && menuItems[indexPath.section].dishes?[indexPath.row] != nil{
-                return (menuItems[indexPath.section].dishes?[indexPath.row])!
-            } else {
-                return nil
-            }
-            
-        } else {
-            return self.searchResults[indexPath.row].dish
-        }
+    fileprivate func getDishAtIndexPath(_ indexPath : IndexPath) -> Dish?{
+        return Dish()
     }
     
-    private func showSlideBar() {
+    fileprivate func showSlideBar() {
         if slideBarHidden {
             slideBarHeightConstraint.constant = 38
-            UIView.animateWithDuration(0) { () -> Void in
+            UIView.animate(withDuration: 0, animations: { () -> Void in
                 self.view.layoutIfNeeded()
                 self.slideBarHidden = false
-            }
+            }) 
         }
         
     }
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        if !searchController.active {
+    func updateSearchResultsForSearchController(_ searchController: UISearchController) {
+        if !searchController.isActive {
             return
         }
         
         
     }
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
         hideSlideBar()
         dishTableView.reloadData()

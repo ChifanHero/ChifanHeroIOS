@@ -13,6 +13,6 @@ class GetCitiesRequest: HttpRequest {
     var prefix : String = ""
 
     override func getRelativeURL() -> String {
-        return "/cities?prefix=" + prefix.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        return "/cities?prefix=" + prefix.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
     }
 }

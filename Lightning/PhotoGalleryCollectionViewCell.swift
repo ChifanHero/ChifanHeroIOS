@@ -21,13 +21,13 @@ class PhotoGalleryCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureCell(){
+    fileprivate func configureCell(){
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.contentView.frame.width, height: self.contentView.frame.height))
-        imageView!.contentMode = .ScaleAspectFit
+        imageView!.contentMode = .scaleAspectFit
         self.contentView.addSubview(imageView!)
     }
     
-    func setUpImage(image: UIImage) {
+    func setUpImage(_ image: UIImage) {
         self.imageView?.image = image
     }
 }

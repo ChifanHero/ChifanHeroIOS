@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Error: Model {
     
@@ -17,8 +18,8 @@ class Error: Model {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        code <-- data["code"]
-        message <-- data["message"]
+    required init(data: JSON) {
+        code = data["code"].int
+        message = data["message"].string
     }
 }

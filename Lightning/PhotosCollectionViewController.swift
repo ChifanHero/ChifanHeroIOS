@@ -25,7 +25,7 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         let mosaicLayout = TRMosaicLayout()
         self.collectionView?.collectionViewLayout = mosaicLayout
         mosaicLayout.delegate = self
@@ -50,30 +50,30 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
 
     // MARK: UICollectionViewDataSource
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return pictures.count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
 //
         // Configure the cell
 //        let imageView = UIImageView()
 //        imageView.image = images[indexPath.item]
         let imageView = UIImageView()
         let url: String = pictures[indexPath.item].original!
-        imageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
+        imageView.kf.setImage(with: URL(string: url)!, placeholder: UIImage(named: "restaurant_default_background"),options: [.transition(ImageTransition.fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
             
         })
         imageView.frame = cell.frame
-        imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        imageView.contentMode = UIViewContentMode.scaleAspectFill
         imageView.clipsToBounds = true
         cell.backgroundView = imageView
         return cell
@@ -112,7 +112,7 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
     }
     */
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var images = [SKPhoto]()
         for picture in pictures {
             if picture.original != nil {
@@ -122,15 +122,15 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
         }
         let browser = SKPhotoBrowser(photos: images)
         browser.initializePageIndex(indexPath.row)
-        presentViewController(browser, animated: true, completion: {})
+        present(browser, animated: true, completion: {})
     }
     
     
-    func collectionView(collectionView:UICollectionView, mosaicCellSizeTypeAtIndexPath indexPath:NSIndexPath) -> TRMosaicCellType {
-        return indexPath.item % 3 == 0 ? TRMosaicCellType.Big : TRMosaicCellType.Small
+    func collectionView(_ collectionView:UICollectionView, mosaicCellSizeTypeAtIndexPath indexPath:IndexPath) -> TRMosaicCellType {
+        return indexPath.item % 3 == 0 ? TRMosaicCellType.big : TRMosaicCellType.small
     }
     
-    func collectionView(collectionView:UICollectionView, layout collectionViewLayout: TRMosaicLayout, insetAtSection:Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView:UICollectionView, layout collectionViewLayout: TRMosaicLayout, insetAtSection:Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 3)
     }
     

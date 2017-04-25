@@ -16,19 +16,19 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
     @IBOutlet weak var pageControl: UIPageControl!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.pageController = UIPageViewController(transitionStyle: UIPageViewControllerTransitionStyle.Scroll, navigationOrientation: UIPageViewControllerNavigationOrientation.Horizontal, options: nil)
+        self.pageController = UIPageViewController(transitionStyle: UIPageViewControllerTransitionStyle.scroll, navigationOrientation: UIPageViewControllerNavigationOrientation.horizontal, options: nil)
         self.pageController!.dataSource = self
         self.pageController!.view.frame = self.view.bounds
         let initialViewController : TutorialChildViewController = self.viewControllerAtIndex(0)
         let viewControllers = [initialViewController]
-        self.pageController!.setViewControllers(viewControllers, direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+        self.pageController!.setViewControllers(viewControllers, direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
         self.addChildViewController(self.pageController!)
         self.view.addSubview(self.pageController!.view)
-        self.pageController!.didMoveToParentViewController(self)
+        self.pageController!.didMove(toParentViewController: self)
         self.pageControl.numberOfPages = 5
         self.pageControl.currentPage = 0
-        self.view.bringSubviewToFront(self.pageControl)
-        self.view.bringSubviewToFront(self.skipButton)
+        self.view.bringSubview(toFront: self.pageControl)
+        self.view.bringSubview(toFront: self.skipButton)
 
         // Do any additional setup after loading the view.
     }
@@ -49,7 +49,7 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
     }
     */
 
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         let vc : TutorialChildViewController = viewController as! TutorialChildViewController
         var index = vc.index
         self.pageControl.currentPage = index
@@ -60,7 +60,7 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
         return self.viewControllerAtIndex(index)
     }
 
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let vc : TutorialChildViewController = viewController as! TutorialChildViewController
         var index = vc.index
         self.pageControl.currentPage = index
@@ -71,7 +71,7 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
         return self.viewControllerAtIndex(index)
     }
     
-    func viewControllerAtIndex(index : Int) -> TutorialChildViewController{
+    func viewControllerAtIndex(_ index : Int) -> TutorialChildViewController{
         let childViewController = TutorialChildViewController()
         childViewController.index = index
         return childViewController

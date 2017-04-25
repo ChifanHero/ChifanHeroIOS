@@ -14,7 +14,7 @@ class SignUpRequest: AccountRequest {
         var parameters = Dictionary<String, String>()
         parameters["username"] = username
         parameters["password"] = password
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     override func getRelativeURL() -> String {

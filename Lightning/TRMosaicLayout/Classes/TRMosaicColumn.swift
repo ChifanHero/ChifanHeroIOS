@@ -11,11 +11,11 @@ struct TRMosaicColumns {
     var columns:[TRMosaicColumn]
     
     var smallestColumn:TRMosaicColumn {
-        return columns.sort().last!
+        return columns.sorted().last!
     }
     
     init() {
-        columns = [TRMosaicColumn](count: 3, repeatedValue: TRMosaicColumn())
+        columns = [TRMosaicColumn](repeating: TRMosaicColumn(), count: 3)
     }
     
     subscript(index: Int) -> TRMosaicColumn {

@@ -16,17 +16,17 @@ class SearchContext {
         }
     }
     var newSearch : Bool = false
-    var sort : SortOptions = SortOptions.BESTMATCH {
+    var sort : SortOptions = SortOptions.bestmatch {
         didSet {
             newSearch = true
         }
     }
-    var distance : RangeFilter = RangeFilter.TWENTY {
+    var distance : RangeFilter = RangeFilter.twenty {
         didSet {
             newSearch = true
         }
     }
-    var rating : RatingFilter = RatingFilter.FOUR {
+    var rating : RatingFilter = RatingFilter.four {
         didSet {
             newSearch = true
         }

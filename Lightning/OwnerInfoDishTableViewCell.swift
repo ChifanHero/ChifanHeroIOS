@@ -27,31 +27,31 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.nameLabel.hidden = true
+        self.nameLabel.isHidden = true
         dishImageView.layer.cornerRadius = dishImageView.frame.size.height / 2
         dishImageView.clipsToBounds = true
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
-    @IBAction func gotoRestaurant(sender: AnyObject) {
+    @IBAction func gotoRestaurant(_ sender: AnyObject) {
         print("clicked")
         if self.dish != nil {
-            baseVC?.performSegueWithIdentifier("showRestaurant", sender: self.dish?.fromRestaurant?.id)
+            baseVC?.performSegue(withIdentifier: "showRestaurant", sender: self.dish?.fromRestaurant?.id)
         }
         
     }
     
-    func setUp(dish dish: Dish, useHTMLRender : Bool) {
+    func setUp(dish: Dish, useHTMLRender : Bool) {
         self.dish = dish
         if useHTMLRender && dish.name != nil {
             if dish.name != nil {
-                self.nameLabel.attributedText = dish.name!.attributedStringFromHTML(14, highlightColor: UIColor.redColor())
-                self.nameLabel.hidden = false
+                self.nameLabel.attributedText = dish.name!.attributedStringFromHTML(14, highlightColor: UIColor.red)
+                self.nameLabel.isHidden = false
             }
             
             
@@ -68,12 +68,12 @@ class OwnerInfoDishTableViewCell: UITableViewCell {
         if dish.picture?.thumbnail != nil {
             url = dish.picture!.thumbnail!
         }
-        dishImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "food placeholder2"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
-        self.restaurantButton.setTitle(dish.fromRestaurant?.name, forState: UIControlState.Normal)
+        dishImageView.kf.setImage(with: URL(string: url)!, placeholder: UIImage(named: "food placeholder2"),options: [.transition(ImageTransition.fade(0.5))])
+        self.restaurantButton.setTitle(dish.fromRestaurant?.name, for: UIControlState())
         
     }
     
-    func setUp(dish dish: Dish) {
+    func setUp(dish: Dish) {
         self.setUp(dish: dish, useHTMLRender: true)
     }
     

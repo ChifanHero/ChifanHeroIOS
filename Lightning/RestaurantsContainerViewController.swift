@@ -31,13 +31,13 @@ class RestaurantsContainerViewController: SlideMenuController, SlideMenuControll
     }
     
     override func awakeFromNib() {
-        if let controller : UINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("RestaurantsNavigation") as? UINavigationController {
+        if let controller : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantsNavigation") as? UINavigationController {
             self.mainViewController = controller
             let mainVC : RestaurantsViewController = controller.viewControllers[0] as! RestaurantsViewController
             mainVC.containerViewController = self
             self.restaurantsVC = mainVC
         }
-        if let controller : UINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("RestaurantsFilter") as? UINavigationController{
+        if let controller : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantsFilter") as? UINavigationController{
             self.rightViewController = controller
             let filterVC : RestaurantsFilterViewController = controller.viewControllers[0] as! RestaurantsFilterViewController
             filterVC.containerVC = self

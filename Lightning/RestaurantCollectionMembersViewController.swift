@@ -74,25 +74,25 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         // Do any additional setup after loading the view.
     }
     
-    private func configActionButton() {
+    fileprivate func configActionButton() {
         self.view.layoutIfNeeded()
         likeButton.image = UIImage(named: "Chifanhero_Like")
         favoriteButton.image = UIImage(named: "Chifanhero_Favorite")
         nominationButton.image = UIImage(named: "Chifanhero_Nomination")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let selectedCellIndexPath : NSIndexPath? = self.tableView.indexPathForSelectedRow
+        let selectedCellIndexPath : IndexPath? = self.tableView.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
-            self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+            self.tableView.deselectRow(at: selectedCellIndexPath!, animated: false)
         }
         self.animateTransition = false
-        self.navigationController?.navigationBar.translucent = true
+        self.navigationController?.navigationBar.isTranslucent = true
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackCollectionsMemberView()
     }
@@ -102,12 +102,12 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         // Dispose of any resources that can be recreated.
     }
     
-    private func setUpHeaderView(){
-        headerImage.kf_setImageWithURL(NSURL(string: (selectedCollection?.cellImage?.original)!)!, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+    fileprivate func setUpHeaderView(){
+        headerImage.kf.setImage(with: URL(string: (selectedCollection?.cellImage?.original)!)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
         self.collectionTitle.text = selectedCollection?.title
     }
     
-    private func configureHeaderView(){
+    fileprivate func configureHeaderView(){
         headerView = self.tableView.tableHeaderView
         self.tableView.tableHeaderView = nil
         self.tableView.addSubview(headerView)
@@ -116,7 +116,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         updateHeaderView()
     }
     
-    private func updateHeaderView(){
+    fileprivate func updateHeaderView(){
         var headerRect = CGRect(x: 0, y: -kTableHeaderHeight, width: self.tableView.bounds.width, height: kTableHeaderHeight)
         if tableView.contentOffset.y < -kTableHeaderHeight {
             headerRect.origin.y = self.tableView.contentOffset.y
@@ -125,15 +125,15 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         headerView.frame = headerRect
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateHeaderView()
     }
     
     func configureLikeView(){
         likeView.layer.borderWidth = 1.0
-        likeView.layer.borderColor = UIColor.whiteColor().CGColor
+        likeView.layer.borderColor = UIColor.white.cgColor
         likeView.layer.cornerRadius = 10.0
-        likeButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.likeButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        likeButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.likeButtonTapped(_:)), for: .touchUpInside)
         if let likeCount = selectedCollection?.likeCount {
             likeLabel.text = String(likeCount)
         }
@@ -141,20 +141,20 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     func configureFavoriteView(){
         favoriteView.layer.borderWidth = 1.0
-        favoriteView.layer.borderColor = UIColor.whiteColor().CGColor
+        favoriteView.layer.borderColor = UIColor.white.cgColor
         favoriteView.layer.cornerRadius = 10.0
-        favoriteButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.favoriteButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        favoriteButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.favoriteButtonTapped(_:)), for: .touchUpInside)
         if let favoriteCount = selectedCollection?.userFavoriteCount {
             favoriteLabel.text = String(favoriteCount)
         }
         if !UserContext.isValidUser() {
-            favoriteButton.selected = false
+            favoriteButton.isSelected = false
         } else {
-            let request = GetIsFavoriteRequest(type: FavoriteTypeEnum.SelectedCollection, id: selectedCollection!.id!)
+            let request = GetIsFavoriteRequest(type: FavoriteTypeEnum.selectedCollection, id: selectedCollection!.id!)
             DataAccessor(serviceConfiguration: ParseConfiguration()).getIsFavorite(request, responseHandler: { (response) -> Void in
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                OperationQueue.main.addOperation({ () -> Void in
                     if response != nil && response?.result != nil {
-                        self.favoriteButton.selected = (response?.result)!
+                        self.favoriteButton.isSelected = (response?.result)!
                     }
                 })
                 
@@ -164,13 +164,13 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     func configureNominationView(){
         nominationView.layer.borderWidth = 1.0
-        nominationView.layer.borderColor = UIColor.whiteColor().CGColor
+        nominationView.layer.borderColor = UIColor.white.cgColor
         nominationView.layer.cornerRadius = 10.0
-        nominationButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.nominationButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        nominationButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.nominationButtonTapped(_:)), for: .touchUpInside)
     }
     
-    func likeButtonTapped(sender: DOFavoriteButton) {
-        if sender.selected {
+    func likeButtonTapped(_ sender: DOFavoriteButton) {
+        if sender.isSelected {
             // deselect
             sender.deselect()
         } else {
@@ -179,8 +179,8 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         }
     }
     
-    func favoriteButtonTapped(sender: DOFavoriteButton) {
-        if sender.selected {
+    func favoriteButtonTapped(_ sender: DOFavoriteButton) {
+        if sender.isSelected {
             // deselect
             sender.deselect()
         } else {
@@ -189,8 +189,8 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         }
     }
     
-    func nominationButtonTapped(sender: DOFavoriteButton) {
-        if sender.selected {
+    func nominationButtonTapped(_ sender: DOFavoriteButton) {
+        if sender.isSelected {
             // deselect
             sender.deselect()
         } else {
@@ -203,11 +203,11 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         if selectedCollection?.id != nil {
             let request: GetRestaurantCollectionMembersRequest = GetRestaurantCollectionMembersRequest(id: (selectedCollection?.id!)!)
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantCollectionMembersById(request, responseHandler: { (response) -> Void in
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                OperationQueue.main.addOperation({ () -> Void in
                     if response != nil && !response!.results.isEmpty {
                         self.members.removeAll()
                         self.members += response!.results
-                        self.members.sortInPlace {
+                        self.members.sort {
                             (r1, r2) -> Bool in
                             return ScoreComputer.getScoreNum(positive: r1.likeCount, negative: r1.dislikeCount, neutral: r1.neutralCount) > ScoreComputer.getScoreNum(positive: r2.likeCount, negative: r2.dislikeCount, neutral: r2.neutralCount)
                         }
@@ -222,34 +222,34 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.members.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: RestaurantCollectionMemberTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCollectionMemberTableViewCell") as? RestaurantCollectionMemberTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: RestaurantCollectionMemberTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "restaurantCollectionMemberTableViewCell") as? RestaurantCollectionMemberTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "RestaurantCollectionMemberCell", bundle: nil), forCellReuseIdentifier: "restaurantCollectionMemberTableViewCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("restaurantCollectionMemberTableViewCell") as? RestaurantCollectionMemberTableViewCell
+            tableView.register(UINib(nibName: "RestaurantCollectionMemberCell", bundle: nil), forCellReuseIdentifier: "restaurantCollectionMemberTableViewCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCollectionMemberTableViewCell") as? RestaurantCollectionMemberTableViewCell
         }
         cell?.setUp(restaurant: self.members[indexPath.row], rank: indexPath.row + 1)
         
         return cell!
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let restaurantSelected: Restaurant = members[indexPath.row]
-        let selectedCell: RestaurantCollectionMemberTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantCollectionMemberTableViewCell
+        let selectedCell: RestaurantCollectionMemberTableViewCell = tableView.cellForRow(at: indexPath) as! RestaurantCollectionMemberTableViewCell
         self.selectedImageView = selectedCell.restaurantImage
         self.selectedRestaurantName = selectedCell.restaurantName.text
         self.animateTransition = true
         showRestaurant(restaurantSelected.id!, restaurant: restaurantSelected)
     }
     
-    func showRestaurant(id: String, restaurant: Restaurant) {
+    func showRestaurant(_ id: String, restaurant: Restaurant) {
         self.animateTransition = true
         let storyboard = UIStoryboard(name: "Restaurant", bundle: nil)
-        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
+        let restaurantController = storyboard.instantiateViewController(withIdentifier: "RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantName = self.selectedRestaurantName
         restaurantController.restaurantId = id
@@ -258,42 +258,42 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         self.navigationController?.pushViewController(restaurantController, animated: true)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showRestaurant" {
-            let controller: RestaurantMainTableViewController = segue.destinationViewController as! RestaurantMainTableViewController
+            let controller: RestaurantMainTableViewController = segue.destination as! RestaurantMainTableViewController
             controller.restaurantId = sender as? String
             controller.restaurantImage = self.selectedImageView?.image
             controller.restaurantName = self.selectedRestaurantName
         } else if segue.identifier == "showNomination" {
-            let controller: RestaurantNominationViewController = segue.destinationViewController as! RestaurantNominationViewController
+            let controller: RestaurantNominationViewController = segue.destination as! RestaurantNominationViewController
             controller.selectedCollection = sender as? SelectedCollection
         }
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return RestaurantCollectionMemberTableViewCell.height
     }
     
-    @IBAction func handleLikeButton(sender: AnyObject) {
-        if likeButton.selected == false {
+    @IBAction func handleLikeButton(_ sender: AnyObject) {
+        if likeButton.isSelected == false {
             self.likeCount! += 1
             ratingAndFavoriteExecutor?.like("selected_collection", objectId: selectedCollection!.id!, failureHandler: { (objectId) -> Void in
                 if self.selectedCollection?.likeCount != nil {
                     self.selectedCollection?.likeCount! -= 1
                 }
             })
-            self.likeButton.enabled = false
+            self.likeButton.isEnabled = false
         }
     }
-    @IBAction func handleFavoriteButton(sender: AnyObject) {
-        if self.favoriteButton.selected == false {
+    @IBAction func handleFavoriteButton(_ sender: AnyObject) {
+        if self.favoriteButton.isSelected == false {
             if !UserContext.isValidUser() {
                 SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
-                favoriteButton.selected = true
+                favoriteButton.isSelected = true
             } else {
                 self.favoriteCount! += 1
                 ratingAndFavoriteExecutor?.addToFavorites("selected_collection", objectId: selectedCollection!.id!, failureHandler: { (objectId) -> Void in
@@ -310,11 +310,11 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         }
         
     }
-    @IBAction func handleNominationButton(sender: AnyObject) {
-        performSegueWithIdentifier("showNomination", sender: selectedCollection)
+    @IBAction func handleNominationButton(_ sender: AnyObject) {
+        performSegue(withIdentifier: "showNomination", sender: selectedCollection)
     }
     
-    @IBAction func unwindToCollectionMember(segue: UIStoryboardSegue) {}
+    @IBAction func unwindToCollectionMember(_ segue: UIStoryboardSegue) {}
     
     // MARK: - ARNImageTransitionZoomable
     
@@ -322,18 +322,18 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         let imageView = UIImageView(image: self.selectedImageView!.image)
         imageView.contentMode = self.selectedImageView!.contentMode
         imageView.clipsToBounds = true
-        imageView.userInteractionEnabled = false
+        imageView.isUserInteractionEnabled = false
         imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
         
         return imageView
     }
     
-    func presentationCompletionAction(completeTransition: Bool) {
-        self.selectedImageView?.hidden = true
+    func presentationCompletionAction(_ completeTransition: Bool) {
+        self.selectedImageView?.isHidden = true
     }
     
-    func dismissalCompletionAction(completeTransition: Bool) {
-        self.selectedImageView?.hidden = false
+    func dismissalCompletionAction(_ completeTransition: Bool) {
+        self.selectedImageView?.isHidden = false
     }
     
     func usingAnimatedTransition() -> Bool {

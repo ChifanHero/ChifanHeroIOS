@@ -14,7 +14,7 @@ class TuningParams: Serializable {
     
     func getProperties() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["relevance_score_threshold"] = relevanceScoreThreshold
+        parameters["relevance_score_threshold"] = relevanceScoreThreshold as AnyObject
         return parameters
     }
 }

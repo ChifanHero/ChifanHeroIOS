@@ -23,7 +23,7 @@ import UIKit
     
     @IBOutlet weak var nameLabelContainer: UIView!
     
-    private var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
+    fileprivate var rateAndBookmarkExecutor: RatingAndBookmarkExecutor?
     
     var baseVC: UIViewController?
     
@@ -98,20 +98,20 @@ import UIKit
     func xibSetup() {
         view = loadViewFromNib()
         view.frame = bounds
-        view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(view)
         UISetup()
     }
     
     func getNameLabelBottomY() -> CGFloat{
-        let convertedFrame : CGRect = self.view.convertRect(self.nameLabel.frame, fromView : nameLabelContainer)
+        let convertedFrame : CGRect = self.view.convert(self.nameLabel.frame, from : nameLabelContainer)
         return convertedFrame.origin.y + self.nameLabel.frame.size.height / 2
     }
     
     func loadViewFromNib() -> UIView{
-        let bundle = NSBundle(forClass: self.dynamicType)
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "ViewItemTopView", bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
     
@@ -130,7 +130,7 @@ import UIKit
     }
     
     
-    @IBAction func likeAction(sender: AnyObject) {
+    @IBAction func likeAction(_ sender: AnyObject) {
         if self.baseVC == nil {
             return
         }
@@ -145,7 +145,7 @@ import UIKit
         }
     }
 
-    @IBAction func dislikeAction(sender: AnyObject) {
+    @IBAction func dislikeAction(_ sender: AnyObject) {
         if self.baseVC == nil {
             return
         }
@@ -161,7 +161,7 @@ import UIKit
     }
     
 
-    @IBAction func neutralAction(sender: AnyObject) {
+    @IBAction func neutralAction(_ sender: AnyObject) {
         if self.baseVC == nil {
             return
         }
@@ -177,7 +177,7 @@ import UIKit
     }
     
     
-    @IBAction func bookmarkAction(sender: AnyObject) {
+    @IBAction func bookmarkAction(_ sender: AnyObject) {
         if self.baseVC == nil {
             return
         }

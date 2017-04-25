@@ -9,8 +9,8 @@
 import Foundation
 
 class PhotoUploadManager {
-    lazy var uploadQueue : NSOperationQueue = {
-        var queue = NSOperationQueue()
+    lazy var uploadQueue : OperationQueue = {
+        var queue = OperationQueue()
         queue.name = "Upload queue"
         queue.maxConcurrentOperationCount = 5
         return queue

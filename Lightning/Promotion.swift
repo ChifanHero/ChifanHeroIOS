@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Promotion: Model{
     
@@ -18,9 +19,9 @@ class Promotion: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        id <-- data["id"]
-        restaurant <-- data["restaurant"]
-        dish <-- data["dish"]
+    required init(data: JSON) {
+        id = data["id"].string
+        restaurant = Restaurant(data: data["restaurant"])
+        dish = Dish(data: data["dish"])
     }
 }

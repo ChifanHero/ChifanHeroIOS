@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Picture: Model {
     
@@ -16,20 +17,18 @@ class Picture: Model {
     var type: String?
     var restaurant: Restaurant?
     var description: String?
-    var ownerType: String?
-    var ownerId: String?
     
     required init() {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        id <-- data["id"]
-        thumbnail <-- data["thumbnail"]
-        original <-- data["original"]
-        type <-- data["type"]
-        restaurant <-- data["restaurant"]
-        description <-- data["description"]
+    required init(data: JSON) {
+        id = data["id"].string
+        thumbnail = data["thumbnail"].string
+        original = data["original"].string
+        type = data["type"].string
+        restaurant = Restaurant(data: data["restaurant"])
+        description = data["description"].string
     }
     
 }

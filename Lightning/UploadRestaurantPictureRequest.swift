@@ -27,7 +27,7 @@ class UploadRestaurantPictureRequest: HttpRequest{
         parameters["type"] = type
         parameters["base64_code"] = base64_code
         parameters["event_id"] = eventId
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     override func getRelativeURL() -> String {

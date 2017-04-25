@@ -15,8 +15,8 @@ class Output: Serializable {
     
     func getProperties() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["fields"] = fields
-        parameters["params"] = params?.getProperties()
+        parameters["fields"] = fields as AnyObject
+        parameters["params"] = params?.getProperties() as AnyObject
         return parameters
     }
 }

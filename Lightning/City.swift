@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class City : Model{
     
@@ -21,13 +22,13 @@ class City : Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        zip <-- data["zip"]
-        name <-- data["name"]
-        state <-- data["state"]
-        center <-- data["center"]
-        localizedCountryName <-- data["localized_country_name"]
-        activated <-- data["activated"]
+    required init(data: JSON) {
+        zip = data["zip"].string
+        name = data["name"].string
+        state = data["state"].string
+        center = Location(data: data["center"])
+        localizedCountryName = data["localized_country_name"].string
+        activated = data["activated"].bool
     }
     
 }

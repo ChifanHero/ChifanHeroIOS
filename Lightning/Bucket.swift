@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Bucket : Model{
     
@@ -18,15 +19,15 @@ class Bucket : Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        if let resultsJson = data["results"] as? [AnyObject] {
+    required init(data: JSON) {
+        if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
-                let result = Restaurant(data: resultJson as! [String : AnyObject])
+                let result = Restaurant(data: resultJson)
                 results.append(result)
             }
         }
-        source <-- data["source"]
-        label <-- data["label"]
+        source = data["source"].string
+        label = data["label"].string
     }
     
 }

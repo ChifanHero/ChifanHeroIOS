@@ -15,7 +15,7 @@ class VoteRestaurantRequest: HttpRequest{
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["restaurant_id"] = restaurantId
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     override func getRelativeURL() -> String {

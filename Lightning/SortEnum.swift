@@ -9,8 +9,8 @@
 import Foundation
 
 enum SortOptions {
-    case RATING
-    case DISTANCE
-    case BESTMATCH
-    case HOTNESS
+    case rating
+    case distance
+    case bestmatch
+    case hotness
 }

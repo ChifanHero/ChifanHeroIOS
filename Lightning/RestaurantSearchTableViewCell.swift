@@ -31,13 +31,13 @@ class RestaurantSearchTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func setUp(restaurant restaurant: Restaurant) {
+    func setUp(restaurant: Restaurant) {
 
         if restaurant.name != nil {
             self.nameLabel.attributedText = restaurant.name!.attributedStringFromHTML(14, highlightColor: LightningColor.themeRed())
@@ -46,8 +46,8 @@ class RestaurantSearchTableViewCell: UITableViewCell {
             self.addressLabel.attributedText = restaurant.address?.attributedStringFromHTML(12, highlightColor: LightningColor.themeRed())
         }
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if !defaults.boolForKey("usingCustomLocation") {
+        let defaults = UserDefaults.standard
+        if !defaults.bool(forKey: "usingCustomLocation") {
             if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
                 let value = restaurant.distance?.value
                 let unit = restaurant.distance?.unit
@@ -61,7 +61,7 @@ class RestaurantSearchTableViewCell: UITableViewCell {
         if restaurant.picture?.original != nil {
             url = restaurant.picture!.original!
         }
-        restaurantImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: [.Transition(ImageTransition.Fade(1))])
+        restaurantImageView.kf.setImage(with: URL(string: url)!, placeholder: UIImage(named: "restaurant_default_background"), options: [.transition(ImageTransition.fade(1))])
         var dishNames = ""
         if restaurant.dishes != nil && restaurant.dishes!.count > 0 {
             
@@ -71,7 +71,7 @@ class RestaurantSearchTableViewCell: UITableViewCell {
             }
             self.dishesLabel.attributedText = dishNames.attributedStringFromHTML(12, highlightColor: LightningColor.themeRed())
             self.dishesLabel.adjustsFontSizeToFitWidth = false
-            self.dishesLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
+            self.dishesLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
         } else {
             self.dishesLabel.text = "暂无"
         }

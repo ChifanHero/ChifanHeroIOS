@@ -32,9 +32,9 @@ class CityTableViewCell: UITableViewCell {
     var activated : Bool? {
         didSet {
             if activated == true {
-                cityNameLabel.textColor = UIColor.blackColor()
+                cityNameLabel.textColor = UIColor.black
             } else {
-                cityNameLabel.textColor = UIColor.lightGrayColor()
+                cityNameLabel.textColor = UIColor.lightGray
             }
         }
     }
@@ -44,7 +44,7 @@ class CityTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

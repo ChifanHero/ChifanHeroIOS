@@ -13,5 +13,5 @@ protocol HttpRequestProtocol {
     func getRelativeURL() -> String
     func getRequestBody() -> [String : AnyObject]
     func getHeaders() -> [String : String]
-    func addHeader(key key: String, value: String) -> Void
+    func addHeader(key: String, value: String) -> Void
 }

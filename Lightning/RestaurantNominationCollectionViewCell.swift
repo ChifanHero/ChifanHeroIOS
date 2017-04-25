@@ -16,7 +16,7 @@ class RestaurantNominationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var restaurantName: UILabel!
     @IBOutlet weak var restaurantImage: UIImageView!
     
-    func setUp(restaurant restaurant: Restaurant) {
+    func setUp(restaurant: Restaurant) {
         self.restaurant = restaurant
         
         if restaurant.name != nil {
@@ -26,27 +26,27 @@ class RestaurantNominationCollectionViewCell: UICollectionViewCell {
         if restaurant.picture?.original != nil {
             url = restaurant.picture!.original!
         }
-        restaurantImage.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"),optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
+        restaurantImage.kf.setImage(with: URL(string: url)!, placeholder: UIImage(named: "restaurant_default_background"),options: [.transition(ImageTransition.fade(0.5))])
         
         configureCell()
     }
     
-    override var selected: Bool {
+    override var isSelected: Bool {
         
         didSet {
-            if selected {
+            if isSelected {
                 self.layer.borderWidth = 2.0
-                self.layer.borderColor = UIColor.themeOrange().CGColor
+                self.layer.borderColor = UIColor.themeOrange().cgColor
             } else {
                 self.layer.borderWidth = 0.3
-                self.layer.borderColor = UIColor.grayColor().CGColor
+                self.layer.borderColor = UIColor.gray.cgColor
             }
         }
     }
     
-    private func configureCell(){
+    fileprivate func configureCell(){
         self.layer.borderWidth = 0.3
-        self.layer.borderColor = UIColor.grayColor().CGColor
+        self.layer.borderColor = UIColor.gray.cgColor
     }
     
 }

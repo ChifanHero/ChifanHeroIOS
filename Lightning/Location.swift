@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Location: Serializable, Model {
     
@@ -15,8 +16,8 @@ class Location: Serializable, Model {
     
     func getProperties() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["lat"] = lat
-        parameters["lon"] = lon
+        parameters["lat"] = lat as AnyObject
+        parameters["lon"] = lon as AnyObject
         return parameters
     }
     
@@ -24,8 +25,8 @@ class Location: Serializable, Model {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        lat <-- data["lat"]
-        lon <-- data["lon"]
+    required init(data: JSON) {
+        lat = data["lat"].double
+        lon = data["lon"].double
     }
 }

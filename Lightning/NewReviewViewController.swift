@@ -44,11 +44,11 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         observeKeyboard()
 //        self.imagePoolView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "removablePhotoCell")
         
-        imagePoolView.registerNib(UINib(nibName: "RemovablePhotoCell", bundle: nil), forCellWithReuseIdentifier: "removablePhotoCell")
+        imagePoolView.register(UINib(nibName: "RemovablePhotoCell", bundle: nil), forCellWithReuseIdentifier: "removablePhotoCell")
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.reviewTextView.becomeFirstResponder()
     }
@@ -59,15 +59,15 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     func addCancelButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(NewReviewViewController.cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(NewReviewViewController.cancel(_:)), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
     func addDoneButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("提交", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(NewReviewViewController.submit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("提交", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(NewReviewViewController.submit(_:)), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = cancelButton
     }
@@ -75,17 +75,17 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     func roundRateButtons() {
         let buttons = [rate1Button, rate2Button, rate3Button, rate4Button, rate5Button]
         for button in buttons {
-            button.layer.cornerRadius = 15
+            button?.layer.cornerRadius = 15
         }
     }
     
-    @IBAction func cancel(sender: AnyObject) {
+    @IBAction func cancel(_ sender: AnyObject) {
         self.reviewTextView.resignFirstResponder()
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
-    @IBAction func submit(sender: AnyObject) {
+    @IBAction func submit(_ sender: AnyObject) {
         if restaurantId != nil {
             let reviewOperation = PostReviewOperation(reviewId: nil, rating: 5, content: reviewTextView.text, restaurantId: restaurantId!, retryTimes: 3) { (success, review) in
                 print(success)
@@ -105,26 +105,26 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
             }
             reviewManager.queue.addOperation(reviewOperation)
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func observeKeyboard() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewReviewViewController.handleKeyboardDidShowNotification(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewReviewViewController.handleKeyboardDidShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
     
-    func handleKeyboardDidShowNotification(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+    func handleKeyboardDidShowNotification(_ notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             bottomDistanceConstraint.constant = keyboardSize.height
             self.view.layoutIfNeeded()
         }
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count + 1
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell: RemovablePhotoCollectionViewCell? = imagePoolView.dequeueReusableCellWithReuseIdentifier("removablePhotoCell", forIndexPath: indexPath) as? RemovablePhotoCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: RemovablePhotoCollectionViewCell? = imagePoolView.dequeueReusableCell(withReuseIdentifier: "removablePhotoCell", for: indexPath) as? RemovablePhotoCollectionViewCell
         
         // Configure the cell
         if indexPath.item < images.count {
@@ -133,9 +133,9 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
             cell?.layoutIfNeeded()
             cell!.deleteButton.layer.cornerRadius = cell!.deleteButton.frame.size.width / 2
             cell?.deleteButton.image = UIImage(named: "Cancel_Button.png")
-            cell?.bringSubviewToFront((cell?.deleteButton)!)
-            cell!.deleteButton.renderColorChangableImage(UIImage(named: "Cancel_Button.png")!, fillColor: UIColor.redColor())
-            cell!.deleteButton.hidden = false
+            cell?.bringSubview(toFront: (cell?.deleteButton)!)
+            cell!.deleteButton.renderColorChangableImage(UIImage(named: "Cancel_Button.png")!, fillColor: UIColor.red)
+            cell!.deleteButton.isHidden = false
             
             cell?.deleteButton.tag = indexPath.item
             let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewReviewViewController.deleteImage(_:)))
@@ -148,28 +148,28 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         return cell!
     }
     
-    func deleteImage(gestureRecognizer: UITapGestureRecognizer) {
+    func deleteImage(_ gestureRecognizer: UITapGestureRecognizer) {
         //tappedImageView will be the image view that was tapped.
         //dismiss it, animate it off screen, whatever.
         let tappedImageView = gestureRecognizer.view!
         let id = tappedImageView.tag
-        self.images.removeAtIndex(id)
+        self.images.remove(at: id)
         self.imagePoolView.reloadData()
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == images.count {
-            let alert = UIAlertController(title: "选择图片来源", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
+            let alert = UIAlertController(title: "选择图片来源", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
             
-            let albumAction = UIAlertAction(title: "相册", style: .Default, handler: self.goToAlbum)
-            let cameraAction = UIAlertAction(title: "拍摄", style: .Default, handler: self.goToCamera)
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: self.cancelNavigation)
+            let albumAction = UIAlertAction(title: "相册", style: .default, handler: self.goToAlbum)
+            let cameraAction = UIAlertAction(title: "拍摄", style: .default, handler: self.goToCamera)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: self.cancelNavigation)
             
             alert.addAction(albumAction)
             alert.addAction(cameraAction)
             alert.addAction(cancelAction)
             
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         } else {
             var photos = [SKPhoto]()
             for image in images {
@@ -178,36 +178,36 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
             }
             let browser = SKPhotoBrowser(photos: photos)
             browser.initializePageIndex(indexPath.row)
-            presentViewController(browser, animated: true, completion: {})
+            present(browser, animated: true, completion: {})
         }
     }
     
     // MARK: Photo selection
-    func goToAlbum(alertAction: UIAlertAction!) -> Void {
+    func goToAlbum(_ alertAction: UIAlertAction!) -> Void {
         let pickerController = DKImagePickerController()
         pickerController.singleSelect = false
         pickerController.maxSelectableCount = 10
-        pickerController.assetType = DKImagePickerControllerAssetType.AllPhotos
-        pickerController.sourceType = DKImagePickerControllerSourceType.Photo
+        pickerController.assetType = DKImagePickerControllerAssetType.allPhotos
+        pickerController.sourceType = DKImagePickerControllerSourceType.photo
         pickerController.allowMultipleTypes = false
         pickerController.allowsLandscape = false
         pickerController.didSelectAssets = { (assets: [DKAsset]) in
             self.processSelectedPhotosFromPhotoLibrary(assets)
         }
-        self.presentViewController(pickerController, animated: true) {}
+        self.present(pickerController, animated: true) {}
     }
     
-    func goToCamera(alertAction: UIAlertAction!) -> Void {
+    func goToCamera(_ alertAction: UIAlertAction!) -> Void {
         let imagePickerController = ImagePickerController()
         imagePickerController.delegate = self
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
+        self.present(imagePickerController, animated: true, completion: nil)
     }
     
-    func cancelNavigation(alertAction: UIAlertAction!) {
+    func cancelNavigation(_ alertAction: UIAlertAction!) {
         
     }
     
-    func processSelectedPhotosFromPhotoLibrary(assets: [DKAsset]) {
+    func processSelectedPhotosFromPhotoLibrary(_ assets: [DKAsset]) {
         var images : [UIImage] = []
         for asset in assets {
             asset.fetchOriginalImageWithCompleteBlock({ (image, info) in
@@ -221,54 +221,54 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     //MARK: ImagePickerDelegate
-    func wrapperDidPress(imagePicker: ImagePickerController, images: [UIImage]) {
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
         
     }
-    func doneButtonDidPress(imagePicker: ImagePickerController, images: [UIImage]) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        self.dismiss(animated: true, completion: nil)
 //        self.reviewTextView.becomeFirstResponder()
         displayImages(images)
     }
-    func cancelButtonDidPress(imagePicker: ImagePickerController) {
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
 //        self.reviewTextView.becomeFirstResponder()
     }
     
-    func displayImages(images: [UIImage]) {
-        self.images.appendContentsOf(images)
+    func displayImages(_ images: [UIImage]) {
+        self.images.append(contentsOf: images)
         imagePoolView.reloadData()
     }
     
     //MARK: RateButton actions
 
-    @IBAction func rate1(sender: AnyObject) {
+    @IBAction func rate1(_ sender: AnyObject) {
         toggleButton(1)
     }
     
-    @IBAction func rate2(sender: AnyObject) {
+    @IBAction func rate2(_ sender: AnyObject) {
         toggleButton(2)
     }
     
-    @IBAction func rate3(sender: AnyObject) {
+    @IBAction func rate3(_ sender: AnyObject) {
         toggleButton(3)
     }
     
-    @IBAction func rate4(sender: AnyObject) {
+    @IBAction func rate4(_ sender: AnyObject) {
         toggleButton(4)
     }
     
-    @IBAction func rate5(sender: AnyObject) {
+    @IBAction func rate5(_ sender: AnyObject) {
         toggleButton(5)
     }
     
-    private func toggleButton(id : Int) {
+    fileprivate func toggleButton(_ id : Int) {
         let rateButtons = [rate1Button, rate2Button, rate3Button, rate4Button, rate5Button]
         for index in 0...(rateButtons.count - 1) {
             if index > (id - 1) {
-                rateButtons[index].unRate({
+                rateButtons[index]?.unRate({
                     
                 })
             } else {
-                rateButtons[index].rate({
+                rateButtons[index]?.rate({
                     
                 })
             }

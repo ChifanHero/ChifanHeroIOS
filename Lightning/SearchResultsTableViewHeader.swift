@@ -10,8 +10,8 @@ import UIKit
 
 class SearchResultsTableViewHeader: UIView {
 
-    private var view : UIView!
-    private var nibName : String = "SearchResultsTableViewHeader"
+    fileprivate var view : UIView!
+    fileprivate var nibName : String = "SearchResultsTableViewHeader"
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -41,17 +41,17 @@ class SearchResultsTableViewHeader: UIView {
         Setup() // Setup when this component is used from Code
     }
     
-    private func Setup(){
+    fileprivate func Setup(){
         view = LoadViewFromNib()
         addSubview(view)
         view.frame = bounds
-        view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        view.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
     }
     
-    private func LoadViewFromNib() -> UIView {
-        let bundle = NSBundle(forClass: self.dynamicType)
+    fileprivate func LoadViewFromNib() -> UIView {
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nibName, bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
 

@@ -29,17 +29,17 @@ class RestaurantTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func setUp(restaurant restaurant: Restaurant) {
+    func setUp(restaurant: Restaurant) {
         nameLabel.text = restaurant.name
         addressLabel.text = restaurant.address
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if !defaults.boolForKey("usingCustomLocation") {
+        let defaults = UserDefaults.standard
+        if !defaults.bool(forKey: "usingCustomLocation") {
             if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
                 let value = restaurant.distance?.value
                 let unit = restaurant.distance?.unit
@@ -59,11 +59,11 @@ class RestaurantTableViewCell: UITableViewCell {
         if restaurant.picture?.original != nil {
             url = restaurant.picture!.original!
         }
-        restaurantImageView.kf_setImageWithURL(NSURL(string: url)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: [.Transition(ImageTransition.Fade(1))])
+        restaurantImageView.kf.setImage(with: URL(string: url)!, placeholder: UIImage(named: "restaurant_default_background"), options: [.transition(ImageTransition.fade(1))])
         
     }
     
-    private func getTotalRatingCount(positive positive: Int?, neutral: Int?, negative: Int?) -> String{
+    fileprivate func getTotalRatingCount(positive: Int?, neutral: Int?, negative: Int?) -> String{
         var positive = positive
         var neutral = neutral
         var negative = negative

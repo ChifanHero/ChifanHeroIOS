@@ -10,13 +10,13 @@ import Foundation
 
 enum DistanceUnit {
     
-    case MILE
-    case KM
+    case mile
+    case km
     
     var description : String {
         switch self {
-        case .MILE : return "mi"
-        case .KM : return "km"
+        case .mile : return "mi"
+        case .km : return "km"
         }
     }
     

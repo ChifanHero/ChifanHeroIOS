@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Review: Model{
     
@@ -25,19 +26,19 @@ class Review: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        content <-- data["content"]
-        user <-- data["user"]
-        lastUpdateTime <-- data["last_update_time"]
-        rating <-- data["rating"]
-        reviewQuality <-- data["review_quality"]
-        goodReview <-- data["good_review"]
-        pointsRewarded <-- data["points_rewarded"]
-        restaurant <-- data["restaurant"]
-        id <-- data["id"]
-        if let resultsJson = data["photos"] as? [AnyObject] {
+    required init(data: JSON) {
+        content = data["content"].string
+        user = User(data: data["user"])
+        lastUpdateTime = data["last_update_time"].string
+        rating = data["rating"].string
+        reviewQuality = data["review_quality"].int
+        goodReview = data["good_review"].bool
+        pointsRewarded = data["points_rewarded"].int
+        restaurant = Restaurant(data: data["restaurant"])
+        id = data["id"].string
+        if let resultsJson = data["photos"].array {
             for resultJson in resultsJson {
-                let result = Picture(data: resultJson as! [String : AnyObject])
+                let result = Picture(data: resultJson)
                 photos.append(result)
             }
         }

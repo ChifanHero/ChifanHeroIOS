@@ -24,17 +24,10 @@ class DishListTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    
-    func setUp(list list: List, image: UIImage?) {
-        nameLabel.text = list.name
-        if list.memberCount != nil {
-            countLabel.text = "\(list.memberCount!) 道菜"
-        }
     }
 
 }

@@ -55,40 +55,40 @@ class EditableReviewTableViewCell: UITableViewCell {
         rateButtons.append(rateButton5)
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
     
-    @IBAction func rate1(sender: AnyObject) {
+    @IBAction func rate1(_ sender: AnyObject) {
         toggleButton(1)
 //        showConfirmView()
     }
     
-    @IBAction func rate2(sender: AnyObject) {
+    @IBAction func rate2(_ sender: AnyObject) {
         toggleButton(2)
 //        showConfirmView()
     }
     
-    @IBAction func rate3(sender: AnyObject) {
+    @IBAction func rate3(_ sender: AnyObject) {
         toggleButton(3)
 //        showConfirmView()
     }
     
-    @IBAction func rate4(sender: AnyObject) {
+    @IBAction func rate4(_ sender: AnyObject) {
         toggleButton(4)
 //        showConfirmView()
     }
     
     
-    @IBAction func rate5(sender: AnyObject) {
+    @IBAction func rate5(_ sender: AnyObject) {
         toggleButton(5)
 //        showConfirmView()
     }
     
-    private func toggleButton(id : Int) {
+    fileprivate func toggleButton(_ id : Int) {
         var button : RateButton?
         if id == 1 {
             button = rateButton1
@@ -121,26 +121,26 @@ class EditableReviewTableViewCell: UITableViewCell {
         
     }
     
-    private func showBannerAlert(alert: String) {
+    fileprivate func showBannerAlert(_ alert: String) {
         self.parentViewController?.showBannerAlert(alert)
     }
     
-    private func deleteRate() {
+    fileprivate func deleteRate() {
         
     }
     
-    private func rate(id : Int) {
+    fileprivate func rate(_ id : Int) {
         let restaurantId = parentViewController?.restaurantId
         if restaurantId != nil {
             let reviewOperation = PostReviewOperation(reviewId: reviewId, rating: id, content: nil, restaurantId: restaurantId!, retryTimes: 3) { (success, review) in
                 if success {
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                    OperationQueue.main.addOperation({ 
                         self.showBannerAlert("打分成功！")
                         self.reviewId = review?.id
                     })
                     
                 } else {
-                    NSOperationQueue.mainQueue().addOperationWithBlock({
+                    OperationQueue.main.addOperation({
                         self.showBannerAlert("打分失败，请稍后重试")
                     })
                     
@@ -154,7 +154,7 @@ class EditableReviewTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func detailReviewViewPressed(sender: AnyObject) {
+    @IBAction func detailReviewViewPressed(_ sender: AnyObject) {
     }
     
 }

@@ -19,7 +19,7 @@ class RateRequest: HttpRequest{
         parameters["type"] = type
         parameters["action"] = action
         parameters["object_id"] = objectId
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     override func getRelativeURL() -> String {

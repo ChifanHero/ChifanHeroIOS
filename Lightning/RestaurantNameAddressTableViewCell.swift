@@ -28,21 +28,21 @@ class RestaurantNameAddressTableViewCell: UITableViewCell {
 
     }
     
-    func setUp(restaurant restaurant : Restaurant) {
+    func setUp(restaurant : Restaurant) {
         if let name = restaurant.name {
             nameLabel.text = name
         } else {
-            nameLabel.hidden = true
+            nameLabel.isHidden = true
         }
         
         if let address = restaurant.address {
             addressLabel.text = address
         } else {
-            addressLabel.hidden = true
+            addressLabel.isHidden = true
         }
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

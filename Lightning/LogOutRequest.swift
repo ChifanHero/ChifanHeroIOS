@@ -12,7 +12,7 @@ class LogOutRequest: AccountRequest{
     
     override func getRequestBody() -> [String : AnyObject] {
         let parameters = Dictionary<String, String>()
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     override func getRelativeURL() -> String {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class SignUpResponse: AccountResponse {
     
@@ -14,12 +15,12 @@ class SignUpResponse: AccountResponse {
         super.init()
     }
     
-    required init(data: [String : AnyObject]) {
+    required init(data: JSON) {
         super.init(data: data)
-        success <-- data["success"]
-        sessionToken <-- data["session_token"]
-        user <-- data["user"]
-        error <-- data["error"]
+        success = data["success"].bool
+        sessionToken = data["session_token"].string
+        user = User(data: data["user"])
+        error = Error(data: data["error"])
     }
     
 }

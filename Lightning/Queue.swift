@@ -16,17 +16,12 @@ class Queue {
 
 protocol QueueDelegate {
     
-    func perform (closure:() -> ()) -> Void
+    func perform (_ :() -> ()) -> Void
     
 }
 
 class MainQueueDelegate : QueueDelegate {
-    
-    func perform (closure:() -> Void) -> Void {
-        dispatch_async(dispatch_get_main_queue(), {
-            closure()
-        });
+    func perform(_ closure: () -> Void) {
         
     }
-
 }

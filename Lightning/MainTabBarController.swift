@@ -24,28 +24,28 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    private func setTabBarIcons() {
+    fileprivate func setTabBarIcons() {
         
     }
     
-    private func createChildrenControllers() {
+    fileprivate func createChildrenControllers() {
         let homeStoryBoard: UIStoryboard = UIStoryboard(name: "Home", bundle: nil)
-        let homePageViewController: UIViewController = homeStoryBoard.instantiateViewControllerWithIdentifier("HomeNavigationController") as UIViewController
+        let homePageViewController: UIViewController = homeStoryBoard.instantiateViewController(withIdentifier: "HomeNavigationController") as UIViewController
         
         let restaurantsStoryboard:UIStoryboard = UIStoryboard(name: "RestaurantsAndSearch", bundle: nil)
-        let restaurantsViewController:UIViewController = restaurantsStoryboard.instantiateViewControllerWithIdentifier("RestaurantsContainer") as UIViewController
+        let restaurantsViewController:UIViewController = restaurantsStoryboard.instantiateViewController(withIdentifier: "RestaurantsContainer") as UIViewController
         
         let selectionsStoryBoard: UIStoryboard = UIStoryboard(name: "Collection", bundle: nil)
-        let selectionsViewController: UIViewController = selectionsStoryBoard.instantiateViewControllerWithIdentifier("CollectionsNavigationController") as UIViewController
+        let selectionsViewController: UIViewController = selectionsStoryBoard.instantiateViewController(withIdentifier: "CollectionsNavigationController") as UIViewController
         
         let userStoryBoard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
-        let usersViewController: UIViewController = userStoryBoard.instantiateViewControllerWithIdentifier("LogInNavigationController") as UIViewController
+        let usersViewController: UIViewController = userStoryBoard.instantiateViewController(withIdentifier: "LogInNavigationController") as UIViewController
         
         
         self.viewControllers = [homePageViewController, restaurantsViewController, selectionsViewController, usersViewController]
     }
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         print("tapped")
     }
     

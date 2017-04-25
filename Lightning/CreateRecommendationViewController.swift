@@ -18,25 +18,25 @@ class CreateRecommendationViewController: UIViewController {
     }
     
     func addCancelButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(CreateRecommendationViewController.cancel), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(CreateRecommendationViewController.cancel), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
     func addDoneButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("提交", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(CreateRecommendationViewController.submit), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("提交", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(CreateRecommendationViewController.submit), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = cancelButton
     }
     
     func cancel() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func submit() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

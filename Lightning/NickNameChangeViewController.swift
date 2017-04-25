@@ -15,7 +15,7 @@ class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
 
     @IBOutlet weak var nickNameTextField: UITextField!
     
-    @IBAction func nickNameChangeDone(sender: AnyObject) {
+    @IBAction func nickNameChangeDone(_ sender: AnyObject) {
         
         changeNickName()
     }
@@ -24,18 +24,18 @@ class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
         if nickNameTextField.text != nil {
             
             AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nickNameTextField.text, pictureId: nil) { (response) -> Void in
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                OperationQueue.main.addOperation({ () -> Void in
                     if response!.success == true {
                         print("Update nick name succeed")
                     } else {
                         print("Update nick name failed")
                     }
-                    self.navigationController?.popViewControllerAnimated(true)
+                    self.navigationController?.popViewController(animated: true)
                 })
                 
             }
         } else {
-            navigationController?.popViewControllerAnimated(true)
+            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -47,12 +47,12 @@ class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        setTabBarVisible(false, animated: true)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackUserNicknameChangeView()
     }
@@ -62,7 +62,7 @@ class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print(self.nickNameTextField.text)
         if self.nickNameTextField.text == "" || self.nickNameTextField.text == nil {
             return false

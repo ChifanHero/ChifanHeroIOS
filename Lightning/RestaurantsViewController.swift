@@ -19,17 +19,17 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     @IBOutlet weak var searchBar: UITextField!
     
-    var loadingIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
+    var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     
     var buckets : [Bucket] = [Bucket]()
     
-    private var isLoadingMore = false
+    fileprivate var isLoadingMore = false
     
-    private var loadedAll = false
+    fileprivate var loadedAll = false
     
     var footerView : LoadMoreFooterView?
     
-    private var currentState = CurrentState.BROWSE
+    fileprivate var currentState = CurrentState.browse
     
     var animateTransition = false
     
@@ -59,39 +59,39 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         self.clearTitleForBackBarButtonItem()
     }
     
-    private func setDefaultSearchContext() {
-        searchContext.distance = RangeFilter.AUTO
-        searchContext.rating = RatingFilter.NONE
-        searchContext.sort = SortOptions.DISTANCE
+    fileprivate func setDefaultSearchContext() {
+        searchContext.distance = RangeFilter.auto
+        searchContext.rating = RatingFilter.none
+        searchContext.sort = SortOptions.distance
         searchContext.coordinates = userLocationManager.getLocationInUse()
         searchContext.offSet = 0
     }
     
-    private func configLoadingIndicator() {
+    fileprivate func configLoadingIndicator() {
         loadingIndicator.color = UIColor.themeOrange()
-        loadingIndicator.type = NVActivityIndicatorType.Pacman
-        loadingIndicator.center = (UIApplication.sharedApplication().keyWindow?.center)!
+        loadingIndicator.type = NVActivityIndicatorType.pacman
+        loadingIndicator.center = (UIApplication.shared.keyWindow?.center)!
         self.view.addSubview(loadingIndicator)
     }
     
     func setTableViewFooterView() {
-        let frame = CGRectMake(0, 0, self.view.frame.size.width, 30)
+        let frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 30)
         footerView = LoadMoreFooterView(frame: frame)
-        footerView?.activityIndicator.backgroundColor = UIColor.groupTableViewBackgroundColor()
-        footerView?.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        footerView?.activityIndicator.backgroundColor = UIColor.groupTableViewBackground
+        footerView?.backgroundColor = UIColor.groupTableViewBackground
         footerView?.reset()
         self.searchResultsTable.tableFooterView = footerView
     }
     
-    private func configPullToRefresh() {
+    fileprivate func configPullToRefresh() {
         pullRefresher = UIRefreshControl()
-        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGray,
                           NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
         pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
-        pullRefresher.tintColor = UIColor.lightGrayColor()
+        pullRefresher.tintColor = UIColor.lightGray
         //        self.homepageTable.addSubview(pullRefresher)
-        pullRefresher.addTarget(self, action: #selector(RestaurantsViewController.refreshData), forControlEvents: .ValueChanged)
-        self.searchResultsTable.insertSubview(pullRefresher, atIndex: 0)
+        pullRefresher.addTarget(self, action: #selector(RestaurantsViewController.refreshData), for: .valueChanged)
+        self.searchResultsTable.insertSubview(pullRefresher, at: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,27 +99,27 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         print("restaurants view did appear")
         super.viewDidAppear(animated)
         TrackingUtil.trackRestaurantsView()
         performNewSearchIfNeeded(true)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.animateTransition = false
     }
     
     // MARK - TextField methods
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        performSegueWithIdentifier("search", sender: nil)
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        performSegue(withIdentifier: "search", sender: nil)
         return false
     }
     
     
     // MARK - perform search
-    func performNewSearchIfNeeded(hideCurrentResults : Bool) {
+    func performNewSearchIfNeeded(_ hideCurrentResults : Bool) {
         if searchContext.newSearch || needToRefresh(){
             print("search requested. should do a new search here")
             print("keyword = \(searchContext.keyword)")
@@ -128,18 +128,18 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
             print("sort = \(searchContext.sort)")
             print("address = \(searchContext.address)")
             if searchContext.keyword != nil || searchContext.address != nil{
-                currentState = CurrentState.SEARCH
+                currentState = CurrentState.search
             } else {
-                currentState = CurrentState.BROWSE
+                currentState = CurrentState.browse
             }
             
             if hideCurrentResults {
-                searchResultsTable.hidden = true
+                searchResultsTable.isHidden = true
                 loadingIndicator.startAnimation()
             }
             if searchContext.address != nil && searchContext.address != "" {
                 LocationHelper.getLocationFromAddress(searchContext.address!, completionHandler: { (location) in
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                    OperationQueue.main.addOperation({ 
                         if location == nil {
                             searchContext.coordinates = userLocationManager.getLocationInUse()
                         } else {
@@ -161,7 +161,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     func needToRefresh() -> Bool {
-        if currentState == CurrentState.BROWSE && locationChangedSignificantly() {
+        if currentState == CurrentState.browse && locationChangedSignificantly() {
             return true
         } else {
             return false
@@ -175,7 +175,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         }
         let currentCLLocation = CLLocation(latitude: (currentLocation?.lat)!, longitude: (currentLocation?.lon)!)
         let lastCLLocation = CLLocation(latitude: lastUsedLocation!.lat!, longitude: lastUsedLocation!.lon!)
-        let distance : CLLocationDistance = currentCLLocation.distanceFromLocation(lastCLLocation)
+        let distance : CLLocationDistance = currentCLLocation.distance(from: lastCLLocation)
         print(distance)
         if distance >= 1600 {
             return true
@@ -187,7 +187,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     func buildSearchRequest() -> RestaurantSearchV2Request{
         var searchRequest : RestaurantSearchV2Request = RestaurantSearchV2Request()
-        if currentState == CurrentState.BROWSE {
+        if currentState == CurrentState.browse {
             searchContext.coordinates = userLocationManager.getLocationInUse()
             lastUsedLocation = searchContext.coordinates
         }
@@ -199,10 +199,10 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         return searchRequest
     }
     
-    func search(searchRequest : RestaurantSearchV2Request) {
+    func search(_ searchRequest : RestaurantSearchV2Request) {
         updateSearchbarAndLocationLabel()
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(searchRequest) { (searchResponse) in
-            NSOperationQueue.mainQueue().addOperationWithBlock({
+            OperationQueue.main.addOperation({
                 searchContext.newSearch = false
                 if let buckets = searchResponse?.buckets {
                     if (buckets.count == 0) {
@@ -216,7 +216,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                     self.searchResultsTable.allowsSelection = true
                     self.searchResultsTable.reloadData()
                     self.pullRefresher.endRefreshing()
-                    self.searchResultsTable.hidden = false
+                    self.searchResultsTable.isHidden = false
                     self.isLoadingMore = false
                     self.loadingIndicator.stopAnimation()
                     self.footerView!.activityIndicator.stopAnimating()
@@ -231,49 +231,49 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         }
     }
     
-    func buildSort(inout searchRequest : RestaurantSearchV2Request) {
+    func buildSort(_ searchRequest : inout RestaurantSearchV2Request) {
         let sortOption = searchContext.sort
-        if sortOption == SortOptions.DISTANCE {
-            searchRequest.sortBy = SortParameter.Distance.description
-            searchRequest.sortOrder = SortOrder.Ascend.description
-        } else if sortOption == SortOptions.HOTNESS {
-            searchRequest.sortBy = SortParameter.Hotness.description
-            searchRequest.sortOrder = SortOrder.Descend.description
-        } else if sortOption == SortOptions.RATING {
-            searchRequest.sortBy = SortParameter.Rating.description
-            searchRequest.sortOrder = SortOrder.Descend.description
+        if sortOption == SortOptions.distance {
+            searchRequest.sortBy = SortParameter.distance.description
+            searchRequest.sortOrder = SortOrder.ascend.description
+        } else if sortOption == SortOptions.hotness {
+            searchRequest.sortBy = SortParameter.hotness.description
+            searchRequest.sortOrder = SortOrder.descend.description
+        } else if sortOption == SortOptions.rating {
+            searchRequest.sortBy = SortParameter.rating.description
+            searchRequest.sortOrder = SortOrder.descend.description
         }
     }
     
-    func buildFilter(inout searchRequest : RestaurantSearchV2Request) {
+    func buildFilter(_ searchRequest : inout RestaurantSearchV2Request) {
         let filters = Filters()
         searchRequest.filters = filters
         let ratingFilter = searchContext.rating
         let rangeFilter = searchContext.distance
-        if ratingFilter == RatingFilter.FIVE {
+        if ratingFilter == RatingFilter.five {
             filters.minRating = 5.0
-        } else if ratingFilter == RatingFilter.FOUR {
+        } else if ratingFilter == RatingFilter.four {
             filters.minRating = 4.0
-        } else if ratingFilter == RatingFilter.FOURHALF {
+        } else if ratingFilter == RatingFilter.fourhalf {
             filters.minRating = 4.5
-        } else if ratingFilter == RatingFilter.THREEHALF {
+        } else if ratingFilter == RatingFilter.threehalf {
             filters.minRating = 3.5
-        } else if ratingFilter == RatingFilter.THREE {
+        } else if ratingFilter == RatingFilter.three {
             filters.minRating = 3.0
         }
         let range = Range()
         range.center = searchContext.coordinates
         let distance = Distance()
-        distance.unit = DistanceUnit.MILE.description
-        if rangeFilter == RangeFilter.AUTO {
+        distance.unit = DistanceUnit.mile.description
+        if rangeFilter == RangeFilter.auto {
             distance.value = 30.0
-        } else if rangeFilter == RangeFilter.POINT5{
+        } else if rangeFilter == RangeFilter.point5{
             distance.value = 0.5
-        } else if rangeFilter == RangeFilter.ONE{
+        } else if rangeFilter == RangeFilter.one{
             distance.value = 1.0
-        } else if rangeFilter == RangeFilter.FIVE{
+        } else if rangeFilter == RangeFilter.five{
             distance.value = 5.0
-        } else if rangeFilter == RangeFilter.TWENTY{
+        } else if rangeFilter == RangeFilter.twenty{
             distance.value = 20.0
         }
         range.distance = distance
@@ -310,25 +310,25 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     // Mark - UITableViewDelegate, UITableViewDataSource
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return buckets.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return buckets[section].results.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: RestaurantTableViewCell? = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: RestaurantTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as? RestaurantTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell") as? RestaurantTableViewCell
+            tableView.register(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as? RestaurantTableViewCell
         }
         cell?.setUp(restaurant: buckets[indexPath.section].results[indexPath.row])
         return cell!
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = SearchResultsTableViewHeader()
         let header = buckets[section].label
         let source = buckets[section].source
@@ -337,7 +337,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         return headerView
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if buckets[section].label != nil {
             return 40
         } else {
@@ -345,17 +345,17 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return RestaurantTableViewCell.height
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView()
-        footerView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        footerView.backgroundColor = UIColor.groupTableViewBackground
         return footerView
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == buckets.count - 1 {
             return 0.01
         } else {
@@ -364,9 +364,9 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let restaurantSelected: Restaurant = buckets[indexPath.section].results[indexPath.row]
-        let selectedCell: RestaurantTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RestaurantTableViewCell
+        let selectedCell: RestaurantTableViewCell = tableView.cellForRow(at: indexPath) as! RestaurantTableViewCell
         self.selectedImageView = selectedCell.restaurantImageView
         selectedRestaurantName = selectedCell.nameLabel.text
         selectedRestaurantId = restaurantSelected.id
@@ -375,14 +375,14 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         } else {
             showRestaurant(restaurantSelected.id!, restaurant: restaurantSelected, isFromGoogleSearch: false)
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // Mark - Navigation
-    func showRestaurant(id: String, restaurant: Restaurant, isFromGoogleSearch: Bool) {
+    func showRestaurant(_ id: String, restaurant: Restaurant, isFromGoogleSearch: Bool) {
         self.animateTransition = true
         let storyboard = UIStoryboard(name: "Restaurant", bundle: nil)
-        let restaurantController = storyboard.instantiateViewControllerWithIdentifier("RestaurantMainTableViewController") as! RestaurantMainTableViewController
+        let restaurantController = storyboard.instantiateViewController(withIdentifier: "RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantName = self.selectedRestaurantName
         restaurantController.restaurantId = self.selectedRestaurantId
@@ -395,9 +395,9 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     // Mark - Pagination
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.isKindOfClass(UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
-            let scrollPosition = scrollView.contentSize.height - CGRectGetHeight(scrollView.frame) - scrollView.contentOffset.y
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.isKind(of: UITableView.classForCoder()) && scrollView.contentOffset.y > 0.0 {
+            let scrollPosition = scrollView.contentSize.height - scrollView.frame.height - scrollView.contentOffset.y
             if scrollPosition < 30 && !self.isLoadingMore {
                 if self.loadedAll {
                     footerView?.showFinishMessage()
@@ -409,7 +409,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         }
     }
     
-    private func loadMore() {
+    fileprivate func loadMore() {
         isLoadingMore = true
         footerView?.activityIndicator.startAnimating()
         searchContext.offSet = searchContext.offSet! + searchContext.limit
@@ -422,19 +422,19 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         let imageView = UIImageView(image: self.selectedImageView!.image)
         imageView.contentMode = self.selectedImageView!.contentMode
         imageView.clipsToBounds = true
-        imageView.userInteractionEnabled = false
+        imageView.isUserInteractionEnabled = false
         //        imageView.frame = self.selectedImageView!.convertRect(self.selectedImageView!.frame, toView: self.view)
         imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
         
         return imageView
     }
     
-    func presentationCompletionAction(completeTransition: Bool) {
-        self.selectedImageView?.hidden = true
+    func presentationCompletionAction(_ completeTransition: Bool) {
+        self.selectedImageView?.isHidden = true
     }
     
-    func dismissalCompletionAction(completeTransition: Bool) {
-        self.selectedImageView?.hidden = false
+    func dismissalCompletionAction(_ completeTransition: Bool) {
+        self.selectedImageView?.isHidden = false
     }
     
     func usingAnimatedTransition() -> Bool {
@@ -451,21 +451,21 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
 
     
     // Mark - Filter
-    func openFilter(sender: AnyObject) {
+    func openFilter(_ sender: AnyObject) {
         self.containerViewController?.slideMenuController()?.openRight()
     }
     
     
-    private func addFilterButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("筛选", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(RestaurantsViewController.openFilter), forControlEvents: UIControlEvents.TouchUpInside)
+    fileprivate func addFilterButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("筛选", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(RestaurantsViewController.openFilter), for: UIControlEvents.touchUpInside)
         let filterButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = filterButton
     }
     
-    private enum CurrentState {
-        case BROWSE
-        case SEARCH
+    fileprivate enum CurrentState {
+        case browse
+        case search
     }
 
 }

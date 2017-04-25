@@ -15,7 +15,7 @@ class IdGenerator {
         return randomString(20)
     }
     
-    private static func randomString(size: Int) -> String{
+    fileprivate static func randomString(_ size: Int) -> String{
         assert(size > 0)
         let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
         var id = ""
@@ -25,12 +25,12 @@ class IdGenerator {
         }
         for index in 0..<size {
             let charId: Int = UIntFromInt(bytes[index]) % chars.characters.count
-            id.append(chars[chars.startIndex.advancedBy(charId)])
+            id.append(chars[chars.characters.index(chars.startIndex, offsetBy: charId)])
         }
         return id
     }
     
-    private static func UIntFromInt(int: Int) -> Int{
+    fileprivate static func UIntFromInt(_ int: Int) -> Int{
         if int < 0 {
             return int + 256
         } else {

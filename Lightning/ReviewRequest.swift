@@ -25,11 +25,11 @@ class ReviewRequest: HttpRequest{
     
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["content"] = content
-        parameters["rating"] = rating
-        parameters["restaurant_id"] = restaurantId
-        parameters["id"] = id
-        parameters["photos"] = photos
+        parameters["content"] = content as AnyObject
+        parameters["rating"] = rating as AnyObject
+        parameters["restaurant_id"] = restaurantId as AnyObject
+        parameters["id"] = id as AnyObject
+        parameters["photos"] = photos as AnyObject
         return parameters
     }
     

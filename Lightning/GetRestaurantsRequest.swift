@@ -19,17 +19,17 @@ class GetRestaurantsRequest: HttpRequest{
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
         if (userLocation != nil) {
-            parameters["user_location"] = userLocation?.getProperties()
+            parameters["user_location"] = userLocation?.getProperties() as AnyObject
         }
         if limit != nil {
-            parameters["limit"] = limit!
+            parameters["limit"] = limit! as AnyObject
         }
         if skip != nil {
-            parameters["skip"] = skip!
+            parameters["skip"] = skip! as AnyObject
         }
         if sortBy != nil && sortOrder != nil{
-            parameters["sort_by"] = sortBy!.description
-            parameters["sort_order"] = sortOrder?.description
+            parameters["sort_by"] = sortBy!.description as AnyObject
+            parameters["sort_order"] = sortOrder?.description as AnyObject
         }
         
         return parameters

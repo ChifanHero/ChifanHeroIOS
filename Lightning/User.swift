@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class User: Model{
     
@@ -14,8 +15,6 @@ class User: Model{
     var userName: String?
     var emailVerified: Bool?
     var email: String?
-    var favoriteCuisine: [String]?
-    var level: Int?
     var nickName: String?
     var picture: Picture?
     
@@ -23,14 +22,12 @@ class User: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        id <-- data["id"]
-        userName <-- data["username"]
-        emailVerified <-- data["emailVerified"]
-        email <-- data["email"]
-        favoriteCuisine <-- data["favorite_cuisine"]
-        level <-- data["level"]
-        nickName <-- data["nick_name"]
-        picture <-- data["picture"]
+    required init(data: JSON) {
+        id = data["id"].string
+        userName = data["username"].string
+        emailVerified = data["emailVerified"].bool
+        email = data["email"].string
+        nickName = data["nick_name"].string
+        picture = Picture(data: data["picture"])
     }
 }

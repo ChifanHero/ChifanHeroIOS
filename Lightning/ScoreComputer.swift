@@ -11,16 +11,16 @@ import UIKit
 
 class ScoreComputer  {
     
-    static func getScore(positive positive: Int?, negative: Int?, neutral: Int?) -> String {
+    static func getScore(positive: Int?, negative: Int?, neutral: Int?) -> String {
         let score: Double = calculateScore(positive: positive, negative: negative, neutral: neutral)
         return String(format:"%.1f", score / 100 * 5)
     }
     
-    static func getScoreNum(positive positive: Int?, negative: Int?, neutral: Int?) -> Double {
+    static func getScoreNum(positive: Int?, negative: Int?, neutral: Int?) -> Double {
         return calculateScore(positive: positive, negative: negative, neutral: neutral)
     }
     
-    static func getScoreColor(positive positive: Int?, negative: Int?, neutral: Int?) -> UIColor {
+    static func getScoreColor(positive: Int?, negative: Int?, neutral: Int?) -> UIColor {
         let score: Double = calculateScore(positive: positive, negative: negative, neutral: neutral)
         let red: CGFloat = ((255 * (100 - CGFloat(score))) / 100 + 50) / 255
         let green: CGFloat = ((255 * CGFloat(score)) / 100 - 50) / 255
@@ -28,7 +28,7 @@ class ScoreComputer  {
         return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
     
-    static func getScoreColor(score: Double) -> UIColor {
+    static func getScoreColor(_ score: Double) -> UIColor {
         let scoreInHundred = score * 20
         let red: CGFloat = ((255 * (100 - CGFloat(scoreInHundred))) / 100 + 50) / 255
         let green: CGFloat = ((255 * CGFloat(scoreInHundred)) / 100 - 50) / 255
@@ -36,7 +36,7 @@ class ScoreComputer  {
         return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
     
-    static func calculateScore(positive positive: Int?, negative: Int?, neutral: Int?) -> Double {
+    static func calculateScore(positive: Int?, negative: Int?, neutral: Int?) -> Double {
         var neutral = neutral
         var negative = negative
         var positive = positive

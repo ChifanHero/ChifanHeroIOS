@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Distance: Serializable, Model{
     
@@ -15,8 +16,8 @@ class Distance: Serializable, Model{
     
     func getProperties() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["value"] = value
-        parameters["unit"] = unit
+        parameters["value"] = value as AnyObject
+        parameters["unit"] = unit as AnyObject
         return parameters
     }
     
@@ -24,8 +25,8 @@ class Distance: Serializable, Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        value <-- data["value"]
-        unit <-- data["unit"]
+    required init(data: JSON) {
+        value = data["value"].double
+        unit = data["unit"].string
     }
 }

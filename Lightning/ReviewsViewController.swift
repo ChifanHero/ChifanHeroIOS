@@ -18,8 +18,8 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var restaurantId: String?
     
-    private static var SORT_LATEST = "latest"
-    private static var SORT_QUALITY = "quality"
+    fileprivate static var SORT_LATEST = "latest"
+    fileprivate static var SORT_QUALITY = "quality"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +38,9 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
-    private func configDropDownMenu() {
+    fileprivate func configDropDownMenu() {
         let items = ["排序：按时间", "排序：默认"]
-        let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, title: "排序：默认", items: items)
+        let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, title: "排序：默认", items: items as [AnyObject])
         self.navigationItem.titleView = menuView
         menuView.didSelectItemAtIndexHandler = {[weak self] (indexPath: Int) -> () in
             print("Did select item at index: \(indexPath)")
@@ -55,7 +55,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    private func loadData(limit: Int, skip: Int, sort: String) {
+    fileprivate func loadData(_ limit: Int, skip: Int, sort: String) {
         let getReviewsRequest: GetReviewsRequest = GetReviewsRequest()
         getReviewsRequest.limit = limit
         getReviewsRequest.skip = skip
@@ -66,7 +66,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if skip == 0 {
                     self.reviews.removeAll()
                 }
-                self.reviews.appendContentsOf(response!.results)
+                self.reviews.append(contentsOf: response!.results)
                 self.reviewsTable.reloadData()
             } else {
                 
@@ -74,24 +74,24 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    private func addBarButton() {
-        let addNewReviewButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(ReviewsViewController.addNewReview))
+    fileprivate func addBarButton() {
+        let addNewReviewButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(ReviewsViewController.addNewReview))
         self.navigationItem.rightBarButtonItem = addNewReviewButton
     }
     
     func addNewReview() {
-        self.performSegueWithIdentifier("writeReview", sender: nil)
+        self.performSegue(withIdentifier: "writeReview", sender: nil)
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reviews.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: ReviewSnapshotTableViewCell? = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: ReviewSnapshotTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as? ReviewSnapshotTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "ReviewSnapshotCell", bundle: nil), forCellReuseIdentifier: "reviewSnapshotCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("reviewSnapshotCell") as? ReviewSnapshotTableViewCell
+            tableView.register(UINib(nibName: "ReviewSnapshotCell", bundle: nil), forCellReuseIdentifier: "reviewSnapshotCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as? ReviewSnapshotTableViewCell
         }
         let review = reviews[indexPath.row]
         if review.user?.nickName == nil {
@@ -104,11 +104,11 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell!
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 166
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
@@ -122,14 +122,14 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
 //        return 10
 //    }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell : UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell : UITableViewCell = tableView.cellForRow(at: indexPath)!
         showReview()
-        cell.selected = false
+        cell.isSelected = false
     }
     
     func showReview() {
-        performSegueWithIdentifier("showReview", sender: nil)
+        performSegue(withIdentifier: "showReview", sender: nil)
     }
     
     

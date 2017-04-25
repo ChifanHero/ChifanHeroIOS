@@ -9,5 +9,5 @@
 import Foundation
 
 enum FileUploadState {
-    case New, Uploaded, Failed
+    case new, uploaded, failed
 }

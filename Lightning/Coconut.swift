@@ -9,6 +9,19 @@
 import Foundation
 import UIKit
 import Flurry_iOS_SDK
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class RefreshableViewController: UIViewController, RefreshableViewDelegate {
     
@@ -25,7 +38,7 @@ class RefreshableViewController: UIViewController, RefreshableViewDelegate {
         
     }
     
-    func loadData(refreshHandler : ((success : Bool) -> Void)?) {
+    func loadData(_ refreshHandler : ((_ success : Bool) -> Void)?) {
         
     }
     
@@ -34,13 +47,13 @@ class RefreshableViewController: UIViewController, RefreshableViewDelegate {
         noNetworkDefaultView.parentVC = self
         self.view.addSubview(noNetworkDefaultView)
         
-        let leadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.Leading, multiplier: 1.0, constant: 0.0)
-        let trailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.Trailing, multiplier: 1.0, constant: 0.0)
-        let topConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: 0.0)
-        let bottomConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: 0.0)
+        let leadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.leading, multiplier: 1.0, constant: 0.0)
+        let trailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.trailing, multiplier: 1.0, constant: 0.0)
+        let topConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0.0)
+        let bottomConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0.0)
         self.view.addConstraints([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
         self.view.layoutIfNeeded()
-        self.view.bringSubviewToFront(noNetworkDefaultView)
+        self.view.bringSubview(toFront: noNetworkDefaultView)
         if Reachability.isConnectedToNetwork() {
             noNetworkDefaultView.hide()
         } else {
@@ -52,7 +65,7 @@ class RefreshableViewController: UIViewController, RefreshableViewDelegate {
 extension UIViewController: ControllerCommonConfigurationDelegate{
     // MARK: - ControllerCommonConfigurationDelegate
     
-    func setTabBarVisible(visible:Bool, animated:Bool) {
+    func setTabBarVisible(_ visible:Bool, animated:Bool) {
         
         //* This cannot be called before viewDidLayoutSubviews(), because the frame is not set before this time
         
@@ -65,19 +78,19 @@ extension UIViewController: ControllerCommonConfigurationDelegate{
         let offsetY = (visible ? -height! : height)
         
         // zero duration means no animation
-        let duration:NSTimeInterval = (animated ? 0.3 : 0.0)
+        let duration:TimeInterval = (animated ? 0.3 : 0.0)
         
         //  animate the tabBar
         if frame != nil {
-            UIView.animateWithDuration(duration) {
-                self.tabBarController?.tabBar.frame = CGRectOffset(frame!, 0, offsetY!)
+            UIView.animate(withDuration: duration, animations: {
+                self.tabBarController?.tabBar.frame = frame!.offsetBy(dx: 0, dy: offsetY!)
                 return
-            }
+            }) 
         }
     }
     
     func tabBarIsVisible() ->Bool {
-        return self.tabBarController?.tabBar.frame.origin.y < CGRectGetMaxY(self.view.frame)
+        return self.tabBarController?.tabBar.frame.origin.y < self.view.frame.maxY
     }
     
     func addImageForBackBarButtonItem(){
@@ -87,30 +100,30 @@ extension UIViewController: ControllerCommonConfigurationDelegate{
     }
     
     func clearTitleForBackBarButtonItem(){
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
     }
     
     func configureNavigationController() {
-        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController!.navigationBar.tintColor = UIColor.white
     }
     
     func setNavigationBarTranslucent(To value: Bool){
-        self.navigationController?.navigationBar.translucent = value
+        self.navigationController?.navigationBar.isTranslucent = value
     }
 }
 
 extension UIView {
-    func renderColorChangableImage(rawImage: UIImage, fillColor: UIColor) {
+    func renderColorChangableImage(_ rawImage: UIImage, fillColor: UIColor) {
         let imageShape = CAShapeLayer()
-        let imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.width / rawImage.size.width * rawImage.size.height)
-        let imgCenterPoint = CGPointMake(CGRectGetMidX(imageFrame), CGRectGetMidY(imageFrame))
+        let imageFrame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.width / rawImage.size.width * rawImage.size.height)
+        let imgCenterPoint = CGPoint(x: imageFrame.midX, y: imageFrame.midY)
         imageShape.bounds = imageFrame
         imageShape.position = imgCenterPoint
-        imageShape.path = UIBezierPath(rect: imageFrame).CGPath
-        imageShape.fillColor = fillColor.CGColor
+        imageShape.path = UIBezierPath(rect: imageFrame).cgPath
+        imageShape.fillColor = fillColor.cgColor
         
         imageShape.mask = CALayer()
-        imageShape.mask!.contents = rawImage.CGImage
+        imageShape.mask!.contents = rawImage.cgImage
         imageShape.mask!.bounds = imageFrame
         imageShape.mask!.position = imgCenterPoint
         
@@ -119,16 +132,25 @@ extension UIView {
 }
 
 extension UIButton {
-    class func barButtonWithTextAndBorder(title: String, size: CGRect) -> UIButton{
-        let button: UIButton = self.init(type: .Custom)
+    class func barButtonWithTextAndBorder(_ title: String, size: CGRect) -> UIButton{
+        let button: UIButton = self.init(type: .custom)
         button.frame = size
         button.layer.cornerRadius = 3.0
         button.layer.borderWidth = 1.0
-        button.layer.borderColor = UIColor.whiteColor().CGColor
-        button.setTitle(title, forState: .Normal)
+        button.layer.borderColor = UIColor.white.cgColor
+        button.setTitle(title, for: UIControlState())
         button.titleLabel!.font =  UIFont(name: "Arial", size: 14)
-        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        button.setTitleColor(UIColor.white, for: UIControlState())
         button.backgroundColor = UIColor.themeOrange()
         return button
+    }
+}
+
+extension String {
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        
+        return boundingBox.height
     }
 }

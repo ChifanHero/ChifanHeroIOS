@@ -17,13 +17,13 @@ class GetUserActivitiesRequest: HttpRequest{
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
         if limit != nil {
-            parameters["limit"] = limit!
+            parameters["limit"] = limit! as AnyObject
         }
         if skip != nil {
-            parameters["skip"] = skip!
+            parameters["skip"] = skip! as AnyObject
         }
         if userId != nil {
-            parameters["user_id"] = userId
+            parameters["user_id"] = userId as AnyObject
         }
         
         return parameters

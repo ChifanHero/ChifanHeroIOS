@@ -21,13 +21,13 @@ class GetPromotionsRequest: HttpRequest{
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
         if (userLocation != nil) {
-            parameters["user_location"] = userLocation?.getProperties()
+            parameters["user_location"] = userLocation?.getProperties() as AnyObject
         }
         if limit != nil {
-            parameters["limit"] = String(limit!)
+            parameters["limit"] = String(limit!) as AnyObject
         }
         if skip != nil {
-            parameters["offset"] = String(skip!)
+            parameters["offset"] = String(skip!) as AnyObject
         }
         return parameters
     }

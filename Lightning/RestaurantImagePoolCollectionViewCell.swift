@@ -13,12 +13,12 @@ class RestaurantImagePoolCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     
-    private func configureCell(){
-        self.imageView.contentMode = .ScaleAspectFill
+    fileprivate func configureCell(){
+        self.imageView.contentMode = .scaleAspectFill
         self.imageView.clipsToBounds = true
     }
     
-    func setUp(image image: UIImage) {
+    func setUp(image: UIImage) {
         self.configureCell()
         imageView.image = image
     }

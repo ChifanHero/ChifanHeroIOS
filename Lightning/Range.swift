@@ -15,8 +15,8 @@ class Range: Serializable{
     
     func getProperties() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["center"] = center?.getProperties()
-        parameters["distance"] = distance?.getProperties()
+        parameters["center"] = center?.getProperties() as AnyObject
+        parameters["distance"] = distance?.getProperties() as AnyObject
         return parameters
     }
     

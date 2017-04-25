@@ -24,14 +24,14 @@ class PreviewCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureCell(){
+    fileprivate func configureCell(){
         restaurantImageView = UIImageView()
-        restaurantImageView?.contentMode = .ScaleAspectFill
+        restaurantImageView?.contentMode = .scaleAspectFill
         restaurantImageView?.clipsToBounds = true
         self.contentView.addSubview(restaurantImageView!)
         
         restaurantNameLabel = UILabel()
-        restaurantNameLabel?.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        restaurantNameLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
         self.contentView.addSubview(restaurantNameLabel!)
     }
     
@@ -41,7 +41,7 @@ class PreviewCollectionViewCell: UICollectionViewCell {
         restaurantNameLabel?.frame = CGRect(x: 0, y: self.contentView.frame.height - 60, width: 200, height: 60)
     }
     
-    func setUp(restaurant restaurant: Restaurant){
+    func setUp(restaurant: Restaurant){
         self.restaurant = restaurant
         self.restaurantNameLabel?.text = restaurant.name
         var url: String? = restaurant.picture?.original
@@ -50,9 +50,9 @@ class PreviewCollectionViewCell: UICollectionViewCell {
         }
         let restaurantDefaultImage = DefaultImageGenerator.generateRestaurantDefaultImage()
 //        restaurantImageView!.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: restaurantDefaultImage,optionsInfo: [.Transition(ImageTransition.Fade(0.5))])
-        restaurantImageView!.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: UIImage(named: "restaurant_default_background"), optionsInfo: nil, progressBlock: nil) { (image, error, cacheType, imageURL) in
-            var duration : NSTimeInterval?
-            if cacheType == CacheType.Memory {
+        restaurantImageView!.kf.setImage(with: URL(string: url!)!, placeholder: UIImage(named: "restaurant_default_background"), options: nil, progressBlock: nil) { (image, error, cacheType, imageURL) in
+            var duration : TimeInterval?
+            if cacheType == CacheType.memory {
                 duration = 0.0
             } else {
                 duration = 1.0
@@ -63,9 +63,9 @@ class PreviewCollectionViewCell: UICollectionViewCell {
             } else {
                 newImage = image
             }
-            UIView.transitionWithView(self.restaurantImageView!,
+            UIView.transition(with: self.restaurantImageView!,
                                       duration:duration!,
-                                      options: UIViewAnimationOptions.TransitionCrossDissolve,
+                                      options: UIViewAnimationOptions.transitionCrossDissolve,
                                       animations: { self.restaurantImageView!.image = newImage },
                                       completion: nil)
         }

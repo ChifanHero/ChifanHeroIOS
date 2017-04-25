@@ -33,18 +33,18 @@ class LoadingButton: UIButton {
         initSettingWithColor(self.tintColor)
     }
     
-    func setLogoImage(logoImage: UIImage){
+    func setLogoImage(_ logoImage: UIImage){
         logoView.image = logoImage
     }
     
-    func setTextContent(text: String){
+    func setTextContent(_ text: String){
         labelView.text = text
     }
     
-    func initSettingWithColor(color:UIColor) {
+    func initSettingWithColor(_ color:UIColor) {
         self.backgroundView = UIView(frame: self.bounds)
         self.backgroundView.backgroundColor = color
-        self.backgroundView.userInteractionEnabled = false
+        self.backgroundView.isUserInteractionEnabled = false
         self.backgroundView.layer.cornerRadius = CGFloat(3)
         self.addSubview(self.backgroundView)
         
@@ -52,29 +52,29 @@ class LoadingButton: UIButton {
         defaultH = self.backgroundView.frame.height
         defaultR = self.backgroundView.layer.cornerRadius
         
-        self.spinnerView = MozMaterialDesignSpinner(frame: CGRectMake(0 , 0, defaultH*0.8, defaultH*0.8))
-        self.spinnerView.tintColor = UIColor.whiteColor()
+        self.spinnerView = MozMaterialDesignSpinner(frame: CGRect(x: 0 , y: 0, width: defaultH*0.8, height: defaultH*0.8))
+        self.spinnerView.tintColor = UIColor.white
         self.spinnerView.lineWidth = 2
-        self.spinnerView.center = CGPointMake(CGRectGetMidX(self.layer.bounds), CGRectGetMidY(self.layer.bounds))
+        self.spinnerView.center = CGPoint(x: self.layer.bounds.midX, y: self.layer.bounds.midY)
         self.spinnerView.translatesAutoresizingMaskIntoConstraints = false
-        self.spinnerView.userInteractionEnabled = false
+        self.spinnerView.isUserInteractionEnabled = false
         
         self.addSubview(self.spinnerView)
         
-        self.logoView = UIImageView(frame: CGRectMake(defaultW*0.2, defaultH*0.1, defaultH*0.8, defaultH*0.8))
+        self.logoView = UIImageView(frame: CGRect(x: defaultW*0.2, y: defaultH*0.1, width: defaultH*0.8, height: defaultH*0.8))
         self.logoView.image = UIImage(named: "Wechat")
-        self.logoView.contentMode = .ScaleAspectFill
+        self.logoView.contentMode = .scaleAspectFill
         self.logoView.clipsToBounds = true
         self.addSubview(self.logoView)
         
-        self.labelView = UILabel(frame: CGRectMake(defaultW*0.5, defaultH*0.1, 100, defaultH*0.8))
+        self.labelView = UILabel(frame: CGRect(x: defaultW*0.5, y: defaultH*0.1, width: 100, height: defaultH*0.8))
         self.labelView.text = "微信登录"
-        self.labelView.textColor = UIColor.whiteColor()
+        self.labelView.textColor = UIColor.white
         self.labelView.adjustsFontSizeToFitWidth = true
         self.addSubview(self.labelView)
         
         
-        self.addTarget(self, action: #selector(LoadingButton.loadingAction), forControlEvents: UIControlEvents.TouchDown)
+        self.addTarget(self, action: #selector(LoadingButton.loadingAction), for: UIControlEvents.touchDown)
     }
     
     func loadingAction() {
@@ -95,18 +95,18 @@ class LoadingButton: UIButton {
         animation.toValue = defaultH*scale*0.5
         animation.duration = 0.3
         self.backgroundView.layer.cornerRadius = defaultH*scale*0.5
-        self.backgroundView.layer.addAnimation(animation, forKey: "cornerRadius")
+        self.backgroundView.layer.add(animation, forKey: "cornerRadius")
         
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
-            self.backgroundView.layer.bounds = CGRectMake(0, 0, self.defaultW*self.scale, self.defaultH*self.scale)
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.curveLinear, animations: { () -> Void in
+            self.backgroundView.layer.bounds = CGRect(x: 0, y: 0, width: self.defaultW*self.scale, height: self.defaultH*self.scale)
         }) { (Bool) -> Void in
             if self.isLoading {
                 
-                self.logoView.hidden = true
-                self.labelView.hidden = true
+                self.logoView.isHidden = true
+                self.labelView.isHidden = true
                 
-                UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
-                    self.backgroundView.layer.bounds = CGRectMake(0, 0, self.defaultH*self.scale, self.defaultH*self.scale)
+                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.curveLinear, animations: { () -> Void in
+                    self.backgroundView.layer.bounds = CGRect(x: 0, y: 0, width: self.defaultH*self.scale, height: self.defaultH*self.scale)
                 }) { (Bool) -> Void in
                     if self.isLoading {
                         self.spinnerView.startAnimating()
@@ -121,7 +121,7 @@ class LoadingButton: UIButton {
         isLoading = false;
         self.spinnerView.stopAnimating()
         
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.curveLinear, animations: { () -> Void in
         }) { (Bool) -> Void in
         }
         
@@ -131,15 +131,15 @@ class LoadingButton: UIButton {
         animation.toValue = defaultR
         animation.duration = 0.3
         self.backgroundView.layer.cornerRadius = defaultR
-        self.backgroundView.layer.addAnimation(animation, forKey: "cornerRadius")
+        self.backgroundView.layer.add(animation, forKey: "cornerRadius")
         
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
-            self.backgroundView.layer.bounds = CGRectMake(0, 0, self.defaultW*self.scale, self.defaultH*self.scale);
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.curveLinear, animations: { () -> Void in
+            self.backgroundView.layer.bounds = CGRect(x: 0, y: 0, width: self.defaultW*self.scale, height: self.defaultH*self.scale);
         }) { (Bool) -> Void in
             if !self.isLoading {
                 
-                self.logoView.hidden = false
-                self.labelView.hidden = false
+                self.logoView.isHidden = false
+                self.labelView.isHidden = false
                 
                 let animation = CABasicAnimation(keyPath: "cornerRadius")
                 animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
@@ -147,10 +147,10 @@ class LoadingButton: UIButton {
                 animation.toValue = self.defaultR
                 animation.duration = 0.2
                 self.backgroundView.layer.cornerRadius = self.defaultR
-                self.backgroundView.layer.addAnimation(animation, forKey: "cornerRadius")
+                self.backgroundView.layer.add(animation, forKey: "cornerRadius")
                 
-                UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
-                    self.backgroundView.layer.bounds = CGRectMake(0, 0, self.defaultW, self.defaultH);
+                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions.curveLinear, animations: { () -> Void in
+                    self.backgroundView.layer.bounds = CGRect(x: 0, y: 0, width: self.defaultW, height: self.defaultH);
                 }) { (Bool) -> Void in
                 }
             }

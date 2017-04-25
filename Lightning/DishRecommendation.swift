@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class DishRecommendation: Model{
     
@@ -17,8 +18,8 @@ class DishRecommendation: Model{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        dish <-- data["dish"]
+    required init(data: JSON) {
+        dish = Dish(data: data["dish"])
     }
     
     

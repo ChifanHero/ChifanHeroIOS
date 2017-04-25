@@ -21,40 +21,40 @@ class NotificationDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addImageForBackBarButtonItem()
-        self.notificationDetailView?.hidden = true
+        self.notificationDetailView?.isHidden = true
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if self.notification != nil {
-            let title = notification!.valueForKey("title") as! String
-            let body = notification!.valueForKey("body") as! String
+            let title = notification!.value(forKey: "title") as! String
+            let body = notification!.value(forKey: "body") as! String
             self.notificationDetailView!.setUp(title, body: body)
-            self.notificationDetailView!.hidden = false
+            self.notificationDetailView!.isHidden = false
         }
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackNotificationContentView()
     }
     
-    func notificationSelected(notification : NSManagedObject) {
+    func notificationSelected(_ notification : NSManagedObject) {
         self.notification = notification
         if self.notificationDetailView != nil {
-            let title = notification.valueForKey("title") as! String
-            let body = notification.valueForKey("body") as! String
+            let title = notification.value(forKey: "title") as! String
+            let body = notification.value(forKey: "body") as! String
             self.notificationDetailView!.setUp(title, body: body)
             print(body)
-            self.notificationDetailView!.hidden = false
+            self.notificationDetailView!.isHidden = false
         }
         
     }
     
     func clear() {
-        self.notificationDetailView?.hidden = true
+        self.notificationDetailView?.isHidden = true
         self.notification = nil
     }
     

@@ -9,10 +9,34 @@
 import Foundation
 import MapKit
 import CoreData
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class LocationHelper {
     
-    class func getLocationFromAddress(address : String,completionHandler : (Location?) -> Void) {
+    class func getLocationFromAddress(_ address : String,completionHandler : @escaping (Location?) -> Void) {
         let geocoder : CLGeocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placeMarks, error) in
             if placeMarks?.count > 0 {
@@ -30,7 +54,7 @@ class LocationHelper {
         }
     }
     
-    class func getStreetAddressFromLocation(lat : Double, lon : Double, completionHandler: (String) -> Void) {
+    class func getStreetAddressFromLocation(_ lat : Double, lon : Double, completionHandler: @escaping (String) -> Void) {
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
         geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
@@ -67,7 +91,7 @@ class LocationHelper {
         }
     }
     
-    class func getCityNameFromLocation(lat : Double, lon : Double, completionHandler: (City) -> Void) {
+    class func getCityNameFromLocation(_ lat : Double, lon : Double, completionHandler: @escaping (City) -> Void) {
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
         geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
@@ -112,21 +136,21 @@ class LocationHelper {
     }
     
     class func getDefaultCityFromCoreData() -> City? {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "DefaultCity")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "DefaultCity")
         do {
-            if let results = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count != 0 {
                     let managedObject = results[0]
                     let defaultCity = City()
-                    defaultCity.name = managedObject.valueForKey("name") as? String
-                    defaultCity.state = managedObject.valueForKey("state") as? String
-                    defaultCity.zip = managedObject.valueForKey("zip") as? String
-                    defaultCity.localizedCountryName = managedObject.valueForKey("localized_country_name") as? String
+                    defaultCity.name = managedObject.value(forKey: "name") as? String
+                    defaultCity.state = managedObject.value(forKey: "state") as? String
+                    defaultCity.zip = managedObject.value(forKey: "zip") as? String
+                    defaultCity.localizedCountryName = managedObject.value(forKey: "localized_country_name") as? String
                     let center = Location()
-                    center.lat = managedObject.valueForKey("center_lat") as? Double
-                    center.lon = managedObject.valueForKey("center_lon") as? Double
+                    center.lat = managedObject.value(forKey: "center_lat") as? Double
+                    center.lon = managedObject.value(forKey: "center_lon") as? Double
                     defaultCity.center = center
                     return defaultCity
                 }
@@ -138,21 +162,21 @@ class LocationHelper {
         return getDefaultCity()
     }
     
-    class func saveDefaultCityToCoreData(city : City) {
+    class func saveDefaultCityToCoreData(_ city : City) {
         print("saving default city")
         clearDataForEntity("DefaultCity")
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "DefaultCity")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "DefaultCity")
         do {
-            if let results = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 var managedObject : NSManagedObject
                 print("default cities count = \(results.count)")
                 if results.count != 0 {
                     managedObject = results[0]
                 } else {
-                    let entity = NSEntityDescription.entityForName("DefaultCity", inManagedObjectContext: managedContext)
-                    managedObject = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+                    let entity = NSEntityDescription.entity(forEntityName: "DefaultCity", in: managedContext)
+                    managedObject = NSManagedObject(entity: entity!, insertInto: managedContext)
                 }
                 managedObject.setValue(city.name, forKey: "name")
                 managedObject.setValue(city.state, forKey: "state")
@@ -162,7 +186,7 @@ class LocationHelper {
                 managedObject.setValue(city.center?.lon, forKey: "center_lon")
                 do {
                     try managedContext.save()
-                    NSNotificationCenter.defaultCenter().postNotificationName("DefaultCityChanged", object: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "DefaultCityChanged"), object: nil)
                 } catch let error as NSError {
                     print("Could not save \(error), \(error.userInfo)")
                 }
@@ -174,16 +198,16 @@ class LocationHelper {
         saveCityToHistory(city)
     }
     
-    class func saveCityToHistory(city : City) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    class func saveCityToHistory(_ city : City) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "EverUsedCity")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "EverUsedCity")
         do {
-            if let results = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 var managedObject : NSManagedObject?
                 if results.count != 0 {
                     for savedCity : NSManagedObject in results {
-                        var savedCityName = savedCity.valueForKey("name") as! String?
+                        var savedCityName = savedCity.value(forKey: "name") as! String?
                         if savedCityName == nil {
                             savedCityName = ""
                         }
@@ -194,8 +218,8 @@ class LocationHelper {
                     }
                 }
                 if managedObject == nil {
-                    let entity = NSEntityDescription.entityForName("EverUsedCity", inManagedObjectContext: managedContext)
-                    managedObject = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+                    let entity = NSEntityDescription.entity(forEntityName: "EverUsedCity", in: managedContext)
+                    managedObject = NSManagedObject(entity: entity!, insertInto: managedContext)
                     managedObject!.setValue(city.name, forKey: "name")
                     managedObject!.setValue(city.state, forKey: "state")
                     managedObject!.setValue(city.zip, forKey: "zip")
@@ -204,7 +228,7 @@ class LocationHelper {
                     managedObject!.setValue(city.center?.lon, forKey: "center_lon")
                 }
                 do {
-                    managedObject?.setValue(NSDate().timeIntervalSince1970, forKey: "last_used_time")
+                    managedObject?.setValue(Date().timeIntervalSince1970, forKey: "last_used_time")
                     try managedContext.save()
                 } catch let error as NSError {
                     print("Could not save \(error), \(error.userInfo)")
@@ -229,15 +253,15 @@ class LocationHelper {
         return defaultCity
     }
     
-    class func getEverUsedCities(count : Int) -> [City] {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    class func getEverUsedCities(_ count : Int) -> [City] {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "EverUsedCity")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "EverUsedCity")
         let sortDescriptor : NSSortDescriptor = NSSortDescriptor(key: "last_used_time", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         var everUsedCities = [City]()
         do {
-            if let results = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count != 0 {
                     
                     for city : NSManagedObject in results {
@@ -245,13 +269,13 @@ class LocationHelper {
                             break
                         }
                         let usedCity = City()
-                        usedCity.name = city.valueForKey("name") as? String
-                        usedCity.state = city.valueForKey("state") as? String
-                        usedCity.zip = city.valueForKey("zip") as? String
-                        usedCity.localizedCountryName = city.valueForKey("localized_country_name") as? String
+                        usedCity.name = city.value(forKey: "name") as? String
+                        usedCity.state = city.value(forKey: "state") as? String
+                        usedCity.zip = city.value(forKey: "zip") as? String
+                        usedCity.localizedCountryName = city.value(forKey: "localized_country_name") as? String
                         let center = Location()
-                        center.lat = city.valueForKey("center_lat") as? Double
-                        center.lon = city.valueForKey("center_lon") as? Double
+                        center.lat = city.value(forKey: "center_lat") as? Double
+                        center.lon = city.value(forKey: "center_lon") as? Double
                         usedCity.center = center
                         everUsedCities.append(usedCity)
                         
@@ -265,13 +289,13 @@ class LocationHelper {
         return everUsedCities
     }
     
-    class func getHotCities(count : Int) -> [City] {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    class func getHotCities(_ count : Int) -> [City] {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "HotCity")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HotCity")
         var hotCities = [City]()
         do {
-            if let results = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+            if let results = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count != 0 {
                     
                     for city : NSManagedObject in results {
@@ -279,19 +303,19 @@ class LocationHelper {
                             break
                         }
                         let hotCity = City()
-                        hotCity.name = city.valueForKey("name") as? String
-                        hotCity.state = city.valueForKey("state") as? String
-                        hotCity.zip = city.valueForKey("zip") as? String
-                        hotCity.localizedCountryName = city.valueForKey("localized_country_name") as? String
+                        hotCity.name = city.value(forKey: "name") as? String
+                        hotCity.state = city.value(forKey: "state") as? String
+                        hotCity.zip = city.value(forKey: "zip") as? String
+                        hotCity.localizedCountryName = city.value(forKey: "localized_country_name") as? String
                         let center = Location()
-                        center.lat = city.valueForKey("center_lat") as? Double
-                        center.lon = city.valueForKey("center_lon") as? Double
+                        center.lat = city.value(forKey: "center_lat") as? Double
+                        center.lon = city.value(forKey: "center_lon") as? Double
                         hotCity.center = center
                         hotCities.append(hotCity)
                         
                     }
                 } else {
-                    hotCities.appendContentsOf(getDefaultHotCites())
+                    hotCities.append(contentsOf: getDefaultHotCites())
                 }
             }
             
@@ -363,26 +387,26 @@ class LocationHelper {
         return hotCities
     }
     
-    class func saveHotCities(hotCities : [City]) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    class func saveHotCities(_ hotCities : [City]) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "HotCity")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HotCity")
         fetchRequest.returnsObjectsAsFaults = false
         do
         {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
+            let results = try managedContext.fetch(fetchRequest)
             for managedObject in results
             {
                 let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-                managedContext.deleteObject(managedObjectData)
+                managedContext.delete(managedObjectData)
             }
         } catch let error as NSError {
             print("Could not delete all data in HotCity error : \(error) \(error.userInfo)")
         }
         
-        let entity = NSEntityDescription.entityForName("HotCity", inManagedObjectContext: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "HotCity", in: managedContext)
         for city in hotCities {
-            let managedObject : NSManagedObject = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+            let managedObject : NSManagedObject = NSManagedObject(entity: entity!, insertInto: managedContext)
             managedObject.setValue(city.name, forKey: "name")
             managedObject.setValue(city.state, forKey: "state")
             managedObject.setValue(city.zip, forKey: "zip")
@@ -398,18 +422,18 @@ class LocationHelper {
         
     }
     
-    class func clearDataForEntity(entityName : String) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    class func clearDataForEntity(_ entityName : String) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: entityName)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         fetchRequest.returnsObjectsAsFaults = false
         do
         {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
+            let results = try managedContext.fetch(fetchRequest)
             for managedObject in results
             {
                 let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-                managedContext.deleteObject(managedObjectData)
+                managedContext.delete(managedObjectData)
             }
             try managedContext.save()
         } catch let error as NSError {

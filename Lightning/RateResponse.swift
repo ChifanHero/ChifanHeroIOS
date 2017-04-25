@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class RateResponse: HttpResponseProtocol{
     
@@ -17,8 +18,8 @@ class RateResponse: HttpResponseProtocol{
         
     }
     
-    required init(data: [String : AnyObject]) {
-        result <-- data["result"]
-        error <-- data["error"]
+    required init(data: JSON) {
+        result = Rating(data: data["result"])
+        error = Error(data: data["error"])
     }
 }

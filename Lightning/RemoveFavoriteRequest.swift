@@ -17,7 +17,7 @@ class RemoveFavoriteRequest: HttpRequest{
         var parameters = Dictionary<String, String>()
         parameters["type"] = type
         parameters["object_id"] = objectId
-        return parameters
+        return parameters as [String : AnyObject]
     }
     
     override func getRelativeURL() -> String {

@@ -20,10 +20,10 @@ class UserContext {
         return userLocation
     }
     
-    class func isRatingTooFrequent(objectId : String) -> Bool{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let now : Int = Int(NSDate().timeIntervalSince1970 * 1000)
-        let lastRateTime = defaults.integerForKey(objectId)
+    class func isRatingTooFrequent(_ objectId : String) -> Bool{
+        let defaults = UserDefaults.standard
+        let now : Int = Int(Date().timeIntervalSince1970 * 1000)
+        let lastRateTime = defaults.integer(forKey: objectId)
         if (now - lastRateTime < UserContext.RATE_MINUTES_INTERVAL * 60 * 60) {
             return true
         } else {
@@ -32,8 +32,8 @@ class UserContext {
     }
     
     class func isValidUser() -> Bool {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let sessionToken = defaults.stringForKey("sessionToken")
+        let defaults = UserDefaults.standard
+        let sessionToken = defaults.string(forKey: "sessionToken")
         return sessionToken != nil
     }
 }

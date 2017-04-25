@@ -7,22 +7,22 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class GetPromotionsResponse: HttpResponseProtocol {
     
-    var results: [Promotion] = [Promotion]()
+    var results: [Promotion] = []
     var error: Error?
     
     required init() {
         
     }
     
-    required init(data: [String : AnyObject]) {
-        error <-- data["error"]
-        results = [Promotion]()
-        if let resultsJson = data["results"] as? [AnyObject] {
+    required init(data: JSON) {
+        error = Error(data: data["error"])
+        if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
-                let result = Promotion(data: resultJson as! [String : AnyObject])
+                let result = Promotion(data: resultJson)
                 results.append(result)
             }
         }

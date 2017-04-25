@@ -9,9 +9,9 @@
 import Foundation
 
 enum RangeFilter {
-    case AUTO
-    case POINT5
-    case ONE
-    case FIVE
-    case TWENTY
+    case auto
+    case point5
+    case one
+    case five
+    case twenty
 }

@@ -18,7 +18,7 @@ class MozMaterialDesignSpinner: UIView {
         get{
             if (_progressLayer == nil){
                 _progressLayer = CAShapeLayer()
-                _progressLayer.strokeColor = self.tintColor.CGColor
+                _progressLayer.strokeColor = self.tintColor.cgColor
                 _progressLayer.fillColor = nil
                 _progressLayer.lineWidth = 2
                 //                _progressLayer.shouldRasterize = true
@@ -51,19 +51,19 @@ class MozMaterialDesignSpinner: UIView {
     func initialize() {
         self.layer.addSublayer(self.progressLayer)
         
-        self.progressLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))
+        self.progressLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
         updatePath()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MozMaterialDesignSpinner.resetAnimations), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MozMaterialDesignSpinner.resetAnimations), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     override func tintColorDidChange() {
         super.tintColorDidChange()
-        self.progressLayer.strokeColor = self.tintColor.CGColor
+        self.progressLayer.strokeColor = self.tintColor.cgColor
     }
     
     func resetAnimations() {
@@ -73,7 +73,7 @@ class MozMaterialDesignSpinner: UIView {
         }
     }
     
-    func setAnimating(animate:Bool) {
+    func setAnimating(_ animate:Bool) {
         animate ? startAnimating() : stopAnimating()
     }
     
@@ -88,7 +88,7 @@ class MozMaterialDesignSpinner: UIView {
         animation.fromValue = 0
         animation.toValue = 2*M_PI
         animation.repeatCount = Float(NSIntegerMax)
-        self.progressLayer.addAnimation(animation, forKey: kAnimationRotationKey)
+        self.progressLayer.add(animation, forKey: kAnimationRotationKey)
         
         let headAnimation = CABasicAnimation()
         headAnimation.keyPath = "strokeStart";
@@ -124,12 +124,12 @@ class MozMaterialDesignSpinner: UIView {
         animations.duration = 1.5
         animations.animations = [headAnimation, tailAnimation, endHeadAnimation, endTailAnimation]
         animations.repeatCount = Float(NSIntegerMax)
-        self.progressLayer.addAnimation(animations, forKey: kAnimationStrokeKey)
+        self.progressLayer.add(animations, forKey: kAnimationStrokeKey)
         
         self.isAnimating = true
         
         if _hidesWhenStopped {
-            self.hidden = false
+            self.isHidden = false
         }
     }
     
@@ -138,12 +138,12 @@ class MozMaterialDesignSpinner: UIView {
             return
         }
         
-        self.progressLayer.removeAnimationForKey(kAnimationRotationKey)
-        self.progressLayer.removeAnimationForKey(kAnimationStrokeKey)
+        self.progressLayer.removeAnimation(forKey: kAnimationRotationKey)
+        self.progressLayer.removeAnimation(forKey: kAnimationStrokeKey)
         self.isAnimating = false
         
         if _hidesWhenStopped {
-            self.hidden = true
+            self.isHidden = true
         }
         
     }
@@ -152,12 +152,12 @@ class MozMaterialDesignSpinner: UIView {
     
     func updatePath() {
         //        let acenter = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds))
-        let aradius = min(CGRectGetWidth(self.bounds)/2, CGRectGetHeight(self.bounds) / 2) - self.progressLayer.lineWidth / 2
+        let aradius = min(self.bounds.width/2, self.bounds.height / 2) - self.progressLayer.lineWidth / 2
         let astartAngle = CGFloat(0)
         let aendAngle = CGFloat(2*M_PI)
         let path:UIBezierPath = UIBezierPath(arcCenter: center, radius: aradius, startAngle: astartAngle, endAngle: aendAngle, clockwise: true)
         
-        self.progressLayer.path = path.CGPath
+        self.progressLayer.path = path.cgPath
         self.progressLayer.strokeStart = 0.0
         self.progressLayer.strokeEnd = 0.0
     }
@@ -173,9 +173,9 @@ class MozMaterialDesignSpinner: UIView {
     //        updatePath()
     //    }
     
-    func setHidesWhenStopped(hidesWhenStopped:Bool){
+    func setHidesWhenStopped(_ hidesWhenStopped:Bool){
         _hidesWhenStopped = hidesWhenStopped
-        self.hidden = !self.isAnimating && hidesWhenStopped
+        self.isHidden = !self.isAnimating && hidesWhenStopped
     }
     
     /*

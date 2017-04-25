@@ -13,49 +13,49 @@ import Flurry_iOS_SDK
 class NotificationTableViewController: UITableViewController {
     
     var notifications = [NSManagedObject]()
-    private var foregroundNotification: NSObjectProtocol!
+    fileprivate var foregroundNotification: NSObjectProtocol!
     
     var detailNavigationController: UINavigationController?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NotificationTableViewController.notificationArrived), name:"NotificationArrived", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NotificationTableViewController.notificationArrived), name:NSNotification.Name(rawValue: "NotificationArrived"), object: nil)
         self.clearTitleForBackBarButtonItem()
         self.addImageForBackBarButtonItem()
         configurePullRefresh()
         addEditButton()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.loadTableData()
         TrackingUtil.trackNotificationsView()
     }
     
-    private func addEditButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("编辑", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(NotificationTableViewController.edit), forControlEvents: UIControlEvents.TouchUpInside)
+    fileprivate func addEditButton() {
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("编辑", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(NotificationTableViewController.edit), for: UIControlEvents.touchUpInside)
         let editButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = editButton
     }
     
-    private func configurePullRefresh(){
+    fileprivate func configurePullRefresh(){
     }
     
-    @objc private func refresh(sender:AnyObject) {
+    @objc fileprivate func refresh(_ sender:AnyObject) {
         loadTableData()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         clearTableViewSelection()
     }
     
-    private func clearTableViewSelection() {
-        let selectedCellIndexPath : NSIndexPath? = self.tableView.indexPathForSelectedRow
+    fileprivate func clearTableViewSelection() {
+        let selectedCellIndexPath : IndexPath? = self.tableView.indexPathForSelectedRow
         if selectedCellIndexPath != nil {
-            self.tableView.deselectRowAtIndexPath(selectedCellIndexPath!, animated: false)
+            self.tableView.deselectRow(at: selectedCellIndexPath!, animated: false)
         }
     }
     
@@ -68,20 +68,20 @@ class NotificationTableViewController: UITableViewController {
         let badgeValue: Int = countNumberOfUnreadItems()
         if badgeValue > 0 {
             self.navigationController?.tabBarItem.badgeValue = "\(badgeValue)"
-            UIApplication.sharedApplication().applicationIconBadgeNumber = badgeValue;
+            UIApplication.shared.applicationIconBadgeNumber = badgeValue;
         } else {
             self.navigationController?.tabBarItem.badgeValue = nil
-            UIApplication.sharedApplication().applicationIconBadgeNumber = 0;
+            UIApplication.shared.applicationIconBadgeNumber = 0;
         }
     }
     
     func loadTableData() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "Notification")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notification")
         do {
             let results =
-            try managedContext.executeFetchRequest(fetchRequest)
+            try managedContext.fetch(fetchRequest)
             notifications = results as! [NSManagedObject]
             self.tableView.reloadData()
             
@@ -94,50 +94,50 @@ class NotificationTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notifications.count
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: NotificationTableViewCell? = tableView.dequeueReusableCellWithIdentifier("notificationCell") as? NotificationTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: NotificationTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "notificationCell") as? NotificationTableViewCell
         if cell == nil {
-            tableView.registerNib(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "notificationCell")
-            cell = tableView.dequeueReusableCellWithIdentifier("notificationCell") as? NotificationTableViewCell
+            tableView.register(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "notificationCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "notificationCell") as? NotificationTableViewCell
         }
         let notification = notifications[indexPath.row]
-        let title = notification.valueForKey("title") as! String
-        let body = notification.valueForKey("body") as! String
-        let read = notification.valueForKey("read") as! Bool
+        let title = notification.value(forKey: "title") as! String
+        let body = notification.value(forKey: "body") as! String
+        let read = notification.value(forKey: "read") as! Bool
         cell?.setUp(title: title, body: body, read: read)
         return cell!
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let notificationSelected : NSManagedObject = notifications[indexPath.row]
         markNotificationAsRead(notificationSelected)
-        performSegueWithIdentifier("showNotificationDetail", sender: indexPath)
+        performSegue(withIdentifier: "showNotificationDetail", sender: indexPath)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showNotificationDetail" {
-            let controller: NotificationDetailViewController = segue.destinationViewController as! NotificationDetailViewController
-            controller.notificationSelected(notifications[(sender as! NSIndexPath).row])
+            let controller: NotificationDetailViewController = segue.destination as! NotificationDetailViewController
+            controller.notificationSelected(notifications[(sender as! IndexPath).row])
         }
     }
     
-    private func markNotificationAsRead(notification : NSManagedObject) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    fileprivate func markNotificationAsRead(_ notification : NSManagedObject) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        if (notification.valueForKey("read"))! as! Bool == false {
+        if (notification.value(forKey: "read"))! as! Bool == false {
             notification.setValue(true, forKey: "read")
             do {
                 try managedContext.save()
@@ -148,10 +148,10 @@ class NotificationTableViewController: UITableViewController {
         }
     }
     
-    private func countNumberOfUnreadItems() -> Int{
+    fileprivate func countNumberOfUnreadItems() -> Int{
         var count = 0
         for item : NSManagedObject in self.notifications {
-            let read : Bool = item.valueForKey("read") as! Bool
+            let read : Bool = item.value(forKey: "read") as! Bool
             if read == false {
                 count += 1
             }
@@ -160,29 +160,29 @@ class NotificationTableViewController: UITableViewController {
     }
     
     func edit() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("完成", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(NotificationTableViewController.done), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("完成", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(NotificationTableViewController.done), for: UIControlEvents.touchUpInside)
         let doneButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = doneButton
-        self.tableView.editing = true
+        self.tableView.isEditing = true
         
     }
     
     func done() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("编辑", size: CGRectMake(0, 0, 80, 26))
-        button.addTarget(self, action: #selector(NotificationTableViewController.edit), forControlEvents: UIControlEvents.TouchUpInside)
+        let button: UIButton = UIButton.barButtonWithTextAndBorder("编辑", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(NotificationTableViewController.edit), for: UIControlEvents.touchUpInside)
         let editButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = editButton
-        self.tableView.editing = false
+        self.tableView.isEditing = false
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            let deletedObject : NSManagedObject = self.notifications.removeAtIndex(indexPath.row)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            let deletedObject : NSManagedObject = self.notifications.remove(at: indexPath.row)
             clearDetailView()
             deleteFromCoreData(deletedObject)
             self.tableView.beginUpdates()
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Top)
+            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.top)
             self.tableView.endUpdates()
         }
     }
@@ -193,10 +193,10 @@ class NotificationTableViewController: UITableViewController {
 //        }
     }
     
-    private func deleteFromCoreData(object : NSManagedObject) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    fileprivate func deleteFromCoreData(_ object : NSManagedObject) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        managedContext.deleteObject(object)
+        managedContext.delete(object)
         do {
             try managedContext.save()
         } catch let error as NSError  {

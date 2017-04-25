@@ -42,11 +42,11 @@ class MessageTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    private func UISetup() {
+    fileprivate func UISetup() {
         iconImageView.layer.cornerRadius = iconImageView.frame.size.width / 2
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

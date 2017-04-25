@@ -9,7 +9,7 @@
 import Foundation
 
 enum FavoriteTypeEnum{
-    case Restaurant
-    case Dish
-    case SelectedCollection
+    case restaurant
+    case dish
+    case selectedCollection
 }

@@ -13,8 +13,8 @@ import UIKit
     @IBOutlet weak var titleLabel: UILabel!
 
     
-    private var view : UIView!
-    private var nibName : String = "NotificationDetailView"
+    fileprivate var view : UIView!
+    fileprivate var nibName : String = "NotificationDetailView"
     
     
     @IBOutlet weak var bodyTextView: UITextView!
@@ -40,25 +40,25 @@ import UIKit
         Setup() // Setup when this component is used from Code
     }
     
-    private func Setup(){
+    fileprivate func Setup(){
         view = LoadViewFromNib()
         addSubview(view)
         view.frame = bounds
-        view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        view.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
     }
     
-    private func LoadViewFromNib() -> UIView {
-        let bundle = NSBundle(forClass: self.dynamicType)
+    fileprivate func LoadViewFromNib() -> UIView {
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nibName, bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
     
-    func setUp(title : String, body : String) {
+    func setUp(_ title : String, body : String) {
         titleLabel.text = title
         do {
             let bodyWithFormat = NSString(format:"<span style=\"font-size: 15\">%@</span>", body) as String
-            let attributedBody = try NSMutableAttributedString(data: bodyWithFormat.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+            let attributedBody = try NSMutableAttributedString(data: bodyWithFormat.data(using: String.Encoding.unicode, allowLossyConversion: true)!, options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
             self.bodyTextView.attributedText = attributedBody
         } catch {
             

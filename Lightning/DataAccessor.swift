@@ -18,58 +18,58 @@ class DataAccessor {
         self.serviceConfiguration = serviceConfiguration
     }
     
-    private func callApi<Response: HttpResponseProtocol>(method method: String, request: HttpRequestProtocol, responseHandler: (Response?) -> Void){
+    fileprivate func callApi<Response: HttpResponseProtocol>(method: String, request: HttpRequestProtocol, responseHandler: @escaping (Response?) -> Void){
         
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
         
         switch method {
         case "GET":
-            Alamofire.request(.GET, url, headers: request.getHeaders()).validate().responseJSON { response in
+            Alamofire.request(url, method: .get, headers: request.getHeaders()).validate().responseJSON { response in
                 
                 var responseObject: Response?
                 
                 switch response.result {
-                case .Success:
+                case .success:
                     if let value = response.result.value {
                         let json = JSON(value)
-                        responseObject = Response(data: json.dictionaryObject!)
+                        responseObject = Response(data: json)
                     }
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
                 }
                 
                 responseHandler(responseObject)
             }
         case "POST":
-            Alamofire.request(.POST, url, parameters: request.getRequestBody(), encoding: .JSON, headers: request.getHeaders()).validate().responseJSON { response in
+            Alamofire.request(url, method: .post, parameters: request.getRequestBody(), encoding: JSONEncoding.default, headers: request.getHeaders()).validate().responseJSON { response in
 //                print(response)
                 var responseObject: Response?
                 
                 switch response.result {
-                case .Success:
+                case .success:
                     if let value = response.result.value {
                         let json = JSON(value)
-                        responseObject = Response(data: json.dictionaryObject!)
+                        responseObject = Response(data: json)
                     }
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
                 }
                 
                 responseHandler(responseObject)
             }
         case "PUT":
-            Alamofire.request(.PUT, url, parameters: request.getRequestBody(), encoding: .JSON, headers: request.getHeaders()).validate().responseJSON { response in
+            Alamofire.request(url, method: .put, parameters: request.getRequestBody(), encoding: JSONEncoding.default, headers: request.getHeaders()).validate().responseJSON { response in
                 
                 var responseObject: Response?
                 
                 switch response.result {
-                case .Success:
+                case .success:
                     if let value = response.result.value {
                         let json = JSON(value)
-                        responseObject = Response(data: json.dictionaryObject!)
+                        responseObject = Response(data: json)
                     }
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
                 }
                 
@@ -77,17 +77,17 @@ class DataAccessor {
             }
             
         case "DELETE":
-            Alamofire.request(.DELETE, url, parameters: request.getRequestBody(), encoding: .JSON, headers: request.getHeaders()).validate().responseJSON { response in
+            Alamofire.request(url, method: .delete, parameters: request.getRequestBody(), encoding: JSONEncoding.default, headers: request.getHeaders()).validate().responseJSON { response in
                 
                 var responseObject: Response?
                 
                 switch response.result {
-                case .Success:
+                case .success:
                     if let value = response.result.value {
                         let json = JSON(value)
-                        responseObject = Response(data: json.dictionaryObject!)
+                        responseObject = Response(data: json)
                     }
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
                 }
                 
@@ -98,62 +98,57 @@ class DataAccessor {
     }
     
     //Get--------------------------------------------------------------------------------------------------//
-    func getPromotions(request: GetPromotionsRequest, responseHandler : (GetPromotionsResponse?) -> Void) {
+    func getPromotions(_ request: GetPromotionsRequest, responseHandler : @escaping (GetPromotionsResponse?) -> Void) {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    func getRestaurants(request: GetRestaurantsRequest, responseHandler : (GetRestaurantsResponse?) -> Void) {
+    func getRestaurants(_ request: GetRestaurantsRequest, responseHandler : @escaping (GetRestaurantsResponse?) -> Void) {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    func getRestaurantById(request: GetRestaurantByIdRequest, responseHandler : (GetRestaurantByIdResponse?) -> Void) {
+    func getRestaurantById(_ request: GetRestaurantByIdRequest, responseHandler : @escaping (GetRestaurantByIdResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    
-    func getRestaurantMenu(request: GetRestaurantMenuRequest, responseHandler : (GetRestaurantMenuResponse?) -> Void) {
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
-    }
-    
-    func getFavorites(request: GetFavoritesRequest, responseHandler: (GetFavoritesResponse?) -> Void){
-        let defaults = NSUserDefaults.standardUserDefaults()
-        request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
+    func getFavorites(_ request: GetFavoritesRequest, responseHandler: @escaping (GetFavoritesResponse?) -> Void){
+        let defaults = UserDefaults.standard
+        request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getIsFavorite(request: GetIsFavoriteRequest, responseHandler: (GetIsFavoriteResponse?) -> Void){
-        let defaults = NSUserDefaults.standardUserDefaults()
-        request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
+    func getIsFavorite(_ request: GetIsFavoriteRequest, responseHandler: @escaping (GetIsFavoriteResponse?) -> Void){
+        let defaults = UserDefaults.standard
+        request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getSelectedCollectionByLocation(request: GetSelectedCollectionsByLatAndLonRequest, responseHandler : (GetSelectedCollectionsByLatAndLonResponse?) -> Void) {
+    func getSelectedCollectionByLocation(_ request: GetSelectedCollectionsByLatAndLonRequest, responseHandler : @escaping (GetSelectedCollectionsByLatAndLonResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getRestaurantCollectionMembersById(request: GetRestaurantCollectionMembersRequest, responseHandler : (GetRestaurantCollectionMembersResponse?) -> Void) {
+    func getRestaurantCollectionMembersById(_ request: GetRestaurantCollectionMembersRequest, responseHandler : @escaping (GetRestaurantCollectionMembersResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getImagesByRestaurantId(request: GetImagesRequest, responseHandler : (GetImagesResponse?) -> Void) {
+    func getImagesByRestaurantId(_ request: GetImagesRequest, responseHandler : @escaping (GetImagesResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getHomepage(request: GetHomepageRequest, responseHandler : (GetHomepageResponse?) -> Void) {
+    func getHomepage(_ request: GetHomepageRequest, responseHandler : @escaping (GetHomepageResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getUserActivities(request: GetUserActivitiesRequest, responseHandler : (GetUserActivitiesResponse?) -> Void) {
+    func getUserActivities(_ request: GetUserActivitiesRequest, responseHandler : @escaping (GetUserActivitiesResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getReviews(request: GetReviewsRequest, responseHandler: (GetReviewsResponse?) -> Void) {
+    func getReviews(_ request: GetReviewsRequest, responseHandler: @escaping (GetReviewsResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getReviewById(request: GetReviewByIdRequest, responseHandler: (GetReviewByIdResponse?) -> Void) {
+    func getReviewById(_ request: GetReviewByIdRequest, responseHandler: @escaping (GetReviewByIdResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
@@ -167,95 +162,81 @@ class DataAccessor {
     
     
     //Post----------------------------------------------------------------------------------------------//
-    func uploadPicture(request: UploadPictureRequest, responseHandler: (UploadPictureResponse?) -> Void) {
+    func uploadPicture(_ request: UploadPictureRequest, responseHandler: @escaping (UploadPictureResponse?) -> Void) {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    func uploadRestaurantPicture(request: UploadRestaurantPictureRequest, responseHandler: (UploadRestaurantPictureResponse?) -> Void) {
+    func uploadRestaurantPicture(_ request: UploadRestaurantPictureRequest, responseHandler: @escaping (UploadRestaurantPictureResponse?) -> Void) {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    func rate(request: RateRequest, responseHandler: (RateResponse?) -> Void) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.stringForKey("sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
+    func rate(_ request: RateRequest, responseHandler: @escaping (RateResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         }
         
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    func addToFavorites(request: AddToFavoritesRequest, responseHandler: (AddToFavoritesResponse?) -> Void) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.stringForKey("sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
+    func addToFavorites(_ request: AddToFavoritesRequest, responseHandler: @escaping (AddToFavoritesResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         }
         
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
         
     }
     
-    func removeFavorite(request: RemoveFavoriteRequest, responseHandler: (RemoveFavoriteResponse?) -> Void) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.stringForKey("sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
+    func removeFavorite(_ request: RemoveFavoriteRequest, responseHandler: @escaping (RemoveFavoriteResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         }
         
         self.callApi(method: "DELETE", request: request, responseHandler: responseHandler)
     }
     
-    func searchRestaurants(request: RestaurantSearchRequest, responseHandler : (RestaurantSearchResponse?) -> Void) {
+    func searchRestaurants(_ request: RestaurantSearchRequest, responseHandler : @escaping (RestaurantSearchResponse?) -> Void) {
         
         request.addHeader(key: "Accept-Language", value: "zh-CN")
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    func searchRestaurants(request: RestaurantSearchV2Request, responseHandler : (RestaurantSearchResponse?) -> Void) {
+    func searchRestaurants(_ request: RestaurantSearchV2Request, responseHandler : @escaping (RestaurantSearchResponse?) -> Void) {
         
         request.addHeader(key: "Accept-Language", value: "zh-CN")
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    func searchDishes(request: DishSearchRequest, responseHandler : (DishSearchResponse?) -> Void) {
+    func searchDishes(_ request: DishSearchRequest, responseHandler : @escaping (DishSearchResponse?) -> Void) {
         
         request.addHeader(key: "Accept-Language", value: "zh-CN")
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    func searchLists(request: DishListSearchRequest, responseHandler : (DishListSearchResponse?) -> Void) {
-        request.addHeader(key: "Accept-Language", value: "zh-CN")
-        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
-    }
-    
-    func voteRestaurant(request: VoteRestaurantRequest, responseHandler: (VoteRestaurantResponse?) -> Void) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.stringForKey("sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
-        }
-        
-        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
-    }
-    
-    func updateRestaurantInfo(request: UpdateRestaurantInfoRequest, responseHandler: (UpdateRestaurantInfoResponse?) -> Void) {
+    func updateRestaurantInfo(_ request: UpdateRestaurantInfoRequest, responseHandler: @escaping (UpdateRestaurantInfoResponse?) -> Void) {
         self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
     }
     
-    func getCities(request: GetCitiesRequest, responseHandler: (GetCitiesResponse?) -> Void) {
+    func getCities(_ request: GetCitiesRequest, responseHandler: @escaping (GetCitiesResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getHotCities(request: GetHotCitiesRequest, responseHandler: (GetCitiesResponse?) -> Void) {
+    func getHotCities(_ request: GetHotCitiesRequest, responseHandler: @escaping (GetCitiesResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
     
-    func nominateRestaurantForCollection(request: NominateRestaurantRequest, responseHandler: (NominateRestaurantResponse?) -> Void){
+    func nominateRestaurantForCollection(_ request: NominateRestaurantRequest, responseHandler: @escaping (NominateRestaurantResponse?) -> Void){
         self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
     }
     
-    func review(request: ReviewRequest, responseHandler: (ReviewResponse?) -> Void){
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.stringForKey("sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.stringForKey("sessionToken")!)
+    func review(_ request: ReviewRequest, responseHandler: @escaping (ReviewResponse?) -> Void){
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         }
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
