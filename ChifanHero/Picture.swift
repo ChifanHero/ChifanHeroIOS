@@ -27,7 +27,9 @@ class Picture: Model {
         thumbnail = data["thumbnail"].string
         original = data["original"].string
         type = data["type"].string
-        restaurant = Restaurant(data: data["restaurant"])
+        if(data["restaurant"].exists()){
+            restaurant = Restaurant(data: data["restaurant"])
+        }
         description = data["description"].string
     }
     

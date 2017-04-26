@@ -38,7 +38,9 @@ class Restaurant: Model{
         id = data["id"].string
         name = data["name"].string
         englishName = data["english_name"].string
-        picture = Picture(data: data["picture"])
+        if(data["picture"].exists()) {
+            picture = Picture(data: data["picture"])
+        }
         address = data["address"].string
         distance = Distance(data: data["distance"])
         favoriteCount = data["favorite_count"].int

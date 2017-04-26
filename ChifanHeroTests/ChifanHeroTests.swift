@@ -7,9 +7,9 @@
 //
 
 import XCTest
-@testable import Lightning
+@testable import ChifanHero
 
-class LightningTests: XCTestCase {
+class ChifanHeroTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

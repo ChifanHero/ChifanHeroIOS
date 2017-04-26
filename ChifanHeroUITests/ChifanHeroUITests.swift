@@ -8,7 +8,7 @@
 
 import XCTest
 
-class LightningUITests: XCTestCase {
+class ChifanHeroUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()

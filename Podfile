@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
-target 'Lightning' do
+target 'ChifanHero' do
 
 pod 'Alamofire', '~> 4.4'
 pod 'Kingfisher', '~> 3.6.2'
@@ -15,10 +15,10 @@ pod 'BTNavigationDropdownMenu', :git => 'https://github.com/PhamBaTho/BTNavigati
 
 end
 
-target 'LightningTests' do
+target 'ChifanHeroTests' do
 
 end
 
-target 'LightningUITests' do
+target 'ChifanHeroUITests' do
 
 end

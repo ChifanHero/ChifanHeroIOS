@@ -72,8 +72,8 @@
 		C42C962F1D57ED1700784636 /* SearchResultsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C962E1D57ED1700784636 /* SearchResultsTableViewHeader.swift */; };
 		C42C96321D59B48300784636 /* UserLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C96311D59B48300784636 /* UserLocationManager.swift */; };
 		C42D908A1D5EF410006AC70F /* RestaurantsOnlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D90891D5EF410006AC70F /* RestaurantsOnlyViewController.swift */; };
-		C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */; };
-		C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */; };
+		C42D9BDB1B69EF2D0035C5A6 /* ChifanHeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* ChifanHeroTests.swift */; };
+		C42D9BE61B69EF2D0035C5A6 /* ChifanHeroUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* ChifanHeroUITests.swift */; };
 		C44B05DA1CE1AF3300337502 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B05D91CE1AF3300337502 /* City.swift */; };
 		C44B05DC1CE1AF3D00337502 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B05DB1CE1AF3D00337502 /* State.swift */; };
 		C44B05DE1CE1B37B00337502 /* CityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44B05DD1CE1B37B00337502 /* CityCell.xib */; };
@@ -169,7 +169,6 @@
 		C4F207C31C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F207C21C14E6CA0024C287 /* RestaurantNameAddressTableViewCell.swift */; };
 		C4F5B6F41C4C56B400DD1EBF /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F5B6F31C4C56B400DD1EBF /* JSSAlertView.swift */; };
 		C4FD0D361CD5CE380015DDB7 /* PositionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FD0D351CD5CE380015DDB7 /* PositionConverter.swift */; };
-		C8C3C793371E6A71781C69DF /* Pods_LightningTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617D8FAD2E2F507BBF919A24 /* Pods_LightningTests.framework */; };
 		CA02C9501D4EFF5B00104528 /* PreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02C94F1D4EFF5B00104528 /* PreviewCollectionViewCell.swift */; };
 		CA02C9521D50575600104528 /* GetHomepageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02C9511D50575600104528 /* GetHomepageRequest.swift */; };
 		CA02C9541D5057DA00104528 /* GetHomepageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02C9531D5057DA00104528 /* GetHomepageResponse.swift */; };
@@ -371,21 +370,15 @@
 		CAF16B5F1D1A17020051D7CE /* OauthLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF16B5E1D1A17020051D7CE /* OauthLoginResponse.swift */; };
 		CAF16B611D1B02AF0051D7CE /* AccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF16B601D1B02AF0051D7CE /* AccountResponse.swift */; };
 		CAF16B631D1DDAA00051D7CE /* AccountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF16B621D1DDAA00051D7CE /* AccountRequest.swift */; };
-		EF19316FA44ECCB76D9DB7BB /* Pods_Lightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17289F4B8AF31585A52C19E7 /* Pods_Lightning.framework */; };
-		F2D4D2EEBCC69340E1B79D55 /* Pods_LightningUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE16792F60C7A3E618F2682D /* Pods_LightningUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		17289F4B8AF31585A52C19E7 /* Pods_Lightning.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lightning.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		40D7E8AD18C69DCFE384A271 /* Pods-Lightning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lightning.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lightning/Pods-Lightning.release.xcconfig"; sourceTree = "<group>"; };
-		559084C0DAC7A9E56B60877C /* Pods-LightningTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LightningTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LightningTests/Pods-LightningTests.release.xcconfig"; sourceTree = "<group>"; };
-		617D8FAD2E2F507BBF919A24 /* Pods_LightningTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LightningTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6B21D72832918C249F7E203E /* Pods-Lightning.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lightning.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lightning/Pods-Lightning.debug.xcconfig"; sourceTree = "<group>"; };
-		7923BCA96699F0E61D961419 /* Pods-LightningUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LightningUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LightningUITests/Pods-LightningUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		7E8ED3AD5B55EB947073A2F2 /* Pods-LightningTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LightningTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LightningTests/Pods-LightningTests.debug.xcconfig"; sourceTree = "<group>"; };
+		09B9CBAC04A2A0AB530CD9D1 /* Pods-ChifanHeroUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChifanHeroUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChifanHeroUITests/Pods-ChifanHeroUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3BFE9AB8CEB72CF8AF012B3F /* Pods-ChifanHeroTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChifanHeroTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChifanHeroTests/Pods-ChifanHeroTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4654C7BC484AC664F49ED321 /* Pods-ChifanHeroTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChifanHeroTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChifanHeroTests/Pods-ChifanHeroTests.release.xcconfig"; sourceTree = "<group>"; };
+		877B5DE0E611973A476041BC /* Pods-ChifanHero.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChifanHero.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChifanHero/Pods-ChifanHero.debug.xcconfig"; sourceTree = "<group>"; };
 		8E88C5F66B073A59634581E8 /* LocationSelection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LocationSelection.storyboard; sourceTree = SOURCE_ROOT; };
-		AE16792F60C7A3E618F2682D /* Pods_LightningUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LightningUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B64F4772A384482387F2F2C8 /* Pods-LightningUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LightningUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LightningUITests/Pods-LightningUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B23916614BADE159D36C65BF /* Pods-ChifanHeroUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChifanHeroUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChifanHeroUITests/Pods-ChifanHeroUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C4017D301C91CCE8002840FB /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		C4021ACA1CF41EE00021343B /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		C4021ACC1CF975D10021343B /* GetHotCitiesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetHotCitiesRequest.swift; sourceTree = "<group>"; };
@@ -460,11 +453,11 @@
 		C42D9BCC1B69EF2D0035C5A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42D9BCF1B69EF2D0035C5A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42D9BD11B69EF2D0035C5A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C42D9BD61B69EF2D0035C5A6 /* LightningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningTests.swift; sourceTree = "<group>"; };
+		C42D9BD61B69EF2D0035C5A6 /* ChifanHeroTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChifanHeroTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C42D9BDA1B69EF2D0035C5A6 /* ChifanHeroTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChifanHeroTests.swift; sourceTree = "<group>"; };
 		C42D9BDC1B69EF2D0035C5A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C42D9BE11B69EF2D0035C5A6 /* LightningUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightningUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningUITests.swift; sourceTree = "<group>"; };
+		C42D9BE11B69EF2D0035C5A6 /* ChifanHeroUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChifanHeroUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C42D9BE51B69EF2D0035C5A6 /* ChifanHeroUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChifanHeroUITests.swift; sourceTree = "<group>"; };
 		C42D9BE71B69EF2D0035C5A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C42D9BF51B7266DB0035C5A6 /* NotificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewController.swift; sourceTree = "<group>"; };
 		C42D9BFA1B726B270035C5A6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -539,7 +532,6 @@
 		C49223051DA0DFED00D9916E /* EditableReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditableReviewTableViewCell.swift; sourceTree = "<group>"; };
 		C49427DB1CD86FC300F94D4F /* ARNImageTransitionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageTransitionNavigationController.swift; sourceTree = "<group>"; };
 		C49427DC1CD86FC300F94D4F /* ARNImageZoomTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARNImageZoomTransition.swift; sourceTree = "<group>"; };
-		C49427E11CD874DA00F94D4F /* ARNTransitionAnimator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARNTransitionAnimator.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Lightning-cdtqhbxirnfcbjegdnunhyimuqez/Build/Products/Debug-iphoneos/ARNTransitionAnimator.framework"; sourceTree = "<group>"; };
 		C494EA121D61A631000AE8BB /* RestaurantMainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantMainTableViewController.swift; sourceTree = "<group>"; };
 		C494EA531D61AF8F000AE8BB /* ActionPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionPanel.xib; sourceTree = "<group>"; };
 		C494EA551D61B1EA000AE8BB /* ActionPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionPanelView.swift; sourceTree = "<group>"; };
@@ -561,7 +553,6 @@
 		C4A0D5621C137DDB00BAE246 /* DishSearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishSearchResponse.swift; sourceTree = "<group>"; };
 		C4A0D5671C138B9700BAE246 /* SearchServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchServiceConfiguration.swift; sourceTree = "<group>"; };
 		C4A595B51B7FC79F009E0F24 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
-		C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4A6E03F1BCCDF90008C0643 /* CouponCellSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponCellSecondView.swift; sourceTree = "<group>"; };
 		C4A847E11DAACE7300231BE1 /* ReviewDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailTableViewController.swift; sourceTree = "<group>"; };
 		C4A847E51DAAF79100231BE1 /* RemovablePhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemovablePhotoCell.xib; sourceTree = "<group>"; };
@@ -570,9 +561,6 @@
 		C4B0A3941C8CB52500D05408 /* NoNetworkDefaultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNetworkDefaultView.swift; sourceTree = "<group>"; };
 		C4B0A3981C8CCD8D00D05408 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		C4B0A39A1C8CE69500D05408 /* Coconut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coconut.swift; sourceTree = "<group>"; };
-		C4B14E1A1B7FD5F2001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
-		C4B14E1C1B7FD68B001E8B62 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
-		C4B14E1D1B7FD68B001E8B62 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = "Pods/../build/Debug-iphoneos/SwiftHTTP.framework"; sourceTree = "<group>"; };
 		C4B14E201B802D7F001E8B62 /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		C4B14E231B804755001E8B62 /* DataAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataAccessor.swift; sourceTree = "<group>"; };
 		C4B14E261B804847001E8B62 /* GetPromotionsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPromotionsResponse.swift; sourceTree = "<group>"; };
@@ -608,7 +596,7 @@
 		C4D3000E1BC1B10B00807C4D /* AcountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcountManager.swift; sourceTree = "<group>"; };
 		C4D300101BC1B4FC00807C4D /* LoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		C4D300121BC1B57B00807C4D /* LoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
-		C4D300151BC2456900807C4D /* Lightning-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lightning-Bridging-Header.h"; sourceTree = "<group>"; };
+		C4D300151BC2456900807C4D /* ChifanHero-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChifanHero-Bridging-Header.h"; sourceTree = "<group>"; };
 		C4D300171BC2479C00807C4D /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
 		C4D300181BC2479C00807C4D /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
 		C4D9830B1CE3014B0061A088 /* LocationTableHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableHeader.xib; sourceTree = "<group>"; };
@@ -764,7 +752,7 @@
 		CAF16B5E1D1A17020051D7CE /* OauthLoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthLoginResponse.swift; sourceTree = "<group>"; };
 		CAF16B601D1B02AF0051D7CE /* AccountResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountResponse.swift; sourceTree = "<group>"; };
 		CAF16B621D1DDAA00051D7CE /* AccountRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRequest.swift; sourceTree = "<group>"; };
-		CFA408CDEAB5CA695E75BF1D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA6B9F91B54B19EFE18042FE /* Pods-ChifanHero.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChifanHero.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChifanHero/Pods-ChifanHero.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -772,7 +760,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8C3C793371E6A71781C69DF /* Pods_LightningTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -780,7 +767,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2D4D2EEBCC69340E1B79D55 /* Pods_LightningUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -806,7 +792,6 @@
 				CAE8FC361D17131D002432EE /* FBSDKCoreKit.framework in Frameworks */,
 				CAE8FC371D17131D002432EE /* FBSDKLoginKit.framework in Frameworks */,
 				CAE8FC381D17131D002432EE /* FBSDKShareKit.framework in Frameworks */,
-				EF19316FA44ECCB76D9DB7BB /* Pods_Lightning.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,12 +801,12 @@
 		030660C4BFE1FC6E5AFD9B36 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6B21D72832918C249F7E203E /* Pods-Lightning.debug.xcconfig */,
-				40D7E8AD18C69DCFE384A271 /* Pods-Lightning.release.xcconfig */,
-				7E8ED3AD5B55EB947073A2F2 /* Pods-LightningTests.debug.xcconfig */,
-				559084C0DAC7A9E56B60877C /* Pods-LightningTests.release.xcconfig */,
-				7923BCA96699F0E61D961419 /* Pods-LightningUITests.debug.xcconfig */,
-				B64F4772A384482387F2F2C8 /* Pods-LightningUITests.release.xcconfig */,
+				877B5DE0E611973A476041BC /* Pods-ChifanHero.debug.xcconfig */,
+				EA6B9F91B54B19EFE18042FE /* Pods-ChifanHero.release.xcconfig */,
+				3BFE9AB8CEB72CF8AF012B3F /* Pods-ChifanHeroTests.debug.xcconfig */,
+				4654C7BC484AC664F49ED321 /* Pods-ChifanHeroTests.release.xcconfig */,
+				B23916614BADE159D36C65BF /* Pods-ChifanHeroUITests.debug.xcconfig */,
+				09B9CBAC04A2A0AB530CD9D1 /* Pods-ChifanHeroUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -833,7 +818,6 @@
 				CAE8FC341D17131D002432EE /* FBSDKLoginKit.framework */,
 				CAE8FC351D17131D002432EE /* FBSDKShareKit.framework */,
 				C4021ACA1CF41EE00021343B /* libstdc++.6.tbd */,
-				C49427E11CD874DA00F94D4F /* ARNTransitionAnimator.framework */,
 				C4F039E31BC347C100183AC2 /* libz.tbd */,
 				C4F039E11BC347B500183AC2 /* libsqlite3.tbd */,
 				C4F039DF1BC3479900183AC2 /* SystemConfiguration.framework */,
@@ -848,14 +832,6 @@
 				C4F039C71BC3471400183AC2 /* Bolts.framework */,
 				C4F039C81BC3471400183AC2 /* Parse.framework */,
 				C4F039C91BC3471400183AC2 /* ParseCrashReporting.framework */,
-				C4B14E1C1B7FD68B001E8B62 /* Pods.framework */,
-				C4B14E1D1B7FD68B001E8B62 /* SwiftHTTP.framework */,
-				C4B14E1A1B7FD5F2001E8B62 /* Pods.framework */,
-				C4A595B71B7FD56D009E0F24 /* SwiftHTTP.framework */,
-				CFA408CDEAB5CA695E75BF1D /* Pods.framework */,
-				17289F4B8AF31585A52C19E7 /* Pods_Lightning.framework */,
-				617D8FAD2E2F507BBF919A24 /* Pods_LightningTests.framework */,
-				AE16792F60C7A3E618F2682D /* Pods_LightningUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -956,9 +932,9 @@
 		C42D9BB71B69EF2D0035C5A6 = {
 			isa = PBXGroup;
 			children = (
-				C42D9BC21B69EF2D0035C5A6 /* Lightning */,
-				C42D9BD91B69EF2D0035C5A6 /* LightningTests */,
-				C42D9BE41B69EF2D0035C5A6 /* LightningUITests */,
+				C42D9BC21B69EF2D0035C5A6 /* ChifanHero */,
+				C42D9BD91B69EF2D0035C5A6 /* ChifanHeroTests */,
+				C42D9BE41B69EF2D0035C5A6 /* ChifanHeroUITests */,
 				C42D9BC11B69EF2D0035C5A6 /* Products */,
 				23D85A71B84862FEE9FC8005 /* Frameworks */,
 				030660C4BFE1FC6E5AFD9B36 /* Pods */,
@@ -968,14 +944,14 @@
 		C42D9BC11B69EF2D0035C5A6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C42D9BD61B69EF2D0035C5A6 /* LightningTests.xctest */,
-				C42D9BE11B69EF2D0035C5A6 /* LightningUITests.xctest */,
+				C42D9BD61B69EF2D0035C5A6 /* ChifanHeroTests.xctest */,
+				C42D9BE11B69EF2D0035C5A6 /* ChifanHeroUITests.xctest */,
 				CA203E4D1C111EEA00D6F32C /* 吃饭英雄-Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C42D9BC21B69EF2D0035C5A6 /* Lightning */ = {
+		C42D9BC21B69EF2D0035C5A6 /* ChifanHero */ = {
 			isa = PBXGroup;
 			children = (
 				CA72AEDA1D9E0D4700DE5464 /* 吃饭英雄-Test.entitlements */,
@@ -999,25 +975,25 @@
 				C41298141C83CD7D0062BC7D /* OpenSource */,
 				C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */,
 			);
-			path = Lightning;
+			path = ChifanHero;
 			sourceTree = "<group>";
 		};
-		C42D9BD91B69EF2D0035C5A6 /* LightningTests */ = {
+		C42D9BD91B69EF2D0035C5A6 /* ChifanHeroTests */ = {
 			isa = PBXGroup;
 			children = (
-				C42D9BDA1B69EF2D0035C5A6 /* LightningTests.swift */,
+				C42D9BDA1B69EF2D0035C5A6 /* ChifanHeroTests.swift */,
 				C42D9BDC1B69EF2D0035C5A6 /* Info.plist */,
 			);
-			path = LightningTests;
+			path = ChifanHeroTests;
 			sourceTree = "<group>";
 		};
-		C42D9BE41B69EF2D0035C5A6 /* LightningUITests */ = {
+		C42D9BE41B69EF2D0035C5A6 /* ChifanHeroUITests */ = {
 			isa = PBXGroup;
 			children = (
-				C42D9BE51B69EF2D0035C5A6 /* LightningUITests.swift */,
+				C42D9BE51B69EF2D0035C5A6 /* ChifanHeroUITests.swift */,
 				C42D9BE71B69EF2D0035C5A6 /* Info.plist */,
 			);
-			path = LightningUITests;
+			path = ChifanHeroUITests;
 			sourceTree = "<group>";
 		};
 		C42D9BF91B726B090035C5A6 /* Model */ = {
@@ -1468,7 +1444,7 @@
 		C4D300141BC2449F00807C4D /* BridgeHeader */ = {
 			isa = PBXGroup;
 			children = (
-				C4D300151BC2456900807C4D /* Lightning-Bridging-Header.h */,
+				C4D300151BC2456900807C4D /* ChifanHero-Bridging-Header.h */,
 			);
 			name = BridgeHeader;
 			sourceTree = "<group>";
@@ -1811,9 +1787,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C42D9BD51B69EF2D0035C5A6 /* LightningTests */ = {
+		C42D9BD51B69EF2D0035C5A6 /* ChifanHeroTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C42D9BED1B69EF2D0035C5A6 /* Build configuration list for PBXNativeTarget "LightningTests" */;
+			buildConfigurationList = C42D9BED1B69EF2D0035C5A6 /* Build configuration list for PBXNativeTarget "ChifanHeroTests" */;
 			buildPhases = (
 				82924F83930745A1F48042CE /* [CP] Check Pods Manifest.lock */,
 				C42D9BD21B69EF2D0035C5A6 /* Sources */,
@@ -1826,14 +1802,14 @@
 			);
 			dependencies = (
 			);
-			name = LightningTests;
-			productName = SoHungryTests;
-			productReference = C42D9BD61B69EF2D0035C5A6 /* LightningTests.xctest */;
+			name = ChifanHeroTests;
+			productName = ChifanHeroTests;
+			productReference = C42D9BD61B69EF2D0035C5A6 /* ChifanHeroTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		C42D9BE01B69EF2D0035C5A6 /* LightningUITests */ = {
+		C42D9BE01B69EF2D0035C5A6 /* ChifanHeroUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C42D9BF01B69EF2D0035C5A6 /* Build configuration list for PBXNativeTarget "LightningUITests" */;
+			buildConfigurationList = C42D9BF01B69EF2D0035C5A6 /* Build configuration list for PBXNativeTarget "ChifanHeroUITests" */;
 			buildPhases = (
 				3A041EF58A3526021AD8822B /* [CP] Check Pods Manifest.lock */,
 				C42D9BDD1B69EF2D0035C5A6 /* Sources */,
@@ -1846,14 +1822,14 @@
 			);
 			dependencies = (
 			);
-			name = LightningUITests;
-			productName = SoHungryUITests;
-			productReference = C42D9BE11B69EF2D0035C5A6 /* LightningUITests.xctest */;
+			name = ChifanHeroUITests;
+			productName = ChifanHeroUITests;
+			productReference = C42D9BE11B69EF2D0035C5A6 /* ChifanHeroUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		CA203DA01C111EEA00D6F32C /* Lightning */ = {
+		CA203DA01C111EEA00D6F32C /* ChifanHero */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CA203E4A1C111EEA00D6F32C /* Build configuration list for PBXNativeTarget "Lightning" */;
+			buildConfigurationList = CA203E4A1C111EEA00D6F32C /* Build configuration list for PBXNativeTarget "ChifanHero" */;
 			buildPhases = (
 				05C9A1C09303B66055554A61 /* [CP] Check Pods Manifest.lock */,
 				CA203DA11C111EEA00D6F32C /* Sources */,
@@ -1866,8 +1842,8 @@
 			);
 			dependencies = (
 			);
-			name = Lightning;
-			productName = SoHungry;
+			name = ChifanHero;
+			productName = ChifanHero;
 			productReference = CA203E4D1C111EEA00D6F32C /* 吃饭英雄-Test.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -1905,7 +1881,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42D9BBB1B69EF2D0035C5A6 /* Build configuration list for PBXProject "Lightning" */;
+			buildConfigurationList = C42D9BBB1B69EF2D0035C5A6 /* Build configuration list for PBXProject "ChifanHero" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1918,9 +1894,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CA203DA01C111EEA00D6F32C /* Lightning */,
-				C42D9BD51B69EF2D0035C5A6 /* LightningTests */,
-				C42D9BE01B69EF2D0035C5A6 /* LightningUITests */,
+				CA203DA01C111EEA00D6F32C /* ChifanHero */,
+				C42D9BD51B69EF2D0035C5A6 /* ChifanHeroTests */,
+				C42D9BE01B69EF2D0035C5A6 /* ChifanHeroUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -2045,7 +2021,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Lightning/Pods-Lightning-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChifanHero/Pods-ChifanHero-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5F1D4D765696B8CF28943896 /* [CP] Embed Pods Frameworks */ = {
@@ -2060,7 +2036,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LightningUITests/Pods-LightningUITests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChifanHeroUITests/Pods-ChifanHeroUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		82924F83930745A1F48042CE /* [CP] Check Pods Manifest.lock */ = {
@@ -2090,7 +2066,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Lightning/Pods-Lightning-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChifanHero/Pods-ChifanHero-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		959C3ABCCC4A287C42400B07 /* [CP] Copy Pods Resources */ = {
@@ -2105,7 +2081,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LightningTests/Pods-LightningTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChifanHeroTests/Pods-ChifanHeroTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9935C84DC8776D3610F04AB7 /* [CP] Embed Pods Frameworks */ = {
@@ -2120,7 +2096,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LightningTests/Pods-LightningTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChifanHeroTests/Pods-ChifanHeroTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FC6EF7E3AD1FF4E4AACE6CEA /* [CP] Copy Pods Resources */ = {
@@ -2135,7 +2111,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LightningUITests/Pods-LightningUITests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChifanHeroUITests/Pods-ChifanHeroUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2145,7 +2121,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C42D9BDB1B69EF2D0035C5A6 /* LightningTests.swift in Sources */,
+				C42D9BDB1B69EF2D0035C5A6 /* ChifanHeroTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2153,7 +2129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C42D9BE61B69EF2D0035C5A6 /* LightningUITests.swift in Sources */,
+				C42D9BE61B69EF2D0035C5A6 /* ChifanHeroUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2726,88 +2702,88 @@
 		};
 		C42D9BEE1B69EF2D0035C5A6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7E8ED3AD5B55EB947073A2F2 /* Pods-LightningTests.debug.xcconfig */;
+			baseConfigurationReference = 3BFE9AB8CEB72CF8AF012B3F /* Pods-ChifanHeroTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = LightningTests/Info.plist;
+				INFOPLIST_FILE = ChifanHeroTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.so.hungry.SoHungryTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Lightning.ChifanHeroTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SoHungry.app/SoHungry";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChifanHero.app/ChifanHero";
 			};
 			name = Debug;
 		};
 		C42D9BEF1B69EF2D0035C5A6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 559084C0DAC7A9E56B60877C /* Pods-LightningTests.release.xcconfig */;
+			baseConfigurationReference = 4654C7BC484AC664F49ED321 /* Pods-ChifanHeroTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = LightningTests/Info.plist;
+				INFOPLIST_FILE = ChifanHeroTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.so.hungry.SoHungryTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Lightning.ChifanHeroTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SoHungry.app/SoHungry";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChifanHero.app/ChifanHero";
 			};
 			name = Release;
 		};
 		C42D9BF11B69EF2D0035C5A6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7923BCA96699F0E61D961419 /* Pods-LightningUITests.debug.xcconfig */;
+			baseConfigurationReference = B23916614BADE159D36C65BF /* Pods-ChifanHeroUITests.debug.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = LightningUITests/Info.plist;
+				INFOPLIST_FILE = ChifanHeroUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.so.hungry.SoHungryUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Lightning.ChifanHeroUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = SoHungry;
+				TEST_TARGET_NAME = ChifanHero;
 				USES_XCTRUNNER = YES;
 			};
 			name = Debug;
 		};
 		C42D9BF21B69EF2D0035C5A6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B64F4772A384482387F2F2C8 /* Pods-LightningUITests.release.xcconfig */;
+			baseConfigurationReference = 09B9CBAC04A2A0AB530CD9D1 /* Pods-ChifanHeroUITests.release.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = LightningUITests/Info.plist;
+				INFOPLIST_FILE = ChifanHeroUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.so.hungry.SoHungryUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Lightning.ChifanHeroUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = SoHungry;
+				TEST_TARGET_NAME = ChifanHero;
 				USES_XCTRUNNER = YES;
 			};
 			name = Release;
 		};
 		CA203E4B1C111EEA00D6F32C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B21D72832918C249F7E203E /* Pods-Lightning.debug.xcconfig */;
+			baseConfigurationReference = 877B5DE0E611973A476041BC /* Pods-ChifanHero.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Lightning/吃饭英雄-Test.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "ChifanHero/吃饭英雄-Test.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = Lightning/Info.plist;
+				INFOPLIST_FILE = ChifanHero/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄-Test";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Lightning/Lightning-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		CA203E4C1C111EEA00D6F32C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40D7E8AD18C69DCFE384A271 /* Pods-Lightning.release.xcconfig */;
+			baseConfigurationReference = EA6B9F91B54B19EFE18042FE /* Pods-ChifanHero.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Lightning/吃饭英雄-Test.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "ChifanHero/吃饭英雄-Test.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2815,13 +2791,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = Lightning/Info.plist;
+				INFOPLIST_FILE = ChifanHero/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Lightning/Lightning-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -2829,7 +2805,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42D9BBB1B69EF2D0035C5A6 /* Build configuration list for PBXProject "Lightning" */ = {
+		C42D9BBB1B69EF2D0035C5A6 /* Build configuration list for PBXProject "ChifanHero" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42D9BE81B69EF2D0035C5A6 /* Debug */,
@@ -2838,7 +2814,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C42D9BED1B69EF2D0035C5A6 /* Build configuration list for PBXNativeTarget "LightningTests" */ = {
+		C42D9BED1B69EF2D0035C5A6 /* Build configuration list for PBXNativeTarget "ChifanHeroTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42D9BEE1B69EF2D0035C5A6 /* Debug */,
@@ -2847,7 +2823,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C42D9BF01B69EF2D0035C5A6 /* Build configuration list for PBXNativeTarget "LightningUITests" */ = {
+		C42D9BF01B69EF2D0035C5A6 /* Build configuration list for PBXNativeTarget "ChifanHeroUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42D9BF11B69EF2D0035C5A6 /* Debug */,
@@ -2856,7 +2832,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CA203E4A1C111EEA00D6F32C /* Build configuration list for PBXNativeTarget "Lightning" */ = {
+		CA203E4A1C111EEA00D6F32C /* Build configuration list for PBXNativeTarget "ChifanHero" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CA203E4B1C111EEA00D6F32C /* Debug */,
