@@ -55,13 +55,13 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
                     let min = components.minute
                     if year == currentYear {
                         if month == currentMonth && day == currentDay {
-                            timeString = "\(hour):\(min)"
+                            timeString = "\(hour!):\(min!)"
                         } else {
-                            timeString = "\(month)-\(day) \(hour):\(min)"
+                            timeString = "\(month!)-\(day!) \(hour!):\(min!)"
                         }
                         
                     } else {
-                        timeString = "\(year)-\(month)-\(day)"
+                        timeString = "\(year!)-\(month!)-\(day!)"
                     }
                     timeLabel.text = timeString
                 }

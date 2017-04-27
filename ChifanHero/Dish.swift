@@ -28,12 +28,16 @@ class Dish: Model{
     required init(data: JSON) {
         id = data["id"].string
         name = data["name"].string
-        picture = Picture(data: data["picture"])
+        if(data["picture"].exists()){
+            picture = Picture(data: data["picture"])
+        }
         englishName = data["english_name"].string
         favoriteCount = data["favorite_count"].int
         likeCount = data["like_count"].int
         dislikeCount = data["dislike_count"].int
         neutralCount = data["neutral_count"].int
-        fromRestaurant = Restaurant(data: data["from_restaurant"])
+        if(data["from_restaurant"].exists()){
+            fromRestaurant = Restaurant(data: data["from_restaurant"])
+        }
     }
 }

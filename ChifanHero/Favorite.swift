@@ -24,10 +24,18 @@ class Favorite: Model {
     
     required init(data: JSON) {
         id = data["id"].string
-        user = User(data: data["user"])
-        dish = Dish(data: data["dish"])
-        restaurant = Restaurant(data: data["restaurant"])
-        selectedCollection = SelectedCollection(data: data["selected_collection"])
+        if(data["user"].exists()){
+            user = User(data: data["user"])
+        }
+        if(data["dish"].exists()){
+            dish = Dish(data: data["dish"])
+        }
+        if(data["restaurant"].exists()){
+            restaurant = Restaurant(data: data["restaurant"])
+        }
+        if(data["selected_collection"].exists()){
+            selectedCollection = SelectedCollection(data: data["selected_collection"])
+        }
         type = data["type"].string
     }
 }

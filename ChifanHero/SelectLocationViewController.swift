@@ -60,7 +60,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func addCancelButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(SelectLocationViewController.cancel(_:)), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton

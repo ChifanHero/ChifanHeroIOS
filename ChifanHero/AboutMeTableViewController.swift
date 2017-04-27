@@ -48,7 +48,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     fileprivate func addNotificationButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("消息", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("消息", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(AboutMeTableViewController.showNotification), for: UIControlEvents.touchUpInside)
         let notificationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = notificationButton

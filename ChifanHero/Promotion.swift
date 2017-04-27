@@ -21,7 +21,11 @@ class Promotion: Model{
     
     required init(data: JSON) {
         id = data["id"].string
-        restaurant = Restaurant(data: data["restaurant"])
-        dish = Dish(data: data["dish"])
+        if(data["restaurant"].exists()){
+            restaurant = Restaurant(data: data["restaurant"])
+        }
+        if(data["dish"].exists()){
+            dish = Dish(data: data["dish"])
+        }
     }
 }

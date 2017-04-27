@@ -292,7 +292,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         installation.saveInBackground()
     }
     
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    private func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         if error.code == 3010 {
             print("Push notifications are not supported in the iOS Simulator.")
         } else {
@@ -320,7 +320,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    private func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // user denied to share location. Set default location to user last used city and show alert
         if error.code == CLError.Code.denied.rawValue {
             manager.stopUpdatingLocation()
@@ -402,7 +402,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             if rootVC != nil {
                 if let defaultCity = LocationHelper.getDefaultCityFromCoreData() {
                     print("default city is \(defaultCity)")
-                    let alertViewIcon = UIImage(named: "LogoWithBorder")
+                    //let alertViewIcon = UIImage(named: "LogoWithBorder")
                     let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40, kTitleHeight : 0, kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: true)
                     let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
                     askLocationAlertView!.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))

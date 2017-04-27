@@ -63,7 +63,7 @@ class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print(self.nickNameTextField.text)
+        print(self.nickNameTextField.text!)
         if self.nickNameTextField.text == "" || self.nickNameTextField.text == nil {
             return false
         } else {

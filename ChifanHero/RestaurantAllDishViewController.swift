@@ -284,8 +284,8 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
     }
     
     fileprivate func changeSlideBarState() {
-        if let indicesForVisibleRows : [IndexPath]? = self.dishTableView.indexPathsForVisibleRows {
-            let indexForFirstVisibleRow : IndexPath = indicesForVisibleRows![0]
+        if let indicesForVisibleRows = self.dishTableView.indexPathsForVisibleRows {
+            let indexForFirstVisibleRow: IndexPath = indicesForVisibleRows[0]
             let dishCell : NameOnlyDishTableViewCell = self.dishTableView.cellForRow(at: indexForFirstVisibleRow) as! NameOnlyDishTableViewCell
             let menuName = dishToMenuDic[dishCell.nameLabel.text!]
             let position = menuNames.index(of: menuName!)
@@ -302,11 +302,6 @@ class RestaurantAllDishViewController: RefreshableViewController, SlideBarDelega
         if cell == nil {
             tableView.register(UINib(nibName: "NameOnlyDishCell", bundle: nil), forCellReuseIdentifier: "nameOnlyDishCell")
             cell = tableView.dequeueReusableCell(withIdentifier: "nameOnlyDishCell") as? NameOnlyDishTableViewCell
-        }
-        let dish : Dish?
-        if !self.searching {
-        } else {
-            dish = self.searchResults[indexPath.row].dish
         }
         return cell!
     }

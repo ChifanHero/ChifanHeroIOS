@@ -28,13 +28,17 @@ class Review: Model{
     
     required init(data: JSON) {
         content = data["content"].string
-        user = User(data: data["user"])
+        if(data["user"].exists()){
+            user = User(data: data["user"])
+        }
         lastUpdateTime = data["last_update_time"].string
         rating = data["rating"].string
         reviewQuality = data["review_quality"].int
         goodReview = data["good_review"].bool
         pointsRewarded = data["points_rewarded"].int
-        restaurant = Restaurant(data: data["restaurant"])
+        if(data["restaurant"].exists()){
+            restaurant = Restaurant(data: data["restaurant"])
+        }
         id = data["id"].string
         if let resultsJson = data["photos"].array {
             for resultJson in resultsJson {

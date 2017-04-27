@@ -26,7 +26,9 @@ class City : Model{
         zip = data["zip"].string
         name = data["name"].string
         state = data["state"].string
-        center = Location(data: data["center"])
+        if(data["center"].exists()){
+            center = Location(data: data["center"])
+        }
         localizedCountryName = data["localized_country_name"].string
         activated = data["activated"].bool
     }

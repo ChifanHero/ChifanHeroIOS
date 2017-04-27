@@ -327,7 +327,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                                     self.phone = self.restaurant?.phone
                                     self.phoneLabel.text = self.phone
                                 }
-                                if self.restaurant != nil && self.restaurant!.hotDishes != nil {
+                                if self.restaurant != nil {
                                     self.hotDishes.removeAll()
                                     self.hotDishes += (self.restaurant?.hotDishes)!
                                 }
@@ -511,7 +511,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
 
     @IBAction func call(_ sender: AnyObject) {
         TrackingUtil.trackPhoneCallUsed()
-        let alert = UIAlertController(title: "呼叫", message: "\(self.phone)", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alert = UIAlertController(title: "呼叫", message: "\(self.phone!)", preferredStyle: UIAlertControllerStyle.actionSheet)
         
         let doCallAction = UIAlertAction(title: "确定", style: .default, handler: { (action) -> Void in
             let phoneNumber = self.extractPhoneNumber(self.phone)
@@ -653,11 +653,9 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
             queue.addOperation() {
                 let maxLength = 99999
                 var imageData = UIImageJPEGRepresentation(image, 1.0) //1.0 is compression ratio
-                print(imageData?.count)
                 if imageData?.count > maxLength {
                     let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.count)!)
                     imageData = UIImageJPEGRepresentation(image, compressionRatio)
-                    print(imageData?.count)
                 }
                 
                 let base64_code: String = (imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters))!
@@ -676,7 +674,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                                 self.showNewAddedImage(image)
                             } else {
                                 #if DEBUG
-                                    self.showBannerAlert("图片上传失败。error:\(response?.error?.message)")
+                                    self.showBannerAlert("图片上传失败。error:\(String(describing: response?.error?.message))")
                                 #else
                                     self.showBannerAlert("图片上传失败。请稍后再试。")
                                 #endif
@@ -722,7 +720,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         appearance.showCircularIcon = true
         appearance.setkWindowHeight(40)
         uploadingAlertView = SCLAlertView(appearance: appearance)
-        let alertViewIcon = UIImage(named: "LogoWithBorder")
+        //let alertViewIcon = UIImage(named: "LogoWithBorder")
         
         let timeoutConfig = SCLButton.ShowTimeoutConfiguration()
         uploadingAlertView?.addButton("隐藏", backgroundColor: UIColor.themeOrange(), textColor: UIColor.black, showTimeout: timeoutConfig, target: self, selector: #selector(RestaurantMainTableViewController.hideAlertView))

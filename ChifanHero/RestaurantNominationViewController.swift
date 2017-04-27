@@ -51,7 +51,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     }
     
     fileprivate func addDoneButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("完成", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("完成", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(RestaurantNominationViewController.completeNomination), for: UIControlEvents.touchUpInside)
         let doneButton = UIBarButtonItem(customView: button)
         self.doneButton = doneButton

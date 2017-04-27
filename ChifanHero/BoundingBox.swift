@@ -50,11 +50,11 @@ class BoundingBox {
     }
     
     fileprivate class func degreeToRadian(_ degrees : Double) -> Double {
-        return M_PI * degrees / 180.0
+        return Double.pi * degrees / 180.0
     }
     
     fileprivate class func radianToDegree(_ radians : Double) -> Double {
-        return 180.0 * radians / M_PI
+        return 180.0 * radians / Double.pi
     }
     
     fileprivate class func getWGS84EarthRadius(_ lat : Double) -> Double {

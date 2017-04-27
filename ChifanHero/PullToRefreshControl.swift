@@ -33,8 +33,8 @@ class PullToRefreshControl: UIRefreshControl {
             delay: Double(0.0),
             options: UIViewAnimationOptions.curveLinear,
             animations: {
-                // Rotate the spinner by M_PI_2 = PI/2 = 90 degrees
-                self.pullView.transform = self.pullView.transform.rotated(by: CGFloat(M_PI_2))
+                // Rotate the spinner by Double.pi_2 = PI/2 = 90 degrees
+                self.pullView.transform = self.pullView.transform.rotated(by: CGFloat(Double.pi / 2))
             },
             completion: { finished in
                 // If still refreshing, keep spinning, else reset

@@ -86,7 +86,7 @@ class MozMaterialDesignSpinner: UIView {
         animation.keyPath = "transform.rotation"
         animation.duration = 4.0
         animation.fromValue = 0
-        animation.toValue = 2*M_PI
+        animation.toValue = 2*Double.pi
         animation.repeatCount = Float(NSIntegerMax)
         self.progressLayer.add(animation, forKey: kAnimationRotationKey)
         
@@ -154,7 +154,7 @@ class MozMaterialDesignSpinner: UIView {
         //        let acenter = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds))
         let aradius = min(self.bounds.width/2, self.bounds.height / 2) - self.progressLayer.lineWidth / 2
         let astartAngle = CGFloat(0)
-        let aendAngle = CGFloat(2*M_PI)
+        let aendAngle = CGFloat(2*Double.pi)
         let path:UIBezierPath = UIBezierPath(arcCenter: center, radius: aradius, startAngle: astartAngle, endAngle: aendAngle, clockwise: true)
         
         self.progressLayer.path = path.cgPath

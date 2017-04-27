@@ -44,8 +44,8 @@ class StringUtil {
             return 0.0
         } else {
             var score : Float = 0.0
-            if let searchTextArr : [String]? = tokenize(str2) {
-                for str : String  in searchTextArr! {
+            if let searchTextArr: [String] = tokenize(str2) {
+                for str : String  in searchTextArr {
                     let distance = LevenshteinDistance(baseString! as NSString, s2: str as NSString)
                     let bigger = max(baseString!.characters.count, str.characters.count)
                     let pct = Float(bigger-distance)/Float(bigger)

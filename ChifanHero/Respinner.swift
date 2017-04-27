@@ -85,10 +85,10 @@ class Respinner: UIControl {
                         
                         sendActions(for: .valueChanged)
                     } else if !refreshing {
-                        spinningView.transform = CGAffineTransform(rotationAngle: -(yOffsetWithoutInsets / frame.size.height) * 2.0 * CGFloat(M_PI))
+                        spinningView.transform = CGAffineTransform(rotationAngle: -(yOffsetWithoutInsets / frame.size.height) * 2.0 * CGFloat(Double.pi))
                     }
                 } else if !refreshing {
-                    spinningView.transform = CGAffineTransform(rotationAngle: -(yOffsetWithoutInsets / frame.size.height) * 2.0 * CGFloat(M_PI))
+                    spinningView.transform = CGAffineTransform(rotationAngle: -(yOffsetWithoutInsets / frame.size.height) * 2.0 * CGFloat(Double.pi))
                 }
                 
                 previousYOffset = scrollView.contentOffset.y
@@ -107,7 +107,7 @@ class Respinner: UIControl {
         animation.repeatCount = Float.infinity
         animation.isAdditive = true
         animation.fromValue = CGFloat(0.0)
-        animation.toValue = CGFloat(2.0 * M_PI)
+        animation.toValue = CGFloat(2.0 * Double.pi)
         
         spinningView.layer.add(animation, forKey: "rotate")
         

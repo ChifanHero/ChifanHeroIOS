@@ -90,7 +90,7 @@ class UserActivityTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         let calendar = Calendar.current
         let components = (calendar as NSCalendar).components([.day , .month , .year], from: date!)
         
-        let year =  components.year
+        //let year =  components.year
         let month = components.month
         let day = components.day
         

@@ -42,7 +42,9 @@ class Restaurant: Model{
             picture = Picture(data: data["picture"])
         }
         address = data["address"].string
-        distance = Distance(data: data["distance"])
+        if(data["distance"].exists()){
+            distance = Distance(data: data["distance"])
+        }
         favoriteCount = data["favorite_count"].int
         likeCount = data["like_count"].int
         dislikeCount = data["dislike_count"].int
@@ -63,7 +65,11 @@ class Restaurant: Model{
         }
         votes = data["votes"].int
         rating = data["rating"].double
-        reviewInfo = ReviewInfo(data: data["review_info"])
-        photoInfo = PhotoInfo(data: data["photo_info"])
+        if(data["review_info"].exists()){
+            reviewInfo = ReviewInfo(data: data["review_info"])
+        }
+        if(data["photo_info"].exists()){
+            photoInfo = PhotoInfo(data: data["photo_info"])
+        }
     }
 }

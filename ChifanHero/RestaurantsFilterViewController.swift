@@ -39,14 +39,14 @@ class RestaurantsFilterViewController: UIViewController {
     }
     
     func addCancelButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(RestaurantsFilterViewController.cancel(_:)), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
     func addConfirmButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("确定", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("确定", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(RestaurantsFilterViewController.commit(_:)), for: UIControlEvents.touchUpInside)
         let confirmButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = confirmButton

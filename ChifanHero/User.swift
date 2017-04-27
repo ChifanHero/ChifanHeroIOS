@@ -28,6 +28,8 @@ class User: Model{
         emailVerified = data["emailVerified"].bool
         email = data["email"].string
         nickName = data["nick_name"].string
-        picture = Picture(data: data["picture"])
+        if(data["picture"].exists()){
+            picture = Picture(data: data["picture"])
+        }
     }
 }

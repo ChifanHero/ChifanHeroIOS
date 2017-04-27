@@ -26,8 +26,14 @@ class Rating: Model {
         id = data["id"].string
         type = data["type"].string
         action = data["action"].string
-        user = User(data: data["user"])
-        dish = Dish(data: data["dish"])
-        restaurant = Restaurant(data: data["restaurant"])
+        if(data["user"].exists()){
+            user = User(data: data["user"])
+        }
+        if(data["dish"].exists()){
+            dish = Dish(data: data["dish"])
+        }
+        if(data["restaurant"].exists()){
+            restaurant = Restaurant(data: data["restaurant"])
+        }
     }
 }

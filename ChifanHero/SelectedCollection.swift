@@ -34,8 +34,12 @@ class SelectedCollection: Model{
         memberCount = data["member_count"].int
         likeCount = data["like_count"].int
         userFavoriteCount = data["user_favorite_count"].int
-        cellImage = Picture(data: data["cell_image"])
-        coverageCenterGeo = Location(data: data["coverage_center_geo"])
+        if(data["cell_image"].exists()){
+            cellImage = Picture(data: data["cell_image"])
+        }
+        if(data["coverage_center_geo"].exists()){
+            coverageCenterGeo = Location(data: data["coverage_center_geo"])
+        }
         coverageRadius = data["coverage_radius"].int
     }
 }

@@ -31,7 +31,6 @@ class UserActivity: Model{
         recommendDish = DishRecommendation(data: data["recommend_dish"])
         review = Review(data: data["review"])
         imageUpload = ImageUploadActivity(data: data["upload_image"])
-        
     }
     
     

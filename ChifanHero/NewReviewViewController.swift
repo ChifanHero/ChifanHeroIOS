@@ -59,14 +59,14 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     func addCancelButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(NewReviewViewController.cancel(_:)), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
     func addDoneButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("提交", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("提交", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(NewReviewViewController.submit(_:)), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = cancelButton
@@ -89,12 +89,10 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         if restaurantId != nil {
             let reviewOperation = PostReviewOperation(reviewId: nil, rating: 5, content: reviewTextView.text, restaurantId: restaurantId!, retryTimes: 3) { (success, review) in
                 print(success)
-                print(review?.id)
             }
             for image in self.images {
                 let uploadOperation = PhotoUploadOperation(photo: image, retryTimes: 3, completion: { (success, picture) in
                     print(success)
-                    print(picture?.id)
                     if success {
                         reviewOperation.addPhotoId(picture!.id!)
                     }

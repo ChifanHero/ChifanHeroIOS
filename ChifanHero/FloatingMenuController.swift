@@ -39,7 +39,7 @@ class FloatingMenuController: UIViewController {
     let fromView: UIView
     
     let blurredView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
-    let closeButton = FloatingButton(image: UIImage(named: "Cancel_Button"), backgroundColor: UIColor.flatRedColor)
+    let closeButton = FloatingButton(image: UIImage(named: "Cancel_Button"), backgroundColor: UIColor.flatRedColor())
     
     weak var delegate: FloatingMenuControllerDelegate?
     var buttonDirection = Direction.down
@@ -77,12 +77,12 @@ class FloatingMenuController: UIViewController {
         
         if initial {
             closeButton.alpha = 0
-            closeButton.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+            closeButton.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             
             for (_, button) in buttonItems.enumerated() {
                 button.center = center
                 button.alpha = 0
-                button.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                button.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             }
             
             for (index, label) in buttonLabels.enumerated() {
@@ -156,10 +156,10 @@ class FloatingMenuController: UIViewController {
         for title in labelTitles {
             let label = UILabel()
             label.text = title
-            label.textColor = UIColor.flatBlackColor
+            label.textColor = UIColor.flatBlackColor()
             label.textAlignment = .center
             label.font = UIFont(name: "HelveticaNeue-Light", size: 15)
-            label.backgroundColor = UIColor.flatWhiteColor
+            label.backgroundColor = UIColor.flatWhiteColor()
             label.sizeToFit()
             label.bounds.size.height += 8
             label.bounds.size.width += 20

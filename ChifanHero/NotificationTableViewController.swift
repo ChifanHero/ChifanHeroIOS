@@ -34,7 +34,7 @@ class NotificationTableViewController: UITableViewController {
     }
     
     fileprivate func addEditButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("编辑", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("编辑", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(NotificationTableViewController.edit), for: UIControlEvents.touchUpInside)
         let editButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = editButton
@@ -160,7 +160,7 @@ class NotificationTableViewController: UITableViewController {
     }
     
     func edit() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("完成", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("完成", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(NotificationTableViewController.done), for: UIControlEvents.touchUpInside)
         let doneButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = doneButton
@@ -169,7 +169,7 @@ class NotificationTableViewController: UITableViewController {
     }
     
     func done() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("编辑", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("编辑", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(NotificationTableViewController.edit), for: UIControlEvents.touchUpInside)
         let editButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = editButton

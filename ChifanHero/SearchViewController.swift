@@ -107,14 +107,14 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     }
     
     func addCancelButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(SearchViewController.cancel(_:)), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
     func addSearchButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("搜索", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("搜索", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(SearchViewController.confirmSearch), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = cancelButton
@@ -336,7 +336,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         
         placesClient.autocompleteQuery(addressBar.text!, bounds: bounds, filter: filter, callback: { (results, error) -> Void in
             guard error == nil else {
-                print("Autocomplete error \(error)")
+                print("Autocomplete error \(String(describing: error))")
                 return
             }
             

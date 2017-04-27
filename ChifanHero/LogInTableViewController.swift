@@ -48,7 +48,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         self.clearTitleForBackBarButtonItem()
 
         if isLoggedIn(){
-            replaceLoginViewByAboutMeView()
+            self.replaceLoginViewByAboutMeView()
         }
         
         usernameTextField.delegate = self
@@ -73,14 +73,14 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     fileprivate func addNotificationButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("消息", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("消息", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(LogInTableViewController.showNotification), for: UIControlEvents.touchUpInside)
         let notificationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = notificationButton
     }
     
     fileprivate func addSignUpButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("注册", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("注册", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(LogInTableViewController.showSignUp), for: UIControlEvents.touchUpInside)
         let signUpButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = signUpButton
@@ -143,13 +143,9 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     
-    fileprivate func isLoggedIn() -> Bool{
+    func isLoggedIn() -> Bool{
         let defaults: UserDefaults = UserDefaults.standard
-        if let result: Bool? = defaults.bool(forKey: "isLoggedIn"){
-            return result!
-        } else{
-            return false
-        }
+        return defaults.bool(forKey: "isLoggedIn")
     }
     
     func replaceLoginViewByAboutMeView() {
@@ -167,7 +163,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         tabBarController.setViewControllers(viewControllers, animated: false)
     }
     
-    fileprivate func getAboutMeNavigationController() -> UINavigationController {
+    private func getAboutMeNavigationController() -> UINavigationController {
         let storyBoard : UIStoryboard = UIStoryboard(name: "User", bundle: nil)
         let aboutMeNC : UINavigationController = storyBoard.instantiateViewController(withIdentifier: "AboutMeNavigationController") as! UINavigationController
         aboutMeNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)
@@ -261,14 +257,14 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    fileprivate func showErrorMessage(_ title : String?, message : String?) {
+    func showErrorMessage(_ title : String?, message : String?) {
         var title = title
         if title == nil {
             title = "输入错误"
         }
         SCLAlertView().showWarning(title!, subTitle: message!)
     }
-    fileprivate func resetLogInInput(_ alertAction: UIAlertAction!){
+    func resetLogInInput(_ alertAction: UIAlertAction!){
         usernameTextField.text = nil
         passwordTextField.text = nil
     }

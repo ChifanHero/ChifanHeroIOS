@@ -122,11 +122,11 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     func performNewSearchIfNeeded(_ hideCurrentResults : Bool) {
         if searchContext.newSearch || needToRefresh(){
             print("search requested. should do a new search here")
-            print("keyword = \(searchContext.keyword)")
+            print("keyword = \(searchContext.keyword!)")
             print("range = \(searchContext.distance)")
             print("rating = \(searchContext.rating)")
             print("sort = \(searchContext.sort)")
-            print("address = \(searchContext.address)")
+            print("address = \(searchContext.address!)")
             if searchContext.keyword != nil || searchContext.address != nil{
                 currentState = CurrentState.search
             } else {
@@ -457,7 +457,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     
     fileprivate func addFilterButton() {
-        let button: UIButton = UIButton.barButtonWithTextAndBorder("筛选", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("筛选", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(RestaurantsViewController.openFilter), for: UIControlEvents.touchUpInside)
         let filterButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = filterButton
