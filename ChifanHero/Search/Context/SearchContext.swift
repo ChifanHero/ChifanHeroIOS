@@ -10,43 +10,43 @@ import Foundation
 
 class SearchContext {
     
-    var keyword : String? {
+    var keyword: String? {
         didSet {
             newSearch = true
         }
     }
-    var newSearch : Bool = false
+    var newSearch: Bool = false
     var sort : SortOptions = SortOptions.bestmatch {
         didSet {
             newSearch = true
         }
     }
-    var distance : RangeFilter = RangeFilter.twenty {
+    var distance: RangeFilter = RangeFilter.twenty {
         didSet {
             newSearch = true
         }
     }
-    var rating : RatingFilter = RatingFilter.four {
+    var rating: RatingFilter = RatingFilter.four {
         didSet {
             newSearch = true
         }
     }
-    var address : String? {
+    var address: String? {
         didSet {
             newSearch = true
         }
     }
-    var coordinates : Location? {
-        didSet {
-            newSearch = true
-        }
-    }
-    
-    var offSet : Int? {
+    var coordinates: Location? {
         didSet {
             newSearch = true
         }
     }
     
-    var limit : Int = 25
+    var offSet: Int? {
+        didSet {
+            newSearch = true
+        }
+    }
+    
+    var limit: Int = 25
 }

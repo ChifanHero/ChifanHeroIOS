@@ -18,13 +18,9 @@ class SelectedCollectionTableViewCell: UITableViewCell {
     var imageURL : String = ""
     
     func setUp(selectedCollection: SelectedCollection) {
-        var url: String? = selectedCollection.cellImage?.original
-        if(url == nil){
-            url = ""
-        }
-        imageURL = url!
+        let url: URL! = URL(string: selectedCollection.cellImage?.original ?? "")
         title.text = selectedCollection.title
-        selectedCollectionImage.kf.setImage(with: URL(string: imageURL)!, placeholder: UIImage(named: "restaurant_default_background"), options: nil, progressBlock: nil) { (image, error, cacheType, imageURL) in
+        selectedCollectionImage.kf.setImage(with: url, placeholder: UIImage(named: "restaurant_default_background"), options: nil, progressBlock: nil) { (image, error, cacheType, imageURL) in
             var duration : TimeInterval?
             if cacheType == CacheType.memory {
                 duration = 0.0

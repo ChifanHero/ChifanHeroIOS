@@ -207,10 +207,10 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
                     if response != nil && !response!.results.isEmpty {
                         self.members.removeAll()
                         self.members += response!.results
-                        self.members.sort {
+                        /*self.members.sort {
                             (r1, r2) -> Bool in
                             return ScoreComputer.getScoreNum(positive: r1.likeCount, negative: r1.dislikeCount, neutral: r1.neutralCount) > ScoreComputer.getScoreNum(positive: r2.likeCount, negative: r2.dislikeCount, neutral: r2.neutralCount)
-                        }
+                        }*/
                         self.tableView.reloadData()
                         
                     }

@@ -80,7 +80,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         let currentCLLocation = CLLocation(latitude: (currentLocation?.lat)!, longitude: (currentLocation?.lon)!)
         let lastCLLocation = CLLocation(latitude: lastUsedLocation!.lat!, longitude: lastUsedLocation!.lon!)
         let distance : CLLocationDistance = currentCLLocation.distance(from: lastCLLocation)
-        print(distance)
         if distance >= 1600 {
             return true
         } else {
@@ -338,6 +337,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         restaurantController.address = self.selectedRestaurant?.address
         restaurantController.phone = self.selectedRestaurant?.phone
         restaurantController.restaurantId = self.selectedRestaurantId
+        restaurantController.currentLocation = self.lastUsedLocation
         restaurantController.parentVCName = self.getId()
         self.navigationController?.pushViewController(restaurantController, animated: true)
     }

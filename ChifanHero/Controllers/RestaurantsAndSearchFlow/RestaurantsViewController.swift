@@ -100,7 +100,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("restaurants view did appear")
         super.viewDidAppear(animated)
         TrackingUtil.trackRestaurantsView()
         performNewSearchIfNeeded(true)
@@ -122,11 +121,11 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     func performNewSearchIfNeeded(_ hideCurrentResults : Bool) {
         if searchContext.newSearch || needToRefresh(){
             print("search requested. should do a new search here")
-            print("keyword = \(searchContext.keyword!)")
+            print("keyword = \(searchContext.keyword ?? "")")
             print("range = \(searchContext.distance)")
             print("rating = \(searchContext.rating)")
             print("sort = \(searchContext.sort)")
-            print("address = \(searchContext.address!)")
+            print("address = \(searchContext.address ?? "")")
             if searchContext.keyword != nil || searchContext.address != nil{
                 currentState = CurrentState.search
             } else {
@@ -176,7 +175,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         let currentCLLocation = CLLocation(latitude: (currentLocation?.lat)!, longitude: (currentLocation?.lon)!)
         let lastCLLocation = CLLocation(latitude: lastUsedLocation!.lat!, longitude: lastUsedLocation!.lon!)
         let distance : CLLocationDistance = currentCLLocation.distance(from: lastCLLocation)
-        print(distance)
         if distance >= 1600 {
             return true
         } else {

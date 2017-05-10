@@ -12,7 +12,7 @@ import CoreData
 import Flurry_iOS_SDK
 import GooglePlaces
 
-let userLocationManager : UserLocationManager = UserLocationManager()
+let userLocationManager: UserLocationManager = UserLocationManager()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {

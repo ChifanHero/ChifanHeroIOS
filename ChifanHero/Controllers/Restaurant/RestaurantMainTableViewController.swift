@@ -13,34 +13,44 @@ import SKPhotoBrowser
 
 class RestaurantMainTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, SKPhotoBrowserDelegate {
     
-    @IBOutlet weak var blurContainer: UIVisualEffectView!
-
-    @IBOutlet weak var blurContainerWidthContraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var favoriteButton: DOFavoriteButton!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     
     @IBOutlet weak var scoreLabel: UILabel!
     
     @IBOutlet weak var distanceLabel: UILabel!
     
-    @IBOutlet weak var backgroundImageView: UIImageView!
-    
     @IBOutlet weak var nameLabel: UILabel!
 
     @IBOutlet weak var addressLabel: UILabel!
     
-    @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var openNowLabel: UILabel!
+    
+    @IBOutlet weak var openTimeTodayLabel: UILabel!
     
     @IBOutlet weak var recommendationDishLabel: UILabel!
     
     @IBOutlet weak var imagePoolView: UICollectionView!
     
-    @IBOutlet weak var goButton: UIButton!
-    
-    @IBOutlet weak var callButton: UIButton!
+    //@IBOutlet weak var goButton: UIButton!
     
     @IBOutlet weak var reviewsSnapshotView: ReviewsSnapshotView!
     
+    @IBOutlet weak var callImageView: UIImageView!
+    @IBOutlet weak var bookmarkImageView: UIImageView!
+    @IBOutlet weak var addReviewImageView: UIImageView!
+    @IBOutlet weak var addPictureImageView: UIImageView!
+    
+    @IBAction func showAllReviews(_ sender: AnyObject) {
+        performSegue(withIdentifier: "showReviews", sender: nil)
+    }
+    
+    @IBAction func showAllPhotos(_ sender: AnyObject) {
+        performSegue(withIdentifier: "showAllPhotos", sender: nil)
+    }
+    
+    @IBAction func showAllRecommendations(_ sender: AnyObject) {
+        performSegue(withIdentifier: "showRecommendations", sender: nil)
+    }
     
     var localSearchResponse: MKLocalSearchResponse!
     
@@ -61,10 +71,15 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     var restaurantImage: UIImage?
     var restaurantName: String?
     var address: String?
+    var city: String?
     var phone: String?
     var distance: Distance?
     var hotDishes: [Dish] = []
     var rating: Double?
+    var openNow: Bool?
+    var openTimeToday: String?
+    
+    var currentLocation: Location?
     
     var imagePool: [Picture] = []
     
@@ -84,10 +99,9 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.layoutIfNeeded()
+        //self.view.layoutIfNeeded()
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
-        self.prepareBlurContainer()
         self.configLabels()
         self.configActionButton()
         self.tableView.showsVerticalScrollIndicator = false
@@ -113,21 +127,8 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
             scoreLabel.text = ratingValue
             scoreLabel.backgroundColor = ScoreComputer.getScoreColor(rating!)
         }
-        if address != nil {
-            addressLabel.text = address!
-        }
-        if phone != nil {
-            phoneLabel.text = phone!
-        }
         scoreLabel.layer.cornerRadius = 4
         nameLabel.text = restaurantName
-    }
-    
-    private func prepareBlurContainer() {
-        let nameWidth: CGFloat = (restaurantName! as NSString).size(attributes: [NSFontAttributeName : nameLabel.font]).width
-        self.blurContainerWidthContraint.constant = nameWidth + 60
-        self.blurContainer.layer.cornerRadius = 4
-        self.view.layoutIfNeeded()
     }
     
     private func configureRestaurantIfFromGoogle(){
@@ -135,15 +136,12 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
             if restaurantFromGoogle?.address != nil {
                 self.addressLabel.text = restaurantFromGoogle?.address
             }
-            if restaurantFromGoogle?.phone != nil {
-                self.phoneLabel.text = restaurantFromGoogle?.phone
-            }
         }
     }
     
     private func configActionButton() {
-        self.view.layoutIfNeeded()
-        favoriteButton.image = UIImage(named: "Chifanhero_Favorite")
+        //self.view.layoutIfNeeded()
+        //favoriteButton.image = UIImage(named: "Chifanhero_Favorite")
     }
 
     /**
@@ -173,13 +171,18 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     */
     
     private func configureButtons(){
-        self.goButton.layer.borderColor = UIColor(red: 49/255, green: 163/255, blue: 67/255, alpha: 1).cgColor
-        self.goButton.layer.borderWidth = 1.0
-        self.goButton.layer.cornerRadius = 3.0
+        //self.goButton.layer.borderColor = UIColor(red: 49/255, green: 163/255, blue: 67/255, alpha: 1).cgColor
+        //self.goButton.layer.borderWidth = 1.0
+        //self.goButton.layer.cornerRadius = 3.0
         
-        self.callButton.layer.borderColor = UIColor(red: 49/255, green: 163/255, blue: 67/255, alpha: 1).cgColor
-        self.callButton.layer.borderWidth = 1.0
-        self.callButton.layer.cornerRadius = 3.0
+        self.callImageView.renderColorChangableImage(UIImage(named: "ChifanHero_Call.png")!, fillColor: UIColor.chifanHeroGreen())
+        self.bookmarkImageView.renderColorChangableImage(UIImage(named: "ChifanHero_Bookmark.png")!, fillColor: UIColor.themeOrange())
+        self.addReviewImageView.renderColorChangableImage(UIImage(named: "ChifanHero_AddReview.png")!, fillColor: UIColor.chifanHeroBlue())
+        self.addPictureImageView.renderColorChangableImage(UIImage(named: "ChifanHero_AddPicture.png")!, fillColor: UIColor.chifanHeroRed())
+        
+        let callTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(call))
+        self.callImageView.isUserInteractionEnabled = true
+        self.callImageView.addGestureRecognizer(callTapGestureRecognizer)
     }
     
     private func configureHeaderView(){
@@ -235,9 +238,8 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     private func downloadImages(){
         for image in imagePool {
             let imageView = UIImageView()
-            var url: String = ""
-            url = image.original!
-            imageView.kf.setImage(with: URL(string: url)!, placeholder: UIImage(named: "restaurant_default_background"),options: [.transition(ImageTransition.fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
+            let url: URL! = URL(string: image.original ?? "")
+            imageView.kf.setImage(with: url, placeholder: UIImage(named: "restaurant_default_background"),options: [.transition(ImageTransition.fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
                 self.imagePoolView.reloadData()
             })
             self.imagePoolContent.append(imageView)
@@ -247,6 +249,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     func loadData(_ refreshHandler: ((_ success: Bool) -> Void)?) {
         if (request != nil) {
+            request?.userLocation = self.currentLocation
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
                 OperationQueue.main.addOperation({ () -> Void in
                     if response == nil {
@@ -280,11 +283,17 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                                 //
                                 if self.restaurant?.address != nil {
                                     self.address = self.restaurant?.address
-                                    self.addressLabel.text = self.address
+                                }
+                                if self.restaurant?.city != nil {
+                                    self.city = self.restaurant?.city
+                                    self.addressLabel.text = self.city
                                 }
                                 if self.restaurant?.phone != nil {
                                     self.phone = self.restaurant?.phone
-                                    self.phoneLabel.text = self.phone
+                                }
+                                if self.restaurant?.rating != nil {
+                                    self.rating = self.restaurant?.rating
+                                    self.scoreLabel.text = String(format:"%.1f", self.rating!)
                                 }
                                 if self.restaurant != nil {
                                     self.hotDishes.removeAll()
@@ -306,6 +315,25 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
                                 if self.restaurant?.reviewInfo != nil {
                                     self.reviewsSnapshotView.reviews = self.restaurant!.reviewInfo!.reviews
                                     self.reviewsSnapshotView.reloadData()
+                                }
+                                if self.restaurant?.openNow != nil {
+                                    self.openNow = self.restaurant?.openNow
+                                    if self.openNow! {
+                                        self.openNowLabel.text = "Open Now"
+                                        self.openNowLabel.textColor = UIColor.chifanHeroGreen()
+                                    } else {
+                                        self.openNowLabel.text = "Closed Now"
+                                        self.openNowLabel.textColor = UIColor.chifanHeroRed()
+                                    }
+                                }
+                                if self.restaurant?.openTimeToday != nil {
+                                    self.openTimeToday = self.restaurant?.openTimeToday
+                                    self.openTimeTodayLabel.text = self.openTimeToday
+                                }
+                                if self.restaurant?.distance != nil && self.restaurant?.distance?.value != nil && self.restaurant?.distance?.unit != nil {
+                                    let distanceValue = String(format: "%.1f", (self.restaurant?.distance!.value!)!)
+                                    let distanceUnit = self.restaurant?.distance?.unit ?? ""
+                                    self.distanceLabel.text = "\(distanceValue) \(distanceUnit)"
                                 }
                                 self.tableView.reloadData()
                             }
@@ -401,19 +429,6 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         
     }
     
-    @IBAction func showAllReviews(_ sender: AnyObject) {
-        performSegue(withIdentifier: "showReviews", sender: nil)
-    }
-    
-    @IBAction func showAllPhotos(_ sender: AnyObject) {
-        performSegue(withIdentifier: "showAllPhotos", sender: nil)
-    }
-    
-    @IBAction func showAllRecommendations(_ sender: AnyObject) {
-        performSegue(withIdentifier: "showRecommendations", sender: nil)
-    }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         animateTransition = false
         if segue.identifier == "showAllPhotos" {
@@ -434,7 +449,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     }
     
 
-    @IBAction func call(_ sender: AnyObject) {
+    func call() {
         TrackingUtil.trackPhoneCallUsed()
         let alert = UIAlertController(title: "呼叫", message: "\(self.phone!)", preferredStyle: UIAlertControllerStyle.actionSheet)
         
@@ -451,6 +466,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
         
         self.present(alert, animated: true, completion: nil)
     }
+    
     func extractPhoneNumber(_ originalNumber : String?) -> String{
         if originalNumber == nil {
             return ""
@@ -470,60 +486,55 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return imagePool.count + 1
+        return imagePool.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: RestaurantImagePoolCollectionViewCell? = imagePoolView.dequeueReusableCell(withReuseIdentifier: "restaurantImagePoolCell", for: indexPath) as? RestaurantImagePoolCollectionViewCell
         
         // Configure the cell
-        if indexPath.row < imagePool.count {
-            cell!.setUp(image: imagePoolContent[indexPath.row].image!)
-        } else {
-            cell!.setUpAddingImageCell()
-        }
+        cell!.setUp(image: imagePoolContent[indexPath.row].image!)
         return cell!
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row == imagePool.count {
 //            let imagePickerController = ImagePickerController()
 //            imagePickerController.delegate = self
 //            self.presentViewController(imagePickerController, animated: true, completion: nil)
-            let alert = UIAlertController(title: "选择图片来源", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
+            //let alert = UIAlertController(title: "选择图片来源", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
             
-            let albumAction = UIAlertAction(title: "相册", style: .default, handler: self.goToAlbum)
-            let cameraAction = UIAlertAction(title: "拍摄", style: .default, handler: self.goToCamera)
-            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: self.cancelNavigation)
+            //let albumAction = UIAlertAction(title: "相册", style: .default, handler: self.goToAlbum)
+            //let cameraAction = UIAlertAction(title: "拍摄", style: .default, handler: self.goToCamera)
+            //let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: self.cancelNavigation)
             
-            alert.addAction(albumAction)
-            alert.addAction(cameraAction)
-            alert.addAction(cancelAction)
+            //alert.addAction(albumAction)
+            //alert.addAction(cameraAction)
+            //alert.addAction(cancelAction)
             
-            self.present(alert, animated: true, completion: nil)
-        } else {
+            //self.present(alert, animated: true, completion: nil)
+    
 //            let photoGallery = PhotoGalleryViewController()
 //            photoGallery.parentVC = self
 //            photoGallery.currentIndexPath = indexPath
 //            self.presentViewController(photoGallery, animated: false, completion: nil)
-            var images = [SKPhoto]()
-            for picture in imagePool {
+        var images = [SKPhoto]()
+        for picture in imagePool {
 //                let photo = SKPhoto.photoWithImage(imageView.image!)// add some UIImage
-                if picture.original != nil {
-                    let photo = SKPhoto.photoWithImageURL(picture.original!)
-                    images.append(photo)
+            if picture.original != nil {
+                let photo = SKPhoto.photoWithImageURL(picture.original!)
+                images.append(photo)
 //                    photo.caption = picture.description
-                    photo.caption = "这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼"
-                } else {
-                    let photo = SKPhoto.photoWithImage(UIImage(named: "restaurant_default_background")!)
-                    images.append(photo)
-                    photo.caption = picture.description
-                }
+                photo.caption = "这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼这张照片非常牛逼"
+            } else {
+                let photo = SKPhoto.photoWithImage(UIImage(named: "restaurant_default_background")!)
+                images.append(photo)
+                photo.caption = picture.description
             }
-            let browser = SKPhotoBrowser(photos: images)
-            browser.initializePageIndex(indexPath.row)
-            present(browser, animated: true, completion: {})
         }
+        let browser = SKPhotoBrowser(photos: images)
+        browser.initializePageIndex(indexPath.row)
+        present(browser, animated: true, completion: {})
+        
     }
     
     // MARK: Photo selection
@@ -662,7 +673,7 @@ class RestaurantMainTableViewController: UITableViewController, UICollectionView
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 120
+            return 240
         } else if indexPath.section == 1 {
             return 180
         } else if indexPath.section == 2 {

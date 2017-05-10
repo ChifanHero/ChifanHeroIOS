@@ -56,25 +56,13 @@ class RestaurantSearchTableViewCell: UITableViewCell {
         } else {
             distanceLabel.text = ""
         }
-        self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
+        //self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
         var url = ""
         if restaurant.picture?.original != nil {
             url = restaurant.picture!.original!
         }
         restaurantImageView.kf.setImage(with: URL(string: url)!, placeholder: UIImage(named: "restaurant_default_background"), options: [.transition(ImageTransition.fade(1))])
         var dishNames = ""
-        if restaurant.dishes != nil && restaurant.dishes!.count > 0 {
-            
-            for dish in restaurant.dishes! {
-                dishNames += dish
-                dishNames += "    "
-            }
-            self.dishesLabel.attributedText = dishNames.attributedStringFromHTML(12, highlightColor: LightningColor.themeRed())
-            self.dishesLabel.adjustsFontSizeToFitWidth = false
-            self.dishesLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
-        } else {
-            self.dishesLabel.text = "暂无"
-        }
     }
 
 }

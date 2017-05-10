@@ -49,17 +49,14 @@ class RestaurantTableViewCell: UITableViewCell {
             distanceLabel.text = ""
         }
         
-        self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
-        self.ratingView.backgroundColor = ScoreComputer.getScoreColor(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
-        self.ratingView.layer.cornerRadius = 3
+        //self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
+        //self.ratingView.backgroundColor = ScoreComputer.getScoreColor(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
+        //self.ratingView.layer.cornerRadius = 3
         
-        self.countLabel.text = getTotalRatingCount(positive: restaurant.likeCount, neutral: restaurant.neutralCount, negative: restaurant.dislikeCount)
+        //self.countLabel.text = getTotalRatingCount(positive: restaurant.likeCount, neutral: restaurant.neutralCount, negative: restaurant.dislikeCount)
         
-        var url = ""
-        if restaurant.picture?.original != nil {
-            url = restaurant.picture!.original!
-        }
-        restaurantImageView.kf.setImage(with: URL(string: url)!, placeholder: UIImage(named: "restaurant_default_background"), options: [.transition(ImageTransition.fade(1))])
+        let url = URL(string: restaurant.picture?.original ?? "")
+        restaurantImageView.kf.setImage(with: url, placeholder: UIImage(named: "restaurant_default_background"), options: [.transition(ImageTransition.fade(1))])
         
     }
     

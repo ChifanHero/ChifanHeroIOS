@@ -10,9 +10,10 @@ import Foundation
 
 class GetRestaurantByIdRequest: HttpRequest{
     
-    var resourceId : String
+    var resourceId: String
+    var userLocation: Location?
     
-    init(id : String) {
+    init(id: String) {
         resourceId = id
     }
     
@@ -21,6 +22,6 @@ class GetRestaurantByIdRequest: HttpRequest{
     }
     
     override func getRelativeURL() -> String {
-        return "/restaurants/" + resourceId
+        return "/restaurants/" + resourceId + "?lat=" + String((userLocation?.lat)!) + "&lon=" + String((userLocation?.lon)!)
     }
 }

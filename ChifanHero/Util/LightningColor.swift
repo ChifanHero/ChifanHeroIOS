@@ -62,6 +62,18 @@ extension UIColor {
     public class func chifanHeroGray() -> UIColor {
         return UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
     }
+    
+    public class func chifanHeroGreen() -> UIColor {
+        return UIColor(red: 60/255, green: 160/255, blue: 30/255, alpha: 1.0)
+    }
+    
+    public class func chifanHeroBlue() -> UIColor {
+        return UIColor(red: 30/255, green: 70/255, blue: 190/255, alpha: 1.0)
+    }
+    
+    public class func chifanHeroRed() -> UIColor {
+        return UIColor(red: 220/255, green: 15/255, blue: 15/255, alpha: 1.0)
+    }
 }
 
 extension UIColor {

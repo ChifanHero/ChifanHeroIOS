@@ -54,9 +54,9 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
     }
     
     fileprivate func configureRatingView(){
-        self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant!.likeCount, negative: restaurant!.dislikeCount, neutral: restaurant!.neutralCount)
-        self.ratingView.backgroundColor = ScoreComputer.getScoreColor(positive: restaurant!.likeCount, negative: restaurant!.dislikeCount, neutral: restaurant!.neutralCount)
-        self.ratingView.layer.cornerRadius = ratingLabelCornerRadius
+        //self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant!.likeCount, negative: restaurant!.dislikeCount, neutral: restaurant!.neutralCount)
+        //self.ratingView.backgroundColor = ScoreComputer.getScoreColor(positive: restaurant!.likeCount, negative: restaurant!.dislikeCount, neutral: restaurant!.neutralCount)
+        //self.ratingView.layer.cornerRadius = ratingLabelCornerRadius
     }
     
     fileprivate func configureRankView(){

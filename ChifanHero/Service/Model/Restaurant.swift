@@ -16,19 +16,16 @@ class Restaurant: Model{
     var englishName: String?
     var picture: Picture?
     var address: String?
+    var city: String?
     var distance: Distance?
     var favoriteCount: Int?
-    var likeCount: Int?
-    var dislikeCount: Int?
-    var neutralCount: Int?
     var phone: String?
-    var hours: String?
     var hotDishes: [Dish] = []
-    var votes: Int?
-    var dishes: [String]?
     var rating: Double?
     var reviewInfo: ReviewInfo?
     var photoInfo: PhotoInfo?
+    var openNow: Bool?
+    var openTimeToday: String?
     
     required init() {
         
@@ -42,28 +39,18 @@ class Restaurant: Model{
             picture = Picture(data: data["picture"])
         }
         address = data["address"].string
+        city = data["city"].string
         if data["distance"].exists() {
             distance = Distance(data: data["distance"])
         }
         favoriteCount = data["favorite_count"].int
-        likeCount = data["like_count"].int
-        dislikeCount = data["dislike_count"].int
-        neutralCount = data["neutral_count"].int
         phone = data["phone"].string
-        hours = data["hours"].string
         if let resultsJson = data["hot_dishes"].array {
             for resultJson in resultsJson {
                 let result = Dish(data: resultJson)
                 hotDishes.append(result)
             }
         }
-        if let resultsJson = data["dishes"].array {
-            for resultJson in resultsJson {
-                let dish = resultJson.string
-                dishes?.append(dish!)
-            }
-        }
-        votes = data["votes"].int
         rating = data["rating"].double
         if data["review_info"].exists() {
             reviewInfo = ReviewInfo(data: data["review_info"])
@@ -71,5 +58,7 @@ class Restaurant: Model{
         if data["photo_info"].exists() {
             photoInfo = PhotoInfo(data: data["photo_info"])
         }
+        openNow = data["open_now"].bool
+        openTimeToday = data["open_time_today"].string
     }
 }
