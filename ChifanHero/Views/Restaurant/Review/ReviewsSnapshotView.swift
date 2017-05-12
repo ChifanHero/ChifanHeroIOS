@@ -8,54 +8,40 @@
 
 import UIKit
 
-@IBDesignable class ReviewsSnapshotView: UIView, UITableViewDelegate, UITableViewDataSource{
+class ReviewsSnapshotView: UIView, UITableViewDelegate, UITableViewDataSource {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    var view: UIView = UIView()
+    var reviewsTableView: UITableView = UITableView()
     
-    fileprivate var view : UIView!
-    fileprivate var nibName : String = "ReviewsSnapshotView"
-    
-    var parentViewController : RestaurantMainTableViewController?
+    var parentViewController: RestaurantMainTableViewController?
     
     var reviews: [Review]?
     
-    @IBOutlet weak var reviewsTableView: UITableView!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        Setup() // Setup when this component is used from Storyboard
+        Setup() // Setup when this component is used from Code
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        Setup() // Setup when this component is used from Code
+        Setup() // Setup when this component is used from Storyboard
     }
     
-    fileprivate var newReviewCellHeight: CGFloat = 120
-    fileprivate var reviewCellHeight: CGFloat = 166
-    fileprivate var spaceBetweenSections: CGFloat = 10
+    private var newReviewCellHeight: CGFloat = 120
+    private var reviewCellHeight: CGFloat = 166
+    private var spaceBetweenSections: CGFloat = 10
     
-    fileprivate func Setup(){
-        view = LoadViewFromNib()
-        addSubview(view)
-        view.frame = bounds
+    private func Setup(){
+        view.frame = self.bounds
         view.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
+        self.addSubview(view)
+        reviewsTableView.frame = self.bounds
         reviewsTableView.delegate = self
         reviewsTableView.dataSource = self
         reviewsTableView.isScrollEnabled = false
-    }
-    
-    fileprivate func LoadViewFromNib() -> UIView {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: nibName, bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
-        return view
+        self.view.addSubview(reviewsTableView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,14 +93,13 @@ import UIKit
     // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            var cell: EditableReviewTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "editableReviewCell") as? EditableReviewTableViewCell
+            var cell: RatingStarTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "ratingStarCell") as? RatingStarTableViewCell
             if cell == nil {
-                tableView.register(UINib(nibName: "EditableReviewCell", bundle: nil), forCellReuseIdentifier: "editableReviewCell")
-                cell = tableView.dequeueReusableCell(withIdentifier: "editableReviewCell") as? EditableReviewTableViewCell
+                tableView.register(UINib(nibName: "RatingStarCell", bundle: nil), forCellReuseIdentifier: "ratingStarCell")
+                cell = tableView.dequeueReusableCell(withIdentifier: "ratingStarCell") as? RatingStarTableViewCell
             }
             cell?.selectionStyle = UITableViewCellSelectionStyle.none
-            cell?.addDetailReviewButton.addTarget(self, action: #selector(ReviewsSnapshotView.writeNewReview), for: UIControlEvents.touchUpInside)
-            cell?.parentViewController = self.parentViewController
+            cell?.delegate = parentViewController as! RatingStarCellDelegate
             return cell!
         } else {
             let review: Review = reviews![indexPath.row]
@@ -174,6 +159,13 @@ import UIKit
         } else {
             return newReviewCellHeight + spaceBetweenSections + reviewCellHeight * CGFloat(reviews!.count)
         }
+    }
+    
+    func resetRatingStar() {
+        if let cell = reviewsTableView.dequeueReusableCell(withIdentifier: "ratingStarCell") as? RatingStarTableViewCell {
+            cell.reset()
+        }
+        self.reviewsTableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
     }
 
 }

@@ -9,85 +9,73 @@
 import UIKit
 import SKPhotoBrowser
 
-let reviewManager = PostReviewManager()
-class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, UIGestureRecognizerDelegate {
+class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImagePickerDelegate, UIGestureRecognizerDelegate, NewReviewRatingSectionDelegate {
     
-    @IBOutlet weak var rate1Button: RateButton!
-    
-    @IBOutlet weak var rate2Button: RateButton!
-    
-    @IBOutlet weak var rate3Button: RateButton!
-    
-    @IBOutlet weak var rate4Button: RateButton!
-    
-    @IBOutlet weak var rate5Button: RateButton!
+    @IBOutlet weak var reviewTextView: UITextView!
     
     @IBOutlet weak var imagePoolView: UICollectionView!
     
     @IBOutlet weak var bottomDistanceConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var ratingRootView: UIView!
+    
     var restaurantId: String?
     
-    var rating = 0
-    
-    @IBOutlet weak var reviewTextView: UITextView!
-//    var imagePool: [Picture] = []
+    var rating: Int = 0
     
     var images: [UIImage] = []
 
+    let reviewManager = PostReviewManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.view.layoutIfNeeded()
-        addCancelButton()
-        addDoneButton()
-        roundRateButtons()
-        observeKeyboard()
-//        self.imagePoolView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "removablePhotoCell")
-        
-        imagePoolView.register(UINib(nibName: "RemovablePhotoCell", bundle: nil), forCellWithReuseIdentifier: "removablePhotoCell")
-        // Do any additional setup after loading the view.
+        self.addCancelButton()
+        self.addDoneButton()
+        self.observeKeyboard()
+        self.imagePoolView.register(UINib(nibName: "RemovablePhotoCell", bundle: nil), forCellWithReuseIdentifier: "removablePhotoCell")
+        self.configureRatingSection()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.reviewTextView.becomeFirstResponder()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    private func configureRatingSection() {
+        let ratingView = UINib(
+            nibName: "NewReviewRatingSectionView",
+            bundle: nil
+            ).instantiate(withOwner: nil, options: nil).first as! NewReviewRatingSectionView
+        
+        ratingView.frame = CGRect(x: 0, y: 0, width: ratingRootView.frame.width, height: ratingRootView.frame.height)
+        ratingView.delegate = self
+        ratingView.loadUserRating()
+        self.ratingRootView.addSubview(ratingView)
     }
     
     func addCancelButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
-        button.addTarget(self, action: #selector(NewReviewViewController.cancel(_:)), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(cancel), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
     func addDoneButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("提交", size: CGRect(x: 0, y: 0, width: 80, height: 26))
-        button.addTarget(self, action: #selector(NewReviewViewController.submit(_:)), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(submit), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = cancelButton
     }
     
-    func roundRateButtons() {
-        let buttons = [rate1Button, rate2Button, rate3Button, rate4Button, rate5Button]
-        for button in buttons {
-            button?.layer.cornerRadius = 15
-        }
-    }
-    
-    @IBAction func cancel(_ sender: AnyObject) {
+    func cancel() {
         self.reviewTextView.resignFirstResponder()
         self.dismiss(animated: true, completion: nil)
     }
     
     
-    @IBAction func submit(_ sender: AnyObject) {
+    func submit() {
         if restaurantId != nil {
-            let reviewOperation = PostReviewOperation(reviewId: nil, rating: 5, content: reviewTextView.text, restaurantId: restaurantId!, retryTimes: 3) { (success, review) in
+            let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, restaurantId: restaurantId!, retryTimes: 3) { (success, review) in
                 print(success)
             }
             for image in self.images {
@@ -127,7 +115,6 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         // Configure the cell
         if indexPath.item < images.count {
             cell!.setUp(image: images[indexPath.item])
-//            cell?.showDeleteButton()
             cell?.layoutIfNeeded()
             cell!.deleteButton.layer.cornerRadius = cell!.deleteButton.frame.size.width / 2
             cell?.deleteButton.image = UIImage(named: "Cancel_Button.png")
@@ -206,12 +193,11 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     func processSelectedPhotosFromPhotoLibrary(_ assets: [DKAsset]) {
-        var images : [UIImage] = []
+        var images: [UIImage] = []
         for asset in assets {
             asset.fetchOriginalImageWithCompleteBlock({ (image, info) in
                 images.append(image!)
                 if images.count == assets.count {
-//                    self.reviewTextView.becomeFirstResponder()
                     self.displayImages(images)
                 }
             })
@@ -236,45 +222,10 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         imagePoolView.reloadData()
     }
     
-    //MARK: RateButton actions
-
-    @IBAction func rate1(_ sender: AnyObject) {
-        toggleButton(1)
+    //MARK: NewReviewRatingSectionDelegate
+    func getRating() -> Int {
+        return rating
     }
     
-    @IBAction func rate2(_ sender: AnyObject) {
-        toggleButton(2)
-    }
-    
-    @IBAction func rate3(_ sender: AnyObject) {
-        toggleButton(3)
-    }
-    
-    @IBAction func rate4(_ sender: AnyObject) {
-        toggleButton(4)
-    }
-    
-    @IBAction func rate5(_ sender: AnyObject) {
-        toggleButton(5)
-    }
-    
-    fileprivate func toggleButton(_ id : Int) {
-        let rateButtons = [rate1Button, rate2Button, rate3Button, rate4Button, rate5Button]
-        for index in 0...(rateButtons.count - 1) {
-            if index > (id - 1) {
-                rateButtons[index]?.unRate({
-                    
-                })
-            } else {
-                rateButtons[index]?.rate({
-                    
-                })
-            }
-            
-        }
-        
-    }
-
- 
 
 }

@@ -68,11 +68,11 @@ extension UIColor {
     }
     
     public class func chifanHeroBlue() -> UIColor {
-        return UIColor(red: 30/255, green: 70/255, blue: 190/255, alpha: 1.0)
+        return UIColor(red: 70/255, green: 120/255, blue: 240/255, alpha: 1.0)
     }
     
     public class func chifanHeroRed() -> UIColor {
-        return UIColor(red: 220/255, green: 15/255, blue: 15/255, alpha: 1.0)
+        return UIColor(red: 255/255, green: 40/255, blue: 40/255, alpha: 1.0)
     }
 }
 

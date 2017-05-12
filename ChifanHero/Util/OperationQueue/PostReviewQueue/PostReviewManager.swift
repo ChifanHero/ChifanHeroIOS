@@ -10,7 +10,7 @@ import Foundation
 
 class PostReviewManager {
     
-    lazy var queue : OperationQueue = {
+    lazy var queue: OperationQueue = {
         var queue = OperationQueue()
         queue.name = "Post Review"
         queue.maxConcurrentOperationCount = 5

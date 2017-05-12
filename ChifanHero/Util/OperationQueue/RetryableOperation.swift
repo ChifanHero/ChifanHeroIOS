@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AsynchronousOperation: Operation {
+class RetryableOperation: Operation {
     
     // MARK: - Types
     

@@ -8,30 +8,29 @@
 
 import Foundation
 
-class PostReviewOperation: AsynchronousOperation {
+class PostReviewOperation: RetryableOperation {
     
-    fileprivate var success = false
+    private var success = false
     
-    fileprivate var rating: Int = 0
+    private var rating: Int = 0
     
-    fileprivate var content: String?
+    private var content: String?
     
-    fileprivate var retryTimes = 0
+    private var retryTimes = 0
     
-    fileprivate var savedReview: Review?
+    private var savedReview: Review?
     
-    fileprivate var reviewId: String?
+    private var reviewId: String?
     
-    fileprivate var restaurantId = ""
+    private var restaurantId = ""
     
-    fileprivate var photos: [String]?
+    private var photos: [String]?
     
-    init(reviewId: String?, rating: Int, content: String?, restaurantId: String,retryTimes: Int, completion: @escaping (Bool, Review?) -> Void) {
+    init(rating: Int, content: String?, restaurantId: String, retryTimes: Int, completion: @escaping (Bool, Review?) -> Void) {
         super.init()
         self.rating = rating
         self.content = content
         self.restaurantId = restaurantId
-        self.reviewId = reviewId
         self.retryTimes = retryTimes
         self.completionBlock = {
             if self.isCancelled {
@@ -54,9 +53,8 @@ class PostReviewOperation: AsynchronousOperation {
         review()
     }
     
-    fileprivate func review() {
+    private func review() {
         let request: ReviewRequest = ReviewRequest()
-        request.id = reviewId
         request.content = content
         request.rating = rating
         request.restaurantId = restaurantId
