@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="cux-ZL-abc" customClass="NewReviewRatingSectionView" customModule="吃饭英雄" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="345" height="114"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="y6P-L1-vJt">
+                    <rect key="frame" x="63" y="37" width="220" height="40"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uwF-D6-NFv">
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="MdB-mt-9SV"/>
+                                <constraint firstAttribute="height" constant="40" id="vmG-Bs-IDH"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UAp-fi-w2I">
+                            <rect key="frame" x="45" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="ZId-oB-nP0"/>
+                                <constraint firstAttribute="width" constant="40" id="bpy-KP-RnT"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ANa-93-Ugw">
+                            <rect key="frame" x="90" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="ZZS-yL-H8O"/>
+                                <constraint firstAttribute="height" constant="40" id="rLa-4o-cst"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L2N-ru-P5U">
+                            <rect key="frame" x="135" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="PUr-hF-xvu"/>
+                                <constraint firstAttribute="width" constant="40" id="ZSK-1Z-Tan"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4pG-KC-soA">
+                            <rect key="frame" x="180" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="JmF-7q-252"/>
+                                <constraint firstAttribute="height" constant="40" id="Ypo-vL-sIe"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="y6P-L1-vJt" firstAttribute="centerY" secondItem="cux-ZL-abc" secondAttribute="centerY" id="E6J-xf-Vay"/>
+                <constraint firstItem="y6P-L1-vJt" firstAttribute="centerX" secondItem="cux-ZL-abc" secondAttribute="centerX" id="S3X-xK-3k4"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="ratingFiveImageView" destination="4pG-KC-soA" id="h5j-m1-0ra"/>
+                <outlet property="ratingFourImageView" destination="L2N-ru-P5U" id="wUf-p4-qJs"/>
+                <outlet property="ratingOneImageView" destination="uwF-D6-NFv" id="V0L-P7-r7J"/>
+                <outlet property="ratingThreeImageView" destination="ANa-93-Ugw" id="CSy-NQ-sMf"/>
+                <outlet property="ratingTwoImageView" destination="UAp-fi-w2I" id="Kmk-4S-mHt"/>
+            </connections>
+            <point key="canvasLocation" x="37.5" y="-435"/>
+        </view>
+    </objects>
+</document>

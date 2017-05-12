@@ -1,45 +1,46 @@
 PODS:
-  - Alamofire (3.5.0)
+  - Alamofire (4.4.0)
   - BTNavigationDropdownMenu (0.4.1)
   - Flurry-iOS-SDK/FlurrySDK (7.1.1)
-  - GoogleMaps/Base (2.0.1)
-  - GooglePlaces (2.0.1):
-    - GoogleMaps/Base (= 2.0.1)
-  - Kingfisher (2.6.0)
-  - SKPhotoBrowser (3.1.2)
-  - SlideMenuControllerSwift (2.3.0)
-  - SwiftyJSON (2.4.0)
+  - GoogleMaps/Base (2.2.0)
+  - GooglePlaces (2.2.0):
+    - GoogleMaps/Base (= 2.2.0)
+  - Kingfisher (3.6.2)
+  - SKPhotoBrowser (4.0.1)
+  - SlideMenuControllerSwift (3.0.1)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.5.0)
-  - BTNavigationDropdownMenu (from `https://github.com/PhamBaTho/BTNavigationDropdownMenu.git`,
-    branch `swift-2.3`)
+  - Alamofire (~> 4.4)
+  - BTNavigationDropdownMenu (from `https://github.com/PhamBaTho/BTNavigationDropdownMenu.git`, branch `swift-3.0`)
   - Flurry-iOS-SDK/FlurrySDK (~> 7.1.1)
   - GooglePlaces
-  - Kingfisher (~> 2.6.0)
-  - SKPhotoBrowser (~> 3.1.2)
-  - SlideMenuControllerSwift (~> 2.3.0)
-  - SwiftyJSON (~> 2.4.0)
+  - Kingfisher (~> 3.6.2)
+  - SKPhotoBrowser (~> 4.0.1)
+  - SlideMenuControllerSwift
+  - SwiftyJSON
 
 EXTERNAL SOURCES:
   BTNavigationDropdownMenu:
-    :branch: swift-2.3
+    :branch: swift-3.0
     :git: https://github.com/PhamBaTho/BTNavigationDropdownMenu.git
 
 CHECKOUT OPTIONS:
   BTNavigationDropdownMenu:
-    :commit: 2ecebf6adb4f8b473529275c6249af3e753cf33f
+    :commit: 2c08c8579cf7a53ecb3dbf578e6e1034080a9859
     :git: https://github.com/PhamBaTho/BTNavigationDropdownMenu.git
 
 SPEC CHECKSUMS:
-  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   BTNavigationDropdownMenu: 093f3cbfad1572f2c222bdf8d17584d1e13380d4
   Flurry-iOS-SDK: 83fd4f40ae66e80d122fd2f6698f0e0c31021a63
-  GoogleMaps: f09da64fc987c1aa29394567c3cab5a3df83c402
-  GooglePlaces: 72fab1d1651c6df0322f2aad245ffb15b80d3c56
-  Kingfisher: d84c5fd176ea86cc7b8aac65fd55feda6f70f130
-  SKPhotoBrowser: e942c03c3206b5cf229fd4ce56b872bce800124a
-  SlideMenuControllerSwift: 09ef91aa30464e7e517bce2f2ecc6e323e3fe866
-  SwiftyJSON: 96918c1bf505efa50c4f72957018dd3452090c9c
+  GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
+  GooglePlaces: bca867d5e9da15384c794b945e4226848bc6e9d9
+  Kingfisher: 2c94e72c6830622c71d06adf4ea024c37d316830
+  SKPhotoBrowser: 3a7c6fc02aa1620ab17253a47a49fafda46536e8
+  SlideMenuControllerSwift: 9a163b16d54afab734add42858cba7ef7c307755
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 91b0739c5584f51572f1358d5ebcecff6868096a
+
+COCOAPODS: 1.2.1

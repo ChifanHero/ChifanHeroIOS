@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cityCell" id="9MJ-VQ-8jD" customClass="CityTableViewCell" customModule="吃饭英雄" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="397" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9MJ-VQ-8jD" id="yhD-Ib-YhC">
+                <rect key="frame" x="0.0" y="0.0" width="397" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSq-wm-pgJ">
+                        <rect key="frame" x="18" y="11" width="361" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="kSq-wm-pgJ" firstAttribute="centerY" secondItem="yhD-Ib-YhC" secondAttribute="centerY" id="5Xp-8b-NAe"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="kSq-wm-pgJ" secondAttribute="trailing" constant="10" id="6BE-wC-Ayl"/>
+                    <constraint firstItem="kSq-wm-pgJ" firstAttribute="leading" secondItem="yhD-Ib-YhC" secondAttribute="leadingMargin" constant="10" id="bTn-5h-uoA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="cityNameLabel" destination="kSq-wm-pgJ" id="Iru-XJ-5MI"/>
+            </connections>
+            <point key="canvasLocation" x="372.5" y="364"/>
+        </tableViewCell>
+    </objects>
+</document>
