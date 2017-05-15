@@ -94,13 +94,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as? ReviewSnapshotTableViewCell
         }
         let review = reviews[indexPath.row]
-        if review.user?.nickName == nil {
-            cell?.userName = "匿名用户"
-        } else {
-            cell?.userName = review.user?.nickName
-        }
-        cell?.time = review.lastUpdateTime
-        cell?.review = review.content
+        cell?.review = review
         return cell!
     }
     

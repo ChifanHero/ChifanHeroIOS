@@ -251,10 +251,8 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         let storyboard = UIStoryboard(name: "Restaurant", bundle: nil)
         let restaurantController = storyboard.instantiateViewController(withIdentifier: "RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
-        restaurantController.restaurantName = self.selectedRestaurantName
         restaurantController.restaurantId = id
         restaurantController.parentVCName = self.getId()
-        restaurantController.isFromGoogleSearch = false
         self.navigationController?.pushViewController(restaurantController, animated: true)
     }
     
@@ -263,7 +261,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
             let controller: RestaurantMainTableViewController = segue.destination as! RestaurantMainTableViewController
             controller.restaurantId = sender as? String
             controller.restaurantImage = self.selectedImageView?.image
-            controller.restaurantName = self.selectedRestaurantName
         } else if segue.identifier == "showNomination" {
             let controller: RestaurantNominationViewController = segue.destination as! RestaurantNominationViewController
             controller.selectedCollection = sender as? SelectedCollection

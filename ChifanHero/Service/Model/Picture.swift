@@ -16,7 +16,7 @@ class Picture: Model {
     var original: String?
     var type: String?
     var restaurant: Restaurant?
-    var description: String?
+    var review: Review?
     
     required init() {
         
@@ -30,7 +30,9 @@ class Picture: Model {
         if data["restaurant"].exists() {
             restaurant = Restaurant(data: data["restaurant"])
         }
-        description = data["description"].string
+        if data["review"].exists() {
+            review = Review(data: data["review"])
+        }
     }
     
 }

@@ -11,15 +11,12 @@ import SwiftyJSON
 
 class Review: Model{
     
-    var id: String?
+    var id: String!
+    var rating: Int!
     var content: String?
-    var user: User?
     var lastUpdateTime: String?
-    var rating: String?
-    var reviewQuality: Int?
-    var goodReview: Bool?
-    var pointsRewarded: Int?
     var photos: [Picture] = []
+    var user: User?
     var restaurant: Restaurant?
     
     required init() {
@@ -32,10 +29,7 @@ class Review: Model{
             user = User(data: data["user"])
         }
         lastUpdateTime = data["last_update_time"].string
-        rating = data["rating"].string
-        reviewQuality = data["review_quality"].int
-        goodReview = data["good_review"].bool
-        pointsRewarded = data["points_rewarded"].int
+        rating = data["rating"].int
         if data["restaurant"].exists() {
             restaurant = Restaurant(data: data["restaurant"])
         }

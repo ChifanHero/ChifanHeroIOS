@@ -331,11 +331,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let storyboard = UIStoryboard(name: "Restaurant", bundle: nil)
         let restaurantController = storyboard.instantiateViewController(withIdentifier: "RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
-        restaurantController.restaurantName = self.selectedRestaurantName
         restaurantController.distance = self.selectedRestaurant?.distance
-        restaurantController.rating = self.selectedRestaurant?.rating
-        restaurantController.address = self.selectedRestaurant?.address
-        restaurantController.phone = self.selectedRestaurant?.phone
         restaurantController.restaurantId = self.selectedRestaurantId
         restaurantController.currentLocation = self.lastUsedLocation
         restaurantController.parentVCName = self.getId()

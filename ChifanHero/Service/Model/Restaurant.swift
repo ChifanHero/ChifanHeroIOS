@@ -22,6 +22,7 @@ class Restaurant: Model{
     var phone: String?
     var hotDishes: [Dish] = []
     var rating: Double?
+    var ratingCount: Double?
     var reviewInfo: ReviewInfo?
     var photoInfo: PhotoInfo?
     var openNow: Bool?
@@ -52,6 +53,7 @@ class Restaurant: Model{
             }
         }
         rating = data["rating"].double
+        ratingCount = data["rating_count"].double
         if data["review_info"].exists() {
             reviewInfo = ReviewInfo(data: data["review_info"])
         }

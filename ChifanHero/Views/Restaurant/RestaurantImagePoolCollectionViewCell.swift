@@ -7,15 +7,19 @@
 //
 
 import UIKit
-import Kingfisher
 
 class RestaurantImagePoolCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var imageView: UIImageView!
+    var imageView: UIImageView!
     
-    fileprivate func configureCell(){
-        self.imageView.contentMode = .scaleAspectFill
-        self.imageView.clipsToBounds = true
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.contentView.frame.width, height: self.contentView.frame.height))
+        self.contentView.addSubview(imageView)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     func setUp(image: UIImage) {
@@ -23,8 +27,9 @@ class RestaurantImagePoolCollectionViewCell: UICollectionViewCell {
         imageView.image = image
     }
     
-    func setUpAddingImageCell(){
-        imageView.image = UIImage(named: "CameraAdd")
+    private func configureCell(){
+        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.clipsToBounds = true
     }
     
 }

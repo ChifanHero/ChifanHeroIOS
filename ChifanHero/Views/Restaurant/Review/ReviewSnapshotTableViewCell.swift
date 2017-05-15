@@ -12,34 +12,39 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
     
     @IBOutlet weak var profileImageButton: UIButton!
     
-    @IBOutlet weak var ratingLabel: UILabel!
-    
     @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var levelNameLabel: UILabel!
     
     @IBOutlet weak var reviewTextView: UITextView!
     @IBOutlet weak var timeLabel: UILabel!
     
-    var userName : String? {
-        didSet {
-            nameLabel.text = userName
-        }
-    }
+    @IBOutlet weak var ratingOneImageView: UIImageView!
+    @IBOutlet weak var ratingTwoImageView: UIImageView!
+    @IBOutlet weak var ratingThreeImageView: UIImageView!
+    @IBOutlet weak var ratingFourImageView: UIImageView!
+    @IBOutlet weak var ratingFiveImageView: UIImageView!
     
-    var review : String? {
+    var review: Review! {
         didSet {
-            reviewTextView.text = review
-        }
-    }
-    
-    let dateFormatter: DateFormatter = DateFormatter()
-    
-    var time: String? {
-        didSet {
-            if time != nil {
+            self.reviewTextView.text = review.content
+            switch self.review.rating {
+            case 1:
+                self.ratingOne()
+            case 2:
+                self.ratingTwo()
+            case 3:
+                self.ratingThree()
+            case 4:
+                self.ratingFour()
+            case 5:
+                self.ratingFive()
+            default:
+                self.reset()
+            }
+            self.nameLabel.text = self.review.user?.nickName ?? "匿名用户"
+            
+            if let time = review.lastUpdateTime {
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-                let date: Date? = dateFormatter.date(from: time!)
+                let date: Date? = dateFormatter.date(from: time)
                 if date != nil {
                     let calender: Calendar = Calendar.current
                     let components = calender.dateComponents(in: TimeZone.autoupdatingCurrent, from: date!)
@@ -67,25 +72,43 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
                 }
                 
             }
-            
         }
     }
     
-
+    let dateFormatter: DateFormatter = DateFormatter()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        self.layoutIfNeeded()
-        //profileImageView.layer.cornerRadius = 4
-        ratingLabel.layer.cornerRadius = ratingLabel.frame.size.width / 2
+        self.setUp()
+    }
+    
+    private func setUp() {
         profileImageButton.imageView?.contentMode = UIViewContentMode.scaleAspectFill
         profileImageButton.layer.cornerRadius = 2
         profileImageButton.clipsToBounds = true
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func reset() {
+        RatingStarUtil.noRating(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    func ratingOne() {
+        RatingStarUtil.ratingOne(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    func ratingTwo() {
+        RatingStarUtil.ratingTwo(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    func ratingThree() {
+        RatingStarUtil.ratingThree(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    func ratingFour() {
+        RatingStarUtil.ratingFour(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    func ratingFive() {
+        RatingStarUtil.ratingFive(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
     }
 }

@@ -41,14 +41,6 @@ class PostReviewOperation: RetryableOperation {
         }
     }
     
-    func addPhotoId(_ id: String) {
-        if photos == nil {
-            photos = [String]()
-        }
-        photos?.append(id)
-        print("adding \(id)")
-    }
-    
     override func main() {
         review()
     }

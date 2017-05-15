@@ -382,13 +382,8 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         let storyboard = UIStoryboard(name: "Restaurant", bundle: nil)
         let restaurantController = storyboard.instantiateViewController(withIdentifier: "RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
-        restaurantController.restaurantName = self.selectedRestaurantName
         restaurantController.restaurantId = self.selectedRestaurantId
         restaurantController.parentVCName = self.getId()
-        restaurantController.isFromGoogleSearch = isFromGoogleSearch
-        if isFromGoogleSearch {
-            restaurantController.restaurantFromGoogle = restaurant
-        }
         self.navigationController?.pushViewController(restaurantController, animated: true)
     }
     
