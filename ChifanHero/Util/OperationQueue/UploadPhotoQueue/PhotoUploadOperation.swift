@@ -14,13 +14,19 @@ class PhotoUploadOperation: RetryableOperation {
     
     private var photo: UIImage?
     
+    private var restaurantId: String?
+    
+    private var reviewId: String?
+    
     private var retryTimes = 0
     
     private var uploaded: Picture?
     
-    init(photo: UIImage, retryTimes: Int, completion: @escaping (Bool, Picture?) -> Void) {
+    init(photo: UIImage, restaurantId: String, reviewId: String, retryTimes: Int, completion: @escaping (Bool, Picture?) -> Void) {
         super.init()
         self.photo = photo
+        self.restaurantId = restaurantId
+        self.reviewId = reviewId
         self.retryTimes = retryTimes
         self.completionBlock = {
             if self.isCancelled {
@@ -44,6 +50,9 @@ class PhotoUploadOperation: RetryableOperation {
         }
         let base64_code: String = (imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters))!
         let request: UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
+        request.restaurantId = self.restaurantId
+        request.reviewId = self.reviewId
+        
         DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
             if self.isCancelled { // isCancelled == true and isFinished == true
                 self.state = .finished

@@ -251,7 +251,6 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
             let restaurantController : RestaurantMainTableViewController = segue.destination as! RestaurantMainTableViewController
             restaurantController.restaurantId = sender as? String
             restaurantController.restaurantImage = self.selectedImageView?.image
-            restaurantController.restaurantName = self.selectedRestaurantName
             restaurantController.parentVCName = self.getId()
         }
     }

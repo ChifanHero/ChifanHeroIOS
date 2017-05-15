@@ -21,6 +21,8 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     var restaurantId: String?
     
+    var reviewId: String?
+    
     var rating: Int = 0
     
     var images: [UIImage] = []
@@ -77,19 +79,18 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         if restaurantId != nil {
             let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, restaurantId: restaurantId!, retryTimes: 3) { (success, review) in
                 print(success)
-            }
-            for image in self.images {
-                let uploadOperation = PhotoUploadOperation(photo: image, retryTimes: 3, completion: { (success, picture) in
-                    print(success)
-                    if success {
-                        reviewOperation.addPhotoId(picture!.id!)
+                if success {
+                    self.reviewId = review?.id
+                    for image in self.images {
+                        let uploadOperation = PhotoUploadOperation(photo: image, restaurantId: self.restaurantId!, reviewId: self.reviewId!, retryTimes: 3, completion: { (success, picture) in
+                            print(success)
+                            
+                        })
+                        self.reviewManager.queue.addOperation(uploadOperation)
                     }
-                    
-                })
-                reviewOperation.addDependency(uploadOperation)
-                reviewManager.queue.addOperation(uploadOperation)
+                }
             }
-            reviewManager.queue.addOperation(reviewOperation)
+            self.reviewManager.queue.addOperation(reviewOperation)
         }
         self.dismiss(animated: true, completion: nil)
     }
