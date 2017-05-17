@@ -278,11 +278,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     @IBAction func handleLikeButton(_ sender: AnyObject) {
         if likeButton.isSelected == false {
             self.likeCount! += 1
-            ratingAndFavoriteExecutor?.like("selected_collection", objectId: selectedCollection!.id!, failureHandler: { (objectId) -> Void in
-                if self.selectedCollection?.likeCount != nil {
-                    self.selectedCollection?.likeCount! -= 1
-                }
-            })
             self.likeButton.isEnabled = false
         }
     }

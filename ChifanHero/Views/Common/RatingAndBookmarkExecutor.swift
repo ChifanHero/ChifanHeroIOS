@@ -19,41 +19,6 @@ class RatingAndBookmarkExecutor {
         self.baseViewController = baseVC
     }
     
-    
-    func like(_ type: String, objectId: String, failureHandler: ((String) -> Void)?){
-        rate(type, action: "like", objectId: objectId, failureHandler: failureHandler)
-    }
-    
-    func dislike(_ type: String, objectId: String, failureHandler: ((String) -> Void)?){
-        rate(type, action: "dislike", objectId: objectId, failureHandler: failureHandler)
-    }
-    
-    func neutral(_ type: String, objectId: String, failureHandler: ((String) -> Void)?){
-        rate(type, action: "neutral", objectId: objectId, failureHandler: failureHandler)
-    }
-    
-    fileprivate func rate(_ type: String, action: String, objectId: String, failureHandler: ((String) -> Void)?){
-        let request: RateRequest = RateRequest()
-        request.action = action
-        request.type = type
-        request.objectId = objectId
-        let defaults = UserDefaults.standard
-        let now : Int = Int(Date().timeIntervalSince1970 * 1000)
-        defaults.set(now, forKey: objectId)
-        
-        DataAccessor(serviceConfiguration: ParseConfiguration()).rate(request) { (response) -> Void in
-            OperationQueue.main.addOperation({ () -> Void in
-                
-                if response == nil || response?.error != nil{
-                    if failureHandler != nil {
-                        failureHandler!(objectId)
-                    }
-                }
-                
-            });
-        }
-    }
-    
     func addToFavorites(_ type: String, objectId: String, failureHandler: ((String) -> Void)?){
         let request: AddToFavoritesRequest = AddToFavoritesRequest()
         request.type = type

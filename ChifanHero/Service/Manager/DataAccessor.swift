@@ -136,11 +136,7 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getUserActivities(_ request: GetUserActivitiesRequest, responseHandler : @escaping (GetUserActivitiesResponse?) -> Void) {
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
-    }
-    
-    func getReviews(_ request: GetReviewsRequest, responseHandler: @escaping (GetReviewsResponse?) -> Void) {
+    func getReviews(_ request: GetAllReviewsOfOneRestaurantRequest, responseHandler: @escaping (GetAllReviewsOfOneRestaurantResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
@@ -163,15 +159,6 @@ class DataAccessor {
     }
     
     func uploadRestaurantPicture(_ request: UploadRestaurantPictureRequest, responseHandler: @escaping (UploadRestaurantPictureResponse?) -> Void) {
-        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
-    }
-    
-    func rate(_ request: RateRequest, responseHandler: @escaping (RateResponse?) -> Void) {
-        let defaults = UserDefaults.standard
-        if defaults.string(forKey: "sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
-        }
-        
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
@@ -201,12 +188,6 @@ class DataAccessor {
     }
     
     func searchRestaurants(_ request: RestaurantSearchV2Request, responseHandler : @escaping (RestaurantSearchResponse?) -> Void) {
-        
-        request.addHeader(key: "Accept-Language", value: "zh-CN")
-        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
-    }
-    
-    func searchDishes(_ request: DishSearchRequest, responseHandler : @escaping (DishSearchResponse?) -> Void) {
         
         request.addHeader(key: "Accept-Language", value: "zh-CN")
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
