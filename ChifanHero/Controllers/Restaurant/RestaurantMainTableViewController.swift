@@ -11,7 +11,7 @@ import MapKit
 import Kingfisher
 import SKPhotoBrowser
 
-class RestaurantMainTableViewController: UITableViewController, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, SKPhotoBrowserDelegate, RatingStarCellDelegate, RestaurantInfoSectionDelegate, RestaurantPhotoSectionDelegate{
+class RestaurantMainTableViewController: UITableViewController, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, SKPhotoBrowserDelegate, RatingStarCellDelegate, RestaurantInfoSectionDelegate, RestaurantPhotoSectionDelegate, RestaurantRecommendedDishDelegate {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     
@@ -20,20 +20,18 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     @IBOutlet weak var infoSectionRootView: UIView!
     @IBOutlet weak var photoSectionRootView: UIView!
     @IBOutlet weak var reviewSectionRootView: UIView!
-    
-    @IBOutlet weak var recommendationDishLabel: UILabel!
+    @IBOutlet weak var recommendedDishSectionRootView: UIView!
     
     var infoSectionView: RestaurantInfoSectionView!
     var photoSectionView: RestaurantPhotoSectionView!
     var reviewSectionView: RestaurantReviewSectionView!
+    var recommendedDishSectionView: RestaurantRecommendedDishSectionView!
     
     @IBAction func showAllReviews(_ sender: AnyObject) {
         performSegue(withIdentifier: "showReviews", sender: nil)
     }
     
-    @IBAction func showAllRecommendations(_ sender: AnyObject) {
-        performSegue(withIdentifier: "showRecommendations", sender: nil)
-    }
+    
     
     var localSearchResponse: MKLocalSearchResponse!
     
@@ -51,9 +49,11 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     var restaurant: Restaurant? {
         didSet {
+            self.scoreLabel.text = String(format:"%.1f", self.restaurant?.rating ?? 0)
             self.infoSectionView.restaurant = self.restaurant
             self.reviewSectionView.reviews = self.restaurant?.reviewInfo?.reviews
             self.loadImagePool(self.restaurant!.photoInfo!.photos)
+            self.recommendedDishSectionView.recommendedDishes = self.restaurant?.recommendedDishes
         }
     }
     
@@ -73,7 +73,6 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     var restaurantImage: UIImage?
     var distance: Distance?
-    var hotDishes: [Dish] = []
     
     var currentLocation: Location?
     
@@ -103,6 +102,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         self.configureInfoSectionView()
         self.configurePhotoSectionView()
         self.configureReviewSectionView()
+        self.configureRecommendedDishSectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -142,6 +142,18 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         //reviewSectionView.delegate = self
         self.reviewSectionView.parentViewController = self
         self.reviewSectionRootView.addSubview(self.reviewSectionView)
+    }
+    
+    private func configureRecommendedDishSectionView() {
+        self.recommendedDishSectionView = UINib(
+            nibName: "RestaurantRecommendedDishSectionView",
+            bundle: nil
+            ).instantiate(withOwner: nil, options: nil).first as! RestaurantRecommendedDishSectionView
+        
+        self.recommendedDishSectionView.frame = CGRect(x: 0, y: 0, width: self.recommendedDishSectionRootView.frame.width, height: self.recommendedDishSectionRootView.frame.height)
+        recommendedDishSectionView.delegate = self
+        //self.recommendedDishSectionView.parentViewController = self
+        self.recommendedDishSectionRootView.addSubview(self.recommendedDishSectionView)
     }
     
     private func configLabels() {
@@ -224,6 +236,22 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         
     }
     
+    // MARK: TableView
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 260
+        } else if indexPath.section == 1 {
+            return 180
+        } else if indexPath.section == 2 {
+            return 160 + CGFloat(self.restaurant?.reviewInfo?.reviews.count ?? 0) * 160
+        } else if indexPath.section == 3 {
+            return 120
+        } else {
+            return 0
+        }
+    }
+    
     // MARK: Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -243,6 +271,9 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         } else if segue.identifier == "showReviews" {
             let reviewsVC: ReviewsViewController = segue.destination as! ReviewsViewController
             reviewsVC.restaurantId = self.restaurantId
+        } else if segue.identifier == "showAllRecommendedDishes" {
+            let recommendedDishVC: RecommendedDishViewController = segue.destination as! RecommendedDishViewController
+            recommendedDishVC.recommendedDishes = self.restaurant?.recommendedDishes
         }
     }
     
@@ -278,17 +309,6 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
                                         backgroundImage = UIImage(named: "restaurant_default_background")
                                     }
                                     self.backgroundImageView.image = backgroundImage
-                                }
-                                if self.restaurant != nil {
-                                    self.hotDishes.removeAll()
-                                    self.hotDishes += (self.restaurant?.hotDishes)!
-                                }
-                                if self.restaurant?.hotDishes != nil && self.restaurant?.hotDishes.count != 0 {
-                                    self.recommendationDishLabel.text = ""
-                                    for index in 0..<10 {
-                                        self.recommendationDishLabel.text?.append((self.restaurant?.hotDishes[index].name)!)
-                                        self.recommendationDishLabel.text?.append("  ")
-                                    }
                                 }
                                 self.tableView.reloadData()
                             }
@@ -500,31 +520,13 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         }
     }
     
-    //MARK: ImagePickerDelegate
+    // MARK: ImagePickerDelegate
     func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]){
         
     }
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]){
         uploadImages(images)
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    
-    
-    
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 260
-        } else if indexPath.section == 1 {
-            return 180
-        } else if indexPath.section == 2 {
-            return 160 + CGFloat(self.restaurant?.reviewInfo?.reviews.count ?? 0) * 160
-        } else if indexPath.section == 3 {
-            return 120
-        } else {
-            return 0
-        }
     }
     
     func cancelButtonDidPress(_ imagePicker: ImagePickerController){
@@ -673,4 +675,11 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         browser.initializePageIndex(pageIndex)
         present(browser, animated: true, completion: {})
     }
+    
+    // MARK: RestaurantRecommendedDishDelegate
+    
+    func showAllRecommendedDishes() {
+        performSegue(withIdentifier: "showAllRecommendedDishes", sender: nil)
+    }
+    
 }

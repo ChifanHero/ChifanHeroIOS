@@ -17,9 +17,6 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var reviews: [Review] = []
     
     var restaurantId: String?
-    
-    fileprivate static var SORT_LATEST = "latest"
-    fileprivate static var SORT_QUALITY = "quality"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +27,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
         // Do any additional setup after loading the view.
-        loadData(50, skip: 0, sort: ReviewsViewController.SORT_QUALITY)
+        loadData(50, skip: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,19 +44,18 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
 //            menuView
 //            self.selectedCellLabel.text = "排序: \(items[indexPath])"
             if indexPath == 0 {
-                self!.loadData(50, skip: 0, sort: ReviewsViewController.SORT_LATEST)
+                self!.loadData(50, skip: 0)
             } else {
                 
-                self!.loadData(50, skip: 0, sort: ReviewsViewController.SORT_QUALITY)
+                self!.loadData(50, skip: 0)
             }
         }
     }
     
-    fileprivate func loadData(_ limit: Int, skip: Int, sort: String) {
-        let getReviewsRequest: GetReviewsRequest = GetReviewsRequest()
+    fileprivate func loadData(_ limit: Int, skip: Int) {
+        let getReviewsRequest: GetAllReviewsOfOneRestaurantRequest = GetAllReviewsOfOneRestaurantRequest()
         getReviewsRequest.limit = limit
         getReviewsRequest.skip = skip
-        getReviewsRequest.sort = sort
         getReviewsRequest.restaurantId = self.restaurantId
         DataAccessor(serviceConfiguration: ParseConfiguration()).getReviews(getReviewsRequest) { (response) in
             if response != nil && response?.error == nil {

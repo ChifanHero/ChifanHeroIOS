@@ -83,21 +83,6 @@ class UserActivityTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         }
     }
     
-    func setUp(_ userActivity: UserActivity){
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = dateFormatter.date(from: (userActivity.lastUpdateTime! as NSString).substring(to: 10))
-        let calendar = Calendar.current
-        let components = (calendar as NSCalendar).components([.day , .month , .year], from: date!)
-        
-        //let year =  components.year
-        let month = components.month
-        let day = components.day
-        
-        self.dateLabel.text = String(describing: month) + "月" + String(describing: day) + "日"
-        self.commentLabel.text = userActivity.review?.content
-    }
-    
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections

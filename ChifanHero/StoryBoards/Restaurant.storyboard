@@ -111,10 +111,10 @@
             </objects>
             <point key="canvasLocation" x="4754" y="42"/>
         </scene>
-        <!--Create Recommendation View Controller-->
+        <!--Recommended Dish Nomination View Controller-->
         <scene sceneID="igo-Ow-YE8">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="RiF-4B-fHP" customClass="CreateRecommendationViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="RiF-4B-fHP" customClass="RecommendedDishNominationViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cbA-3U-DyL"/>
                         <viewControllerLayoutGuide type="bottom" id="QWc-IW-6Gc"/>
@@ -169,10 +169,10 @@
             </objects>
             <point key="canvasLocation" x="-39.200000000000003" y="27.436281859070466"/>
         </scene>
-        <!--Recommendations View Controller-->
+        <!--Recommended Dish View Controller-->
         <scene sceneID="wyW-Dv-iqf">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="RQa-WZ-By4" customClass="RecommendationsViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="RQa-WZ-By4" customClass="RecommendedDishViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gOp-WR-Ksm"/>
                         <viewControllerLayoutGuide type="bottom" id="jfa-dS-P8L"/>
@@ -200,8 +200,8 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
-                        <segue destination="5yJ-c3-0IA" kind="presentation" identifier="createRecommendation" id="P8u-do-sbK"/>
-                        <segue destination="qwV-k9-jtc" kind="show" id="Qmn-fN-oV7"/>
+                        <outlet property="recommendedDishTableView" destination="0Yb-ab-h9R" id="Kf1-Bq-wDX"/>
+                        <segue destination="5yJ-c3-0IA" kind="presentation" identifier="nominateRecommendedDish" id="P8u-do-sbK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQc-hy-7c7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -293,68 +293,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9jg-mF-9rG" id="WF2-mT-m6t">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Myj-eQ-A8A" userLabel="Dish Container View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="119"/>
-                                                    <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exj-Pt-3yO" userLabel="Dish Header View">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="推荐菜" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKh-dG-Im9">
-                                                                    <rect key="frame" x="25" y="10" width="43" height="17"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e09-mg-VSQ">
-                                                                    <rect key="frame" x="256" y="10" width="109" height="29"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <state key="normal" title="查看所有推荐菜&gt;">
-                                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    </state>
-                                                                    <connections>
-                                                                        <action selector="showAllRecommendations:" destination="Zjm-a4-imU" eventType="touchUpInside" id="LHs-O5-0gr"/>
-                                                                    </connections>
-                                                                </button>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="CH6-R9-fbV"/>
-                                                                <constraint firstItem="e09-mg-VSQ" firstAttribute="top" secondItem="Exj-Pt-3yO" secondAttribute="top" constant="10" id="FhU-Df-ZoV"/>
-                                                                <constraint firstItem="vKh-dG-Im9" firstAttribute="leading" secondItem="Exj-Pt-3yO" secondAttribute="leading" constant="25" id="XhK-8m-XmT"/>
-                                                                <constraint firstAttribute="trailing" secondItem="e09-mg-VSQ" secondAttribute="trailing" constant="10" id="a7Z-Oq-gLb"/>
-                                                                <constraint firstItem="vKh-dG-Im9" firstAttribute="top" secondItem="Exj-Pt-3yO" secondAttribute="top" constant="10" id="uJX-W5-yJC"/>
-                                                            </constraints>
-                                                        </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="即将推出，敬请期待" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="box-WR-ISH" userLabel="Recommendation Dish Label">
-                                                            <rect key="frame" x="25" y="40" width="340" height="79"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="box-WR-ISH" secondAttribute="bottom" id="N9c-dm-U14"/>
-                                                        <constraint firstItem="box-WR-ISH" firstAttribute="top" secondItem="Exj-Pt-3yO" secondAttribute="bottom" id="Rhj-9w-AfS"/>
-                                                        <constraint firstItem="Exj-Pt-3yO" firstAttribute="leading" secondItem="Myj-eQ-A8A" secondAttribute="leading" id="SWB-io-zgP"/>
-                                                        <constraint firstAttribute="trailing" secondItem="box-WR-ISH" secondAttribute="trailing" constant="10" id="TPL-av-8Om"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Exj-Pt-3yO" secondAttribute="trailing" id="dNf-kR-DC5"/>
-                                                        <constraint firstItem="box-WR-ISH" firstAttribute="leading" secondItem="Myj-eQ-A8A" secondAttribute="leading" constant="25" id="dRs-Kt-QCQ"/>
-                                                        <constraint firstItem="box-WR-ISH" firstAttribute="top" secondItem="Myj-eQ-A8A" secondAttribute="top" id="rRm-pN-m9e"/>
-                                                        <constraint firstItem="Exj-Pt-3yO" firstAttribute="top" secondItem="Myj-eQ-A8A" secondAttribute="top" id="u3H-fo-mZc"/>
-                                                    </constraints>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="rRm-pN-m9e"/>
-                                                        </mask>
-                                                    </variation>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="Myj-eQ-A8A" secondAttribute="trailing" id="5I7-hs-gwe"/>
-                                                <constraint firstAttribute="bottom" secondItem="Myj-eQ-A8A" secondAttribute="bottom" id="MyJ-s2-iee"/>
-                                                <constraint firstItem="Myj-eQ-A8A" firstAttribute="leading" secondItem="WF2-mT-m6t" secondAttribute="leading" id="SI7-DE-5VJ"/>
-                                                <constraint firstItem="Myj-eQ-A8A" firstAttribute="top" secondItem="WF2-mT-m6t" secondAttribute="top" id="zSU-9i-DHx"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -371,14 +309,14 @@
                         <outlet property="backgroundImageView" destination="A1p-q1-iE5" id="uSr-la-VnH"/>
                         <outlet property="infoSectionRootView" destination="hSP-9l-Tra" id="bfO-E5-1yk"/>
                         <outlet property="photoSectionRootView" destination="gbK-O3-F5d" id="VgQ-gi-HX5"/>
-                        <outlet property="recommendationDishLabel" destination="box-WR-ISH" id="bW5-Wv-3rE"/>
+                        <outlet property="recommendedDishSectionRootView" destination="WF2-mT-m6t" id="0Db-J8-cBv"/>
                         <outlet property="reviewSectionRootView" destination="iPY-84-XrX" id="86b-cV-bzO"/>
                         <outlet property="scoreLabel" destination="qNf-Ur-Bmr" id="XtE-h6-bjd"/>
                         <segue destination="1Ka-rf-7mL" kind="presentation" identifier="writeReview" id="onk-Sc-CSm"/>
                         <segue destination="Br6-4x-Ln9" kind="show" identifier="showReviews" id="hW8-Qx-QcI"/>
                         <segue destination="qI8-U5-uuN" kind="show" identifier="showAllPhotos" id="ldj-pe-SsK"/>
                         <segue destination="t9r-R6-aeD" kind="show" identifier="showReview" id="D0I-WR-klb"/>
-                        <segue destination="RQa-WZ-By4" kind="show" identifier="showRecommendations" id="krG-lm-1Qw"/>
+                        <segue destination="RQa-WZ-By4" kind="show" identifier="showAllRecommendedDishes" id="krG-lm-1Qw"/>
                         <segue destination="gph-5I-oND" kind="show" identifier="showUserActivity" id="SaP-6K-QcZ"/>
                     </connections>
                 </tableViewController>
