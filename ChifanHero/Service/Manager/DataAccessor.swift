@@ -43,7 +43,6 @@ class DataAccessor {
             }
         case "POST":
             Alamofire.request(url, method: .post, parameters: request.getRequestBody(), encoding: JSONEncoding.default, headers: request.getHeaders()).validate().responseJSON { response in
-//                print(response)
                 var responseObject: Response?
                 
                 switch response.result {
@@ -144,10 +143,13 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
+    func getCities(_ request: GetCitiesRequest, responseHandler: @escaping (GetCitiesResponse?) -> Void) {
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
     
-    //--------------------------------------------------------------------------------------------------//
-    
-    
+    func getHotCities(_ request: GetHotCitiesRequest, responseHandler: @escaping (GetCitiesResponse?) -> Void) {
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
     
     
     
@@ -172,15 +174,6 @@ class DataAccessor {
         
     }
     
-    func removeFavorite(_ request: RemoveFavoriteRequest, responseHandler: @escaping (RemoveFavoriteResponse?) -> Void) {
-        let defaults = UserDefaults.standard
-        if defaults.string(forKey: "sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
-        }
-        
-        self.callApi(method: "DELETE", request: request, responseHandler: responseHandler)
-    }
-    
     func searchRestaurants(_ request: RestaurantSearchRequest, responseHandler : @escaping (RestaurantSearchResponse?) -> Void) {
         
         request.addHeader(key: "Accept-Language", value: "zh-CN")
@@ -193,23 +186,6 @@ class DataAccessor {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    func updateRestaurantInfo(_ request: UpdateRestaurantInfoRequest, responseHandler: @escaping (UpdateRestaurantInfoResponse?) -> Void) {
-        self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
-    }
-    
-    func getCities(_ request: GetCitiesRequest, responseHandler: @escaping (GetCitiesResponse?) -> Void) {
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
-    }
-    
-    func getHotCities(_ request: GetHotCitiesRequest, responseHandler: @escaping (GetCitiesResponse?) -> Void) {
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
-    }
-    
-    
-    func nominateRestaurantForCollection(_ request: NominateRestaurantRequest, responseHandler: @escaping (NominateRestaurantResponse?) -> Void){
-        self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
-    }
-    
     func review(_ request: ReviewRequest, responseHandler: @escaping (ReviewResponse?) -> Void){
         let defaults = UserDefaults.standard
         if defaults.string(forKey: "sessionToken") != nil {
@@ -217,4 +193,33 @@ class DataAccessor {
         }
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
+    
+    func addRecommendedDish(_ request: AddRecommendDishRequest, responseHandler: @escaping (AddRecommendDishResponse?) -> Void) {
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
+    }
+    
+    
+    
+    //Put----------------------------------------------------------------------------------------------//
+    func updateRestaurantInfo(_ request: UpdateRestaurantInfoRequest, responseHandler: @escaping (UpdateRestaurantInfoResponse?) -> Void) {
+        self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
+    }
+    
+    func nominateRestaurantForCollection(_ request: NominateRestaurantRequest, responseHandler: @escaping (NominateRestaurantResponse?) -> Void){
+        self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
+    }
+    
+    
+    
+    
+    //Delete-------------------------------------------------------------------------------------------//
+    func removeFavorite(_ request: RemoveFavoriteRequest, responseHandler: @escaping (RemoveFavoriteResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
+        
+        self.callApi(method: "DELETE", request: request, responseHandler: responseHandler)
+    }
+    
 }

@@ -11,6 +11,14 @@ import UIKit
 class RecommendedDishTableViewCell: UITableViewCell {
 
     var nameLabel: UILabel!
+    var countLabel: UILabel!
+    
+    var recommendedDish: RecommendedDish! {
+        didSet {
+            self.nameLabel.text = recommendedDish.name
+            self.countLabel.text = String(describing: recommendedDish.recommendationCount ?? 0) + "人推荐"
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,10 +38,19 @@ class RecommendedDishTableViewCell: UITableViewCell {
         self.nameLabel = UILabel(frame: CGRect(x: 10, y: 0, width: 100, height: self.contentView.frame.height))
         self.nameLabel.font = self.nameLabel.font.withSize(12)
         self.contentView.addSubview(self.nameLabel)
+        
+        self.countLabel = UILabel(frame: CGRect(x: self.contentView.frame.width, y: 10, width: 50, height: self.contentView.frame.height - 20))
+        self.countLabel.font = self.countLabel.font.withSize(10)
+        self.countLabel.textAlignment = .center
+        self.countLabel.textColor = UIColor.themeOrange()
+        self.countLabel.layer.borderColor = UIColor.themeOrange().cgColor
+        self.countLabel.layer.borderWidth = 1.0
+        self.countLabel.layer.cornerRadius = 4.0
+        self.contentView.addSubview(self.countLabel)
     }
     
-    func setUp(_ name: String) {
-        self.nameLabel.text = name
+    func setUp(_ dish: RecommendedDish) {
+        self.recommendedDish = dish
     }
 
 }

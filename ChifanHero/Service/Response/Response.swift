@@ -403,3 +403,17 @@ class UploadRestaurantPictureResponse: HttpResponseProtocol{
         result = Picture(data: data["result"])
     }
 }
+
+class AddRecommendDishResponse: HttpResponseProtocol {
+    var result: RecommendedDish?
+    var error: Error?
+    
+    required init() {
+        
+    }
+    
+    required init(data: JSON) {
+        result = RecommendedDish(data: data["result"])
+        error = Error(data: data["error"])
+    }
+}
