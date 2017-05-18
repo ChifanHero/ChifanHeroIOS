@@ -781,10 +781,10 @@
 			children = (
 				8E88CCADB417CB268A7ED2FC /* ReviewsViewController.swift */,
 				8E88C0E6B9370AA860FE91B3 /* RestaurantMainTableViewController.swift */,
-				8E88C902FC5634122ABEFF48 /* RecommendedDishNominationViewController.swift */,
 				8E88C837FBC7B96CAD7E3209 /* PhotosCollectionViewController.swift */,
 				8E88C0B0CCD6F516B0412D73 /* ReviewDetailTableViewController.swift */,
 				8E88CF2F38159D1F1B5CDAD6 /* RecommendedDishViewController.swift */,
+				8E88C902FC5634122ABEFF48 /* RecommendedDishNominationViewController.swift */,
 				8E88CC02C899D6A30002819B /* UserActivityTableViewController.swift */,
 				8E88C5EBFC32AB2EB937BF5E /* NewReviewViewController.swift */,
 			);

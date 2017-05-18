@@ -81,24 +81,20 @@ class OauthLoginRequest: AccountRequest {
     }
 }
 
-class RecommendDishRequest: HttpRequest{
+class AddRecommendDishRequest: HttpRequest{
 
     var restaurantId: String?
     var dishName: String?
-    var dishId: String?
-    var photos: [String] = []
 
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
         parameters["restaurant_id"] = restaurantId as AnyObject
-        parameters["dish_name"] = dishName as AnyObject
-        parameters["dish_id"] = dishId as AnyObject
-        parameters["photos"] = photos as AnyObject
+        parameters["name"] = dishName as AnyObject
         return parameters
     }
 
     override func getRelativeURL() -> String {
-        return "/dishRecommendations"
+        return "/recommendedDishes"
     }
 }
 

@@ -9,12 +9,17 @@
 import UIKit
 
 class RecommendedDishNominationViewController: UIViewController {
-
+    
+    @IBOutlet weak var recommendedDishTextField: UITextField!
+    
+    let addRecommendedDishRequest: AddRecommendDishRequest! = AddRecommendDishRequest()
+    
+    var restaurant: Restaurant!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addCancelButton()
-        addDoneButton()
-        // Do any additional setup after loading the view.
+        self.addCancelButton()
+        self.addDoneButton()
     }
     
     func addCancelButton() {
@@ -32,27 +37,59 @@ class RecommendedDishNominationViewController: UIViewController {
     }
     
     func cancel() {
-        self.dismiss(animated: true, completion: nil)
+        self.goBack()
     }
     
     func submit() {
-        self.dismiss(animated: true, completion: nil)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        if let dishName = recommendedDishTextField.text {
+            if dishName.isEmpty {
+                let appearance = SCLAlertView.SCLAppearance(
+                    showCloseButton: false
+                )
+                let alertView = SCLAlertView(appearance: appearance)
+                alertView.addButton("知道了", target:self, selector:#selector(self.doNothing))
+                alertView.showInfo("请输入菜名", subTitle: "请输入菜名全称")
+            } else {
+                addRecommendedDishRequest.restaurantId = restaurant.id
+                addRecommendedDishRequest.dishName = dishName
+                DataAccessor(serviceConfiguration: ParseConfiguration()).addRecommendedDish(addRecommendedDishRequest, responseHandler: { (response) -> Void in
+                    OperationQueue.main.addOperation({ () -> Void in
+                        let appearance = SCLAlertView.SCLAppearance(
+                            showCloseButton: false
+                        )
+                        let alertView = SCLAlertView(appearance: appearance)
+                        alertView.addButton("完成", target:self, selector:#selector(self.updateParentRestaurantAndGoBack))
+                        alertView.showSuccess("推荐成功", subTitle: "感谢您的推荐!")
+                    })
+                    
+                })
+            }
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func updateParentRestaurantAndGoBack() {
+        self.mergeNewRecommendedDish(recommendedDishTextField.text!)
+        self.goBack()
     }
-    */
-
+    
+    private func goBack() {
+        self.performSegue(withIdentifier: "unwindToRecommendedDish", sender: self)
+    }
+    
+    func doNothing() {
+        
+    }
+    
+    func mergeNewRecommendedDish(_ name: String) {
+        for recommendedDish in self.restaurant.recommendedDishes {
+            if recommendedDish.name == name {
+                recommendedDish.recommendationCount! += 1
+                return
+            }
+        }
+        let newRecommendedDish = RecommendedDish()
+        newRecommendedDish.name = name
+        newRecommendedDish.recommendationCount = 1
+        self.restaurant.recommendedDishes.append(newRecommendedDish)
+    }
 }

@@ -53,7 +53,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             self.infoSectionView.restaurant = self.restaurant
             self.reviewSectionView.reviews = self.restaurant?.reviewInfo?.reviews
             self.loadImagePool(self.restaurant!.photoInfo!.photos)
-            self.recommendedDishSectionView.recommendedDishes = self.restaurant?.recommendedDishes
+            self.recommendedDishSectionView.restaurant = self.restaurant
         }
     }
     
@@ -108,6 +108,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reviewSectionView.resetRatingStar()
+        self.recommendedDishSectionView.configureView()
     }
     
     private func configureInfoSectionView() {
@@ -273,7 +274,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             reviewsVC.restaurantId = self.restaurantId
         } else if segue.identifier == "showAllRecommendedDishes" {
             let recommendedDishVC: RecommendedDishViewController = segue.destination as! RecommendedDishViewController
-            recommendedDishVC.recommendedDishes = self.restaurant?.recommendedDishes
+            recommendedDishVC.restaurant = self.restaurant
         }
     }
     

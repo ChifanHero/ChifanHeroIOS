@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -123,55 +124,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TVi-Eq-d0T">
-                                <rect key="frame" x="0.0" y="64" width="375" height="58"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cyI-sd-7cc">
-                                        <rect key="frame" x="139" y="14" width="168" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="菜名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6kA-0N-y5S">
-                                        <rect key="frame" x="34" y="17" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入菜名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UtC-BS-88l">
+                                <rect key="frame" x="26" y="64" width="333" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="58" id="dSN-SL-JV4"/>
+                                    <constraint firstAttribute="height" constant="40" id="tla-DR-jfz"/>
                                 </constraints>
-                            </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RK2-fv-mN9">
-                                <rect key="frame" x="0.0" y="122" width="375" height="274"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="水煮鱼" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jzb-BE-1JY">
+                                <rect key="frame" x="26" y="104" width="333" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="274" id="puj-a1-9ol"/>
+                                    <constraint firstAttribute="height" constant="40" id="Nzj-Fz-dhK"/>
                                 </constraints>
-                            </imageView>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="TVi-Eq-d0T" secondAttribute="trailing" id="88p-2A-aAg"/>
-                            <constraint firstItem="TVi-Eq-d0T" firstAttribute="top" secondItem="cbA-3U-DyL" secondAttribute="bottom" id="J4h-Gu-USr"/>
-                            <constraint firstItem="TVi-Eq-d0T" firstAttribute="leading" secondItem="c7q-HJ-v4b" secondAttribute="leading" id="Nfo-HU-XEX"/>
-                            <constraint firstItem="RK2-fv-mN9" firstAttribute="top" secondItem="TVi-Eq-d0T" secondAttribute="bottom" id="PIt-H4-Se0"/>
-                            <constraint firstItem="RK2-fv-mN9" firstAttribute="leading" secondItem="c7q-HJ-v4b" secondAttribute="leading" id="Vdr-w8-cX1"/>
-                            <constraint firstAttribute="trailing" secondItem="RK2-fv-mN9" secondAttribute="trailing" id="wtV-w3-VFr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UtC-BS-88l" secondAttribute="trailing" id="8pi-Oj-ptF"/>
+                            <constraint firstItem="UtC-BS-88l" firstAttribute="leading" secondItem="c7q-HJ-v4b" secondAttribute="leadingMargin" constant="10" id="FHZ-53-GM5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jzb-BE-1JY" secondAttribute="trailing" id="cdb-b7-eIL"/>
+                            <constraint firstItem="Jzb-BE-1JY" firstAttribute="leading" secondItem="c7q-HJ-v4b" secondAttribute="leadingMargin" constant="10" id="rNS-Mf-Wb0"/>
+                            <constraint firstItem="UtC-BS-88l" firstAttribute="top" secondItem="cbA-3U-DyL" secondAttribute="bottom" id="yVf-W3-yP7"/>
+                            <constraint firstItem="Jzb-BE-1JY" firstAttribute="top" secondItem="UtC-BS-88l" secondAttribute="bottom" id="zAj-oH-Ei6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LN3-Y8-N5R"/>
+                    <connections>
+                        <outlet property="recommendedDishTextField" destination="Jzb-BE-1JY" id="GXA-rg-daX"/>
+                        <segue destination="lRn-c3-thY" kind="unwind" identifier="unwindToRecommendedDish" unwindAction="unwindToRecommendedDish:" id="hUx-M9-P4O"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TNQ-Ot-Px9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="lRn-c3-thY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-39.200000000000003" y="27.436281859070466"/>
         </scene>
         <!--Recommended Dish View Controller-->
         <scene sceneID="wyW-Dv-iqf">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eQc-hy-7c7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="RQa-WZ-By4" customClass="RecommendedDishViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gOp-WR-Ksm"/>
@@ -201,10 +197,9 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="recommendedDishTableView" destination="0Yb-ab-h9R" id="Kf1-Bq-wDX"/>
-                        <segue destination="5yJ-c3-0IA" kind="presentation" identifier="nominateRecommendedDish" id="P8u-do-sbK"/>
+                        <segue destination="RiF-4B-fHP" kind="show" identifier="nominateRecommendedDish" id="GGJ-SO-FAO"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eQc-hy-7c7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1528.8" y="27.436281859070466"/>
         </scene>
@@ -746,24 +741,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xWO-IE-5ZO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3597.5999999999999" y="832.53373313343332"/>
-        </scene>
-        <!--New Recommendation Navigation Controller-->
-        <scene sceneID="szG-Bh-Qr0">
-            <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" id="5yJ-c3-0IA" userLabel="New Recommendation Navigation Controller" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="70l-gf-hSC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="RiF-4B-fHP" kind="relationship" relationship="rootViewController" id="7yb-h9-f09"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1rw-jw-psY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="766" y="28"/>
         </scene>
     </scenes>
     <resources>
