@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol RestaurantReviewSectionDelegate {
+    func showReview(_ index: Int)
+}
+
 class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var reviewsTableView: UITableView!
+    
+    var delegate: RestaurantReviewSectionDelegate!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +32,7 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
     }
     
     private var newReviewCellHeight: CGFloat = 120
-    private var reviewCellHeight: CGFloat = 166
+    private var reviewCellHeight: CGFloat = 160
     private var spaceBetweenSections: CGFloat = 10
     
     private func setUp(){
@@ -81,23 +87,15 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell : UITableViewCell = tableView.cellForRow(at: indexPath)!
         if indexPath.section > 0 {
-            showReview()
+            self.showReview(indexPath.row)
         }
         cell.isSelected = false
     }
     
-    func writeNewReview() {
-        parentViewController?.performSegue(withIdentifier: "writeReview", sender: nil)
+    private func showReview(_ index: Int) {
+        delegate.showReview(index)
     }
-    
-    func showReview() {
-        parentViewController?.performSegue(withIdentifier: "showReview", sender: nil)
-    }
-    
-    func showUserActivity() {
-        parentViewController?.performSegue(withIdentifier: "showUserActivity", sender: nil)
-    }
-    
+
     
     func getHeight() -> CGFloat {
         if reviews == nil || reviews?.count == 0 {

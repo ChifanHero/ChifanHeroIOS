@@ -11,7 +11,7 @@ import MapKit
 import Kingfisher
 import SKPhotoBrowser
 
-class RestaurantMainTableViewController: UITableViewController, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, SKPhotoBrowserDelegate, RatingStarCellDelegate, RestaurantInfoSectionDelegate, RestaurantPhotoSectionDelegate, RestaurantRecommendedDishDelegate {
+class RestaurantMainTableViewController: UITableViewController, ImagePickerDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, SKPhotoBrowserDelegate, RatingStarCellDelegate, RestaurantInfoSectionDelegate, RestaurantReviewSectionDelegate, RestaurantPhotoSectionDelegate, RestaurantRecommendedDishDelegate {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     
@@ -140,7 +140,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             ).instantiate(withOwner: nil, options: nil).first as! RestaurantReviewSectionView
         
         self.reviewSectionView.frame = CGRect(x: 0, y: 0, width: self.reviewSectionRootView.frame.width, height: self.reviewSectionRootView.frame.height)
-        //reviewSectionView.delegate = self
+        self.reviewSectionView.delegate = self
         self.reviewSectionView.parentViewController = self
         self.reviewSectionRootView.addSubview(self.reviewSectionView)
     }
@@ -272,6 +272,9 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         } else if segue.identifier == "showReviews" {
             let reviewsVC: ReviewsViewController = segue.destination as! ReviewsViewController
             reviewsVC.restaurantId = self.restaurantId
+        } else if segue.identifier == "showReview" {
+            let reviewsVC: ReviewDetailViewController = segue.destination as! ReviewDetailViewController
+            reviewsVC.review = self.restaurant?.reviewInfo?.reviews[(sender as! Int)]
         } else if segue.identifier == "showAllRecommendedDishes" {
             let recommendedDishVC: RecommendedDishViewController = segue.destination as! RecommendedDishViewController
             recommendedDishVC.restaurant = self.restaurant
@@ -654,6 +657,11 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    // MARK: RestaurantReviewSectionDelegate
+    func showReview(_ index: Int) {
+        performSegue(withIdentifier: "showReview", sender: index)
     }
     
     // MARK: RestaurantPhotoSectionDelegate
