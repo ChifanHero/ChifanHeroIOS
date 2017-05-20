@@ -72,7 +72,6 @@
 		8E88C55997B6047F04BCC6A6 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C08FF468B40B54C70A49 /* Restaurant.swift */; };
 		8E88C55F13FBE6C0ABA1B122 /* LocationSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E88C785D5B9B01E48C100EC /* LocationSelection.storyboard */; };
 		8E88C57B885337381F70D280 /* SelectedCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C81148BED7B3550F9869 /* SelectedCollectionTableViewCell.swift */; };
-		8E88C5EC7FD0F6669B6339FA /* CellActionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CA3D7D8D23D47CE531CB /* CellActionTitle.swift */; };
 		8E88C5F576D648F40A4ADBF9 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CD26BB8221415B20382A /* LoadingButton.swift */; };
 		8E88C62273066FF24F1FDF6A /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CCADB417CB268A7ED2FC /* ReviewsViewController.swift */; };
 		8E88C62409277CF750C1C174 /* UserContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C6F1889CF8A1F9B1CC13 /* UserContext.swift */; };
@@ -116,7 +115,6 @@
 		8E88CA2AE82E75CE8A4B3731 /* PreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C6476DACC289E013FA16 /* PreviewCollectionViewCell.swift */; };
 		8E88CA5A8F8742F8881F4FC7 /* IdGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C9658ED3A42A4F8511FD /* IdGenerator.swift */; };
 		8E88CA7B509C2AA90A60B4CC /* DeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C5A2399CBB34EE59354C /* DeleteRequest.swift */; };
-		8E88CAA4CE66F2444DE82735 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C03C5B3A81C3744F726E /* Queue.swift */; };
 		8E88CABB7A205D11FA55D4BE /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C01EFB9E2CBDE0378014 /* ServiceConfiguration.swift */; };
 		8E88CB097C44A4F1A317C442 /* SelectedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C36FC7883AA25D418BE3 /* SelectedCollection.swift */; };
 		8E88CB39759997C0D9076BE4 /* SlideBarDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C3DA5593E87B19E45C68 /* SlideBarDelegateProtocol.swift */; };
@@ -196,6 +194,7 @@
 		CA203E2B1C111EEA00D6F32C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039C71BC3471400183AC2 /* Bolts.framework */; };
 		CA86772F1ECE6C2F00FBF076 /* ReviewInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA86772E1ECE6C2F00FBF076 /* ReviewInfoView.xib */; };
 		CA8677311ECE6DDA00FBF076 /* ReviewInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8677301ECE6DDA00FBF076 /* ReviewInfoView.swift */; };
+		CA8677331ECF90A100FBF076 /* TextUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8677321ECF90A100FBF076 /* TextUtil.swift */; };
 		CA882D291C8556E300D04696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42D9BCC1B69EF2D0035C5A6 /* Assets.xcassets */; };
 		CA8BD0741EC4D7220028BC2F /* RatingStarUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8BD0731EC4D7220028BC2F /* RatingStarUtil.swift */; };
 		CA8BD0781EC4EA9C0028BC2F /* NewReviewRatingSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8BD0771EC4EA9C0028BC2F /* NewReviewRatingSectionView.swift */; };
@@ -292,7 +291,6 @@
 		8E88C006310CF58C122467CD /* RemovablePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemovablePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E88C01C1B04BE8B15F8939A /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
 		8E88C01EFB9E2CBDE0378014 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
-		8E88C03C5B3A81C3744F726E /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		8E88C052696B0203CEAF6463 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		8E88C05B55A6DA762955E258 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		8E88C08F51FC968121121D46 /* ModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelProtocol.swift; sourceTree = "<group>"; };
@@ -402,7 +400,6 @@
 		8E88CA1C1E4BFB1579229985 /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
 		8E88CA307BC03F933F3EBF7D /* RestaurantSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantSearchTableViewCell.swift; sourceTree = "<group>"; };
 		8E88CA3555AF189423990129 /* NoNetworkDefaultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNetworkDefaultView.swift; sourceTree = "<group>"; };
-		8E88CA3D7D8D23D47CE531CB /* CellActionTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellActionTitle.swift; sourceTree = "<group>"; };
 		8E88CA6A3CA4968729760460 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		8E88CA7CB84C771BEA01CB2F /* Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
 		8E88CADCBFDB0D005086FE28 /* SortEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortEnum.swift; sourceTree = "<group>"; };
@@ -487,6 +484,7 @@
 		CA72AEDA1D9E0D4700DE5464 /* 吃饭英雄-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "吃饭英雄-Test.entitlements"; sourceTree = "<group>"; };
 		CA86772E1ECE6C2F00FBF076 /* ReviewInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewInfoView.xib; sourceTree = "<group>"; };
 		CA8677301ECE6DDA00FBF076 /* ReviewInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewInfoView.swift; sourceTree = "<group>"; };
+		CA8677321ECF90A100FBF076 /* TextUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextUtil.swift; sourceTree = "<group>"; };
 		CA8BD0731EC4D7220028BC2F /* RatingStarUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingStarUtil.swift; sourceTree = "<group>"; };
 		CA8BD0771EC4EA9C0028BC2F /* NewReviewRatingSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReviewRatingSectionView.swift; sourceTree = "<group>"; };
 		CA8BD0791EC4FD190028BC2F /* NewReviewRatingSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewReviewRatingSectionView.xib; sourceTree = "<group>"; };
@@ -956,7 +954,6 @@
 			isa = PBXGroup;
 			children = (
 				8E88C572ADD976A0A3F8820A /* NSDateExtension.swift */,
-				8E88C03C5B3A81C3744F726E /* Queue.swift */,
 				8E88C6F1889CF8A1F9B1CC13 /* UserContext.swift */,
 				8E88C1905965F62BA6F8A6D8 /* RankColorPicker.swift */,
 				8E88C8773C7FC3B4D3F025C7 /* ScoreComputer.swift */,
@@ -964,7 +961,6 @@
 				8E88C222A6C3E6FF10D072EA /* ButtonUtil.swift */,
 				8E88CCAD4B0D41C05B54A0B7 /* DefaultImageGenerator.swift */,
 				8E88C9658ED3A42A4F8511FD /* IdGenerator.swift */,
-				8E88CA3D7D8D23D47CE531CB /* CellActionTitle.swift */,
 				8E88C6AA18B7091951EC9AEC /* StringUtil.swift */,
 				8E88C1E41E6ECE68FA63C752 /* TrackingUtil.swift */,
 				8E88C4A913D15557EBC42F7F /* StringExtension.swift */,
@@ -974,6 +970,7 @@
 				8E88C18D214BA43567E5DCD6 /* Respinner.swift */,
 				8E88CA17547A7FEFC0B75FC2 /* PositionConverter.swift */,
 				CA8BD0731EC4D7220028BC2F /* RatingStarUtil.swift */,
+				CA8677321ECF90A100FBF076 /* TextUtil.swift */,
 				8E88C8160D4ED2B7594FDB3D /* OperationQueue */,
 			);
 			path = Util;
@@ -1876,6 +1873,7 @@
 				8E88CA2AE82E75CE8A4B3731 /* PreviewCollectionViewCell.swift in Sources */,
 				8E88CC52DAB2C0CD1D8CDB24 /* RestaurantImagePoolCollectionViewCell.swift in Sources */,
 				8E88CD475058AEAADFF8B1AB /* PhotoCollectionViewCell.swift in Sources */,
+				CA8677331ECF90A100FBF076 /* TextUtil.swift in Sources */,
 				8E88C9956520336E06A2C51A /* SearchHistoryCellDelegate.swift in Sources */,
 				8E88CC8B7D0A7F58E20CEE82 /* SearchResultsTableViewHeader.swift in Sources */,
 				8E88CD3C9D1D2C37A680423B /* SlideBar.swift in Sources */,
@@ -2008,7 +2006,6 @@
 				8E88CEC7C7EE13133CC2D6DC /* DishListSearchRequest.swift in Sources */,
 				8E88C95D13E8DAB090BF0D40 /* RestaurantSearchRequest.swift in Sources */,
 				8E88CCF5968DCCFFB5C874D2 /* NSDateExtension.swift in Sources */,
-				8E88CAA4CE66F2444DE82735 /* Queue.swift in Sources */,
 				8E88C62409277CF750C1C174 /* UserContext.swift in Sources */,
 				CA8BD0741EC4D7220028BC2F /* RatingStarUtil.swift in Sources */,
 				8E88C6B94058353F4133532F /* RankColorPicker.swift in Sources */,
@@ -2017,7 +2014,6 @@
 				8E88CF98FDA96B532869C9A2 /* ButtonUtil.swift in Sources */,
 				8E88C7E9B17F1382CC4DAFE2 /* DefaultImageGenerator.swift in Sources */,
 				8E88CA5A8F8742F8881F4FC7 /* IdGenerator.swift in Sources */,
-				8E88C5EC7FD0F6669B6339FA /* CellActionTitle.swift in Sources */,
 				8E88C09AFDAA5348F3334484 /* StringUtil.swift in Sources */,
 				8E88CDA4187E1A978D1DB2B9 /* TrackingUtil.swift in Sources */,
 				8E88C37A5757FBF662F4FF01 /* StringExtension.swift in Sources */,

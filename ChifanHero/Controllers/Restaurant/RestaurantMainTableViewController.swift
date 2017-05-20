@@ -53,6 +53,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             self.infoSectionView.restaurant = self.restaurant
             self.reviewSectionView.reviews = self.restaurant?.reviewInfo?.reviews
             self.loadImagePool(self.restaurant!.photoInfo!.photos)
+            self.downloadReviewUserProfileImages()
             self.recommendedDishSectionView.restaurant = self.restaurant
         }
     }
@@ -66,6 +67,12 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     var imagePoolContent: [UIImageView] = [] {
         didSet {
             self.photoSectionView.imagePoolContent = self.imagePoolContent
+        }
+    }
+    
+    var reviewUserProfileImageContent: [UIImageView] = [] {
+        didSet {
+            self.reviewSectionView.reviewUserProfileImageContent = self.reviewUserProfileImageContent
         }
     }
     
@@ -273,8 +280,9 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             let reviewsVC: ReviewsViewController = segue.destination as! ReviewsViewController
             reviewsVC.restaurantId = self.restaurantId
         } else if segue.identifier == "showReview" {
-            let reviewsVC: ReviewDetailViewController = segue.destination as! ReviewDetailViewController
-            reviewsVC.review = self.restaurant?.reviewInfo?.reviews[(sender as! Int)]
+            let reviewVC: ReviewDetailViewController = segue.destination as! ReviewDetailViewController
+            reviewVC.review = self.restaurant?.reviewInfo?.reviews[(sender as! Int)]
+            reviewVC.reviewUserProfileImage = self.reviewUserProfileImageContent[(sender as! Int)]
         } else if segue.identifier == "showAllRecommendedDishes" {
             let recommendedDishVC: RecommendedDishViewController = segue.destination as! RecommendedDishViewController
             recommendedDishVC.restaurant = self.restaurant
@@ -382,7 +390,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     // MARK: Photo Data
     private func loadImagePool(_ photos: [Picture]){
-        imagePool.removeAll()
+        self.imagePool.removeAll()
         for photo in photos {
             self.imagePool.append(photo)
         }
@@ -397,6 +405,18 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
                 self.photoSectionView.imagePoolView.reloadData()
             })
             self.imagePoolContent.append(imageView)
+        }
+    }
+    
+    private func downloadReviewUserProfileImages() {
+        if let reviews = self.restaurant?.reviewInfo?.reviews {
+            for review in reviews {
+                let imageView = UIImageView()
+                let url: URL! = URL(string: review.user?.picture?.thumbnail ?? "")
+                imageView.kf.setImage(with: url, placeholder: UIImage(named: "ChifanHero_UserProfile"),options: [.transition(ImageTransition.fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
+                })
+                self.reviewUserProfileImageContent.append(imageView)
+            }
         }
     }
     

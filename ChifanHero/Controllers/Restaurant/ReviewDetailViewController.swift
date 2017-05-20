@@ -15,9 +15,11 @@ class ReviewDetailViewController: UIViewController, UICollectionViewDelegate, UI
     @IBOutlet weak var reviewTextView: UITextView!
     @IBOutlet weak var photosCollectionView: UICollectionView!
     
-    var reviewInfoView: UIView!
+    var reviewInfoView: ReviewInfoView!
     
     var review: Review!
+    
+    var reviewUserProfileImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +36,8 @@ class ReviewDetailViewController: UIViewController, UICollectionViewDelegate, UI
             ).instantiate(withOwner: nil, options: nil).first as! ReviewInfoView
         
         self.reviewInfoView.frame = CGRect(x: 0, y: 0, width: self.reviewInfoRootView.frame.width, height: self.reviewInfoRootView.frame.height)
+        self.reviewInfoView.review = self.review
+        self.reviewInfoView.profileImage = self.reviewUserProfileImage.image
         //self.reviewInfoView.delegate = self
         self.reviewInfoRootView.addSubview(self.reviewInfoView)
     }

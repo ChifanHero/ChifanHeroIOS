@@ -31,6 +31,12 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
         }
     }
     
+    var reviewUserProfileImageContent: [UIImageView] = [] {
+        didSet {
+            self.reviewsTableView.reloadData()
+        }
+    }
+    
     private var newReviewCellHeight: CGFloat = 120
     private var reviewCellHeight: CGFloat = 160
     private var spaceBetweenSections: CGFloat = 10
@@ -79,6 +85,9 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
             let review: Review = reviews![indexPath.row]
             let cell: ReviewSnapshotTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as! ReviewSnapshotTableViewCell
             cell.review = review
+            if !reviewUserProfileImageContent.isEmpty {
+                cell.profileImage = reviewUserProfileImageContent[indexPath.row]
+            }
             return cell!
         }
         
