@@ -10,11 +10,16 @@ import UIKit
 
 protocol RestaurantReviewSectionDelegate {
     func showReview(_ index: Int)
+    func showAllReviews()
 }
 
 class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var reviewsTableView: UITableView!
+    
+    @IBAction func showAllReviews(_ sender: Any) {
+        delegate.showAllReviews()
+    }
     
     var delegate: RestaurantReviewSectionDelegate!
     
@@ -85,8 +90,8 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
             let review: Review = reviews![indexPath.row]
             let cell: ReviewSnapshotTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as! ReviewSnapshotTableViewCell
             cell.review = review
-            if !reviewUserProfileImageContent.isEmpty {
-                cell.profileImage = reviewUserProfileImageContent[indexPath.row]
+            if !self.reviewUserProfileImageContent.isEmpty {
+                cell.profileImage = self.reviewUserProfileImageContent[indexPath.row]
             }
             return cell!
         }

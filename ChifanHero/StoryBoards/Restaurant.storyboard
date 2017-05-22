@@ -110,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sgN-Eu-ibx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4754" y="42"/>
+            <point key="canvasLocation" x="2366" y="1621"/>
         </scene>
         <!--Recommended Dish Nomination View Controller-->
         <scene sceneID="igo-Ow-YE8">
@@ -162,7 +162,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TNQ-Ot-Px9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="lRn-c3-thY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-39.200000000000003" y="27.436281859070466"/>
+            <point key="canvasLocation" x="463" y="27"/>
         </scene>
         <!--Recommended Dish View Controller-->
         <scene sceneID="wyW-Dv-iqf">
@@ -201,7 +201,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQc-hy-7c7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1528.8" y="27.436281859070466"/>
+            <point key="canvasLocation" x="1428" y="28"/>
         </scene>
         <!--Restaurant Main Table View Controller-->
         <scene sceneID="XAx-wI-Z6G">
@@ -308,7 +308,7 @@
                         <outlet property="reviewSectionRootView" destination="iPY-84-XrX" id="86b-cV-bzO"/>
                         <outlet property="scoreLabel" destination="qNf-Ur-Bmr" id="XtE-h6-bjd"/>
                         <segue destination="1Ka-rf-7mL" kind="presentation" identifier="writeReview" id="onk-Sc-CSm"/>
-                        <segue destination="Br6-4x-Ln9" kind="show" identifier="showReviews" id="hW8-Qx-QcI"/>
+                        <segue destination="Br6-4x-Ln9" kind="show" identifier="showAllReviews" id="hW8-Qx-QcI"/>
                         <segue destination="qI8-U5-uuN" kind="show" identifier="showAllPhotos" id="ldj-pe-SsK"/>
                         <segue destination="RQa-WZ-By4" kind="show" identifier="showAllRecommendedDishes" id="krG-lm-1Qw"/>
                         <segue destination="gph-5I-oND" kind="show" identifier="showUserActivity" id="SaP-6K-QcZ"/>
@@ -367,7 +367,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZ9-Li-H1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3072.8000000000002" y="-601.34932533733138"/>
+            <point key="canvasLocation" x="3593" y="-645"/>
         </scene>
         <!--New Review Navigation Controller-->
         <scene sceneID="701-Ym-RlJ">
@@ -386,64 +386,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FtL-aN-QpS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3592.8000000000002" y="41.829085457271368"/>
+            <point key="canvasLocation" x="2367" y="826"/>
         </scene>
-        <!--Recommendation Detail View Controller-->
-        <scene sceneID="syy-U5-iX8">
-            <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="qwV-k9-jtc" customClass="RecommendationDetailViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="L5B-7X-yKe"/>
-                        <viewControllerLayoutGuide type="bottom" id="mga-OF-UX5"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7cm-sK-z52">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jKy-9e-3Or">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wYH-sK-yl4">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="esD-5x-bQY">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="qwV-k9-jtc" id="Md1-Jj-a6c"/>
-                                    <outlet property="delegate" destination="qwV-k9-jtc" id="D0b-3Y-mwG"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="jKy-9e-3Or" firstAttribute="top" secondItem="L5B-7X-yKe" secondAttribute="bottom" id="L5g-eN-SXg"/>
-                            <constraint firstItem="mga-OF-UX5" firstAttribute="top" secondItem="jKy-9e-3Or" secondAttribute="bottom" id="TkR-ZU-NTr"/>
-                            <constraint firstAttribute="trailing" secondItem="jKy-9e-3Or" secondAttribute="trailing" id="Tw9-c0-ICY"/>
-                            <constraint firstItem="jKy-9e-3Or" firstAttribute="leading" secondItem="7cm-sK-z52" secondAttribute="leading" id="ddA-98-azS"/>
-                        </constraints>
-                    </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tu4-Rc-btT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="650" y="805"/>
-        </scene>
-        <!--Reviews View Controller-->
+        <!--All Reviews View Controller-->
         <scene sceneID="KbX-7p-0k0">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="Br6-4x-Ln9" userLabel="Reviews View Controller" customClass="ReviewsViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="Br6-4x-Ln9" userLabel="All Reviews View Controller" customClass="AllReviewsViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kSV-ma-6gV"/>
                         <viewControllerLayoutGuide type="bottom" id="U1O-TN-b5Y"/>
@@ -552,7 +500,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FbH-UO-SIj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2367" y="1138"/>
+            <point key="canvasLocation" x="3598" y="28"/>
         </scene>
         <!--User Activity Table View Controller-->
         <scene sceneID="InQ-YT-Egy">
@@ -633,6 +581,6 @@
         <image name="zxy" width="640" height="426"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="onk-Sc-CSm"/>
+        <segue reference="XnR-ES-IvU"/>
     </inferredMetricsTieBreakers>
 </document>

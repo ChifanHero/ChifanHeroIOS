@@ -54,15 +54,18 @@ class RecommendedDishNominationViewController: UIViewController {
                 addRecommendedDishRequest.dishName = dishName
                 DataAccessor(serviceConfiguration: ParseConfiguration()).addRecommendedDish(addRecommendedDishRequest, responseHandler: { (response) -> Void in
                     OperationQueue.main.addOperation({ () -> Void in
-                        let appearance = SCLAlertView.SCLAppearance(
-                            showCloseButton: false
-                        )
-                        let alertView = SCLAlertView(appearance: appearance)
-                        alertView.addButton("完成", target:self, selector:#selector(self.updateParentRestaurantAndGoBack))
-                        alertView.showSuccess("推荐成功", subTitle: "感谢您的推荐!")
+                        
                     })
                     
                 })
+                // We always display success no matter what the response is
+                // because we don't want to block the UI when api call failed
+                let appearance = SCLAlertView.SCLAppearance(
+                    showCloseButton: false
+                )
+                let alertView = SCLAlertView(appearance: appearance)
+                alertView.addButton("完成", target:self, selector:#selector(self.updateParentRestaurantAndGoBack))
+                alertView.showSuccess("推荐成功", subTitle: "感谢您的推荐!")
             }
         }
     }

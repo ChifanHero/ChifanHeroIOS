@@ -19,7 +19,7 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     @IBOutlet weak var ratingRootView: UIView!
     
-    var restaurantId: String?
+    var restaurant: Restaurant!
     
     var reviewId: String?
     
@@ -76,13 +76,13 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     
     func submit() {
-        if restaurantId != nil {
-            let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, restaurantId: restaurantId!, retryTimes: 3) { (success, review) in
-                print(success)
+        if restaurant != nil {
+            let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, restaurantId: restaurant.id!, retryTimes: 3) { (success, review) in
+                
                 if success {
                     self.reviewId = review?.id
                     for image in self.images {
-                        let uploadOperation = PhotoUploadOperation(photo: image, restaurantId: self.restaurantId!, reviewId: self.reviewId!, retryTimes: 3, completion: { (success, picture) in
+                        let uploadOperation = PhotoUploadOperation(photo: image, restaurantId: self.restaurant.id!, reviewId: self.reviewId!, retryTimes: 3, completion: { (success, picture) in
                             print(success)
                             
                         })

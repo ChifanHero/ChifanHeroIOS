@@ -11,6 +11,8 @@ import UIKit
 protocol RestaurantInfoSectionDelegate {
     func callRestaurant()
     func startNavigation()
+    func writeReviewButtonPressed()
+    func addPhotoButtonPressed()
 }
 
 class RestaurantInfoSectionView: UIView {
@@ -67,6 +69,14 @@ class RestaurantInfoSectionView: UIView {
         let startNavigationTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(startNavigation))
         self.startNavigationView.isUserInteractionEnabled = true
         self.startNavigationView.addGestureRecognizer(startNavigationTapGestureRecognizer)
+        
+        let addReviewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(writeReviewButtonPressed))
+        self.addReviewImageView.isUserInteractionEnabled = true
+        self.addReviewImageView.addGestureRecognizer(addReviewTapGestureRecognizer)
+        
+        let addPictureTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addPhotoButtonPressed))
+        self.addPictureImageView.isUserInteractionEnabled = true
+        self.addPictureImageView.addGestureRecognizer(addPictureTapGestureRecognizer)
     }
     
     func callRestaurant() {
@@ -76,6 +86,14 @@ class RestaurantInfoSectionView: UIView {
     func startNavigation() {
         startNavigationView.startAnimation()
         delegate.startNavigation()
+    }
+    
+    func writeReviewButtonPressed() {
+        delegate.writeReviewButtonPressed()
+    }
+    
+    func addPhotoButtonPressed() {
+        delegate.addPhotoButtonPressed()
     }
 
 }
