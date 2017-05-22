@@ -40,42 +40,17 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
             default:
                 self.reset()
             }
-            self.nameLabel.text = self.review.user?.nickName ?? "匿名用户"
+            self.nameLabel.text = self.review.user?.nickName ?? "无名英雄"
             
-            if let time = review.lastUpdateTime {
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-                let date: Date? = dateFormatter.date(from: time)
-                if date != nil {
-                    let calender: Calendar = Calendar.current
-                    let components = calender.dateComponents(in: TimeZone.autoupdatingCurrent, from: date!)
-                    let currentComponets = calender.dateComponents(in: TimeZone.autoupdatingCurrent, from: Date())
-                    var timeString = ""
-                    let year = components.year
-                    let currentYear = currentComponets.year
-                    let month = components.month
-                    let currentMonth = currentComponets.month
-                    let day = components.day
-                    let currentDay = currentComponets.day
-                    let hour = components.hour
-                    let min = components.minute
-                    if year == currentYear {
-                        if month == currentMonth && day == currentDay {
-                            timeString = "\(hour!):\(min!)"
-                        } else {
-                            timeString = "\(month!)-\(day!) \(hour!):\(min!)"
-                        }
-                        
-                    } else {
-                        timeString = "\(year!)-\(month!)-\(day!)"
-                    }
-                    timeLabel.text = timeString
-                }
-                
-            }
+            self.timeLabel.text = TextUtil.getReviewTimeText(self.review.lastUpdateTime!)
         }
     }
     
-    let dateFormatter: DateFormatter = DateFormatter()
+    var profileImage: UIImageView! {
+        didSet {
+            self.profileImageButton.setImage(self.profileImage.image, for: .normal)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

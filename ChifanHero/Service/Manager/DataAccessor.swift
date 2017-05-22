@@ -160,10 +160,6 @@ class DataAccessor {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    func uploadRestaurantPicture(_ request: UploadRestaurantPictureRequest, responseHandler: @escaping (UploadRestaurantPictureResponse?) -> Void) {
-        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
-    }
-    
     func addToFavorites(_ request: AddToFavoritesRequest, responseHandler: @escaping (AddToFavoritesResponse?) -> Void) {
         let defaults = UserDefaults.standard
         if defaults.string(forKey: "sessionToken") != nil {

@@ -29,6 +29,9 @@
                             <state key="normal" title="查看所有评论&gt;">
                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="showAllReviews:" destination="iN0-l3-epB" eventType="touchUpInside" id="msa-Ym-Q9t"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>

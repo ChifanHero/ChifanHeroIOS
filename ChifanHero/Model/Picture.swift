@@ -17,6 +17,7 @@ class Picture: Model {
     var type: String?
     var restaurant: Restaurant?
     var review: Review?
+    var googlePhotoReference: String?
     
     required init() {
         
@@ -33,6 +34,7 @@ class Picture: Model {
         if data["review"].exists() {
             review = Review(data: data["review"])
         }
+        googlePhotoReference = data["google_photo_reference"].string
     }
     
 }
