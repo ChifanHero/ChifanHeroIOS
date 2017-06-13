@@ -102,6 +102,10 @@ class DataAccessor {
     }
     
     func getRestaurantById(_ request: GetRestaurantByIdRequest, responseHandler : @escaping (GetRestaurantByIdResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     

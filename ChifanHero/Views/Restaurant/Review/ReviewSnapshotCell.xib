@@ -28,17 +28,17 @@
                                 </constraints>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rz-Yt-MWw" userLabel="Name Label">
-                                <rect key="frame" x="60" y="22.5" width="100" height="15"/>
+                                <rect key="frame" x="60" y="22.5" width="150" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Jzk-pi-LCd"/>
+                                    <constraint firstAttribute="width" constant="150" id="Jzk-pi-LCd"/>
                                     <constraint firstAttribute="height" constant="15" id="TGS-dH-fgx"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vux-8w-Ej7">
-                                <rect key="frame" x="170" y="20" width="120" height="20"/>
+                                <rect key="frame" x="220" y="20" width="120" height="20"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yb3-3v-ua6">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -79,7 +79,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="评论" translatesAutoresizingMaskIntoConstraints="NO" id="991-cP-LBc">
                                 <rect key="frame" x="10" y="0.0" width="394" height="95.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nZB-PU-Bno" userLabel="Padding View">

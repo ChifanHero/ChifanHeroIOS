@@ -669,6 +669,10 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         }
     }
     
+    func addBookmarkButtonPressed() {
+        print("I know")
+    }
+    
     func writeReviewButtonPressed() {
         self.performSegue(withIdentifier: "writeReview", sender: nil)
     }
@@ -703,14 +707,8 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     func showSKPhotoBrowser(pageIndex: Int) {
         var images = [SKPhoto]()
-        for picture in imagePool {
-            if picture.original != nil {
-                let photo = SKPhoto.photoWithImageURL(picture.original!)
-                images.append(photo)
-            } else {
-                let photo = SKPhoto.photoWithImage(UIImage(named: "restaurant_default_background")!)
-                images.append(photo)
-            }
+        for imageView in imagePoolContent {
+            images.append(SKPhoto.photoWithImage(imageView.image!))
         }
         let browser = SKPhotoBrowser(photos: images)
         browser.initializePageIndex(pageIndex)

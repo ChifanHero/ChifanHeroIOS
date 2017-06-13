@@ -90,6 +90,7 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
             let review: Review = reviews![indexPath.row]
             let cell: ReviewSnapshotTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as! ReviewSnapshotTableViewCell
             cell.review = review
+            cell.selectionStyle = .none
             if !self.reviewUserProfileImageContent.isEmpty {
                 cell.profileImage = self.reviewUserProfileImageContent[indexPath.row]
             }
@@ -99,11 +100,9 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell : UITableViewCell = tableView.cellForRow(at: indexPath)!
         if indexPath.section > 0 {
             self.showReview(indexPath.row)
         }
-        cell.isSelected = false
     }
     
     private func showReview(_ index: Int) {

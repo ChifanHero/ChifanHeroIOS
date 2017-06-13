@@ -30,13 +30,13 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="城市" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZeO-mr-oVq">
                             <rect key="frame" x="0.0" y="0.0" width="65" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距离" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yni-DS-Ias">
                             <rect key="frame" x="75" y="0.0" width="65" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -66,7 +66,7 @@
                     </constraints>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="bUQ-BX-w7s">
-                    <rect key="frame" x="91" y="105" width="280" height="40"/>
+                    <rect key="frame" x="91" y="115" width="280" height="40"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wqx-V3-fGx">
                             <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -90,7 +90,7 @@
                     </constraints>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ewF-oZ-7sp" customClass="StartNavigationView" customModule="吃饭英雄" customModuleProvider="target">
-                    <rect key="frame" x="156" y="175" width="150" height="40"/>
+                    <rect key="frame" x="156" y="185" width="150" height="40"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="S7o-Im-Dfm"/>
@@ -109,7 +109,7 @@
                 <constraint firstItem="7eQ-Wn-z8P" firstAttribute="top" secondItem="veN-Gd-BWb" secondAttribute="bottom" constant="5" id="Vvt-cA-hVq"/>
                 <constraint firstItem="PgB-MT-zw6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="W7b-qe-FlQ"/>
                 <constraint firstItem="ewF-oZ-7sp" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="XIN-KR-5Pq"/>
-                <constraint firstItem="bUQ-BX-w7s" firstAttribute="top" secondItem="7eQ-Wn-z8P" secondAttribute="bottom" constant="5" id="YLo-tB-HRq"/>
+                <constraint firstItem="bUQ-BX-w7s" firstAttribute="top" secondItem="7eQ-Wn-z8P" secondAttribute="bottom" constant="15" id="YLo-tB-HRq"/>
                 <constraint firstItem="ewF-oZ-7sp" firstAttribute="top" secondItem="bUQ-BX-w7s" secondAttribute="bottom" constant="30" id="ao9-6C-g3u"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

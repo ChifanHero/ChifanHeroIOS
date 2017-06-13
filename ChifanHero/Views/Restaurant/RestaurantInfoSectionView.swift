@@ -10,9 +10,10 @@ import UIKit
 
 protocol RestaurantInfoSectionDelegate {
     func callRestaurant()
-    func startNavigation()
+    func addBookmarkButtonPressed()
     func writeReviewButtonPressed()
     func addPhotoButtonPressed()
+    func startNavigation()
 }
 
 class RestaurantInfoSectionView: UIView {
@@ -37,7 +38,7 @@ class RestaurantInfoSectionView: UIView {
             let distanceValue = String(format: "%.1f", restaurant?.distance?.value ?? 0)
             let distanceUnit = restaurant?.distance?.unit ?? "mi"
             self.distanceLabel.text = "\(distanceValue) \(distanceUnit)"
-            if restaurant?.openNow ?? false {
+            if self.restaurant?.openNow ?? false {
                 self.openNowLabel.text = "正在营业"
                 self.openNowLabel.textColor = UIColor.chifanHeroGreen()
             } else {
@@ -45,7 +46,11 @@ class RestaurantInfoSectionView: UIView {
                 self.openNowLabel.textColor = UIColor.chifanHeroRed()
             }
             self.openTimeTodayLabel.text = self.restaurant?.openTimeToday ?? "今日暂停营业"
-            
+            if self.restaurant?.current_user_favorite != nil && self.restaurant?.current_user_favorite == true {
+                self.bookmarkImageView.renderColorChangableImage(UIImage(named: "ChifanHero_Bookmarked.png")!, fillColor: UIColor.themeOrange())
+            } else {
+                self.bookmarkImageView.renderColorChangableImage(UIImage(named: "ChifanHero_Bookmark.png")!, fillColor: UIColor.themeOrange())
+            }
         }
     }
     
@@ -69,6 +74,10 @@ class RestaurantInfoSectionView: UIView {
         let startNavigationTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(startNavigation))
         self.startNavigationView.isUserInteractionEnabled = true
         self.startNavigationView.addGestureRecognizer(startNavigationTapGestureRecognizer)
+        
+        let addBookmarkTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addBookmarkButtonPressed))
+        self.bookmarkImageView.isUserInteractionEnabled = true
+        self.bookmarkImageView.addGestureRecognizer(addBookmarkTapGestureRecognizer)
         
         let addReviewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(writeReviewButtonPressed))
         self.addReviewImageView.isUserInteractionEnabled = true
@@ -94,6 +103,21 @@ class RestaurantInfoSectionView: UIView {
     
     func addPhotoButtonPressed() {
         delegate.addPhotoButtonPressed()
+    }
+    
+    func addBookmarkButtonPressed() {
+        if self.restaurant?.current_user_favorite == nil {
+            SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
+        } else {
+            if self.restaurant?.current_user_favorite == true {
+                self.restaurant?.current_user_favorite = false
+                self.bookmarkImageView.renderColorChangableImage(UIImage(named: "ChifanHero_Bookmark.png")!, fillColor: UIColor.themeOrange())
+            } else {
+                self.restaurant?.current_user_favorite = true
+                self.bookmarkImageView.renderColorChangableImage(UIImage(named: "ChifanHero_Bookmarked.png")!, fillColor: UIColor.themeOrange())
+            }
+        }
+        delegate.addBookmarkButtonPressed()
     }
 
 }

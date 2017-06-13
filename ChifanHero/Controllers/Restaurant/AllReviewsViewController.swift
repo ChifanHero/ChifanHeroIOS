@@ -53,9 +53,10 @@ class AllReviewsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ReviewSnapshotTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as? ReviewSnapshotTableViewCell
+        let cell: ReviewSnapshotTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as! ReviewSnapshotTableViewCell
         let review = reviews[indexPath.row]
         cell.review = review
+        cell.selectionStyle = .none
         if !self.reviewUserProfileImageContent.isEmpty {
             cell.profileImage = self.reviewUserProfileImageContent[indexPath.row]
         }
@@ -67,12 +68,18 @@ class AllReviewsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell : UITableViewCell = tableView.cellForRow(at: indexPath)!
-        showReview()
-        cell.isSelected = false
+        showReview(indexPath.row)
     }
     
-    func showReview() {
-        performSegue(withIdentifier: "showReview", sender: nil)
+    func showReview(_ index: Int) {
+        performSegue(withIdentifier: "showReview", sender: index)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showReview" {
+            let reviewVC: ReviewDetailViewController = segue.destination as! ReviewDetailViewController
+            reviewVC.review = self.reviews[(sender as! Int)]
+            reviewVC.reviewUserProfileImage = self.reviewUserProfileImageContent[(sender as! Int)]
+        }
     }
 }

@@ -17,13 +17,21 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLs-t0-KJZ" userLabel="Photo Header View">
                     <rect key="frame" x="0.0" y="0.0" width="442" height="40"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="照片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFg-WN-bj9">
-                            <rect key="frame" x="25" y="10" width="29" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="照片" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFg-WN-bj9">
+                            <rect key="frame" x="25" y="10" width="30" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="8Yv-LN-7QA"/>
+                                <constraint firstAttribute="width" constant="30" id="Kjp-CD-9Hc"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkW-hh-dXA">
-                            <rect key="frame" x="337" y="10" width="95" height="29"/>
+                            <rect key="frame" x="332" y="10" width="100" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="Q2a-tO-U1M"/>
+                                <constraint firstAttribute="height" constant="15" id="oAP-L9-q8i"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="查看所有照片&gt;">
                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
