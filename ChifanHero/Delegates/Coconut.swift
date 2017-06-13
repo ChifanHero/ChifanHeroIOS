@@ -127,6 +127,11 @@ extension UIView {
         imageShape.mask!.bounds = imageFrame
         imageShape.mask!.position = imgCenterPoint
         
+        if self.layer.sublayers != nil {
+            for layer in self.layer.sublayers! {
+                layer.removeFromSuperlayer()
+            }
+        }
         self.layer.addSublayer(imageShape)
     }
 }

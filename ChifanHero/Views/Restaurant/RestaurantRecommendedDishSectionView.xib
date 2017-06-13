@@ -17,13 +17,21 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQ3-7P-pj9" userLabel="Dish Header View">
                     <rect key="frame" x="0.0" y="0.0" width="378" height="40"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="推荐菜" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v67-2X-LTy">
-                            <rect key="frame" x="25" y="10" width="43" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="推荐菜" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v67-2X-LTy">
+                            <rect key="frame" x="25" y="10" width="50" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="TWa-xf-DH2"/>
+                                <constraint firstAttribute="height" constant="15" id="jfy-FX-hxA"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmE-Jo-nAS">
-                            <rect key="frame" x="259" y="10" width="109" height="29"/>
+                            <rect key="frame" x="258" y="10" width="110" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="110" id="F3J-Pc-JJG"/>
+                                <constraint firstAttribute="height" constant="15" id="FrW-bm-bid"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="查看所有推荐菜&gt;">
                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -42,7 +50,7 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="即将推出，敬请期待" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCs-Lg-elx" userLabel="Recommendation Dish Label">
-                    <rect key="frame" x="0.0" y="40" width="378" height="158"/>
+                    <rect key="frame" x="25" y="40" width="353" height="158"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -50,7 +58,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="lCs-Lg-elx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="B9I-AX-EBi"/>
+                <constraint firstItem="lCs-Lg-elx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="25" id="B9I-AX-EBi"/>
                 <constraint firstAttribute="bottom" secondItem="lCs-Lg-elx" secondAttribute="bottom" id="CCT-bv-CJe"/>
                 <constraint firstAttribute="trailing" secondItem="QQ3-7P-pj9" secondAttribute="trailing" id="N9G-yF-K2Z"/>
                 <constraint firstItem="QQ3-7P-pj9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YYj-dg-ojH"/>
