@@ -1,6 +1,6 @@
 //
-//  ListMemberViewController.swift
-//  SoHungry
+//  RestaurantCollectionMembersViewController.swift
+//  ChifanHero
 //
 //  Created by Shi Yan on 10/15/15.
 //  Copyright © 2015 Shi Yan. All rights reserved.
@@ -12,21 +12,12 @@ import Flurry_iOS_SDK
 
 class RestaurantCollectionMembersViewController: UITableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable{
     
-    var selectedCollection: SelectedCollection?
+    var selectedCollection: SelectedCollection!
     
     var animateTransition = false
-    weak var selectedImageView: UIImageView?
-    var selectedRestaurantName: String?
-    
-    var likeCount: Int? {
-        didSet {
-            if likeLabel != nil {
-                if let count = likeCount {
-                    likeLabel.text = String(count)
-                }
-            }
-        }
-    }
+    weak var selectedImageView: UIImageView!
+    var selectedRestaurantName: String!
+    var lastUsedLocation: Location?
     
     var favoriteCount: Int? {
         didSet {
@@ -45,9 +36,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var collectionTitle: UILabel!
-    @IBOutlet weak var likeView: UIView!
-    @IBOutlet weak var likeButton: DOFavoriteButton!
-    @IBOutlet weak var likeLabel: UILabel!
     @IBOutlet weak var favoriteView: UIView!
     @IBOutlet weak var favoriteButton: DOFavoriteButton!
     @IBOutlet weak var favoriteLabel: UILabel!
@@ -55,7 +43,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     @IBOutlet weak var nominationButton: DOFavoriteButton!
     
     
-    var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor?
+    var ratingAndFavoriteExecutor: RatingAndBookmarkExecutor!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,28 +53,23 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         ratingAndFavoriteExecutor = RatingAndBookmarkExecutor(baseVC: self)
         self.setUpHeaderView()
         self.configureHeaderView()
-        self.configureLikeView()
         self.configureFavoriteView()
         self.configureNominationView()
         
-        likeCount = selectedCollection?.likeCount
+        self.tableView.register(UINib(nibName: "RestaurantCollectionMemberCell", bundle: nil), forCellReuseIdentifier: "restaurantCollectionMemberTableViewCell")
+        
         favoriteCount = selectedCollection?.userFavoriteCount
         // Do any additional setup after loading the view.
     }
     
-    fileprivate func configActionButton() {
+    private func configActionButton() {
         self.view.layoutIfNeeded()
-        likeButton.image = UIImage(named: "Chifanhero_Like")
         favoriteButton.image = UIImage(named: "Chifanhero_Favorite")
         nominationButton.image = UIImage(named: "Chifanhero_Nomination")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let selectedCellIndexPath : IndexPath? = self.tableView.indexPathForSelectedRow
-        if selectedCellIndexPath != nil {
-            self.tableView.deselectRow(at: selectedCellIndexPath!, animated: false)
-        }
         self.animateTransition = false
         self.navigationController?.navigationBar.isTranslucent = true
         
@@ -96,18 +79,13 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         super.viewDidAppear(animated)
         TrackingUtil.trackCollectionsMemberView()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    fileprivate func setUpHeaderView(){
+    private func setUpHeaderView(){
         headerImage.kf.setImage(with: URL(string: (selectedCollection?.cellImage?.original)!)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
         self.collectionTitle.text = selectedCollection?.title
     }
     
-    fileprivate func configureHeaderView(){
+    private func configureHeaderView(){
         headerView = self.tableView.tableHeaderView
         self.tableView.tableHeaderView = nil
         self.tableView.addSubview(headerView)
@@ -116,7 +94,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         updateHeaderView()
     }
     
-    fileprivate func updateHeaderView(){
+    private func updateHeaderView(){
         var headerRect = CGRect(x: 0, y: -kTableHeaderHeight, width: self.tableView.bounds.width, height: kTableHeaderHeight)
         if tableView.contentOffset.y < -kTableHeaderHeight {
             headerRect.origin.y = self.tableView.contentOffset.y
@@ -127,16 +105,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateHeaderView()
-    }
-    
-    func configureLikeView(){
-        likeView.layer.borderWidth = 1.0
-        likeView.layer.borderColor = UIColor.white.cgColor
-        likeView.layer.cornerRadius = 10.0
-        likeButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.likeButtonTapped(_:)), for: .touchUpInside)
-        if let likeCount = selectedCollection?.likeCount {
-            likeLabel.text = String(likeCount)
-        }
     }
     
     func configureFavoriteView(){
@@ -150,15 +118,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         if !UserContext.isValidUser() {
             favoriteButton.isSelected = false
         } else {
-            let request = GetIsFavoriteRequest(type: FavoriteTypeEnum.selectedCollection, id: selectedCollection!.id!)
-            DataAccessor(serviceConfiguration: ParseConfiguration()).getIsFavorite(request, responseHandler: { (response) -> Void in
-                OperationQueue.main.addOperation({ () -> Void in
-                    if response != nil && response?.result != nil {
-                        self.favoriteButton.isSelected = (response?.result)!
-                    }
-                })
-                
-            })
+            
         }
     }
     
@@ -167,16 +127,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         nominationView.layer.borderColor = UIColor.white.cgColor
         nominationView.layer.cornerRadius = 10.0
         nominationButton.addTarget(self, action: #selector(RestaurantCollectionMembersViewController.nominationButtonTapped(_:)), for: .touchUpInside)
-    }
-    
-    func likeButtonTapped(_ sender: DOFavoriteButton) {
-        if sender.isSelected {
-            // deselect
-            sender.deselect()
-        } else {
-            // select with animation
-            sender.select()
-        }
     }
     
     func favoriteButtonTapped(_ sender: DOFavoriteButton) {
@@ -207,10 +157,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
                     if response != nil && !response!.results.isEmpty {
                         self.members.removeAll()
                         self.members += response!.results
-                        /*self.members.sort {
-                            (r1, r2) -> Bool in
-                            return ScoreComputer.getScoreNum(positive: r1.likeCount, negative: r1.dislikeCount, neutral: r1.neutralCount) > ScoreComputer.getScoreNum(positive: r2.likeCount, negative: r2.dislikeCount, neutral: r2.neutralCount)
-                        }*/
                         self.tableView.reloadData()
                         
                     }
@@ -227,14 +173,11 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: RestaurantCollectionMemberTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "restaurantCollectionMemberTableViewCell") as? RestaurantCollectionMemberTableViewCell
-        if cell == nil {
-            tableView.register(UINib(nibName: "RestaurantCollectionMemberCell", bundle: nil), forCellReuseIdentifier: "restaurantCollectionMemberTableViewCell")
-            cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCollectionMemberTableViewCell") as? RestaurantCollectionMemberTableViewCell
-        }
-        cell?.setUp(restaurant: self.members[indexPath.row], rank: indexPath.row + 1)
+        let cell: RestaurantCollectionMemberTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "restaurantCollectionMemberTableViewCell") as! RestaurantCollectionMemberTableViewCell
+        cell.setUp(restaurant: self.members[indexPath.row], rank: indexPath.row + 1)
+        cell.selectionStyle = .none
         
-        return cell!
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -252,6 +195,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         let restaurantController = storyboard.instantiateViewController(withIdentifier: "RestaurantMainTableViewController") as! RestaurantMainTableViewController
         restaurantController.restaurantImage = self.selectedImageView?.image
         restaurantController.restaurantId = id
+        restaurantController.currentLocation = self.lastUsedLocation
         restaurantController.parentVCName = self.getId()
         self.navigationController?.pushViewController(restaurantController, animated: true)
     }
@@ -275,12 +219,6 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         return RestaurantCollectionMemberTableViewCell.height
     }
     
-    @IBAction func handleLikeButton(_ sender: AnyObject) {
-        if likeButton.isSelected == false {
-            self.likeCount! += 1
-            self.likeButton.isEnabled = false
-        }
-    }
     @IBAction func handleFavoriteButton(_ sender: AnyObject) {
         if self.favoriteButton.isSelected == false {
             if !UserContext.isValidUser() {

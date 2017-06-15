@@ -50,7 +50,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         // Dispose of any resources that can be recreated.
     }
     
-    fileprivate func addDoneButton() {
+    private func addDoneButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("完成", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(RestaurantNominationViewController.completeNomination), for: UIControlEvents.touchUpInside)
         let doneButton = UIBarButtonItem(customView: button)
@@ -110,7 +110,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         nominationRequest.restaurantId = restaurants[indexPath.row].id
     }
     
-    fileprivate func searchRestaurant(keyword : String) {
+    private func searchRestaurant(keyword : String) {
         cleanStates()
         let request: RestaurantSearchRequest = RestaurantSearchRequest()
         request.keyword = keyword
@@ -130,7 +130,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
         }
     }
     
-    fileprivate func cleanStates() {
+    private func cleanStates() {
         self.restaurants.removeAll()
     }
     

@@ -75,7 +75,6 @@
 		8E88C5F576D648F40A4ADBF9 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CD26BB8221415B20382A /* LoadingButton.swift */; };
 		8E88C62273066FF24F1FDF6A /* AllReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CCADB417CB268A7ED2FC /* AllReviewsViewController.swift */; };
 		8E88C62409277CF750C1C174 /* UserContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C6F1889CF8A1F9B1CC13 /* UserContext.swift */; };
-		8E88C6B94058353F4133532F /* RankColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C1905965F62BA6F8A6D8 /* RankColorPicker.swift */; };
 		8E88C6BC5B1AEDDD3AE2DD23 /* AcountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C6AD06265393E708B0DD /* AcountManager.swift */; };
 		8E88C6EE4BC8F0056FFB69BE /* ParseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CCE15CEE30FD710CD78B /* ParseConfiguration.swift */; };
 		8E88C6FE44C044324F86E419 /* Coconut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C10A1F6F195C859C5E4C /* Coconut.swift */; };
@@ -304,7 +303,6 @@
 		8E88C158C1C46ECADBC6CAAC /* RestaurantsFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantsFilterViewController.swift; sourceTree = "<group>"; };
 		8E88C16732B9D9B43511225D /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
 		8E88C18D214BA43567E5DCD6 /* Respinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Respinner.swift; sourceTree = "<group>"; };
-		8E88C1905965F62BA6F8A6D8 /* RankColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankColorPicker.swift; sourceTree = "<group>"; };
 		8E88C1BB005414AB14DA85E4 /* PullToRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshControl.swift; sourceTree = "<group>"; };
 		8E88C1D17A043CBF0696F6CB /* RestaurantsAndSearch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RestaurantsAndSearch.storyboard; sourceTree = "<group>"; };
 		8E88C1E41E6ECE68FA63C752 /* TrackingUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingUtil.swift; sourceTree = "<group>"; };
@@ -953,7 +951,6 @@
 			children = (
 				8E88C572ADD976A0A3F8820A /* NSDateExtension.swift */,
 				8E88C6F1889CF8A1F9B1CC13 /* UserContext.swift */,
-				8E88C1905965F62BA6F8A6D8 /* RankColorPicker.swift */,
 				8E88C8773C7FC3B4D3F025C7 /* ScoreComputer.swift */,
 				8E88C4DCD22574E5C2B0E582 /* FirstNotification.swift */,
 				8E88C222A6C3E6FF10D072EA /* ButtonUtil.swift */,
@@ -2005,7 +2002,6 @@
 				8E88CCF5968DCCFFB5C874D2 /* NSDateExtension.swift in Sources */,
 				8E88C62409277CF750C1C174 /* UserContext.swift in Sources */,
 				CA8BD0741EC4D7220028BC2F /* RatingStarUtil.swift in Sources */,
-				8E88C6B94058353F4133532F /* RankColorPicker.swift in Sources */,
 				8E88C227B13BE6D7FC7B5BCA /* ScoreComputer.swift in Sources */,
 				8E88C42888D6FCEBD0168CF8 /* FirstNotification.swift in Sources */,
 				8E88CF98FDA96B532869C9A2 /* ButtonUtil.swift in Sources */,

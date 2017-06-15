@@ -139,7 +139,7 @@ class GetRestaurantCollectionMembersRequest: HttpRequest{
     }
 
     override func getRelativeURL() -> String {
-        return "/restaurantCollectionMembers/" + resourceId!
+        return "/selectedCollections/" + resourceId! + "/restaurantCollectionMembers"
     }
 }
 
