@@ -58,56 +58,6 @@
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T1r-cq-idA" userLabel="Like">
-                                    <rect key="frame" x="265" y="140" width="80" height="40"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYX-5T-sXm" customClass="DOFavoriteButton" customModule="吃饭英雄" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="40" id="yWC-gi-voH"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="image" keyPath="image" value="Chifanhero_Like"/>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="imageColorOn">
-                                                    <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="imageColorOff">
-                                                    <color key="value" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="circleColor">
-                                                    <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                                    <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                                    <real key="value" value="1"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="handleLikeButton:" destination="OSG-oC-eeg" eventType="touchUpInside" id="3Tr-fk-At1"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEk-qw-2eS" userLabel="Like Label">
-                                            <rect key="frame" x="40" y="4" width="36" height="32"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstItem="PYX-5T-sXm" firstAttribute="top" secondItem="T1r-cq-idA" secondAttribute="top" id="0V3-zO-EXX"/>
-                                        <constraint firstAttribute="bottom" secondItem="XEk-qw-2eS" secondAttribute="bottom" constant="4" id="5Kh-hJ-xTS"/>
-                                        <constraint firstAttribute="bottom" secondItem="PYX-5T-sXm" secondAttribute="bottom" id="MgN-hh-u3Q"/>
-                                        <constraint firstAttribute="height" constant="40" id="PoZ-id-oEA"/>
-                                        <constraint firstItem="PYX-5T-sXm" firstAttribute="leading" secondItem="T1r-cq-idA" secondAttribute="leading" id="d5X-XO-xhH"/>
-                                        <constraint firstItem="XEk-qw-2eS" firstAttribute="leading" secondItem="PYX-5T-sXm" secondAttribute="trailing" id="e3K-kh-Ca3"/>
-                                        <constraint firstAttribute="trailing" secondItem="XEk-qw-2eS" secondAttribute="trailing" constant="4" id="rt4-3W-KyY"/>
-                                        <constraint firstItem="XEk-qw-2eS" firstAttribute="top" secondItem="T1r-cq-idA" secondAttribute="top" constant="4" id="sae-9v-fSQ"/>
-                                        <constraint firstAttribute="width" constant="80" id="xLY-lR-2U6"/>
-                                    </constraints>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zqc-iB-lnd" userLabel="Favorite">
                                     <rect key="frame" x="265" y="190" width="80" height="40"/>
                                     <subviews>
@@ -216,11 +166,9 @@
                                 <constraint firstItem="gmW-WP-wei" firstAttribute="top" secondItem="Xyw-Uw-OTr" secondAttribute="top" id="GhP-fc-yNg"/>
                                 <constraint firstItem="BZI-NM-Bew" firstAttribute="leading" secondItem="Xyw-Uw-OTr" secondAttribute="leading" constant="20" id="MQg-Ji-Z3T"/>
                                 <constraint firstItem="gmW-WP-wei" firstAttribute="leading" secondItem="Xyw-Uw-OTr" secondAttribute="leading" id="Ouo-Uy-rrx"/>
-                                <constraint firstAttribute="trailing" secondItem="T1r-cq-idA" secondAttribute="trailing" constant="30" id="SRc-6Q-w8N"/>
                                 <constraint firstAttribute="bottom" secondItem="gmW-WP-wei" secondAttribute="bottom" id="Vvm-v2-cRJ"/>
                                 <constraint firstAttribute="trailing" secondItem="zqc-iB-lnd" secondAttribute="trailing" constant="30" id="Wwy-p3-EDc"/>
                                 <constraint firstAttribute="bottom" secondItem="f7E-Nv-cQb" secondAttribute="bottom" constant="20" id="hom-2I-dTt"/>
-                                <constraint firstAttribute="bottom" secondItem="T1r-cq-idA" secondAttribute="bottom" constant="120" id="tik-cD-8vQ"/>
                                 <constraint firstAttribute="trailing" secondItem="f7E-Nv-cQb" secondAttribute="trailing" constant="30" id="v8Z-4O-V0y"/>
                                 <constraint firstAttribute="trailing" secondItem="gmW-WP-wei" secondAttribute="trailing" id="ylP-fm-Ian"/>
                             </constraints>
@@ -247,9 +195,6 @@
                         <outlet property="favoriteLabel" destination="PLK-sh-HXH" id="au0-B3-60O"/>
                         <outlet property="favoriteView" destination="zqc-iB-lnd" id="YwD-Ts-56E"/>
                         <outlet property="headerImage" destination="gmW-WP-wei" id="hFu-xE-DU4"/>
-                        <outlet property="likeButton" destination="PYX-5T-sXm" id="1Xi-yN-X2R"/>
-                        <outlet property="likeLabel" destination="XEk-qw-2eS" id="A8P-cV-2iW"/>
-                        <outlet property="likeView" destination="T1r-cq-idA" id="PSb-j1-kBl"/>
                         <outlet property="nominationButton" destination="LjP-55-TcO" id="dZm-aq-TML"/>
                         <outlet property="nominationView" destination="f7E-Nv-cQb" id="zcT-29-kQc"/>
                         <segue destination="qC2-PW-sq7" kind="show" identifier="showNomination" id="KCC-uX-AOv"/>
@@ -396,7 +341,6 @@
     </scenes>
     <resources>
         <image name="Chifanhero_Favorite" width="69" height="66"/>
-        <image name="Chifanhero_Like" width="69" height="66"/>
         <image name="Chifanhero_Nomination" width="69" height="66"/>
         <image name="Collection_Tab" width="69" height="66"/>
     </resources>

@@ -115,7 +115,6 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     func showSelectedCollection() {
         let storyboard = UIStoryboard(name: "Collection", bundle: nil)
         let collectionsController = storyboard.instantiateViewController(withIdentifier: "selectedCollection") as! SelectedCollectionsTableViewController
-        collectionsController.isFromBookMark = true
         self.navigationController?.pushViewController(collectionsController, animated: true)
     }
     

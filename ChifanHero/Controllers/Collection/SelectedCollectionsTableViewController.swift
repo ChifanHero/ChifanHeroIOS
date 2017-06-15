@@ -1,6 +1,6 @@
 //
-//  ListsTableViewController.swift
-//  SoHungry
+//  SelectedCollectionsTableViewController.swift
+//  ChifanHero
 //
 //  Created by Shi Yan on 8/20/15.
 //  Copyright © 2015 Shi Yan. All rights reserved.
@@ -14,54 +14,40 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     var selectedCollections: [SelectedCollection] = []
     
-    var isFromBookMark = false
-    
     var request: GetSelectedCollectionsByLatAndLonRequest = GetSelectedCollectionsByLatAndLonRequest()
     
-    var ratingAndBookmarkExecutor: RatingAndBookmarkExecutor?
-    
     var selectedCellFrame = CGRect.zero
-    
-    var selectedIndexPath: IndexPath?
     
     let transition = ExpandingCellTransition()
     
     var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     
-//    let refresher = PullToMakeSoup()
     var pullRefresher: UIRefreshControl!
     
-    var lastUsedLocation : Location?
+    var lastUsedLocation: Location?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
         self.configPullToRefresh()
-        ratingAndBookmarkExecutor = RatingAndBookmarkExecutor(baseVC: self)
-        initialLoadData()
+        self.initialLoadData()
         self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
-        configLoadingIndicator()
+        self.configLoadingIndicator()
         self.configureNavigationController()
-        loadingIndicator.startAnimation()
+        self.loadingIndicator.startAnimation()
+        self.tableView.register(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "selectedCollectionCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let selectedCellIndexPath: IndexPath? = self.tableView.indexPathForSelectedRow
-        if selectedCellIndexPath != nil {
-            self.tableView.deselectRow(at: selectedCellIndexPath!, animated: false)
-        }
         self.setNavigationBarTranslucent(To: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        if self.tableView.pullToRefresh == nil {
-//            self.tableView.addPullToRefresh(refresher, action: {self.refreshData()})
-//        }
         TrackingUtil.trackCollectionsView()
-        if !isFromBookMark && locationChangedSignificantly() {
+        if locationChangedSignificantly() {
             loadingIndicator.startAnimation()
             refreshData()
         }
@@ -75,7 +61,6 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         let currentCLLocation = CLLocation(latitude: (currentLocation?.lat)!, longitude: (currentLocation?.lon)!)
         let lastCLLocation = CLLocation(latitude: lastUsedLocation!.lat!, longitude: lastUsedLocation!.lon!)
         let distance : CLLocationDistance = currentCLLocation.distance(from: lastCLLocation)
-        print(distance)
         if distance >= 1600 {
             return true
         } else {
@@ -86,28 +71,22 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     func configPullToRefresh() {
         pullRefresher = UIRefreshControl()
-        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGray,
+        let attribute = [NSForegroundColorAttributeName: UIColor.lightGray,
                           NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
         pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
         pullRefresher.tintColor = UIColor.lightGray
-        //        self.homepageTable.addSubview(pullRefresher)
         pullRefresher.addTarget(self, action: #selector(SelectedCollectionsTableViewController.refreshData), for: .valueChanged)
         self.tableView.insertSubview(pullRefresher, at: 0)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    fileprivate func configLoadingIndicator() {
+    private func configLoadingIndicator() {
         loadingIndicator.color = UIColor.themeOrange()
         loadingIndicator.type = NVActivityIndicatorType.pacman
         loadingIndicator.center = self.view.center
         self.view.addSubview(loadingIndicator)
     }
     
-    fileprivate func initialLoadData() {
+    private func initialLoadData() {
         let location = userLocationManager.getLocationInUse()
         if (location == nil || location!.lat == nil || location!.lon == nil) {
             return
@@ -122,33 +101,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     
     func loadData(_ refreshHandler: ((_ success: Bool) -> Void)?) {
         
-        if isFromBookMark == true {
-            let request: GetFavoritesRequest = GetFavoritesRequest(type: FavoriteTypeEnum.selectedCollection)
-            DataAccessor(serviceConfiguration: ParseConfiguration()).getFavorites(request) { (response) -> Void in
-                OperationQueue.main.addOperation({ () -> Void in
-                    self.clearData()
-                    if (response != nil && response?.results != nil) {
-                        if response?.results.count == 0 {
-                            self.navigationController?.navigationBar.isTranslucent = false
-                            self.tabBarController?.tabBar.isHidden = false
-                        }
-                        for index in 0..<(response?.results)!.count {
-                            self.selectedCollections.append((response?.results)![index].selectedCollection!)
-                        }
-                        self.tableView.reloadData()
-                        self.pullRefresher.endRefreshing()
-                        self.loadingIndicator.stopAnimation()
-                    } else {
-                        self.loadingIndicator.stopAnimation()
-                        self.navigationController?.navigationBar.isTranslucent = false
-                        self.tabBarController?.tabBar.isHidden = false
-                        self.pullRefresher.endRefreshing()
-                    }
-                    
-                });
-            }
-        } else {
-            DataAccessor(serviceConfiguration: ParseConfiguration()).getSelectedCollectionByLocation(request) { (response) -> Void in
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getSelectedCollectionByLocation(request) { (response) -> Void in
                 OperationQueue.main.addOperation({ () -> Void in
                     self.lastUsedLocation = self.request.userLocation
                     if response == nil {
@@ -158,7 +111,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                         }
                     } else {
                         self.clearData()
-                        if response != nil && response?.results != nil {
+                        if response?.results != nil {
                             if response!.results.count > 0 {
                                 self.selectedCollections += response!.results
                                 self.tableView.isHidden = false
@@ -187,10 +140,9 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                     }
                 })
             }
-        }
     }
     
-    fileprivate func clearData() {
+    private func clearData() {
         self.selectedCollections.removeAll()
     }
     
@@ -203,7 +155,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         loadData(nil)
     }
     
-    fileprivate func refresh(_ sender:AnyObject) {
+    private func refresh(_ sender:AnyObject) {
         refreshData()
     }
     
@@ -220,18 +172,13 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: SelectedCollectionTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "selectedCollectionCell") as? SelectedCollectionTableViewCell
-        if cell == nil {
-            tableView.register(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "selectedCollectionCell")
-            cell = tableView.dequeueReusableCell(withIdentifier: "selectedCollectionCell") as? SelectedCollectionTableViewCell
-        }
-        cell?.setUp(selectedCollection: selectedCollections[indexPath.row])
-        return cell!
+        let cell: SelectedCollectionTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "selectedCollectionCell") as! SelectedCollectionTableViewCell
+        cell.setUp(selectedCollection: selectedCollections[indexPath.row])
+        return cell
     }
 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         self.selectedCellFrame = tableView.convert(tableView.cellForRow(at: indexPath)!.frame, to: tableView.superview)
         self.performSegue(withIdentifier: "showCollectionMember", sender: indexPath)
     }
@@ -240,6 +187,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         if segue.identifier == "showCollectionMember" {
             let controller: RestaurantCollectionMembersViewController = segue.destination as! RestaurantCollectionMembersViewController
             controller.selectedCollection = selectedCollections[(sender as! IndexPath).row]
+            controller.lastUsedLocation = self.lastUsedLocation
         }
     }
     
