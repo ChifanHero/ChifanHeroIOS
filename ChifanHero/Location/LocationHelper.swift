@@ -9,47 +9,21 @@
 import Foundation
 import MapKit
 import CoreData
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 class LocationHelper {
     
-    class func getLocationFromAddress(_ address : String,completionHandler : @escaping (Location?) -> Void) {
-        let geocoder : CLGeocoder = CLGeocoder()
+    class func getLocationFromAddress(_ address: String, completionHandler: @escaping (Location?) -> Void) {
+        let geocoder: CLGeocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placeMarks, error) in
-            if placeMarks?.count > 0 {
-                let topResult: CLPlacemark = (placeMarks?[0])!
+            if placeMarks!.count > 0 {
+                let topResult: CLPlacemark = placeMarks![0]
                 let placemark: MKPlacemark = MKPlacemark(placemark: topResult)
-                let latitude = (placemark.location?.coordinate.latitude)!
-                let longitude = (placemark.location?.coordinate.longitude)!
-                let location : Location = Location()
+                let latitude = placemark.location!.coordinate.latitude
+                let longitude = placemark.location!.coordinate.longitude
+                let location: Location = Location()
                 location.lat = latitude
                 location.lon = longitude
                 completionHandler(location)
-            } else {
-                
             }
         }
     }
@@ -58,25 +32,8 @@ class LocationHelper {
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
         geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
-            // Place details
             var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
-//            print(placeMark.locality)
-//            print(placeMark.country)
-//            print(placeMark.name)
-//            print(placeMark.thoroughfare)
-//            print(placeMark.subThoroughfare)
-//            print(placeMark.subLocality)
-            
-            //            // Address dictionary
-            //            print(placeMark.addressDictionary)
-            //
-            //            // Location name
-            //            if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
-            //                print(locationName)
-            //            }
-            //
-                        // Street address
+            placeMark = placemarks![0]
             var address = ""
             var name = ""
             var city = ""
@@ -95,25 +52,12 @@ class LocationHelper {
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
         geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
-            // Place details
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
             
-//            // Address dictionary
-//            print(placeMark.addressDictionary)
-//            
-//            // Location name
-//            if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
-//                print(locationName)
-//            }
-//            
-//            // Street address
-//            if let street = placeMark.addressDictionary!["Thoroughfare"] as? NSString {
-//                print(street)
-//            }
+            var placeMark: CLPlacemark!
+            placeMark = placemarks![0]
             
             // City
-            let cityObject : City = City()
+            let cityObject: City = City()
             if let city = placeMark.addressDictionary!["City"] as? NSString {
                 cityObject.name = city as String
             }
@@ -171,7 +115,6 @@ class LocationHelper {
         do {
             if let results = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 var managedObject : NSManagedObject
-                print("default cities count = \(results.count)")
                 if results.count != 0 {
                     managedObject = results[0]
                 } else {
@@ -186,7 +129,7 @@ class LocationHelper {
                 managedObject.setValue(city.center?.lon, forKey: "center_lon")
                 do {
                     try managedContext.save()
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: "DefaultCityChanged"), object: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: DEFAULT_CITY_CHANGED), object: nil)
                 } catch let error as NSError {
                     print("Could not save \(error), \(error.userInfo)")
                 }

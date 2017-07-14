@@ -39,7 +39,7 @@ class RestaurantTableViewCell: UITableViewCell {
         nameLabel.text = restaurant.name
         addressLabel.text = restaurant.address
         let defaults = UserDefaults.standard
-        if !defaults.bool(forKey: "usingCustomLocation") {
+        if !defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
             if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
                 let value = restaurant.distance?.value
                 let unit = restaurant.distance?.unit

@@ -1,5 +1,5 @@
 //
-//  CityCache.swift
+//  UserLocationManager.swift
 //  Lightning
 //
 //  Created by Shi Yan on 8/8/16.
@@ -13,12 +13,12 @@ import Foundation
  */
 class UserLocationManager {
     
-    fileprivate var realtimeLocation : Location?
-    fileprivate var cityInUse : City?
+    private var realtimeLocation : Location?
+    private var cityInUse : City?
     
     func getLocationInUse() -> Location? {
         let defaults = UserDefaults.standard
-        if defaults.bool(forKey: "usingCustomLocation") {
+        if defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
             let city = getCityInUse()
             return city?.center
         } else {
@@ -33,7 +33,7 @@ class UserLocationManager {
     
     func getCityInUse() -> City? {
         let defaults = UserDefaults.standard
-        if defaults.bool(forKey: "usingCustomLocation") {
+        if defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
             if cityInUse == nil {
                 let cityFromCoreData : City? = LocationHelper.getDefaultCityFromCoreData()
                 if cityFromCoreData != nil {
@@ -56,3 +56,4 @@ class UserLocationManager {
     }
     
 }
+

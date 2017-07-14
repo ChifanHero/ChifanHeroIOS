@@ -9,58 +9,7 @@
 import Foundation
 import UIKit
 import Flurry_iOS_SDK
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
 
-
-class RefreshableViewController: UIViewController, RefreshableViewDelegate {
-    
-    
-    // MARK: - RefreshableViewDelegate
-    var noNetworkDefaultView: NoNetworkDefaultView = NoNetworkDefaultView()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        handleNoNetwork()
-    }
-    
-    func refreshData() {
-        
-    }
-    
-    func loadData(_ refreshHandler : ((_ success : Bool) -> Void)?) {
-        
-    }
-    
-    func handleNoNetwork(){
-        noNetworkDefaultView.translatesAutoresizingMaskIntoConstraints = false
-        noNetworkDefaultView.parentVC = self
-        self.view.addSubview(noNetworkDefaultView)
-        
-        let leadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.leading, multiplier: 1.0, constant: 0.0)
-        let trailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.trailing, multiplier: 1.0, constant: 0.0)
-        let topConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0.0)
-        let bottomConstraint: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: noNetworkDefaultView, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0.0)
-        self.view.addConstraints([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
-        self.view.layoutIfNeeded()
-        self.view.bringSubview(toFront: noNetworkDefaultView)
-        if Reachability.isConnectedToNetwork() {
-            noNetworkDefaultView.hide()
-        } else {
-            noNetworkDefaultView.show()
-        }
-    }
-}
 
 extension UIViewController: ControllerCommonConfigurationDelegate{
     // MARK: - ControllerCommonConfigurationDelegate
@@ -89,8 +38,8 @@ extension UIViewController: ControllerCommonConfigurationDelegate{
         }
     }
     
-    func tabBarIsVisible() ->Bool {
-        return self.tabBarController?.tabBar.frame.origin.y < self.view.frame.maxY
+    func tabBarIsVisible() -> Bool {
+        return (self.tabBarController?.tabBar.frame.origin.y)! < self.view.frame.maxY
     }
     
     func addImageForBackBarButtonItem(){

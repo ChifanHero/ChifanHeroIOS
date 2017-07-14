@@ -80,7 +80,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
                 self.addressBar.text = searchContext.address
             }
             let defaults = UserDefaults.standard
-            if !defaults.bool(forKey: "usingCustomLocation") {
+            if !defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
                 //                self.addressBar.attributedText = self.getHighlightedCurrentLocationText()
                 self.addressBar.placeholder = "当前位置"
             } else {

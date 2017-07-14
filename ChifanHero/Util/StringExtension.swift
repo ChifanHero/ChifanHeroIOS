@@ -18,7 +18,6 @@ extension String {
         }
         let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: size) ]
         let attrString = NSMutableAttributedString(string: self, attributes: myAttribute)
-//        let boldFont = UIFont(name: "Helvetica-Bold", size: 14.0)!
         let boldFont = UIFont.boldSystemFont(ofSize: size)
         var r1 = (attrString.string as NSString).range(of: "<b>")
         while r1.location != NSNotFound {

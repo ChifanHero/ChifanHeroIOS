@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
+class RestaurantsOnlyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
     @IBOutlet var restaurantsTable: UITableView!
     
@@ -97,7 +97,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         self.restaurantsTable.tableFooterView = footerView
     }
     
-    override func refreshData() {
+    func refreshData() {
         request.limit = 50
         request.skip = 0
         footerView?.reset()
@@ -106,7 +106,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
             return
         }
         request.userLocation = location
-        loadData(nil)
+        loadData()
     }
     
     func firstLoadData() {
@@ -119,18 +119,14 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         }
         loadingIndicator.startAnimation()
         request.userLocation = location
-        loadData { (success) -> Void in
-            if !success {
-                self.noNetworkDefaultView.show()
-            }
-        }
+        loadData()
     }
     
     func clearData() {
         self.restaurants.removeAll()
     }
     
-    override func loadData(_ refreshHandler: ((_ success: Bool) -> Void)?) {
+    func loadData() {
         
         if isFromBookMark == true {
             let request: GetFavoritesRequest = GetFavoritesRequest(type: FavoriteTypeEnum.restaurant)
@@ -156,9 +152,6 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurants(request) { (response) -> Void in
                 DispatchQueue.main.async(execute: {
                     if response == nil {
-                        if refreshHandler != nil {
-                            refreshHandler!(false)
-                        }
                         self.pullRefresher.endRefreshing()
                         self.loadingIndicator.stopAnimation()
                         self.footerView!.activityIndicator.stopAnimating()
@@ -174,9 +167,6 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
                         self.loadingIndicator.stopAnimation()
                         self.footerView!.activityIndicator.stopAnimating()
                         self.restaurantsTable.reloadData()
-                        if refreshHandler != nil {
-                            refreshHandler!(true)
-                        }
                         
                     }
                     self.isLoadingMore = false
@@ -259,7 +249,7 @@ class RestaurantsOnlyViewController: RefreshableViewController, UITableViewDataS
         request.skip = (request.skip)! + (request.limit)!
         isLoadingMore = true
         footerView?.activityIndicator.startAnimating()
-        loadData(nil)
+        loadData()
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
