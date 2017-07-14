@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
+class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
     @IBOutlet weak var homepageTable: UITableView!
     
@@ -40,7 +40,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     var lastUsedLocation: Location?
     
     override func viewDidLoad() {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "HomeVCLoaded"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: HOME_VC_LOADED), object: nil)
         super.viewDidLoad()
         self.configLoadingIndicator()
         self.configureFrontCoverImage()
@@ -64,11 +64,11 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        pullRefresher.addTarget(self, action: #selector(RefreshableViewController.refreshData), for: .valueChanged)
+        pullRefresher.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
         TrackingUtil.trackRecommendationView()
         if autoRefresh && locationChangedSignificantly() {
             loadingIndicator.startAnimation()
-            loadData(nil)
+            loadData()
         }
     }
     
@@ -136,7 +136,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
     // MARK: - add location selection button to top left corner
     func addLocationSelectionToLeftCorner() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("位置待定", size: CGRect(x: 0, y: 0, width: 200, height: 26))
-        button.addTarget(self, action: #selector(HomeViewController.editLocation), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(self.editLocation), for: UIControlEvents.touchUpInside)
         let selectionLocationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = selectionLocationButton
     }
@@ -151,7 +151,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
                 title = "正在使用Production"
             }
             let button: UIButton = ButtonUtil.barButtonWithTextAndBorder(title, size: CGRect(x: 0, y: 0, width: 150, height: 26))
-            button.addTarget(self, action: #selector(HomeViewController.changeEnvironment), for: UIControlEvents.touchUpInside)
+            button.addTarget(self, action: #selector(self.changeEnvironment), for: UIControlEvents.touchUpInside)
             let selectionLocationButton = UIBarButtonItem(customView: button)
             self.navigationItem.rightBarButtonItem = selectionLocationButton
         #endif
@@ -175,7 +175,7 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         appearance.setkWindowHeight(40)
         let askLocationAlertView = SCLAlertView(appearance: appearance)
         let alertViewIcon = UIImage(named: "LogoWithBorder")
-        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(HomeViewController.doNothing))
+        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.doNothing))
         askLocationAlertView.showInfo("正在使用\(afterChangeEnv)", subTitle: "\(ParseConfiguration().hostEndpoint())", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
     }
 
@@ -192,28 +192,28 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         homepageTable.separatorStyle = UITableViewCellSeparatorStyle.none
         loadingIndicator.startAnimation()
         let defaults = UserDefaults.standard
-        if !defaults.bool(forKey: "usingCustomLocation") {
-            NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:NSNotification.Name(rawValue: "DefaultCityChanged"), object: nil) // Refresh content whenever the user select a city
-            NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:NSNotification.Name(rawValue: "UserLocationAvailable"), object: nil) // Refresh content when real-time location first time available
+        if !defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
+            NotificationCenter.default.addObserver(self, selector: #selector(self.handleLocationChange), name:NSNotification.Name(rawValue: DEFAULT_CITY_CHANGED), object: nil) // Refresh content whenever the user select a city
+            NotificationCenter.default.addObserver(self, selector: #selector(self.handleLocationChange), name:NSNotification.Name(rawValue: USER_LOCATION_AVAILABLE), object: nil) // Refresh content when real-time location first time available
         } else {
             // User restarted the app. Already have all the information we need. No need to observe anything
             let cityInUse = userLocationManager.getCityInUse()
             let cityText: String = cityInUse!.name! + ", " + cityInUse!.state! + ", " + cityInUse!.localizedCountryName!
             (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, for: UIControlState())
-            loadData(nil)
+            loadData()
         }
         
     }
     
     @objc private func refresh(_ sender:AnyObject) {
-        loadData(nil)
+        loadData()
     }
     
     func handleLocationChange() {
         loadingIndicator.startAnimation()
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "UserLocationAvailable"), object: nil) // only need this notification once. Already got it, so remove it.
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: USER_LOCATION_AVAILABLE), object: nil) // only need this notification once
         let defaults = UserDefaults.standard
-        if defaults.bool(forKey: "usingCustomLocation") {
+        if defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
             let cityInUse = userLocationManager.getCityInUse()
             let cityText: String = cityInUse!.name! + ", " + cityInUse!.state! + ", " + cityInUse!.localizedCountryName!
             (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, for: UIControlState())
@@ -221,24 +221,24 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
             currentLocationText = "实时位置"
             (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(currentLocationText, for: UIControlState())
         }
-        loadData(nil)
+        loadData()
     }
     
-    override func refreshData() {
-        loadData(nil)
+    func refreshData() {
+        loadData()
     }
     
     func prepareForDataRefresh() {
         let defaults = UserDefaults.standard
-        if defaults.bool(forKey: "usingCustomLocation") {
-            NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:NSNotification.Name(rawValue: "DefaultCityChanged"), object: nil)
+        if defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
+            NotificationCenter.default.addObserver(self, selector: #selector(self.handleLocationChange), name:NSNotification.Name(rawValue: DEFAULT_CITY_CHANGED), object: nil)
         } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.handleLocationChange), name:NSNotification.Name(rawValue: "UserLocationAvailable"), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.handleLocationChange), name:NSNotification.Name(rawValue: USER_LOCATION_AVAILABLE), object: nil)
         }
         autoRefresh = false
     }
 
-    override func loadData(_ refreshHandler : ((_ success : Bool) -> Void)?) {
+    func loadData() {
         let request = GetHomepageRequest()
         
         let location: Location? = userLocationManager.getLocationInUse()
@@ -250,9 +250,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
         DataAccessor(serviceConfiguration: ParseConfiguration()).getHomepage(request) { (response) -> Void in
             OperationQueue.main.addOperation({ () -> Void in
                 if response == nil {
-                    if refreshHandler != nil {
-                        refreshHandler!(false)
-                    }
                     self.loadingIndicator.stopAnimation()
                 } else {
                     self.clearData()
@@ -265,9 +262,6 @@ class HomeViewController: RefreshableViewController, ARNImageTransitionZoomable,
                     self.homepageTable.separatorStyle = UITableViewCellSeparatorStyle.singleLine
                     self.homepageTable.isHidden = false
                     self.homepageTable.reloadData()
-                    if refreshHandler != nil {
-                        refreshHandler!(true)
-                    }
                 }
                 self.autoRefresh = true
                 self.lastUsedLocation = request.userLocation

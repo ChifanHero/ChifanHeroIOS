@@ -92,23 +92,16 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
             return
         }
         request.userLocation = location
-        loadData { (success) -> Void in
-            if !success {
-                //self.noNetworkDefaultView.show()
-            }
-        }
+        loadData()
     }
     
-    func loadData(_ refreshHandler: ((_ success: Bool) -> Void)?) {
+    func loadData() {
         
         DataAccessor(serviceConfiguration: ParseConfiguration()).getSelectedCollectionByLocation(request) { (response) -> Void in
                 OperationQueue.main.addOperation({ () -> Void in
                     self.lastUsedLocation = self.request.userLocation
                     if response == nil {
                         self.pullRefresher.endRefreshing()
-                        if refreshHandler != nil {
-                            refreshHandler!(false)
-                        }
                     } else {
                         self.clearData()
                         if response?.results != nil {
@@ -121,17 +114,9 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
                             }
                             
                             self.tableView.reloadData()
-                            
-                            if refreshHandler != nil {
-                                refreshHandler!(true)
-                            }
-                            
                             self.pullRefresher.endRefreshing()
                             self.loadingIndicator.stopAnimation()
                         } else {
-                            if refreshHandler != nil {
-                                refreshHandler!(false)
-                            }
                             self.loadingIndicator.stopAnimation()
                             self.pullRefresher.endRefreshing()
                             self.navigationController?.navigationBar.isTranslucent = false
@@ -152,7 +137,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
             return
         }
         request.userLocation = location
-        loadData(nil)
+        loadData()
     }
     
     private func refresh(_ sender:AnyObject) {

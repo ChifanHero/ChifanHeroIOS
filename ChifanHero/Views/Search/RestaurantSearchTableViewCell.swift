@@ -40,14 +40,14 @@ class RestaurantSearchTableViewCell: UITableViewCell {
     func setUp(restaurant: Restaurant) {
 
         if restaurant.name != nil {
-            self.nameLabel.attributedText = restaurant.name!.attributedStringFromHTML(14, highlightColor: LightningColor.themeRed())
+            self.nameLabel.attributedText = restaurant.name!.attributedStringFromHTML(14, highlightColor: UIColor.themeOrange())
         }
         if restaurant.address != nil {
-            self.addressLabel.attributedText = restaurant.address?.attributedStringFromHTML(12, highlightColor: LightningColor.themeRed())
+            self.addressLabel.attributedText = restaurant.address?.attributedStringFromHTML(12, highlightColor: UIColor.themeOrange())
         }
         
         let defaults = UserDefaults.standard
-        if !defaults.bool(forKey: "usingCustomLocation") {
+        if !defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
             if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
                 let value = restaurant.distance?.value
                 let unit = restaurant.distance?.unit

@@ -21,14 +21,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     let locationManager = CLLocationManager()
     
-    var application : UIApplication?
-    var launchOptions : [AnyHashable: Any]?
+    var application: UIApplication?
+    var launchOptions: [AnyHashable: Any]?
     
     var isAppInForeground = false
     
     var postLocationAvailableNotification = true
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // Network reachability check
+        do {
+            Network.reachability = try Reachability(hostname: "www.google.com")
+            do {
+                try Network.reachability?.start()
+            } catch let error as Network.Error {
+                print(error)
+            } catch {
+                print(error)
+            }
+        } catch {
+            print(error)
+        }
+        
+        // Facebook
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         isAppInForeground = true
         self.application = application
@@ -40,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let notification : [AnyHashable: Any] = launchOptions![UIApplicationLaunchOptionsKey.remoteNotification] as! [AnyHashable: Any]
             handleNotification(notification)
         }
+        
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         return true
@@ -52,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     // MARK: - Initialization
     
-    fileprivate func initialize() {
+    private func initialize() {
         Parse.setApplicationId("Z6ND8ho1yR4aY3NSq1zNNU0kPc0GDOD1UZJ5rgxM", clientKey: "t9TxZ7HPgwEl84gH9A2R9qisn8giNIdtKuAyt9Q4")
         GMSPlacesClient.provideAPIKey("AIzaSyDoBwLxj_Ij9SnIwfKD7khalqjUObIs6xE")
         #if DEBUG
@@ -69,20 +85,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         setBadgeValue()
     }
     
-    fileprivate func UISetup() {
+    private func UISetup() {
         configNavigationBar()
     }
     
-    fileprivate func observeDefaultCityChanges() {
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.informUserLocationSettingsIfNecessary), name:NSNotification.Name(rawValue: "DefaultCityChanged"), object: nil)
+    private func observeDefaultCityChanges() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.informUserLocationSettingsIfNecessary), name:NSNotification.Name(rawValue: DEFAULT_CITY_CHANGED), object: nil)
     }
     
-    fileprivate func loadInitializationData() {
+    private func loadInitializationData() {
         loadHotCitiesInBackground()
     }
     
-    fileprivate func loadHotCitiesInBackground() {
-        let hotCityRequest : GetHotCitiesRequest = GetHotCitiesRequest()
+    private func loadHotCitiesInBackground() {
+        let hotCityRequest: GetHotCitiesRequest = GetHotCitiesRequest()
         DataAccessor(serviceConfiguration: ParseConfiguration()).getHotCities(hotCityRequest) { (searchResponse) in
             if let results = searchResponse?.results {
                 var hotCities = [City]()
@@ -92,23 +108,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    fileprivate func configNavigationBar() {
+    private func configNavigationBar() {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().barTintColor = UIColor.themeOrange()
     }
     
-    fileprivate func handleFirstLaunch() {
+    private func handleFirstLaunch() {
         let defaults = UserDefaults.standard
-        if !defaults.bool(forKey: "hasLaunchedOnce") {
-            NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.keyWindowLoaded), name:NSNotification.Name(rawValue: "HomeVCLoaded"), object: nil)
+        if !defaults.bool(forKey: HAS_LAUNCHED_ONCE) {
+            NotificationCenter.default.addObserver(self, selector: #selector(self.keyWindowLoaded), name:NSNotification.Name(rawValue: HOME_VC_LOADED), object: nil)
             initializeUserDefaults()
             createFirstNotification()
             trackAppVersion()
-            defaults.set(true, forKey: "hasLaunchedOnce")
+            defaults.set(true, forKey: HAS_LAUNCHED_ONCE)
             defaults.synchronize()
         } else {
-            // Common logic. Needed everytime user start the app.
+            // Common logic. Needed everytime user start app.
             locationManager.requestWhenInUseAuthorization()
             locationManager.startUpdatingLocation()
         }
@@ -118,32 +134,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func keyWindowLoaded() {
         prepareForNotificationAuthorization()
         askForLocationAuthorization()
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "HomeVCLoaded"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: HOME_VC_LOADED), object: nil)
     }
     
-    fileprivate func initializeUserDefaults() {
+    private func initializeUserDefaults() {
         let defaults = UserDefaults.standard
-        defaults.set(false, forKey: "usingCustomLocation")
+        defaults.set(false, forKey: USING_NOT_AUTO_DETECTED_LOCATION)
         defaults.synchronize()
     }
     
-    fileprivate func prepareForNotificationAuthorization() {
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.registerSystemNotifications), name:NSNotification.Name(rawValue: "locationAlertDismissed"), object: nil)
+    private func prepareForNotificationAuthorization() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.registerSystemNotifications), name:NSNotification.Name(rawValue: LOCATION_ALERT_DISMISSED), object: nil)
     }
     
     func registerSystemNotifications() {
         registerForPushNotifications()
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "locationAlertDismissed"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: LOCATION_ALERT_DISMISSED), object: nil)
     }
     
-    fileprivate func askForLocationAuthorization() {
+    private func askForLocationAuthorization() {
         let rootVC : UIViewController? = self.window?.rootViewController
         if rootVC != nil {
             let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
             let askLocationAlertView = SCLAlertView(appearance: appearance)
             let alertViewIcon = UIImage(named: "LogoWithBorder")
-            askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(AppDelegate.askLocationAlertViewDismissed))
-            askLocationAlertView.showInfo("友情提示", subTitle: "\n\n允许位置服务可以帮助吃饭英雄精确搜索。\n\n如果您不希望共享位置，我们将为您设置一个默认城市。您可以随时去首页左上角“位置”重新设置。", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+            askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.askLocationAlertViewDismissed))
+            askLocationAlertView.showInfo("友情提示", subTitle: TextUtil.getLocationServicePromptText(), colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
             
         }
         
@@ -154,33 +170,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager.startUpdatingLocation()
     }
     
-    fileprivate func trackAppVersion() {
+    private func trackAppVersion() {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             Flurry.logEvent("AppVersion" + version)
         }
     }
     
-    fileprivate func createFirstNotification() {
+    private func createFirstNotification() {
         let title = FirstNotification.title
         let body = FirstNotification.body
         saveNotifications(title: title, body: body)
     }
     
-    fileprivate func setBadgeValue() {
+    private func setBadgeValue() {
         let badgeValue = countUnreadNotifications()
-//        let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
-//        let splitViewController : UISplitViewController = tabBarController.viewControllers![3] as! UISplitViewController
         if badgeValue > 0 {
-            //splitViewController.tabBarItem.badgeValue = "\(badgeValue)"
             UIApplication.shared.applicationIconBadgeNumber = badgeValue;
         } else {
-            //splitViewController.tabBarItem.badgeValue = nil
             UIApplication.shared.applicationIconBadgeNumber = 0;
         }
 
     }
     
-    fileprivate func handleNotification(_ notification : [AnyHashable: Any]) {
+    private func handleNotification(_ notification : [AnyHashable: Any]) {
         print(notification)
         let aps = notification["aps"] as? NSDictionary
         var title : String = ""
@@ -207,7 +219,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    fileprivate func countUnreadNotifications() -> Int {
+    private func countUnreadNotifications() -> Int {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notification")
         var notifications : [NSManagedObject] = [NSManagedObject]()
         var count = 0
@@ -227,7 +239,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         return count
     }
     
-    fileprivate func saveNotifications(title : String, body : String) {
+    private func saveNotifications(title : String, body : String) {
         let entity = NSEntityDescription.entity(forEntityName: "Notification", in: self.managedObjectContext)
         let notification = NSManagedObject(entity: entity!, insertInto: self.managedObjectContext)
         notification.setValue(title, forKey: "title")
@@ -262,7 +274,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         isAppInForeground = true
-//        informUserLocationSettingsIfNecessary()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -307,7 +318,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
     }
     
-    
     // MARK: - Location management
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -316,22 +326,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         realtimeLocation.lat = locValue.latitude
         realtimeLocation.lon = locValue.longitude
         userLocationManager.saveRealtimeLocation(realtimeLocation)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "UserLocationAvailable"), object: nil)
-
+        NotificationCenter.default.post(name: Notification.Name(rawValue: USER_LOCATION_AVAILABLE), object: nil)
+        
     }
     
-    private func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // user denied to share location. Set default location to user last used city and show alert
-        if error.code == CLError.Code.denied.rawValue {
-            manager.stopUpdatingLocation()
-            let defaults = UserDefaults.standard
-            if !defaults.bool(forKey: "locationPermissionDenied") {
-                TrackingUtil.trackUserDeniedLocation()
-                handleLocationPermissionDenied()
-            }
-            informUserLocationSettingsIfNecessary()
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "FailToGetUserLocation"), object: LocationHelper.getDefaultCity().center)
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Swift.Error) {
+        
+        manager.stopUpdatingLocation()
+        let defaults = UserDefaults.standard
+        if !defaults.bool(forKey: LOCATION_PERMISSION_DENIED) {
+            TrackingUtil.trackUserDeniedLocation()
+            handleLocationPermissionDenied()
         }
+        informUserLocationSettingsIfNecessary()
+        NotificationCenter.default.post(name: Notification.Name(rawValue: FAIL_TO_GET_USER_LOCATION), object: LocationHelper.getDefaultCity().center)
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -341,24 +350,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             break
         case (CLAuthorizationStatus.denied):
             // user denied location permission
-            print("denied")
             manager.stopUpdatingLocation()
             let defaults = UserDefaults.standard
-            if !defaults.bool(forKey: "locationPermissionDenied") {
-                if !defaults.bool(forKey: "usingCustomLocation") {
+            if !defaults.bool(forKey: LOCATION_PERMISSION_DENIED) {
+                if !defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
                     TrackingUtil.trackUserDeniedLocationInSettings()
                     handleLocationPermissionDenied()
                 }
                 
             }
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "FailToGetUserLocation"), object: LocationHelper.getDefaultCity().center)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: FAIL_TO_GET_USER_LOCATION), object: LocationHelper.getDefaultCity().center)
             break
         case (CLAuthorizationStatus.authorizedAlways):
             // user granted location permission
             manager.startUpdatingLocation()
             let defaults = UserDefaults.standard
-            defaults.set(false, forKey: "needsToInformedUserLocationChange")
-            defaults.set(false, forKey: "locationPermissionDenied")
+            defaults.set(false, forKey: NEED_TO_INFORM_USER_LOCATION_CHANGED)
+            defaults.set(false, forKey: LOCATION_PERMISSION_DENIED)
             defaults.synchronize()
             TrackingUtil.trackUserOpenedLocationInSettings()
             break
@@ -367,13 +375,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    fileprivate func handleLocationPermissionDenied() {
+    
+    private func handleLocationPermissionDenied() {
         let defaults = UserDefaults.standard
-        defaults.set(true, forKey: "needsToInformedUserLocationChange")
-        defaults.set(true, forKey: "locationPermissionDenied")
-        defaults.set(true, forKey: "usingCustomLocation")
+        defaults.set(true, forKey: NEED_TO_INFORM_USER_LOCATION_CHANGED)
+        defaults.set(true, forKey: LOCATION_PERMISSION_DENIED)
+        defaults.set(true, forKey: USING_NOT_AUTO_DETECTED_LOCATION)
         defaults.synchronize()
-        var defaultCity : City = City()
+        var defaultCity: City = City()
         let currentLocation = userLocationManager.getLocationInUse()
         if currentLocation != nil && currentLocation!.lat != nil && currentLocation!.lon != nil {
             LocationHelper.getCityNameFromLocation(currentLocation!.lat!, lon: currentLocation!.lon!, completionHandler: { (city) in
@@ -392,33 +401,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     
     func informUserLocationSettingsIfNecessary() {
-//        let triggerTime = (Int64(NSEC_PER_SEC) * 10)
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, triggerTime), dispatch_get_main_queue(), { () -> Void in
-//            
-//        })
+        
         let defaults = UserDefaults.standard
-        if defaults.bool(forKey: "needsToInformedUserLocationChange") && isAppInForeground {
+        if defaults.bool(forKey: NEED_TO_INFORM_USER_LOCATION_CHANGED) && isAppInForeground {
             let rootVC : UIViewController? = self.window?.rootViewController
             if rootVC != nil {
                 if let defaultCity = LocationHelper.getDefaultCityFromCoreData() {
-                    print("default city is \(defaultCity)")
-                    //let alertViewIcon = UIImage(named: "LogoWithBorder")
                     let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40, kTitleHeight : 0, kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: true)
                     let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
-                    askLocationAlertView!.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(AppDelegate.dismissLocationAlerts))
-                    askLocationAlertView!.showInfo("", subTitle: "\n\n您现在的城市为：\(defaultCity.name!)\n\n由于您关闭了位置服务，我们将不再显示餐厅距离.\n\n如果您需要重新使用实时位置，请点击首页左上角“位置”按钮重新选择。")
+                    askLocationAlertView!.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissLocationAlerts))
+                    askLocationAlertView!.showInfo("", subTitle: TextUtil.getTextWhenUserTurnOffLocationService(city: defaultCity.name!))
                     
                 }
             }
-            defaults.set(false, forKey: "needsToInformedUserLocationChange")
+            defaults.set(false, forKey: NEED_TO_INFORM_USER_LOCATION_CHANGED)
             defaults.synchronize()
-            
         }
-        
     }
     
-    @objc fileprivate func dismissLocationAlerts() {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "locationAlertDismissed"), object: nil)
+    @objc private func dismissLocationAlerts() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: LOCATION_ALERT_DISMISSED), object: nil)
     }
     
     // MARK: - Core Data stack
@@ -484,9 +486,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
         }
     }
-    
-    
-
-
 }
-

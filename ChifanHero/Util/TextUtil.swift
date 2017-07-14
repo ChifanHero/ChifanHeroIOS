@@ -45,4 +45,12 @@ class TextUtil {
         }
         return "未知时间"
     }
+    
+    class func getLocationServicePromptText() -> String {
+        return "\n\n允许位置服务，吃饭英雄会给您带来更好的使用体验。"
+    }
+    
+    class func getTextWhenUserTurnOffLocationService(city: String) -> String {
+        return "\n\n您已关闭位置服务\n\n当前城市为：\(city)。"
+    }
 }

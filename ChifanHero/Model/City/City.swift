@@ -16,7 +16,7 @@ class City : Model{
     var state: String?
     var center: Location?
     var localizedCountryName: String?
-    var activated : Bool?
+    var activated: Bool?
     
     required init() {
         

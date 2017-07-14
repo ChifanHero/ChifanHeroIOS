@@ -61,7 +61,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     func addCancelButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
-        button.addTarget(self, action: #selector(SelectLocationViewController.cancel(_:)), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(self.cancel(_:)), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
@@ -75,7 +75,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     func getCurrentSelection() {
         let defaults = UserDefaults.standard
-        if defaults.bool(forKey: "usingCustomLocation") {
+        if defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
             currentSelection = LocationHelper.getDefaultCityFromCoreData()
             if currentSelection == nil {
                 currentSelection = LocationHelper.getDefaultCity()
@@ -142,7 +142,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell : CityTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "cityCell") as? CityTableViewCell
+        var cell: CityTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "cityCell") as? CityTableViewCell
         if cell == nil {
             tableView.register(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "cityCell")
             cell = tableView.dequeueReusableCell(withIdentifier: "cityCell") as? CityTableViewCell
@@ -298,7 +298,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         }
         if city != nil {
             let defaults = UserDefaults.standard
-            defaults.set(true, forKey: "usingCustomLocation")
+            defaults.set(true, forKey: USING_NOT_AUTO_DETECTED_LOCATION)
             defaults.synchronize()
             TrackingUtil.trackUserUsingCity()
             if homeViewController != nil {
@@ -392,24 +392,23 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: - User real time location handling
     func tryToUseUserRealLocation() {
         appDelegate?.locationManager.startUpdatingLocation()
-        NotificationCenter.default.addObserver(self, selector: #selector(SelectLocationViewController.handleUserLocationDenied), name:NSNotification.Name(rawValue: "FailToGetUserLocation"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SelectLocationViewController.handleUserLocationAllowed), name:NSNotification.Name(rawValue: "UserLocationAvailable"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleUserLocationDenied), name:NSNotification.Name(rawValue: FAIL_TO_GET_USER_LOCATION), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleUserLocationAllowed), name:NSNotification.Name(rawValue: USER_LOCATION_AVAILABLE), object: nil)
     }
     
     func handleUserLocationDenied() {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "FailToGetUserLocation"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "UserLocationAvailable"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: FAIL_TO_GET_USER_LOCATION), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: USER_LOCATION_AVAILABLE), object: nil)
         remindUserToAuthorize()
     }
     
     func handleUserLocationAllowed() {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "FailToGetUserLocation"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "UserLocationAvailable"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: FAIL_TO_GET_USER_LOCATION), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: USER_LOCATION_AVAILABLE), object: nil)
         let defaults = UserDefaults.standard
-        defaults.set(false, forKey: "needsToInformedUserLocationChange")
-        defaults.set(false, forKey: "locationPermissionDenied")
-        defaults.set(false, forKey: "usingCustomLocation")
+        defaults.set(false, forKey: NEED_TO_INFORM_USER_LOCATION_CHANGED)
+        defaults.set(false, forKey: LOCATION_PERMISSION_DENIED)
+        defaults.set(false, forKey: USING_NOT_AUTO_DETECTED_LOCATION)
         defaults.synchronize()
         if homeViewController != nil {
             homeViewController!.prepareForDataRefresh()
@@ -418,10 +417,10 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func remindUserToAuthorize() {
-        let appearance = SCLAlertView.SCLAppearance(kTitleHeight : 0, kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: false)
+        let appearance = SCLAlertView.SCLAppearance(kTitleHeight : 0, kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: true)
         let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
-        askLocationAlertView!.addButton("打开设置", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(SelectLocationViewController.openLocationSettings))
-        askLocationAlertView!.addButton("我知道了", backgroundColor: LightningColor.themeRed(), target:self, selector:#selector(SelectLocationViewController.dontOpenSettings))
+        askLocationAlertView!.addButton("打开设置", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.openLocationSettings))
+        askLocationAlertView!.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dontOpenSettings))
         askLocationAlertView?.showInfo("", subTitle: "\n\n请打开设置\n\n")
     }
     

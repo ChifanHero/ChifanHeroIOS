@@ -93,11 +93,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         self.clearTitleForBackBarButtonItem()
         self.configLabels()
         self.tableView.showsVerticalScrollIndicator = false
-        self.loadData { (success) -> Void in
-            if !success {
-                // self.noNetworkDefaultView.show()
-            }
-        }
+        self.loadData()
         self.backgroundImageView.image = restaurantImage
         self.configureHeaderView()
         self.configureInfoSectionView()
@@ -284,15 +280,13 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     // MARK: Restaurant Data
     
-    func loadData(_ refreshHandler: ((_ success: Bool) -> Void)?) {
+    func loadData() {
         if (request != nil) {
             request?.userLocation = self.currentLocation
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
                 OperationQueue.main.addOperation({ () -> Void in
                     if response == nil {
-                        if refreshHandler != nil {
-                            refreshHandler!(false)
-                        }
+                        
                     } else {
                         if response?.result != nil {
                             self.restaurant = (response?.result)!
@@ -316,9 +310,6 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
                                 }
                                 self.tableView.reloadData()
                             }
-                        }
-                        if refreshHandler != nil {
-                            refreshHandler!(true)
                         }
                     }
                 });
