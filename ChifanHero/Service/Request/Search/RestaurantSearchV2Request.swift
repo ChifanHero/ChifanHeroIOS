@@ -10,37 +10,34 @@ import Foundation
 
 class RestaurantSearchV2Request: HttpRequest{
     
-    var keyword : String?
-    var offset : Int?
-    var limit : Int?
-    var sortBy : String?
-    var sortOrder : String?
-    var parameters : TuningParams?
-    var output : Output?
-    var userLocation : Location?
-    var range : Range?
-    var highlightInField : Bool?
-    var filters : Filters?
-    
-    override func getRequestBody() -> [String : AnyObject] {
-        var requestBody = Dictionary<String, AnyObject>()
-        requestBody["keyword"] = keyword as AnyObject
-        requestBody["offset"] = offset as AnyObject
-        requestBody["limit"] = limit as AnyObject
-        requestBody["sort_by"] = sortBy as AnyObject
-        requestBody["sort_order"] = sortOrder as AnyObject
-        requestBody["parameters"] = parameters?.getProperties() as AnyObject
-        requestBody["output"] = output?.getProperties() as AnyObject
-        requestBody["user_location"] = userLocation?.getProperties() as AnyObject
-        requestBody["range"] = range?.getProperties() as AnyObject
-        requestBody["highlight_in_field"] = highlightInField as AnyObject
-        requestBody["filters"] = filters?.getProperties() as AnyObject
-        return requestBody
-    }
+    var keyword: String?
+    var rating: Float?
+    var range: Range?
     
     override func getRelativeURL() -> String {
-        return "/search/v2/restaurants"
+        if keyword == nil {
+            return constructNearBySearchApi()
+        } else {
+            return constructTextSearchApi()
+        }
     }
     
+    private func constructNearBySearchApi() -> String {
+        var result = "/nearBy?radius="
+        result += String(Int((range?.distance?.value ?? 1) * 1.6 * 1000))
+        result += "&location.lat=" + String(range?.center?.lat ?? 37.2784)
+        result += "&location.lon=" + String(range?.center?.lon ?? -121.9475)
+        result += "&rating=" + String(rating ?? 1.0)
+        return result
+    }
     
+    private func constructTextSearchApi() -> String {
+        var result = "/text?radius="
+        result += String(Int((range?.distance?.value ?? 1) * 1.6 * 1000))
+        result += "&location.lat=" + String(range?.center?.lat ?? 37.2784)
+        result += "&location.lon=" + String(range?.center?.lon ?? -121.9475)
+        result += "&rating=" + String(rating ?? 1.0)
+        result += "&query=" + keyword!.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!
+        return result
+    }
 }

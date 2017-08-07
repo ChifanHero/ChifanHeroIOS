@@ -425,7 +425,11 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func openLocationSettings() {
-        UIApplication.shared.openURL(URL(string: "prefs:root=LOCATION_SERVICES")!)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+        }
     }
     
     func dontOpenSettings() {

@@ -10,9 +10,9 @@ import UIKit
 
 class RestaurantsFilterViewController: UIViewController {
     
-    fileprivate var sort : SortOptions?
-    fileprivate var distance : RangeFilter?
-    fileprivate var rating : RatingFilter?
+    private var sort: SortOptions?
+    private var distance: RangeFilter?
+    private var rating: RatingFilter?
     
     
     @IBOutlet weak var sortingSC: UISegmentedControl!
@@ -50,11 +50,6 @@ class RestaurantsFilterViewController: UIViewController {
         button.addTarget(self, action: #selector(RestaurantsFilterViewController.commit(_:)), for: UIControlEvents.touchUpInside)
         let confirmButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = confirmButton
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func updateFilters() {
@@ -132,7 +127,7 @@ class RestaurantsFilterViewController: UIViewController {
         self.containerVC?.slideMenuController()?.closeRight()
     }
     
-    fileprivate func clearStates() {
+    private func clearStates() {
         distance = nil
         sort = nil
         rating = nil

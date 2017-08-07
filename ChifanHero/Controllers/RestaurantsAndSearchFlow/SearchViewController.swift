@@ -8,34 +8,8 @@
 
 import UIKit
 import GooglePlaces
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
-
 
 class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchHistoryCellDelegate {
-    
     
     @IBOutlet weak var addressContainerHeight: NSLayoutConstraint!
     
@@ -45,15 +19,15 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     @IBOutlet weak var suggestionTableView: UITableView!
     
-    fileprivate var currentState : CurrentState?
+    fileprivate var currentState: CurrentState?
     
-    var keywordHistory : [String] = [String]()
-    var addressHistory : [String] = [String]()
-    var addressAutoCompletion : [NSAttributedString] = [NSAttributedString]()
+    var keywordHistory: [String] = [String]()
+    var addressHistory: [String] = [String]()
+    var addressAutoCompletion: [NSAttributedString] = [NSAttributedString]()
     
     var pullRefresher: UIRefreshControl!
     
-    var bounds : GMSCoordinateBounds?
+    var bounds: GMSCoordinateBounds?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +36,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         addressBar.addTarget(self, action: #selector(SearchViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         addCancelButton()
         addSearchButton()
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,7 +54,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             }
             let defaults = UserDefaults.standard
             if !defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
-                //                self.addressBar.attributedText = self.getHighlightedCurrentLocationText()
                 self.addressBar.placeholder = "当前位置"
             } else {
                 let cityInUse = userLocationManager.getCityInUse()
@@ -91,19 +63,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
                 }
             }
         }
-    }
-    
-//    private func getHighlightedCurrentLocationText() -> NSAttributedString{
-//        let text = "当前位置"
-//        let range = NSMakeRange(0, text.characters.count)
-//        let attributedString = NSMutableAttributedString(string: text)
-//        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: range)
-//        return attributedString
-//    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func addCancelButton() {
@@ -121,17 +80,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     }
     
     func cancel(_ sender: AnyObject) {
-//        let tabBarController = self.tabBarController
         self.navigationController?.popViewController(animated: false)
-//        searchContext.keyword = "iphone"
-//        let tabBarController = self.tabBarController
-//        let selectedIndex = tabBarController!.selectedIndex
-//        print(selectedIndex)
-        
-//        self.dismissViewControllerAnimated(false, completion: nil)
-//        let storyboard = UIStoryboard(name: "RestaurantsAndSearch", bundle: nil)
-        
-        
     }
 
     
@@ -145,7 +94,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             addressAutoCompletion.removeAll()
         } else if textField == addressBar {
             currentState = CurrentState.address
-            if addressBar.text?.characters.count > 0 {
+            if addressBar.text?.characters.count ?? 0 > 0 {
                 addressAutoComplete()
             }
             if addressHistory.count == 0 {
@@ -161,7 +110,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     }
     
     func textFieldDidChange(_ textField: UITextField) {
-        if textField.text?.characters.count > 0 {
+        if textField.text?.characters.count ?? 0 > 0 {
             addressAutoComplete()
         } else {
             addressAutoCompletion.removeAll()
@@ -187,7 +136,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         } else {
             searchContext.keyword = nil
             searchContext.sort = SortOptions.hotness
-//            searchContext.rating = RatingFilter.FOUR
         }
         if address != nil && address != "" {
             if address == "当前位置" {
@@ -204,9 +152,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             searchContext.coordinates = location
             searchContext.distance = RangeFilter.auto
         }
-        searchContext.offSet = 0
-        
-        
     }
     
     func goToResultsDisplayVC() {
@@ -330,8 +275,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             let neBoundsCorner = CLLocationCoordinate2D(latitude: boundingBox.maxPoint!.lat!, longitude: boundingBox.maxPoint!.lon!)
             let swBoundsCorner = CLLocationCoordinate2D(latitude: boundingBox.minPoint!.lat!, longitude: boundingBox.minPoint!.lon!)
             bounds = GMSCoordinateBounds(coordinate: neBoundsCorner, coordinate: swBoundsCorner)
-            print(neBoundsCorner)
-            print(swBoundsCorner)
         }
         
         placesClient.autocompleteQuery(addressBar.text!, bounds: bounds, filter: filter, callback: { (results, error) -> Void in
@@ -349,7 +292,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
                     bolded.addAttribute(NSFontAttributeName, value: font, range: range)
                 }
                 self.addressAutoCompletion.append(bolded)
-//                print("Result \(result.attributedFullText) with placeID \(result.placeID)")
             }
             self.suggestionTableView.reloadData()
         })
