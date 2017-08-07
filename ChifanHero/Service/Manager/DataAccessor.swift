@@ -155,6 +155,11 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
+    func searchRestaurants(_ request: RestaurantSearchV2Request, responseHandler : @escaping (RestaurantSearchResponse?) -> Void) {
+        
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
     
     
     
@@ -172,18 +177,6 @@ class DataAccessor {
         
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
         
-    }
-    
-    func searchRestaurants(_ request: RestaurantSearchRequest, responseHandler : @escaping (RestaurantSearchResponse?) -> Void) {
-        
-        request.addHeader(key: "Accept-Language", value: "zh-CN")
-        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
-    }
-    
-    func searchRestaurants(_ request: RestaurantSearchV2Request, responseHandler : @escaping (RestaurantSearchResponse?) -> Void) {
-        
-        request.addHeader(key: "Accept-Language", value: "zh-CN")
-        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
     func review(_ request: ReviewRequest, responseHandler: @escaping (ReviewResponse?) -> Void){

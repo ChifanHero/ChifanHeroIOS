@@ -31,8 +31,6 @@ class RestaurantTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setUp(restaurant: Restaurant) {
@@ -49,33 +47,17 @@ class RestaurantTableViewCell: UITableViewCell {
             distanceLabel.text = ""
         }
         
-        //self.ratingLabel.text = ScoreComputer.getScore(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
-        //self.ratingView.backgroundColor = ScoreComputer.getScoreColor(positive: restaurant.likeCount, negative: restaurant.dislikeCount, neutral: restaurant.neutralCount)
-        //self.ratingView.layer.cornerRadius = 3
+        var url: URL!
+        if restaurant.picture?.original != nil {
+            url = URL(string: restaurant.picture!.original!)
+        } else if restaurant.picture?.googlePhotoReference != nil {
+            let googlePhotoURL: String = "https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyDbWSwTi-anJJf25HxNrfBNicmrR0JSaOY&maxheight=500&maxwidth=500&photoreference=" + restaurant.picture!.googlePhotoReference!
+            url = URL(string: googlePhotoURL)
+        } else {
+            url = URL(string: "")
+        }
         
-        //self.countLabel.text = getTotalRatingCount(positive: restaurant.likeCount, neutral: restaurant.neutralCount, negative: restaurant.dislikeCount)
-        
-        let url = URL(string: restaurant.picture?.original ?? "")
         restaurantImageView.kf.setImage(with: url, placeholder: UIImage(named: "restaurant_default_background"), options: [.transition(ImageTransition.fade(1))])
-        
-    }
-    
-    fileprivate func getTotalRatingCount(positive: Int?, neutral: Int?, negative: Int?) -> String{
-        var positive = positive
-        var neutral = neutral
-        var negative = negative
-        
-        if (positive == nil) {
-            positive = 0
-        }
-        if (negative == nil) {
-            negative = 0
-        }
-        if (neutral == nil) {
-            neutral = 0
-        }
-        
-        return String(positive! + neutral! + negative!)
     }
 
 }

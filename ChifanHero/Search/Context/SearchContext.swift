@@ -41,12 +41,4 @@ class SearchContext {
             newSearch = true
         }
     }
-    
-    var offSet: Int? {
-        didSet {
-            newSearch = true
-        }
-    }
-    
-    var limit: Int = 25
 }

@@ -11,8 +11,8 @@ import SlideMenuControllerSwift
 
 class RestaurantsContainerViewController: SlideMenuController, SlideMenuControllerDelegate {
     
-    var restaurantsVC : RestaurantsViewController?
-    var filterVC : RestaurantsFilterViewController?
+    var restaurantsVC: RestaurantsViewController?
+    var filterVC: RestaurantsFilterViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,22 +24,17 @@ class RestaurantsContainerViewController: SlideMenuController, SlideMenuControll
         SlideMenuOptions.hideStatusBar = false
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func awakeFromNib() {
-        if let controller : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantsNavigation") as? UINavigationController {
+        if let controller: UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantsNavigation") as? UINavigationController {
             self.mainViewController = controller
-            let mainVC : RestaurantsViewController = controller.viewControllers[0] as! RestaurantsViewController
+            let mainVC: RestaurantsViewController = controller.viewControllers[0] as! RestaurantsViewController
             mainVC.containerViewController = self
             self.restaurantsVC = mainVC
         }
-        if let controller : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantsFilter") as? UINavigationController{
+        if let controller: UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantsFilter") as? UINavigationController{
             self.rightViewController = controller
-            let filterVC : RestaurantsFilterViewController = controller.viewControllers[0] as! RestaurantsFilterViewController
+            let filterVC: RestaurantsFilterViewController = controller.viewControllers[0] as! RestaurantsFilterViewController
             filterVC.containerVC = self
             self.filterVC = filterVC
         }

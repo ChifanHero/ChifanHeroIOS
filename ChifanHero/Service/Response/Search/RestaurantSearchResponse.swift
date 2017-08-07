@@ -12,9 +12,8 @@ import SwiftyJSON
 
 class RestaurantSearchResponse: HttpResponseProtocol {
     
-    var results : [Restaurant] = []
-    var buckets : [Bucket] = []
-    var error : Error?
+    var results: [Restaurant] = []
+    var error: Error?
     
     required init(data : JSON) {
         error = Error(data: data["error"])
@@ -22,12 +21,6 @@ class RestaurantSearchResponse: HttpResponseProtocol {
             for resultJson in resultsJson {
                 let result = Restaurant(data: resultJson)
                 results.append(result)
-            }
-        }
-        if let resultsJson = data["buckets"].array {
-            for resultJson in resultsJson {
-                let result = Bucket(data: resultJson)
-                buckets.append(result)
             }
         }
     }

@@ -112,22 +112,7 @@ class RestaurantNominationViewController: UIViewController, UICollectionViewDele
     
     private func searchRestaurant(keyword : String) {
         cleanStates()
-        let request: RestaurantSearchRequest = RestaurantSearchRequest()
-        request.keyword = keyword
         
-        print(keyword)
-        print(request.getRequestBody())
-        
-        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(request) { (searchResponse) -> Void in
-            OperationQueue.main.addOperation({ () -> Void in
-                if let results = searchResponse?.results {
-                    self.cleanStates()
-                    self.restaurants += results
-                    self.nominationView?.reloadData()
-                }
-                
-            })
-        }
     }
     
     private func cleanStates() {

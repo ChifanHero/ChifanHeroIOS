@@ -11,6 +11,11 @@ import Foundation
 class SearchServiceConfiguration: ServiceConfiguration {
     
     func hostEndpoint() -> String {
-        return "http://internal.lightningorder.com"
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "usingStaging") {
+            return "http://Sample-env.ypevmdxyt6.us-west-2.elasticbeanstalk.com"
+        } else {
+            return "http://Sample-env.ypevmdxyt6.us-west-2.elasticbeanstalk.com"
+        }
     }
 }
