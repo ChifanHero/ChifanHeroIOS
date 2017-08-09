@@ -18,7 +18,7 @@ class DataAccessor {
         self.serviceConfiguration = serviceConfiguration
     }
     
-    fileprivate func callApi<Response: HttpResponseProtocol>(method: String, request: HttpRequestProtocol, responseHandler: @escaping (Response?) -> Void){
+    private func callApi<Response: HttpResponseProtocol>(method: String, request: HttpRequestProtocol, responseHandler: @escaping (Response?) -> Void){
         
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)
