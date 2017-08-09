@@ -13,7 +13,7 @@ class SearchServiceConfiguration: ServiceConfiguration {
     func hostEndpoint() -> String {
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: "usingStaging") {
-            return "http://Sample-env.ypevmdxyt6.us-west-2.elasticbeanstalk.com"
+            return "http://staging-aggregateapi-chifanhero.us-west-2.elasticbeanstalk.com"
         } else {
             return "http://Sample-env.ypevmdxyt6.us-west-2.elasticbeanstalk.com"
         }
