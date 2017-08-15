@@ -44,7 +44,20 @@ class PreviewCollectionViewCell: UICollectionViewCell {
     func setUp(restaurant: Restaurant){
         self.restaurant = restaurant
         self.restaurantNameLabel?.text = restaurant.name
-        let url: URL! = URL(string: restaurant.picture?.original ?? "")
+        
+        var url: URL!
+        if restaurant.picture?.original != nil {
+            url = URL(string: (restaurant.picture?.original)!)
+        } else if restaurant.picture?.googlePhotoReference != nil {
+            let googlePhotoURL: String = "https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyDbWSwTi-anJJf25HxNrfBNicmrR0JSaOY&maxheight=500&maxwidth=500&photoreference=" + (restaurant.picture?.googlePhotoReference)!
+            url = URL(string: googlePhotoURL)
+        } else {
+            url = URL(string: "")
+        }
+        
+        
+        
+        
         let restaurantDefaultImage = DefaultImageGenerator.generateRestaurantDefaultImage()
         restaurantImageView!.kf.setImage(with: url, placeholder: UIImage(named: "restaurant_default_background"), options: nil, progressBlock: nil) { (image, error, cacheType, imageURL) in
             var duration : TimeInterval?

@@ -13,6 +13,7 @@ class RestaurantSearchV2Request: HttpRequest{
     var keyword: String?
     var rating: Float?
     var range: Range?
+    var order: String?
     
     override func getRelativeURL() -> String {
         if keyword == nil {
@@ -28,6 +29,7 @@ class RestaurantSearchV2Request: HttpRequest{
         result += "&location.lat=" + String(range?.center?.lat ?? 37.2784)
         result += "&location.lon=" + String(range?.center?.lon ?? -121.9475)
         result += "&rating=" + String(rating ?? 1.0)
+        result += "&sortOrder=" + (order ?? "best_match")
         return result
     }
     
@@ -38,6 +40,7 @@ class RestaurantSearchV2Request: HttpRequest{
         result += "&location.lon=" + String(range?.center?.lon ?? -121.9475)
         result += "&rating=" + String(rating ?? 1.0)
         result += "&query=" + keyword!.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!
+        result += "&sortOrder=" + (order ?? "best_match")
         return result
     }
 }
