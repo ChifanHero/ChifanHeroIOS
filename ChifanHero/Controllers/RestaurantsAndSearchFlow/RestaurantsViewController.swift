@@ -178,9 +178,9 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     private func buildSort(_ searchRequest: inout RestaurantSearchV2Request) {
         let sortOption = searchContext.sort
         if sortOption == SortOptions.distance {
-            
+            searchRequest.order = "nearest"
         } else if sortOption == SortOptions.hotness {
-            
+            searchRequest.order = "hottest"
         } else if sortOption == SortOptions.rating {
             
         }

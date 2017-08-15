@@ -21,7 +21,7 @@ class RestaurantsFilterViewController: UIViewController {
     
     @IBOutlet weak var ratingSC: UISegmentedControl!
     
-    var containerVC : RestaurantsContainerViewController?
+    var containerVC: RestaurantsContainerViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()

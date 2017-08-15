@@ -292,10 +292,10 @@
                                                     <constraint firstAttribute="height" constant="30" id="NOM-FA-AWc"/>
                                                 </constraints>
                                                 <segments>
-                                                    <segment title="最佳匹配"/>
-                                                    <segment title="按评分"/>
-                                                    <segment title="按距离"/>
-                                                    <segment title="按人气"/>
+                                                    <segment title="最优"/>
+                                                    <segment title="评分"/>
+                                                    <segment title="距离"/>
+                                                    <segment title="人气"/>
                                                 </segments>
                                                 <color key="tintColor" red="0.99607843137254903" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
