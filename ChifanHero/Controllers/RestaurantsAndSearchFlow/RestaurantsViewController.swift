@@ -180,9 +180,9 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         if sortOption == SortOptions.distance {
             searchRequest.order = "nearest"
         } else if sortOption == SortOptions.hotness {
-            searchRequest.order = "hottest"
-        } else if sortOption == SortOptions.rating {
             
+        } else if sortOption == SortOptions.rating {
+            searchRequest.order = "rating"
         }
     }
     
