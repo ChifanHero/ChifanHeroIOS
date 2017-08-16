@@ -100,12 +100,17 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         self.configurePhotoSectionView()
         self.configureReviewSectionView()
         self.configureRecommendedDishSectionView()
+        self.addNotificationObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reviewSectionView.resetRatingStar()
         self.recommendedDishSectionView.configureView()
+    }
+    
+    private func addNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.loadData), name:NSNotification.Name(rawValue: REVIEW_UPLOADED), object: nil)
     }
     
     private func configureInfoSectionView() {
@@ -436,7 +441,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
                         print("done");
                         if response != nil && response?.result != nil && response?.result?.id != nil {
                             print("upload finish time \(Date().timeIntervalSince1970)")
-                            self.imagePool.append((response?.result)!)
+                            self.imagePool.insert((response?.result)!, at: 0)
                             self.showNewAddedImage(image)
                         } else {
                             #if DEBUG
@@ -454,7 +459,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     private func showNewAddedImage(_ image: UIImage) {
         let imageView = UIImageView()
         imageView.image = image
-        self.imagePoolContent.append(imageView)
+        self.imagePoolContent.insert(imageView, at: 0)
         self.photoSectionView.imagePoolView.reloadData()
     }
     

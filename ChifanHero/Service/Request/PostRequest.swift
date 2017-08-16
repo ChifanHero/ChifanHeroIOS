@@ -140,6 +140,7 @@ class UploadPictureRequest: HttpRequest{
 
     var restaurantId: String?
     var reviewId: String?
+    var type: String?
     var base64_code: String
 
     init(base64_code: String){
@@ -153,6 +154,9 @@ class UploadPictureRequest: HttpRequest{
         }
         if reviewId != nil {
             parameters["review_id"] = reviewId
+        }
+        if type != nil {
+            parameters["type"] = type
         }
         parameters["base64_code"] = base64_code
         return parameters as [String : AnyObject]
