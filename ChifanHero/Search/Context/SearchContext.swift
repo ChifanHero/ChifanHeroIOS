@@ -41,4 +41,9 @@ class SearchContext {
             newSearch = true
         }
     }
+    var open: OpenEnum = OpenEnum.all {
+        didSet {
+            newSearch = true
+        }
+    }
 }

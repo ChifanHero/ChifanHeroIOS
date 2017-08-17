@@ -91,14 +91,20 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             self.popUpImageSourceOption()
         } else if indexPath.section == 1 && indexPath.row == 0 {
             self.performSegue(withIdentifier: "showNickNameChange", sender: indexPath)
-        } else if indexPath.section == 2 {
+        }
+            
+        // TODO: Add favorites in later version
+        /*
+        else if indexPath.section == 2 {
             if indexPath.row == 0 {
                 showRestaurants()
             } else if indexPath.row == 1 {
                 showSelectedCollection()
             }
             
-        } else {
+        } */
+ 
+        else {
             self.logOutAction()
         }
         //make table cell not stay highlighted

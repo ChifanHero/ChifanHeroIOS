@@ -165,6 +165,7 @@
 		C42D9BDB1B69EF2D0035C5A6 /* ChifanHeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* ChifanHeroTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* ChifanHeroUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* ChifanHeroUITests.swift */; };
 		C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */; };
+		CA0F3F0D1F450E8700DA77B7 /* OpenEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F3F0C1F450E8700DA77B7 /* OpenEnum.swift */; };
 		CA203DE71C111EEA00D6F32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */; };
 		CA203E1D1C111EEA00D6F32C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039E31BC347C100183AC2 /* libz.tbd */; };
 		CA203E1E1C111EEA00D6F32C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039E11BC347B500183AC2 /* libsqlite3.tbd */; };
@@ -459,6 +460,7 @@
 		C4F039DF1BC3479900183AC2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C4F039E11BC347B500183AC2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C4F039E31BC347C100183AC2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		CA0F3F0C1F450E8700DA77B7 /* OpenEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenEnum.swift; sourceTree = "<group>"; };
 		CA203E4D1C111EEA00D6F32C /* 吃饭英雄-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "吃饭英雄-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA2E599D1F059CC8004B4BDC /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		CA72AEDA1D9E0D4700DE5464 /* 吃饭英雄-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "吃饭英雄-Test.entitlements"; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 				8E88C2E7641C5E8CB9651040 /* RangeEnum.swift */,
 				8E88C37DBFCF7B6AE7789118 /* RatingEnum.swift */,
 				8E88CADCBFDB0D005086FE28 /* SortEnum.swift */,
+				CA0F3F0C1F450E8700DA77B7 /* OpenEnum.swift */,
 			);
 			path = Context;
 			sourceTree = "<group>";
@@ -2003,6 +2006,7 @@
 				8E88C37A5757FBF662F4FF01 /* StringExtension.swift in Sources */,
 				8E88CDD943BACE6B1A227CBC /* ChifanHeroColor.swift in Sources */,
 				8E88C9D102FEDB8E4335DEDB /* PositionConverter.swift in Sources */,
+				CA0F3F0D1F450E8700DA77B7 /* OpenEnum.swift in Sources */,
 				8E88C8091D330663076DD22C /* PostReviewOperation.swift in Sources */,
 				CAB450F61EFC8358002D8E45 /* Reachability.swift in Sources */,
 				8E88CF944F307752D9D29FA4 /* PostReviewManager.swift in Sources */,
