@@ -161,6 +161,7 @@
 		8E88CFC5779E2EB3F24EB37C /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C01C1B04BE8B15F8939A /* NVActivityIndicatorAnimationDelegate.swift */; };
 		8E88CFEE9111B8C29CACEC54 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CD88DF24F8183A75DB04 /* Range.swift */; };
 		C4021ACB1CF41EE00021343B /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4021ACA1CF41EE00021343B /* libstdc++.6.tbd */; };
+		C4227F9B1F4955BA006395F3 /* PhotoBrowserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4227F9A1F4955BA006395F3 /* PhotoBrowserDelegate.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* ChifanHeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* ChifanHeroTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* ChifanHeroUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* ChifanHeroUITests.swift */; };
 		C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */; };
@@ -433,6 +434,7 @@
 		B23916614BADE159D36C65BF /* Pods-ChifanHeroUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChifanHeroUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChifanHeroUITests/Pods-ChifanHeroUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		BE97DB28F6D707A3C03967E6 /* Pods_ChifanHeroUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChifanHeroUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4021ACA1CF41EE00021343B /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
+		C4227F9A1F4955BA006395F3 /* PhotoBrowserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoBrowserDelegate.swift; sourceTree = "<group>"; };
 		C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42D9BCC1B69EF2D0035C5A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42D9BD11B69EF2D0035C5A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
@@ -1110,6 +1112,7 @@
 			children = (
 				8E88C9EC86C21CEE79AFB9D6 /* ControllerCommonConfigurationDelegate.swift */,
 				8E88C10A1F6F195C859C5E4C /* Coconut.swift */,
+				C4227F9A1F4955BA006395F3 /* PhotoBrowserDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -1917,6 +1920,7 @@
 				8E88C09BC1778EB067A3034E /* RecommendedDishTableViewCell.swift in Sources */,
 				8E88CBC37F1326E503A4DEBD /* ARNImageZoomTransition.swift in Sources */,
 				CA2E599E1F059CC8004B4BDC /* Global.swift in Sources */,
+				C4227F9B1F4955BA006395F3 /* PhotoBrowserDelegate.swift in Sources */,
 				8E88CD04BB4CDE9F3ED4D266 /* DOFavoriteButton.swift in Sources */,
 				8E88C4147A22B4B1F3ABB860 /* ARNImageTransitionNavigationController.swift in Sources */,
 				CACC22E31EB2B3A900FC353E /* DKImageResource.swift in Sources */,
@@ -2223,8 +2227,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄-Test";
-				PROVISIONING_PROFILE = "9a8e3831-cc47-4ef7-bf3e-c7cec411d7a6";
-				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForAlex;
+				PROVISIONING_PROFILE = "b075c09c-552c-4f75-bcd1-cafd0d71b208";
+				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForRicky;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2250,8 +2254,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄";
-				PROVISIONING_PROFILE = "89cd5f96-3f1e-4e37-af53-8a6a126c8181";
-				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForAlex;
+				PROVISIONING_PROFILE = "b075c09c-552c-4f75-bcd1-cafd0d71b208";
+				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForRicky;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
