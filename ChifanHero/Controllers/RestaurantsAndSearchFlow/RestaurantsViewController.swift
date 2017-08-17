@@ -157,6 +157,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         }
         buildSort(&searchRequest)
         buildFilter(&searchRequest)
+        buildOpen(&searchRequest)
         return searchRequest
     }
     
@@ -173,6 +174,10 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                 self.loadingIndicator.stopAnimation()
             })
         }
+    }
+    
+    private func buildOpen(_ searchRequest: inout RestaurantSearchV2Request) {
+        searchRequest.open = searchContext.open
     }
     
     private func buildSort(_ searchRequest: inout RestaurantSearchV2Request) {

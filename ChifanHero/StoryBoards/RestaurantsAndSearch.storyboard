@@ -272,7 +272,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="57" translatesAutoresizingMaskIntoConstraints="NO" id="RHv-4J-jO9" userLabel="Container Stack View">
-                                <rect key="frame" x="10" y="30" width="230" height="297"/>
+                                <rect key="frame" x="10" y="30" width="230" height="415"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="845-tl-7HD" userLabel="Sort Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="230" height="61"/>
@@ -379,6 +379,38 @@
                                             <constraint firstItem="sAa-gr-Gs9" firstAttribute="leading" secondItem="mMP-Z3-9iG" secondAttribute="leading" id="TVv-Fu-d6V"/>
                                         </constraints>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Czx-0a-3dX" userLabel="Open Stack View">
+                                        <rect key="frame" x="0.0" y="354" width="230" height="61"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="营业" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDI-6k-ARE">
+                                                <rect key="frame" x="98.5" y="0.0" width="33" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="2nF-2z-boA"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IE8-Y0-8OT" userLabel="OpenSC">
+                                                <rect key="frame" x="0.0" y="31" width="230" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="8Yg-Sb-yDc"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="全部"/>
+                                                    <segment title="营业中"/>
+                                                </segments>
+                                                <color key="tintColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="openChanged:" destination="uyc-NL-Eha" eventType="valueChanged" id="EdG-KB-xhi"/>
+                                                </connections>
+                                            </segmentedControl>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="IE8-Y0-8OT" secondAttribute="trailing" id="5NM-rP-85p"/>
+                                            <constraint firstItem="IE8-Y0-8OT" firstAttribute="leading" secondItem="Czx-0a-3dX" secondAttribute="leading" id="fQW-Hg-P1Q"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="845-tl-7HD" secondAttribute="trailing" id="86S-qv-zZv"/>
@@ -387,6 +419,8 @@
                                     <constraint firstItem="mMP-Z3-9iG" firstAttribute="leading" secondItem="RHv-4J-jO9" secondAttribute="leading" id="G7M-2h-OxE"/>
                                     <constraint firstItem="RBu-NH-BF7" firstAttribute="leading" secondItem="RHv-4J-jO9" secondAttribute="leading" id="PO9-Fm-56t"/>
                                     <constraint firstAttribute="trailing" secondItem="mMP-Z3-9iG" secondAttribute="trailing" id="Qyc-0Q-foJ"/>
+                                    <constraint firstItem="Czx-0a-3dX" firstAttribute="leading" secondItem="RHv-4J-jO9" secondAttribute="leading" id="SOl-69-62L"/>
+                                    <constraint firstAttribute="trailing" secondItem="Czx-0a-3dX" secondAttribute="trailing" id="Vc3-sp-wZ1"/>
                                     <constraint firstItem="mMP-Z3-9iG" firstAttribute="leading" secondItem="RHv-4J-jO9" secondAttribute="leading" id="q3S-Ut-rjE"/>
                                     <constraint firstItem="845-tl-7HD" firstAttribute="leading" secondItem="RHv-4J-jO9" secondAttribute="leading" id="qzo-aq-pjR"/>
                                 </constraints>
@@ -409,6 +443,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="250" height="667"/>
                     <connections>
+                        <outlet property="openSC" destination="IE8-Y0-8OT" id="XCU-mA-sPb"/>
                         <outlet property="rangeSC" destination="7fX-b2-yHN" id="Rcj-fR-4wo"/>
                         <outlet property="ratingSC" destination="sAa-gr-Gs9" id="fay-tu-XPO"/>
                         <outlet property="sortingSC" destination="iGM-ho-zea" id="Qzo-Wb-9OL"/>

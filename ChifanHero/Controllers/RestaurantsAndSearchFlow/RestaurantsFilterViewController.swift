@@ -13,6 +13,7 @@ class RestaurantsFilterViewController: UIViewController {
     private var sort: SortOptions?
     private var distance: RangeFilter?
     private var rating: RatingFilter?
+    private var open: OpenEnum?
     
     
     @IBOutlet weak var sortingSC: UISegmentedControl!
@@ -20,6 +21,8 @@ class RestaurantsFilterViewController: UIViewController {
     @IBOutlet weak var rangeSC: UISegmentedControl!
     
     @IBOutlet weak var ratingSC: UISegmentedControl!
+    
+    @IBOutlet weak var openSC: UISegmentedControl!
     
     var containerVC: RestaurantsContainerViewController?
 
@@ -33,7 +36,7 @@ class RestaurantsFilterViewController: UIViewController {
         TrackingUtil.trackRestaurantsFilterOpen()
     }
     
-    func addBarButtons() {
+    private func addBarButtons() {
         addCancelButton()
         addConfirmButton()
     }
@@ -57,9 +60,10 @@ class RestaurantsFilterViewController: UIViewController {
         updateSortSC()
         updateRangeSC()
         updateRatingSC()
+        updateOpenSC()
     }
     
-    func updateSortSC() {
+    private func updateSortSC() {
         let sort = searchContext.sort
         if sort == SortOptions.bestmatch {
             sortingSC.selectedSegmentIndex = 0
@@ -72,7 +76,7 @@ class RestaurantsFilterViewController: UIViewController {
         }
     }
     
-    func updateRangeSC() {
+    private func updateRangeSC() {
         let range = searchContext.distance
         if range == RangeFilter.auto {
             rangeSC.selectedSegmentIndex = 0
@@ -87,7 +91,7 @@ class RestaurantsFilterViewController: UIViewController {
         }
     }
     
-    func updateRatingSC() {
+    private func updateRatingSC() {
         let rating = searchContext.rating
         if rating == RatingFilter.none {
             ratingSC.selectedSegmentIndex = 0
@@ -105,16 +109,28 @@ class RestaurantsFilterViewController: UIViewController {
         
     }
     
+    private func updateOpenSC() {
+        let open = searchContext.open
+        if open == OpenEnum.all {
+            openSC.selectedSegmentIndex = 0
+        } else if open == OpenEnum.openNow {
+            openSC.selectedSegmentIndex = 1
+        }
+    }
+    
     
     func commit(_ sender: AnyObject) {
-        if (distance != nil && distance != searchContext.distance) {
+        if distance != nil && distance != searchContext.distance {
             searchContext.distance = distance!
         }
-        if (rating != nil && rating != searchContext.rating) {
+        if rating != nil && rating != searchContext.rating {
             searchContext.rating = rating!
         }
-        if (sort != nil && sort != searchContext.sort) {
+        if sort != nil && sort != searchContext.sort {
             searchContext.sort = sort!
+        }
+        if open != nil && open != searchContext.open {
+            searchContext.open = open!
         }
         clearStates()
         self.containerVC?.slideMenuController()?.closeRight()
@@ -131,6 +147,7 @@ class RestaurantsFilterViewController: UIViewController {
         distance = nil
         sort = nil
         rating = nil
+        open = nil
     }
 
 
@@ -175,4 +192,13 @@ class RestaurantsFilterViewController: UIViewController {
             rating = RatingFilter.five
         }
     }
+    
+    @IBAction func openChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            open = OpenEnum.all
+        } else if sender.selectedSegmentIndex == 1{
+            open = OpenEnum.openNow
+        }
+    }
+    
 }
