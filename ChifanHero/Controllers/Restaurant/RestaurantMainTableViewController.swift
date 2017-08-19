@@ -44,6 +44,8 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     var restaurant: Restaurant? {
         didSet {
             self.scoreLabel.text = String(format:"%.1f", self.restaurant?.rating ?? 0)
+            self.scoreLabel.backgroundColor = ScoreComputer.getScoreColor(self.restaurant?.rating ?? 0)
+            self.scoreLabel.alpha = 1
             self.infoSectionView.restaurant = self.restaurant
             self.reviewSectionView.reviews = self.restaurant?.reviewInfo?.reviews
             self.loadImagePool(self.restaurant!.photoInfo!.photos)
@@ -110,7 +112,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     }
     
     private func addNotificationObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.loadData), name:NSNotification.Name(rawValue: REVIEW_UPLOADED), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.loadData), name:NSNotification.Name(rawValue: REVIEW_UPLOAD_DONE), object: nil)
     }
     
     private func configureInfoSectionView() {
@@ -161,6 +163,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     private func configLabels() {
         scoreLabel.layer.cornerRadius = 4
+        scoreLabel.alpha = 0
     }
     
     /**
@@ -305,11 +308,11 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
                                         if data != nil {
                                             backgroundImage = UIImage(data: data!)
                                         } else {
-                                            backgroundImage = UIImage(named: "restaurant_default_background")
+                                            backgroundImage = DefaultImageGenerator.generateRestaurantDefaultImage()
                                         }
                                         
                                     } else {
-                                        backgroundImage = UIImage(named: "restaurant_default_background")
+                                        backgroundImage = DefaultImageGenerator.generateRestaurantDefaultImage()
                                     }
                                     self.backgroundImageView.image = backgroundImage
                                 }
@@ -386,6 +389,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     }
     
     private func downloadImages(){
+        self.imagePoolContent.removeAll()
         for image in imagePool {
             let imageView = UIImageView()
             var url: URL!
@@ -397,7 +401,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             } else {
                 url = URL(string: "")
             }
-            imageView.kf.setImage(with: url, placeholder: UIImage(named: "restaurant_default_background"),options: [.transition(ImageTransition.fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
+            imageView.kf.setImage(with: url, placeholder: DefaultImageGenerator.generateRestaurantDefaultImage(),options: [.transition(ImageTransition.fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
                 self.photoSectionView.imagePoolView.reloadData()
             })
             self.imagePoolContent.append(imageView)

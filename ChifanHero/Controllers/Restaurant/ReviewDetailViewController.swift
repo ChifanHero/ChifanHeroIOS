@@ -69,7 +69,7 @@ class ReviewDetailViewController: UIViewController, UICollectionViewDelegate, UI
         imageView.clipsToBounds = true
         
         let url: URL! = URL(string: review.photos[indexPath.row].original  ?? "")
-        imageView.kf.setImage(with: url, placeholder: UIImage(named: "restaurant_default_background"),options: [.transition(ImageTransition.fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
+        imageView.kf.setImage(with: url, placeholder: DefaultImageGenerator.generateRestaurantDefaultImage(),options: [.transition(ImageTransition.fade(0.5))], completionHandler: { (image, error, cacheType, imageURL) -> () in
         })
         
         cell.contentView.addSubview(imageView)

@@ -77,6 +77,10 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func submit() {
         if restaurant != nil {
+            let notificationOperation = BlockOperation {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: REVIEW_UPLOAD_DONE), object: nil)
+            }
+            
             let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, restaurantId: restaurant.id!, retryTimes: 3) { (success, review) in
                 
                 if success {
@@ -86,10 +90,13 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
                             print(success)
                             
                         })
+                        notificationOperation.addDependency(uploadOperation)
                         self.reviewManager.queue.addOperation(uploadOperation)
                     }
+                    self.reviewManager.queue.addOperation(notificationOperation)
                 }
             }
+            notificationOperation.addDependency(reviewOperation)
             self.reviewManager.queue.addOperation(reviewOperation)
         }
         self.dismiss(animated: true, completion: nil)

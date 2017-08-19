@@ -59,7 +59,7 @@ class PreviewCollectionViewCell: UICollectionViewCell {
         
         
         let restaurantDefaultImage = DefaultImageGenerator.generateRestaurantDefaultImage()
-        restaurantImageView!.kf.setImage(with: url, placeholder: UIImage(named: "restaurant_default_background"), options: nil, progressBlock: nil) { (image, error, cacheType, imageURL) in
+        restaurantImageView!.kf.setImage(with: url, placeholder: restaurantDefaultImage, options: nil, progressBlock: nil) { (image, error, cacheType, imageURL) in
             var duration : TimeInterval?
             if cacheType == CacheType.memory {
                 duration = 0.0

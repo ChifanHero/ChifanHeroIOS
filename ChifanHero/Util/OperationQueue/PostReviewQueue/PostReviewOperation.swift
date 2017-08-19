@@ -66,7 +66,6 @@ class PostReviewOperation: RetryableOperation {
                 }
                 self.state = .finished
             }
-            NotificationCenter.default.post(name: Notification.Name(rawValue: REVIEW_UPLOADED), object: nil)
         }
 
     }

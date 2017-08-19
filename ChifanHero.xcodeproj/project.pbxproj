@@ -124,7 +124,6 @@
 		8E88CC8B7D0A7F58E20CEE82 /* SearchResultsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C611CA32E3A9B3A1FF76 /* SearchResultsTableViewHeader.swift */; };
 		8E88CCAD8B8F986B3F3FC75F /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C4D61353C12EC5C9F842 /* Output.swift */; };
 		8E88CCE5FE074763EED92365 /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C3E4F33B0359C617B6EF /* Serializable.swift */; };
-		8E88CCE6C34CA69C7031A9F6 /* RestaurantSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CA307BC03F933F3EBF7D /* RestaurantSearchTableViewCell.swift */; };
 		8E88CCF2495BED9A96937F99 /* RestaurantCollectionMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C52F80D60BE478A1E60B /* RestaurantCollectionMembersViewController.swift */; };
 		8E88CCF5968DCCFFB5C874D2 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C572ADD976A0A3F8820A /* NSDateExtension.swift */; };
 		8E88CD04BB4CDE9F3ED4D266 /* DOFavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C7B1B278ABF5BC8A19E1 /* DOFavoriteButton.swift */; };
@@ -260,7 +259,6 @@
 		CACC23091EB2BBF800FC353E /* ReviewSnapshotCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CACC23051EB2BBF800FC353E /* ReviewSnapshotCell.xib */; };
 		CACC23101EB2BC0B00FC353E /* AddressAutoCompletionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CACC230B1EB2BC0B00FC353E /* AddressAutoCompletionCell.xib */; };
 		CACC23111EB2BC0B00FC353E /* GoogleLogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CACC230C1EB2BC0B00FC353E /* GoogleLogoCell.xib */; };
-		CACC23121EB2BC0B00FC353E /* RestaurantSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CACC230D1EB2BC0B00FC353E /* RestaurantSearchCell.xib */; };
 		CACC23131EB2BC0B00FC353E /* SearchHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CACC230E1EB2BC0B00FC353E /* SearchHistoryCell.xib */; };
 		CACC23141EB2BC0B00FC353E /* SearchResultsTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = CACC230F1EB2BC0B00FC353E /* SearchResultsTableViewHeader.xib */; };
 		CACC23171EB2BC1900FC353E /* RestaurantCollectionMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CACC23151EB2BC1900FC353E /* RestaurantCollectionMemberCell.xib */; };
@@ -384,7 +382,6 @@
 		8E88CA043895ECCC73A58224 /* AccountResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountResponse.swift; sourceTree = "<group>"; };
 		8E88CA17547A7FEFC0B75FC2 /* PositionConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionConverter.swift; sourceTree = "<group>"; };
 		8E88CA1C1E4BFB1579229985 /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
-		8E88CA307BC03F933F3EBF7D /* RestaurantSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantSearchTableViewCell.swift; sourceTree = "<group>"; };
 		8E88CA6A3CA4968729760460 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		8E88CA7CB84C771BEA01CB2F /* Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
 		8E88CADCBFDB0D005086FE28 /* SortEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortEnum.swift; sourceTree = "<group>"; };
@@ -544,7 +541,6 @@
 		CACC23051EB2BBF800FC353E /* ReviewSnapshotCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewSnapshotCell.xib; sourceTree = "<group>"; };
 		CACC230B1EB2BC0B00FC353E /* AddressAutoCompletionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressAutoCompletionCell.xib; sourceTree = "<group>"; };
 		CACC230C1EB2BC0B00FC353E /* GoogleLogoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoogleLogoCell.xib; sourceTree = "<group>"; };
-		CACC230D1EB2BC0B00FC353E /* RestaurantSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantSearchCell.xib; sourceTree = "<group>"; };
 		CACC230E1EB2BC0B00FC353E /* SearchHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHistoryCell.xib; sourceTree = "<group>"; };
 		CACC230F1EB2BC0B00FC353E /* SearchResultsTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultsTableViewHeader.xib; sourceTree = "<group>"; };
 		CACC23151EB2BC1900FC353E /* RestaurantCollectionMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCollectionMemberCell.xib; sourceTree = "<group>"; };
@@ -906,7 +902,6 @@
 			children = (
 				CACC230B1EB2BC0B00FC353E /* AddressAutoCompletionCell.xib */,
 				CACC230C1EB2BC0B00FC353E /* GoogleLogoCell.xib */,
-				CACC230D1EB2BC0B00FC353E /* RestaurantSearchCell.xib */,
 				CACC230E1EB2BC0B00FC353E /* SearchHistoryCell.xib */,
 				CACC230F1EB2BC0B00FC353E /* SearchResultsTableViewHeader.xib */,
 				8E88C0D7F5FAAF93855B8796 /* SearchHistoryCellDelegate.swift */,
@@ -914,7 +909,6 @@
 				8E88C8D2DDF27A935E3812B8 /* AddressAutoCompletionTableViewCell.swift */,
 				8E88CE098BF1EC01BC90BA77 /* GoogleLogoTableViewCell.swift */,
 				8E88CC87B3E3E8C36E3ACADB /* SearchHistoryTableViewCell.swift */,
-				8E88CA307BC03F933F3EBF7D /* RestaurantSearchTableViewCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1578,6 +1572,7 @@
 					CA203DA01C111EEA00D6F32C = {
 						DevelopmentTeam = JVM24QRUX3;
 						LastSwiftMigration = 0830;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -1644,7 +1639,6 @@
 				CACC23141EB2BC0B00FC353E /* SearchResultsTableViewHeader.xib in Resources */,
 				CACC22F81EB2BBC900FC353E /* LocationTableHeader.xib in Resources */,
 				CACC22B81EB2B28900FC353E /* MILAlertViewImages.xcassets in Resources */,
-				CACC23121EB2BC0B00FC353E /* RestaurantSearchCell.xib in Resources */,
 				CACC23181EB2BC1900FC353E /* SelectedCollectionCell.xib in Resources */,
 				CACC22B71EB2B28900FC353E /* LICENSE in Resources */,
 				CACC22F21EB2BBAF00FC353E /* LoadMoreFooterView.xib in Resources */,
@@ -1891,7 +1885,6 @@
 				8E88C48EAE459D096C0600A0 /* SearchHistoryTableViewCell.swift in Sources */,
 				8E88C30FF6808F0B3F88E527 /* ReviewSnapshotTableViewCell.swift in Sources */,
 				8E88CE25E14A85975B9B22F8 /* RestaurantTableViewCell.swift in Sources */,
-				8E88CCE6C34CA69C7031A9F6 /* RestaurantSearchTableViewCell.swift in Sources */,
 				CACC22EB1EB2B3A900FC353E /* DKAssetGroupDetailVC.swift in Sources */,
 				8E88C2AE916F9B916808B61C /* RestaurantNominationCollectionViewCell.swift in Sources */,
 				8E88C09BC1778EB067A3034E /* RecommendedDishTableViewCell.swift in Sources */,
@@ -2203,7 +2196,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄-Test";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9a8e3831-cc47-4ef7-bf3e-c7cec411d7a6";
+				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForAlex;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2229,7 +2223,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "89cd5f96-3f1e-4e37-af53-8a6a126c8181";
+				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForAlex;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

@@ -36,6 +36,11 @@ class RestaurantTableViewCell: UITableViewCell {
     func setUp(restaurant: Restaurant) {
         nameLabel.text = restaurant.name
         addressLabel.text = restaurant.address
+        ratingLabel.text = String(describing: restaurant.rating ?? 0)
+        ratingLabel.layer.cornerRadius = 4
+        ratingLabel.backgroundColor = ScoreComputer.getScoreColor(restaurant.rating ?? 0)
+        countLabel.text = String(describing: restaurant.ratingCount ?? 0)
+        
         let defaults = UserDefaults.standard
         if !defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
             if restaurant.distance?.value != nil && restaurant.distance?.unit != nil {
@@ -57,7 +62,7 @@ class RestaurantTableViewCell: UITableViewCell {
             url = URL(string: "")
         }
         
-        restaurantImageView.kf.setImage(with: url, placeholder: UIImage(named: "restaurant_default_background"), options: [.transition(ImageTransition.fade(1))])
+        restaurantImageView.kf.setImage(with: url, placeholder: DefaultImageGenerator.generateRestaurantDefaultImage(), options: [.transition(ImageTransition.fade(1))])
     }
 
 }
