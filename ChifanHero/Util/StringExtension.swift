@@ -37,4 +37,15 @@ extension String {
         return attrString
     }
     
+    func attributedStringFromHTML() -> NSAttributedString? {
+        do {
+            let data = self.data(using: String.Encoding.utf8, allowLossyConversion: true)
+            if let d = data {
+                let str: NSAttributedString = try NSAttributedString(data: d,options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+                return str
+            }
+        } catch {
+        }
+        return nil
+    }
 }

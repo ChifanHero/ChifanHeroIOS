@@ -18,6 +18,7 @@ class Picture: Model {
     var restaurant: Restaurant?
     var review: Review?
     var googlePhotoReference: String?
+    var htmlAttributions: [String] = []
     
     required init() {
         
@@ -35,6 +36,11 @@ class Picture: Model {
             review = Review(data: data["review"])
         }
         googlePhotoReference = data["google_photo_reference"].string
+        if let attributions = data["html_attributions"].array {
+            for attribution in attributions {
+                htmlAttributions.append(attribution.stringValue)
+            }
+        }
     }
     
 }
