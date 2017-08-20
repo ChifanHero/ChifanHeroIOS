@@ -91,14 +91,6 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
     }
     
     // MARK: - SKPhotoBrowserDelegate
-    func didShowPhotoAtIndex(index: Int) {
-        print("did show photo at index")
-    }
-    
-    func didDismissAtPageIndex(_ index: Int) {
-        print("did dismissed")
-    }
-    
     func didScrollToIndex(_ index: Int) {
         if self.imagePool[index].htmlAttributions.count > 0 {
             self.photoAttributionTextView!.attributedText = self.imagePool[index].htmlAttributions[0].attributedStringFromHTML()
