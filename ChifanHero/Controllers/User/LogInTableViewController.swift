@@ -257,13 +257,22 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    func showErrorMessage(_ title : String?, message : String?) {
+    func showErrorMessage(_ title : String, message : String) {
         var title = title
         if title == nil {
             title = "输入错误"
         }
-        SCLAlertView().showWarning(title!, subTitle: message!)
+        let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
+        let askLocationAlertView = SCLAlertView(appearance: appearance)
+        let alertViewIcon = UIImage(named: "LogoWithBorder")
+        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
+        askLocationAlertView.showInfo(title, subTitle: message, colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
     }
+    
+    func dismissAlert() {
+        
+    }
+    
     func resetLogInInput(_ alertAction: UIAlertAction!){
         usernameTextField.text = nil
         passwordTextField.text = nil

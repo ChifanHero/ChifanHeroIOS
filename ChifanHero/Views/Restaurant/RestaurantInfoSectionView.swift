@@ -106,7 +106,14 @@ class RestaurantInfoSectionView: UIView {
     }
     
     func addBookmarkButtonPressed() {
-        if self.restaurant?.current_user_favorite == nil {
+        let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
+        let askLocationAlertView = SCLAlertView(appearance: appearance)
+        let alertViewIcon = UIImage(named: "LogoWithBorder")
+        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
+        askLocationAlertView.showInfo("友情提示", subTitle: "收藏功能即将开通", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+        
+        // TODO: Add favorite
+        /*if self.restaurant?.current_user_favorite == nil {
             SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
         } else {
             if self.restaurant?.current_user_favorite == true {
@@ -116,8 +123,11 @@ class RestaurantInfoSectionView: UIView {
                 self.restaurant?.current_user_favorite = true
                 self.bookmarkImageView.renderColorChangableImage(UIImage(named: "ChifanHero_Bookmarked.png")!, fillColor: UIColor.themeOrange())
             }
-        }
+        }*/
         delegate.addBookmarkButtonPressed()
     }
 
+    func dismissAlert() {
+        
+    }
 }

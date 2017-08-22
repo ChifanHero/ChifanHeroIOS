@@ -76,30 +76,38 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     
     func submit() {
-        if restaurant != nil {
-            let notificationOperation = BlockOperation {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: REVIEW_UPLOAD_DONE), object: nil)
-            }
-            
-            let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, restaurantId: restaurant.id!, retryTimes: 3) { (success, review) in
-                
-                if success {
-                    self.reviewId = review?.id
-                    for image in self.images {
-                        let uploadOperation = PhotoUploadOperation(photo: image, restaurantId: self.restaurant.id!, reviewId: self.reviewId!, retryTimes: 3, completion: { (success, picture) in
-                            print(success)
-                            
-                        })
-                        notificationOperation.addDependency(uploadOperation)
-                        self.reviewManager.queue.addOperation(uploadOperation)
-                    }
-                    self.reviewManager.queue.addOperation(notificationOperation)
+        if self.rating == 0 {
+            let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
+            let askLocationAlertView = SCLAlertView(appearance: appearance)
+            let alertViewIcon = UIImage(named: "LogoWithBorder")
+            askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
+            askLocationAlertView.showInfo("友情提示", subTitle: "请为餐厅打分", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+        } else {
+            if restaurant != nil {
+                let notificationOperation = BlockOperation {
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: REVIEW_UPLOAD_DONE), object: nil)
                 }
+                
+                let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, restaurantId: restaurant.id!, retryTimes: 3) { (success, review) in
+                    
+                    if success {
+                        self.reviewId = review?.id
+                        for image in self.images {
+                            let uploadOperation = PhotoUploadOperation(photo: image, restaurantId: self.restaurant.id!, reviewId: self.reviewId!, retryTimes: 3, completion: { (success, picture) in
+                                print(success)
+                                
+                            })
+                            notificationOperation.addDependency(uploadOperation)
+                            self.reviewManager.queue.addOperation(uploadOperation)
+                        }
+                        self.reviewManager.queue.addOperation(notificationOperation)
+                    }
+                }
+                notificationOperation.addDependency(reviewOperation)
+                self.reviewManager.queue.addOperation(reviewOperation)
             }
-            notificationOperation.addDependency(reviewOperation)
-            self.reviewManager.queue.addOperation(reviewOperation)
+            self.dismiss(animated: true, completion: nil)
         }
-        self.dismiss(animated: true, completion: nil)
     }
     
     func observeKeyboard() {
@@ -111,6 +119,10 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
             bottomDistanceConstraint.constant = keyboardSize.height
             self.view.layoutIfNeeded()
         }
+    }
+    
+    func dismissAlert() {
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

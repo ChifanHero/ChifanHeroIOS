@@ -670,6 +670,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     }
     
     func writeReviewButtonPressed() {
+        self.userRating = 0
         self.performSegue(withIdentifier: "writeReview", sender: nil)
     }
     
