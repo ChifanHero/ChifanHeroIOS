@@ -47,9 +47,9 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         self.clearTitleForBackBarButtonItem()
         self.configureNavigationController()
         self.configurePullToRefresh()
-        addLocationSelectionToLeftCorner()
-        addEnvironmentControlToRightCorner()
-        initHomepageTable()
+        self.addLocationSelectionToLeftCorner()
+        self.addEnvironmentControlToRightCorner()
+        self.initHomepageTable()
         
         homepageTable.delegate = self
         homepageTable.dataSource = self
@@ -134,14 +134,14 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     }
     
     // MARK: - add location selection button to top left corner
-    func addLocationSelectionToLeftCorner() {
+    private func addLocationSelectionToLeftCorner() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("位置待定", size: CGRect(x: 0, y: 0, width: 200, height: 26))
         button.addTarget(self, action: #selector(self.editLocation), for: UIControlEvents.touchUpInside)
         let selectionLocationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = selectionLocationButton
     }
     
-    func addEnvironmentControlToRightCorner() {
+    private func addEnvironmentControlToRightCorner() {
         #if DEBUG
             var title = ""
             let defaults = UserDefaults.standard

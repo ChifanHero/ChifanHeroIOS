@@ -166,3 +166,19 @@ class UploadPictureRequest: HttpRequest{
         return "/images"
     }
 }
+
+class UpdateRestaurantInfoRequest: HttpRequest{
+    
+    var restaurantId: String?
+    var name: String?
+    
+    override func getRequestBody() -> [String : AnyObject] {
+        var parameters = Dictionary<String, String>()
+        parameters["name"] = name
+        return parameters as [String : AnyObject]
+    }
+    
+    override func getRelativeURL() -> String {
+        return "/restaurants/" + restaurantId!
+    }
+}

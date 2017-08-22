@@ -203,6 +203,55 @@
             </objects>
             <point key="canvasLocation" x="1428" y="28"/>
         </scene>
+        <!--Update Restaurant View Controller-->
+        <scene sceneID="Nkk-FK-2Bj">
+            <objects>
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="a3y-wG-ASG" customClass="UpdateRestaurantViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TdM-kH-vpO"/>
+                        <viewControllerLayoutGuide type="bottom" id="7As-Ze-Wnr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Br1-TI-Tsy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入中文名称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqh-2B-pQw">
+                                <rect key="frame" x="26" y="64" width="333" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="idR-Cc-ApO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eSn-3T-dlG">
+                                <rect key="frame" x="26" y="104" width="333" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="GHN-PO-dwv"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kqh-2B-pQw" firstAttribute="top" secondItem="TdM-kH-vpO" secondAttribute="bottom" id="Q6G-Hg-TYZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kqh-2B-pQw" secondAttribute="trailing" id="QLM-IT-AFa"/>
+                            <constraint firstItem="eSn-3T-dlG" firstAttribute="top" secondItem="kqh-2B-pQw" secondAttribute="bottom" id="QN0-yd-CRb"/>
+                            <constraint firstItem="kqh-2B-pQw" firstAttribute="leading" secondItem="Br1-TI-Tsy" secondAttribute="leadingMargin" constant="10" id="cel-6B-FgY"/>
+                            <constraint firstItem="eSn-3T-dlG" firstAttribute="leading" secondItem="Br1-TI-Tsy" secondAttribute="leadingMargin" constant="10" id="ziV-4x-dD6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eSn-3T-dlG" secondAttribute="trailing" id="zm2-5U-Tny"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="restaurantNameTextField" destination="eSn-3T-dlG" id="wnN-NV-Ytt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nsu-Ld-t6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2365.5999999999999" y="-688.60569715142435"/>
+        </scene>
         <!--Restaurant Main Table View Controller-->
         <scene sceneID="XAx-wI-Z6G">
             <objects>
@@ -313,6 +362,7 @@
                         <segue destination="RQa-WZ-By4" kind="show" identifier="showAllRecommendedDishes" id="krG-lm-1Qw"/>
                         <segue destination="gph-5I-oND" kind="show" identifier="showUserActivity" id="SaP-6K-QcZ"/>
                         <segue destination="dHt-ho-iCp" kind="show" identifier="showReview" id="Hwy-Bh-vrS"/>
+                        <segue destination="a3y-wG-ASG" kind="show" identifier="showUpdateRestaurant" id="NiV-q5-kIr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lxg-GC-FDV" userLabel="First Responder" sceneMemberID="firstResponder"/>

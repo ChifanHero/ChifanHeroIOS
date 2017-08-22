@@ -105,12 +105,26 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         self.configureRecommendedDishSectionView()
         self.addNotificationObserver()
         self.configPhotoAttributionTextView()
+        self.addUpdateButtonToRightCorner()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reviewSectionView.resetRatingStar()
         self.recommendedDishSectionView.configureView()
+    }
+    
+    private func addUpdateButtonToRightCorner() {
+        #if DEBUG
+            let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("更新", size: CGRect(x: 0, y: 0, width: 60, height: 26))
+            button.addTarget(self, action: #selector(self.showUpdateRestaurant), for: UIControlEvents.touchUpInside)
+            let selectionLocationButton = UIBarButtonItem(customView: button)
+            self.navigationItem.rightBarButtonItem = selectionLocationButton
+        #endif
+    }
+    
+    func showUpdateRestaurant() {
+        performSegue(withIdentifier: "showUpdateRestaurant", sender: nil)
     }
     
     private func addNotificationObserver() {
@@ -288,6 +302,9 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         } else if segue.identifier == "showAllRecommendedDishes" {
             let recommendedDishVC: RecommendedDishViewController = segue.destination as! RecommendedDishViewController
             recommendedDishVC.restaurant = self.restaurant
+        } else if segue.identifier == "showUpdateRestaurant" {
+            let updateRestaurantVC: UpdateRestaurantViewController = segue.destination as! UpdateRestaurantViewController
+            updateRestaurantVC.restaurant = self.restaurant
         }
     }
     

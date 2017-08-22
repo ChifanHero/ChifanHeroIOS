@@ -191,12 +191,14 @@ class DataAccessor {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
+    func updateRestaurantInfo(_ request: UpdateRestaurantInfoRequest, responseHandler: @escaping (UpdateRestaurantInfoResponse?) -> Void) {
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
+    }
+    
     
     
     //Put----------------------------------------------------------------------------------------------//
-    func updateRestaurantInfo(_ request: UpdateRestaurantInfoRequest, responseHandler: @escaping (UpdateRestaurantInfoResponse?) -> Void) {
-        self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
-    }
+    
     
     func nominateRestaurantForCollection(_ request: NominateRestaurantRequest, responseHandler: @escaping (NominateRestaurantResponse?) -> Void){
         self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
