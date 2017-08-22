@@ -258,10 +258,6 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func showErrorMessage(_ title : String, message : String) {
-        var title = title
-        if title == nil {
-            title = "输入错误"
-        }
         let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
         let askLocationAlertView = SCLAlertView(appearance: appearance)
         let alertViewIcon = UIImage(named: "LogoWithBorder")

@@ -20,7 +20,6 @@ class RestaurantTableViewCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     
     @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var ratingView: UIView!
     @IBOutlet weak var ratingLabel: UILabel!
     
@@ -39,7 +38,6 @@ class RestaurantTableViewCell: UITableViewCell {
         ratingLabel.text = String(describing: restaurant.rating ?? 0)
         ratingLabel.layer.cornerRadius = 4
         ratingLabel.backgroundColor = ScoreComputer.getScoreColor(restaurant.rating ?? 0)
-        countLabel.text = String(describing: restaurant.ratingCount ?? 0)
         
         let defaults = UserDefaults.standard
         if !defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
