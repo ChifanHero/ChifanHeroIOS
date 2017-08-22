@@ -22,6 +22,9 @@ class RestaurantsContainerViewController: SlideMenuController, SlideMenuControll
         SlideMenuOptions.panFromBezel = true
         SlideMenuOptions.simultaneousGestureRecognizers = false
         SlideMenuOptions.hideStatusBar = false
+        edgesForExtendedLayout = .bottom
+        extendedLayoutIncludesOpaqueBars = true
+        automaticallyAdjustsScrollViewInsets = true
         // Do any additional setup after loading the view.
     }
     

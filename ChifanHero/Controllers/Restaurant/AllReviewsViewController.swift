@@ -29,12 +29,13 @@ class AllReviewsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     private func configDropDownMenu() {
-        let items = ["排序：按时间", "排序：默认"]
+        // TODO: Added in the future
+        /*let items = ["排序：按时间", "排序：默认"]
         let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.view, title: "排序：默认", items: items as [AnyObject])
         self.navigationItem.titleView = menuView
         menuView.didSelectItemAtIndexHandler = {[weak self] (indexPath: Int) -> () in
             
-        }
+        }*/
     }
     
     private func addBarButton() {
