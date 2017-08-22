@@ -24,19 +24,3 @@ class NominateRestaurantRequest: HttpRequest{
         return "/restaurantCollectionMemCan"
     }
 }
-
-class UpdateRestaurantInfoRequest: HttpRequest{
-
-    var restaurantId: String?
-    var imageId: String?
-
-    override func getRequestBody() -> [String : AnyObject] {
-        var parameters = Dictionary<String, String>()
-        parameters["image_id"] = imageId
-        return parameters as [String : AnyObject]
-    }
-
-    override func getRelativeURL() -> String {
-        return "/restaurants/" + restaurantId!
-    }
-}

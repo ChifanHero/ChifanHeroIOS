@@ -22,18 +22,18 @@ class RecommendedDishNominationViewController: UIViewController {
         self.addDoneButton()
     }
     
-    func addCancelButton() {
+    private func addCancelButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(cancel), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
-    func addDoneButton() {
+    private func addDoneButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("提交", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(submit), for: UIControlEvents.touchUpInside)
-        let cancelButton = UIBarButtonItem(customView: button)
-        self.navigationItem.rightBarButtonItem = cancelButton
+        let doneButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = doneButton
     }
     
     func cancel() {
@@ -43,12 +43,11 @@ class RecommendedDishNominationViewController: UIViewController {
     func submit() {
         if let dishName = recommendedDishTextField.text {
             if dishName.isEmpty {
-                let appearance = SCLAlertView.SCLAppearance(
-                    showCloseButton: false
-                )
-                let alertView = SCLAlertView(appearance: appearance)
-                alertView.addButton("知道了", target:self, selector:#selector(self.doNothing))
-                alertView.showInfo("请输入菜名", subTitle: "请输入菜名全称")
+                let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
+                let askLocationAlertView = SCLAlertView(appearance: appearance)
+                let alertViewIcon = UIImage(named: "LogoWithBorder")
+                askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
+                askLocationAlertView.showInfo("友情提示", subTitle: "请输入菜名", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
             } else {
                 addRecommendedDishRequest.restaurantId = restaurant.id
                 addRecommendedDishRequest.dishName = dishName
@@ -78,7 +77,7 @@ class RecommendedDishNominationViewController: UIViewController {
         self.performSegue(withIdentifier: "unwindToRecommendedDish", sender: self)
     }
     
-    func doNothing() {
+    func dismissAlert() {
         
     }
     
