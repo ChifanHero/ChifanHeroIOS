@@ -64,7 +64,7 @@ class RestaurantsFilterViewController: UIViewController {
     }
     
     private func updateSortSC() {
-        let sort = searchContext.sort
+        let sort = SearchContext.sort
         if sort == SortOptions.bestmatch {
             sortingSC.selectedSegmentIndex = 0
         } else if sort == SortOptions.rating {
@@ -77,7 +77,7 @@ class RestaurantsFilterViewController: UIViewController {
     }
     
     private func updateRangeSC() {
-        let range = searchContext.distance
+        let range = SearchContext.distance
         if range == RangeFilter.auto {
             rangeSC.selectedSegmentIndex = 0
         } else if range == RangeFilter.point5 {
@@ -92,7 +92,7 @@ class RestaurantsFilterViewController: UIViewController {
     }
     
     private func updateRatingSC() {
-        let rating = searchContext.rating
+        let rating = SearchContext.rating
         if rating == RatingFilter.none {
             ratingSC.selectedSegmentIndex = 0
         } else if rating == RatingFilter.three {
@@ -110,7 +110,7 @@ class RestaurantsFilterViewController: UIViewController {
     }
     
     private func updateOpenSC() {
-        let open = searchContext.open
+        let open = SearchContext.open
         if open == OpenEnum.all {
             openSC.selectedSegmentIndex = 0
         } else if open == OpenEnum.openNow {
@@ -120,17 +120,17 @@ class RestaurantsFilterViewController: UIViewController {
     
     
     func commit(_ sender: AnyObject) {
-        if distance != nil && distance != searchContext.distance {
-            searchContext.distance = distance!
+        if distance != nil && distance != SearchContext.distance {
+            SearchContext.distance = distance!
         }
-        if rating != nil && rating != searchContext.rating {
-            searchContext.rating = rating!
+        if rating != nil && rating != SearchContext.rating {
+            SearchContext.rating = rating!
         }
-        if sort != nil && sort != searchContext.sort {
-            searchContext.sort = sort!
+        if sort != nil && sort != SearchContext.sort {
+            SearchContext.sort = sort!
         }
-        if open != nil && open != searchContext.open {
-            searchContext.open = open!
+        if open != nil && open != SearchContext.open {
+            SearchContext.open = open!
         }
         clearStates()
         self.containerVC?.slideMenuController()?.closeRight()
@@ -138,7 +138,7 @@ class RestaurantsFilterViewController: UIViewController {
     }
     
     func cancel(_ sender: AnyObject) {
-        searchContext.newSearch = false
+        SearchContext.newSearch = false
         clearStates()
         self.containerVC?.slideMenuController()?.closeRight()
     }

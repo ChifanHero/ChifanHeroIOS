@@ -9,8 +9,6 @@
 import UIKit
 import MapKit
 
-let searchContext: SearchContext = SearchContext()
-
 class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
     @IBOutlet weak var searchResultsTable: UITableView!
@@ -49,10 +47,10 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     private func setDefaultSearchContext() {
-        searchContext.distance = RangeFilter.auto
-        searchContext.rating = RatingFilter.none
-        searchContext.sort = SortOptions.distance
-        searchContext.coordinates = userLocationManager.getLocationInUse()
+        SearchContext.distance = RangeFilter.auto
+        SearchContext.rating = RatingFilter.none
+        SearchContext.sort = SortOptions.distance
+        SearchContext.coordinates = userLocationManager.getLocationInUse()
     }
     
     private func configLoadingIndicator() {
@@ -91,9 +89,9 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     // MARK - perform search
     func performNewSearchIfNeeded(_ hideCurrentResults : Bool) {
-        if searchContext.newSearch || needToRefresh(){
+        if SearchContext.newSearch || needToRefresh(){
             print("search requested. should do a new search here")
-            if searchContext.keyword != nil || searchContext.address != nil{
+            if SearchContext.keyword != nil || SearchContext.address != nil{
                 currentState = CurrentState.search
             } else {
                 currentState = CurrentState.browse
@@ -103,13 +101,13 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                 searchResultsTable.isHidden = true
                 loadingIndicator.startAnimation()
             }
-            if searchContext.address != nil && searchContext.address != "" {
-                LocationHelper.getLocationFromAddress(searchContext.address!, completionHandler: { (location) in
+            if SearchContext.address != nil && SearchContext.address != "" {
+                LocationHelper.getLocationFromAddress(SearchContext.address!, completionHandler: { (location) in
                     OperationQueue.main.addOperation({ 
                         if location == nil {
-                            searchContext.coordinates = userLocationManager.getLocationInUse()
+                            SearchContext.coordinates = userLocationManager.getLocationInUse()
                         } else {
-                            searchContext.coordinates = location
+                            SearchContext.coordinates = location
                         }
                         let searchRequest: RestaurantSearchV2Request = self.buildSearchRequest()
                         self.search(searchRequest)
@@ -152,8 +150,8 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     private func buildSearchRequest() -> RestaurantSearchV2Request{
         var searchRequest: RestaurantSearchV2Request = RestaurantSearchV2Request()
         if currentState == CurrentState.browse {
-            searchContext.coordinates = userLocationManager.getLocationInUse()
-            lastUsedLocation = searchContext.coordinates
+            SearchContext.coordinates = userLocationManager.getLocationInUse()
+            lastUsedLocation = SearchContext.coordinates
         }
         buildSort(&searchRequest)
         buildFilter(&searchRequest)
@@ -165,7 +163,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         updateSearchbarAndLocationLabel()
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).searchRestaurants(searchRequest) { (searchResponse) in
             OperationQueue.main.addOperation({
-                searchContext.newSearch = false
+                SearchContext.newSearch = false
                 self.restaurants = searchResponse?.results ?? []
                 self.searchResultsTable.allowsSelection = true
                 self.searchResultsTable.reloadData()
@@ -177,11 +175,11 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     private func buildOpen(_ searchRequest: inout RestaurantSearchV2Request) {
-        searchRequest.open = searchContext.open
+        searchRequest.open = SearchContext.open
     }
     
     private func buildSort(_ searchRequest: inout RestaurantSearchV2Request) {
-        let sortOption = searchContext.sort
+        let sortOption = SearchContext.sort
         if sortOption == SortOptions.distance {
             searchRequest.order = "nearest"
         } else if sortOption == SortOptions.hotness {
@@ -192,8 +190,8 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     private func buildFilter(_ searchRequest: inout RestaurantSearchV2Request) {
-        let ratingFilter = searchContext.rating
-        let rangeFilter = searchContext.distance
+        let ratingFilter = SearchContext.rating
+        let rangeFilter = SearchContext.distance
         if ratingFilter == RatingFilter.five {
             searchRequest.rating = 5.0
         } else if ratingFilter == RatingFilter.four {
@@ -206,7 +204,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
             searchRequest.rating = 3.0
         }
         let range = Range()
-        range.center = searchContext.coordinates
+        range.center = SearchContext.coordinates
         let distance = Distance()
         distance.unit = DistanceUnit.mile.description
         if rangeFilter == RangeFilter.auto {
@@ -222,21 +220,21 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         }
         range.distance = distance
         searchRequest.range = range
-        searchRequest.keyword = searchContext.keyword
+        searchRequest.keyword = SearchContext.keyword
     }
     
     func updateSearchbarAndLocationLabel() {
-        searchBar.text = searchContext.keyword
+        searchBar.text = SearchContext.keyword
         var currentLocation = "位置: "
-        if searchContext.address != nil {
-            currentLocation = currentLocation + searchContext.address!
+        if SearchContext.address != nil {
+            currentLocation = currentLocation + SearchContext.address!
             currentLocationLabel.text = currentLocation
         } else {
             if let city = userLocationManager.getCityInUse() {
                 currentLocation = currentLocation + city.name! + ", " + city.state!
                 currentLocationLabel.text = currentLocation
             } else {
-                LocationHelper.getStreetAddressFromLocation((searchContext.coordinates?.lat)!, lon: (searchContext.coordinates?.lon)!, completionHandler: { (street) in
+                LocationHelper.getStreetAddressFromLocation((SearchContext.coordinates?.lat)!, lon: (SearchContext.coordinates?.lon)!, completionHandler: { (street) in
                     currentLocation = currentLocation + "当前位置(\(street))"
                     self.currentLocationLabel.text = currentLocation
                 })
@@ -248,7 +246,7 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     // MARK - Pull to refresh
     func refreshData() {
-        searchContext.coordinates = userLocationManager.getLocationInUse()
+        SearchContext.coordinates = userLocationManager.getLocationInUse()
         performNewSearchIfNeeded(false)
     }
     

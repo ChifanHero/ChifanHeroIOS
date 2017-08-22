@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,31 +14,18 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="以下为google搜索结果" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w73-g0-uG4">
-                    <rect key="frame" x="15" y="9" width="160" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="160" id="Uty-x3-GJn"/>
-                        <constraint firstAttribute="height" constant="21" id="ycL-lb-UTl"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JXv-iG-6ue">
-                    <rect key="frame" x="195" y="11" width="144" height="18"/>
+                    <rect key="frame" x="20" y="12.5" width="150" height="15"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="144" id="92c-Kd-hvI"/>
-                        <constraint firstAttribute="width" secondItem="JXv-iG-6ue" secondAttribute="height" multiplier="8:1" id="CF6-tn-aab"/>
-                        <constraint firstAttribute="height" constant="18" id="GQV-Is-JwA"/>
+                        <constraint firstAttribute="width" constant="150" id="92c-Kd-hvI"/>
+                        <constraint firstAttribute="height" constant="15" id="GQV-Is-JwA"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="JXv-iG-6ue" firstAttribute="leading" secondItem="w73-g0-uG4" secondAttribute="trailing" constant="20" id="7Hf-pv-DjT"/>
-                <constraint firstItem="w73-g0-uG4" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="AvC-FA-Snc"/>
+                <constraint firstItem="JXv-iG-6ue" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="6bK-0O-Mf7"/>
                 <constraint firstItem="JXv-iG-6ue" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nX3-qh-hU4"/>
-                <constraint firstItem="w73-g0-uG4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="tGK-Et-WhM"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -47,7 +33,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="logoImageView" destination="JXv-iG-6ue" id="buK-mS-Lie"/>
-                <outlet property="titleLabel" destination="w73-g0-uG4" id="OhJ-Q5-KYQ"/>
             </connections>
         </view>
     </objects>

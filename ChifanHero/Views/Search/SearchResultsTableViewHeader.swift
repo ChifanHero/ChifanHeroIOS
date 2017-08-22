@@ -10,7 +10,6 @@ import UIKit
 
 class SearchResultsTableViewHeader: UIView {
     
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var logoImageView: UIImageView!
     
     override func awakeFromNib() {
@@ -20,7 +19,6 @@ class SearchResultsTableViewHeader: UIView {
     
     private func setUp(){
         self.logoImageView.image = UIImage(named: "powered_by_google_on_white")
-        self.titleLabel.text = "以下为google搜索结果"
     }
 
 }

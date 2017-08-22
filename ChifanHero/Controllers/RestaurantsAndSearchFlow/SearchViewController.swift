@@ -36,12 +36,15 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         addressBar.addTarget(self, action: #selector(SearchViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         addCancelButton()
         addSearchButton()
+        suggestionTableView.register(UINib(nibName: "GoogleLogoCell", bundle: nil), forCellReuseIdentifier: "googleLogoCell")
+        suggestionTableView.register(UINib(nibName: "AddressAutoCompletionCell", bundle: nil), forCellReuseIdentifier: "autoCompletionCell")
+        suggestionTableView.register(UINib(nibName: "SearchHistoryCell", bundle: nil), forCellReuseIdentifier: "historyCell")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackSearchView()
-        searchBar.text = searchContext.keyword
+        searchBar.text = SearchContext.keyword
         searchBar.becomeFirstResponder()
         searchBar.selectAll(nil)
         self.view.layoutIfNeeded()
@@ -49,8 +52,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         UIView.animate(withDuration: 0.2, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.allowAnimatedContent, animations: {
             self.view.layoutIfNeeded()
         }) { (success) in
-            if searchContext.address != nil && searchContext.address != "" {
-                self.addressBar.text = searchContext.address
+            if SearchContext.address != nil && SearchContext.address != "" {
+                self.addressBar.text = SearchContext.address
             }
             let defaults = UserDefaults.standard
             if !defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
@@ -129,28 +132,23 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         let keyword = searchBar.text
         let address = addressBar.text
         if keyword != nil && keyword != "" {
-            searchContext.keyword = keyword
+            SearchContext.keyword = keyword
             SearchHistory.saveKeyword(keyword!)
-            searchContext.sort = SortOptions.bestmatch
-            searchContext.rating = RatingFilter.none
         } else {
-            searchContext.keyword = nil
-            searchContext.sort = SortOptions.hotness
+            SearchContext.keyword = nil
         }
         if address != nil && address != "" {
             if address == "当前位置" {
-                searchContext.address = nil
-                searchContext.coordinates = userLocationManager.getLocationInUse()
+                SearchContext.address = nil
+                SearchContext.coordinates = userLocationManager.getLocationInUse()
             } else {
-                searchContext.address = address
+                SearchContext.address = address
                 SearchHistory.saveAddress(address!)
             }
-            searchContext.distance = RangeFilter.twenty
         } else {
-            searchContext.address = nil
+            SearchContext.address = nil
             let location: Location? = userLocationManager.getLocationInUse()
-            searchContext.coordinates = location
-            searchContext.distance = RangeFilter.auto
+            SearchContext.coordinates = location
         }
     }
     
@@ -185,34 +183,22 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if addressAutoCompletion.count > 0 {
             if indexPath.row <= addressAutoCompletion.count - 1 { // Auto completion cell
-                var cell: AddressAutoCompletionTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "autoCompletionCell") as? AddressAutoCompletionTableViewCell
-                if cell == nil {
-                    tableView.register(UINib(nibName: "AddressAutoCompletionCell", bundle: nil), forCellReuseIdentifier: "autoCompletionCell")
-                    cell = tableView.dequeueReusableCell(withIdentifier: "autoCompletionCell") as? AddressAutoCompletionTableViewCell
-                }
-                cell!.suggestionLabel.attributedText = addressAutoCompletion[indexPath.row]
-                return cell!
+                let cell = tableView.dequeueReusableCell(withIdentifier: "autoCompletionCell") as! AddressAutoCompletionTableViewCell
+                cell.suggestionLabel.attributedText = addressAutoCompletion[indexPath.row]
+                return cell
             } else { // google logo cell
-                var cell: GoogleLogoTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "googleLogoCell") as? GoogleLogoTableViewCell
-                if cell == nil {
-                    tableView.register(UINib(nibName: "GoogleLogoCell", bundle: nil), forCellReuseIdentifier: "googleLogoCell")
-                    cell = tableView.dequeueReusableCell(withIdentifier: "googleLogoCell") as? GoogleLogoTableViewCell
-                }
-                return cell!
+                let cell = tableView.dequeueReusableCell(withIdentifier: "googleLogoCell") as! GoogleLogoTableViewCell
+                return cell
             }
         } else { // history cell
-            var cell: SearchHistoryTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "historyCell") as? SearchHistoryTableViewCell
-            if cell == nil {
-                tableView.register(UINib(nibName: "SearchHistoryCell", bundle: nil), forCellReuseIdentifier: "historyCell")
-                cell = tableView.dequeueReusableCell(withIdentifier: "historyCell") as? SearchHistoryTableViewCell
-            }
-            cell?.delegate = self
+            let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell") as! SearchHistoryTableViewCell
+            cell.delegate = self
             if currentState == CurrentState.keyword {
-                cell?.history = keywordHistory[indexPath.row]
+                cell.history = keywordHistory[indexPath.row]
             } else {
-                cell?.history = addressHistory[indexPath.row]
+                cell.history = addressHistory[indexPath.row]
             }
-            return cell!
+            return cell
         }
         
     }
