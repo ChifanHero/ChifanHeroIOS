@@ -232,7 +232,11 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     //MARK: NewReviewRatingSectionDelegate
     func getRating() -> Int {
-        return rating
+        return self.rating
+    }
+    
+    func setRating(rating: Int) {
+        self.rating = rating
     }
     
 

@@ -10,6 +10,7 @@ import UIKit
 
 protocol NewReviewRatingSectionDelegate {
     func getRating() -> Int
+    func setRating(rating: Int)
 }
 
 class NewReviewRatingSectionView: UIView {
@@ -86,21 +87,26 @@ class NewReviewRatingSectionView: UIView {
     
     func ratingOnePressed() {
         RatingStarUtil.ratingOne(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+        delegate.setRating(rating: 1)
     }
     
     func ratingTwoPressed() {
         RatingStarUtil.ratingTwo(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+        delegate.setRating(rating: 2)
     }
     
     func ratingThreePressed() {
         RatingStarUtil.ratingThree(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+        delegate.setRating(rating: 3)
     }
     
     func ratingFourPressed() {
         RatingStarUtil.ratingFour(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+        delegate.setRating(rating: 4)
     }
     
     func ratingFivePressed() {
         RatingStarUtil.ratingFive(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+        delegate.setRating(rating: 5)
     }
 }

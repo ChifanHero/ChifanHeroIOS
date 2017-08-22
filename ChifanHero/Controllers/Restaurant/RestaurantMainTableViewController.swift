@@ -43,6 +43,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     var restaurant: Restaurant? {
         didSet {
+            self.configVCTitle()
             self.scoreLabel.text = String(format:"%.1f", self.restaurant?.rating ?? 0)
             self.scoreLabel.backgroundColor = ScoreComputer.getScoreColor(self.restaurant?.rating ?? 0)
             self.scoreLabel.alpha = 1
@@ -78,8 +79,6 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     var distance: Distance?
     
     var currentLocation: Location?
-    
-    let vcTitleLabel: UILabel = UILabel()
     
     var headerView: UIView!
     
@@ -220,7 +219,6 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         }
         showNavigationBarSmoothly()
         self.animateTransition = true
-        configVCTitle()
         TrackingUtil.trackRestaurantView()
     }
     
@@ -239,17 +237,15 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         })
     }
     
-    func configVCTitle() {
-        if self.navigationItem.titleView?.alpha == nil {
-            vcTitleLabel.text = self.restaurant?.name
-            vcTitleLabel.backgroundColor = UIColor.clear
-            vcTitleLabel.textColor = UIColor.white
-            vcTitleLabel.sizeToFit()
-            vcTitleLabel.alpha = 1.0
-            self.navigationItem.titleView = vcTitleLabel
-            self.navigationItem.titleView?.alpha = 0.0
-        }
-        
+    private func configVCTitle() {
+        let vcTitleLabel: UILabel = UILabel(frame: CGRect(x: 000, y: 0, width: 200, height: 40))
+        vcTitleLabel.text = self.restaurant?.name
+        vcTitleLabel.backgroundColor = UIColor.clear
+        vcTitleLabel.textColor = UIColor.white
+        vcTitleLabel.alpha = 1.0
+        vcTitleLabel.sizeToFit()
+        self.navigationItem.titleView = vcTitleLabel
+        self.navigationItem.titleView?.alpha = 0.0
     }
     
     // MARK: TableView
@@ -561,17 +557,12 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateHeaderView()
         let offset = scrollView.contentOffset.y
-        let nameLabelBottomY = getNameLabelBottomY() + 200
-        if offset > nameLabelBottomY{
-            let scale = (abs(offset) - abs(nameLabelBottomY)) / 40
+        if offset > -30 {
+            let scale = (offset + 30) / 40
             self.navigationItem.titleView?.alpha = scale
         } else {
             self.navigationItem.titleView?.alpha = 0.0
         }
-    }
-    
-    private func getNameLabelBottomY() -> CGFloat {
-        return 0
     }
     
     private func updateHeaderView(){
