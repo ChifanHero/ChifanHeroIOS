@@ -433,13 +433,8 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         
         for image in images {
             queue.addOperation() {
-                let maxLength = 100000 // 100KB
-                var imageData = UIImageJPEGRepresentation(image, 1.0) //1.0 is compression ratio
-                if imageData!.count > maxLength {
-                    let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.count)!)
-                    imageData = UIImageJPEGRepresentation(image, compressionRatio)
-                }
-                
+                let newPhoto = ImageUtil.resizeImage(image: image)
+                let imageData = UIImageJPEGRepresentation(newPhoto, 0.5) // 0.5 is compression ratio
                 let base64_code: String = (imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters))!
                 let request: UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
                 request.restaurantId = self.restaurantId!

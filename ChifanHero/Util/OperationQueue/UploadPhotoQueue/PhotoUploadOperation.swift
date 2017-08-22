@@ -42,12 +42,8 @@ class PhotoUploadOperation: RetryableOperation {
     }
     
     private func upload() {
-        let maxLength = 100000 // 100KB
-        var imageData: Data! = UIImageJPEGRepresentation(photo!, 1.0) //1.0 is compression ratio
-        if imageData.count > maxLength {
-            let compressionRatio: CGFloat = CGFloat(maxLength) / CGFloat((imageData?.count)!)
-            imageData = UIImageJPEGRepresentation(photo!, compressionRatio)
-        }
+        let newPhoto = ImageUtil.resizeImage(image: photo!)
+        let imageData = UIImageJPEGRepresentation(newPhoto, 0.5) // 0.5 is compression ratio
         let base64_code: String = (imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters))!
         let request: UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
         request.restaurantId = self.restaurantId

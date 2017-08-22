@@ -174,7 +174,8 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         userImageView.image = image
         self.dismiss(animated: true, completion: nil);
         
-        let imageData = UIImageJPEGRepresentation(image, 0.1) //0.1 is compression ratio
+        let newPhoto = ImageUtil.resizeImage(image: image!)
+        let imageData = UIImageJPEGRepresentation(newPhoto, 0.5) // 0.5 is compression ratio
         let base64_code: String = (imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters))!
         let request : UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
         DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in

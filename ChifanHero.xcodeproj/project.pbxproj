@@ -182,6 +182,7 @@
 		CA203E2A1C111EEA00D6F32C /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039C91BC3471400183AC2 /* ParseCrashReporting.framework */; };
 		CA203E2B1C111EEA00D6F32C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039C71BC3471400183AC2 /* Bolts.framework */; };
 		CA2E599E1F059CC8004B4BDC /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2E599D1F059CC8004B4BDC /* Global.swift */; };
+		CA44A56B1F4C07C9002FEF7F /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA44A56A1F4C07C9002FEF7F /* ImageUtil.swift */; };
 		CA86772F1ECE6C2F00FBF076 /* ReviewInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA86772E1ECE6C2F00FBF076 /* ReviewInfoView.xib */; };
 		CA8677311ECE6DDA00FBF076 /* ReviewInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8677301ECE6DDA00FBF076 /* ReviewInfoView.swift */; };
 		CA8677331ECF90A100FBF076 /* TextUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8677321ECF90A100FBF076 /* TextUtil.swift */; };
@@ -462,6 +463,7 @@
 		CA0F3F0C1F450E8700DA77B7 /* OpenEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenEnum.swift; sourceTree = "<group>"; };
 		CA203E4D1C111EEA00D6F32C /* 吃饭英雄-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "吃饭英雄-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA2E599D1F059CC8004B4BDC /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		CA44A56A1F4C07C9002FEF7F /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		CA72AEDA1D9E0D4700DE5464 /* 吃饭英雄-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "吃饭英雄-Test.entitlements"; sourceTree = "<group>"; };
 		CA86772E1ECE6C2F00FBF076 /* ReviewInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewInfoView.xib; sourceTree = "<group>"; };
 		CA8677301ECE6DDA00FBF076 /* ReviewInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewInfoView.swift; sourceTree = "<group>"; };
@@ -942,6 +944,7 @@
 				CA8BD0731EC4D7220028BC2F /* RatingStarUtil.swift */,
 				CA8677321ECF90A100FBF076 /* TextUtil.swift */,
 				CA2E599D1F059CC8004B4BDC /* Global.swift */,
+				CA44A56A1F4C07C9002FEF7F /* ImageUtil.swift */,
 				8E88C8160D4ED2B7594FDB3D /* OperationQueue */,
 			);
 			path = Util;
@@ -1929,6 +1932,7 @@
 				8E88C7AAF37E77E818607EA1 /* FloatingMenuController.swift in Sources */,
 				8E88C267B3496FE7D570535A /* ExpandingCellTransition.swift in Sources */,
 				8E88C25CB1EEE111EFE4E129 /* PullToRefreshControl.swift in Sources */,
+				CA44A56B1F4C07C9002FEF7F /* ImageUtil.swift in Sources */,
 				8E88CD6F77A0AC4864403105 /* ARNImageTransitionIdentifiable.swift in Sources */,
 				8E88C989846CADF5FACFE7F5 /* UIColor+FloatingMenu.swift in Sources */,
 				8E88C4F164C2363CF346B789 /* NVActivityIndicatorView.swift in Sources */,
