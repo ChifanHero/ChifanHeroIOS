@@ -170,8 +170,16 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    fileprivate func showErrorMessage(_ title : String?, message : String?) {
-        SCLAlertView().showWarning(title!, subTitle: message!)
+    fileprivate func showErrorMessage(_ title : String, message : String) {
+        let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
+        let askLocationAlertView = SCLAlertView(appearance: appearance)
+        let alertViewIcon = UIImage(named: "LogoWithBorder")
+        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
+        askLocationAlertView.showInfo(title, subTitle: message, colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+    }
+    
+    func dismissAlert() {
+        
     }
     
     fileprivate func resetLogInInput(_ alertAction: UIAlertAction!){
