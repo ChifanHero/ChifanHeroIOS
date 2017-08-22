@@ -67,13 +67,15 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
                 self.photoAttributionTextView!.attributedText = self.imagePool[indexPath.item].htmlAttributions[0].attributedStringFromHTML()
                 self.photoAttributionTextView!.textAlignment = .center
                 self.photoAttributionTextView!.font = .systemFont(ofSize: 16)
+            } else {
+                self.photoAttributionTextView?.attributedText = nil
             }
         })
     }
     
     func configPhotoAttributionTextView() {
         photoAttributionTextView = UITextView(frame: CGRect(x: 0, y: self.view.frame.height - 80, width: self.view.frame.width, height: 30))
-        photoAttributionTextView!.backgroundColor = UIColor.black
+        photoAttributionTextView!.backgroundColor = UIColor.clear
         photoAttributionTextView!.isEditable = false
         photoAttributionTextView!.textColor = UIColor.white
     }
@@ -96,6 +98,8 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
             self.photoAttributionTextView!.attributedText = self.imagePool[index].htmlAttributions[0].attributedStringFromHTML()
             self.photoAttributionTextView!.textAlignment = .center
             self.photoAttributionTextView!.font = .systemFont(ofSize: 16)
+        } else {
+            self.photoAttributionTextView!.attributedText = nil
         }
     }
     
