@@ -171,10 +171,12 @@ class UpdateRestaurantInfoRequest: HttpRequest{
     
     var restaurantId: String?
     var name: String?
+    var blacklisted: Bool?
     
     override func getRequestBody() -> [String : AnyObject] {
-        var parameters = Dictionary<String, String>()
-        parameters["name"] = name
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["name"] = name as AnyObject
+        parameters["blacklisted"] = blacklisted as AnyObject
         return parameters as [String : AnyObject]
     }
     

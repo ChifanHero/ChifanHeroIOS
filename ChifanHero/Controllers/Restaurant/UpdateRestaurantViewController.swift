@@ -10,13 +10,25 @@ import UIKit
 
 class UpdateRestaurantViewController: UIViewController {
 
+    @IBOutlet weak var restaurantIdLabel: UILabel!
     @IBOutlet weak var restaurantNameTextField: UITextField!
+    
+    @IBAction func blacklistSwitch(_ sender: UISwitch) {
+        if sender.isOn {
+            isBlacklisted = true
+        } else {
+            isBlacklisted = false
+        }
+    }
+    
+    var isBlacklisted: Bool = false
     
     var restaurant: Restaurant!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addDoneButton()
+        self.restaurantIdLabel.text = self.restaurant.id
     }
     
     private func addDoneButton() {
@@ -30,29 +42,24 @@ class UpdateRestaurantViewController: UIViewController {
         let updateRestaurantInfoRequest = UpdateRestaurantInfoRequest()
         
         if let restaurantName = restaurantNameTextField.text {
-            if restaurantName.isEmpty {
-                let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-                let askLocationAlertView = SCLAlertView(appearance: appearance)
-                let alertViewIcon = UIImage(named: "LogoWithBorder")
-                askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
-                askLocationAlertView.showInfo("友情提示", subTitle: "请输入餐厅名称", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
-            } else {
-                updateRestaurantInfoRequest.restaurantId = restaurant.id
+            updateRestaurantInfoRequest.restaurantId = restaurant.id
+            if !restaurantName.isEmpty {
                 updateRestaurantInfoRequest.name = restaurantName
-                DataAccessor(serviceConfiguration: ParseConfiguration()).updateRestaurantInfo(updateRestaurantInfoRequest, responseHandler: { (response) -> Void in
-                    OperationQueue.main.addOperation({ () -> Void in
-                        
-                    })
+            }
+            updateRestaurantInfoRequest.blacklisted = isBlacklisted
+            DataAccessor(serviceConfiguration: ParseConfiguration()).updateRestaurantInfo(updateRestaurantInfoRequest, responseHandler: { (response) -> Void in
+                OperationQueue.main.addOperation({ () -> Void in
                     
                 })
-                // We always display success no matter what the response is
-                // because we don't want to block the UI when api call failed
-                let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-                let askLocationAlertView = SCLAlertView(appearance: appearance)
-                let alertViewIcon = UIImage(named: "LogoWithBorder")
-                askLocationAlertView.addButton("完成", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
-                askLocationAlertView.showInfo("添加成功", subTitle: "成功更新餐厅名称", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
-            }
+                
+            })
+            // We always display success no matter what the response is
+            // because we don't want to block the UI when api call failed
+            let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
+            let askLocationAlertView = SCLAlertView(appearance: appearance)
+            let alertViewIcon = UIImage(named: "LogoWithBorder")
+            askLocationAlertView.addButton("完成", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
+            askLocationAlertView.showInfo("添加成功", subTitle: "成功更新餐厅名称", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
         }
     }
     
