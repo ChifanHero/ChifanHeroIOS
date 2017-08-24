@@ -108,6 +108,8 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     }
     
     func configureFavoriteView(){
+        // Remove this feature for now
+        favoriteView.isHidden = true
         favoriteView.layer.borderWidth = 1.0
         favoriteView.layer.borderColor = UIColor.white.cgColor
         favoriteView.layer.cornerRadius = 10.0
@@ -123,6 +125,8 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     }
     
     func configureNominationView(){
+        // Remove this feature for now
+        nominationView.isHidden = true
         nominationView.layer.borderWidth = 1.0
         nominationView.layer.borderColor = UIColor.white.cgColor
         nominationView.layer.cornerRadius = 10.0
