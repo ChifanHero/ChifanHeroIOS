@@ -417,3 +417,17 @@ class AddRecommendDishResponse: HttpResponseProtocol {
         error = Error(data: data["error"])
     }
 }
+
+class TrackRestaurantResponse: HttpResponseProtocol {
+    var success: Bool?
+    var error: Error?
+    
+    required init() {
+        
+    }
+    
+    required init(data: JSON) {
+        success = data["success"].bool
+        error = Error(data: data["error"])
+    }
+}

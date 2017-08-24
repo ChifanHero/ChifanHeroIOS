@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -15,10 +15,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="餐厅名称" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PgB-MT-zw6">
-                    <rect key="frame" x="81" y="10" width="300" height="40"/>
+                    <rect key="frame" x="10" y="10" width="442" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="JMz-LJ-yDP"/>
-                        <constraint firstAttribute="width" constant="300" id="d36-th-ybk"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <nil key="textColor"/>
@@ -110,7 +109,9 @@
                 <constraint firstItem="PgB-MT-zw6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="W7b-qe-FlQ"/>
                 <constraint firstItem="ewF-oZ-7sp" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="XIN-KR-5Pq"/>
                 <constraint firstItem="bUQ-BX-w7s" firstAttribute="top" secondItem="7eQ-Wn-z8P" secondAttribute="bottom" constant="15" id="YLo-tB-HRq"/>
+                <constraint firstAttribute="trailing" secondItem="PgB-MT-zw6" secondAttribute="trailing" constant="10" id="aKF-ZP-1vs"/>
                 <constraint firstItem="ewF-oZ-7sp" firstAttribute="top" secondItem="bUQ-BX-w7s" secondAttribute="bottom" constant="30" id="ao9-6C-g3u"/>
+                <constraint firstItem="PgB-MT-zw6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="cLt-oP-91F"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

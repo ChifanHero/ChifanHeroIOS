@@ -42,10 +42,6 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
         }
     }
     
-    private var newReviewCellHeight: CGFloat = 120
-    private var reviewCellHeight: CGFloat = 160
-    private var spaceBetweenSections: CGFloat = 10
-    
     private func setUp(){
         reviewsTableView.delegate = self
         reviewsTableView.dataSource = self
@@ -62,7 +58,8 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
             if reviews == nil {
                 return 0
             } else {
-                return reviews!.count
+                // Display at most 5 rows
+                return min(reviews!.count, 5)
             }
         }
     }
@@ -107,15 +104,6 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
     
     private func showReview(_ index: Int) {
         delegate.showReview(index)
-    }
-
-    
-    func getHeight() -> CGFloat {
-        if reviews == nil || reviews?.count == 0 {
-            return newReviewCellHeight
-        } else {
-            return newReviewCellHeight + spaceBetweenSections + reviewCellHeight * CGFloat(reviews!.count)
-        }
     }
     
     func resetRatingStar() {
