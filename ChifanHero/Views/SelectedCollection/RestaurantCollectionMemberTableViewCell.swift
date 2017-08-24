@@ -29,8 +29,18 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
         if restaurant.name != nil {
             self.restaurantName.text = restaurant.name
         }
-        let url: URL! = URL(string: restaurant.picture?.original ?? "")
-        restaurantImage.kf.setImage(with: url, placeholder: UIImage(named: "restaurant_default_background"), options: [.transition(ImageTransition.fade(0.5))])
+        
+        var url: URL!
+        if restaurant.picture?.original != nil {
+            url = URL(string: restaurant.picture!.original!)
+        } else if restaurant.picture?.googlePhotoReference != nil {
+            let googlePhotoURL: String = UrlUtil.getGooglePhotoReferenceUrl() + restaurant.picture!.googlePhotoReference!
+            url = URL(string: googlePhotoURL)
+        } else {
+            url = URL(string: "")
+        }
+        
+        restaurantImage.kf.setImage(with: url, placeholder: DefaultImageGenerator.generateRestaurantDefaultImage(), options: [.transition(ImageTransition.fade(0.5))])
         
         self.makeRoundedCorner()
         self.configureBorderColor()

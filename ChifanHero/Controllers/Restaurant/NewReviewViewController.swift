@@ -50,6 +50,7 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
             ).instantiate(withOwner: nil, options: nil).first as! NewReviewRatingSectionView
         
         ratingView.frame = CGRect(x: 0, y: 0, width: ratingRootView.frame.width, height: ratingRootView.frame.height)
+        ratingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         ratingView.delegate = self
         ratingView.loadUserRating()
         self.ratingRootView.addSubview(ratingView)

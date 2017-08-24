@@ -184,3 +184,20 @@ class UpdateRestaurantInfoRequest: HttpRequest{
         return "/restaurants/" + restaurantId!
     }
 }
+
+class TrackRestaurantRequest: HttpRequest{
+    
+    var restaurantId: String?
+    var userId: String?
+    
+    override func getRequestBody() -> [String : AnyObject] {
+        var parameters = Dictionary<String, String>()
+        parameters["restaurantId"] = restaurantId
+        parameters["userIdentifier"] = userId
+        return parameters as [String : AnyObject]
+    }
+    
+    override func getRelativeURL() -> String {
+        return "/track"
+    }
+}

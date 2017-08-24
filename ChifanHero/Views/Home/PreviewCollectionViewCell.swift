@@ -49,7 +49,7 @@ class PreviewCollectionViewCell: UICollectionViewCell {
         if restaurant.picture?.original != nil {
             url = URL(string: (restaurant.picture?.original)!)
         } else if restaurant.picture?.googlePhotoReference != nil {
-            let googlePhotoURL: String = "https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyDbWSwTi-anJJf25HxNrfBNicmrR0JSaOY&maxheight=500&maxwidth=500&photoreference=" + (restaurant.picture?.googlePhotoReference)!
+            let googlePhotoURL: String = UrlUtil.getGooglePhotoReferenceUrl() + (restaurant.picture?.googlePhotoReference)!
             url = URL(string: googlePhotoURL)
         } else {
             url = URL(string: "")

@@ -220,6 +220,14 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     }
     
     @IBAction func handleFavoriteButton(_ sender: AnyObject) {
+        let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
+        let askLocationAlertView = SCLAlertView(appearance: appearance)
+        let alertViewIcon = UIImage(named: "LogoWithBorder")
+        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
+        askLocationAlertView.showInfo("友情提示", subTitle: "收藏功能即将开通", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+        
+        // TODO: Add favorite in the future
+        /*
         if self.favoriteButton.isSelected == false {
             if !UserContext.isValidUser() {
                 SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
@@ -237,9 +245,14 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
             ratingAndFavoriteExecutor?.removeFavorite("selected_collection", objectId: selectedCollection!.id!, successHandler: { () -> Void in
                 
             })
-        }
+        }*/
         
     }
+    
+    func dismissAlert() {
+        
+    }
+    
     @IBAction func handleNominationButton(_ sender: AnyObject) {
         performSegue(withIdentifier: "showNomination", sender: selectedCollection)
     }

@@ -106,12 +106,25 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         self.addNotificationObserver()
         self.configPhotoAttributionTextView()
         self.addUpdateButtonToRightCorner()
+        self.trackRestaurant()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reviewSectionView.resetRatingStar()
         self.recommendedDishSectionView.configureView()
+    }
+    
+    private func trackRestaurant() {
+        let trackRestaurantRequest = TrackRestaurantRequest()
+        let deviceID = UIDevice.current.identifierForVendor!.uuidString
+        trackRestaurantRequest.restaurantId = restaurantId
+        trackRestaurantRequest.userId = deviceID
+        DataAccessor(serviceConfiguration: SearchServiceConfiguration()).trackRestaurant(trackRestaurantRequest, responseHandler: { (response) -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
+                print(response?.success ?? false)
+            })
+        })
     }
     
     private func addUpdateButtonToRightCorner() {
@@ -270,7 +283,8 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         } else if indexPath.section == 1 {
             return 180
         } else if indexPath.section == 2 {
-            return 160 + CGFloat(self.restaurant?.reviewInfo?.reviews.count ?? 0) * 160
+            // Display at most 5 rows
+            return 160 + CGFloat(min(self.restaurant?.reviewInfo?.reviews.count ?? 0, 5)) * 160
         } else if indexPath.section == 3 {
             return 120
         } else {
@@ -419,7 +433,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             if image.original != nil {
                 url = URL(string: image.original!)
             } else if image.googlePhotoReference != nil {
-                let googlePhotoURL: String = "https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyDbWSwTi-anJJf25HxNrfBNicmrR0JSaOY&maxheight=500&maxwidth=500&photoreference=" + image.googlePhotoReference!
+                let googlePhotoURL: String = UrlUtil.getGooglePhotoReferenceUrl() + image.googlePhotoReference!
                 url = URL(string: googlePhotoURL)
             } else {
                 url = URL(string: "")

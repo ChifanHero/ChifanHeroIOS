@@ -195,6 +195,10 @@ class DataAccessor {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
+    func trackRestaurant(_ request: TrackRestaurantRequest, responseHandler: @escaping (TrackRestaurantResponse?) -> Void) {
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
+    }
+    
     
     
     //Put----------------------------------------------------------------------------------------------//
