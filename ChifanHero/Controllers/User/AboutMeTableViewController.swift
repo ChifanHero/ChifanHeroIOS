@@ -81,7 +81,6 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         let defaults = UserDefaults.standard
         
         if let userPicURL = defaults.string(forKey: "userPicURL"){
-            userImageView.image = UIImage(data: try! Data(contentsOf: URL(string: userPicURL)!))
             userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
         }
     }
@@ -177,7 +176,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         let newPhoto = ImageUtil.resizeImage(image: image!)
         let imageData = UIImageJPEGRepresentation(newPhoto, 0.5) // 0.5 is compression ratio
         let base64_code: String = (imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters))!
-        let request : UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
+        let request: UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
         DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
             OperationQueue.main.addOperation({ () -> Void in
                 
