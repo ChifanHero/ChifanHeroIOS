@@ -60,7 +60,7 @@
 	<key>NSLocationUsageDescription</key>
 	<string>Usage</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>使用您的位置来获取附近餐厅的信息</string>
+	<string>允许吃饭英雄使用您的位置信息</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>允许吃饭英雄使用您的图片库</string>
 	<key>UILaunchStoryboardName</key>

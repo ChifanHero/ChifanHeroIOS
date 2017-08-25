@@ -47,10 +47,10 @@ class TextUtil {
     }
     
     class func getLocationServicePromptText() -> String {
-        return "允许位置服务，吃饭英雄会给您带来更好的使用体验。"
+        return "允许位置服务，给您更佳使用体验"
     }
     
     class func getTextWhenUserTurnOffLocationService(city: String) -> String {
-        return "您已关闭位置服务\n当前城市为：\(city)。"
+        return "您已关闭位置服务\n当前城市为：\(city)"
     }
 }
