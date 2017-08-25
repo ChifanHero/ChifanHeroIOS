@@ -159,7 +159,7 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         
     func changeEnvironment() {
         let defaults = UserDefaults.standard
-        var afterChangeEnv: String!
+        var afterChangeEnv: String
         if defaults.bool(forKey: "usingStaging") {
             defaults.set(false, forKey: "usingStaging")
             afterChangeEnv = "Production"
