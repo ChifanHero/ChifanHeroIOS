@@ -66,7 +66,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         self.userImageView.layer.borderColor = UIColor.white.cgColor
     }
     
-    fileprivate func loadUserNickName(){
+    private func loadUserNickName(){
         let defaults = UserDefaults.standard
         
         if let nickname = defaults.string(forKey: "userNickName"){
@@ -77,10 +77,11 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         
     }
     
-    fileprivate func loadUserPicture(){
+    private func loadUserPicture(){
         let defaults = UserDefaults.standard
         
         if let userPicURL = defaults.string(forKey: "userPicURL"){
+            print(userPicURL)
             userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
         }
     }
@@ -131,7 +132,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         }
     }
     
-    fileprivate func popUpImageSourceOption(){
+    private func popUpImageSourceOption(){
         let alert = UIAlertController(title: "更换头像", message: "选取图片来源", preferredStyle: UIAlertControllerStyle.actionSheet)
         
         let takePhotoAction = UIAlertAction(title: "相机", style: .default, handler: self.takePhotoFromCamera)
@@ -145,7 +146,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         self.present(alert, animated: true, completion: nil)
     }
     
-    fileprivate func takePhotoFromCamera(_ alertAction: UIAlertAction!) {
+    private func takePhotoFromCamera(_ alertAction: UIAlertAction!) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
@@ -155,7 +156,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         }
     }
     
-    fileprivate func chooseFromPhotoRoll(_ alertAction: UIAlertAction!) {
+    private func chooseFromPhotoRoll(_ alertAction: UIAlertAction!) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
@@ -165,28 +166,43 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         }
     }
     
-    fileprivate func cancelChoosingImage(_ alertAction: UIAlertAction!) {
+    private func cancelChoosingImage(_ alertAction: UIAlertAction!) {
         
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [AnyHashable: Any]!) {
-        userImageView.image = image
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            userImageView.image = image
+            self.uploadPicture(image: image)
+        } else if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            userImageView.image = image
+            self.uploadPicture(image: image)
+        } else{
+            print("Something went wrong")
+        }
+        
         self.dismiss(animated: true, completion: nil);
         
-        let newPhoto = ImageUtil.resizeImage(image: image!)
+    }
+    
+    private func uploadPicture(image: UIImage) {
+        let newPhoto = ImageUtil.resizeImage(image: image)
         let imageData = UIImageJPEGRepresentation(newPhoto, 0.5) // 0.5 is compression ratio
         let base64_code: String = (imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters))!
         let request: UploadPictureRequest = UploadPictureRequest(base64_code: base64_code)
         DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
             OperationQueue.main.addOperation({ () -> Void in
+                let defaults: UserDefaults = UserDefaults.standard
+                defaults.set(response!.result?.thumbnail, forKey: "userPicURL")
                 
                 if response?.result != nil{
                     AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: response?.result?.id) { (response) -> Void in
                         OperationQueue.main.addOperation({ () -> Void in
                             if response!.success == true {
-                                print("Update profile picture succeed")
+                                log.info("Update profile picture succeed")
                             } else {
-                                print("Update profile picture failed")
+                                log.info("Update profile picture failed")
                             }
                         })
                         
@@ -197,7 +213,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         }
     }
     
-    fileprivate func logOutAction(){
+    private func logOutAction(){
         let alert = UIAlertController(title: "退出登录", message: "登出当前用户", preferredStyle: UIAlertControllerStyle.actionSheet)
         
         let confirmAction = UIAlertAction(title: "确认", style: .default, handler: self.confirmLogOut)
@@ -209,7 +225,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         self.present(alert, animated: true, completion: nil)
     }
     
-    fileprivate func confirmLogOut(_ alertAction: UIAlertAction!) {
+    private func confirmLogOut(_ alertAction: UIAlertAction!) {
         let defaults : UserDefaults = UserDefaults.standard
         defaults.set(false, forKey: "isLoggedIn")
         self.replaceAboutMeViewByLogInView()
@@ -221,11 +237,11 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         }
     }
     
-    fileprivate func cancelLogOut(_ alertAction: UIAlertAction!) {
+    private func cancelLogOut(_ alertAction: UIAlertAction!) {
         
     }
     
-    fileprivate func replaceAboutMeViewByLogInView(){
+    private func replaceAboutMeViewByLogInView(){
         let tabBarController : UITabBarController = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
         var viewControllers = tabBarController.viewControllers!
         for index in 0 ..< viewControllers.count {
@@ -240,7 +256,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         tabBarController.setViewControllers(viewControllers, animated: false)
     }
     
-    fileprivate func getLogInNavigationController() -> UINavigationController{
+    private func getLogInNavigationController() -> UINavigationController{
         let storyBoard : UIStoryboard = UIStoryboard(name: "User", bundle: nil)
         let logInNC : UINavigationController = storyBoard.instantiateViewController(withIdentifier: "LogInNavigationController") as! UINavigationController
         logInNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)

@@ -241,7 +241,7 @@ class AccountManager {
         self.callApi(request, afterSuccess: self.loginAfterSignUp, responseHandler: responseHandler)
     }
     
-    fileprivate func loginAfterSignUp(_ response: AccountResponse?, password: String?){
+    private func loginAfterSignUp(_ response: AccountResponse?, password: String?){
         self.logIn(username: response!.user?.userName, password: password, responseHandler: { (success) -> Void in})
     }
     
@@ -276,37 +276,33 @@ class AccountManager {
         self.callApi(request, afterSuccess: self.deleteUser, responseHandler: responseHandler)
     }
     
-    fileprivate func saveUser(_ response: AccountResponse?, password: String?) {
+    private func saveUser(_ response: AccountResponse?, password: String?) {
         
         let defaults: UserDefaults = UserDefaults.standard
         
-        defaults.setValue(response!.sessionToken, forKey: "sessionToken")
-        defaults.setValue(response!.user?.id, forKey: "userId")
-        defaults.setValue(response!.user?.userName, forKey: "username")
-        defaults.setValue(response!.user?.nickName, forKey: "userNickName")
-        defaults.setValue(response!.user?.picture?.thumbnail, forKey: "userPicURL")
-        defaults.synchronize()
+        defaults.set(response!.sessionToken, forKey: "sessionToken")
+        defaults.set(response!.user?.id, forKey: "userId")
+        defaults.set(response!.user?.userName, forKey: "username")
+        defaults.set(response!.user?.nickName, forKey: "userNickName")
+        defaults.set(response!.user?.picture?.thumbnail, forKey: "userPicURL")
         if password != nil {
             myKeyChainWrapper.mySetObject(password, forKey: kSecValueData)
             myKeyChainWrapper.writeToKeychain()
         }
     }
     
-    fileprivate func updateUser(_ response: AccountResponse?, password: String?) {
-        let defaults : UserDefaults = UserDefaults.standard
-        defaults.setValue(response!.user?.nickName, forKey: "userNickName")
-        defaults.setValue(response!.user?.picture?.thumbnail, forKey: "userPicURL")
+    private func updateUser(_ response: AccountResponse?, password: String?) {
+        
     }
     
-    fileprivate func deleteUser(_ response: AccountResponse?, password: String?){
+    private func deleteUser(_ response: AccountResponse?, password: String?){
         let defaults : UserDefaults = UserDefaults.standard
         
-        defaults.setValue(nil, forKey: "sessionToken")
-        defaults.setValue(nil, forKey: "userId")
-        defaults.setValue(nil, forKey: "username")
-        defaults.setValue(nil, forKey: "userNickName")
-        defaults.setValue(nil, forKey: "userPicURL")
-        defaults.synchronize()
+        defaults.set(nil, forKey: "sessionToken")
+        defaults.set(nil, forKey: "userId")
+        defaults.set(nil, forKey: "username")
+        defaults.set(nil, forKey: "userNickName")
+        defaults.set(nil, forKey: "userPicURL")
         myKeyChainWrapper.mySetObject(nil, forKey: kSecValueData)
         myKeyChainWrapper.writeToKeychain()
     }

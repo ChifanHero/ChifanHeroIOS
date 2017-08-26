@@ -8,6 +8,7 @@ PODS:
   - Kingfisher (3.6.2)
   - SKPhotoBrowser (4.0.1)
   - SlideMenuControllerSwift (3.0.1)
+  - SwiftyBeaver (1.2.1)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -18,6 +19,7 @@ DEPENDENCIES:
   - Kingfisher (~> 3.6.2)
   - SKPhotoBrowser (~> 4.0.1)
   - SlideMenuControllerSwift
+  - SwiftyBeaver
   - SwiftyJSON
 
 EXTERNAL SOURCES:
@@ -39,8 +41,9 @@ SPEC CHECKSUMS:
   Kingfisher: 2c94e72c6830622c71d06adf4ea024c37d316830
   SKPhotoBrowser: 3a7c6fc02aa1620ab17253a47a49fafda46536e8
   SlideMenuControllerSwift: 9a163b16d54afab734add42858cba7ef7c307755
+  SwiftyBeaver: f29dc64b0ae619d73ee94fd04bd532f895765208
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 91b0739c5584f51572f1358d5ebcecff6868096a
+PODFILE CHECKSUM: 3c4114f596a47743561101b9828bc46bbfedfa2a
 
 COCOAPODS: 1.3.1
