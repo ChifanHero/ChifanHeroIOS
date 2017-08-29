@@ -12,6 +12,7 @@ pod 'GooglePlaces'
 pod 'SKPhotoBrowser', '~> 4.0.1'
 pod 'SwiftyJSON'
 pod 'BTNavigationDropdownMenu', :git => 'https://github.com/PhamBaTho/BTNavigationDropdownMenu.git', :branch => 'swift-3.0'
+pod 'SwiftyBeaver'
 
 end
 

@@ -160,7 +160,12 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    
+    func getUserInfo(_ request: GetUserInfoRequest, responseHandler: @escaping (GetUserInfoResponse?) -> Void){
+        let defaults = UserDefaults.standard
+        request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
     
     
     

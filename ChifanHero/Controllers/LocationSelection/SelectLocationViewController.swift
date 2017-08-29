@@ -299,7 +299,6 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         if city != nil {
             let defaults = UserDefaults.standard
             defaults.set(true, forKey: USING_NOT_AUTO_DETECTED_LOCATION)
-            defaults.synchronize()
             TrackingUtil.trackUserUsingCity()
             if homeViewController != nil {
                 homeViewController!.prepareForDataRefresh()
@@ -409,7 +408,6 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         defaults.set(false, forKey: NEED_TO_INFORM_USER_LOCATION_CHANGED)
         defaults.set(false, forKey: LOCATION_PERMISSION_DENIED)
         defaults.set(false, forKey: USING_NOT_AUTO_DETECTED_LOCATION)
-        defaults.synchronize()
         if homeViewController != nil {
             homeViewController!.prepareForDataRefresh()
         }

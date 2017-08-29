@@ -11,8 +11,10 @@ import Parse
 import CoreData
 import Flurry_iOS_SDK
 import GooglePlaces
+import SwiftyBeaver
 
-let userLocationManager: UserLocationManager = UserLocationManager()
+let log = SwiftyBeaver.self
+let userLocationManager = UserLocationManager()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
@@ -29,6 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var postLocationAvailableNotification = true
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // SwiftyBeaver
+        let console = ConsoleDestination()  // log to Xcode Console
+        // use custom format and set console output to short time, log level & message
+        console.format = "$DHH:mm:ss$d $N.$F():$l $L: $M"
+        // add the destinations to SwiftyBeaver
+        log.addDestination(console)
+        
         // Network reachability check
         do {
             Network.reachability = try Reachability(hostname: "www.google.com")
@@ -122,7 +131,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             createFirstNotification()
             trackAppVersion()
             defaults.set(true, forKey: HAS_LAUNCHED_ONCE)
-            defaults.synchronize()
         } else {
             // Common logic. Needed everytime user start app.
             locationManager.requestWhenInUseAuthorization()
@@ -140,7 +148,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     private func initializeUserDefaults() {
         let defaults = UserDefaults.standard
         defaults.set(false, forKey: USING_NOT_AUTO_DETECTED_LOCATION)
-        defaults.synchronize()
     }
     
     private func prepareForNotificationAuthorization() {
@@ -367,7 +374,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let defaults = UserDefaults.standard
             defaults.set(false, forKey: NEED_TO_INFORM_USER_LOCATION_CHANGED)
             defaults.set(false, forKey: LOCATION_PERMISSION_DENIED)
-            defaults.synchronize()
             TrackingUtil.trackUserOpenedLocationInSettings()
             break
         default:
@@ -381,7 +387,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         defaults.set(true, forKey: NEED_TO_INFORM_USER_LOCATION_CHANGED)
         defaults.set(true, forKey: LOCATION_PERMISSION_DENIED)
         defaults.set(true, forKey: USING_NOT_AUTO_DETECTED_LOCATION)
-        defaults.synchronize()
         var defaultCity: City = City()
         let currentLocation = userLocationManager.getLocationInUse()
         if currentLocation != nil && currentLocation!.lat != nil && currentLocation!.lon != nil {
@@ -415,7 +420,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 }
             }
             defaults.set(false, forKey: NEED_TO_INFORM_USER_LOCATION_CHANGED)
-            defaults.synchronize()
         }
     }
     

@@ -237,6 +237,20 @@ class GetSelectedCollectionsByLatAndLonResponse: HttpResponseProtocol{
 
 }
 
+class GetUserInfoResponse: HttpResponseProtocol{
+    var error: Error?
+    var result: User?
+    
+    required init() {
+        
+    }
+    
+    required init(data: JSON) {
+        error = Error(data: data["error"])
+        result = User(data: data["user"])
+    }
+}
+
 class LoginResponse: AccountResponse {
 
     required init() {
