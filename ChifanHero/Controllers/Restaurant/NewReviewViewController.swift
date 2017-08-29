@@ -116,7 +116,7 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     func handleKeyboardDidShowNotification(_ notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             bottomDistanceConstraint.constant = keyboardSize.height
             self.view.layoutIfNeeded()
         }
