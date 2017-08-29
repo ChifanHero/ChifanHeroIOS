@@ -207,7 +207,7 @@ class AccountManager {
 //        myKeyChainWrapper.writeToKeychain()
 //    }
     
-    fileprivate func callApi<Response: HttpResponseProtocol>(_ request: HttpRequestProtocol, afterSuccess: @escaping (AccountResponse?, String?) -> Void, responseHandler: @escaping (Response?) -> Void){
+    private func callApi<Response: HttpResponseProtocol>(_ request: HttpRequestProtocol, afterSuccess: @escaping (AccountResponse?, String?) -> Void, responseHandler: @escaping (Response?) -> Void){
         
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         print(url)

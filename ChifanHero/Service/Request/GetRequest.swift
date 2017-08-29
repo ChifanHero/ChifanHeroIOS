@@ -204,3 +204,10 @@ class GetAllReviewsOfOneRestaurantRequest: HttpRequest{
     }
 
 }
+
+class GetUserInfoRequest: HttpRequest{
+    
+    override func getRelativeURL() -> String {
+        return "/userInfo"
+    }
+}
