@@ -41,6 +41,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     var normalLoginButton: LoadingButton!
     var wechatLoginButton: LoadingButton!
     var facebookLoginButton: LoadingButton!
+    var quickSignupButton: LoadingButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,23 +96,27 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func configureLoginButton(){
-        wechatLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 250, width: self.view.frame.width * 0.8, height: 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
-        wechatLoginButton.setLogoImage(UIImage(named: "Wechat")!)
-        wechatLoginButton.setTextContent("微信登录")
-        wechatLoginButton.addTarget(self, action: #selector(LogInTableViewController.wechatLoginEvent), for: UIControlEvents.touchDown)
+//        wechatLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 250, width: self.view.frame.width * 0.8, height: 40), color: UIColor(red: 68 / 255  , green: 176 / 255, blue: 53 / 255, alpha: 1.0))
+//        wechatLoginButton.setLogoImage(UIImage(named: "Wechat")!)
+//        wechatLoginButton.setTextContent("微信登录")
+//        wechatLoginButton.addTarget(self, action: #selector(LogInTableViewController.wechatLoginEvent), for: UIControlEvents.touchDown)
         //self.view.addSubview(wechatLoginButton)
         
-        facebookLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 200, width: self.view.frame.width * 0.8, height: 40), color: UIColor(red: 59 / 255  , green: 89 / 255, blue: 152 / 255, alpha: 1.0))
-        facebookLoginButton.setLogoImage(UIImage(named: "Facebook")!)
-        facebookLoginButton.setTextContent("Facebook Login")
-        facebookLoginButton.addTarget(self, action: #selector(getter: LogInTableViewController.facebookLoginButton), for: UIControlEvents.touchDown)
+//        facebookLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 200, width: self.view.frame.width * 0.8, height: 40), color: UIColor(red: 59 / 255  , green: 89 / 255, blue: 152 / 255, alpha: 1.0))
+//        facebookLoginButton.setLogoImage(UIImage(named: "Facebook")!)
+//        facebookLoginButton.setTextContent("Facebook Login")
+//        facebookLoginButton.addTarget(self, action: #selector(getter: LogInTableViewController.facebookLoginButton), for: UIControlEvents.touchDown)
         //self.view.addSubview(facebookLoginButton)
         
-        normalLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 150, width: self.view.frame.width * 0.8, height: 40), color: UIColor.themeOrange())
-        normalLoginButton.setLogoImage(UIImage(named: "LogoWithBorder")!)
-        normalLoginButton.setTextContent("登录")
+        quickSignupButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 200, width: self.view.frame.width * 0.8, height: 40), color: UIColor.themeOrange(), textContent: "一键获取临时用户")
+        quickSignupButton.addTarget(self, action: #selector(LogInTableViewController.quickSignUpEvent), for: UIControlEvents.touchDown)
+        self.view.addSubview(quickSignupButton)
+        
+        normalLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 150, width: self.view.frame.width * 0.8, height: 40), color: UIColor.themeOrange(), logoImage: UIImage(named: "LogoWithBorder")!, textContent: "登录")
         self.view.addSubview(normalLoginButton)
         normalLoginButton.addTarget(self, action: #selector(LogInTableViewController.normalLoginEvent), for: UIControlEvents.touchDown)
+        
+        
         
         //let fbButton = FBSDKLoginButton(frame: CGRectMake(self.view.frame.width * 0.1, 250, self.view.frame.width * 0.8, 40))
         //fbButton.readPermissions = ["public_profile", "email"]
@@ -176,6 +181,10 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     func normalLoginEvent() {
         logIn(username: usernameTextField.text, password: passwordTextField.text)
+    }
+    
+    func quickSignUpEvent() {
+        quickSignUp()
     }
     
     /*func facebookLoginEvent() {
@@ -255,6 +264,10 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                 
             })
         }
+    }
+    
+    func quickSignUp() {
+        self.replaceLoginViewByAboutMeView()
     }
     
     func showErrorMessage(_ title : String, message : String) {
