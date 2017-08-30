@@ -14,6 +14,11 @@ class LoadingButton: UIButton {
     var defaultH: CGFloat!
     var defaultR: CGFloat!
     
+    var defaultX: CGFloat!
+    
+    var textContent: String!
+    var logoImage: UIImage?
+    
     var scale: CGFloat = 1.2
     var backgroundView: UIView!
     var logoView: UIImageView!
@@ -23,9 +28,20 @@ class LoadingButton: UIButton {
     
     var isLoading: Bool = false
     
-    init(frame: CGRect, color: UIColor) {
+//    init(frame: CGRect, color: UIColor) {
+//        super.init(frame: frame)
+//        initSettingWithColor(color)
+//    }
+    
+    init(frame: CGRect, color: UIColor, logoImage: UIImage?, textContent: String) {
         super.init(frame: frame)
+        self.textContent = textContent
+        self.logoImage = logoImage
         initSettingWithColor(color)
+    }
+    
+    convenience init(frame: CGRect, color: UIColor, textContent: String) {
+        self.init(frame: frame, color: color, logoImage: nil, textContent: textContent)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,13 +49,13 @@ class LoadingButton: UIButton {
         initSettingWithColor(self.tintColor)
     }
     
-    func setLogoImage(_ logoImage: UIImage){
-        logoView.image = logoImage
-    }
-    
-    func setTextContent(_ text: String){
-        labelView.text = text
-    }
+//    func setLogoImage(_ logoImage: UIImage){
+//        logoView.image = logoImage
+//    }
+//    
+//    func setTextContent(_ text: String){
+//        labelView.text = text
+//    }
     
     func initSettingWithColor(_ color:UIColor) {
         self.backgroundView = UIView(frame: self.bounds)
@@ -52,6 +68,8 @@ class LoadingButton: UIButton {
         defaultH = self.backgroundView.frame.height
         defaultR = self.backgroundView.layer.cornerRadius
         
+       
+        
         self.spinnerView = MozMaterialDesignSpinner(frame: CGRect(x: 0 , y: 0, width: defaultH*0.8, height: defaultH*0.8))
         self.spinnerView.tintColor = UIColor.white
         self.spinnerView.lineWidth = 2
@@ -61,14 +79,26 @@ class LoadingButton: UIButton {
         
         self.addSubview(self.spinnerView)
         
-        self.logoView = UIImageView(frame: CGRect(x: defaultW*0.2, y: defaultH*0.1, width: defaultH*0.8, height: defaultH*0.8))
+        self.logoView = UIImageView(frame: CGRect(x: defaultW * 0.1, y: defaultH*0.1, width: defaultH*0.8, height: defaultH*0.8))
         self.logoView.image = UIImage(named: "Wechat")
         self.logoView.contentMode = .scaleAspectFill
         self.logoView.clipsToBounds = true
         self.addSubview(self.logoView)
         
-        self.labelView = UILabel(frame: CGRect(x: defaultW*0.5, y: defaultH*0.1, width: 100, height: defaultH*0.8))
-        self.labelView.text = "微信登录"
+        var labelWidth: CGFloat!
+        if (logoImage == nil) {
+            logoView.isHidden = true
+            defaultX = defaultW * 0.1
+            labelWidth = defaultW * 0.8
+        } else {
+            logoView.image = logoImage
+            defaultX = defaultW * 0.2
+            labelWidth = defaultW * 0.6
+        }
+        
+        self.labelView = UILabel(frame: CGRect(x: defaultX, y: defaultH*0.1, width: labelWidth, height: defaultH * 0.8))
+        self.labelView.text = textContent
+        self.labelView.textAlignment = .center
         self.labelView.textColor = UIColor.white
         self.labelView.adjustsFontSizeToFitWidth = true
         self.addSubview(self.labelView)
