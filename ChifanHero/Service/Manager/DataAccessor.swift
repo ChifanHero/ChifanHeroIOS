@@ -131,9 +131,11 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
+    //TODO: Don't need this api for now
+    /*
     func getImagesByRestaurantId(_ request: GetImagesRequest, responseHandler : @escaping (GetImagesResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
-    }
+    }*/
     
     func getHomepage(_ request: GetHomepageRequest, responseHandler : @escaping (GetHomepageResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
@@ -144,6 +146,12 @@ class DataAccessor {
     }
     
     func getReviewById(_ request: GetReviewByIdRequest, responseHandler: @escaping (GetReviewByIdResponse?) -> Void) {
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
+    func getReviewByRestaurantIdOfOneUser(_ request: GetReviewByRestaurantIdOfOneUserRequest, responseHandler: @escaping (GetReviewByRestaurantIdOfOneUserResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
