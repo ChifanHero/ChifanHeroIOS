@@ -37,8 +37,6 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     var userRating: Int = 0
     
-    var uploadingAlertView : SCLAlertView?
-    
     var request: GetRestaurantByIdRequest?
     
     var restaurant: Restaurant? {
@@ -513,23 +511,10 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     
     private func showUploadingAlert() {
-        var appearance = SCLAlertView.SCLAppearance()
-        appearance.showCloseButton = false
-        appearance.showCircularIcon = true
-        appearance.setkWindowHeight(40)
-        uploadingAlertView = SCLAlertView(appearance: appearance)
-        
-        let timeoutConfig = SCLButton.ShowTimeoutConfiguration()
-        uploadingAlertView?.addButton("隐藏", backgroundColor: UIColor.themeOrange(), textColor: UIColor.black, showTimeout: timeoutConfig, target: self, selector: #selector(RestaurantMainTableViewController.hideAlertView))
-        uploadingAlertView!.showInfo("正在上传图片", subTitle: "正在后台上传，请稍等...")
+        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "正在后台上传，请稍等...", target: self, buttonAction: #selector(hideAlertView))
     }
     
     func hideAlertView() {
-        if uploadingAlertView != nil {
-            uploadingAlertView?.hideView()
-            uploadingAlertView = nil
-        }
-        
     }
     
     

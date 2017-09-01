@@ -55,11 +55,7 @@ class UpdateRestaurantViewController: UIViewController {
             })
             // We always display success no matter what the response is
             // because we don't want to block the UI when api call failed
-            let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-            let askLocationAlertView = SCLAlertView(appearance: appearance)
-            let alertViewIcon = UIImage(named: "LogoWithBorder")
-            askLocationAlertView.addButton("完成", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
-            askLocationAlertView.showInfo("添加成功", subTitle: "成功更新餐厅名称", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+            AlertUtil.showAlertView(buttonText: "完成", infoTitle: "添加成功", infoSubTitle: "成功更新餐厅名称", target: self, buttonAction: #selector(dismissAlert))
         }
     }
     

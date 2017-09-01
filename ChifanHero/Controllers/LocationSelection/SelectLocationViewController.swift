@@ -415,11 +415,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func remindUserToAuthorize() {
-        let appearance = SCLAlertView.SCLAppearance(kTitleHeight : 0, kWindowWidth: self.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: true)
-        let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
-        askLocationAlertView!.addButton("打开设置", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.openLocationSettings))
-        askLocationAlertView!.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dontOpenSettings))
-        askLocationAlertView?.showInfo("", subTitle: "\n\n请打开设置\n\n")
+        AlertUtil.showAlertViewWithTwoButtons(firstButtonText: "打开设置", secondButtonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "请打开设置", target: self, firstButtonAction: #selector(openLocationSettings), secondButtonAction: #selector(dontOpenSettings))
     }
     
     func openLocationSettings() {

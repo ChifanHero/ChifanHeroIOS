@@ -106,11 +106,7 @@ class RestaurantInfoSectionView: UIView {
     }
     
     func addBookmarkButtonPressed() {
-        let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-        let askLocationAlertView = SCLAlertView(appearance: appearance)
-        let alertViewIcon = UIImage(named: "LogoWithBorder")
-        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
-        askLocationAlertView.showInfo("友情提示", subTitle: "收藏功能即将开通", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "收藏功能即将开通", target: self, buttonAction: #selector(dismissAlert))
         
         // TODO: Add favorite
         /*if self.restaurant?.current_user_favorite == nil {

@@ -249,14 +249,14 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                     
                     self.normalLoginButton.stopLoading()
                     if response == nil {
-                        self.showErrorMessage("登录失败", message: "网络错误")
+                        self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
                     } else {
                         if response!.success != nil && response!.success! == true {
                             let defaults: UserDefaults = UserDefaults.standard
                             defaults.set(true, forKey: "isLoggedIn")
                             self.replaceLoginViewByAboutMeView()
                         } else {
-                            self.showErrorMessage("登录失败", message: "用户名或密码错误")
+                            self.showErrorMessage(title: "登录失败", subTitle: "用户名或密码错误")
                         }
                     }
                     
@@ -265,17 +265,13 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
             })
         }
     }
-    
+
     func quickSignUp() {
         self.replaceLoginViewByAboutMeView()
     }
     
-    func showErrorMessage(_ title : String, message : String) {
-        let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-        let askLocationAlertView = SCLAlertView(appearance: appearance)
-        let alertViewIcon = UIImage(named: "LogoWithBorder")
-        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
-        askLocationAlertView.showInfo(title, subTitle: message, colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+    func showErrorMessage(title: String, subTitle: String) {
+        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: title, infoSubTitle: subTitle, target: self, buttonAction: #selector(dismissAlert))
     }
     
     func dismissAlert() {

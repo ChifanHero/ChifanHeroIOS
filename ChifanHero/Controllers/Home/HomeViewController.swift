@@ -25,8 +25,6 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     
     var animateTransition = false
     
-    var askLocationAlertView: SCLAlertView?
-    
     var homepageSections: [HomepageSection] = []
     
     var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
@@ -169,14 +167,7 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
             afterChangeEnv = "Staging"
             (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setTitle("正在使用Staging", for: UIControlState())
         }
-        var appearance = SCLAlertView.SCLAppearance()
-        appearance.showCloseButton = false
-        appearance.showCircularIcon = true
-        appearance.setkWindowHeight(40)
-        let askLocationAlertView = SCLAlertView(appearance: appearance)
-        let alertViewIcon = UIImage(named: "LogoWithBorder")
-        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.doNothing))
-        askLocationAlertView.showInfo("正在使用\(afterChangeEnv)", subTitle: "\(ParseConfiguration().hostEndpoint())", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "正在使用\(afterChangeEnv)", infoSubTitle: "\(ParseConfiguration().hostEndpoint())", target: self, buttonAction: #selector(doNothing))
     }
 
     func doNothing() {}

@@ -277,7 +277,7 @@ class RestaurantsOnlyViewController: UIViewController, UITableViewDataSource, UI
         return [deleteAction];
     }
     
-    fileprivate func popupSigninAlert() {
+    private func popupSigninAlert() {
         SCLAlertView().showWarning("请登录", subTitle: "登录享受更多便利")
     }
     

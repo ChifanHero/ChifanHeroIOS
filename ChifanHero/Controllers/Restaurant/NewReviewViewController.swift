@@ -114,11 +114,7 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func submit() {
         if self.rating == 0 {
-            let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-            let askLocationAlertView = SCLAlertView(appearance: appearance)
-            let alertViewIcon = UIImage(named: "LogoWithBorder")
-            askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
-            askLocationAlertView.showInfo("友情提示", subTitle: "请为餐厅打分", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "请为餐厅打分", target: self, buttonAction: #selector(dismissAlert))
         } else {
             if let restaurant = self.restaurant {
                 let notificationOperation = BlockOperation {

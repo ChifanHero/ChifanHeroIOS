@@ -162,11 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     private func askForLocationAuthorization() {
         let rootVC : UIViewController? = self.window?.rootViewController
         if rootVC != nil {
-            let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-            let askLocationAlertView = SCLAlertView(appearance: appearance)
-            let alertViewIcon = UIImage(named: "LogoWithBorder")
-            askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.askLocationAlertViewDismissed))
-            askLocationAlertView.showInfo("友情提示", subTitle: TextUtil.getLocationServicePromptText(), colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: TextUtil.getLocationServicePromptText(), target: self, buttonAction: #selector(askLocationAlertViewDismissed))
             
         }
         
@@ -412,11 +408,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let rootVC : UIViewController? = self.window?.rootViewController
             if rootVC != nil {
                 if let defaultCity = LocationHelper.getDefaultCityFromCoreData() {
-                    let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40, kTitleHeight : 0, kWindowWidth: rootVC!.view.frame.size.width - 120, showCloseButton: false, showCircularIcon: true)
-                    let askLocationAlertView : SCLAlertView? = SCLAlertView(appearance: appearance)
-                    askLocationAlertView!.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissLocationAlerts))
-                    askLocationAlertView!.showInfo("", subTitle: TextUtil.getTextWhenUserTurnOffLocationService(city: defaultCity.name!))
-                    
+                    AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: TextUtil.getTextWhenUserTurnOffLocationService(city: defaultCity.name!), target: self, buttonAction: #selector(dismissLocationAlerts))
                 }
             }
             defaults.set(false, forKey: NEED_TO_INFORM_USER_LOCATION_CHANGED)
