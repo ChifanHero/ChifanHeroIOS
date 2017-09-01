@@ -112,10 +112,6 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     func showRestaurants() {
-        let storyboard = UIStoryboard(name: "RestaurantsAndSearch", bundle: nil)
-        let restaurantsController = storyboard.instantiateViewController(withIdentifier: "RestaurantsOnlyViewController") as! RestaurantsOnlyViewController
-        restaurantsController.isFromBookMark = true
-        self.navigationController?.pushViewController(restaurantsController, animated: true)
     }
     
     func showSelectedCollection() {
