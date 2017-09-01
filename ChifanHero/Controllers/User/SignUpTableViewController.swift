@@ -8,30 +8,6 @@
 
 import UIKit
 import Flurry_iOS_SDK
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
 
@@ -149,23 +125,26 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameTextField {
-            let username = textField.text
-            if username?.characters.count > 0 && username?.contains("@") == true{
-                textField.resignFirstResponder()
-                passwordTextField.becomeFirstResponder()
-                return true
-            } else {
-                return false
+            if let username = textField.text {
+                if username.characters.count > 0 && username.contains("@") == true{
+                    textField.resignFirstResponder()
+                    passwordTextField.becomeFirstResponder()
+                    return true
+                } else {
+                    return false
+                }
             }
         } else {
-            let password = textField.text
-            if password?.characters.count > 0{
-                createAccount()
-                return true
-            } else {
-                return false
+            if let password = textField.text {
+                if password.characters.count > 0{
+                    createAccount()
+                    return true
+                } else {
+                    return false
+                }
             }
         }
+        return false
     }
     
     private func showErrorMessage(title : String, subTitle : String) {

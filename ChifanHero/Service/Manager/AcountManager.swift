@@ -207,7 +207,7 @@ class AccountManager {
 //        myKeyChainWrapper.writeToKeychain()
 //    }
     
-    private func callApi<Response: HttpResponseProtocol>(_ request: HttpRequestProtocol, afterSuccess: @escaping (AccountResponse?, String?) -> Void, responseHandler: @escaping (Response?) -> Void){
+    private func callApi<Response: HttpResponseProtocol>(_ request: HttpRequestProtocol, afterSuccess: @escaping (AccountResponse) -> Void, responseHandler: @escaping (Response?) -> Void){
         
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
         log.debug("POST \(url)")
@@ -221,7 +221,7 @@ class AccountManager {
                     let json = JSON(value)
                     responseObject = Response(data: json)
                     if (response.response?.statusCode)! >= 200 && (response.response?.statusCode)! < 300 {
-                        afterSuccess(responseObject as? AccountResponse, (request as! AccountRequest).password)
+                        afterSuccess(responseObject as! AccountResponse)
                     }
                 }
             case .failure(let error):
@@ -234,20 +234,16 @@ class AccountManager {
     
     func signUp(username: String, password: String, responseHandler: @escaping (SignUpResponse?) -> Void){
         
-        let request: SignUpRequest = SignUpRequest()
+        let request = SignUpRequest()
         request.username = username
         request.password = password
         
-        self.callApi(request, afterSuccess: self.loginAfterSignUp, responseHandler: responseHandler)
-    }
-    
-    private func loginAfterSignUp(_ response: AccountResponse?, password: String?){
-        self.logIn(username: response!.user?.userName, password: password, responseHandler: { (success) -> Void in})
+        self.callApi(request, afterSuccess: self.saveUser, responseHandler: responseHandler)
     }
     
     func logIn(username: String?, password: String?, responseHandler: @escaping (LoginResponse?) -> Void) {
         
-        let request: LoginRequest = LoginRequest()
+        let request = LoginRequest()
         request.username = username
         request.password = password
         
@@ -276,35 +272,18 @@ class AccountManager {
         self.callApi(request, afterSuccess: self.deleteUser, responseHandler: responseHandler)
     }
     
-    private func saveUser(_ response: AccountResponse?, password: String?) {
-        
+    private func saveUser(_ response: AccountResponse?) {
         let defaults: UserDefaults = UserDefaults.standard
-        
         defaults.set(response!.sessionToken, forKey: "sessionToken")
-        defaults.set(response!.user?.id, forKey: "userId")
-        defaults.set(response!.user?.userName, forKey: "username")
-        defaults.set(response!.user?.nickName, forKey: "userNickName")
-        defaults.set(response!.user?.picture?.thumbnail, forKey: "userPicURL")
-        if password != nil {
-            myKeyChainWrapper.mySetObject(password, forKey: kSecValueData)
-            myKeyChainWrapper.writeToKeychain()
-        }
     }
     
-    private func updateUser(_ response: AccountResponse?, password: String?) {
+    private func updateUser(_ response: AccountResponse?) {
         
     }
     
-    private func deleteUser(_ response: AccountResponse?, password: String?){
+    private func deleteUser(_ response: AccountResponse?){
         let defaults : UserDefaults = UserDefaults.standard
-        
         defaults.set(nil, forKey: "sessionToken")
-        defaults.set(nil, forKey: "userId")
-        defaults.set(nil, forKey: "username")
-        defaults.set(nil, forKey: "userNickName")
-        defaults.set(nil, forKey: "userPicURL")
-        myKeyChainWrapper.mySetObject(nil, forKey: kSecValueData)
-        myKeyChainWrapper.writeToKeychain()
     }
     
     

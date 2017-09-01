@@ -8,30 +8,6 @@
 
 import UIKit
 import Flurry_iOS_SDK
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 class LogInTableViewController: UITableViewController, UITextFieldDelegate {
 
@@ -125,23 +101,26 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameTextField {
-            let username = textField.text
-            if username?.characters.count > 0 && username?.contains("@") == true{
-                textField.resignFirstResponder()
-                passwordTextField.becomeFirstResponder()
-                return true
-            } else {
-                return false
+            if let username = textField.text {
+                if username.characters.count > 0 && username.contains("@") == true{
+                    textField.resignFirstResponder()
+                    passwordTextField.becomeFirstResponder()
+                    return true
+                } else {
+                    return false
+                }
             }
         } else {
-            let password = textField.text
-            if password?.characters.count > 0{
-                normalLoginEvent()
-                return true
-            } else {
-                return false
+            if let password = textField.text {
+                if password.characters.count > 0{
+                    normalLoginEvent()
+                    return true
+                } else {
+                    return false
+                }
             }
         }
+        return false
     }
     
     func dismissKeyboard() {
@@ -173,10 +152,6 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         let aboutMeNC : UINavigationController = storyBoard.instantiateViewController(withIdentifier: "AboutMeNavigationController") as! UINavigationController
         aboutMeNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)
         return aboutMeNC
-    }
-    
-    @IBAction func logInButtonTouched(_ sender: AnyObject) {
-        normalLoginEvent()
     }
     
     func normalLoginEvent() {
