@@ -210,7 +210,7 @@ class AccountManager {
     private func callApi<Response: HttpResponseProtocol>(_ request: HttpRequestProtocol, afterSuccess: @escaping (AccountResponse?, String?) -> Void, responseHandler: @escaping (Response?) -> Void){
         
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
+        log.debug("POST \(url)")
         
         Alamofire.request(url, method: .post, parameters: request.getRequestBody(), encoding: JSONEncoding.default, headers: request.getHeaders()).responseJSON { response in
             
@@ -225,7 +225,7 @@ class AccountManager {
                     }
                 }
             case .failure(let error):
-                print(error)
+                log.debug(error)
             }
             
             responseHandler(responseObject)

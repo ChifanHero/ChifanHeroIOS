@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // SwiftyBeaver
         let console = ConsoleDestination()  // log to Xcode Console
         // use custom format and set console output to short time, log level & message
-        console.format = "$DHH:mm:ss$d $N.$F():$l $L: $M"
+        console.format = "$C$L: $M$c"
         // add the destinations to SwiftyBeaver
         log.addDestination(console)
         

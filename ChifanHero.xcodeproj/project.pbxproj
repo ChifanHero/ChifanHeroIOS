@@ -150,7 +150,7 @@
 		8E88CEF123B8A0222C13780E /* RestaurantsAndSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E88C1D17A043CBF0696F6CB /* RestaurantsAndSearch.storyboard */; };
 		8E88CF04DC98D57635018CCD /* RestaurantNominationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C9875F7D1604DAA7B293 /* RestaurantNominationViewController.swift */; };
 		8E88CF230853267488BCB7E2 /* RestaurantsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C3CD411354769D7B8F45 /* RestaurantsContainerViewController.swift */; };
-		8E88CF30E5BD0EC66F751A2F /* PhotoUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CDD15EA2273BAE1E3958 /* PhotoUploadOperation.swift */; };
+		8E88CF30E5BD0EC66F751A2F /* PhotoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CDD15EA2273BAE1E3958 /* PhotoOperation.swift */; };
 		8E88CF45440E77EAFF91A765 /* PutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CDADC78FF4E5E07F6F72 /* PutRequest.swift */; };
 		8E88CF55A274AFDD06225F6C /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CFDE3B073A78699ABFFB /* NotificationTableViewCell.swift */; };
 		8E88CF58B6E4EE79BEA7F2CD /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C9BF2F6998DC65018541 /* PostRequest.swift */; };
@@ -419,7 +419,7 @@
 		8E88CDADC78FF4E5E07F6F72 /* PutRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutRequest.swift; sourceTree = "<group>"; };
 		8E88CDBB9A21B4071734D711 /* UserLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationManager.swift; sourceTree = "<group>"; };
 		8E88CDC9BD9121AE08E56C3D /* RatingTypeEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingTypeEnum.swift; sourceTree = "<group>"; };
-		8E88CDD15EA2273BAE1E3958 /* PhotoUploadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoUploadOperation.swift; sourceTree = "<group>"; };
+		8E88CDD15EA2273BAE1E3958 /* PhotoOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoOperation.swift; sourceTree = "<group>"; };
 		8E88CDDBFEE53098A5F22FF7 /* NVActivityIndicatorAnimationPacman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationPacman.swift; sourceTree = "<group>"; };
 		8E88CDE3471B2B72D6F40BC6 /* RestaurantImagePoolCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantImagePoolCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E88CE098BF1EC01BC90BA77 /* GoogleLogoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLogoTableViewCell.swift; sourceTree = "<group>"; };
@@ -801,12 +801,12 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		8E88C3ACBB00FD6607553380 /* UploadPhotoQueue */ = {
+		8E88C3ACBB00FD6607553380 /* PhotoQueue */ = {
 			isa = PBXGroup;
 			children = (
-				8E88CDD15EA2273BAE1E3958 /* PhotoUploadOperation.swift */,
+				8E88CDD15EA2273BAE1E3958 /* PhotoOperation.swift */,
 			);
-			path = UploadPhotoQueue;
+			path = PhotoQueue;
 			sourceTree = "<group>";
 		};
 		8E88C3C09C0BD7771E9EB868 /* OpenSource */ = {
@@ -926,7 +926,7 @@
 			isa = PBXGroup;
 			children = (
 				8E88C6CDFD2FF893E5A87644 /* PostReviewQueue */,
-				8E88C3ACBB00FD6607553380 /* UploadPhotoQueue */,
+				8E88C3ACBB00FD6607553380 /* PhotoQueue */,
 				8E88C3A6A0D3F56DBDE4405D /* RetryableOperation.swift */,
 			);
 			path = OperationQueue;
@@ -2048,7 +2048,7 @@
 				8E88C8091D330663076DD22C /* PostReviewOperation.swift in Sources */,
 				CAB450F61EFC8358002D8E45 /* Reachability.swift in Sources */,
 				8E88CF944F307752D9D29FA4 /* PostReviewManager.swift in Sources */,
-				8E88CF30E5BD0EC66F751A2F /* PhotoUploadOperation.swift in Sources */,
+				8E88CF30E5BD0EC66F751A2F /* PhotoOperation.swift in Sources */,
 				CA9435861ECBCD9100F7EB0D /* RestaurantRecommendedDishSectionView.swift in Sources */,
 				8E88C4AF6AF35A37E0B6F8FD /* RetryableOperation.swift in Sources */,
 				8E88C550FF00FD0C86F73B28 /* City.swift in Sources */,

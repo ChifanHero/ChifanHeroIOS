@@ -53,8 +53,8 @@ class PhotoUploadOperation: RetryableOperation {
             if self.isCancelled { // isCancelled == true and isFinished == true
                 self.state = .finished
             } else {
-                if response != nil && response?.result != nil && response?.result?.id != nil{
-                    self.uploaded = response!.result
+                if let result = response?.result {
+                    self.uploaded = result
                     self.success = true
                 } else {
                     if self.retryTimes > 0 {
@@ -66,5 +66,44 @@ class PhotoUploadOperation: RetryableOperation {
             }
         }
     }
+}
+
+class PhotoDeleteOperation: RetryableOperation {
     
+    private var success = false
+    
+    private var photoIds: [String] = []
+    
+    init(photoIds: [String], completion: @escaping (Bool) -> Void) {
+        super.init()
+        self.photoIds = photoIds
+        self.completionBlock = {
+            if self.isCancelled {
+                completion(false)
+            } else {
+                completion(self.success)
+            }
+        }
+    }
+    
+    override func main() {
+        delete()
+    }
+    
+    private func delete() {
+        let request = DeletePicturesRequest()
+        request.ids = self.photoIds
+        
+        DataAccessor(serviceConfiguration: ParseConfiguration()).deletePictures(request) { (response) -> Void in
+            // Do not retry delete operation because this may cause server error
+            if self.isCancelled { // isCancelled == true and isFinished == true
+                self.state = .finished
+            } else {
+                if response?.result != nil {
+                    self.success = true
+                }
+                self.state = .finished
+            }
+        }
+    }
 }

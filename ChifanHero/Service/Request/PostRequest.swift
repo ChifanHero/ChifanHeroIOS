@@ -97,23 +97,39 @@ class AddRecommendDishRequest: HttpRequest{
     }
 }
 
-class ReviewRequest: HttpRequest{
+class CreateReviewRequest: HttpRequest{
 
     var content: String?
     var rating: Int?
     var restaurantId: String!
-    var photos: [String]?
 
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
         parameters["content"] = content as AnyObject
         parameters["rating"] = rating as AnyObject
-        parameters["photos"] = photos as AnyObject
         return parameters
     }
 
     override func getRelativeURL() -> String {
         return "/restaurants/" + restaurantId + "/reviews"
+    }
+}
+
+class UpdateReviewRequest: HttpRequest{
+    
+    var content: String?
+    var rating: Int?
+    var reviewId: String!
+    
+    override func getRequestBody() -> [String : AnyObject] {
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["content"] = content as AnyObject
+        parameters["rating"] = rating as AnyObject
+        return parameters
+    }
+    
+    override func getRelativeURL() -> String {
+        return "/reviews/" + reviewId
     }
 }
 

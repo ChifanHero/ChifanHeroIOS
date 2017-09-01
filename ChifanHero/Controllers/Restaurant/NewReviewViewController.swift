@@ -120,19 +120,22 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
             askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
             askLocationAlertView.showInfo("友情提示", subTitle: "请为餐厅打分", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
         } else {
-            if restaurant != nil {
+            if let restaurant = self.restaurant {
                 let notificationOperation = BlockOperation {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: REVIEW_UPLOAD_DONE), object: nil)
                 }
                 
-                let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, restaurantId: restaurant.id!, retryTimes: 3) { (success, review) in
+                let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, retryTimes: 3) { (success, review) in
                     
                     if success {
                         self.reviewId = review?.id
                         for image in self.toBeUploadedImages {
                             let uploadOperation = PhotoUploadOperation(photo: image, restaurantId: self.restaurant.id!, reviewId: self.reviewId!, retryTimes: 3, completion: { (success, picture) in
-                                print(success)
-                                
+                                if success {
+                                    log.debug("Image:\(picture?.id ?? "") upload is done")
+                                } else {
+                                    log.debug("Image upload failed")
+                                }
                             })
                             notificationOperation.addDependency(uploadOperation)
                             self.reviewManager.queue.addOperation(uploadOperation)
@@ -140,6 +143,22 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
                         self.reviewManager.queue.addOperation(notificationOperation)
                     }
                 }
+                if let review = self.review {
+                    reviewOperation.isNewReview = false
+                    reviewOperation.reviewId = review.id
+                } else {
+                    reviewOperation.isNewReview = true
+                    reviewOperation.restaurantId = restaurant.id!
+                }
+                let deleteOperation = PhotoDeleteOperation(photoIds: self.toBeDeletedImageIds, completion: {(success) in
+                    if success {
+                        log.debug("Image delete is done")
+                    } else {
+                        log.debug("Image delete failed")
+                    }
+                })
+                self.reviewManager.queue.addOperation(deleteOperation)
+                notificationOperation.addDependency(deleteOperation)
                 notificationOperation.addDependency(reviewOperation)
                 self.reviewManager.queue.addOperation(reviewOperation)
             }

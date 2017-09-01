@@ -20,17 +20,16 @@ class PostReviewOperation: RetryableOperation {
     
     private var savedReview: Review?
     
-    private var reviewId: String?
+    var reviewId = ""
     
-    private var restaurantId = ""
+    var restaurantId = ""
     
-    private var photos: [String]?
+    var isNewReview = true
     
-    init(rating: Int, content: String?, restaurantId: String, retryTimes: Int, completion: @escaping (Bool, Review?) -> Void) {
+    init(rating: Int, content: String, retryTimes: Int, completion: @escaping (Bool, Review?) -> Void) {
         super.init()
         self.rating = rating
         self.content = content
-        self.restaurantId = restaurantId
         self.retryTimes = retryTimes
         self.completionBlock = {
             if self.isCancelled {
@@ -42,32 +41,52 @@ class PostReviewOperation: RetryableOperation {
     }
     
     override func main() {
-        review()
+        upseartReview()
     }
     
-    private func review() {
-        let request: ReviewRequest = ReviewRequest()
-        request.content = content
-        request.rating = rating
-        request.restaurantId = restaurantId
-        request.photos = photos
-        DataAccessor(serviceConfiguration: ParseConfiguration()).review(request) { (response) in
-            if self.isCancelled {
-                self.state = .finished
-            } else {
-                if response != nil && response?.result != nil {
-                    self.savedReview = response!.result
-                    self.success = true
+    private func upseartReview() {
+        if isNewReview {
+            let request = CreateReviewRequest()
+            request.content = content
+            request.rating = rating
+            request.restaurantId = restaurantId
+            DataAccessor(serviceConfiguration: ParseConfiguration()).createReview(request) { (response) in
+                if self.isCancelled {
+                    self.state = .finished
                 } else {
-                    if self.retryTimes > 0 {
-                        self.retryTimes = self.retryTimes - 1
-                        self.review()
+                    if let result = response?.result {
+                        self.savedReview = result
+                        self.success = true
+                    } else {
+                        if self.retryTimes > 0 {
+                            self.retryTimes = self.retryTimes - 1
+                            self.upseartReview()
+                        }
                     }
+                    self.state = .finished
                 }
-                self.state = .finished
+            }
+        } else {
+            let request = UpdateReviewRequest()
+            request.content = content
+            request.rating = rating
+            request.reviewId = reviewId
+            DataAccessor(serviceConfiguration: ParseConfiguration()).updateReview(request) { (response) in
+                if self.isCancelled {
+                    self.state = .finished
+                } else {
+                    if let result = response?.result {
+                        self.savedReview = result
+                        self.success = true
+                    } else {
+                        if self.retryTimes > 0 {
+                            self.retryTimes = self.retryTimes - 1
+                            self.upseartReview()
+                        }
+                    }
+                    self.state = .finished
+                }
             }
         }
-
     }
-    
 }

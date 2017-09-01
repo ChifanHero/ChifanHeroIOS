@@ -21,7 +21,7 @@ class DataAccessor {
     private func callApi<Response: HttpResponseProtocol>(method: String, request: HttpRequestProtocol, responseHandler: @escaping (Response?) -> Void){
         
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        print(url)
+        log.debug("\(method) \(url)")
         
         switch method {
         case "GET":
@@ -36,7 +36,7 @@ class DataAccessor {
                         responseObject = Response(data: json)
                     }
                 case .failure(let error):
-                    print(error)
+                    log.debug(error)
                 }
                 
                 responseHandler(responseObject)
@@ -52,7 +52,7 @@ class DataAccessor {
                         responseObject = Response(data: json)
                     }
                 case .failure(let error):
-                    print(error)
+                    log.debug(error)
                 }
                 
                 responseHandler(responseObject)
@@ -69,7 +69,7 @@ class DataAccessor {
                         responseObject = Response(data: json)
                     }
                 case .failure(let error):
-                    print(error)
+                    log.debug(error)
                 }
                 
                 responseHandler(responseObject)
@@ -87,7 +87,7 @@ class DataAccessor {
                         responseObject = Response(data: json)
                     }
                 case .failure(let error):
-                    print(error)
+                    log.debug(error)
                 }
                 
                 responseHandler(responseObject)
@@ -192,7 +192,15 @@ class DataAccessor {
         
     }
     
-    func review(_ request: ReviewRequest, responseHandler: @escaping (ReviewResponse?) -> Void){
+    func createReview(_ request: CreateReviewRequest, responseHandler: @escaping (CreateReviewResponse?) -> Void){
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
+    }
+    
+    func updateReview(_ request: UpdateReviewRequest, responseHandler: @escaping (UpdateReviewResponse?) -> Void){
         let defaults = UserDefaults.standard
         if defaults.string(forKey: "sessionToken") != nil {
             request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
@@ -212,17 +220,11 @@ class DataAccessor {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
-    
-    
     //Put----------------------------------------------------------------------------------------------//
-    
     
     func nominateRestaurantForCollection(_ request: NominateRestaurantRequest, responseHandler: @escaping (NominateRestaurantResponse?) -> Void){
         self.callApi(method: "PUT", request: request, responseHandler: responseHandler)
     }
-    
-    
-    
     
     //Delete-------------------------------------------------------------------------------------------//
     func removeFavorite(_ request: RemoveFavoriteRequest, responseHandler: @escaping (RemoveFavoriteResponse?) -> Void) {
@@ -231,6 +233,10 @@ class DataAccessor {
             request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         }
         
+        self.callApi(method: "DELETE", request: request, responseHandler: responseHandler)
+    }
+    
+    func deletePictures(_ request: DeletePicturesRequest, responseHandler: @escaping (DeletePicturesResponse?) -> Void) {
         self.callApi(method: "DELETE", request: request, responseHandler: responseHandler)
     }
     
