@@ -81,7 +81,8 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     }
     
     private func setUpHeaderView(){
-        headerImage.kf.setImage(with: URL(string: (selectedCollection?.cellImage?.original)!)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
+        let url = URL(string: selectedCollection.cellImage?.original ?? "")
+        headerImage.kf.setImage(with: url, placeholder: DefaultImageGenerator.generateRestaurantDefaultImage(), options: [.transition(ImageTransition.fade(0.5))])
         self.collectionTitle.text = selectedCollection?.title
     }
     
