@@ -216,6 +216,22 @@ class GetAllReviewsOfOneRestaurantResponse: HttpResponseProtocol {
 
 }
 
+class GetReviewByRestaurantIdOfOneUserResponse: HttpResponseProtocol{
+    
+    var result: Review?
+    var error: Error?
+    
+    required init() {
+        
+    }
+    
+    required init(data: JSON) {
+        error = Error(data: data["error"])
+        result = Review(data: data["result"])
+    }
+    
+}
+
 class GetSelectedCollectionsByLatAndLonResponse: HttpResponseProtocol{
 
     var results: [SelectedCollection] = []
@@ -327,7 +343,7 @@ class RemoveFavoriteResponse: HttpResponseProtocol{
     }
 }
 
-class ReviewResponse: HttpResponseProtocol{
+class CreateReviewResponse: HttpResponseProtocol{
 
     var result: Review?
     var error: Error?
@@ -336,6 +352,21 @@ class ReviewResponse: HttpResponseProtocol{
 
     }
 
+    required init(data: JSON) {
+        result = Review(data: data["result"])
+        error = Error(data: data["error"])
+    }
+}
+
+class UpdateReviewResponse: HttpResponseProtocol{
+    
+    var result: Review?
+    var error: Error?
+    
+    required init() {
+        
+    }
+    
     required init(data: JSON) {
         result = Review(data: data["result"])
         error = Error(data: data["error"])
@@ -400,6 +431,21 @@ class UploadPictureResponse: HttpResponseProtocol{
     required init(data: JSON) {
         error = Error(data: data["error"])
         result = Picture(data: data["result"])
+    }
+}
+
+class DeletePicturesResponse: HttpResponseProtocol{
+    
+    var result: Any?
+    var error: Error?
+    
+    required init() {
+        
+    }
+    
+    required init(data: JSON) {
+        error = Error(data: data["error"])
+        result = data["result"].object
     }
 }
 

@@ -24,3 +24,18 @@ class RemoveFavoriteRequest: HttpRequest{
         return "/favorites"
     }
 }
+
+class DeletePicturesRequest: HttpRequest{
+    
+    var ids: [String] = []
+    
+    override func getRequestBody() -> [String : AnyObject] {
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["image_ids"] = ids as AnyObject
+        return parameters as [String : AnyObject]
+    }
+    
+    override func getRelativeURL() -> String {
+        return "/images"
+    }
+}

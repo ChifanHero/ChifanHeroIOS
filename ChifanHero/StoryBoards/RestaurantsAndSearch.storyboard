@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -470,52 +469,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ee-C6-oCK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="815.5" y="1089.5"/>
-        </scene>
-        <!--Restaurants-->
-        <scene sceneID="NTY-zy-Waj">
-            <objects>
-                <viewController storyboardIdentifier="RestaurantsOnlyViewController" extendedLayoutIncludesOpaqueBars="YES" id="PEm-DQ-IUT" userLabel="Restaurants" customClass="RestaurantsOnlyViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="G2F-mf-G66"/>
-                        <viewControllerLayoutGuide type="bottom" id="ucZ-P9-I6N"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gEs-Og-iTg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="csQ-ph-X4e">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="PEm-DQ-IUT" id="y1b-SQ-xo0"/>
-                                    <outlet property="delegate" destination="PEm-DQ-IUT" id="WTZ-VO-BVL"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="csQ-ph-X4e" firstAttribute="bottom" secondItem="gEs-Og-iTg" secondAttribute="bottomMargin" id="9fo-oi-gxY"/>
-                            <constraint firstItem="csQ-ph-X4e" firstAttribute="leading" secondItem="gEs-Og-iTg" secondAttribute="leadingMargin" constant="-20" id="ETr-7Q-vem"/>
-                            <constraint firstItem="csQ-ph-X4e" firstAttribute="top" secondItem="G2F-mf-G66" secondAttribute="bottom" id="Itx-9Q-oWH"/>
-                            <constraint firstItem="csQ-ph-X4e" firstAttribute="top" secondItem="gEs-Og-iTg" secondAttribute="topMargin" id="Rrm-Dl-yx0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="csQ-ph-X4e" secondAttribute="trailing" constant="-20" id="SaS-Zi-Um9"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Itx-9Q-oWH"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <navigationItem key="navigationItem" title="Title" id="M6y-Lq-ZU0"/>
-                    <connections>
-                        <outlet property="restaurantsTable" destination="csQ-ph-X4e" id="6IB-c4-qsU"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dLD-WF-vsK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1020" y="-421"/>
         </scene>
     </scenes>
     <resources>

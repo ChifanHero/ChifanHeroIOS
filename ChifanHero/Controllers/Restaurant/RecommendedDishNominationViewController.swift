@@ -43,11 +43,7 @@ class RecommendedDishNominationViewController: UIViewController {
     func submit() {
         if let dishName = recommendedDishTextField.text {
             if dishName.isEmpty {
-                let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-                let askLocationAlertView = SCLAlertView(appearance: appearance)
-                let alertViewIcon = UIImage(named: "LogoWithBorder")
-                askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
-                askLocationAlertView.showInfo("友情提示", subTitle: "请输入菜名", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+                AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "请输入菜名", target: self, buttonAction: #selector(dismissAlert))
             } else {
                 addRecommendedDishRequest.restaurantId = restaurant.id
                 addRecommendedDishRequest.dishName = dishName
@@ -59,11 +55,7 @@ class RecommendedDishNominationViewController: UIViewController {
                 })
                 // We always display success no matter what the response is
                 // because we don't want to block the UI when api call failed
-                let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-                let askLocationAlertView = SCLAlertView(appearance: appearance)
-                let alertViewIcon = UIImage(named: "LogoWithBorder")
-                askLocationAlertView.addButton("完成", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.updateParentRestaurantAndGoBack))
-                askLocationAlertView.showInfo("推荐成功", subTitle: "感谢您的推荐!", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+                AlertUtil.showAlertView(buttonText: "完成", infoTitle: "推荐成功", infoSubTitle: "感谢您的推荐！", target: self, buttonAction: #selector(updateParentRestaurantAndGoBack))
             }
         }
     }

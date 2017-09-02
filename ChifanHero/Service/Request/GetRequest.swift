@@ -205,9 +205,19 @@ class GetAllReviewsOfOneRestaurantRequest: HttpRequest{
 
 }
 
+class GetReviewByRestaurantIdOfOneUserRequest: HttpRequest{
+    
+    var restaurantId: String!
+    
+    override func getRelativeURL() -> String {
+        return "/restaurants/" + restaurantId + "/reviewsOfOneUser/"
+    }
+}
+
 class GetUserInfoRequest: HttpRequest{
     
     override func getRelativeURL() -> String {
         return "/userInfo"
     }
 }
+

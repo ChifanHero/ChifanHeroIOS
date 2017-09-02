@@ -83,39 +83,53 @@ class OauthLoginRequest: AccountRequest {
 
 class AddRecommendDishRequest: HttpRequest{
 
-    var restaurantId: String?
+    var restaurantId: String!
     var dishName: String?
 
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["restaurant_id"] = restaurantId as AnyObject
         parameters["name"] = dishName as AnyObject
         return parameters
     }
 
     override func getRelativeURL() -> String {
-        return "/recommendedDishes"
+        return "/restaurants/" + restaurantId + "/recommendedDishes"
     }
 }
 
-class ReviewRequest: HttpRequest{
+class CreateReviewRequest: HttpRequest{
 
     var content: String?
     var rating: Int?
-    var restaurantId: String?
-    var photos: [String]?
+    var restaurantId: String!
 
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, AnyObject>()
         parameters["content"] = content as AnyObject
         parameters["rating"] = rating as AnyObject
-        parameters["restaurant_id"] = restaurantId as AnyObject
-        parameters["photos"] = photos as AnyObject
         return parameters
     }
 
     override func getRelativeURL() -> String {
-        return "/reviews"
+        return "/restaurants/" + restaurantId + "/reviews"
+    }
+}
+
+class UpdateReviewRequest: HttpRequest{
+    
+    var content: String?
+    var rating: Int?
+    var reviewId: String!
+    
+    override func getRequestBody() -> [String : AnyObject] {
+        var parameters = Dictionary<String, AnyObject>()
+        parameters["content"] = content as AnyObject
+        parameters["rating"] = rating as AnyObject
+        return parameters
+    }
+    
+    override func getRelativeURL() -> String {
+        return "/reviews/" + reviewId
     }
 }
 

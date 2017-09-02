@@ -8,30 +8,6 @@
 
 import UIKit
 import Flurry_iOS_SDK
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 class LogInTableViewController: UITableViewController, UITextFieldDelegate {
 
@@ -73,14 +49,14 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    fileprivate func addNotificationButton() {
+    private func addNotificationButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("消息", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(LogInTableViewController.showNotification), for: UIControlEvents.touchUpInside)
         let notificationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = notificationButton
     }
     
-    fileprivate func addSignUpButton() {
+    private func addSignUpButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("注册", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(LogInTableViewController.showSignUp), for: UIControlEvents.touchUpInside)
         let signUpButton = UIBarButtonItem(customView: button)
@@ -125,23 +101,26 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameTextField {
-            let username = textField.text
-            if username?.characters.count > 0 && username?.contains("@") == true{
-                textField.resignFirstResponder()
-                passwordTextField.becomeFirstResponder()
-                return true
-            } else {
-                return false
+            if let username = textField.text {
+                if username.characters.count > 0 && username.contains("@") == true{
+                    textField.resignFirstResponder()
+                    passwordTextField.becomeFirstResponder()
+                    return true
+                } else {
+                    return false
+                }
             }
         } else {
-            let password = textField.text
-            if password?.characters.count > 0{
-                normalLoginEvent()
-                return true
-            } else {
-                return false
+            if let password = textField.text {
+                if password.characters.count > 0{
+                    normalLoginEvent()
+                    return true
+                } else {
+                    return false
+                }
             }
         }
+        return false
     }
     
     func dismissKeyboard() {
@@ -150,7 +129,11 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     func isLoggedIn() -> Bool{
         let defaults: UserDefaults = UserDefaults.standard
-        return defaults.bool(forKey: "isLoggedIn")
+        if defaults.string(forKey: "sessionToken") != nil {
+            return true
+        } else {
+            return false
+        }
     }
     
     func replaceLoginViewByAboutMeView() {
@@ -173,10 +156,6 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         let aboutMeNC : UINavigationController = storyBoard.instantiateViewController(withIdentifier: "AboutMeNavigationController") as! UINavigationController
         aboutMeNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)
         return aboutMeNC
-    }
-    
-    @IBAction func logInButtonTouched(_ sender: AnyObject) {
-        normalLoginEvent()
     }
     
     func normalLoginEvent() {
@@ -249,14 +228,12 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                     
                     self.normalLoginButton.stopLoading()
                     if response == nil {
-                        self.showErrorMessage("登录失败", message: "网络错误")
+                        self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
                     } else {
                         if response!.success != nil && response!.success! == true {
-                            let defaults: UserDefaults = UserDefaults.standard
-                            defaults.set(true, forKey: "isLoggedIn")
                             self.replaceLoginViewByAboutMeView()
                         } else {
-                            self.showErrorMessage("登录失败", message: "用户名或密码错误")
+                            self.showErrorMessage(title: "登录失败", subTitle: "用户名或密码错误")
                         }
                     }
                     
@@ -265,17 +242,13 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
             })
         }
     }
-    
+
     func quickSignUp() {
         self.replaceLoginViewByAboutMeView()
     }
     
-    func showErrorMessage(_ title : String, message : String) {
-        let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-        let askLocationAlertView = SCLAlertView(appearance: appearance)
-        let alertViewIcon = UIImage(named: "LogoWithBorder")
-        askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
-        askLocationAlertView.showInfo(title, subTitle: message, colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+    func showErrorMessage(title: String, subTitle: String) {
+        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: title, infoSubTitle: subTitle, target: self, buttonAction: #selector(dismissAlert))
     }
     
     func dismissAlert() {

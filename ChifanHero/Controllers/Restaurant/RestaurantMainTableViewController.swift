@@ -37,8 +37,6 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     var userRating: Int = 0
     
-    var uploadingAlertView : SCLAlertView?
-    
     var request: GetRestaurantByIdRequest?
     
     var restaurant: Restaurant? {
@@ -513,23 +511,10 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     
     private func showUploadingAlert() {
-        var appearance = SCLAlertView.SCLAppearance()
-        appearance.showCloseButton = false
-        appearance.showCircularIcon = true
-        appearance.setkWindowHeight(40)
-        uploadingAlertView = SCLAlertView(appearance: appearance)
-        
-        let timeoutConfig = SCLButton.ShowTimeoutConfiguration()
-        uploadingAlertView?.addButton("隐藏", backgroundColor: UIColor.themeOrange(), textColor: UIColor.black, showTimeout: timeoutConfig, target: self, selector: #selector(RestaurantMainTableViewController.hideAlertView))
-        uploadingAlertView!.showInfo("正在上传图片", subTitle: "正在后台上传，请稍等...")
+        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "正在后台上传，请稍等...", target: self, buttonAction: #selector(dismissAlert))
     }
     
-    func hideAlertView() {
-        if uploadingAlertView != nil {
-            uploadingAlertView?.hideView()
-            uploadingAlertView = nil
-        }
-        
+    func dismissAlert() {
     }
     
     
@@ -643,7 +628,12 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     // MARK: RatingStarCellDelegate
     func writeReview() {
-        self.performSegue(withIdentifier: "writeReview", sender: nil)
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            self.performSegue(withIdentifier: "writeReview", sender: nil)
+        } else {
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "只有登录用户可以添加评论", target: self, buttonAction: #selector(dismissAlert))
+        }
     }
     
     func recordUserRating(_ rating: Int) {
@@ -701,8 +691,13 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     }
     
     func writeReviewButtonPressed() {
-        self.userRating = 0
-        self.performSegue(withIdentifier: "writeReview", sender: nil)
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            self.userRating = 0
+            self.performSegue(withIdentifier: "writeReview", sender: nil)
+        } else {
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "只有登录用户可以添加评论", target: self, buttonAction: #selector(dismissAlert))
+        }
     }
     
     func addPhotoButtonPressed() {

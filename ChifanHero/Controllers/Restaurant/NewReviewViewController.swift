@@ -19,13 +19,32 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     @IBOutlet weak var ratingRootView: UIView!
     
+    var ratingView: NewReviewRatingSectionView!
+    
     var restaurant: Restaurant!
     
     var reviewId: String?
     
+    var review: Review? {
+        didSet {
+            self.reviewTextView.text = self.review?.content
+            self.rating = self.review?.rating ?? 0
+            self.ratingView.loadUserRating()
+            if let photos = self.review?.photos {
+                for photo in photos {
+                    self.downloadedImages.append(photo)
+                }
+            }
+            self.imagePoolView.reloadData()
+        }
+    }
+    
     var rating: Int = 0
     
-    var images: [UIImage] = []
+    // Data structure is [downloaded, downloaded, ..., toBeUploaded, toBeUploaded]
+    var downloadedImages: [Picture] = []
+    var toBeUploadedImages: [UIImage] = []
+    var toBeDeletedImageIds: [String] = []
 
     let reviewManager = PostReviewManager()
     
@@ -35,7 +54,10 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         self.addDoneButton()
         self.observeKeyboard()
         self.imagePoolView.register(UINib(nibName: "RemovablePhotoCell", bundle: nil), forCellWithReuseIdentifier: "removablePhotoCell")
+        self.imagePoolView.isHidden = true
         self.configureRatingSection()
+        self.loadData()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,26 +66,26 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     private func configureRatingSection() {
-        let ratingView = UINib(
+        self.ratingView = UINib(
             nibName: "NewReviewRatingSectionView",
             bundle: nil
             ).instantiate(withOwner: nil, options: nil).first as! NewReviewRatingSectionView
         
-        ratingView.frame = CGRect(x: 0, y: 0, width: ratingRootView.frame.width, height: ratingRootView.frame.height)
-        ratingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        ratingView.delegate = self
-        ratingView.loadUserRating()
+        self.ratingView.frame = CGRect(x: 0, y: 0, width: ratingRootView.frame.width, height: ratingRootView.frame.height)
+        self.ratingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.ratingView.delegate = self
+        self.ratingView.loadUserRating()
         self.ratingRootView.addSubview(ratingView)
     }
     
-    func addCancelButton() {
+    private func addCancelButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("取消", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(cancel), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     
-    func addDoneButton() {
+    private func addDoneButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("提交", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(submit), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
@@ -75,28 +97,41 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         self.dismiss(animated: true, completion: nil)
     }
     
+    private func loadData() {
+        let request = GetReviewByRestaurantIdOfOneUserRequest()
+        request.restaurantId = self.restaurant.id
+        
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getReviewByRestaurantIdOfOneUser(request) { (response) -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
+                if let result = response?.result {
+                    self.review = result
+                }
+                self.imagePoolView.isHidden = false
+            });
+        }
+    }
+
     
     func submit() {
         if self.rating == 0 {
-            let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
-            let askLocationAlertView = SCLAlertView(appearance: appearance)
-            let alertViewIcon = UIImage(named: "LogoWithBorder")
-            askLocationAlertView.addButton("我知道了", backgroundColor: UIColor.themeOrange(), target:self, selector:#selector(self.dismissAlert))
-            askLocationAlertView.showInfo("友情提示", subTitle: "请为餐厅打分", colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "请为餐厅打分", target: self, buttonAction: #selector(dismissAlert))
         } else {
-            if restaurant != nil {
+            if let restaurant = self.restaurant {
                 let notificationOperation = BlockOperation {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: REVIEW_UPLOAD_DONE), object: nil)
                 }
                 
-                let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, restaurantId: restaurant.id!, retryTimes: 3) { (success, review) in
+                let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, retryTimes: 3) { (success, review) in
                     
                     if success {
                         self.reviewId = review?.id
-                        for image in self.images {
+                        for image in self.toBeUploadedImages {
                             let uploadOperation = PhotoUploadOperation(photo: image, restaurantId: self.restaurant.id!, reviewId: self.reviewId!, retryTimes: 3, completion: { (success, picture) in
-                                print(success)
-                                
+                                if success {
+                                    log.debug("Image:\(picture?.id ?? "") upload is done")
+                                } else {
+                                    log.debug("Image upload failed")
+                                }
                             })
                             notificationOperation.addDependency(uploadOperation)
                             self.reviewManager.queue.addOperation(uploadOperation)
@@ -104,6 +139,22 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
                         self.reviewManager.queue.addOperation(notificationOperation)
                     }
                 }
+                if let review = self.review {
+                    reviewOperation.isNewReview = false
+                    reviewOperation.reviewId = review.id
+                } else {
+                    reviewOperation.isNewReview = true
+                    reviewOperation.restaurantId = restaurant.id!
+                }
+                let deleteOperation = PhotoDeleteOperation(photoIds: self.toBeDeletedImageIds, completion: {(success) in
+                    if success {
+                        log.debug("Image delete is done")
+                    } else {
+                        log.debug("Image delete failed")
+                    }
+                })
+                self.reviewManager.queue.addOperation(deleteOperation)
+                notificationOperation.addDependency(deleteOperation)
                 notificationOperation.addDependency(reviewOperation)
                 self.reviewManager.queue.addOperation(reviewOperation)
             }
@@ -127,44 +178,54 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count + 1
+        return downloadedImages.count + toBeUploadedImages.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: RemovablePhotoCollectionViewCell? = imagePoolView.dequeueReusableCell(withReuseIdentifier: "removablePhotoCell", for: indexPath) as? RemovablePhotoCollectionViewCell
+        let cell = imagePoolView.dequeueReusableCell(withReuseIdentifier: "removablePhotoCell", for: indexPath) as! RemovablePhotoCollectionViewCell
         
         // Configure the cell
-        if indexPath.item < images.count {
-            cell!.setUp(image: images[indexPath.item])
-            cell?.layoutIfNeeded()
-            cell!.deleteButton.layer.cornerRadius = cell!.deleteButton.frame.size.width / 2
-            cell?.deleteButton.image = UIImage(named: "Cancel_Button.png")
-            cell?.bringSubview(toFront: (cell?.deleteButton)!)
-            cell!.deleteButton.renderColorChangableImage(UIImage(named: "Cancel_Button.png")!, fillColor: UIColor.red)
-            cell!.deleteButton.isHidden = false
+        if indexPath.item < downloadedImages.count + toBeUploadedImages.count {
+            cell.layoutIfNeeded()
+            cell.deleteButton.layer.cornerRadius = cell.deleteButton.frame.size.width / 2
+            cell.deleteButton.image = UIImage(named: "Cancel_Button.png")
+            cell.bringSubview(toFront: (cell.deleteButton)!)
+            cell.deleteButton.renderColorChangableImage(UIImage(named: "Cancel_Button.png")!, fillColor: UIColor.red)
+            cell.deleteButton.isHidden = false
             
-            cell?.deleteButton.tag = indexPath.item
-            let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewReviewViewController.deleteImage(_:)))
+            cell.deleteButton.tag = indexPath.item
+            let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.deleteImage(_:)))
             tap.delegate = self
-            cell?.deleteButton.addGestureRecognizer(tap)
+            cell.deleteButton.addGestureRecognizer(tap)
+            
+            if indexPath.item < downloadedImages.count {
+                cell.setUp(thumbnailUrl: self.downloadedImages[indexPath.item].thumbnail!)
+            } else {
+                cell.setUp(image: toBeUploadedImages[indexPath.item - downloadedImages.count])
+            }
         } else {
-            cell!.setUpAddingImageCell()
+            cell.setUpAddingImageCell()
             
         }
-        return cell!
+        return cell
     }
     
     func deleteImage(_ gestureRecognizer: UITapGestureRecognizer) {
-        //tappedImageView will be the image view that was tapped.
-        //dismiss it, animate it off screen, whatever.
+        // tappedImageView is image view that was tapped.
+        // dismiss it, animate it off screen, whatever.
         let tappedImageView = gestureRecognizer.view!
         let id = tappedImageView.tag
-        self.images.remove(at: id)
+        if id < downloadedImages.count {
+            self.toBeDeletedImageIds.append(self.downloadedImages[id].id!)
+            self.downloadedImages.remove(at: id)
+        } else {
+            self.toBeUploadedImages.remove(at: id - downloadedImages.count)
+        }
         self.imagePoolView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row == images.count {
+        if indexPath.row == downloadedImages.count + toBeUploadedImages.count {
             let alert = UIAlertController(title: "选择图片来源", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
             
             let albumAction = UIAlertAction(title: "相册", style: .default, handler: self.goToAlbum)
@@ -178,8 +239,13 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
             self.present(alert, animated: true, completion: nil)
         } else {
             var photos = [SKPhoto]()
-            for image in images {
-                let photo = SKPhoto.photoWithImage(image)// add some UIImage
+            for image in downloadedImages {
+                let photo = SKPhoto.photoWithImageURL(image.original ?? "", holder: DefaultImageGenerator.generateRestaurantDefaultImage())
+                photo.shouldCachePhotoURLImage = true
+                photos.append(photo)
+            }
+            for image in toBeUploadedImages {
+                let photo = SKPhoto.photoWithImage(image)
                 photos.append(photo)
             }
             let browser = SKPhotoBrowser(photos: photos)
@@ -231,15 +297,13 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
         self.dismiss(animated: true, completion: nil)
-//        self.reviewTextView.becomeFirstResponder()
         displayImages(images)
     }
     func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
-//        self.reviewTextView.becomeFirstResponder()
     }
     
     func displayImages(_ images: [UIImage]) {
-        self.images.append(contentsOf: images)
+        self.toBeUploadedImages.append(contentsOf: images)
         imagePoolView.reloadData()
     }
     
@@ -251,6 +315,4 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     func setRating(rating: Int) {
         self.rating = rating
     }
-    
-
 }
