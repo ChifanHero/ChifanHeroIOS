@@ -12,6 +12,35 @@ import Flurry_iOS_SDK
 
 class AboutMeTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
+    // Sections
+    let PROFILE_IMAGE_SECTION = 0 // Profile Image Section
+    let INFO_SECTION = 1 // Information Section
+    let LOGOUT_SECTION = 2 // Logout Section
+    
+    // PROFILE_IMAGE_SECTION Rows
+    let PROFILE_IMAGE_ROW = 0
+    
+    // INFO_SECTION Rows
+    let NICKNAME_ROW = 0
+    let USERNAME_ROW = 1
+    let PASSWORD_ROW = 2
+    let EMAIL_ROW = 3
+    
+    // LOGOUT_SECTION Rows
+    let LOGOUT_ROW = 0
+    
+    // Flags
+    var isUserNameGenerated = true
+    var isPasswordGenerated = true
+    var isEmailProvided = false
+    var isEmailVerified = false
+    var isNickNameProvided = false
+    
+    // Facts
+    var nickName = "Debug NickName. Change me!"
+    var userName = "Debug UserName. Change me!"
+    var email = "Debug Email. Change me!"
+    
 
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var nickNameLabel: UILabel!
@@ -57,6 +86,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     func showNotification(){
         performSegue(withIdentifier: "showNotification", sender: nil)
     }
+
     
     fileprivate func setUserProfileImageProperty(){
         self.view.layoutIfNeeded()
@@ -87,10 +117,20 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        if indexPath.section == 0 && indexPath.row == 0 {
+        if indexPath.section == PROFILE_IMAGE_SECTION && indexPath.row == PROFILE_IMAGE_ROW {
             self.popUpImageSourceOption()
-        } else if indexPath.section == 1 && indexPath.row == 0 {
-            self.performSegue(withIdentifier: "showNickNameChange", sender: indexPath)
+        } else if indexPath.section == INFO_SECTION {
+            if indexPath.row == NICKNAME_ROW {
+                self.performSegue(withIdentifier: "showNickNameChange", sender: indexPath)
+            } else if indexPath.row == USERNAME_ROW {
+                self.performSegue(withIdentifier: "showUserNameChange", sender: indexPath)
+            } else if indexPath.row == PASSWORD_ROW {
+                self.performSegue(withIdentifier: "showPassword", sender: indexPath)
+            } else if indexPath.row == EMAIL_ROW {
+                self.performSegue(withIdentifier: "showEmail", sender: indexPath)
+            }
+        } else if indexPath.section == LOGOUT_SECTION {
+            self.logOutAction()
         }
             
         // TODO: Add favorites in later version
@@ -103,10 +143,6 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             }
             
         } */
- 
-        else {
-            self.logOutAction()
-        }
         //make table cell not stay highlighted
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -210,7 +246,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func logOutAction(){
-        let alert = UIAlertController(title: "退出登录", message: "登出当前用户", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alert = UIAlertController(title: "退出登录", message: getLogoutActionMessage(), preferredStyle: UIAlertControllerStyle.actionSheet)
         
         let confirmAction = UIAlertAction(title: "确认", style: .default, handler: self.confirmLogOut)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: self.cancelLogOut)
@@ -219,6 +255,16 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func getLogoutActionMessage() -> String {
+        // 000您仍然在使用临时用户名和密码且未绑定邮箱。请记住临时用户名和密码，否则退出后账户将永久丢失。
+        // 001您仍然在使用临时用户名和密码。再次登录时请使用邮箱和临时密码。如忘记临时密码，请通过密码找回重设密码
+        // 010您仍然在使用临时用户名且未绑定邮箱。请记住临时用户名，否则退出后账户将永久丢失
+        // 011您仍然在使用临时用户名。如忘记临时用户名可通过您的邮箱登录
+        // 110您仍未绑定邮箱，如忘记密码则将无法找回
+        // 111登出当前用户
+        return "登出当前用户"
     }
     
     private func confirmLogOut(_ alertAction: UIAlertAction!) {
