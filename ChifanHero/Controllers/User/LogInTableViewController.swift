@@ -18,6 +18,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     var wechatLoginButton: LoadingButton!
     var facebookLoginButton: LoadingButton!
     var quickSignupButton: LoadingButton!
+    var forgotPasswordButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +85,23 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
 //        facebookLoginButton.addTarget(self, action: #selector(getter: LogInTableViewController.facebookLoginButton), for: UIControlEvents.touchDown)
         //self.view.addSubview(facebookLoginButton)
         
-        quickSignupButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 200, width: self.view.frame.width * 0.8, height: 40), color: UIColor.themeOrange(), textContent: "一键获取临时用户")
+        forgotPasswordButton = UIButton(frame: CGRect(x: self.view.frame.width * 0.9 - 100, y: 200, width: 100, height: 10))
+        forgotPasswordButton.setTitle("忘记密码?", for: .normal)
+        forgotPasswordButton.titleLabel!.font =  UIFont.systemFont(ofSize: 12)
+        forgotPasswordButton.backgroundColor = UIColor.clear
+        forgotPasswordButton.contentHorizontalAlignment = .right
+        forgotPasswordButton.setTitleColor(UIColor.gray, for: .normal)
+        forgotPasswordButton.addTarget(self, action: #selector(LogInTableViewController.forgotPassword), for: UIControlEvents.touchDown)
+        self.view.addSubview(forgotPasswordButton)
+        
+        let seperatorLabel = UILabel(frame: CGRect(x: self.view.frame.width * 0.1, y: 210, width: self.view.frame.width * 0.8, height: 30))
+        seperatorLabel.textAlignment = .center
+        seperatorLabel.text = "--------- 或者 ---------"
+        seperatorLabel.font = UIFont.systemFont(ofSize: 15)
+        seperatorLabel.textColor = UIColor.gray
+        self.view.addSubview(seperatorLabel)
+        
+        quickSignupButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 260, width: self.view.frame.width * 0.8, height: 40), color: UIColor.themeOrange(), textContent: "一键获取临时用户")
         quickSignupButton.addTarget(self, action: #selector(LogInTableViewController.quickSignUpEvent), for: UIControlEvents.touchDown)
         self.view.addSubview(quickSignupButton)
         
@@ -164,6 +181,10 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     func quickSignUpEvent() {
         quickSignUp()
+    }
+    
+    func forgotPassword() {
+        performSegue(withIdentifier: "forgotPassword", sender: nil)
     }
     
     /*func facebookLoginEvent() {
