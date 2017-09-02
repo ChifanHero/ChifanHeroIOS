@@ -49,14 +49,14 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    fileprivate func addNotificationButton() {
+    private func addNotificationButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("消息", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(LogInTableViewController.showNotification), for: UIControlEvents.touchUpInside)
         let notificationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = notificationButton
     }
     
-    fileprivate func addSignUpButton() {
+    private func addSignUpButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("注册", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(LogInTableViewController.showSignUp), for: UIControlEvents.touchUpInside)
         let signUpButton = UIBarButtonItem(customView: button)
@@ -129,7 +129,11 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     func isLoggedIn() -> Bool{
         let defaults: UserDefaults = UserDefaults.standard
-        return defaults.bool(forKey: "isLoggedIn")
+        if defaults.string(forKey: "sessionToken") != nil {
+            return true
+        } else {
+            return false
+        }
     }
     
     func replaceLoginViewByAboutMeView() {
@@ -227,8 +231,6 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                         self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
                     } else {
                         if response!.success != nil && response!.success! == true {
-                            let defaults: UserDefaults = UserDefaults.standard
-                            defaults.set(true, forKey: "isLoggedIn")
                             self.replaceLoginViewByAboutMeView()
                         } else {
                             self.showErrorMessage(title: "登录失败", subTitle: "用户名或密码错误")

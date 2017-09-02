@@ -269,6 +269,7 @@ class AccountManager {
         if defaults.string(forKey: "sessionToken") != nil {
             request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         }
+        defaults.set(nil, forKey: "sessionToken")
         self.callApi(request, afterSuccess: self.deleteUser, responseHandler: responseHandler)
     }
     
@@ -282,8 +283,7 @@ class AccountManager {
     }
     
     private func deleteUser(_ response: AccountResponse?){
-        let defaults : UserDefaults = UserDefaults.standard
-        defaults.set(nil, forKey: "sessionToken")
+        
     }
     
     
