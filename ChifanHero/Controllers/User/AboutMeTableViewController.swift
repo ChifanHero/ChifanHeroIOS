@@ -51,7 +51,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         loadUserNickName()
         loadUserPicture()
         setUserProfileImageProperty()
-        addNotificationButton()
+//        addNotificationButton()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
