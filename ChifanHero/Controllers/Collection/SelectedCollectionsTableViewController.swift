@@ -157,7 +157,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: SelectedCollectionTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "selectedCollectionCell") as! SelectedCollectionTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "selectedCollectionCell") as! SelectedCollectionTableViewCell
         cell.setUp(selectedCollection: selectedCollections[indexPath.row])
         return cell
     }
