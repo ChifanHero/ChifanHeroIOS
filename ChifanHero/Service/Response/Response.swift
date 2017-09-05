@@ -253,20 +253,6 @@ class GetSelectedCollectionsByLatAndLonResponse: HttpResponseProtocol{
 
 }
 
-class GetUserInfoResponse: HttpResponseProtocol{
-    var error: Error?
-    var result: User?
-    
-    required init() {
-        
-    }
-    
-    required init(data: JSON) {
-        error = Error(data: data["error"])
-        result = User(data: data["user"])
-    }
-}
-
 class LoginResponse: AccountResponse {
 
     required init() {
@@ -489,5 +475,71 @@ class TrackRestaurantResponse: HttpResponseProtocol {
     required init(data: JSON) {
         success = data["success"].bool
         error = Error(data: data["error"])
+    }
+}
+
+class ChangePasswordResponse: AccountResponse {
+    
+    required init() {
+        super.init()
+    }
+    
+    required init(data: JSON) {
+        super.init(data: data)
+        self.success = data["success"].bool
+        self.sessionToken = data["session_token"].string
+    }
+}
+
+class ResetPasswordResponse: HttpResponseProtocol {
+    var success: Bool?
+    var error: Error?
+    
+    required init() {
+        
+    }
+    
+    required init(data: JSON) {
+        success = data["success"].bool
+        error = Error(data: data["error"])
+    }
+}
+
+class NewRandomUserResponse: AccountResponse {
+    required init() {
+        super.init()
+    }
+    
+    required init(data: JSON) {
+        super.init(data: data)
+        self.success = data["success"].bool
+        self.sessionToken = data["session_token"].string
+        self.user = User(data: data["user"])
+    }
+}
+
+class GetMyInfoResponse: HttpResponseProtocol {
+    var result: User?
+    var error: Error?
+    
+    required init() {
+        
+    }
+    
+    required init(data: JSON) {
+        result = User(data: data["user"])
+        error = Error(data: data["error"])
+    }
+}
+
+class GetEmailVerifiedResponse: HttpResponseProtocol {
+    var verified: Bool?
+    
+    required init() {
+        
+    }
+    
+    required init(data: JSON) {
+        verified = data["verified"].bool
     }
 }

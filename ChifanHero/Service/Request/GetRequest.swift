@@ -221,3 +221,23 @@ class GetUserInfoRequest: HttpRequest{
     }
 }
 
+class NewRandomUserRequest: HttpRequest {
+    
+    override func getRelativeURL() -> String {
+        return "/newRandomUser"
+    }
+}
+
+class GetMyInfoRequest: HttpRequest {
+    
+    override func getRelativeURL() -> String {
+        return "/me"
+    }
+}
+
+class GetEmailVerifiedRequest: HttpRequest {
+    
+    override func getRelativeURL() -> String {
+        return "/me/emailVerified"
+    }
+}
