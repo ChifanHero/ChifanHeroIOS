@@ -168,14 +168,6 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getUserInfo(_ request: GetUserInfoRequest, responseHandler: @escaping (GetUserInfoResponse?) -> Void){
-        let defaults = UserDefaults.standard
-        request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
-        
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
-    }
-    
-    
     
     //Post----------------------------------------------------------------------------------------------//
     func uploadPicture(_ request: UploadPictureRequest, responseHandler: @escaping (UploadPictureResponse?) -> Void) {
@@ -238,6 +230,26 @@ class DataAccessor {
     
     func deletePictures(_ request: DeletePicturesRequest, responseHandler: @escaping (DeletePicturesResponse?) -> Void) {
         self.callApi(method: "DELETE", request: request, responseHandler: responseHandler)
+    }
+    
+    func resetPassword(_ request: ResetPasswordRequest, responseHandler: @escaping (ResetPasswordResponse?) -> Void) {
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
+    }
+    
+    func getMyInfo(_ request: GetMyInfoRequest, responseHandler: @escaping (GetMyInfoResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
+    func isEmailVerified(_ request: GetEmailVerifiedRequest, responseHandler: @escaping (GetEmailVerifiedResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
 }

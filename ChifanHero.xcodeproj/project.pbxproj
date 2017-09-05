@@ -164,6 +164,7 @@
 		C42D9BDB1B69EF2D0035C5A6 /* ChifanHeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* ChifanHeroTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* ChifanHeroUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* ChifanHeroUITests.swift */; };
 		C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */; };
+		C4A597741F5D21B9005DF124 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597731F5D21B9005DF124 /* ErrorCode.swift */; };
 		CA0F3F0D1F450E8700DA77B7 /* OpenEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F3F0C1F450E8700DA77B7 /* OpenEnum.swift */; };
 		CA203DE71C111EEA00D6F32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */; };
 		CA203E1D1C111EEA00D6F32C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039E31BC347C100183AC2 /* libz.tbd */; };
@@ -447,6 +448,7 @@
 		C42D9BE51B69EF2D0035C5A6 /* ChifanHeroUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChifanHeroUITests.swift; sourceTree = "<group>"; };
 		C42D9BE71B69EF2D0035C5A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C47A1C491C7DDF7B00E0DF3A /* Lightning.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lightning.xcdatamodel; sourceTree = "<group>"; };
+		C4A597731F5D21B9005DF124 /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		C4F039C71BC3471400183AC2 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		C4F039C81BC3471400183AC2 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		C4F039C91BC3471400183AC2 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -825,6 +827,7 @@
 		8E88C4266AF028089E76F4A9 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				C4A597731F5D21B9005DF124 /* ErrorCode.swift */,
 				8E88CBB32FF374C7C0751E25 /* Search */,
 				8E88CA6A3CA4968729760460 /* Response.swift */,
 			);
@@ -1956,6 +1959,7 @@
 				8E88C79A777A887B2C51BC16 /* SCLExtensions.swift in Sources */,
 				8E88C5F576D648F40A4ADBF9 /* LoadingButton.swift in Sources */,
 				8E88CE21C09E20F4EC1F7AA6 /* MozMaterialDesignSpinner.swift in Sources */,
+				C4A597741F5D21B9005DF124 /* ErrorCode.swift in Sources */,
 				8E88C0C1E28B1F91A03CC820 /* MainTabBarController.swift in Sources */,
 				8E88C1F1ABB8DE0DE5F02CE4 /* SelectedCollectionsTableViewController.swift in Sources */,
 				CACC22E71EB2B3A900FC353E /* DKAssetGroupDetailBaseCell.swift in Sources */,

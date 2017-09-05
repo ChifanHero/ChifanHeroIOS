@@ -251,10 +251,16 @@ class AccountManager {
     }
     
     func updateInfo(nickName: String?, pictureId: String?, responseHandler : @escaping (UpdateInfoResponse?) -> Void) {
+        self.updateInfo(nickName: nickName, pictureId: pictureId, email: nil, username: nil, responseHandler: responseHandler)
+    }
+    
+    func updateInfo(nickName: String?, pictureId: String?, email: String?, username: String?, responseHandler : @escaping (UpdateInfoResponse?) -> Void) {
         
         let request: UpdateInfoRequest = UpdateInfoRequest()
         request.nickName = nickName
         request.pictureId = pictureId
+        request.email = email
+        request.username = username
         let defaults = UserDefaults.standard
         if defaults.string(forKey: "sessionToken") != nil {
             request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
@@ -271,6 +277,20 @@ class AccountManager {
         }
         defaults.set(nil, forKey: "sessionToken")
         self.callApi(request, afterSuccess: self.deleteUser, responseHandler: responseHandler)
+    }
+    
+    func changePassword(oldPassword: String?, newPassword: String?, responseHandler: @escaping (ChangePasswordResponse?) -> Void) {
+        let request: ChangePasswordRequest = ChangePasswordRequest()
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
+        self.callApi(request, afterSuccess: self.saveUser, responseHandler: responseHandler)
+    }
+    
+    func getNewRandomUser(responseHandler: @escaping (NewRandomUserResponse?) -> Void) {
+        let request: NewRandomUserRequest = NewRandomUserRequest()
+        self.callApi(request, afterSuccess: self.saveUser, responseHandler: responseHandler)
     }
     
     private func saveUser(_ response: AccountResponse?) {

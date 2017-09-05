@@ -137,11 +137,14 @@ class UpdateInfoRequest: AccountRequest{
 
     var nickName: String?
     var pictureId: String?
+    var email: String?
 
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["nick_name"] = nickName
         parameters["pictureId"] = pictureId
+        parameters["email"] = email
+        parameters["username"] = self.username
         return parameters as [String : AnyObject]
     }
 
@@ -213,5 +216,38 @@ class TrackRestaurantRequest: HttpRequest{
     
     override func getRelativeURL() -> String {
         return "/track"
+    }
+}
+
+class ChangePasswordRequest: HttpRequest {
+    
+    var oldPassword: String?
+    var newPassword: String?
+    
+    override func getRequestBody() -> [String : AnyObject] {
+        var parameters = Dictionary<String, String>()
+        parameters["old_password"] = oldPassword
+        parameters["new_password"] = newPassword
+        return parameters as [String : AnyObject]
+    }
+    
+    override func getRelativeURL() -> String {
+        return "/users/changePassword"
+    }
+}
+
+
+class ResetPasswordRequest: HttpRequest {
+    
+    var email: String?
+    
+    override func getRequestBody() -> [String : AnyObject] {
+        var parameters = Dictionary<String, String>()
+        parameters["email"] = email
+        return parameters as [String : AnyObject]
+    }
+    
+    override func getRelativeURL() -> String {
+        return "/users/resetPassword"
     }
 }

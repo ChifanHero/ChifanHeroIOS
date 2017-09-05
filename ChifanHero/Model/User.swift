@@ -17,6 +17,10 @@ class User: Model{
     var email: String?
     var nickName: String?
     var picture: Picture?
+    var password: String?
+    var usingDefaultUsername: Bool?
+    var usingDefaultPassword: Bool?
+    var usingDefaultNickname: Bool?
     
     required init() {
         
@@ -25,11 +29,15 @@ class User: Model{
     required init(data: JSON) {
         id = data["id"].string
         userName = data["username"].string
-        emailVerified = data["emailVerified"].bool
+        emailVerified = data["email_verified"].bool
         email = data["email"].string
         nickName = data["nick_name"].string
+        password = data["password"].string
         if data["picture"].exists() {
             picture = Picture(data: data["picture"])
         }
+        usingDefaultUsername = data["using_default_username"].bool
+        usingDefaultPassword = data["using_default_password"].bool
+        usingDefaultNickname = data["using_default_nickname"].bool
     }
 }
