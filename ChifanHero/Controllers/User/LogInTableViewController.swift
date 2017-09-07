@@ -266,7 +266,36 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
 
     func quickSignUp() {
-        self.replaceLoginViewByAboutMeView()
+        AccountManager(serviceConfiguration: ParseConfiguration()).getNewRandomUser { (response) in
+            OperationQueue.main.addOperation({ () -> Void in
+                let seconds = 2.0
+                let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds
+                let dispatchTime = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                
+                DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
+                    
+                    self.quickSignupButton.stopLoading()
+                    if response == nil {
+                        self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
+                    } else {
+                        if response!.success != nil && response!.success! == true {
+                            self.replaceLoginViewByAboutMeView()
+                        } else {
+                            if let errorCode = response?.error?.code {
+                                if errorCode == ErrorCode.NEW_ACCOUNT_NOT_AVAILABLE {
+                                    self.showErrorMessage(title: "登录失败", subTitle: "对不起，没有更多临时账户了。下个版本将开放用户注册。")
+                                }
+                            } else {
+                                self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
+                            }
+                            
+                        }
+                    }
+                    
+                })
+                
+            })
+        }
     }
     
     func showErrorMessage(title: String, subTitle: String) {

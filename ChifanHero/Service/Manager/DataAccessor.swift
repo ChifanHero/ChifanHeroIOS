@@ -232,18 +232,6 @@ class DataAccessor {
         self.callApi(method: "DELETE", request: request, responseHandler: responseHandler)
     }
     
-    func resetPassword(_ request: ResetPasswordRequest, responseHandler: @escaping (ResetPasswordResponse?) -> Void) {
-        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
-    }
-    
-    func getMyInfo(_ request: GetMyInfoRequest, responseHandler: @escaping (GetMyInfoResponse?) -> Void) {
-        let defaults = UserDefaults.standard
-        if defaults.string(forKey: "sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
-        }
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
-    }
-    
     func isEmailVerified(_ request: GetEmailVerifiedRequest, responseHandler: @escaping (GetEmailVerifiedResponse?) -> Void) {
         let defaults = UserDefaults.standard
         if defaults.string(forKey: "sessionToken") != nil {
