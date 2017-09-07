@@ -25,8 +25,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     var addressHistory: [String] = [String]()
     var addressAutoCompletion: [NSAttributedString] = [NSAttributedString]()
     
-    var pullRefresher: UIRefreshControl!
-    
     var bounds: GMSCoordinateBounds?
 
     override func viewDidLoad() {

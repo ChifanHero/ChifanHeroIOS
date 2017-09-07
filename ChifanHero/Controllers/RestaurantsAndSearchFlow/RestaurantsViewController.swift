@@ -9,15 +9,13 @@
 import UIKit
 import MapKit
 
-class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
+class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
     @IBOutlet weak var searchResultsTable: UITableView!
     @IBOutlet weak var searchBar: UITextField!
     @IBOutlet weak var currentLocationLabel: UILabel!
     
     var containerViewController: RestaurantsContainerViewController?
-    
-    var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     
     var restaurants: [Restaurant] = []
     
@@ -29,8 +27,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     
     var selectedRestaurantName: String?
     
-    var pullRefresher: UIRefreshControl!
-    
     var lastUsedLocation: Location?
     
     override func viewDidLoad() {
@@ -38,12 +34,12 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         self.searchBar.delegate = self
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.setDefaultSearchContext()
-        self.configLoadingIndicator()
         self.configureNavigationController()
         self.addFilterButton()
         self.configPullToRefresh()
         self.clearTitleForBackBarButtonItem()
         self.searchResultsTable.register(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
+        self.searchResultsTable.tableFooterView = UIView()
     }
     
     private func setDefaultSearchContext() {
@@ -53,27 +49,16 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
         SearchContext.coordinates = userLocationManager.getLocationInUse()
     }
     
-    private func configLoadingIndicator() {
-        loadingIndicator.color = UIColor.themeOrange()
-        loadingIndicator.type = NVActivityIndicatorType.pacman
-        loadingIndicator.center = (UIApplication.shared.keyWindow?.center)!
-        self.view.addSubview(loadingIndicator)
-    }
-    
     private func configPullToRefresh() {
-        pullRefresher = UIRefreshControl()
-        let attribute = [ NSForegroundColorAttributeName: UIColor.lightGray,
-                          NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
-        pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
-        pullRefresher.tintColor = UIColor.lightGray
-        pullRefresher.addTarget(self, action: #selector(RestaurantsViewController.refreshData), for: .valueChanged)
+        pullRefresher.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
         self.searchResultsTable.insertSubview(pullRefresher, at: 0)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackRestaurantsView()
-        performNewSearchIfNeeded(true)
+        self.loadingIndicator.startAnimation()
+        self.refreshData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,7 +73,9 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     // MARK - perform search
-    func performNewSearchIfNeeded(_ hideCurrentResults : Bool) {
+    
+    // Launch a new search if needed
+    override func loadData() {
         if SearchContext.newSearch || needToRefresh(){
             print("search requested. should do a new search here")
             if SearchContext.keyword != nil || SearchContext.address != nil{
@@ -97,10 +84,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                 currentState = CurrentState.browse
             }
             
-            if hideCurrentResults {
-                searchResultsTable.isHidden = true
-                loadingIndicator.startAnimation()
-            }
             if SearchContext.address != nil && SearchContext.address != "" {
                 LocationHelper.getLocationFromAddress(SearchContext.address!, completionHandler: { (location) in
                     OperationQueue.main.addOperation({ 
@@ -167,7 +150,6 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
                 self.restaurants = searchResponse?.results ?? []
                 self.searchResultsTable.allowsSelection = true
                 self.searchResultsTable.reloadData()
-                self.searchResultsTable.isHidden = false
                 self.pullRefresher.endRefreshing()
                 self.loadingIndicator.stopAnimation()
             })
@@ -245,9 +227,9 @@ class RestaurantsViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     // MARK - Pull to refresh
-    func refreshData() {
+    override func refreshData() {
         SearchContext.coordinates = userLocationManager.getLocationInUse()
-        performNewSearchIfNeeded(false)
+        super.refreshData()
     }
     
     // Mark - UITableViewDelegate, UITableViewDataSource

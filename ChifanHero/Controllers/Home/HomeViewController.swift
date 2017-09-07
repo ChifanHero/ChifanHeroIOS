@@ -27,8 +27,6 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     
     var homepageSections: [HomepageSection] = []
     
-    var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-    
     var currentLocationText: String?
     
     var autoRefresh = false
@@ -39,7 +37,6 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         super.viewDidLoad()
         NotificationCenter.default.post(name: Notification.Name(rawValue: HOME_VC_LOADED), object: nil)
         super.viewDidLoad()
-        self.configLoadingIndicator()
         self.configureFrontCoverImage()
         self.clearTitleForBackBarButtonItem()
         self.configureNavigationController()
@@ -61,11 +58,10 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        pullRefresher.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
         TrackingUtil.trackRecommendationView()
         if autoRefresh && locationChangedSignificantly() {
             loadingIndicator.startAnimation()
-            loadData()
+            refreshData()
         }
     }
     
@@ -95,6 +91,7 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     
     private func configurePullToRefresh(){
         self.homepageTable.insertSubview(pullRefresher, at: 0)
+        self.pullRefresher.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
     }
     
     private func configureFrontCoverImage(){
@@ -117,13 +114,6 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         } else if hour! >= 0 && hour! < 5 {
             frontCoverImage.image = UIImage(named: "Homepage_Supper")
         }
-    }
-    
-    private func configLoadingIndicator() {
-        loadingIndicator.color = UIColor.themeOrange()
-        loadingIndicator.type = NVActivityIndicatorType.pacman
-        loadingIndicator.center = (UIApplication.shared.keyWindow?.center)!
-        self.view.addSubview(loadingIndicator)
     }
     
     // MARK: - add location selection button to top left corner
@@ -186,13 +176,9 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
             let cityInUse = userLocationManager.getCityInUse()
             let cityText: String = cityInUse!.name! + ", " + cityInUse!.state! + ", " + cityInUse!.localizedCountryName!
             (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, for: UIControlState())
-            loadData()
+            refreshData()
         }
         
-    }
-    
-    @objc private func refresh(_ sender:AnyObject) {
-        loadData()
     }
     
     func handleLocationChange() {
@@ -207,7 +193,7 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
             currentLocationText = "实时位置"
             (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(currentLocationText, for: UIControlState())
         }
-        loadData()
+        refreshData()
     }
     
     func prepareForDataRefresh() {

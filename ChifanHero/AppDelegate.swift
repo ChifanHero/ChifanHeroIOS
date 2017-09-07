@@ -95,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     private func loadHotCitiesInBackground() {
-        let hotCityRequest: GetHotCitiesRequest = GetHotCitiesRequest()
+        let hotCityRequest = GetHotCitiesRequest()
         DataAccessor(serviceConfiguration: ParseConfiguration()).getHotCities(hotCityRequest) { (searchResponse) in
             if let results = searchResponse?.results {
                 var hotCities = [City]()
