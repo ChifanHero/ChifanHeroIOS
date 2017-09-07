@@ -142,7 +142,7 @@ class UpdateInfoRequest: AccountRequest{
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()
         parameters["nick_name"] = nickName
-        parameters["pictureId"] = pictureId
+        parameters["picture_id"] = pictureId
         parameters["email"] = email
         parameters["username"] = self.username
         return parameters as [String : AnyObject]

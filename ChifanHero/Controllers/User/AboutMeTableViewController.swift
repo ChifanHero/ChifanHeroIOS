@@ -30,11 +30,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     let LOGOUT_ROW = 0
     
     // Flags
-    var isUserNameGenerated = true
-    var isPasswordGenerated = true
-    var isEmailProvided = false
+    var isUsingDefaultUsername = true
+    var isUsingDefaultPasword = true
     var isEmailVerified = false
-    var isNickNameProvided = false
+    var isUsingDefaultNickname = false
     
     // Facts
     var nickName = "Debug NickName. Change me!"
@@ -45,11 +44,18 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var nickNameLabel: UILabel!
     
+    @IBOutlet weak var usernameLabel: UILabel!
+    
+    @IBOutlet weak var passwordLabel: UILabel!
+    
+    @IBOutlet weak var emailLabel: UILabel!
+    
+    
+    var updatingUserInfo = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         clearTitleForBackBarButtonItem()
-        loadUserNickName()
-        loadUserPicture()
         setUserProfileImageProperty()
 //        addNotificationButton()
         // Uncomment the following line to preserve selection between presentations
@@ -61,7 +67,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadUserNickName()
+        loadMyInfo()
         self.navigationController?.navigationBar.isTranslucent = false
 //        setTabBarVisible(true, animated: true)
     }
@@ -96,24 +102,73 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         self.userImageView.layer.borderColor = UIColor.white.cgColor
     }
     
-    private func loadUserNickName(){
-        let defaults = UserDefaults.standard
-        
-        if let nickname = defaults.string(forKey: "userNickName"){
-            nickNameLabel.text = nickname
-        } else{
-            nickNameLabel.text = "未设定"
+    private func loadMyInfo(){
+//        let defaults = UserDefaults.standard
+//        
+//        if let nickname = defaults.string(forKey: "userNickName"){
+//            nickNameLabel.text = nickname
+//        } else{
+//            nickNameLabel.text = "未设定"
+//        }
+        if (!updatingUserInfo) {
+            AccountManager(serviceConfiguration: ParseConfiguration()).getMyInfo { (response) in
+                if let errorCode = response?.error?.code, let errorMessage = response?.error?.message {
+                    
+                }
+                if let user = response?.user {
+                    if user.nickName != nil {
+                        self.nickNameLabel.text = user.nickName
+                    } else {
+                        self.nickNameLabel.text = "未指定昵称"
+                    }
+                    
+                    if user.email != nil && user.emailVerified == true{
+                        self.emailLabel.text = user.email
+                    } else {
+                        self.emailLabel.text = "未绑定邮箱"
+                    }
+                    
+                    if user.userName != nil {
+                        self.usernameLabel.text = user.userName
+                    } else {
+                        self.usernameLabel.text = "未指定用户名"
+                    }
+                    if (user.emailVerified != nil) {
+                        self.isEmailVerified = user.emailVerified!
+                    }
+                    if (user.usingDefaultNickname != nil) {
+                        self.isUsingDefaultNickname = user.usingDefaultNickname!
+                    } else {
+                        self.isUsingDefaultNickname = false
+                    }
+                    if (user.usingDefaultPassword != nil) {
+                        self.isUsingDefaultPasword = user.usingDefaultPassword!
+                    } else {
+                        self.isUsingDefaultNickname = false
+                    }
+                    if (user.usingDefaultUsername != nil) {
+                        self.isUsingDefaultUsername = user.usingDefaultUsername!
+                    } else {
+                        self.isUsingDefaultUsername = false
+                    }
+    
+                    
+                    if let userPicURL = user.picture?.thumbnail {
+                        self.userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
+                    }
+                    
+                }
+            }
         }
-        
     }
     
     private func loadUserPicture(){
-        let defaults = UserDefaults.standard
-        
-        if let userPicURL = defaults.string(forKey: "userPicURL"){
-            print(userPicURL)
-            userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
-        }
+//        let defaults = UserDefaults.standard
+//        
+//        if let userPicURL = defaults.string(forKey: "userPicURL"){
+//            print(userPicURL)
+//            userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
+//        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
@@ -219,6 +274,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func uploadPicture(image: UIImage) {
+        updatingUserInfo = true
         let newPhoto = ImageUtil.resizeImage(image: image)
         let imageData = UIImageJPEGRepresentation(newPhoto, 0.5) // 0.5 is compression ratio
         let base64_code: String = (imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters))!
@@ -231,14 +287,20 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
                 if response?.result != nil{
                     AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: response?.result?.id) { (response) -> Void in
                         OperationQueue.main.addOperation({ () -> Void in
+                            self.updatingUserInfo = false
                             if response!.success == true {
                                 log.info("Update profile picture succeed")
+                                if let userPicURL = response?.user?.picture?.thumbnail {
+                                    self.userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
+                                }
                             } else {
                                 log.info("Update profile picture failed")
                             }
                         })
                         
                     }
+                } else {
+                    self.updatingUserInfo = false
                 }
                 
             });
@@ -258,6 +320,24 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func getLogoutActionMessage() -> String {
+//        if () {
+//            
+//        }
+//        if () {
+//            
+//        }
+//        if () {
+//            
+//        }
+//        if () {
+//            
+//        }
+//        if () {
+//            
+//        }
+//        if () {
+//            
+//        }
         // 000您仍然在使用临时用户名和密码且未绑定邮箱。请记住临时用户名和密码，否则退出后账户将永久丢失。
         // 001您仍然在使用临时用户名和密码。再次登录时请使用邮箱和临时密码。如忘记临时密码，请通过密码找回重设密码
         // 010您仍然在使用临时用户名且未绑定邮箱。请记住临时用户名，否则退出后账户将永久丢失

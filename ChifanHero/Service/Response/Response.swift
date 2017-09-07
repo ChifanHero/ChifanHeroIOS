@@ -491,17 +491,16 @@ class ChangePasswordResponse: AccountResponse {
     }
 }
 
-class ResetPasswordResponse: HttpResponseProtocol {
-    var success: Bool?
-    var error: Error?
-    
+class ResetPasswordResponse: AccountResponse {
     required init() {
-        
+        super.init()
     }
     
     required init(data: JSON) {
-        success = data["success"].bool
-        error = Error(data: data["error"])
+        super.init(data: data)
+        self.success = data["success"].bool
+        self.sessionToken = data["session_token"].string
+        self.error = Error(data: data["error"])
     }
 }
 
@@ -515,20 +514,20 @@ class NewRandomUserResponse: AccountResponse {
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
         self.user = User(data: data["user"])
+        self.error = Error(data: data["error"])
     }
 }
 
-class GetMyInfoResponse: HttpResponseProtocol {
-    var result: User?
-    var error: Error?
-    
+class GetMyInfoResponse: AccountResponse {
     required init() {
-        
+        super.init()
     }
     
     required init(data: JSON) {
-        result = User(data: data["user"])
-        error = Error(data: data["error"])
+        print(data)
+        super.init(data: data)
+        self.user = User(data: data["user"])
+        self.error = Error(data: data["error"])
     }
 }
 

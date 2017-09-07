@@ -208,27 +208,59 @@ class AccountManager {
 //    }
     
     private func callApi<Response: HttpResponseProtocol>(_ request: HttpRequestProtocol, afterSuccess: @escaping (AccountResponse) -> Void, responseHandler: @escaping (Response?) -> Void){
-        
+        self.callApi(method: "POST", request, afterSuccess: afterSuccess, responseHandler: responseHandler)
+    }
+    
+    private func callApi<Response: HttpResponseProtocol>(method: String, _ request: HttpRequestProtocol, afterSuccess: ((AccountResponse) -> Void)?, responseHandler: @escaping (Response?) -> Void){
         let url = self.serviceConfiguration.hostEndpoint() + request.getRelativeURL()
-        log.debug("POST \(url)")
         
-        Alamofire.request(url, method: .post, parameters: request.getRequestBody(), encoding: JSONEncoding.default, headers: request.getHeaders()).responseJSON { response in
-            
-            var responseObject: Response?
-            switch response.result {
-            case .success:
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    responseObject = Response(data: json)
-                    if (response.response?.statusCode)! >= 200 && (response.response?.statusCode)! < 300 {
-                        afterSuccess(responseObject as! AccountResponse)
+        
+        switch method {
+        case "POST":
+            log.debug("POST \(url)")
+            Alamofire.request(url, method: .post, parameters: request.getRequestBody(), encoding: JSONEncoding.default, headers: request.getHeaders()).responseJSON { response in
+                
+                var responseObject: Response?
+                switch response.result {
+                case .success:
+                    if let value = response.result.value {
+                        let json = JSON(value)
+                        responseObject = Response(data: json)
+                        if (response.response?.statusCode)! >= 200 && (response.response?.statusCode)! < 300 {
+                            if (afterSuccess != nil) {
+                                afterSuccess!(responseObject as! AccountResponse)
+                            }
+                        }
                     }
+                case .failure(let error):
+                    log.debug(error)
                 }
-            case .failure(let error):
-                log.debug(error)
+                
+                responseHandler(responseObject)
             }
-            
-            responseHandler(responseObject)
+        case "GET":
+            log.debug("GET \(url)")
+            Alamofire.request(url, method: .get, headers: request.getHeaders()).validate().responseJSON { response in
+                
+                var responseObject: Response?
+                switch response.result {
+                case .success:
+                    if let value = response.result.value {
+                        let json = JSON(value)
+                        responseObject = Response(data: json)
+                        if (response.response?.statusCode)! >= 200 && (response.response?.statusCode)! < 300 {
+                            if (afterSuccess != nil) {
+                                afterSuccess!(responseObject as! AccountResponse)
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    log.debug(error)
+                }
+                
+                responseHandler(responseObject)
+            }
+        default: break
         }
     }
     
@@ -290,8 +322,23 @@ class AccountManager {
     
     func getNewRandomUser(responseHandler: @escaping (NewRandomUserResponse?) -> Void) {
         let request: NewRandomUserRequest = NewRandomUserRequest()
+        self.callApi(method: "GET", request, afterSuccess: self.saveUser, responseHandler: responseHandler)
+    }
+    
+    func resetPassword(_ request: ResetPasswordRequest, responseHandler: @escaping (ResetPasswordResponse?) -> Void) {
         self.callApi(request, afterSuccess: self.saveUser, responseHandler: responseHandler)
     }
+    
+    func getMyInfo(responseHandler: @escaping (GetMyInfoResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        let request: GetMyInfoRequest = GetMyInfoRequest()
+        if defaults.string(forKey: "sessionToken") != nil {
+            print(defaults.string(forKey: "sessionToken")!)
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
+        self.callApi(method: "GET", request, afterSuccess: self.doNothing, responseHandler: responseHandler)
+    }
+
     
     private func saveUser(_ response: AccountResponse?) {
         let defaults: UserDefaults = UserDefaults.standard
@@ -299,6 +346,10 @@ class AccountManager {
     }
     
     private func updateUser(_ response: AccountResponse?) {
+        
+    }
+    
+    private func doNothing(_ response: AccountResponse?) {
         
     }
     

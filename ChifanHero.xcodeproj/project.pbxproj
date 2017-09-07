@@ -2233,8 +2233,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄-Test";
-				PROVISIONING_PROFILE = "9a8e3831-cc47-4ef7-bf3e-c7cec411d7a6";
-				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForAlex;
+				PROVISIONING_PROFILE = "b075c09c-552c-4f75-bcd1-cafd0d71b208";
+				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForRicky;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2260,8 +2260,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄";
-				PROVISIONING_PROFILE = "9a8e3831-cc47-4ef7-bf3e-c7cec411d7a6";
-				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForAlex;
+				PROVISIONING_PROFILE = "b075c09c-552c-4f75-bcd1-cafd0d71b208";
+				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForRicky;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
