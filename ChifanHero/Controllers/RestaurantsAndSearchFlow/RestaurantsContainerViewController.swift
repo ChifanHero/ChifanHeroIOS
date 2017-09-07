@@ -11,8 +11,8 @@ import SlideMenuControllerSwift
 
 class RestaurantsContainerViewController: SlideMenuController, SlideMenuControllerDelegate {
     
-    var restaurantsVC: RestaurantsViewController?
-    var filterVC: RestaurantsFilterViewController?
+    var restaurantsVC: RestaurantsViewController!
+    var filterVC: RestaurantsFilterViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,27 +29,27 @@ class RestaurantsContainerViewController: SlideMenuController, SlideMenuControll
     }
     
     override func awakeFromNib() {
-        if let controller: UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantsNavigation") as? UINavigationController {
-            self.mainViewController = controller
-            let mainVC: RestaurantsViewController = controller.viewControllers[0] as! RestaurantsViewController
-            mainVC.containerViewController = self
-            self.restaurantsVC = mainVC
-        }
-        if let controller: UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantsFilter") as? UINavigationController{
-            self.rightViewController = controller
-            let filterVC: RestaurantsFilterViewController = controller.viewControllers[0] as! RestaurantsFilterViewController
-            filterVC.containerVC = self
-            self.filterVC = filterVC
-        }
+        let mainController: UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantsNavigation") as! UINavigationController
+        self.mainViewController = mainController
+        let mainVC: RestaurantsViewController = mainController.viewControllers[0] as! RestaurantsViewController
+        mainVC.containerViewController = self
+        self.restaurantsVC = mainVC
+        
+        let rightController: UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantsFilter") as! UINavigationController
+        self.rightViewController = rightController
+        let filterVC: RestaurantsFilterViewController = rightController.viewControllers[0] as! RestaurantsFilterViewController
+        filterVC.containerVC = self
+        self.filterVC = filterVC
+        
         super.awakeFromNib()
     }
     
     func rightWillOpen() {
-        filterVC?.updateFilters()
+        filterVC.updateFilters()
     }
     
     func rightDidClose() {
-        restaurantsVC?.performNewSearchIfNeeded(true)
+        restaurantsVC.refreshData()
     }
     
 

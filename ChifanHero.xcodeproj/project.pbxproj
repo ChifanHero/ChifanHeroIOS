@@ -201,7 +201,7 @@
 		CA9435841ECBCCF700F7EB0D /* RestaurantRecommendedDishSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA9435831ECBCCF700F7EB0D /* RestaurantRecommendedDishSectionView.xib */; };
 		CA9435861ECBCD9100F7EB0D /* RestaurantRecommendedDishSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9435851ECBCD9100F7EB0D /* RestaurantRecommendedDishSectionView.swift */; };
 		CAB450F61EFC8358002D8E45 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB450F51EFC8358002D8E45 /* Reachability.swift */; };
-		CAB450F81EFC8679002D8E45 /* AutoNetworkCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB450F71EFC8679002D8E45 /* AutoNetworkCheckViewController.swift */; };
+		CAB450F81EFC8679002D8E45 /* AutoNetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB450F71EFC8679002D8E45 /* AutoNetworkCheck.swift */; };
 		CACC227A1EB2AF7900FC353E /* NickNameChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22791EB2AF7900FC353E /* NickNameChangeViewController.swift */; };
 		CACC22841EB2B24B00FC353E /* TRMosaicColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22801EB2B24B00FC353E /* TRMosaicColumn.swift */; };
 		CACC22851EB2B24B00FC353E /* TRMosaicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22811EB2B24B00FC353E /* TRMosaicLayout.swift */; };
@@ -484,7 +484,7 @@
 		CA9435831ECBCCF700F7EB0D /* RestaurantRecommendedDishSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantRecommendedDishSectionView.xib; sourceTree = "<group>"; };
 		CA9435851ECBCD9100F7EB0D /* RestaurantRecommendedDishSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantRecommendedDishSectionView.swift; sourceTree = "<group>"; };
 		CAB450F51EFC8358002D8E45 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		CAB450F71EFC8679002D8E45 /* AutoNetworkCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoNetworkCheckViewController.swift; sourceTree = "<group>"; };
+		CAB450F71EFC8679002D8E45 /* AutoNetworkCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoNetworkCheck.swift; sourceTree = "<group>"; };
 		CACC22791EB2AF7900FC353E /* NickNameChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameChangeViewController.swift; sourceTree = "<group>"; };
 		CACC227D1EB2B24B00FC353E /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		CACC227F1EB2B24B00FC353E /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -1123,7 +1123,7 @@
 			isa = PBXGroup;
 			children = (
 				CAB450F51EFC8358002D8E45 /* Reachability.swift */,
-				CAB450F71EFC8679002D8E45 /* AutoNetworkCheckViewController.swift */,
+				CAB450F71EFC8679002D8E45 /* AutoNetworkCheck.swift */,
 			);
 			path = NoNetwork;
 			sourceTree = "<group>";
@@ -1944,7 +1944,7 @@
 				8E88C15BC37BCB6EA11AE5BE /* NVActivityIndicatorAnimationPacman.swift in Sources */,
 				8E88C8453C90148B496CA24C /* ARNTransitionAnimator.swift in Sources */,
 				8E88CC249186367AC972CE02 /* SCLAlertView.swift in Sources */,
-				CAB450F81EFC8679002D8E45 /* AutoNetworkCheckViewController.swift in Sources */,
+				CAB450F81EFC8679002D8E45 /* AutoNetworkCheck.swift in Sources */,
 				8E88C79A777A887B2C51BC16 /* SCLExtensions.swift in Sources */,
 				8E88C5F576D648F40A4ADBF9 /* LoadingButton.swift in Sources */,
 				8E88CE21C09E20F4EC1F7AA6 /* MozMaterialDesignSpinner.swift in Sources */,

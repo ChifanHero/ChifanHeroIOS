@@ -10,7 +10,7 @@ import UIKit
 import Flurry_iOS_SDK
 import MapKit
 
-class SelectedCollectionsTableViewController: UITableViewController, UINavigationControllerDelegate {
+class SelectedCollectionsTableViewController: AutoNetworkCheckTableViewController, UINavigationControllerDelegate {
     
     var selectedCollections: [SelectedCollection] = []
     
@@ -19,10 +19,6 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     var selectedCellFrame = CGRect.zero
     
     let transition = ExpandingCellTransition()
-    
-    var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-    
-    var pullRefresher: UIRefreshControl!
     
     var lastUsedLocation: Location?
     
@@ -33,9 +29,7 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         self.configPullToRefresh()
         self.initialLoadData()
         self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
-        self.configLoadingIndicator()
         self.configureNavigationController()
-        self.loadingIndicator.startAnimation()
         self.tableView.register(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "selectedCollectionCell")
     }
     
@@ -70,32 +64,21 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
     }
     
     func configPullToRefresh() {
-        pullRefresher = UIRefreshControl()
-        let attribute = [NSForegroundColorAttributeName: UIColor.lightGray,
-                          NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
-        pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
-        pullRefresher.tintColor = UIColor.lightGray
-        pullRefresher.addTarget(self, action: #selector(SelectedCollectionsTableViewController.refreshData), for: .valueChanged)
-        self.tableView.insertSubview(pullRefresher, at: 0)
-    }
-    
-    private func configLoadingIndicator() {
-        loadingIndicator.color = UIColor.themeOrange()
-        loadingIndicator.type = NVActivityIndicatorType.pacman
-        loadingIndicator.center = self.view.center
-        self.view.addSubview(loadingIndicator)
+        self.view.insertSubview(pullRefresher, at: 0)
+        self.pullRefresher.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
     }
     
     private func initialLoadData() {
+        self.loadingIndicator.startAnimation()
         let location = userLocationManager.getLocationInUse()
         if (location == nil || location!.lat == nil || location!.lon == nil) {
             return
         }
         request.userLocation = location
-        loadData()
+        refreshData()
     }
     
-    func loadData() {
+    override func loadData() {
         
         DataAccessor(serviceConfiguration: ParseConfiguration()).getSelectedCollectionByLocation(request) { (response) -> Void in
                 OperationQueue.main.addOperation({ () -> Void in
@@ -131,17 +114,13 @@ class SelectedCollectionsTableViewController: UITableViewController, UINavigatio
         self.selectedCollections.removeAll()
     }
     
-    func refreshData() {
+    override func refreshData() {
         let location = userLocationManager.getLocationInUse()
         if (location == nil || location!.lat == nil || location!.lon == nil) {
             return
         }
         request.userLocation = location
-        loadData()
-    }
-    
-    private func refresh(_ sender:AnyObject) {
-        refreshData()
+        super.refreshData()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
