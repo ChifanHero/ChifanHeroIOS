@@ -10,47 +10,55 @@ import UIKit
 
 class AutoNetworkCheckViewController: UIViewController {
     
+    var pullRefresher: UIRefreshControl!
+    
+    var popUpView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(statusManager), name: .flagsChanged, object: Network.reachability)
-        updateUserInterface()
+        self.configurePullRefresher()
     }
     
-    func updateUserInterface() {
-        guard let status = Network.reachability?.status else { return }
-        switch status {
-        case .unreachable:
-            view.backgroundColor = .red
-        case .wifi:
-            view.backgroundColor = .green
-        case .wwan:
-            view.backgroundColor = .yellow
+    private func configurePullRefresher(){
+        pullRefresher = UIRefreshControl()
+        let attribute = [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
+        pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
+        pullRefresher.tintColor = UIColor.lightGray
+    }
+    
+    func loadData() {
+        
+    }
+    
+    func refreshData() {
+        if reachability.isReachable {
+            self.loadData()
+        } else {
+            self.showAlert()
+            pullRefresher.endRefreshing()
         }
-        if !(Network.reachability?.isReachable)! {
-            let lml_place = NoNetworkView.init(frame: self.view.bounds)
-            
-            let imgs = [
-                "ChifanHero_NoNetwork"
-            ]
-            
-            
-            lml_place.showNonetView("没有连接到网络...", imageArray: imgs, toView: self.view)
-            lml_place.click_closure = {
-                
-                if (Network.reachability?.isReachable)! {
-                    lml_place.hide()
-                }
-            }
+    }
+    
+    func showAlert() {
+        popUpView = UIView(frame: CGRect(x: self.view.frame.width / 2 - 60, y: self.view.frame.height / 2, width: 120, height: 80))
+        popUpView.backgroundColor = UIColor.noNetworkAlertGray()
+        popUpView.layer.cornerRadius = 8.0
+        let alertLabel = UILabel(frame: CGRect(x: 0, y: 0, width: popUpView.frame.width, height: popUpView.frame.height))
+        alertLabel.text = "!\n没有网络连接"
+        alertLabel.font = UIFont(name: "Arial", size: 14)
+        alertLabel.textColor = UIColor.black
+        alertLabel.numberOfLines = 2
+        alertLabel.textAlignment = .center
+        popUpView.addSubview(alertLabel)
+        
+        self.view.addSubview(popUpView)
+        
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.dismissAlert), userInfo: nil, repeats: false)
+    }
+    
+    func dismissAlert(){
+        if popUpView != nil { // Dismiss the view from here
+            popUpView.removeFromSuperview()
         }
-        print("Reachability Summary")
-        print("Status:", status)
-        print("HostName:", Network.reachability?.hostname ?? "nil")
-        print("Reachable:", Network.reachability?.isReachable ?? "nil")
-        print("Wifi:", Network.reachability?.isReachableViaWiFi ?? "nil")
     }
-    
-    func statusManager(_ notification: NSNotification) {
-        updateUserInterface()
-    }
-    
 }
