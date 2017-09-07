@@ -15,6 +15,7 @@ import SwiftyBeaver
 
 let log = SwiftyBeaver.self
 let userLocationManager = UserLocationManager()
+let reachability = Reachability()!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
@@ -38,19 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // add the destinations to SwiftyBeaver
         log.addDestination(console)
         
-        // Network reachability check
-        do {
-            Network.reachability = try Reachability(hostname: "www.google.com")
-            do {
-                try Network.reachability?.start()
-            } catch let error as Network.Error {
-                print(error)
-            } catch {
-                print(error)
-            }
-        } catch {
-            print(error)
-        }
         
         // Facebook
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)

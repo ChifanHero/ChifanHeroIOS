@@ -29,8 +29,6 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     
     var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     
-    var pullRefresher: UIRefreshControl!
-    
     var currentLocationText: String?
     
     var autoRefresh = false
@@ -38,6 +36,7 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     var lastUsedLocation: Location?
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         NotificationCenter.default.post(name: Notification.Name(rawValue: HOME_VC_LOADED), object: nil)
         super.viewDidLoad()
         self.configLoadingIndicator()
@@ -95,10 +94,6 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     }
     
     private func configurePullToRefresh(){
-        pullRefresher = UIRefreshControl()
-        let attribute = [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont(name: "Arial", size: 14.0)!]
-        pullRefresher.attributedTitle = NSAttributedString(string: "正在刷新", attributes: attribute)
-        pullRefresher.tintColor = UIColor.lightGray
         self.homepageTable.insertSubview(pullRefresher, at: 0)
     }
     
@@ -215,10 +210,6 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         loadData()
     }
     
-    func refreshData() {
-        loadData()
-    }
-    
     func prepareForDataRefresh() {
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
@@ -229,7 +220,7 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         autoRefresh = false
     }
 
-    func loadData() {
+    override func loadData() {
         let request = GetHomepageRequest()
         
         let location: Location? = userLocationManager.getLocationInUse()

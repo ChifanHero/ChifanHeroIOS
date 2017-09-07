@@ -202,7 +202,6 @@
 		CA9435861ECBCD9100F7EB0D /* RestaurantRecommendedDishSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9435851ECBCD9100F7EB0D /* RestaurantRecommendedDishSectionView.swift */; };
 		CAB450F61EFC8358002D8E45 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB450F51EFC8358002D8E45 /* Reachability.swift */; };
 		CAB450F81EFC8679002D8E45 /* AutoNetworkCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB450F71EFC8679002D8E45 /* AutoNetworkCheckViewController.swift */; };
-		CAB450FA1EFC8912002D8E45 /* NoNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB450F91EFC8912002D8E45 /* NoNetworkView.swift */; };
 		CACC227A1EB2AF7900FC353E /* NickNameChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22791EB2AF7900FC353E /* NickNameChangeViewController.swift */; };
 		CACC22841EB2B24B00FC353E /* TRMosaicColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22801EB2B24B00FC353E /* TRMosaicColumn.swift */; };
 		CACC22851EB2B24B00FC353E /* TRMosaicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22811EB2B24B00FC353E /* TRMosaicLayout.swift */; };
@@ -486,7 +485,6 @@
 		CA9435851ECBCD9100F7EB0D /* RestaurantRecommendedDishSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantRecommendedDishSectionView.swift; sourceTree = "<group>"; };
 		CAB450F51EFC8358002D8E45 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		CAB450F71EFC8679002D8E45 /* AutoNetworkCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoNetworkCheckViewController.swift; sourceTree = "<group>"; };
-		CAB450F91EFC8912002D8E45 /* NoNetworkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNetworkView.swift; sourceTree = "<group>"; };
 		CACC22791EB2AF7900FC353E /* NickNameChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameChangeViewController.swift; sourceTree = "<group>"; };
 		CACC227D1EB2B24B00FC353E /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		CACC227F1EB2B24B00FC353E /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -855,7 +853,6 @@
 				8E88C7975ACF8C7A78B5ED2F /* Search */,
 				8E88CBEA7C7D8DE5A17593D3 /* SelectedCollection */,
 				8E88C9F97515CDE2C21E3E77 /* User */,
-				8E88CB30742F7AA448CEB904 /* NoNetwork */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1023,14 +1020,6 @@
 				8E88C3953EBD94FF0FB39627 /* JSSAlertView.swift */,
 			);
 			path = JSSAlertView;
-			sourceTree = "<group>";
-		};
-		8E88CB30742F7AA448CEB904 /* NoNetwork */ = {
-			isa = PBXGroup;
-			children = (
-				CAB450F91EFC8912002D8E45 /* NoNetworkView.swift */,
-			);
-			path = NoNetwork;
 			sourceTree = "<group>";
 		};
 		8E88CB51E9AB9716E0D23AD3 /* Base */ = {
@@ -2034,7 +2023,6 @@
 				8E88CABB7A205D11FA55D4BE /* ServiceConfiguration.swift in Sources */,
 				8E88C3162A5A55E5FE373685 /* SearchServiceConfiguration.swift in Sources */,
 				8E88C855DE10F989AD8F47C5 /* RestaurantSearchV2Request.swift in Sources */,
-				CAB450FA1EFC8912002D8E45 /* NoNetworkView.swift in Sources */,
 				CAEDF6D41F5A208200216A81 /* AlertUtil.swift in Sources */,
 				8E88CCF5968DCCFFB5C874D2 /* NSDateExtension.swift in Sources */,
 				8E88C62409277CF750C1C174 /* UserContext.swift in Sources */,
@@ -2245,8 +2233,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄-Test";
-				PROVISIONING_PROFILE = "b075c09c-552c-4f75-bcd1-cafd0d71b208";
-				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForRicky;
+				PROVISIONING_PROFILE = "9a8e3831-cc47-4ef7-bf3e-c7cec411d7a6";
+				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForAlex;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2272,8 +2260,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄";
-				PROVISIONING_PROFILE = "b075c09c-552c-4f75-bcd1-cafd0d71b208";
-				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForRicky;
+				PROVISIONING_PROFILE = "9a8e3831-cc47-4ef7-bf3e-c7cec411d7a6";
+				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForAlex;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

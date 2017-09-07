@@ -28,6 +28,10 @@ extension UIColor {
     public class func chifanHeroRed() -> UIColor {
         return UIColor(red: 255/255, green: 40/255, blue: 40/255, alpha: 1.0)
     }
+    
+    public class func noNetworkAlertGray() -> UIColor {
+        return UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
+    }
 }
 
 extension UIColor {
