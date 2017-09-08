@@ -110,7 +110,14 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         self.view.addSubview(normalLoginButton)
         normalLoginButton.addTarget(self, action: #selector(LogInTableViewController.normalLoginEvent), for: UIControlEvents.touchDown)
         
-        
+//        let testButton = RetryButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 350, width: self.view.frame.width * 0.8, height: 40))
+//        testButton.setCountdown(enabled: true, seconds: 10)
+//        testButton.setNormalState(text: "测试", color: nil, size: nil, backgroundColor: nil)
+//        testButton.setWaitingState(text: "已测试", color: nil, size: nil, backgroundColor: nil)
+//        testButton.touchDownEvent = {
+//            testButton.startWaiting()
+//        }
+//        self.view.addSubview(testButton)
         
         //let fbButton = FBSDKLoginButton(frame: CGRectMake(self.view.frame.width * 0.1, 250, self.view.frame.width * 0.8, 40))
         //fbButton.readPermissions = ["public_profile", "email"]
