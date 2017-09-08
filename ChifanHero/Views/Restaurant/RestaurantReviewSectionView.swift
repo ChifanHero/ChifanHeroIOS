@@ -79,19 +79,20 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell: RatingStarTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "ratingStarCell") as! RatingStarTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ratingStarCell") as! RatingStarTableViewCell
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             cell.delegate = parentViewController
+            cell.loadUserRating()
             return cell
         } else {
             let review: Review = reviews![indexPath.row]
-            let cell: ReviewSnapshotTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as! ReviewSnapshotTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "reviewSnapshotCell") as! ReviewSnapshotTableViewCell
             cell.review = review
             cell.selectionStyle = .none
             if !self.reviewUserProfileImageContent.isEmpty {
                 cell.profileImage = self.reviewUserProfileImageContent[indexPath.row]
             }
-            return cell!
+            return cell
         }
         
     }
@@ -107,9 +108,9 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
     }
     
     func resetRatingStar() {
-        if let cell = reviewsTableView.dequeueReusableCell(withIdentifier: "ratingStarCell") as? RatingStarTableViewCell {
-            cell.reset()
-        }
+        let cell = reviewsTableView.dequeueReusableCell(withIdentifier: "ratingStarCell") as! RatingStarTableViewCell
+        cell.delegate = parentViewController
+        cell.loadUserRating()
         self.reviewsTableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
     }
 

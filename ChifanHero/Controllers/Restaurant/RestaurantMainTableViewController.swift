@@ -303,6 +303,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             let newReviewVC: NewReviewViewController = newReviewNavigationVC.viewControllers[0] as! NewReviewViewController
             newReviewVC.restaurant = self.restaurant
             newReviewVC.rating = self.userRating
+            newReviewVC.review = self.restaurant?.reviewWrittenByCurrentUser
         } else if segue.identifier == "showAllReviews" {
             let reviewsVC: AllReviewsViewController = segue.destination as! AllReviewsViewController
             reviewsVC.reviews = self.restaurant?.reviewInfo?.reviews ?? []
@@ -638,6 +639,10 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     func recordUserRating(_ rating: Int) {
         self.userRating = rating
+    }
+    
+    func getRating() -> Int {
+        return self.restaurant?.reviewWrittenByCurrentUser?.rating ?? 0
     }
     
     // MARK: RestaurantInfoSectionDelegate

@@ -216,22 +216,6 @@ class GetAllReviewsOfOneRestaurantResponse: HttpResponseProtocol {
 
 }
 
-class GetReviewByRestaurantIdOfOneUserResponse: HttpResponseProtocol{
-    
-    var result: Review?
-    var error: Error?
-    
-    required init() {
-        
-    }
-    
-    required init(data: JSON) {
-        error = Error(data: data["error"])
-        result = Review(data: data["result"])
-    }
-    
-}
-
 class GetSelectedCollectionsByLatAndLonResponse: HttpResponseProtocol{
 
     var results: [SelectedCollection] = []

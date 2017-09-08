@@ -25,19 +25,7 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     var reviewId: String?
     
-    var review: Review? {
-        didSet {
-            self.reviewTextView.text = self.review?.content
-            self.rating = self.review?.rating ?? 0
-            self.ratingView.loadUserRating()
-            if let photos = self.review?.photos {
-                for photo in photos {
-                    self.downloadedImages.append(photo)
-                }
-            }
-            self.imagePoolView.reloadData()
-        }
-    }
+    var review: Review?
     
     var rating: Int = 0
     
@@ -57,12 +45,25 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         self.imagePoolView.isHidden = true
         self.configureRatingSection()
         self.loadData()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.reviewTextView.becomeFirstResponder()
+    }
+    
+    private func loadData() {
+        self.reviewTextView.text = self.review?.content
+        if self.rating == 0 {
+            self.rating = self.review?.rating ?? 0
+        }
+        self.ratingView.loadUserRating()
+        if let photos = self.review?.photos {
+            for photo in photos {
+                self.downloadedImages.append(photo)
+            }
+        }
+        self.imagePoolView.reloadData()
     }
     
     private func configureRatingSection() {
@@ -95,20 +96,6 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     func cancel() {
         self.reviewTextView.resignFirstResponder()
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    private func loadData() {
-        let request = GetReviewByRestaurantIdOfOneUserRequest()
-        request.restaurantId = self.restaurant.id
-        
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getReviewByRestaurantIdOfOneUser(request) { (response) -> Void in
-            OperationQueue.main.addOperation({ () -> Void in
-                if let result = response?.result {
-                    self.review = result
-                }
-                self.imagePoolView.isHidden = false
-            });
-        }
     }
 
     

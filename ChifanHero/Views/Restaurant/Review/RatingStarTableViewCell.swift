@@ -11,6 +11,7 @@ import UIKit
 protocol RatingStarCellDelegate {
     func writeReview() -> Void
     func recordUserRating(_ rating: Int) -> Void
+    func getRating() -> Int
 }
 
 class RatingStarTableViewCell: UITableViewCell {
@@ -30,6 +31,23 @@ class RatingStarTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func loadUserRating() {
+        switch delegate.getRating() {
+        case 1:
+            self.ratingOne()
+        case 2:
+            self.ratingTwo()
+        case 3:
+            self.ratingThree()
+        case 4:
+            self.ratingFour()
+        case 5:
+            self.ratingFive()
+        default:
+            self.reset()
+        }
     }
     
     private func setUp() {
@@ -88,6 +106,26 @@ class RatingStarTableViewCell: UITableViewCell {
         RatingStarUtil.ratingFive(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
         delegate.recordUserRating(5)
         delegate.writeReview()
+    }
+    
+    private func ratingOne() {
+        RatingStarUtil.ratingOne(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    private func ratingTwo() {
+        RatingStarUtil.ratingTwo(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    private func ratingThree() {
+        RatingStarUtil.ratingThree(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    private func ratingFour() {
+        RatingStarUtil.ratingFour(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    private func ratingFive() {
+        RatingStarUtil.ratingFive(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
     }
     
 }

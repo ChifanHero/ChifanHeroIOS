@@ -28,6 +28,7 @@ class Restaurant: Model{
     var openNow: Bool?
     var openTimeToday: String?
     var current_user_favorite: Bool?
+    var reviewWrittenByCurrentUser: Review?
     
     required init() {
         
@@ -64,5 +65,8 @@ class Restaurant: Model{
         openNow = data["open_now"].bool
         openTimeToday = data["open_time_today"].string
         current_user_favorite = data["current_user_favorite"].bool
+        if data["current_user_review"].exists() {
+            reviewWrittenByCurrentUser = Review(data: data["current_user_review"])
+        }
     }
 }

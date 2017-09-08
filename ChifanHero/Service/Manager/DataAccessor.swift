@@ -149,12 +149,6 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getReviewByRestaurantIdOfOneUser(_ request: GetReviewByRestaurantIdOfOneUserRequest, responseHandler: @escaping (GetReviewByRestaurantIdOfOneUserResponse?) -> Void) {
-        let defaults = UserDefaults.standard
-        request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
-    }
-    
     func getCities(_ request: GetCitiesRequest, responseHandler: @escaping (GetCitiesResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
@@ -165,6 +159,30 @@ class DataAccessor {
     
     func searchRestaurants(_ request: RestaurantSearchV2Request, responseHandler : @escaping (RestaurantSearchResponse?) -> Void) {
         
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
+    func getMyInfo(_ request: GetMyInfoRequest, responseHandler: @escaping (GetMyInfoResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
+    func isEmailVerified(_ request: GetEmailVerifiedRequest, responseHandler: @escaping (GetEmailVerifiedResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+
+    func isEmailVerified(_ request: GetEmailVerifiedRequest, responseHandler: @escaping (GetEmailVerifiedResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
@@ -212,6 +230,10 @@ class DataAccessor {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
+    func resetPassword(_ request: ResetPasswordRequest, responseHandler: @escaping (ResetPasswordResponse?) -> Void) {
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
+    }
+    
     //Put----------------------------------------------------------------------------------------------//
     
     func nominateRestaurantForCollection(_ request: NominateRestaurantRequest, responseHandler: @escaping (NominateRestaurantResponse?) -> Void){
@@ -230,14 +252,6 @@ class DataAccessor {
     
     func deletePictures(_ request: DeletePicturesRequest, responseHandler: @escaping (DeletePicturesResponse?) -> Void) {
         self.callApi(method: "DELETE", request: request, responseHandler: responseHandler)
-    }
-    
-    func isEmailVerified(_ request: GetEmailVerifiedRequest, responseHandler: @escaping (GetEmailVerifiedResponse?) -> Void) {
-        let defaults = UserDefaults.standard
-        if defaults.string(forKey: "sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
-        }
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
 }
