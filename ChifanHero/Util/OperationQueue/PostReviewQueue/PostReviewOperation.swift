@@ -20,11 +20,9 @@ class PostReviewOperation: RetryableOperation {
     
     private var savedReview: Review?
     
-    var reviewId = ""
+    var reviewId: String?
     
-    var restaurantId = ""
-    
-    var isNewReview = true
+    var restaurantId: String!
     
     init(rating: Int, content: String, retryTimes: Int, completion: @escaping (Bool, Review?) -> Void) {
         super.init()
@@ -45,47 +43,25 @@ class PostReviewOperation: RetryableOperation {
     }
     
     private func upseartReview() {
-        if isNewReview {
-            let request = CreateReviewRequest()
-            request.content = content
-            request.rating = rating
-            request.restaurantId = restaurantId
-            DataAccessor(serviceConfiguration: ParseConfiguration()).createReview(request) { (response) in
-                if self.isCancelled {
-                    self.state = .finished
+        let request = UpsertReviewRequest()
+        request.content = content
+        request.rating = rating
+        request.restaurantId = restaurantId
+        request.reviewId = reviewId
+        DataAccessor(serviceConfiguration: ParseConfiguration()).upsertReview(request) { (response) in
+            if self.isCancelled {
+                self.state = .finished
+            } else {
+                if let result = response?.result {
+                    self.savedReview = result
+                    self.success = true
                 } else {
-                    if let result = response?.result {
-                        self.savedReview = result
-                        self.success = true
-                    } else {
-                        if self.retryTimes > 0 {
-                            self.retryTimes = self.retryTimes - 1
-                            self.upseartReview()
-                        }
+                    if self.retryTimes > 0 {
+                        self.retryTimes = self.retryTimes - 1
+                        self.upseartReview()
                     }
-                    self.state = .finished
                 }
-            }
-        } else {
-            let request = UpdateReviewRequest()
-            request.content = content
-            request.rating = rating
-            request.reviewId = reviewId
-            DataAccessor(serviceConfiguration: ParseConfiguration()).updateReview(request) { (response) in
-                if self.isCancelled {
-                    self.state = .finished
-                } else {
-                    if let result = response?.result {
-                        self.savedReview = result
-                        self.success = true
-                    } else {
-                        if self.retryTimes > 0 {
-                            self.retryTimes = self.retryTimes - 1
-                            self.upseartReview()
-                        }
-                    }
-                    self.state = .finished
-                }
+                self.state = .finished
             }
         }
     }

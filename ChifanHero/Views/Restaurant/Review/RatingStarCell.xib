@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="104" id="qgA-p8-OS9" customClass="RatingStarTableViewCell" customModule="吃饭英雄" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="153" id="qgA-p8-OS9" customClass="RatingStarTableViewCell" customModule="吃饭英雄" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="417" height="153"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qgA-p8-OS9" id="8wM-RP-wNY">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="103"/>
+                <rect key="frame" x="0.0" y="0.0" width="417" height="152.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GdU-j1-tv2" userLabel="Rating Star View">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="103"/>
+                        <rect key="frame" x="0.0" y="0.0" width="417" height="152.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Dqx-Be-yez">
-                                <rect key="frame" x="78" y="32" width="220" height="40"/>
+                                <rect key="frame" x="99" y="57" width="220" height="40"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BgZ-WJ-SQN">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -60,11 +60,23 @@
                                     </imageView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已点评！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWN-Uq-1og">
+                                <rect key="frame" x="15" y="15" width="50" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="KQK-r1-1nb"/>
+                                    <constraint firstAttribute="width" constant="50" id="rhx-xg-o12"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Dqx-Be-yez" firstAttribute="centerX" secondItem="GdU-j1-tv2" secondAttribute="centerX" id="4Cu-0E-zuA"/>
                             <constraint firstItem="Dqx-Be-yez" firstAttribute="centerY" secondItem="GdU-j1-tv2" secondAttribute="centerY" id="Bb1-eh-ffz"/>
+                            <constraint firstItem="cWN-Uq-1og" firstAttribute="top" secondItem="GdU-j1-tv2" secondAttribute="top" constant="15" id="qcY-Bv-1Mb"/>
+                            <constraint firstItem="cWN-Uq-1og" firstAttribute="leading" secondItem="GdU-j1-tv2" secondAttribute="leading" constant="15" id="sD9-bk-EZm"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -76,13 +88,14 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="alreadyReviewedLabel" destination="cWN-Uq-1og" id="rzA-uR-zB6"/>
                 <outlet property="ratingFiveImageView" destination="4ub-Pc-BH6" id="tcB-Xd-AJQ"/>
                 <outlet property="ratingFourImageView" destination="OzU-kU-bdU" id="LS5-Zx-hat"/>
                 <outlet property="ratingOneImageView" destination="BgZ-WJ-SQN" id="hLg-rn-Fuf"/>
                 <outlet property="ratingThreeImageView" destination="G1r-0P-0Ad" id="e3D-Vh-4l1"/>
                 <outlet property="ratingTwoImageView" destination="LFQ-XA-ivh" id="4TY-6p-Jkj"/>
             </connections>
-            <point key="canvasLocation" x="106.5" y="143"/>
+            <point key="canvasLocation" x="127.5" y="167.5"/>
         </tableViewCell>
     </objects>
 </document>

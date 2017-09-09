@@ -14,6 +14,8 @@ class AllReviewsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var reviewsTable: UITableView!
     
+    var restaurant: Restaurant!
+    
     var reviews: [Review] = []
     
     var reviewUserProfileImageContent: [UIImageView] = []
@@ -21,7 +23,7 @@ class AllReviewsViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configDropDownMenu()
-        self.addBarButton()
+        //self.addBarButton()
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
         self.reviewsTable.register(UINib(nibName: "ReviewSnapshotCell", bundle: nil), forCellReuseIdentifier: "reviewSnapshotCell")
@@ -38,6 +40,8 @@ class AllReviewsViewController: UIViewController, UITableViewDelegate, UITableVi
         }*/
     }
     
+    // TODO: Added in the future
+    /*
     private func addBarButton() {
         let button: UIButton! = ButtonUtil.barButtonWithTextAndBorder("我要点评", size: CGRect(x: 0, y: 0, width: 80, height: 26))
         button.addTarget(self, action: #selector(addNewReview), for: UIControlEvents.touchUpInside)
@@ -57,6 +61,7 @@ class AllReviewsViewController: UIViewController, UITableViewDelegate, UITableVi
     func dismissAlert() {
         
     }
+    */
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reviews.count

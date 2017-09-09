@@ -11,9 +11,12 @@ import UIKit
 protocol RatingStarCellDelegate {
     func writeReview() -> Void
     func recordUserRating(_ rating: Int) -> Void
+    func getRating() -> Int
 }
 
 class RatingStarTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var alreadyReviewedLabel: UILabel!
     
     @IBOutlet weak var ratingOneImageView: UIImageView!
     @IBOutlet weak var ratingTwoImageView: UIImageView!
@@ -32,7 +35,40 @@ class RatingStarTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    func loadUserRating() {
+        switch delegate.getRating() {
+        case 1:
+            self.ratingOne()
+        case 2:
+            self.ratingTwo()
+        case 3:
+            self.ratingThree()
+        case 4:
+            self.ratingFour()
+        case 5:
+            self.ratingFive()
+        default:
+            self.reset()
+        }
+    }
+    
+    func setUpAlreadyReviewedLabel() {
+        if delegate.getRating() == 0 {
+            self.alreadyReviewedLabel.isHidden = true
+        } else {
+            self.alreadyReviewedLabel.text = "已点评!"
+            self.alreadyReviewedLabel.textColor = UIColor.themeOrange()
+            self.alreadyReviewedLabel.layer.borderWidth = 2.0
+            self.alreadyReviewedLabel.layer.cornerRadius = 4.0
+            self.alreadyReviewedLabel.layer.borderColor = UIColor.themeOrange().cgColor
+            self.alreadyReviewedLabel.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 4)
+            self.alreadyReviewedLabel.isHidden = false
+        }
+    }
+    
     private func setUp() {
+        self.alreadyReviewedLabel.isHidden = true
+        
         self.reset()
         
         let ratingOneTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ratingOnePressed))
@@ -88,6 +124,26 @@ class RatingStarTableViewCell: UITableViewCell {
         RatingStarUtil.ratingFive(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
         delegate.recordUserRating(5)
         delegate.writeReview()
+    }
+    
+    private func ratingOne() {
+        RatingStarUtil.ratingOne(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    private func ratingTwo() {
+        RatingStarUtil.ratingTwo(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    private func ratingThree() {
+        RatingStarUtil.ratingThree(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    private func ratingFour() {
+        RatingStarUtil.ratingFour(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
+    }
+    
+    private func ratingFive() {
+        RatingStarUtil.ratingFive(ratingOneImageView: ratingOneImageView, ratingTwoImageView: ratingTwoImageView, ratingThreeImageView: ratingThreeImageView, ratingFourImageView: ratingFourImageView, ratingFiveImageView: ratingFiveImageView)
     }
     
 }

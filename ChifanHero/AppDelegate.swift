@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // add the destinations to SwiftyBeaver
         log.addDestination(console)
         
-        
         // Facebook
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         isAppInForeground = true

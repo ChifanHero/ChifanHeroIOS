@@ -149,12 +149,6 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
-    func getReviewByRestaurantIdOfOneUser(_ request: GetReviewByRestaurantIdOfOneUserRequest, responseHandler: @escaping (GetReviewByRestaurantIdOfOneUserResponse?) -> Void) {
-        let defaults = UserDefaults.standard
-        request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
-    }
-    
     func getCities(_ request: GetCitiesRequest, responseHandler: @escaping (GetCitiesResponse?) -> Void) {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
@@ -168,6 +162,21 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
+    func getMyInfo(_ request: GetMyInfoRequest, responseHandler: @escaping (GetMyInfoResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
+    func isEmailVerified(_ request: GetEmailVerifiedRequest, responseHandler: @escaping (GetEmailVerifiedResponse?) -> Void) {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "sessionToken") != nil {
+            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
+        }
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
     
     //Post----------------------------------------------------------------------------------------------//
     func uploadPicture(_ request: UploadPictureRequest, responseHandler: @escaping (UploadPictureResponse?) -> Void) {
@@ -184,15 +193,7 @@ class DataAccessor {
         
     }
     
-    func createReview(_ request: CreateReviewRequest, responseHandler: @escaping (CreateReviewResponse?) -> Void){
-        let defaults = UserDefaults.standard
-        if defaults.string(forKey: "sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
-        }
-        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
-    }
-    
-    func updateReview(_ request: UpdateReviewRequest, responseHandler: @escaping (UpdateReviewResponse?) -> Void){
+    func upsertReview(_ request: UpsertReviewRequest, responseHandler: @escaping (UpsertReviewResponse?) -> Void){
         let defaults = UserDefaults.standard
         if defaults.string(forKey: "sessionToken") != nil {
             request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
@@ -209,6 +210,10 @@ class DataAccessor {
     }
     
     func trackRestaurant(_ request: TrackRestaurantRequest, responseHandler: @escaping (TrackRestaurantResponse?) -> Void) {
+        self.callApi(method: "POST", request: request, responseHandler: responseHandler)
+    }
+    
+    func resetPassword(_ request: ResetPasswordRequest, responseHandler: @escaping (ResetPasswordResponse?) -> Void) {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)
     }
     
@@ -230,14 +235,6 @@ class DataAccessor {
     
     func deletePictures(_ request: DeletePicturesRequest, responseHandler: @escaping (DeletePicturesResponse?) -> Void) {
         self.callApi(method: "DELETE", request: request, responseHandler: responseHandler)
-    }
-    
-    func isEmailVerified(_ request: GetEmailVerifiedRequest, responseHandler: @escaping (GetEmailVerifiedResponse?) -> Void) {
-        let defaults = UserDefaults.standard
-        if defaults.string(forKey: "sessionToken") != nil {
-            request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
-        }
-        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
 }

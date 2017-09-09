@@ -25,19 +25,7 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     var reviewId: String?
     
-    var review: Review? {
-        didSet {
-            self.reviewTextView.text = self.review?.content
-            self.rating = self.review?.rating ?? 0
-            self.ratingView.loadUserRating()
-            if let photos = self.review?.photos {
-                for photo in photos {
-                    self.downloadedImages.append(photo)
-                }
-            }
-            self.imagePoolView.reloadData()
-        }
-    }
+    var review: Review?
     
     var rating: Int = 0
     
@@ -54,15 +42,27 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         self.addDoneButton()
         self.observeKeyboard()
         self.imagePoolView.register(UINib(nibName: "RemovablePhotoCell", bundle: nil), forCellWithReuseIdentifier: "removablePhotoCell")
-        self.imagePoolView.isHidden = true
         self.configureRatingSection()
         self.loadData()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.reviewTextView.becomeFirstResponder()
+    }
+    
+    private func loadData() {
+        self.reviewTextView.text = self.review?.content
+        if self.rating == 0 {
+            self.rating = self.review?.rating ?? 0
+        }
+        self.ratingView.loadUserRating()
+        if let photos = self.review?.photos {
+            for photo in photos {
+                self.downloadedImages.append(photo)
+            }
+        }
+        self.imagePoolView.reloadData()
     }
     
     private func configureRatingSection() {
@@ -96,20 +96,6 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
         self.reviewTextView.resignFirstResponder()
         self.dismiss(animated: true, completion: nil)
     }
-    
-    private func loadData() {
-        let request = GetReviewByRestaurantIdOfOneUserRequest()
-        request.restaurantId = self.restaurant.id
-        
-        DataAccessor(serviceConfiguration: ParseConfiguration()).getReviewByRestaurantIdOfOneUser(request) { (response) -> Void in
-            OperationQueue.main.addOperation({ () -> Void in
-                if let result = response?.result {
-                    self.review = result
-                }
-                self.imagePoolView.isHidden = false
-            });
-        }
-    }
 
     
     func submit() {
@@ -117,8 +103,13 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
             AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "请为餐厅打分", target: self, buttonAction: #selector(dismissAlert))
         } else {
             if let restaurant = self.restaurant {
+                self.disableCurrentView()
+                
                 let notificationOperation = BlockOperation {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: REVIEW_UPLOAD_DONE), object: nil)
+                    OperationQueue.main.addOperation({ () -> Void in
+                        self.dismiss(animated: true, completion: nil)
+                    });
                 }
                 
                 let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, retryTimes: 3) { (success, review) in
@@ -140,26 +131,32 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
                     }
                 }
                 if let review = self.review {
-                    reviewOperation.isNewReview = false
                     reviewOperation.reviewId = review.id
-                } else {
-                    reviewOperation.isNewReview = true
-                    reviewOperation.restaurantId = restaurant.id!
                 }
-                let deleteOperation = PhotoDeleteOperation(photoIds: self.toBeDeletedImageIds, completion: {(success) in
-                    if success {
-                        log.debug("Image delete is done")
-                    } else {
-                        log.debug("Image delete failed")
-                    }
-                })
-                self.reviewManager.queue.addOperation(deleteOperation)
-                notificationOperation.addDependency(deleteOperation)
+                reviewOperation.restaurantId = restaurant.id!
+                if self.toBeDeletedImageIds.count > 0 {
+                    let deleteOperation = PhotoDeleteOperation(photoIds: self.toBeDeletedImageIds, completion: {(success) in
+                        if success {
+                            log.debug("Image delete is done")
+                        } else {
+                            log.debug("Image delete failed")
+                        }
+                    })
+                    self.reviewManager.queue.addOperation(deleteOperation)
+                    notificationOperation.addDependency(deleteOperation)
+                }
+                
                 notificationOperation.addDependency(reviewOperation)
                 self.reviewManager.queue.addOperation(reviewOperation)
             }
-            self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    private func disableCurrentView() {
+        self.view.addSubview(LoadingViewUtil.buildLoadingView(frame: CGRect(x: self.view.frame.width / 2 - 70, y: self.view.frame.height / 2, width: 140, height: 40), text: "正在上传"))
+        self.view.isUserInteractionEnabled = false
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        self.navigationItem.leftBarButtonItem?.isEnabled = false
     }
     
     func observeKeyboard() {
