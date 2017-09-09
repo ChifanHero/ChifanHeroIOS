@@ -223,14 +223,14 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == downloadedImages.count + toBeUploadedImages.count {
-            let alert = UIAlertController(title: "选择图片来源", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
+            let alert = UIAlertController(title: "添加图片", message: "请选择图片来源", preferredStyle: UIAlertControllerStyle.actionSheet)
             
-            let albumAction = UIAlertAction(title: "相册", style: .default, handler: self.goToAlbum)
-            let cameraAction = UIAlertAction(title: "拍摄", style: .default, handler: self.goToCamera)
+            let albumAction = UIAlertAction(title: "从相册中选择", style: .default, handler: self.goToAlbum)
+            let cameraAction = UIAlertAction(title: "拍照上传", style: .default, handler: self.goToCamera)
             let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: self.cancelNavigation)
             
-            alert.addAction(albumAction)
             alert.addAction(cameraAction)
+            alert.addAction(albumAction)
             alert.addAction(cancelAction)
             
             self.present(alert, animated: true, completion: nil)
