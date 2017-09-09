@@ -67,11 +67,11 @@ class NotificationTableViewController: UITableViewController {
     func recalculateBadgeValue() {
         let badgeValue: Int = countNumberOfUnreadItems()
         if badgeValue > 0 {
-            self.navigationController?.tabBarItem.badgeValue = "\(badgeValue)"
-            UIApplication.shared.applicationIconBadgeNumber = badgeValue;
+            //self.navigationController?.tabBarItem.badgeValue = "\(badgeValue)"
+            //UIApplication.shared.applicationIconBadgeNumber = badgeValue;
         } else {
-            self.navigationController?.tabBarItem.badgeValue = nil
-            UIApplication.shared.applicationIconBadgeNumber = 0;
+            //self.navigationController?.tabBarItem.badgeValue = nil
+            //UIApplication.shared.applicationIconBadgeNumber = 0;
         }
     }
     
