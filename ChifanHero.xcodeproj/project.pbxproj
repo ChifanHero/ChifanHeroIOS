@@ -1071,8 +1071,8 @@
 				8E88CE4910545BCFCCB3B73C /* RestaurantsAndSearchFlow */,
 				8E88C74371868195512ABB1E /* TutorialControllers */,
 				8E88C17026E279719067FEC9 /* User */,
-				8E88C05B55A6DA762955E258 /* MainTabBarController.swift */,
 				8E88CD1AB6B6FC3037C0E36D /* NoNetwork */,
+				8E88C05B55A6DA762955E258 /* MainTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

@@ -220,10 +220,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func popUpImageSourceOption(){
-        let alert = UIAlertController(title: "更换头像", message: "选取图片来源", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alert = UIAlertController(title: "设置头像", message: "请选择图片来源", preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        let takePhotoAction = UIAlertAction(title: "相机", style: .default, handler: self.takePhotoFromCamera)
-        let chooseFromPhotosAction = UIAlertAction(title: "照片", style: .default, handler: self.chooseFromPhotoRoll)
+        let takePhotoAction = UIAlertAction(title: "拍照上传", style: .default, handler: self.takePhotoFromCamera)
+        let chooseFromPhotosAction = UIAlertAction(title: "从相册中选择", style: .default, handler: self.chooseFromPhotoRoll)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: self.cancelChoosingImage)
         
         alert.addAction(takePhotoAction)

@@ -725,14 +725,14 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     }
     
     func addPhotoButtonPressed() {
-        let alert = UIAlertController(title: "相片来源", message: "请选取相片来源", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alert = UIAlertController(title: "上传图片", message: "请选择图片来源", preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        let goAlbumAction = UIAlertAction(title: "相册", style: .default, handler: self.goToAlbum)
-        let goCameraAction = UIAlertAction(title: "拍照", style: .default, handler: self.goToCamera)
+        let goAlbumAction = UIAlertAction(title: "从相册中选择", style: .default, handler: self.goToAlbum)
+        let goCameraAction = UIAlertAction(title: "拍照上传", style: .default, handler: self.goToCamera)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
-        alert.addAction(goAlbumAction)
         alert.addAction(goCameraAction)
+        alert.addAction(goAlbumAction)
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
