@@ -39,6 +39,7 @@ class RetryButton: UIButton {
     }
     
     func initialize() {
+        self.layer.cornerRadius = CGFloat(3)
         self.addTarget(self, action: #selector(RetryButton.touchDown), for: UIControlEvents.touchDown)
     }
     

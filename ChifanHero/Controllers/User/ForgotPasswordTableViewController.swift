@@ -12,14 +12,11 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
 
     @IBOutlet weak var emailTextField: UITextField!
     
+    var sendButton: RetryButton?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.clearsSelectionOnViewWillAppear = false
         emailTextField.delegate = self
         self.configureButton()
     }
@@ -31,14 +28,46 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
 
     
     func configureButton() {
-        let testButton = RetryButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 100, width: self.view.frame.width * 0.8, height: 40))
-        testButton.setCountdown(enabled: true, seconds: 10)
-        testButton.setNormalState(text: "测试", color: nil, size: nil, backgroundColor: nil)
-        testButton.setWaitingState(text: "已测试", color: nil, size: nil, backgroundColor: nil)
-        testButton.touchDownEvent = {
-            testButton.startWaiting()
+        sendButton = RetryButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 100, width: self.view.frame.width * 0.8, height: 40))
+        sendButton!.setCountdown(enabled: true, seconds: 10)
+        sendButton!.setNormalState(text: "发送", color: nil, size: nil, backgroundColor: nil)
+        sendButton!.setWaitingState(text: "已发送。如未收到邮件请重新发送", color: nil, size: nil, backgroundColor: nil)
+        sendButton!.touchDownEvent = {
+            self.resetPassword()
         }
-        self.view.addSubview(testButton)
+        self.view.addSubview(sendButton!)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let email = textField.text {
+            if isValidEmail(email: email) {
+                textField.resignFirstResponder()
+            }
+        }
+        return true
+    }
+    
+    private func resetPassword() {
+        if let email = emailTextField.text {
+            if (isValidEmail(email: email)) {
+                let resetPasswordRequest: ResetPasswordRequest = ResetPasswordRequest()
+                resetPasswordRequest.email = email
+                AccountManager(serviceConfiguration: ParseConfiguration()).resetPassword(resetPasswordRequest, responseHandler: { (response) in
+                    if response?.success != nil && response?.success == true {
+                        self.sendButton?.startWaiting()
+                    } else {
+                        AlertUtil.showErrorAlert(errorCode: response?.error?.code)
+                    }
+                })
+            }
+        }
+    }
+    
+    private func isValidEmail(email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        print(emailTest.evaluate(with: email))
+        return emailTest.evaluate(with: email)
     }
 
     /*

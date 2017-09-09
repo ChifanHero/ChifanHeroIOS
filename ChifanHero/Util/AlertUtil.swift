@@ -25,4 +25,8 @@ class AlertUtil {
         alertView.addButton(secondButtonText, backgroundColor: UIColor.themeOrange(), target: target, selector: secondButtonAction)
         alertView.showInfo(infoTitle, subTitle: infoSubTitle, colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
     }
+    
+    class func showErrorAlert(errorCode: Int?) {
+        
+    }
 }
