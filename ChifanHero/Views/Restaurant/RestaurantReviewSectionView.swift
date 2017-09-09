@@ -83,6 +83,7 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             cell.delegate = parentViewController
             cell.loadUserRating()
+            cell.setUpAlreadyReviewedLabel()
             return cell
         } else {
             let review: Review = reviews![indexPath.row]
@@ -111,6 +112,7 @@ class RestaurantReviewSectionView: UIView, UITableViewDelegate, UITableViewDataS
         let cell = reviewsTableView.dequeueReusableCell(withIdentifier: "ratingStarCell") as! RatingStarTableViewCell
         cell.delegate = parentViewController
         cell.loadUserRating()
+        cell.setUpAlreadyReviewedLabel()
         self.reviewsTableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
     }
 

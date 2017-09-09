@@ -16,6 +16,8 @@ protocol RatingStarCellDelegate {
 
 class RatingStarTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var alreadyReviewedLabel: UILabel!
+    
     @IBOutlet weak var ratingOneImageView: UIImageView!
     @IBOutlet weak var ratingTwoImageView: UIImageView!
     @IBOutlet weak var ratingThreeImageView: UIImageView!
@@ -50,7 +52,23 @@ class RatingStarTableViewCell: UITableViewCell {
         }
     }
     
+    func setUpAlreadyReviewedLabel() {
+        if delegate.getRating() == 0 {
+            self.alreadyReviewedLabel.isHidden = true
+        } else {
+            self.alreadyReviewedLabel.text = "已点评!"
+            self.alreadyReviewedLabel.textColor = UIColor.themeOrange()
+            self.alreadyReviewedLabel.layer.borderWidth = 2.0
+            self.alreadyReviewedLabel.layer.cornerRadius = 4.0
+            self.alreadyReviewedLabel.layer.borderColor = UIColor.themeOrange().cgColor
+            self.alreadyReviewedLabel.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 4)
+            self.alreadyReviewedLabel.isHidden = false
+        }
+    }
+    
     private func setUp() {
+        self.alreadyReviewedLabel.isHidden = true
+        
         self.reset()
         
         let ratingOneTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ratingOnePressed))

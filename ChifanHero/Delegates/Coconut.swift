@@ -34,7 +34,7 @@ extension UIViewController: ControllerCommonConfigurationDelegate{
             UIView.animate(withDuration: duration, animations: {
                 self.tabBarController?.tabBar.frame = frame!.offsetBy(dx: 0, dy: offsetY!)
                 return
-            }) 
+            })
         }
     }
     

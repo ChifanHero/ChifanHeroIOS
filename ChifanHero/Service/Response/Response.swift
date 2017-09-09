@@ -313,7 +313,7 @@ class RemoveFavoriteResponse: HttpResponseProtocol{
     }
 }
 
-class CreateReviewResponse: HttpResponseProtocol{
+class UpsertReviewResponse: HttpResponseProtocol{
 
     var result: Review?
     var error: Error?
@@ -322,21 +322,6 @@ class CreateReviewResponse: HttpResponseProtocol{
 
     }
 
-    required init(data: JSON) {
-        result = Review(data: data["result"])
-        error = Error(data: data["error"])
-    }
-}
-
-class UpdateReviewResponse: HttpResponseProtocol{
-    
-    var result: Review?
-    var error: Error?
-    
-    required init() {
-        
-    }
-    
     required init(data: JSON) {
         result = Review(data: data["result"])
         error = Error(data: data["error"])

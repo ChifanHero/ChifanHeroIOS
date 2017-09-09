@@ -50,6 +50,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             self.loadImagePool(self.restaurant!.photoInfo!.photos)
             self.downloadReviewUserProfileImages()
             self.recommendedDishSectionView.restaurant = self.restaurant
+            self.enableCurrentView()
         }
     }
     
@@ -86,7 +87,9 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     var parentVCName: String = ""
     
-    var photoAttributionTextView: UITextView?
+    var photoAttributionTextView: UITextView!
+    
+    var loadingAlertView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,9 +123,20 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         trackRestaurantRequest.userId = deviceID
         DataAccessor(serviceConfiguration: SearchServiceConfiguration()).trackRestaurant(trackRestaurantRequest, responseHandler: { (response) -> Void in
             OperationQueue.main.addOperation({ () -> Void in
-                print(response?.success ?? false)
+                log.debug("Track restaurant " + ((response?.success ?? false) ? "succeed" : "failed"))
             })
         })
+    }
+    
+    private func disableCurrentView() {
+        loadingAlertView = LoadingViewUtil.buildLoadingView(frame: CGRect(x: self.view.frame.width / 2 - 70, y: 0, width: 140, height: 40), text: "正在加载")
+        self.view.addSubview(loadingAlertView)
+        self.view.isUserInteractionEnabled = false
+    }
+    
+    private func enableCurrentView() {
+        self.loadingAlertView.removeFromSuperview()
+        self.view.isUserInteractionEnabled = true
     }
     
     private func addUpdateButtonToRightCorner() {
@@ -155,9 +169,9 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     private func configPhotoAttributionTextView() {
         photoAttributionTextView = UITextView(frame: CGRect(x: 0, y: self.view.frame.height - 80, width: self.view.frame.width, height: 30))
-        photoAttributionTextView!.backgroundColor = UIColor.clear
-        photoAttributionTextView!.isEditable = false
-        photoAttributionTextView!.textColor = UIColor.white
+        photoAttributionTextView.backgroundColor = UIColor.clear
+        photoAttributionTextView.isEditable = false
+        photoAttributionTextView.textColor = UIColor.white
     }
     
     private func configurePhotoSectionView() {
@@ -307,6 +321,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         } else if segue.identifier == "showAllReviews" {
             let reviewsVC: AllReviewsViewController = segue.destination as! AllReviewsViewController
             reviewsVC.reviews = self.restaurant?.reviewInfo?.reviews ?? []
+            reviewsVC.restaurant = self.restaurant
             reviewsVC.reviewUserProfileImageContent = self.reviewUserProfileImageContent
         } else if segue.identifier == "showReview" {
             let reviewVC: ReviewDetailViewController = segue.destination as! ReviewDetailViewController
@@ -325,6 +340,10 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     // MARK: Restaurant Data
     
     func loadData() {
+        OperationQueue.main.addOperation({ () -> Void in
+            self.disableCurrentView()
+        });
+        
         if (request != nil) {
             request?.userLocation = self.currentLocation
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
@@ -740,32 +759,26 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         }
         let browser = SKPhotoBrowser(photos: images)
         browser.delegate = self
-        browser.view.addSubview(photoAttributionTextView!)
+        browser.view.addSubview(photoAttributionTextView)
         browser.initializePageIndex(pageIndex)
         present(browser, animated: true, completion: {
             if self.imagePool[pageIndex].htmlAttributions.count > 0 {
-                self.photoAttributionTextView!.attributedText = self.imagePool[pageIndex].htmlAttributions[0].attributedStringFromHTML()
-                self.photoAttributionTextView!.textAlignment = .center
-                self.photoAttributionTextView!.font = .systemFont(ofSize: 16)
+                self.photoAttributionTextView.attributedText = self.imagePool[pageIndex].htmlAttributions[0].attributedStringFromHTML()
+                self.photoAttributionTextView.textAlignment = .center
+                self.photoAttributionTextView.font = .systemFont(ofSize: 16)
             } else {
-                self.photoAttributionTextView!.attributedText = nil
+                self.photoAttributionTextView.attributedText = nil
             }
         })
     }
     
-    // MARK: RestaurantRecommendedDishDelegate
-    
-    func showAllRecommendedDishes() {
-        performSegue(withIdentifier: "showAllRecommendedDishes", sender: nil)
-    }
-    
     func didScrollToIndex(_ index: Int) {
         if self.imagePool[index].htmlAttributions.count > 0 {
-            self.photoAttributionTextView!.attributedText = self.imagePool[index].htmlAttributions[0].attributedStringFromHTML()
-            self.photoAttributionTextView!.textAlignment = .center
-            self.photoAttributionTextView!.font = .systemFont(ofSize: 16)
+            self.photoAttributionTextView.attributedText = self.imagePool[index].htmlAttributions[0].attributedStringFromHTML()
+            self.photoAttributionTextView.textAlignment = .center
+            self.photoAttributionTextView.font = .systemFont(ofSize: 16)
         } else {
-            self.photoAttributionTextView!.attributedText = nil
+            self.photoAttributionTextView.attributedText = nil
         }
     }
     
@@ -777,8 +790,13 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             alpha = 1
         }
         UIView.animate(withDuration: 0.2) {
-            self.photoAttributionTextView!.alpha = alpha!
+            self.photoAttributionTextView.alpha = alpha!
         }
     }
     
+    // MARK: RestaurantRecommendedDishDelegate
+    
+    func showAllRecommendedDishes() {
+        performSegue(withIdentifier: "showAllRecommendedDishes", sender: nil)
+    }
 }

@@ -182,6 +182,7 @@
 		CA203E291C111EEA00D6F32C /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039C81BC3471400183AC2 /* Parse.framework */; };
 		CA203E2A1C111EEA00D6F32C /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039C91BC3471400183AC2 /* ParseCrashReporting.framework */; };
 		CA203E2B1C111EEA00D6F32C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039C71BC3471400183AC2 /* Bolts.framework */; };
+		CA243DAD1F632A8800EE9DE9 /* LoadingViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA243DAC1F632A8800EE9DE9 /* LoadingViewUtil.swift */; };
 		CA2E599E1F059CC8004B4BDC /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2E599D1F059CC8004B4BDC /* Global.swift */; };
 		CA44A56B1F4C07C9002FEF7F /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA44A56A1F4C07C9002FEF7F /* ImageUtil.swift */; };
 		CA44A56F1F4CE6FD002FEF7F /* UpdateRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA44A56E1F4CE6FD002FEF7F /* UpdateRestaurantViewController.swift */; };
@@ -466,6 +467,7 @@
 		C4F039E31BC347C100183AC2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		CA0F3F0C1F450E8700DA77B7 /* OpenEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenEnum.swift; sourceTree = "<group>"; };
 		CA203E4D1C111EEA00D6F32C /* 吃饭英雄-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "吃饭英雄-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA243DAC1F632A8800EE9DE9 /* LoadingViewUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewUtil.swift; sourceTree = "<group>"; };
 		CA2E599D1F059CC8004B4BDC /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		CA44A56A1F4C07C9002FEF7F /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		CA44A56E1F4CE6FD002FEF7F /* UpdateRestaurantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRestaurantViewController.swift; sourceTree = "<group>"; };
@@ -828,8 +830,8 @@
 			isa = PBXGroup;
 			children = (
 				C4A597731F5D21B9005DF124 /* ErrorCode.swift */,
-				8E88CBB32FF374C7C0751E25 /* Search */,
 				8E88CA6A3CA4968729760460 /* Response.swift */,
+				8E88CBB32FF374C7C0751E25 /* Search */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -954,6 +956,7 @@
 				CA2E599D1F059CC8004B4BDC /* Global.swift */,
 				CA44A56A1F4C07C9002FEF7F /* ImageUtil.swift */,
 				CA44A5701F4F49F4002FEF7F /* UrlUtil.swift */,
+				CA243DAC1F632A8800EE9DE9 /* LoadingViewUtil.swift */,
 				8E88C8160D4ED2B7594FDB3D /* OperationQueue */,
 			);
 			path = Util;
@@ -2038,6 +2041,7 @@
 				8E88C09AFDAA5348F3334484 /* StringUtil.swift in Sources */,
 				8E88CDA4187E1A978D1DB2B9 /* TrackingUtil.swift in Sources */,
 				8E88C37A5757FBF662F4FF01 /* StringExtension.swift in Sources */,
+				CA243DAD1F632A8800EE9DE9 /* LoadingViewUtil.swift in Sources */,
 				8E88CDD943BACE6B1A227CBC /* ChifanHeroColor.swift in Sources */,
 				8E88C9D102FEDB8E4335DEDB /* PositionConverter.swift in Sources */,
 				CA0F3F0D1F450E8700DA77B7 /* OpenEnum.swift in Sources */,
