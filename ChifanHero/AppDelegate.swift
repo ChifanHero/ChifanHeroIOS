@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     let locationManager = CLLocationManager()
     
-    var application: UIApplication?
+    var application: UIApplication!
     var launchOptions: [AnyHashable: Any]?
     
     var isAppInForeground = false
@@ -172,16 +172,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         saveNotifications(title: title, body: body)
     }
     
+    
     private func setBadgeValue() {
+        application.applicationIconBadgeNumber = 0
+        
+        // TODO need badge for notification if the future
+        /*
         let badgeValue = countUnreadNotifications()
         if badgeValue > 0 {
             UIApplication.shared.applicationIconBadgeNumber = badgeValue;
         } else {
             UIApplication.shared.applicationIconBadgeNumber = 0;
         }
+        */
 
     }
     
+ 
     private func handleNotification(_ notification : [AnyHashable: Any]) {
         print(notification)
         let aps = notification["aps"] as? NSDictionary
@@ -193,7 +200,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let save = parameter["save"] as! Int
             if save == 1 {
                 saveNotifications(title: title, body: body)
-                if application!.applicationState != UIApplicationState.active {
+                if application.applicationState != UIApplicationState.active {
                     let tabBarController : UITabBarController = self.window!.rootViewController as! UITabBarController
                     let splitViewController : UISplitViewController = tabBarController.viewControllers![3] as! UISplitViewController
                     tabBarController.selectedViewController = splitViewController
@@ -276,13 +283,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func registerForPushNotifications() {
         // Register for Push Notitications
-        if application!.responds(to: #selector(UIApplication.registerUserNotificationSettings(_:))) {
+        if application.responds(to: #selector(UIApplication.registerUserNotificationSettings(_:))) {
             //view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
             let settings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
-            application!.registerUserNotificationSettings(settings)
-            application!.registerForRemoteNotifications()
+            application.registerUserNotificationSettings(settings)
+            application.registerForRemoteNotifications()
         } else {
-            application!.registerForRemoteNotifications()
+            application.registerForRemoteNotifications()
         }
     }
     
