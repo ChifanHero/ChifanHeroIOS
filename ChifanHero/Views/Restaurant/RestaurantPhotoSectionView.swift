@@ -45,11 +45,11 @@ class RestaurantPhotoSectionView: UIView, UICollectionViewDelegate, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: RestaurantImagePoolCollectionViewCell? = imagePoolView.dequeueReusableCell(withReuseIdentifier: "restaurantImagePoolCell", for: indexPath) as? RestaurantImagePoolCollectionViewCell
+        let cell = imagePoolView.dequeueReusableCell(withReuseIdentifier: "restaurantImagePoolCell", for: indexPath) as! RestaurantImagePoolCollectionViewCell
         
         // Configure the cell
-        cell!.setUp(image: imagePoolContent[indexPath.row].image!)
-        return cell!
+        cell.setUp(image: imagePoolContent[indexPath.row].image!)
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
