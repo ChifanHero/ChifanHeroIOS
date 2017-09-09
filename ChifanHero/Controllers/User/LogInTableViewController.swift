@@ -69,8 +69,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func showSignUp(){
-//        performSegue(withIdentifier: "signUp", sender: nil)
-        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "此版本为测试版本，暂时不接受用户注册", target: self, buttonAction: #selector(dismissAlert))
+        performSegue(withIdentifier: "signUp", sender: nil)
+//        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "此版本为测试版本，暂时不接受用户注册", target: self, buttonAction: #selector(dismissAlert))
     }
     
     func configureLoginButton(){

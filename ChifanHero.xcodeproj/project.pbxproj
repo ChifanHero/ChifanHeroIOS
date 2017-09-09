@@ -166,6 +166,8 @@
 		C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */; };
 		C4A597741F5D21B9005DF124 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597731F5D21B9005DF124 /* ErrorCode.swift */; };
 		C4A597761F62562C005DF124 /* RetryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597751F62562C005DF124 /* RetryButton.swift */; };
+		C4A597781F63BBFA005DF124 /* ForgotPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597771F63BBFA005DF124 /* ForgotPasswordTableViewController.swift */; };
+		C4A5977A1F63CAAA005DF124 /* ChangePasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597791F63CAAA005DF124 /* ChangePasswordTableViewController.swift */; };
 		CA0F3F0D1F450E8700DA77B7 /* OpenEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F3F0C1F450E8700DA77B7 /* OpenEnum.swift */; };
 		CA203DE71C111EEA00D6F32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */; };
 		CA203E1D1C111EEA00D6F32C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039E31BC347C100183AC2 /* libz.tbd */; };
@@ -451,6 +453,8 @@
 		C47A1C491C7DDF7B00E0DF3A /* Lightning.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lightning.xcdatamodel; sourceTree = "<group>"; };
 		C4A597731F5D21B9005DF124 /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		C4A597751F62562C005DF124 /* RetryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryButton.swift; sourceTree = "<group>"; };
+		C4A597771F63BBFA005DF124 /* ForgotPasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordTableViewController.swift; sourceTree = "<group>"; };
+		C4A597791F63CAAA005DF124 /* ChangePasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewController.swift; sourceTree = "<group>"; };
 		C4F039C71BC3471400183AC2 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		C4F039C81BC3471400183AC2 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		C4F039C91BC3471400183AC2 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -724,6 +728,8 @@
 				8E88CBE31254E5F98EACE5E0 /* AboutMeTableViewController.swift */,
 				8E88CC360E6FBD1BE69BA7F1 /* NotificationDetailViewController.swift */,
 				8E88C248B4D75B91FF8BADEC /* NotificationTableViewController.swift */,
+				C4A597771F63BBFA005DF124 /* ForgotPasswordTableViewController.swift */,
+				C4A597791F63CAAA005DF124 /* ChangePasswordTableViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1913,11 +1919,13 @@
 				8E88CD0C3C692E2779E43D6E /* RatingAndBookmarkExecutor.swift in Sources */,
 				8E88CC141031B998307A2875 /* RatingStarTableViewCell.swift in Sources */,
 				CACC22AB1EB2B26700FC353E /* ImageGalleryViewDataSource.swift in Sources */,
+				C4A597781F63BBFA005DF124 /* ForgotPasswordTableViewController.swift in Sources */,
 				CACC22A81EB2B26700FC353E /* ImageGalleryLayout.swift in Sources */,
 				CA44A56F1F4CE6FD002FEF7F /* UpdateRestaurantViewController.swift in Sources */,
 				CACC229E1EB2B26700FC353E /* AssetManager.swift in Sources */,
 				CACC22E61EB2B3A900FC353E /* DKAssetGroupCellItemProtocol.swift in Sources */,
 				8E88C3BDED10BB5ECCDD598D /* RemovablePhotoCollectionViewCell.swift in Sources */,
+				C4A5977A1F63CAAA005DF124 /* ChangePasswordTableViewController.swift in Sources */,
 				8E88C24758E719B4C9838795 /* RestaurantCollectionMemberTableViewCell.swift in Sources */,
 				CACC22E41EB2B3A900FC353E /* DKPopoverViewController.swift in Sources */,
 				8E88CB3A573A572978E5801E /* UserUploadedImageCollectionViewCell.swift in Sources */,
