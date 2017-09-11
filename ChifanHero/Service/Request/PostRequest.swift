@@ -46,6 +46,7 @@ class LoginRequest: AccountRequest {
         var parameters = Dictionary<String, String>()
         parameters["username"] = username
         parameters["password"] = password
+        parameters["email"] = email
         return parameters as [String : AnyObject]
     }
 
@@ -123,7 +124,6 @@ class UpdateInfoRequest: AccountRequest{
 
     var nickName: String?
     var pictureId: String?
-    var email: String?
 
     override func getRequestBody() -> [String : AnyObject] {
         var parameters = Dictionary<String, String>()

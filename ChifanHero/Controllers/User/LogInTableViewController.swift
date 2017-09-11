@@ -69,8 +69,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func showSignUp(){
-//        performSegue(withIdentifier: "signUp", sender: nil)
-        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "此版本为测试版本，暂时不接受用户注册", target: self, buttonAction: #selector(dismissAlert))
+        performSegue(withIdentifier: "signUp", sender: nil)
+//        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "此版本为测试版本，暂时不接受用户注册", target: self, buttonAction: #selector(dismissAlert))
     }
     
     func configureLoginButton(){
@@ -127,7 +127,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameTextField {
             if let username = textField.text {
-                if username.characters.count > 0 && username.contains("@") == true{
+                if username.characters.count > 0 {
                     textField.resignFirstResponder()
                     passwordTextField.becomeFirstResponder()
                     return true
@@ -184,7 +184,13 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func normalLoginEvent() {
-        logIn(username: usernameTextField.text, password: passwordTextField.text)
+        if let usernameOrEmail = usernameTextField.text {
+            if EmailUtil.isValidEmail(email: usernameOrEmail) {
+                logIn(username: nil, email: usernameOrEmail, password: passwordTextField.text)
+            } else {
+                logIn(username: usernameOrEmail, email: nil, password: passwordTextField.text)
+            }
+        }
     }
     
     func quickSignUpEvent() {
@@ -245,9 +251,9 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
-    func logIn(username: String?, password: String?) {
+    func logIn(username: String?, email: String?, password: String?) {
         
-        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, password: password) { (response) -> Void in
+        AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, email: email, password: password) { (response) -> Void in
             OperationQueue.main.addOperation({ () -> Void in
                 let seconds = 2.0
                 let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds

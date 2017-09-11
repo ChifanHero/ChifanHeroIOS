@@ -9,7 +9,7 @@
 import UIKit
 import Flurry_iOS_SDK
 
-class NickNameChangeViewController: UITableViewController, UITextFieldDelegate {
+class ChangeNicknameTableViewController: UITableViewController, UITextFieldDelegate {
     
     var nickName : String?
 

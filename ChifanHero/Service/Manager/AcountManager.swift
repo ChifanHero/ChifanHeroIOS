@@ -273,10 +273,11 @@ class AccountManager {
         self.callApi(request, afterSuccess: self.saveUser, responseHandler: responseHandler)
     }
     
-    func logIn(username: String?, password: String?, responseHandler: @escaping (LoginResponse?) -> Void) {
+    func logIn(username: String?, email: String?, password: String?, responseHandler: @escaping (LoginResponse?) -> Void) {
         
         let request = LoginRequest()
         request.username = username
+        request.email = email
         request.password = password
         
         self.callApi(request, afterSuccess: self.saveUser, responseHandler: responseHandler)

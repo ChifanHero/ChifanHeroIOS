@@ -214,7 +214,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          if segue.identifier == "showNickNameChange" {
-            let destinationVC = segue.destination as! NickNameChangeViewController
+            let destinationVC = segue.destination as! ChangeNicknameTableViewController
             destinationVC.nickName = self.nickNameLabel.text
         }
     }
