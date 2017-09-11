@@ -168,6 +168,8 @@
 		C4A597761F62562C005DF124 /* RetryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597751F62562C005DF124 /* RetryButton.swift */; };
 		C4A597781F63BBFA005DF124 /* ForgotPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597771F63BBFA005DF124 /* ForgotPasswordTableViewController.swift */; };
 		C4A5977A1F63CAAA005DF124 /* ChangePasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597791F63CAAA005DF124 /* ChangePasswordTableViewController.swift */; };
+		C4A5977C1F65136E005DF124 /* AssociateEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A5977B1F65136E005DF124 /* AssociateEmailTableViewController.swift */; };
+		C4A5977E1F6514D1005DF124 /* EmailUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A5977D1F6514D1005DF124 /* EmailUtil.swift */; };
 		CA0F3F0D1F450E8700DA77B7 /* OpenEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F3F0C1F450E8700DA77B7 /* OpenEnum.swift */; };
 		CA203DE71C111EEA00D6F32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */; };
 		CA203E1D1C111EEA00D6F32C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039E31BC347C100183AC2 /* libz.tbd */; };
@@ -455,6 +457,8 @@
 		C4A597751F62562C005DF124 /* RetryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryButton.swift; sourceTree = "<group>"; };
 		C4A597771F63BBFA005DF124 /* ForgotPasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordTableViewController.swift; sourceTree = "<group>"; };
 		C4A597791F63CAAA005DF124 /* ChangePasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewController.swift; sourceTree = "<group>"; };
+		C4A5977B1F65136E005DF124 /* AssociateEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateEmailTableViewController.swift; sourceTree = "<group>"; };
+		C4A5977D1F6514D1005DF124 /* EmailUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailUtil.swift; sourceTree = "<group>"; };
 		C4F039C71BC3471400183AC2 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		C4F039C81BC3471400183AC2 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		C4F039C91BC3471400183AC2 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -730,6 +734,7 @@
 				8E88C248B4D75B91FF8BADEC /* NotificationTableViewController.swift */,
 				C4A597771F63BBFA005DF124 /* ForgotPasswordTableViewController.swift */,
 				C4A597791F63CAAA005DF124 /* ChangePasswordTableViewController.swift */,
+				C4A5977B1F65136E005DF124 /* AssociateEmailTableViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -963,6 +968,7 @@
 				CA44A56A1F4C07C9002FEF7F /* ImageUtil.swift */,
 				CA44A5701F4F49F4002FEF7F /* UrlUtil.swift */,
 				CA243DAC1F632A8800EE9DE9 /* LoadingViewUtil.swift */,
+				C4A5977D1F6514D1005DF124 /* EmailUtil.swift */,
 				8E88C8160D4ED2B7594FDB3D /* OperationQueue */,
 			);
 			path = Util;
@@ -1945,6 +1951,7 @@
 				CACC22E31EB2B3A900FC353E /* DKImageResource.swift in Sources */,
 				8E88C33180B7528405BCFF77 /* FloatingButton.swift in Sources */,
 				CACC229F1EB2B26700FC353E /* BottomContainerView.swift in Sources */,
+				C4A5977C1F65136E005DF124 /* AssociateEmailTableViewController.swift in Sources */,
 				8E88C7AAF37E77E818607EA1 /* FloatingMenuController.swift in Sources */,
 				8E88C267B3496FE7D570535A /* ExpandingCellTransition.swift in Sources */,
 				8E88C25CB1EEE111EFE4E129 /* PullToRefreshControl.swift in Sources */,
@@ -2062,6 +2069,7 @@
 				8E88C550FF00FD0C86F73B28 /* City.swift in Sources */,
 				8E88C18464D578FCE2823EAB /* State.swift in Sources */,
 				8E88C06772ED6BAFE3D5AF1F /* Location.swift in Sources */,
+				C4A5977E1F6514D1005DF124 /* EmailUtil.swift in Sources */,
 				8E88C45168E42A37F84C490C /* OutputParams.swift in Sources */,
 				8E88CFEE9111B8C29CACEC54 /* Range.swift in Sources */,
 				8E88C8AA101E929AA18F5E32 /* Distance.swift in Sources */,

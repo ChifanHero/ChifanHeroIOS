@@ -1,22 +1,25 @@
 //
-//  ForgotPasswordTableViewController.swift
+//  AssociateEmailTableViewController.swift
 //  ChifanHero
 //
-//  Created by Shi Yan on 9/8/17.
+//  Created by Shi Yan on 9/9/17.
 //  Copyright © 2017 Lightning. All rights reserved.
 //
 
 import UIKit
 
-class ForgotPasswordTableViewController: UITableViewController, UITextFieldDelegate {
-
+class AssociateEmailTableViewController: UITableViewController, UITextFieldDelegate {
+    
     @IBOutlet weak var emailTextField: UITextField!
     
     var sendButton: RetryButton?
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to preserve selection between presentations
+         self.clearsSelectionOnViewWillAppear = false
         emailTextField.delegate = self
         self.configureButton()
     }
@@ -26,16 +29,29 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
         // Dispose of any resources that can be recreated.
     }
 
-    
     func configureButton() {
         sendButton = RetryButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 100, width: self.view.frame.width * 0.8, height: 40))
         sendButton!.setCountdown(enabled: true, seconds: 10)
         sendButton!.setNormalState(text: "发送", color: nil, size: nil, backgroundColor: nil)
         sendButton!.setWaitingState(text: "已发送。如未收到邮件请重新发送", color: nil, size: nil, backgroundColor: nil)
         sendButton!.touchDownEvent = {
-            self.resetPassword()
+            self.updateEmail()
         }
         self.view.addSubview(sendButton!)
+    }
+    
+    func updateEmail() {
+        if let email = emailTextField.text {
+            if (EmailUtil.isValidEmail(email: email)) {
+                AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: nil, email: emailTextField.text, username: nil, responseHandler: { (response) in
+                    if response?.success != nil && response?.success == true {
+                        self.sendButton?.startWaiting()
+                    } else {
+                        AlertUtil.showErrorAlert(errorCode: response?.error?.code)
+                    }
+                })
+            }
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -45,22 +61,6 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
             }
         }
         return true
-    }
-    
-    private func resetPassword() {
-        if let email = emailTextField.text {
-            if (EmailUtil.isValidEmail(email: email)) {
-                let resetPasswordRequest: ResetPasswordRequest = ResetPasswordRequest()
-                resetPasswordRequest.email = email
-                AccountManager(serviceConfiguration: ParseConfiguration()).resetPassword(resetPasswordRequest, responseHandler: { (response) in
-                    if response?.success != nil && response?.success == true {
-                        self.sendButton?.startWaiting()
-                    } else {
-                        AlertUtil.showErrorAlert(errorCode: response?.error?.code)
-                    }
-                })
-            }
-        }
     }
 
     /*

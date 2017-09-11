@@ -11,4 +11,5 @@ import Foundation
 class AccountRequest: HttpRequest{
     var username: String?
     var password: String?
+    var email: String?
 }
