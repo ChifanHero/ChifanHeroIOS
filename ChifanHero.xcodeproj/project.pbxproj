@@ -170,6 +170,7 @@
 		C4A5977A1F63CAAA005DF124 /* ChangePasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597791F63CAAA005DF124 /* ChangePasswordTableViewController.swift */; };
 		C4A5977C1F65136E005DF124 /* AssociateEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A5977B1F65136E005DF124 /* AssociateEmailTableViewController.swift */; };
 		C4A5977E1F6514D1005DF124 /* EmailUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A5977D1F6514D1005DF124 /* EmailUtil.swift */; };
+		C4A597801F665A49005DF124 /* ChangeUsernameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A5977F1F665A49005DF124 /* ChangeUsernameTableViewController.swift */; };
 		CA0F3F0D1F450E8700DA77B7 /* OpenEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F3F0C1F450E8700DA77B7 /* OpenEnum.swift */; };
 		CA203DE71C111EEA00D6F32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BC31B69EF2D0035C5A6 /* AppDelegate.swift */; };
 		CA203E1D1C111EEA00D6F32C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F039E31BC347C100183AC2 /* libz.tbd */; };
@@ -208,7 +209,7 @@
 		CA9435861ECBCD9100F7EB0D /* RestaurantRecommendedDishSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9435851ECBCD9100F7EB0D /* RestaurantRecommendedDishSectionView.swift */; };
 		CAB450F61EFC8358002D8E45 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB450F51EFC8358002D8E45 /* Reachability.swift */; };
 		CAB450F81EFC8679002D8E45 /* AutoNetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB450F71EFC8679002D8E45 /* AutoNetworkCheck.swift */; };
-		CACC227A1EB2AF7900FC353E /* NickNameChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22791EB2AF7900FC353E /* NickNameChangeViewController.swift */; };
+		CACC227A1EB2AF7900FC353E /* ChangeNicknameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22791EB2AF7900FC353E /* ChangeNicknameTableViewController.swift */; };
 		CACC22841EB2B24B00FC353E /* TRMosaicColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22801EB2B24B00FC353E /* TRMosaicColumn.swift */; };
 		CACC22851EB2B24B00FC353E /* TRMosaicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22811EB2B24B00FC353E /* TRMosaicLayout.swift */; };
 		CACC229E1EB2B26700FC353E /* AssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC22871EB2B26700FC353E /* AssetManager.swift */; };
@@ -459,6 +460,7 @@
 		C4A597791F63CAAA005DF124 /* ChangePasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewController.swift; sourceTree = "<group>"; };
 		C4A5977B1F65136E005DF124 /* AssociateEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateEmailTableViewController.swift; sourceTree = "<group>"; };
 		C4A5977D1F6514D1005DF124 /* EmailUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailUtil.swift; sourceTree = "<group>"; };
+		C4A5977F1F665A49005DF124 /* ChangeUsernameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeUsernameTableViewController.swift; sourceTree = "<group>"; };
 		C4F039C71BC3471400183AC2 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		C4F039C81BC3471400183AC2 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		C4F039C91BC3471400183AC2 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -497,7 +499,7 @@
 		CA9435851ECBCD9100F7EB0D /* RestaurantRecommendedDishSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantRecommendedDishSectionView.swift; sourceTree = "<group>"; };
 		CAB450F51EFC8358002D8E45 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		CAB450F71EFC8679002D8E45 /* AutoNetworkCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoNetworkCheck.swift; sourceTree = "<group>"; };
-		CACC22791EB2AF7900FC353E /* NickNameChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameChangeViewController.swift; sourceTree = "<group>"; };
+		CACC22791EB2AF7900FC353E /* ChangeNicknameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeNicknameTableViewController.swift; sourceTree = "<group>"; };
 		CACC227D1EB2B24B00FC353E /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		CACC227F1EB2B24B00FC353E /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		CACC22801EB2B24B00FC353E /* TRMosaicColumn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TRMosaicColumn.swift; sourceTree = "<group>"; };
@@ -726,7 +728,7 @@
 		8E88C17026E279719067FEC9 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				CACC22791EB2AF7900FC353E /* NickNameChangeViewController.swift */,
+				CACC22791EB2AF7900FC353E /* ChangeNicknameTableViewController.swift */,
 				8E88CA1C1E4BFB1579229985 /* SignUpTableViewController.swift */,
 				8E88C203710B02AAA78899E3 /* LogInTableViewController.swift */,
 				8E88CBE31254E5F98EACE5E0 /* AboutMeTableViewController.swift */,
@@ -735,6 +737,7 @@
 				C4A597771F63BBFA005DF124 /* ForgotPasswordTableViewController.swift */,
 				C4A597791F63CAAA005DF124 /* ChangePasswordTableViewController.swift */,
 				C4A5977B1F65136E005DF124 /* AssociateEmailTableViewController.swift */,
+				C4A5977F1F665A49005DF124 /* ChangeUsernameTableViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1901,7 +1904,7 @@
 				CACC22EA1EB2B3A900FC353E /* DKAssetGroupDetailVideoCell.swift in Sources */,
 				CACC22A01EB2B26700FC353E /* ButtonPicker.swift in Sources */,
 				CACC22A21EB2B26700FC353E /* StackView.swift in Sources */,
-				CACC227A1EB2AF7900FC353E /* NickNameChangeViewController.swift in Sources */,
+				CACC227A1EB2AF7900FC353E /* ChangeNicknameTableViewController.swift in Sources */,
 				CACC22DF1EB2B3A900FC353E /* DKImageManager.swift in Sources */,
 				CACC22A11EB2B26700FC353E /* ImageStack.swift in Sources */,
 				CACC22DC1EB2B3A900FC353E /* DKGroupDataManager.swift in Sources */,
@@ -1956,6 +1959,7 @@
 				8E88C267B3496FE7D570535A /* ExpandingCellTransition.swift in Sources */,
 				8E88C25CB1EEE111EFE4E129 /* PullToRefreshControl.swift in Sources */,
 				CA44A56B1F4C07C9002FEF7F /* ImageUtil.swift in Sources */,
+				C4A597801F665A49005DF124 /* ChangeUsernameTableViewController.swift in Sources */,
 				8E88CD6F77A0AC4864403105 /* ARNImageTransitionIdentifiable.swift in Sources */,
 				8E88C989846CADF5FACFE7F5 /* UIColor+FloatingMenu.swift in Sources */,
 				8E88C4F164C2363CF346B789 /* NVActivityIndicatorView.swift in Sources */,
