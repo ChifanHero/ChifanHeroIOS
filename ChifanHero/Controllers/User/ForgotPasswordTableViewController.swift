@@ -38,6 +38,7 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
         self.view.addSubview(sendButton!)
     }
     
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let email = textField.text {
             if EmailUtil.isValidEmail(email: email) {
@@ -56,11 +57,16 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
                     if response?.success != nil && response?.success == true {
                         self.sendButton?.startWaiting()
                     } else {
-                        AlertUtil.showErrorAlert(errorCode: response?.error?.code)
+                        AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
                     }
                 })
             }
         }
+    }
+    
+        
+    func doNothing() {
+        
     }
 
     /*

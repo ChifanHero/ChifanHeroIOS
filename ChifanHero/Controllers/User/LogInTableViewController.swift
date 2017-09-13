@@ -268,7 +268,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                         if response!.success != nil && response!.success! == true {
                             self.replaceLoginViewByAboutMeView()
                         } else {
-                            self.showErrorMessage(title: "登录失败", subTitle: "用户名或密码错误")
+                            AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
                         }
                     }
                     
@@ -291,17 +291,11 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                     if response == nil {
                         self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
                     } else {
+                        self.rememberDefaultPassword(defaultPassword: response?.user?.password)
                         if response!.success != nil && response!.success! == true {
                             self.replaceLoginViewByAboutMeView()
                         } else {
-                            if let errorCode = response?.error?.code {
-                                if errorCode == ErrorCode.NEW_ACCOUNT_NOT_AVAILABLE {
-                                    self.showErrorMessage(title: "登录失败", subTitle: "对不起，没有更多临时账户了。下个版本将开放用户注册。")
-                                }
-                            } else {
-                                self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
-                            }
-                            
+                            AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.dismissAlert))
                         }
                     }
                     
@@ -309,6 +303,11 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                 
             })
         }
+    }
+    
+    func rememberDefaultPassword(defaultPassword: String?) {
+        let defaults: UserDefaults = UserDefaults.standard
+        defaults.set(defaultPassword, forKey: "defaultPassword")
     }
     
     func showErrorMessage(title: String, subTitle: String) {
@@ -329,6 +328,10 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
             let signUpTableViewController: SignUpTableViewController = segue.destination as! SignUpTableViewController
             signUpTableViewController.loginViewController = self;
         }
+    }
+    
+    func doNothing() {
+        
     }
     
     

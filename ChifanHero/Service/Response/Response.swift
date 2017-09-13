@@ -248,6 +248,7 @@ class LoginResponse: AccountResponse {
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
         self.user = User(data: data["user"])
+        self.error = Error(data: data["error"])
     }
 }
 
@@ -455,6 +456,7 @@ class ChangePasswordResponse: AccountResponse {
     
     required init(data: JSON) {
         super.init(data: data)
+        self.error = Error(data: data["error"])
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
     }

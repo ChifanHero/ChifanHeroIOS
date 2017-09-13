@@ -19,19 +19,54 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
     
     @IBOutlet weak var passwordHintsContainer: UIStackView!
     
+    var isUsingDefaultPassword: Bool = false
+    
+    @IBOutlet weak var checkmarkImageOne: UIImageView!
+    @IBOutlet weak var checkmarkImageTwo: UIImageView!
+    @IBOutlet weak var checkmarkImageThree: UIImageView!
+    @IBOutlet weak var checkmarkImageFour: UIImageView!
+    
+    // rule1: contains uppercase
+    // rule2: contains lowercase
+    // rule3: contains number
+    // rule4: at least 8 characters
+    var rule1 = false
+    var rule2 = false
+    var rule3 = false
+    var rule4 = false
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.clearsSelectionOnViewWillAppear = false
+        
         oldPasswordTextField.delegate = self
         newPasswordTextField.delegate = self
         newPasswordConfirmationTextField.delegate = self
         passwordHintsContainer.isHidden = true
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        newPasswordTextField.addTarget(self, action: #selector(ChangePasswordTableViewController.didChangeText(_:)), for: .editingChanged)
+        
+        let defaultPassword = getDefaultPassword()
+        if (isUsingDefaultPassword && defaultPassword != nil) {
+            oldPasswordTextField.isUserInteractionEnabled = false
+            oldPasswordTextField.text = "您的系统生成密码为: " + defaultPassword! + "。 请尽快修改"
+            oldPasswordTextField.isSecureTextEntry = false
+        }
+        
+         configureCheckMarkImage()
+    }
+    
+    private func configureCheckMarkImage(){
+        self.view.layoutIfNeeded()
+        checkmarkImageOne.renderColorChangableImage(UIImage(named: "CheckMark.png")!, fillColor: UIColor.green)
+        checkmarkImageOne.isHidden = true
+        checkmarkImageTwo.renderColorChangableImage(UIImage(named: "CheckMark.png")!, fillColor: UIColor.green)
+        checkmarkImageTwo.isHidden = true
+        checkmarkImageThree.renderColorChangableImage(UIImage(named: "CheckMark.png")!, fillColor: UIColor.green)
+        checkmarkImageThree.isHidden = true
+        checkmarkImageFour.renderColorChangableImage(UIImage(named: "CheckMark.png")!, fillColor: UIColor.green)
+        checkmarkImageFour.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,6 +81,117 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
             passwordHintsContainer.isHidden = true
         }
     }
+    
+    func didChangeText(_ textField:UITextField) {
+        validatePassword(textField.text!)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == oldPasswordTextField {
+            textField.resignFirstResponder()
+            newPasswordTextField.becomeFirstResponder()
+            return true
+        } else if textField == newPasswordTextField {
+            if isValidPassword() {
+                textField.resignFirstResponder()
+                newPasswordConfirmationTextField.becomeFirstResponder()
+                return true
+            } else {
+                return false
+            }
+        } else if textField == newPasswordConfirmationTextField {
+            if oldPasswordTextField.text != nil && isValidPassword() && textField.text == newPasswordTextField.text {
+                textField.resignFirstResponder()
+                if isUsingDefaultPassword {
+                    changePassword(oldPassword: getDefaultPassword(), newPassword: newPasswordTextField.text)
+                } else {
+                    changePassword(oldPassword: oldPasswordTextField.text, newPassword: newPasswordTextField.text)
+                }
+                
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
+        }
+    }
+    
+    private func getDefaultPassword() -> String? {
+        let defaults = UserDefaults.standard
+        return defaults.string(forKey: "defaultPassword")
+    }
+    
+    private func isValidPassword() -> Bool {
+        return rule1 && rule2 && rule3 && rule4
+    }
+    
+    private func changePassword(oldPassword: String?, newPassword: String?) {
+        AccountManager(serviceConfiguration: ParseConfiguration()).changePassword(oldPassword: oldPassword, newPassword: newPassword) { (response) in
+            if let errorCode = response?.error?.code {
+                AlertUtil.showErrorAlert(errorCode: errorCode, target: self, buttonAction: #selector(self.doNothing))
+            } else if response?.success != nil && response?.success == true{
+                AlertUtil.showAlertView(buttonText: "完成", infoTitle: "密码修改成功", infoSubTitle: "", target: self, buttonAction: #selector(self.doNothing))
+            } else {
+                AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "未知错误", infoSubTitle: "很抱歉给您带来不便，我们会尽快修复", target: self, buttonAction: #selector(self.doNothing))
+            }
+        }
+    }
+    
+    func doNothing() {
+        
+    }
+    
+    private func validatePassword(_ password: String){
+        // rule1: contains uppercase
+        // rule2: contains lowercase
+        // rule3: contains number
+        // rule4: at least 8 characters
+        
+        do {
+            var regex = try NSRegularExpression(pattern: "^(?=.*[A-Z])", options: NSRegularExpression.Options.allowCommentsAndWhitespace)
+            var count = regex.numberOfMatches(in: password, options: NSRegularExpression.MatchingOptions.withTransparentBounds, range: NSRange())
+            if count > 0 {
+                checkmarkImageOne.isHidden = false
+                rule1 = true
+            } else {
+                checkmarkImageOne.isHidden = true
+                rule1 = false
+            }
+            regex = try NSRegularExpression(pattern: "^(?=.*[a-z])", options: NSRegularExpression.Options.allowCommentsAndWhitespace)
+            count = regex.numberOfMatches(in: password, options: NSRegularExpression.MatchingOptions.withTransparentBounds, range: NSRange())
+            if count > 0 {
+                checkmarkImageTwo.isHidden = false
+                rule2 = true
+            } else {
+                checkmarkImageTwo.isHidden = true
+                rule2 = false
+            }
+            regex = try NSRegularExpression(pattern: "^(?=.*[0-9])", options: NSRegularExpression.Options.allowCommentsAndWhitespace)
+            count = regex.numberOfMatches(in: password, options: NSRegularExpression.MatchingOptions.withTransparentBounds, range: NSRange())
+            if count > 0 {
+                checkmarkImageThree.isHidden = false
+                rule3 = true
+            } else {
+                checkmarkImageThree.isHidden = true
+                rule3 = false
+            }
+            regex = try NSRegularExpression(pattern: "^(?=.{8,})", options: NSRegularExpression.Options.allowCommentsAndWhitespace)
+            count = regex.numberOfMatches(in: password, options: NSRegularExpression.MatchingOptions.withTransparentBounds, range: NSRange())
+            if count > 0 {
+                checkmarkImageFour.isHidden = false
+                rule4 = true
+            } else {
+                checkmarkImageFour.isHidden = true
+                rule4 = false
+            }
+        } catch {
+            print(error)
+        }
+        
+    }
+
+    
 
     // MARK: - Table view data source
 
