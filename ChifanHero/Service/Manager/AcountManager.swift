@@ -314,6 +314,8 @@ class AccountManager {
     
     func changePassword(oldPassword: String?, newPassword: String?, responseHandler: @escaping (ChangePasswordResponse?) -> Void) {
         let request: ChangePasswordRequest = ChangePasswordRequest()
+        request.oldPassword = oldPassword
+        request.newPassword = newPassword
         let defaults = UserDefaults.standard
         if defaults.string(forKey: "sessionToken") != nil {
             request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)

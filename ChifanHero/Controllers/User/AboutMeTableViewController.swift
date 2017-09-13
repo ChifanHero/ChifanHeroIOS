@@ -30,15 +30,16 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     let LOGOUT_ROW = 0
     
     // Flags
-    var isUsingDefaultUsername = true
-    var isUsingDefaultPasword = true
+    var isUsingDefaultUsername = false
+    var isUsingDefaultPasword = false
     var isEmailVerified = false
     var isUsingDefaultNickname = false
     
     // Facts
-    var nickName = "Debug NickName. Change me!"
-    var userName = "Debug UserName. Change me!"
-    var email = "Debug Email. Change me!"
+    var nickName: String?
+    var userName: String?
+    var email: String?
+    var defaultPassword: String?
     
 
     @IBOutlet weak var userImageView: UIImageView!
@@ -103,32 +104,32 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func loadMyInfo(){
-//        let defaults = UserDefaults.standard
-//        
-//        if let nickname = defaults.string(forKey: "userNickName"){
-//            nickNameLabel.text = nickname
-//        } else{
-//            nickNameLabel.text = "未设定"
-//        }
         if (!updatingUserInfo) {
             AccountManager(serviceConfiguration: ParseConfiguration()).getMyInfo { (response) in
-                if let errorCode = response?.error?.code, let errorMessage = response?.error?.message {
-                    
+                if let errorCode = response?.error?.code {
+                    AlertUtil.showErrorAlert(errorCode: errorCode, target: self, buttonAction: #selector(self.doNothing))
+                    if errorCode == ErrorCode.INVALID_SESSION_TOKEN {
+                        self.logOut()
+                    }
                 }
+                
                 if let user = response?.user {
                     if user.nickName != nil {
+                        self.nickName = user.nickName
                         self.nickNameLabel.text = user.nickName
                     } else {
                         self.nickNameLabel.text = "未指定昵称"
                     }
                     
                     if user.email != nil && user.emailVerified == true{
+                        self.email = user.email
                         self.emailLabel.text = user.email
                     } else {
                         self.emailLabel.text = "未绑定邮箱"
                     }
                     
                     if user.userName != nil {
+                        self.userName = user.userName
                         self.usernameLabel.text = user.userName
                     } else {
                         self.usernameLabel.text = "未指定用户名"
@@ -151,6 +152,8 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
                     } else {
                         self.isUsingDefaultUsername = false
                     }
+                    
+                    self.passwordLabel.text = "修改密码"
     
                     
                     if let userPicURL = user.picture?.thumbnail {
@@ -213,9 +216,20 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if segue.identifier == "showNickNameChange" {
+        if segue.identifier == "showNickNameChange" {
             let destinationVC = segue.destination as! ChangeNicknameTableViewController
-            destinationVC.nickName = self.nickNameLabel.text
+            destinationVC.nickName = nickName
+        } else if segue.identifier == "showUserNameChange" {
+            let destinationVC = segue.destination as! ChangeUsernameTableViewController
+            destinationVC.username = userName
+            
+        } else if segue.identifier == "showPassword" {
+            let destinationVC = segue.destination as! ChangePasswordTableViewController
+            if isUsingDefaultPasword {
+                destinationVC.isUsingDefaultPassword = true
+            }
+        } else {
+            // do nothing
         }
     }
     
@@ -294,7 +308,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
                                     self.userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
                                 }
                             } else {
-                                log.info("Update profile picture failed")
+                                AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
+                                if response?.error?.code != nil && response?.error?.code == ErrorCode.INVALID_SESSION_TOKEN {
+                                    self.logOut()
+                                }
                             }
                         })
                         
@@ -320,34 +337,37 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func getLogoutActionMessage() -> String {
-//        if () {
-//            
-//        }
-//        if () {
-//            
-//        }
-//        if () {
-//            
-//        }
-//        if () {
-//            
-//        }
-//        if () {
-//            
-//        }
-//        if () {
-//            
-//        }
-        // 000您仍然在使用临时用户名和密码且未绑定邮箱。请记住临时用户名和密码，否则退出后账户将永久丢失。
-        // 001您仍然在使用临时用户名和密码。再次登录时请使用邮箱和临时密码。如忘记临时密码，请通过密码找回重设密码
-        // 010您仍然在使用临时用户名且未绑定邮箱。请记住临时用户名，否则退出后账户将永久丢失
-        // 011您仍然在使用临时用户名。如忘记临时用户名可通过您的邮箱登录
-        // 110您仍未绑定邮箱，如忘记密码则将无法找回
-        // 111登出当前用户
-        return "登出当前用户"
+        if isUsingDefaultUsername && isUsingDefaultPasword && !isEmailVerified { //000
+            return "您仍然在使用临时用户名和密码且未绑定邮箱。请记住临时用户名和密码，否则退出后账户将永久丢失"
+        } else if isUsingDefaultUsername && isUsingDefaultPasword && isEmailVerified { //001
+            return "您仍然在使用临时用户名和密码。再次登录时请使用邮箱和临时密码。如忘记临时密码，请通过密码找回重设密码"
+        } else if isUsingDefaultUsername && !isUsingDefaultPasword && !isEmailVerified { //010
+            return "您仍然在使用临时用户名且未绑定邮箱。请记住临时用户名，否则退出后账户将永久丢失"
+        } else if isUsingDefaultUsername && !isUsingDefaultPasword && isEmailVerified {//011
+            return "您仍然在使用临时用户名。如忘记临时用户名可通过您的邮箱登录"
+        } else if !isUsingDefaultUsername && isUsingDefaultPasword && !isEmailVerified {//100
+            return "您仍未绑定邮箱且未修改临时密码。如忘记密码则将无法找回"
+        } else if !isUsingDefaultUsername && isUsingDefaultPasword && isEmailVerified { //101
+            return "您仍未修改临时密码。如忘记密码，请通过密码找回重设密码"
+        } else if !isUsingDefaultUsername && !isUsingDefaultPasword && !isEmailVerified { //110
+            return "您仍未绑定邮箱且未修改临时密码。如忘记密码则将无法找回"
+        } else {
+            return "登出当前用户"
+        }
+        
     }
     
     private func confirmLogOut(_ alertAction: UIAlertAction!) {
+        self.replaceAboutMeViewByLogInView()
+        AccountManager(serviceConfiguration: ParseConfiguration()).logOut() { (success) -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
+                // do nothing for now
+            })
+            
+        }
+    }
+    
+    private func logOut() {
         self.replaceAboutMeViewByLogInView()
         AccountManager(serviceConfiguration: ParseConfiguration()).logOut() { (success) -> Void in
             OperationQueue.main.addOperation({ () -> Void in
@@ -381,6 +401,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         let logInNC : UINavigationController = storyBoard.instantiateViewController(withIdentifier: "LogInNavigationController") as! UINavigationController
         logInNC.tabBarItem = UITabBarItem(title: "个人", image: UIImage(named: "Me_Tab"), tag: 4)
         return logInNC
+    }
+    
+    func doNothing() {
+        
     }
     
 

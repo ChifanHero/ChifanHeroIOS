@@ -47,7 +47,7 @@ class AssociateEmailTableViewController: UITableViewController, UITextFieldDeleg
                     if response?.success != nil && response?.success == true {
                         self.sendButton?.startWaiting()
                     } else {
-                        AlertUtil.showErrorAlert(errorCode: response?.error?.code)
+                        AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
                     }
                 })
             }
@@ -61,6 +61,10 @@ class AssociateEmailTableViewController: UITableViewController, UITextFieldDeleg
             }
         }
         return true
+    }
+    
+    func doNothing() {
+        
     }
 
     /*

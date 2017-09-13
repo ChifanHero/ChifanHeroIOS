@@ -26,7 +26,28 @@ class AlertUtil {
         alertView.showInfo(infoTitle, subTitle: infoSubTitle, colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
     }
     
-    class func showErrorAlert(errorCode: Int?) {
-        
+    class func showErrorAlert(errorCode: Int?, target: AnyObject, buttonAction: Selector) {
+        if let errorCode = errorCode {
+            switch errorCode {
+            case 1000:
+                showAlertView(buttonText: "我知道了", infoTitle: "邮箱已存在", infoSubTitle: "请使用不同的邮箱地址", target: target, buttonAction: buttonAction)
+            case 1001:
+                showAlertView(buttonText: "我知道了", infoTitle: "用户名已存在", infoSubTitle: "请使用不同的用户名", target: target, buttonAction: buttonAction)
+            case 1002:
+                showAlertView(buttonText: "我知道了", infoTitle: "临时账户已关闭注册", infoSubTitle: "感谢您的支持！请于下个版本注册正式账户！", target: target, buttonAction: buttonAction)
+            case 1003:
+                showAlertView(buttonText: "我知道了", infoTitle: "邮箱不存在", infoSubTitle: "请核对您的邮箱地址或者重新绑定邮箱", target: target, buttonAction: buttonAction)
+            case 209:
+                showAlertView(buttonText: "我知道了", infoTitle: "登录已过期", infoSubTitle: "请重新登录", target: target, buttonAction: buttonAction)
+            case 101:
+                showAlertView(buttonText: "我知道了", infoTitle: "登录失败", infoSubTitle: "用户名（邮箱）或密码错误", target: target, buttonAction: buttonAction)
+            case 142:
+                showAlertView(buttonText: "我知道了", infoTitle: "无效密码", infoSubTitle: "您所提供的密码不满足安全要求", target: target, buttonAction: buttonAction)
+            default:
+                showAlertView(buttonText: "我知道了", infoTitle: "未知错误", infoSubTitle: "很抱歉给您带来不便，我们会尽快修复", target: target, buttonAction: buttonAction)
+            }
+        }
     }
+    
+    func doNothing() {}
 }

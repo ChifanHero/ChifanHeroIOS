@@ -12,6 +12,8 @@ class ChangeUsernameTableViewController: UITableViewController, UITextFieldDeleg
     
     @IBOutlet weak var usernameTextField: UITextField!
     
+    var username: String?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +21,7 @@ class ChangeUsernameTableViewController: UITableViewController, UITextFieldDeleg
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
         usernameTextField.delegate = self
+        usernameTextField.text = username
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +41,7 @@ class ChangeUsernameTableViewController: UITableViewController, UITextFieldDeleg
                     if response!.success == true {
                         print("Update username succeed")
                     } else {
-                        print("Update username failed")
+                        AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
                     }
                     self.navigationController?.popViewController(animated: true)
                 })
@@ -47,6 +50,10 @@ class ChangeUsernameTableViewController: UITableViewController, UITextFieldDeleg
         } else {
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    func doNothing() {
+        
     }
 
     /*
