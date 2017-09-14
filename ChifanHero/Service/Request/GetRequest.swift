@@ -97,8 +97,9 @@ class GetIsFavoriteRequest: HttpRequest{
 
 class GetRestaurantByIdRequest: HttpRequest{
 
-    var resourceId: String
+    var resourceId: String!
     var userLocation: Location?
+    var localTimeZoneToUTC = Int(TimeZone.current.secondsFromGMT() / 3600)
 
     init(id: String) {
         resourceId = id
@@ -109,7 +110,11 @@ class GetRestaurantByIdRequest: HttpRequest{
     }
 
     override func getRelativeURL() -> String {
-        return "/restaurants/" + resourceId + "?lat=" + String((userLocation?.lat)!) + "&lon=" + String((userLocation?.lon)!)
+        var result = "/restaurants/" + resourceId
+        result += "?lat=" + String(userLocation?.lat ?? 33)
+        result += "&lon=" + String(userLocation?.lon ?? -118)
+        result += "&timeZone=" + String(localTimeZoneToUTC)
+        return result
     }
 }
 

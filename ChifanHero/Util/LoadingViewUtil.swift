@@ -13,10 +13,10 @@ class LoadingViewUtil {
         let loadingView = UIView(frame: frame)
         loadingView.backgroundColor = UIColor.white
         loadingView.layer.cornerRadius = 8.0
-        loadingView.layer.borderWidth = 2.0
+        loadingView.layer.borderWidth = 1.0
         loadingView.layer.borderColor = UIColor.themeOrange().cgColor
         
-        let loadingLabel = UILabel(frame: CGRect(x: 40, y: 0, width: 100, height: 40))
+        let loadingLabel = UILabel(frame: CGRect(x: 30, y: 0, width: 80, height: 40))
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         loadingView.addSubview(loadingIndicator)
         loadingView.addSubview(loadingLabel)
@@ -25,7 +25,7 @@ class LoadingViewUtil {
         loadingIndicator.color = UIColor.themeOrange()
         loadingIndicator.startAnimating()
         loadingLabel.text = text
-        loadingLabel.font = UIFont(name: "Arial", size: 18)
+        loadingLabel.font = UIFont(name: "Arial", size: 16)
         loadingLabel.textColor = UIColor.themeOrange()
         loadingLabel.textAlignment = .center
         
