@@ -49,5 +49,9 @@ class AlertUtil {
         }
     }
     
+    class func showGeneralErrorAlert(target: AnyObject, buttonAction: Selector) {
+        showAlertView(buttonText: "我知道了", infoTitle: "网络或系统错误", infoSubTitle: "很抱歉给您带来不便，请稍后再试", target: target, buttonAction: buttonAction)
+    }
+    
     func doNothing() {}
 }

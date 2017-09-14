@@ -20,6 +20,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     var quickSignupButton: LoadingButton!
     var forgotPasswordButton: UIButton!
     
+    var isLoggingIn = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +33,9 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         
         usernameTextField.delegate = self
         passwordTextField.delegate = self
+        
+        usernameTextField.addTarget(self, action: #selector(LogInTableViewController.didChangeText(_:)), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(LogInTableViewController.didChangeText(_:)), for: .editingChanged)
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogInTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -69,8 +74,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func showSignUp(){
-        performSegue(withIdentifier: "signUp", sender: nil)
-//        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "此版本为测试版本，暂时不接受用户注册", target: self, buttonAction: #selector(dismissAlert))
+//        performSegue(withIdentifier: "signUp", sender: nil)
+        AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "暂不接受用户注册", infoSubTitle: "感谢您的支持！此版本为测试版本，暂不接受用户注册", target: self, buttonAction: #selector(dismissAlert))
     }
     
     func configureLoginButton(){
@@ -106,9 +111,10 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         quickSignupButton.addTarget(self, action: #selector(LogInTableViewController.quickSignUpEvent), for: UIControlEvents.touchDown)
         self.view.addSubview(quickSignupButton)
         
-        normalLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 150, width: self.view.frame.width * 0.8, height: 40), color: UIColor.themeOrange(), logoImage: UIImage(named: "LogoWithBorder")!, textContent: "登录")
+        normalLoginButton = LoadingButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 150, width: self.view.frame.width * 0.8, height: 40), color: UIColor.themeOrange(), textContent: "登录")
         self.view.addSubview(normalLoginButton)
         normalLoginButton.addTarget(self, action: #selector(LogInTableViewController.normalLoginEvent), for: UIControlEvents.touchDown)
+        normalLoginButton.disable()
         
 //        let testButton = RetryButton(frame: CGRect(x: self.view.frame.width * 0.1, y: 350, width: self.view.frame.width * 0.8, height: 40))
 //        testButton.setCountdown(enabled: true, seconds: 10)
@@ -137,8 +143,11 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
             }
         } else {
             if let password = textField.text {
-                if password.characters.count > 0{
-                    normalLoginEvent()
+                if password.characters.count > 0 {
+                    if !isLoggingIn {
+                        normalLoginButton.startLoading()
+                        normalLoginEvent()
+                    }
                     return true
                 } else {
                     return false
@@ -146,6 +155,15 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
             }
         }
         return false
+    }
+    
+    func didChangeText(_ textField:UITextField) {
+        if usernameTextField.text != nil && usernameTextField.text!.characters.count > 0
+            && passwordTextField.text != nil && passwordTextField.text!.characters.count > 0 {
+            normalLoginButton.enable()
+        } else {
+            normalLoginButton.disable()
+        }
     }
     
     func dismissKeyboard() {
@@ -253,6 +271,8 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     
     func logIn(username: String?, email: String?, password: String?) {
         
+        isLoggingIn = true
+        
         AccountManager(serviceConfiguration: ParseConfiguration()).logIn(username: username, email: email, password: password) { (response) -> Void in
             OperationQueue.main.addOperation({ () -> Void in
                 let seconds = 2.0
@@ -263,15 +283,15 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                     
                     self.normalLoginButton.stopLoading()
                     if response == nil {
-                        self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
+                        AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
                     } else {
                         if response!.success != nil && response!.success! == true {
+                            self.isLoggingIn = false
                             self.replaceLoginViewByAboutMeView()
                         } else {
-                            AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
+                            AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.dismissAlert))
                         }
                     }
-                    
                 })
                 
             })
@@ -289,7 +309,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                     
                     self.quickSignupButton.stopLoading()
                     if response == nil {
-                        self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
+                        AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
                     } else {
                         self.rememberDefaultPassword(defaultPassword: response?.user?.password)
                         if response!.success != nil && response!.success! == true {
@@ -315,7 +335,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func dismissAlert() {
-        
+        self.isLoggingIn = false
     }
     
     func resetLogInInput(_ alertAction: UIAlertAction!){
@@ -328,10 +348,6 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
             let signUpTableViewController: SignUpTableViewController = segue.destination as! SignUpTableViewController
             signUpTableViewController.loginViewController = self;
         }
-    }
-    
-    func doNothing() {
-        
     }
     
     
