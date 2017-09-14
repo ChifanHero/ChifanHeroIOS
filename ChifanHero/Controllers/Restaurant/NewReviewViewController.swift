@@ -153,7 +153,7 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     private func disableCurrentView() {
-        self.view.addSubview(LoadingViewUtil.buildLoadingView(frame: CGRect(x: self.view.frame.width / 2 - 70, y: self.view.frame.height / 2, width: 140, height: 40), text: "正在上传"))
+        self.view.addSubview(LoadingViewUtil.buildLoadingView(frame: CGRect(x: self.view.frame.width / 2 - 60, y: self.view.frame.height / 2, width: 120, height: 40), text: "正在上传"))
         self.view.isUserInteractionEnabled = false
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         self.navigationItem.leftBarButtonItem?.isEnabled = false

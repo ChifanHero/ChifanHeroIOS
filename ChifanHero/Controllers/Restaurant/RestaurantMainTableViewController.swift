@@ -129,7 +129,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     }
     
     private func disableCurrentView() {
-        loadingAlertView = LoadingViewUtil.buildLoadingView(frame: CGRect(x: self.view.frame.width / 2 - 70, y: 0, width: 140, height: 40), text: "正在加载")
+        loadingAlertView = LoadingViewUtil.buildLoadingView(frame: CGRect(x: self.view.frame.width / 2 - 60, y: 0, width: 120, height: 40), text: "正在加载")
         self.view.addSubview(loadingAlertView)
         self.view.isUserInteractionEnabled = false
     }
