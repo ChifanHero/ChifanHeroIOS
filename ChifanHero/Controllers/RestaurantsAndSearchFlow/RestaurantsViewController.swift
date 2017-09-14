@@ -50,7 +50,7 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     }
     
     private func configPullToRefresh() {
-        pullRefresher.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
+        pullRefresher.addTarget(self, action: #selector(self.pullToRefreshData), for: .valueChanged)
         self.searchResultsTable.insertSubview(pullRefresher, at: 0)
     }
     
@@ -77,7 +77,7 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     // Launch a new search if needed
     override func loadData() {
         if SearchContext.newSearch || needToRefresh(){
-            print("search requested. should do a new search here")
+            log.debug("Search requested. Will perform a new search")
             if SearchContext.keyword != nil || SearchContext.address != nil{
                 currentState = CurrentState.search
             } else {
@@ -103,7 +103,7 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
             }
             
         } else {
-            print("search requested, but no new search needed")
+            log.debug("Search requested. But no new search needed")
         }
     }
     
@@ -227,8 +227,12 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     }
     
     // MARK - Pull to refresh
-    override func refreshData() {
+    func pullToRefreshData() {
         SearchContext.coordinates = userLocationManager.getLocationInUse()
+        self.refreshData()
+    }
+    
+    override func refreshData() {
         super.refreshData()
     }
     
