@@ -16,6 +16,8 @@ class LoadingButton: UIButton {
     
     var defaultX: CGFloat!
     
+    var buttonColor: UIColor!
+    
     var textContent: String!
     var logoImage: UIImage?
     
@@ -59,7 +61,8 @@ class LoadingButton: UIButton {
     
     func initSettingWithColor(_ color:UIColor) {
         self.backgroundView = UIView(frame: self.bounds)
-        self.backgroundView.backgroundColor = color
+        self.buttonColor = color
+        self.backgroundView.backgroundColor = buttonColor
         self.backgroundView.isUserInteractionEnabled = false
         self.backgroundView.layer.cornerRadius = CGFloat(3)
         self.addSubview(self.backgroundView)
@@ -80,7 +83,6 @@ class LoadingButton: UIButton {
         self.addSubview(self.spinnerView)
         
         self.logoView = UIImageView(frame: CGRect(x: defaultW * 0.1, y: defaultH*0.1, width: defaultH*0.8, height: defaultH*0.8))
-        self.logoView.image = UIImage(named: "Wechat")
         self.logoView.contentMode = .scaleAspectFill
         self.logoView.clipsToBounds = true
         self.addSubview(self.logoView)
@@ -105,6 +107,16 @@ class LoadingButton: UIButton {
         
         
         self.addTarget(self, action: #selector(LoadingButton.loadingAction), for: UIControlEvents.touchDown)
+    }
+    
+    func disable() {
+        self.backgroundView.backgroundColor = UIColor.gray
+        self.isUserInteractionEnabled = false
+    }
+    
+    func enable() {
+        self.backgroundView.backgroundColor = buttonColor
+        self.isUserInteractionEnabled = true
     }
     
     func loadingAction() {
