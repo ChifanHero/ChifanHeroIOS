@@ -28,6 +28,8 @@ class RetryButton: UIButton {
     
     private var timer: Timer?
     
+    var isWaiting = false
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
@@ -66,11 +68,34 @@ class RetryButton: UIButton {
         }
     }
     
+    func enterTempState(text: String) {
+        self.setTitle(text, for: .normal)
+        self.setTitleColor(normalTextColor, for: .normal)
+        self.isUserInteractionEnabled = false
+    }
+    
+    func endTempState() {
+        self.setTitle(normalText, for: .normal)
+        self.setTitleColor(normalTextColor, for: .normal)
+        self.isUserInteractionEnabled = true
+    }
+    
+    func disable() {
+        self.backgroundColor = UIColor.gray
+        self.isUserInteractionEnabled = false
+    }
+    
+    func enable() {
+        self.backgroundColor = normalBackgroundColor
+        self.isUserInteractionEnabled = true
+    }
+    
     func touchDown() {
         touchDownEvent()
     }
     
     func startWaiting() {
+        self.isWaiting = true
         self.setTitleColor(waitingTextColor, for: .disabled)
         self.backgroundColor = waitingBackgroundColor
         self.isEnabled = false
@@ -88,12 +113,14 @@ class RetryButton: UIButton {
         }
     }
     
-    private func reset() {
+    func reset() {
+        isWaiting = false
         timer?.invalidate()
         self.setTitle(normalText, for: .normal)
         self.setTitleColor(normalTextColor, for: .normal)
         self.backgroundColor = normalBackgroundColor
         self.isEnabled = true
+        self.isUserInteractionEnabled = true
         secondsRemaining = countDownSeconds
     }
 

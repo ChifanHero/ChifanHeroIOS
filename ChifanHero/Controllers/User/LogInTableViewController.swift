@@ -281,15 +281,15 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                 
                 DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
                     
-                    self.isLoggingIn = false
                     self.normalLoginButton.stopLoading()
                     if response == nil {
-                        self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
+                        AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
                     } else {
                         if response!.success != nil && response!.success! == true {
+                            self.isLoggingIn = false
                             self.replaceLoginViewByAboutMeView()
                         } else {
-                            AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
+                            AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.dismissAlert))
                         }
                     }
                 })
@@ -309,7 +309,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
                     
                     self.quickSignupButton.stopLoading()
                     if response == nil {
-                        self.showErrorMessage(title: "登录失败", subTitle: "网络错误")
+                        AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
                     } else {
                         self.rememberDefaultPassword(defaultPassword: response?.user?.password)
                         if response!.success != nil && response!.success! == true {
@@ -335,7 +335,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func dismissAlert() {
-        
+        self.isLoggingIn = false
     }
     
     func resetLogInInput(_ alertAction: UIAlertAction!){
@@ -348,10 +348,6 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
             let signUpTableViewController: SignUpTableViewController = segue.destination as! SignUpTableViewController
             signUpTableViewController.loginViewController = self;
         }
-    }
-    
-    func doNothing() {
-        
     }
     
     

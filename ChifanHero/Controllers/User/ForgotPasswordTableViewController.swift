@@ -14,11 +14,14 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
     
     var sendButton: RetryButton?
     
+    var isResettingPassword = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
         emailTextField.delegate = self
         self.configureButton()
+        emailTextField.addTarget(self, action: #selector(ForgotPasswordTableViewController.didChangeText(_:)), for: .editingChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,6 +38,7 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
         sendButton!.touchDownEvent = {
             self.resetPassword()
         }
+        sendButton!.disable()
         self.view.addSubview(sendButton!)
     }
     
@@ -42,7 +46,7 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let email = textField.text {
             if EmailUtil.isValidEmail(email: email) {
-                textField.resignFirstResponder()
+                resetPassword()
             }
         }
         return true
@@ -51,22 +55,40 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
     private func resetPassword() {
         if let email = emailTextField.text {
             if (EmailUtil.isValidEmail(email: email)) {
-                let resetPasswordRequest: ResetPasswordRequest = ResetPasswordRequest()
-                resetPasswordRequest.email = email
-                AccountManager(serviceConfiguration: ParseConfiguration()).resetPassword(resetPasswordRequest, responseHandler: { (response) in
-                    if response?.success != nil && response?.success == true {
-                        self.sendButton?.startWaiting()
-                    } else {
-                        AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
-                    }
-                })
+                if !isResettingPassword && !sendButton!.isWaiting {
+                    sendButton!.enterTempState(text: "正在发送...")
+                    let resetPasswordRequest: ResetPasswordRequest = ResetPasswordRequest()
+                    resetPasswordRequest.email = email
+                    isResettingPassword = true
+                    AccountManager(serviceConfiguration: ParseConfiguration()).resetPassword(resetPasswordRequest, responseHandler: { (response) in
+                        if response == nil {
+                            AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
+                        } else if response?.success != nil && response?.success == true {
+                            OperationQueue.main.addOperation {
+                                self.isResettingPassword = false
+                                self.sendButton?.startWaiting()
+                            }
+                        } else {
+                            self.sendButton!.endTempState()
+                            AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.dismissAlert))
+                        }
+                    })
+                }
             }
         }
     }
     
+    func didChangeText(_ textField:UITextField) {
+        if textField.text != nil && EmailUtil.isValidEmail(email: textField.text!) {
+            sendButton!.enable()
+        } else {
+            sendButton!.disable()
+        }
+    }
+    
         
-    func doNothing() {
-        
+    func dismissAlert() {
+        self.isResettingPassword = false
     }
 
     /*
