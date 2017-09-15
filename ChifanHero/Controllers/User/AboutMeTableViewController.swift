@@ -350,7 +350,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         } else if !isUsingDefaultUsername && isUsingDefaultPasword && isEmailVerified { //101
             return "您仍未修改临时密码。如忘记密码，请通过密码找回重设密码"
         } else if !isUsingDefaultUsername && !isUsingDefaultPasword && !isEmailVerified { //110
-            return "您仍未绑定邮箱且未修改临时密码。如忘记密码则将无法找回"
+            return "您仍未绑定邮箱。如忘记密码则将无法找回"
         } else {
             return "登出当前用户"
         }

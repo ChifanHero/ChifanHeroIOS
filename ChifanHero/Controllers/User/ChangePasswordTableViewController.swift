@@ -55,6 +55,7 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
         }
         
          configureCheckMarkImage()
+        addChangeButton()
     }
     
     private func configureCheckMarkImage(){
@@ -100,18 +101,13 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
                 return false
             }
         } else if textField == newPasswordConfirmationTextField {
-            if oldPasswordTextField.text != nil && isValidPassword() && textField.text == newPasswordTextField.text {
-                textField.resignFirstResponder()
-                if isUsingDefaultPassword {
-                    changePassword(oldPassword: getDefaultPassword(), newPassword: newPasswordTextField.text)
-                } else {
-                    changePassword(oldPassword: oldPasswordTextField.text, newPassword: newPasswordTextField.text)
-                }
-                
-                return true
+            if isUsingDefaultPassword {
+                changePassword(oldPassword: getDefaultPassword(), newPassword: newPasswordTextField.text, newPasswordConfirmation: textField.text)
             } else {
-                return false
+                changePassword(oldPassword: oldPasswordTextField.text, newPassword: newPasswordTextField.text, newPasswordConfirmation: textField.text)
             }
+            textField.resignFirstResponder()
+            return true
         } else {
             return true
         }
@@ -126,20 +122,38 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
         return rule1 && rule2 && rule3 && rule4
     }
     
-    private func changePassword(oldPassword: String?, newPassword: String?) {
+    private func changePassword(oldPassword: String?, newPassword: String?, newPasswordConfirmation: String?) {
+        if oldPassword == nil || oldPassword == "" {
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "当前密码不能为空", infoSubTitle: "请提供您的当前密码", target: self, buttonAction: #selector(self.doNothing))
+            return
+        }
+        if !isValidPassword() {
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "新密码未满足安全要求", infoSubTitle: "为保护您的账户安全，新密码至少包含一位大写字母、一位小写字母、一位数字且长度至少8位", target: self, buttonAction: #selector(self.doNothing))
+            return
+        }
+        if newPassword != newPasswordConfirmation {
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "请重新确认密码", infoSubTitle: "您两次输入的密码不同，请重新确认密码", target: self, buttonAction: #selector(self.doNothing))
+            return
+        }
         AccountManager(serviceConfiguration: ParseConfiguration()).changePassword(oldPassword: oldPassword, newPassword: newPassword) { (response) in
-            if let errorCode = response?.error?.code {
-                AlertUtil.showErrorAlert(errorCode: errorCode, target: self, buttonAction: #selector(self.doNothing))
-            } else if response?.success != nil && response?.success == true{
-                AlertUtil.showAlertView(buttonText: "完成", infoTitle: "密码修改成功", infoSubTitle: "", target: self, buttonAction: #selector(self.doNothing))
+            if response == nil {
+                AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
+            } else if response?.success != nil && response?.success == true {
+                AlertUtil.showAlertView(buttonText: "完成", infoTitle: "密码修改成功", infoSubTitle: "", target: self, buttonAction: #selector(self.goBack))
+            } else if response?.error?.code != nil {
+                AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
             } else {
-                AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "未知错误", infoSubTitle: "很抱歉给您带来不便，我们会尽快修复", target: self, buttonAction: #selector(self.doNothing))
+                AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
             }
         }
     }
     
     func doNothing() {
         
+    }
+    
+    func goBack() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func validatePassword(_ password: String){
@@ -190,74 +204,20 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
         }
         
     }
-
     
-
-    // MARK: - Table view data source
-
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    private func addChangeButton() {
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("提交", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(ChangePasswordTableViewController.passwordChange(_:)), for: UIControlEvents.touchUpInside)
+        let filterButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = filterButton
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    @IBAction func passwordChange(_ sender: Any) {
+        if isUsingDefaultPassword {
+            changePassword(oldPassword: getDefaultPassword(), newPassword: newPasswordTextField.text, newPasswordConfirmation: newPasswordConfirmationTextField.text)
+        } else {
+            changePassword(oldPassword: oldPasswordTextField.text, newPassword: newPasswordTextField.text, newPasswordConfirmation: newPasswordConfirmationTextField.text)
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

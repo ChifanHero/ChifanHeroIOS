@@ -762,7 +762,7 @@
                                                     <rect key="frame" x="18" y="14" width="339" height="17"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="send" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -781,9 +781,7 @@
                             <outlet property="delegate" destination="qsm-pr-05C" id="hcx-Rj-Xnp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="修改密码" id="LYf-dt-buo">
-                        <barButtonItem key="rightBarButtonItem" title="完成" id="CSa-86-KIf"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="修改密码" id="LYf-dt-buo"/>
                     <connections>
                         <outlet property="checkmarkImageFour" destination="dQC-PM-bMK" id="E4H-T7-6gd"/>
                         <outlet property="checkmarkImageOne" destination="PLB-US-KcQ" id="vaS-bU-7Ml"/>
