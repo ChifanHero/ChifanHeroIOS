@@ -28,8 +28,8 @@ class SearchHistoryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        clockIcon.renderColorChangableImage(UIImage(named: "history_clock.png")!, fillColor: UIColor.lightGray)
-        deleteButtonImageView.renderColorChangableImage(UIImage(named: "close.png")!, fillColor: UIColor.lightGray)
+        clockIcon.renderColorChangableImage(UIImage(named: "ChifanHero_HistoryClock")!, fillColor: UIColor.lightGray)
+        deleteButtonImageView.renderColorChangableImage(UIImage(named: "ChifanHero_Close")!, fillColor: UIColor.lightGray)
         let tap = UITapGestureRecognizer(target: self, action: #selector(SearchHistoryTableViewCell.deleteHistory(_:)))
         deleteButton.addGestureRecognizer(tap)
     }
