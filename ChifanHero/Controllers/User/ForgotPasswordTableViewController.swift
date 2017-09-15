@@ -68,9 +68,11 @@ class ForgotPasswordTableViewController: UITableViewController, UITextFieldDeleg
                                 self.isResettingPassword = false
                                 self.sendButton?.startWaiting()
                             }
-                        } else {
+                        } else if response?.error?.code != nil {
                             self.sendButton!.endTempState()
                             AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.dismissAlert))
+                        } else {
+                            AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
                         }
                     })
                 }

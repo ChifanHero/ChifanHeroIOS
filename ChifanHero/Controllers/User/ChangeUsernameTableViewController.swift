@@ -22,6 +22,7 @@ class ChangeUsernameTableViewController: UITableViewController, UITextFieldDeleg
         self.clearsSelectionOnViewWillAppear = false
         usernameTextField.delegate = self
         usernameTextField.text = username
+        addDoneButton()
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,82 +34,43 @@ class ChangeUsernameTableViewController: UITableViewController, UITextFieldDeleg
         changeUsername()
     }
     
-    private func changeUsername() {
-        if usernameTextField.text != nil {
-            
-            AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: nil, email: nil, username: usernameTextField.text, responseHandler: { (response) in
-                OperationQueue.main.addOperation({ () -> Void in
-                    if response!.success == true {
-                        print("Update username succeed")
-                    } else {
-                        AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
-                    }
-                    self.navigationController?.popViewController(animated: true)
-                })
-            })
-            
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
+    private func addDoneButton() {
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("完成", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(ChangeUsernameTableViewController.usernameChangeDone(_:)), for: UIControlEvents.touchUpInside)
+        let filterButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = filterButton
     }
     
-    func doNothing() {
+    private func changeUsername() {
+        if usernameTextField.text == nil || usernameTextField.text!.trimmingCharacters(in: .whitespaces).characters.count == 0 {
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "用户名不能为空", infoSubTitle: "", target: self, buttonAction: #selector(self.dismissAlert))
+        } else {
+            AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: nil, email: nil, username: usernameTextField.text, responseHandler: { (response) in
+                OperationQueue.main.addOperation({ () -> Void in
+                    if response == nil {
+                        AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
+                    } else if response!.success == true {
+                        print("Update username succeed")
+                        self.navigationController?.popViewController(animated: true)
+                    } else if response?.error?.code != nil {
+                        AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.dismissAlert))
+                    } else {
+                        AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
+                    }
+                    
+                })
+            })
+        }
         
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        changeUsername()
         return true
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func dismissAlert() {
+        
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

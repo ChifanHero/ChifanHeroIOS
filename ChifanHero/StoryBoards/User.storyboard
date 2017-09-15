@@ -892,7 +892,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Kej-XO-EvV">
-                                                    <rect key="frame" x="10" y="7" width="365" height="30"/>
+                                                    <rect key="frame" x="18" y="7" width="357" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="rSt-jq-AGM"/>
                                                     </constraints>
@@ -904,7 +904,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Kej-XO-EvV" secondAttribute="trailing" id="3gD-ba-mIO"/>
                                                 <constraint firstItem="Kej-XO-EvV" firstAttribute="centerY" secondItem="qGz-Zr-wHR" secondAttribute="centerY" id="7rc-9t-7AF"/>
-                                                <constraint firstItem="Kej-XO-EvV" firstAttribute="leading" secondItem="qGz-Zr-wHR" secondAttribute="leading" constant="10" id="mLB-RS-qHh"/>
+                                                <constraint firstItem="Kej-XO-EvV" firstAttribute="leading" secondItem="qGz-Zr-wHR" secondAttribute="leadingMargin" constant="10" id="mLB-RS-qHh"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -916,13 +916,7 @@
                             <outlet property="delegate" destination="84e-vV-1X7" id="3HY-Xf-VZk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="修改用户名" id="H2y-Mx-bs1">
-                        <barButtonItem key="rightBarButtonItem" title="完成" id="wfh-jn-x0A">
-                            <connections>
-                                <action selector="usernameChangeDone:" destination="84e-vV-1X7" id="sUr-Td-3QW"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="修改用户名" id="H2y-Mx-bs1"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="usernameTextField" destination="Kej-XO-EvV" id="xx6-mi-wzE"/>
@@ -975,14 +969,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="修改昵称" id="aSM-Jc-In1">
-                        <barButtonItem key="rightBarButtonItem" title="完成" id="1XK-xW-Nhy">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="nickNameChangeDone:" destination="Vcx-YV-iJk" id="IEC-IU-ekU"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="修改昵称" id="aSM-Jc-In1"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="nickNameTextField" destination="XgN-nT-xac" id="zPX-Xd-P7C"/>
