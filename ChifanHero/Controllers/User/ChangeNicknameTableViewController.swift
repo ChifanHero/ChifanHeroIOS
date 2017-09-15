@@ -21,21 +21,25 @@ class ChangeNicknameTableViewController: UITableViewController, UITextFieldDeleg
     }
     
     func changeNickName() {
-        if nickNameTextField.text != nil {
-            
+        if nickNameTextField.text == nil || nickNameTextField.text!.trimmingCharacters(in: .whitespaces).characters.count == 0 {
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "昵称不能为空", infoSubTitle: "", target: self, buttonAction: #selector(self.dismissAlert))
+        } else {
             AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nickNameTextField.text, pictureId: nil) { (response) -> Void in
                 OperationQueue.main.addOperation({ () -> Void in
-                    if response!.success == true {
+                    if response == nil {
+                        AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
+                    } else if response?.success != nil && response?.success == true {
                         print("Update nick name succeed")
+                        self.navigationController?.popViewController(animated: true)
+                    } else if response?.error?.code != nil {
+                        AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.dismissAlert))
                     } else {
-                        print("Update nick name failed")
+                        AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
                     }
-                    self.navigationController?.popViewController(animated: true)
+                    
                 })
                 
             }
-        } else {
-            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -44,7 +48,7 @@ class ChangeNicknameTableViewController: UITableViewController, UITextFieldDeleg
         self.addImageForBackBarButtonItem()
         self.nickNameTextField.text = self.nickName
         self.nickNameTextField.delegate = self
-        // Do any additional setup after loading the view.
+        addDoneButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,14 +66,19 @@ class ChangeNicknameTableViewController: UITableViewController, UITextFieldDeleg
         // Dispose of any resources that can be recreated.
     }
     
+    private func addDoneButton() {
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("完成", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        button.addTarget(self, action: #selector(ChangeNicknameTableViewController.nickNameChangeDone(_:)), for: UIControlEvents.touchUpInside)
+        let filterButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = filterButton
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print(self.nickNameTextField.text!)
-        if self.nickNameTextField.text == "" || self.nickNameTextField.text == nil {
-            return false
-        } else {
-            changeNickName()
-            return true
-        }
+        changeNickName()
+        return true
+    }
+    
+    func dismissAlert() {
         
     }
     
