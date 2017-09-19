@@ -20,29 +20,31 @@ class PostReviewOperation: RetryableOperation {
     
     private var savedReview: Review?
     
+    private var error: Error?
+    
     var reviewId: String?
     
     var restaurantId: String!
     
-    init(rating: Int, content: String, retryTimes: Int, completion: @escaping (Bool, Review?) -> Void) {
+    init(rating: Int, content: String, retryTimes: Int, completion: @escaping (Bool, Error?, Review?) -> Void) {
         super.init()
         self.rating = rating
         self.content = content
         self.retryTimes = retryTimes
         self.completionBlock = {
             if self.isCancelled {
-                completion(false, nil)
+                completion(false, nil, nil)
             } else {
-                completion(self.success, self.savedReview)
+                completion(self.success, self.error, self.savedReview)
             }
         }
     }
     
     override func main() {
-        upseartReview()
+        upsertReview()
     }
     
-    private func upseartReview() {
+    private func upsertReview() {
         let request = UpsertReviewRequest()
         request.content = content
         request.rating = rating
@@ -52,13 +54,30 @@ class PostReviewOperation: RetryableOperation {
             if self.isCancelled {
                 self.state = .finished
             } else {
-                if let result = response?.result {
-                    self.savedReview = result
+                if response == nil {
+                    if self.retryTimes > 0 {
+                        self.retryTimes = self.retryTimes - 1
+                        self.upsertReview()
+                    } else {
+                        self.success = false
+                    }
+                } else if response!.result != nil {
+                    self.savedReview = response!.result!
                     self.success = true
+                } else if response!.error != nil {
+                    if self.retryTimes > 0 {
+                        self.retryTimes = self.retryTimes - 1
+                        self.upsertReview()
+                    } else {
+                        self.success = false
+                        self.error = response!.error!
+                    }
                 } else {
                     if self.retryTimes > 0 {
                         self.retryTimes = self.retryTimes - 1
-                        self.upseartReview()
+                        self.upsertReview()
+                    } else {
+                        self.success = false
                     }
                 }
                 self.state = .finished

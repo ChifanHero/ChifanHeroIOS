@@ -234,6 +234,10 @@ class AccountManager {
                     }
                 case .failure(let error):
                     log.debug(error)
+                    if let data = response.data {
+                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                        responseObject = Response(data: json)
+                    }
                 }
                 
                 responseHandler(responseObject)
@@ -256,6 +260,10 @@ class AccountManager {
                     }
                 case .failure(let error):
                     log.debug(error)
+                    if let data = response.data {
+                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                        responseObject = Response(data: json)
+                    }
                 }
                 
                 responseHandler(responseObject)
@@ -357,7 +365,8 @@ class AccountManager {
     }
     
     private func deleteUser(_ response: AccountResponse?){
-        
+        let defaults: UserDefaults = UserDefaults.standard
+        defaults.set(nil, forKey: "sessionToken")
     }
     
     

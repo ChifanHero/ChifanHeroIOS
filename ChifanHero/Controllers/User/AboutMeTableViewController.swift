@@ -302,16 +302,20 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
                     AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: response?.result?.id) { (response) -> Void in
                         OperationQueue.main.addOperation({ () -> Void in
                             self.updatingUserInfo = false
-                            if response!.success == true {
+                            if response == nil {
+                                AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
+                            } else if response!.success == true {
                                 log.info("Update profile picture succeed")
                                 if let userPicURL = response?.user?.picture?.thumbnail {
                                     self.userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
                                 }
-                            } else {
+                            } else if response!.error?.code != nil {
                                 AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
                                 if response?.error?.code != nil && response?.error?.code == ErrorCode.INVALID_SESSION_TOKEN {
                                     self.logOut()
                                 }
+                            } else {
+                                AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
                             }
                         })
                         
