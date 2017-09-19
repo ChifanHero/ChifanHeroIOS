@@ -28,7 +28,6 @@ class DataAccessor {
             Alamofire.request(url, method: .get, headers: request.getHeaders()).validate().responseJSON { response in
                 
                 var responseObject: Response?
-                
                 switch response.result {
                 case .success:
                     if let value = response.result.value {
@@ -37,6 +36,10 @@ class DataAccessor {
                     }
                 case .failure(let error):
                     log.debug(error)
+                    if let data = response.data {
+                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                        responseObject = Response(data: json)
+                    }
                 }
                 
                 responseHandler(responseObject)
@@ -44,7 +47,6 @@ class DataAccessor {
         case "POST":
             Alamofire.request(url, method: .post, parameters: request.getRequestBody(), encoding: JSONEncoding.default, headers: request.getHeaders()).validate().responseJSON { response in
                 var responseObject: Response?
-                
                 switch response.result {
                 case .success:
                     if let value = response.result.value {
@@ -53,6 +55,10 @@ class DataAccessor {
                     }
                 case .failure(let error):
                     log.debug(error)
+                    if let data = response.data {
+                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                        responseObject = Response(data: json)
+                    }
                 }
                 
                 responseHandler(responseObject)
@@ -61,7 +67,6 @@ class DataAccessor {
             Alamofire.request(url, method: .put, parameters: request.getRequestBody(), encoding: JSONEncoding.default, headers: request.getHeaders()).validate().responseJSON { response in
                 
                 var responseObject: Response?
-                
                 switch response.result {
                 case .success:
                     if let value = response.result.value {
@@ -70,6 +75,10 @@ class DataAccessor {
                     }
                 case .failure(let error):
                     log.debug(error)
+                    if let data = response.data {
+                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                        responseObject = Response(data: json)
+                    }
                 }
                 
                 responseHandler(responseObject)
@@ -79,7 +88,6 @@ class DataAccessor {
             Alamofire.request(url, method: .delete, parameters: request.getRequestBody(), encoding: JSONEncoding.default, headers: request.getHeaders()).validate().responseJSON { response in
                 
                 var responseObject: Response?
-                
                 switch response.result {
                 case .success:
                     if let value = response.result.value {
@@ -88,6 +96,10 @@ class DataAccessor {
                     }
                 case .failure(let error):
                     log.debug(error)
+                    if let data = response.data {
+                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                        responseObject = Response(data: json)
+                    }
                 }
                 
                 responseHandler(responseObject)

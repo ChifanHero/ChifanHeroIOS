@@ -112,7 +112,7 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
                     });
                 }
                 
-                let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, retryTimes: 3) { (success, review) in
+                let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, retryTimes: 0) { (success, error, review) in
                     
                     if success {
                         self.reviewId = review?.id
@@ -128,6 +128,10 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
                             self.reviewManager.queue.addOperation(uploadOperation)
                         }
                         self.reviewManager.queue.addOperation(notificationOperation)
+                    } else {
+                        if error != nil {
+                            AlertUtil.showErrorAlert(errorCode: error?.code, target: self, buttonAction: #selector(self.dismissAlert))
+                        }
                     }
                 }
                 if let review = self.review {
