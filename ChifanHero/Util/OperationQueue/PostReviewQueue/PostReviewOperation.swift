@@ -20,13 +20,13 @@ class PostReviewOperation: RetryableOperation {
     
     private var savedReview: Review?
     
-    private var error: Error?
+    private var error: CFHError?
     
     var reviewId: String?
     
     var restaurantId: String!
     
-    init(rating: Int, content: String, retryTimes: Int, completion: @escaping (Bool, Error?, Review?) -> Void) {
+    init(rating: Int, content: String, retryTimes: Int, completion: @escaping (Bool, CFHError?, Review?) -> Void) {
         super.init()
         self.rating = rating
         self.content = content

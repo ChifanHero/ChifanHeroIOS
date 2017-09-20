@@ -12,7 +12,7 @@ import SwiftyJSON
 class AddToFavoritesResponse: HttpResponseProtocol{
     
     var result: Favorite?
-    var error: Error?
+    var error: CFHError?
     
     required init() {
         
@@ -20,14 +20,14 @@ class AddToFavoritesResponse: HttpResponseProtocol{
     
     required init(data: JSON) {
         result = Favorite(data: data["result"])
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
     }
 }
 
 class GetCitiesResponse: HttpResponseProtocol {
 
     var results: [City] = []
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
@@ -40,14 +40,14 @@ class GetCitiesResponse: HttpResponseProtocol {
                 results.append(result)
             }
         }
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
     }
 
 }
 
 class GetFavoritesResponse: HttpResponseProtocol{
 
-    var error: Error?
+    var error: CFHError?
     var results: [Favorite] = []
 
     required init() {
@@ -55,7 +55,7 @@ class GetFavoritesResponse: HttpResponseProtocol{
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
                 let result = Favorite(data: resultJson)
@@ -68,14 +68,14 @@ class GetFavoritesResponse: HttpResponseProtocol{
 class GetHomepageResponse: HttpResponseProtocol {
 
     var results: [HomepageSection] = []
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         if let resultsJson = data["homepagesections"].array {
             for resultJson in resultsJson {
                 let result = HomepageSection(data: resultJson)
@@ -89,14 +89,14 @@ class GetHomepageResponse: HttpResponseProtocol {
 class GetImagesResponse: HttpResponseProtocol {
 
     var results: [Picture] = []
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
                 let result = Picture(data: resultJson)
@@ -108,7 +108,7 @@ class GetImagesResponse: HttpResponseProtocol {
 }
 
 class GetIsFavoriteResponse: HttpResponseProtocol{
-    var error: Error?
+    var error: CFHError?
     var result: Bool?
 
     required init() {
@@ -116,7 +116,7 @@ class GetIsFavoriteResponse: HttpResponseProtocol{
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         result = data["result"].bool
     }
 }
@@ -124,7 +124,7 @@ class GetIsFavoriteResponse: HttpResponseProtocol{
 class GetRestaurantByIdResponse: HttpResponseProtocol{
 
     var result: Restaurant?
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
@@ -132,7 +132,7 @@ class GetRestaurantByIdResponse: HttpResponseProtocol{
 
     required init(data: JSON) {
         if data["error"].exists() {
-            error = Error(data: data["error"])
+            error = CFHError(data: data["error"])
         }
         if data["result"].exists() {
             result = Restaurant(data: data["result"])
@@ -144,7 +144,7 @@ class GetRestaurantByIdResponse: HttpResponseProtocol{
 class GetRestaurantCollectionMembersResponse: HttpResponseProtocol{
 
     var results: [Restaurant] = []
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
@@ -157,7 +157,7 @@ class GetRestaurantCollectionMembersResponse: HttpResponseProtocol{
                 results.append(result)
             }
         }
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
     }
 
 }
@@ -165,14 +165,14 @@ class GetRestaurantCollectionMembersResponse: HttpResponseProtocol{
 class GetRestaurantsResponse: HttpResponseProtocol {
 
     var results: [Restaurant] = [Restaurant]()
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
                 let result = Restaurant(data: resultJson)
@@ -186,14 +186,14 @@ class GetRestaurantsResponse: HttpResponseProtocol {
 class GetReviewByIdResponse: HttpResponseProtocol{
 
     var result: Review?
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         result = Review(data: data["result"])
     }
 
@@ -202,14 +202,14 @@ class GetReviewByIdResponse: HttpResponseProtocol{
 class GetAllReviewsOfOneRestaurantResponse: HttpResponseProtocol {
 
     var results: [Review] = []
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
                 let result = Review(data: resultJson)
@@ -223,7 +223,7 @@ class GetAllReviewsOfOneRestaurantResponse: HttpResponseProtocol {
 class GetSelectedCollectionsByLatAndLonResponse: HttpResponseProtocol{
 
     var results: [SelectedCollection] = []
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
@@ -236,7 +236,7 @@ class GetSelectedCollectionsByLatAndLonResponse: HttpResponseProtocol{
                 results.append(result)
             }
         }
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
     }
 
 }
@@ -252,7 +252,7 @@ class LoginResponse: AccountResponse {
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
         self.user = User(data: data["user"])
-        self.error = Error(data: data["error"])
+        self.error = CFHError(data: data["error"])
     }
 }
 
@@ -264,7 +264,7 @@ class LogOutResponse: AccountResponse{
 
     required init(data: JSON) {
         super.init()
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         success = data["success"].bool
     }
 }
@@ -272,7 +272,7 @@ class LogOutResponse: AccountResponse{
 class NominateRestaurantResponse: HttpResponseProtocol{
 
     var result: Int?
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
@@ -280,7 +280,7 @@ class NominateRestaurantResponse: HttpResponseProtocol{
 
     required init(data: JSON) {
         result = data["result"]["count"].int
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
     }
 
 }
@@ -306,7 +306,7 @@ class OauthLoginResponse: Model {
 class RemoveFavoriteResponse: HttpResponseProtocol{
 
     var result: Favorite?
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
@@ -314,14 +314,14 @@ class RemoveFavoriteResponse: HttpResponseProtocol{
 
     required init(data: JSON) {
         result = Favorite(data: data["result"])
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
     }
 }
 
 class UpsertReviewResponse: HttpResponseProtocol{
 
     var result: Review?
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
@@ -329,7 +329,7 @@ class UpsertReviewResponse: HttpResponseProtocol{
 
     required init(data: JSON) {
         result = Review(data: data["result"])
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
     }
 }
 
@@ -344,7 +344,7 @@ class SignUpResponse: AccountResponse {
         success = data["success"].bool
         sessionToken = data["session_token"].string
         user = User(data: data["user"])
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
     }
 
 }
@@ -357,7 +357,7 @@ class UpdateInfoResponse: AccountResponse{
 
     required init(data: JSON) {
         super.init(data: data)
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         user = User(data: data["user"])
         success = data["success"].bool
     }
@@ -366,14 +366,14 @@ class UpdateInfoResponse: AccountResponse{
 class UpdateRestaurantInfoResponse: HttpResponseProtocol{
 
     var result: Restaurant?
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         result = Restaurant(data: data["result"])
     }
 
@@ -382,14 +382,14 @@ class UpdateRestaurantInfoResponse: HttpResponseProtocol{
 class UploadPictureResponse: HttpResponseProtocol{
 
     var result: Picture?
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         result = Picture(data: data["result"])
     }
 }
@@ -397,14 +397,14 @@ class UploadPictureResponse: HttpResponseProtocol{
 class DeletePicturesResponse: HttpResponseProtocol{
     
     var result: Any?
-    var error: Error?
+    var error: CFHError?
     
     required init() {
         
     }
     
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         result = data["result"].object
     }
 }
@@ -412,21 +412,21 @@ class DeletePicturesResponse: HttpResponseProtocol{
 class UploadRestaurantPictureResponse: HttpResponseProtocol{
 
     var result: Picture?
-    var error: Error?
+    var error: CFHError?
 
     required init() {
 
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         result = Picture(data: data["result"])
     }
 }
 
 class AddRecommendDishResponse: HttpResponseProtocol {
     var result: RecommendedDish?
-    var error: Error?
+    var error: CFHError?
     
     required init() {
         
@@ -434,13 +434,13 @@ class AddRecommendDishResponse: HttpResponseProtocol {
     
     required init(data: JSON) {
         result = RecommendedDish(data: data["result"])
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
     }
 }
 
 class TrackRestaurantResponse: HttpResponseProtocol {
     var success: Bool?
-    var error: Error?
+    var error: CFHError?
     
     required init() {
         
@@ -448,7 +448,7 @@ class TrackRestaurantResponse: HttpResponseProtocol {
     
     required init(data: JSON) {
         success = data["success"].bool
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
     }
 }
 
@@ -460,7 +460,7 @@ class ChangePasswordResponse: AccountResponse {
     
     required init(data: JSON) {
         super.init(data: data)
-        self.error = Error(data: data["error"])
+        self.error = CFHError(data: data["error"])
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
     }
@@ -475,7 +475,7 @@ class ResetPasswordResponse: AccountResponse {
         super.init(data: data)
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
-        self.error = Error(data: data["error"])
+        self.error = CFHError(data: data["error"])
     }
 }
 
@@ -489,7 +489,7 @@ class NewRandomUserResponse: AccountResponse {
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
         self.user = User(data: data["user"])
-        self.error = Error(data: data["error"])
+        self.error = CFHError(data: data["error"])
     }
 }
 
@@ -502,7 +502,7 @@ class GetMyInfoResponse: AccountResponse {
         print(data)
         super.init(data: data)
         self.user = User(data: data["user"])
-        self.error = Error(data: data["error"])
+        self.error = CFHError(data: data["error"])
     }
 }
 

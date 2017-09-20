@@ -47,7 +47,7 @@
 		8E88C37A5757FBF662F4FF01 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C4A913D15557EBC42F7F /* StringExtension.swift */; };
 		8E88C37F9E4D348AEED4CABB /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C248B4D75B91FF8BADEC /* NotificationTableViewController.swift */; };
 		8E88C3BDED10BB5ECCDD598D /* RemovablePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C006310CF58C122467CD /* RemovablePhotoCollectionViewCell.swift */; };
-		8E88C3E22BA50CF035B78457 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CBC0B9F65CA2DA54F327 /* Error.swift */; };
+		8E88C3E22BA50CF035B78457 /* CFHError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88CBC0B9F65CA2DA54F327 /* CFHError.swift */; };
 		8E88C4147A22B4B1F3ABB860 /* ARNImageTransitionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C9A32D4B4C984DBA80D4 /* ARNImageTransitionNavigationController.swift */; };
 		8E88C414EE68759D37C3C0F9 /* TutorialChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C9DD2B95BC5859503232 /* TutorialChildViewController.swift */; };
 		8E88C42888D6FCEBD0168CF8 /* FirstNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88C4DCD22574E5C2B0E582 /* FirstNotification.swift */; };
@@ -400,7 +400,7 @@
 		8E88CAF6AA15F5307DAB603C /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		8E88CB98E554431F01CB663B /* UIImageEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageEffects.swift; sourceTree = "<group>"; };
 		8E88CBBB3B05829B961657F3 /* RestaurantSearchV2Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantSearchV2Request.swift; sourceTree = "<group>"; };
-		8E88CBC0B9F65CA2DA54F327 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		8E88CBC0B9F65CA2DA54F327 /* CFHError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CFHError.swift; sourceTree = "<group>"; };
 		8E88CBDC855E237E6DDFAAE4 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		8E88CBE31254E5F98EACE5E0 /* AboutMeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeTableViewController.swift; sourceTree = "<group>"; };
 		8E88CC018438BB3E4E4748DE /* RestaurantNominationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantNominationCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -764,7 +764,7 @@
 				8E88CD241F65E9A87C1224D9 /* Favorite.swift */,
 				8E88C7E4E89369CD6F3B0496 /* PhotoInfo.swift */,
 				8E88C36FC7883AA25D418BE3 /* SelectedCollection.swift */,
-				8E88CBC0B9F65CA2DA54F327 /* Error.swift */,
+				8E88CBC0B9F65CA2DA54F327 /* CFHError.swift */,
 				8E88C2E891522B1D27D4E005 /* Picture.swift */,
 				8E88C57F5ED1BBAAAF4AE3E6 /* RecommendedDish.swift */,
 				8E88C08F51FC968121121D46 /* ModelProtocol.swift */,
@@ -1740,7 +1740,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ChifanHero/Pods-ChifanHero-resources.sh",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -2087,7 +2087,7 @@
 				8E88C495B7F218B1390E923A /* Favorite.swift in Sources */,
 				8E88C53D68AF7F6EB214A9EF /* PhotoInfo.swift in Sources */,
 				8E88CB097C44A4F1A317C442 /* SelectedCollection.swift in Sources */,
-				8E88C3E22BA50CF035B78457 /* Error.swift in Sources */,
+				8E88C3E22BA50CF035B78457 /* CFHError.swift in Sources */,
 				8E88C09F8AB6626C63432CA6 /* Picture.swift in Sources */,
 				8E88CDA35E0AD463CF19CC27 /* RecommendedDish.swift in Sources */,
 				8E88C8013BA3E2BFC64E4BB7 /* ModelProtocol.swift in Sources */,

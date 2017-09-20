@@ -6,7 +6,7 @@ target 'ChifanHero' do
 
 pod 'Alamofire', '~> 4.4'
 pod 'Kingfisher', '~> 3.6.2'
-pod 'Flurry-iOS-SDK/FlurrySDK', '~> 7.1.1'
+pod 'Flurry-iOS-SDK/FlurrySDK'
 pod 'SlideMenuControllerSwift'
 pod 'GooglePlaces'
 pod 'SKPhotoBrowser', '~> 4.0.1'

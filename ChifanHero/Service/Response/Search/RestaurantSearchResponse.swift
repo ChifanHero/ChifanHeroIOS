@@ -13,10 +13,10 @@ import SwiftyJSON
 class RestaurantSearchResponse: HttpResponseProtocol {
     
     var results: [Restaurant] = []
-    var error: Error?
+    var error: CFHError?
     
     required init(data : JSON) {
-        error = Error(data: data["error"])
+        error = CFHError(data: data["error"])
         if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
                 let result = Restaurant(data: resultJson)
