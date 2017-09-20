@@ -12,9 +12,9 @@ import SwiftyJSON
 
 class DataAccessor {
     
-    var serviceConfiguration : ServiceConfiguration
+    var serviceConfiguration: ServiceConfiguration
     
-    init (serviceConfiguration : ServiceConfiguration) {
+    init (serviceConfiguration: ServiceConfiguration) {
         self.serviceConfiguration = serviceConfiguration
     }
     
@@ -30,14 +30,14 @@ class DataAccessor {
                 var responseObject: Response?
                 switch response.result {
                 case .success:
-                    if let value = response.result.value {
+                    if let value = response.value {
                         let json = JSON(value)
                         responseObject = Response(data: json)
                     }
                 case .failure(let error):
                     log.debug(error)
-                    if let data = response.data {
-                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                        let json = JSON(parseJSON: utf8Text)
                         responseObject = Response(data: json)
                     }
                 }
@@ -55,8 +55,8 @@ class DataAccessor {
                     }
                 case .failure(let error):
                     log.debug(error)
-                    if let data = response.data {
-                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                        let json = JSON(parseJSON: utf8Text)
                         responseObject = Response(data: json)
                     }
                 }
@@ -75,8 +75,8 @@ class DataAccessor {
                     }
                 case .failure(let error):
                     log.debug(error)
-                    if let data = response.data {
-                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                        let json = JSON(parseJSON: utf8Text)
                         responseObject = Response(data: json)
                     }
                 }
@@ -96,8 +96,8 @@ class DataAccessor {
                     }
                 case .failure(let error):
                     log.debug(error)
-                    if let data = response.data {
-                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                        let json = JSON(parseJSON: utf8Text)
                         responseObject = Response(data: json)
                     }
                 }

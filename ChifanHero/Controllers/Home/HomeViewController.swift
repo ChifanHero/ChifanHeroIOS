@@ -15,7 +15,7 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     
     @IBOutlet weak var frontCoverImage: UIImageView!
     
-    weak var selectedImageView: UIImageView?
+    weak var selectedImageView: UIImageView!
     
     var selectedRestaurantName: String?
     
@@ -270,21 +270,21 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - ARNImageTransitionZoomable
     
     func createTransitionImageView() -> UIImageView {
-        let imageView = UIImageView(image: self.selectedImageView!.image)
-        imageView.contentMode = self.selectedImageView!.contentMode
+        let imageView = UIImageView(image: self.selectedImageView.image)
+        imageView.contentMode = self.selectedImageView.contentMode
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = false
-        imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
+        imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView)
         
         return imageView
     }
     
     func presentationCompletionAction(_ completeTransition: Bool) {
-        self.selectedImageView?.isHidden = true
+        self.selectedImageView.isHidden = true
     }
     
     func dismissalCompletionAction(_ completeTransition: Bool) {
-        self.selectedImageView?.isHidden = false
+        self.selectedImageView.isHidden = false
         animateTransition = false
     }
     
@@ -292,7 +292,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         self.animateTransition = true
         let storyboard = UIStoryboard(name: "Restaurant", bundle: nil)
         let restaurantController = storyboard.instantiateViewController(withIdentifier: "RestaurantMainTableViewController") as! RestaurantMainTableViewController
-        restaurantController.restaurantImage = self.selectedImageView?.image
+        restaurantController.restaurantImage = self.selectedImageView.image
         restaurantController.distance = self.selectedRestaurant?.distance
         restaurantController.restaurantId = self.selectedRestaurantId
         restaurantController.currentLocation = self.lastUsedLocation

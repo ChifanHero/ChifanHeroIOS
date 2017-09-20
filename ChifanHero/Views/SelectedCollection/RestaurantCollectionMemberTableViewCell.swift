@@ -31,10 +31,10 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
         }
         
         var url: URL!
-        if restaurant.picture?.original != nil {
-            url = URL(string: restaurant.picture!.original!)
-        } else if restaurant.picture?.googlePhotoReference != nil {
-            let googlePhotoURL: String = UrlUtil.getGooglePhotoReferenceUrl() + restaurant.picture!.googlePhotoReference!
+        if let original = self.restaurant?.picture?.original {
+            url = URL(string: original)
+        } else if let googlePhotoReference = self.restaurant?.picture?.googlePhotoReference {
+            let googlePhotoURL = UrlUtil.getGooglePhotoReferenceUrl() + googlePhotoReference
             url = URL(string: googlePhotoURL)
         } else {
             url = URL(string: "")

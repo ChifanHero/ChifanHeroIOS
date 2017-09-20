@@ -131,8 +131,12 @@ class GetRestaurantByIdResponse: HttpResponseProtocol{
     }
 
     required init(data: JSON) {
-        error = Error(data: data["error"])
-        result = Restaurant(data: data["result"])
+        if data["error"].exists() {
+            error = Error(data: data["error"])
+        }
+        if data["result"].exists() {
+            result = Restaurant(data: data["result"])
+        }
     }
 
 }
