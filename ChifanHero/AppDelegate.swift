@@ -300,7 +300,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         installation.saveInBackground()
     }
     
-    private func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    private func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: CFHError) {
         if error.code == 3010 {
             print("Push notifications are not supported in the iOS Simulator.")
         } else {

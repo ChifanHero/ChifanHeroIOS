@@ -118,11 +118,13 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         if let favoriteCount = selectedCollection?.userFavoriteCount {
             favoriteLabel.text = String(favoriteCount)
         }
+        /*
         if !UserContext.isValidUser() {
             favoriteButton.isSelected = false
         } else {
             
         }
+        */
     }
     
     func configureNominationView(){

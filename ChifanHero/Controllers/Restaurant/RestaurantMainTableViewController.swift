@@ -29,15 +29,9 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     var localSearchResponse: MKLocalSearchResponse!
     
-    var restaurantId: String? {
-        didSet {
-            request = GetRestaurantByIdRequest(id: restaurantId!)
-        }
-    }
+    var restaurantId: String?
     
     var userRating: Int = 0
-    
-    var request: GetRestaurantByIdRequest?
     
     var restaurant: Restaurant? {
         didSet {
@@ -74,7 +68,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     var restaurantFromGoogle: Restaurant?
     
-    var restaurantImage: UIImage?
+    var restaurantImage: UIImage!
     var distance: Distance?
     
     var currentLocation: Location?
@@ -339,44 +333,51 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     // MARK: Restaurant Data
     
+    func reloadDataDueToUserSessionExpired() {
+        self.enableCurrentView()
+        self.loadData()
+    }
+    
     func loadData() {
+        guard let restaurantId = self.restaurantId else {
+            return
+        }
+        
         OperationQueue.main.addOperation({ () -> Void in
             self.disableCurrentView()
         });
         
-        if (request != nil) {
-            request?.userLocation = self.currentLocation
-            DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request!) { (response) -> Void in
-                OperationQueue.main.addOperation({ () -> Void in
-                    if response == nil {
-                        
-                    } else {
-                        if response?.result != nil {
-                            self.restaurant = (response?.result)!
-                            if self.restaurant != nil {
-                                
-                                if self.backgroundImageView.image == nil {
-                                    let backgroundImage: UIImage?
-                                    if let imageURL = self.restaurant?.picture?.original {
-                                        let url = URL(string: imageURL)
-                                        let data = try? Data(contentsOf: url!)
-                                        if data != nil {
-                                            backgroundImage = UIImage(data: data!)
-                                        } else {
-                                            backgroundImage = DefaultImageGenerator.generateRestaurantDefaultImage()
-                                        }
-                                        
-                                    } else {
-                                        backgroundImage = DefaultImageGenerator.generateRestaurantDefaultImage()
-                                    }
-                                    self.backgroundImageView.image = backgroundImage
-                                }
-                                self.tableView.reloadData()
-                            }
+        let request = GetRestaurantByIdRequest(id: restaurantId)
+        request.userLocation = self.currentLocation
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantById(request) { (response) -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
+                guard let result = response?.result else {
+                    if let error = response?.error {
+                        if error.code == 209 {
+                            UserSessionUtil.deleteSessionToken()
+                            AlertUtil.showErrorAlert(errorCode: error.code, target: self, buttonAction: #selector(self.reloadDataDueToUserSessionExpired))
+                        } else {
+                            AlertUtil.showErrorAlert(errorCode: error.code, target: self, buttonAction: #selector(self.dismissAlert))
                         }
                     }
-                });
-            }
+                    return
+                }
+                self.restaurant = result
+                if self.backgroundImageView.image == nil {
+                    var url: URL!
+                    if let original = self.restaurant?.picture?.original {
+                        url = URL(string: original)
+                    } else if let googlePhotoReference = self.restaurant?.picture?.googlePhotoReference {
+                        let googlePhotoURL = UrlUtil.getGooglePhotoReferenceUrl() + googlePhotoReference
+                        url = URL(string: googlePhotoURL)
+                    } else {
+                        url = URL(string: "")
+                    }
+                    
+                    self.backgroundImageView.kf.setImage(with: url, placeholder: DefaultImageGenerator.generateRestaurantDefaultImage(), options: [.transition(ImageTransition.fade(1))])
+                }
+                self.tableView.reloadData()
+            });
         }
     }
     
@@ -448,10 +449,10 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         for image in imagePool {
             let imageView = UIImageView()
             var url: URL!
-            if image.original != nil {
-                url = URL(string: image.original!)
-            } else if image.googlePhotoReference != nil {
-                let googlePhotoURL: String = UrlUtil.getGooglePhotoReferenceUrl() + image.googlePhotoReference!
+            if let original = image.original {
+                url = URL(string: original)
+            } else if let googlePhotoReference = image.googlePhotoReference {
+                let googlePhotoURL: String = UrlUtil.getGooglePhotoReferenceUrl() + googlePhotoReference
                 url = URL(string: googlePhotoURL)
             } else {
                 url = URL(string: "")

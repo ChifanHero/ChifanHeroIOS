@@ -12,11 +12,11 @@ import SwiftyJSON
 
 class AccountManager {
     
-    var serviceConfiguration : ServiceConfiguration
+    var serviceConfiguration: ServiceConfiguration
     
     let myKeyChainWrapper = KeychainWrapper()
     
-    init (serviceConfiguration : ServiceConfiguration) {
+    init (serviceConfiguration: ServiceConfiguration) {
         self.serviceConfiguration = serviceConfiguration
     }
     
@@ -234,8 +234,8 @@ class AccountManager {
                     }
                 case .failure(let error):
                     log.debug(error)
-                    if let data = response.data {
-                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                        let json = JSON(parseJSON: utf8Text)
                         responseObject = Response(data: json)
                     }
                 }
@@ -260,8 +260,8 @@ class AccountManager {
                     }
                 case .failure(let error):
                     log.debug(error)
-                    if let data = response.data {
-                        let json = JSON(parseJSON: String(data: data, encoding: String.Encoding.utf8)!)
+                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                        let json = JSON(parseJSON: utf8Text)
                         responseObject = Response(data: json)
                     }
                 }
@@ -317,7 +317,7 @@ class AccountManager {
             request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         }
         defaults.set(nil, forKey: "sessionToken")
-        self.callApi(request, afterSuccess: self.deleteUser, responseHandler: responseHandler)
+        self.callApi(request, afterSuccess: self.doNothing, responseHandler: responseHandler)
     }
     
     func changePassword(oldPassword: String?, newPassword: String?, responseHandler: @escaping (ChangePasswordResponse?) -> Void) {
@@ -365,8 +365,7 @@ class AccountManager {
     }
     
     private func deleteUser(_ response: AccountResponse?){
-        let defaults: UserDefaults = UserDefaults.standard
-        defaults.set(nil, forKey: "sessionToken")
+        // Do not remove sessionToken here
     }
     
     

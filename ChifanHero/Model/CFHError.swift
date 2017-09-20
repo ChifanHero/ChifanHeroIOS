@@ -9,8 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class Error: Model {
-    
+class CFHError: Model {
     var code: Int?
     var message: String?
     

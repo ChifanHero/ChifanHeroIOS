@@ -13,7 +13,7 @@ class AccountResponse: HttpResponseProtocol{
     var success: Bool?
     var sessionToken: String?
     var user: User?
-    var error: Error?
+    var error: CFHError?
     
     required init() {}
     
