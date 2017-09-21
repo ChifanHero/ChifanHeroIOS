@@ -42,18 +42,6 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
         self.searchResultsTable.tableFooterView = UIView()
     }
     
-    private func setDefaultSearchContext() {
-        SearchContext.distance = RangeFilter.auto
-        SearchContext.rating = RatingFilter.none
-        SearchContext.sort = SortOptions.distance
-        SearchContext.coordinates = userLocationManager.getLocationInUse()
-    }
-    
-    private func configPullToRefresh() {
-        pullRefresher.addTarget(self, action: #selector(self.pullToRefreshData), for: .valueChanged)
-        self.searchResultsTable.insertSubview(pullRefresher, at: 0)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackRestaurantsView()
@@ -64,6 +52,18 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.animateTransition = false
+    }
+    
+    private func setDefaultSearchContext() {
+        SearchContext.distance = RangeFilter.auto
+        SearchContext.rating = RatingFilter.none
+        SearchContext.sort = SortOptions.distance
+        SearchContext.coordinates = userLocationManager.getLocationInUse()
+    }
+    
+    private func configPullToRefresh() {
+        pullRefresher.addTarget(self, action: #selector(self.pullToRefreshData), for: .valueChanged)
+        self.searchResultsTable.insertSubview(pullRefresher, at: 0)
     }
     
     // MARK - TextField methods
@@ -86,16 +86,13 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
             
             if SearchContext.address != nil && SearchContext.address != "" {
                 LocationHelper.getLocationFromAddress(SearchContext.address!, completionHandler: { (location) in
-                    OperationQueue.main.addOperation({ 
-                        if location == nil {
-                            SearchContext.coordinates = userLocationManager.getLocationInUse()
-                        } else {
-                            SearchContext.coordinates = location
-                        }
-                        let searchRequest: RestaurantSearchV2Request = self.buildSearchRequest()
-                        self.search(searchRequest)
-                    })
-                    
+                    if location == nil {
+                        SearchContext.coordinates = userLocationManager.getLocationInUse()
+                    } else {
+                        SearchContext.coordinates = location
+                    }
+                    let searchRequest: RestaurantSearchV2Request = self.buildSearchRequest()
+                    self.search(searchRequest)
                 })
             } else {
                 let searchRequest : RestaurantSearchV2Request = self.buildSearchRequest()
@@ -104,6 +101,8 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
             
         } else {
             log.debug("Search requested. But no new search needed")
+            self.pullRefresher.endRefreshing()
+            self.loadingIndicator.stopAnimation()
         }
     }
     
