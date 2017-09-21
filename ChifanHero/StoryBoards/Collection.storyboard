@@ -14,7 +14,7 @@
         <!--Selected Collections Table View Controller-->
         <scene sceneID="dfW-oL-vtj">
             <objects>
-                <tableViewController storyboardIdentifier="selectedCollection" id="E7i-kN-adb" customClass="SelectedCollectionsTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="selectedCollection" extendedLayoutIncludesOpaqueBars="YES" id="E7i-kN-adb" customClass="SelectedCollectionsTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="itt-po-E0x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -37,7 +37,7 @@
         <!--Restaurant Collection Members View Controller-->
         <scene sceneID="qxI-QR-kDr">
             <objects>
-                <tableViewController id="OSG-oC-eeg" customClass="RestaurantCollectionMembersViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="OSG-oC-eeg" customClass="RestaurantCollectionMembersViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fJc-Er-xEV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -208,10 +208,10 @@
         <!--Selected Collection Navigation Controller-->
         <scene sceneID="uji-fA-uDE">
             <objects>
-                <navigationController storyboardIdentifier="CollectionsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Ndl-X7-H55" userLabel="Selected Collection Navigation Controller" customClass="ARNImageTransitionNavigationController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CollectionsNavigationController" extendedLayoutIncludesOpaqueBars="YES" id="Ndl-X7-H55" userLabel="Selected Collection Navigation Controller" customClass="ARNImageTransitionNavigationController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="榜单" image="Collection_Tab" selectedImage="Collection_Tab" id="wUi-Jg-FRc"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NjQ-Un-4S7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="NjQ-Un-4S7">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -227,7 +227,7 @@
         <!--Restaurant Nomination View Controller-->
         <scene sceneID="fpy-XK-hF2">
             <objects>
-                <viewController id="qC2-PW-sq7" customClass="RestaurantNominationViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="qC2-PW-sq7" customClass="RestaurantNominationViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pk8-lz-LMB"/>
                         <viewControllerLayoutGuide type="bottom" id="0qR-ws-40N"/>

@@ -108,6 +108,16 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         super.viewWillAppear(animated)
         self.reviewSectionView.resetRatingStar()
         self.recommendedDishSectionView.configureView()
+        self.setNavigationBarTranslucent(To: false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.tabBarController?.tabBar.isHidden == true {
+            showTabbarSmoothly()
+        }
+        self.animateTransition = true
+        TrackingUtil.trackRestaurantView()
     }
     
     private func trackRestaurant() {
@@ -245,28 +255,11 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         updateHeaderView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if self.tabBarController?.tabBar.isHidden == true {
-            showTabbarSmoothly()
-        }
-        showNavigationBarSmoothly()
-        self.animateTransition = true
-        TrackingUtil.trackRestaurantView()
-    }
-    
-    
     func showTabbarSmoothly() {
         self.tabBarController?.tabBar.alpha = 0
         self.tabBarController?.tabBar.isHidden = false
         UIView.animate(withDuration: 0.6, animations: {
             self.tabBarController?.tabBar.alpha = 1
-        })
-    }
-    
-    func showNavigationBarSmoothly() {
-        UIView.animate(withDuration: 0.6, animations: {
-            self.setNavigationBarTranslucent(To: false)
         })
     }
     

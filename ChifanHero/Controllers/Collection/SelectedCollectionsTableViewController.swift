@@ -92,7 +92,7 @@ class SelectedCollectionsTableViewController: AutoNetworkCheckTableViewControlle
                                 self.selectedCollections += response!.results
                                 self.tableView.isHidden = false
                             } else {
-                                self.navigationController?.navigationBar.isTranslucent = false
+                                self.setNavigationBarTranslucent(To: false)
                                 self.tabBarController?.tabBar.isHidden = false
                             }
                             
@@ -102,7 +102,7 @@ class SelectedCollectionsTableViewController: AutoNetworkCheckTableViewControlle
                         } else {
                             self.loadingIndicator.stopAnimation()
                             self.pullRefresher.endRefreshing()
-                            self.navigationController?.navigationBar.isTranslucent = false
+                            self.setNavigationBarTranslucent(To: false)
                             self.tabBarController?.tabBar.isHidden = false
                         }
                     }
