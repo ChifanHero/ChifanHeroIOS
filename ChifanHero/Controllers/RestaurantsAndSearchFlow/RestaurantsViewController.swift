@@ -246,7 +246,7 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: RestaurantTableViewCell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as! RestaurantTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as! RestaurantTableViewCell
         cell.setUp(restaurant: restaurants[indexPath.row])
         return cell
     }
@@ -265,12 +265,6 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return RestaurantTableViewCell.height
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = UIView()
-        footerView.backgroundColor = UIColor.groupTableViewBackground
-        return footerView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -301,7 +295,6 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
         imageView.contentMode = self.selectedImageView!.contentMode
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = false
-        //        imageView.frame = self.selectedImageView!.convertRect(self.selectedImageView!.frame, toView: self.view)
         imageView.frame = PositionConverter.getViewAbsoluteFrame(self.selectedImageView!)
         
         return imageView

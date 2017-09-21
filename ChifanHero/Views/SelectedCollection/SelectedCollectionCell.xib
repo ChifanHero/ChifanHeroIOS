@@ -1,22 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="selectedCollectionCell" rowHeight="263" id="uod-5R-P5T" customClass="SelectedCollectionTableViewCell" customModule="吃饭英雄" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="263"/>
+            <rect key="frame" x="0.0" y="0.0" width="383" height="263"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uod-5R-P5T" id="GsA-wD-mwY">
-                <frame key="frameInset" width="375" height="262"/>
+                <rect key="frame" x="0.0" y="0.0" width="383" height="262.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sO0-cE-wgY" userLabel="SelectedCollection_Image"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sO0-cE-wgY" userLabel="SelectedCollection_Image">
+                        <rect key="frame" x="0.0" y="0.0" width="383" height="263"/>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLI-E5-n3F" userLabel="Title">
+                        <rect key="frame" x="91.5" y="91.5" width="200" height="80"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="Ffx-Ca-F70"/>
                             <constraint firstAttribute="width" constant="200" id="hJn-rA-0D5"/>
@@ -28,18 +34,18 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="KLI-E5-n3F" firstAttribute="centerY" secondItem="GsA-wD-mwY" secondAttribute="centerY" id="0OE-eG-ZMe"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="sO0-cE-wgY" secondAttribute="bottom" constant="2" id="15E-KD-9tx"/>
-                    <constraint firstItem="sO0-cE-wgY" firstAttribute="leading" secondItem="GsA-wD-mwY" secondAttribute="leadingMargin" constant="-8" id="19Z-am-50b"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="sO0-cE-wgY" secondAttribute="trailing" constant="-8" id="GP7-FK-sbL"/>
+                    <constraint firstItem="sO0-cE-wgY" firstAttribute="leading" secondItem="GsA-wD-mwY" secondAttribute="leading" id="9y0-9O-rND"/>
+                    <constraint firstItem="sO0-cE-wgY" firstAttribute="top" secondItem="GsA-wD-mwY" secondAttribute="top" id="LBs-Qh-AgA"/>
                     <constraint firstItem="KLI-E5-n3F" firstAttribute="centerX" secondItem="GsA-wD-mwY" secondAttribute="centerX" id="RQ9-AM-jhW"/>
-                    <constraint firstItem="sO0-cE-wgY" firstAttribute="top" secondItem="GsA-wD-mwY" secondAttribute="topMargin" constant="-8" id="rRO-e9-90V"/>
+                    <constraint firstAttribute="bottom" secondItem="sO0-cE-wgY" secondAttribute="bottom" id="k5P-gd-4Hq"/>
+                    <constraint firstAttribute="trailing" secondItem="sO0-cE-wgY" secondAttribute="trailing" id="nSe-vs-rrT"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="selectedCollectionImage" destination="sO0-cE-wgY" id="K1C-KU-BUH"/>
                 <outlet property="title" destination="KLI-E5-n3F" id="kLl-Ze-HUS"/>
             </connections>
-            <point key="canvasLocation" x="348.5" y="326.5"/>
+            <point key="canvasLocation" x="344.5" y="326.5"/>
         </tableViewCell>
     </objects>
 </document>

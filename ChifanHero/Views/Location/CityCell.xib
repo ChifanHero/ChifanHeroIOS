@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSq-wm-pgJ">
-                        <rect key="frame" x="18" y="11" width="361" height="21"/>
+                        <rect key="frame" x="10" y="11" width="377" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -27,8 +27,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="kSq-wm-pgJ" firstAttribute="centerY" secondItem="yhD-Ib-YhC" secondAttribute="centerY" id="5Xp-8b-NAe"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="kSq-wm-pgJ" secondAttribute="trailing" constant="10" id="6BE-wC-Ayl"/>
-                    <constraint firstItem="kSq-wm-pgJ" firstAttribute="leading" secondItem="yhD-Ib-YhC" secondAttribute="leadingMargin" constant="10" id="bTn-5h-uoA"/>
+                    <constraint firstAttribute="trailing" secondItem="kSq-wm-pgJ" secondAttribute="trailing" constant="10" id="mC6-rv-pQJ"/>
+                    <constraint firstItem="kSq-wm-pgJ" firstAttribute="leading" secondItem="yhD-Ib-YhC" secondAttribute="leading" constant="10" id="x77-T4-pmq"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
