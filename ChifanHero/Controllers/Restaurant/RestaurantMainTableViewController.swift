@@ -38,7 +38,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             self.configVCTitle()
             self.scoreLabel.text = String(format:"%.1f", self.restaurant?.rating ?? 0)
             self.scoreLabel.backgroundColor = ScoreComputer.getScoreColor(self.restaurant?.rating ?? 0)
-            self.scoreLabel.alpha = 1
+            self.scoreLabel.isHidden = false
             self.infoSectionView.restaurant = self.restaurant
             self.reviewSectionView.reviews = self.restaurant?.reviewInfo?.reviews
             self.loadImagePool(self.restaurant!.photoInfo!.photos)
@@ -205,7 +205,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     private func configLabels() {
         scoreLabel.layer.cornerRadius = 4
-        scoreLabel.alpha = 0
+        scoreLabel.isHidden = true
     }
     
     /**
@@ -271,13 +271,17 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     }
     
     private func configVCTitle() {
-        let vcTitleLabel: UILabel = UILabel(frame: CGRect(x: 000, y: 0, width: 200, height: 40))
+        let vcTitleLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
         vcTitleLabel.text = self.restaurant?.name
         vcTitleLabel.backgroundColor = UIColor.clear
         vcTitleLabel.textColor = UIColor.white
         vcTitleLabel.alpha = 1.0
         vcTitleLabel.sizeToFit()
         self.navigationItem.titleView = vcTitleLabel
+        
+        // To avoid titleView displayed when back to previous controller
+        self.navigationItem.titleView?.isHidden = true
+        
         self.navigationItem.titleView?.alpha = 0.0
     }
     
@@ -591,8 +595,10 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
         let offset = scrollView.contentOffset.y
         if offset > -30 {
             let scale = (offset + 30) / 40
+            self.navigationItem.titleView?.isHidden = false
             self.navigationItem.titleView?.alpha = scale
         } else {
+            self.navigationItem.titleView?.isHidden = true
             self.navigationItem.titleView?.alpha = 0.0
         }
     }
@@ -784,15 +790,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     }
     
     func controlsVisibilityToggled(hidden: Bool) {
-        var alpha: CGFloat?
-        if hidden {
-            alpha = 0
-        } else {
-            alpha = 1
-        }
-        UIView.animate(withDuration: 0.2) {
-            self.photoAttributionTextView.alpha = alpha!
-        }
+        self.photoAttributionTextView.isHidden = hidden
     }
     
     // MARK: RestaurantRecommendedDishDelegate

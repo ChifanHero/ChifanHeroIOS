@@ -18,7 +18,7 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
     
     var imagePoolContent: [UIImageView] = []
     
-    var photoAttributionTextView: UITextView?
+    var photoAttributionTextView: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,24 +60,24 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
         }
         let browser = SKPhotoBrowser(photos: images)
         browser.delegate = self
-        browser.view.addSubview(photoAttributionTextView!)
+        browser.view.addSubview(photoAttributionTextView)
         browser.initializePageIndex(indexPath.row)
         present(browser, animated: true, completion: {
             if self.imagePool[indexPath.item].htmlAttributions.count > 0 {
-                self.photoAttributionTextView!.attributedText = self.imagePool[indexPath.item].htmlAttributions[0].attributedStringFromHTML()
-                self.photoAttributionTextView!.textAlignment = .center
-                self.photoAttributionTextView!.font = .systemFont(ofSize: 16)
+                self.photoAttributionTextView.attributedText = self.imagePool[indexPath.item].htmlAttributions[0].attributedStringFromHTML()
+                self.photoAttributionTextView.textAlignment = .center
+                self.photoAttributionTextView.font = .systemFont(ofSize: 16)
             } else {
-                self.photoAttributionTextView?.attributedText = nil
+                self.photoAttributionTextView.attributedText = nil
             }
         })
     }
     
     func configPhotoAttributionTextView() {
         photoAttributionTextView = UITextView(frame: CGRect(x: 0, y: self.view.frame.height - 80, width: self.view.frame.width, height: 30))
-        photoAttributionTextView!.backgroundColor = UIColor.clear
-        photoAttributionTextView!.isEditable = false
-        photoAttributionTextView!.textColor = UIColor.white
+        photoAttributionTextView.backgroundColor = UIColor.clear
+        photoAttributionTextView.isEditable = false
+        photoAttributionTextView.textColor = UIColor.white
     }
     
     func collectionView(_ collectionView:UICollectionView, mosaicCellSizeTypeAtIndexPath indexPath:IndexPath) -> TRMosaicCellType {
@@ -95,24 +95,16 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
     // MARK: - SKPhotoBrowserDelegate
     func didScrollToIndex(_ index: Int) {
         if self.imagePool[index].htmlAttributions.count > 0 {
-            self.photoAttributionTextView!.attributedText = self.imagePool[index].htmlAttributions[0].attributedStringFromHTML()
-            self.photoAttributionTextView!.textAlignment = .center
-            self.photoAttributionTextView!.font = .systemFont(ofSize: 16)
+            self.photoAttributionTextView.attributedText = self.imagePool[index].htmlAttributions[0].attributedStringFromHTML()
+            self.photoAttributionTextView.textAlignment = .center
+            self.photoAttributionTextView.font = .systemFont(ofSize: 16)
         } else {
-            self.photoAttributionTextView!.attributedText = nil
+            self.photoAttributionTextView.attributedText = nil
         }
     }
     
     func controlsVisibilityToggled(hidden: Bool) {
-        var alpha: CGFloat?
-        if hidden {
-            alpha = 0
-        } else {
-            alpha = 1
-        }
-        UIView.animate(withDuration: 0.2) {
-            self.photoAttributionTextView!.alpha = alpha!
-        }
+        self.photoAttributionTextView.isHidden = hidden
     }
 
 }
