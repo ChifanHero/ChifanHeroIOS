@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9C-hT-Qc8" userLabel="Actual Content View">
-                        <rect key="frame" x="18" y="13" width="490" height="249"/>
+                        <rect key="frame" x="10" y="5" width="506" height="264.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ycw-HA-llA" userLabel="RestaurantImage">
-                                <rect key="frame" x="0.0" y="0.0" width="490" height="249"/>
+                                <rect key="frame" x="0.0" y="0.0" width="506" height="264.5"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLp-BW-nXq" userLabel="Name">
-                                <rect key="frame" x="10" y="209" width="300" height="30"/>
+                                <rect key="frame" x="10" y="224.5" width="300" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Ih4-Lt-m6d"/>
                                     <constraint firstAttribute="width" constant="300" id="a2a-CX-3IN"/>
@@ -48,10 +48,10 @@
                 </subviews>
                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="d9C-hT-Qc8" secondAttribute="bottom" constant="5" id="9vN-hp-pzW"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="d9C-hT-Qc8" secondAttribute="trailing" constant="10" id="KYP-HH-Kam"/>
-                    <constraint firstItem="d9C-hT-Qc8" firstAttribute="top" secondItem="f6E-UE-wIu" secondAttribute="topMargin" constant="5" id="Nx4-Od-QgW"/>
-                    <constraint firstItem="d9C-hT-Qc8" firstAttribute="leading" secondItem="f6E-UE-wIu" secondAttribute="leadingMargin" constant="10" id="TZ0-Vo-dAL"/>
+                    <constraint firstItem="d9C-hT-Qc8" firstAttribute="top" secondItem="f6E-UE-wIu" secondAttribute="top" constant="5" id="33U-mf-uFl"/>
+                    <constraint firstItem="d9C-hT-Qc8" firstAttribute="leading" secondItem="f6E-UE-wIu" secondAttribute="leading" constant="10" id="g7Y-6s-6pn"/>
+                    <constraint firstAttribute="bottom" secondItem="d9C-hT-Qc8" secondAttribute="bottom" constant="5" id="yFQ-Gv-CwG"/>
+                    <constraint firstAttribute="trailing" secondItem="d9C-hT-Qc8" secondAttribute="trailing" constant="10" id="yPl-qO-ziY"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
