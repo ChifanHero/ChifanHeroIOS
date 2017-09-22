@@ -51,8 +51,7 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isTranslucent = false
-//        setTabBarVisible(true, animated: true)
+        self.setNavigationBarTranslucent(To: false)
         self.tabBarController?.tabBar.isHidden = false
     }
     

@@ -57,7 +57,7 @@ extension UIViewController: ControllerCommonConfigurationDelegate{
     }
     
     func setNavigationBarTranslucent(To value: Bool){
-        self.navigationController?.navigationBar.isTranslucent = value
+        self.navigationController!.navigationBar.isTranslucent = value
     }
 }
 

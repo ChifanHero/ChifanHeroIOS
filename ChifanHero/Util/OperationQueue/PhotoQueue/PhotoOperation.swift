@@ -8,26 +8,21 @@
 
 import Foundation
 
-class PhotoUploadOperation: RetryableOperation {
+class PhotoUploadOperation: AsynchronousOperation {
     
     private var success = false
     
     private var photo: UIImage?
-    
     private var restaurantId: String?
-    
     private var reviewId: String?
-    
-    private var retryTimes = 0
     
     private var uploaded: Picture?
     
-    init(photo: UIImage, restaurantId: String, reviewId: String, retryTimes: Int, completion: @escaping (Bool, Picture?) -> Void) {
+    init(photo: UIImage, restaurantId: String, reviewId: String, completion: @escaping (Bool, Picture?) -> Void) {
         super.init()
         self.photo = photo
         self.restaurantId = restaurantId
         self.reviewId = reviewId
-        self.retryTimes = retryTimes
         self.completionBlock = {
             if self.isCancelled {
                 completion(false, nil)
@@ -38,6 +33,7 @@ class PhotoUploadOperation: RetryableOperation {
     }
     
     override func main() {
+        super.main()
         upload()
     }
     
@@ -50,25 +46,19 @@ class PhotoUploadOperation: RetryableOperation {
         request.reviewId = self.reviewId
         
         DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
-            if self.isCancelled { // isCancelled == true and isFinished == true
-                self.state = .finished
+            if let result = response?.result {
+                self.success = true
+                self.uploaded = result
             } else {
-                if let result = response?.result {
-                    self.uploaded = result
-                    self.success = true
-                } else {
-                    if self.retryTimes > 0 {
-                        self.retryTimes = self.retryTimes - 1
-                        self.upload()
-                    }
-                }
-                self.state = .finished
+                self.success = false
+                self.uploaded = nil
             }
+            self.state = .finished
         }
     }
 }
 
-class PhotoDeleteOperation: RetryableOperation {
+class PhotoDeleteOperation: AsynchronousOperation {
     
     private var success = false
     
@@ -87,6 +77,7 @@ class PhotoDeleteOperation: RetryableOperation {
     }
     
     override func main() {
+        super.main()
         delete()
     }
     
@@ -95,15 +86,12 @@ class PhotoDeleteOperation: RetryableOperation {
         request.ids = self.photoIds
         
         DataAccessor(serviceConfiguration: ParseConfiguration()).deletePictures(request) { (response) -> Void in
-            // Do not retry delete operation because this may cause server error
-            if self.isCancelled { // isCancelled == true and isFinished == true
-                self.state = .finished
+            if (response?.result) != nil {
+                self.success = true
             } else {
-                if response?.result != nil {
-                    self.success = true
-                }
-                self.state = .finished
+                self.success = false
             }
+            self.state = .finished
         }
     }
 }

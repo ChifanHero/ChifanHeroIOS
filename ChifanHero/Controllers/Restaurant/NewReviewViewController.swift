@@ -99,60 +99,64 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
 
     
     func submit() {
-        if self.rating == 0 {
+        guard self.rating != 0 else {
             AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "请为餐厅打分", target: self, buttonAction: #selector(dismissAlert))
-        } else {
-            if let restaurant = self.restaurant {
-                self.disableCurrentView()
+            return
+        }
+        if let restaurant = self.restaurant {
+            self.disableCurrentView()
+            
+            let notificationOperation = BlockOperation {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: REVIEW_UPLOAD_DONE), object: nil)
+                OperationQueue.main.addOperation({ () -> Void in
+                    self.dismiss(animated: true, completion: nil)
+                });
+            }
+            
+            let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, restaurantId: restaurant.id!) { (success, error, review) in
                 
-                let notificationOperation = BlockOperation {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: REVIEW_UPLOAD_DONE), object: nil)
-                    OperationQueue.main.addOperation({ () -> Void in
-                        self.dismiss(animated: true, completion: nil)
-                    });
-                }
-                
-                let reviewOperation = PostReviewOperation(rating: self.rating, content: reviewTextView.text, retryTimes: 0) { (success, error, review) in
-                    
-                    if success {
-                        self.reviewId = review?.id
-                        for image in self.toBeUploadedImages {
-                            let uploadOperation = PhotoUploadOperation(photo: image, restaurantId: self.restaurant.id!, reviewId: self.reviewId!, retryTimes: 3, completion: { (success, picture) in
-                                if success {
-                                    log.debug("Image:\(picture?.id ?? "") upload is done")
-                                } else {
-                                    log.debug("Image upload failed")
-                                }
-                            })
-                            notificationOperation.addDependency(uploadOperation)
-                            self.reviewManager.queue.addOperation(uploadOperation)
+                if success {
+                    self.reviewId = review?.id
+                    for image in self.toBeUploadedImages {
+                        let uploadOperation = PhotoUploadOperation(photo: image, restaurantId: self.restaurant.id!, reviewId: self.reviewId!, completion: { (success, picture) in
+                            if success {
+                                log.debug("Image:\(picture?.id ?? "") upload is done")
+                            } else {
+                                log.debug("Image upload failed")
+                            }
+                        })
+                        notificationOperation.addDependency(uploadOperation)
+                        self.reviewManager.queue.addOperation(uploadOperation)
+                    }
+                    self.reviewManager.queue.addOperation(notificationOperation)
+                } else {
+                    if let error = error {
+                        if error.code == 209 {
+                            UserSessionUtil.deleteSessionToken()
                         }
-                        self.reviewManager.queue.addOperation(notificationOperation)
-                    } else {
-                        if error != nil {
-                            AlertUtil.showErrorAlert(errorCode: error?.code, target: self, buttonAction: #selector(self.dismissAlert))
-                        }
+                        OperationQueue.main.addOperation({ () -> Void in
+                            AlertUtil.showErrorAlert(errorCode: error.code, target: self, buttonAction: #selector(self.dismissNoUserSessionAlert))
+                        });
                     }
                 }
-                if let review = self.review {
-                    reviewOperation.reviewId = review.id
-                }
-                reviewOperation.restaurantId = restaurant.id!
-                if self.toBeDeletedImageIds.count > 0 {
-                    let deleteOperation = PhotoDeleteOperation(photoIds: self.toBeDeletedImageIds, completion: {(success) in
-                        if success {
-                            log.debug("Image delete is done")
-                        } else {
-                            log.debug("Image delete failed")
-                        }
-                    })
-                    self.reviewManager.queue.addOperation(deleteOperation)
-                    notificationOperation.addDependency(deleteOperation)
-                }
-                
-                notificationOperation.addDependency(reviewOperation)
-                self.reviewManager.queue.addOperation(reviewOperation)
             }
+            if let review = self.review {
+                reviewOperation.reviewId = review.id
+            }
+            if self.toBeDeletedImageIds.count > 0 {
+                let deleteOperation = PhotoDeleteOperation(photoIds: self.toBeDeletedImageIds, completion: {(success) in
+                    if success {
+                        log.debug("Image delete is done")
+                    } else {
+                        log.debug("Image delete failed")
+                    }
+                })
+                self.reviewManager.queue.addOperation(deleteOperation)
+                notificationOperation.addDependency(deleteOperation)
+            }
+            
+            notificationOperation.addDependency(reviewOperation)
+            self.reviewManager.queue.addOperation(reviewOperation)
         }
     }
     
@@ -176,6 +180,10 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func dismissAlert() {
         
+    }
+    
+    func dismissNoUserSessionAlert() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

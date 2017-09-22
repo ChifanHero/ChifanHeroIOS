@@ -71,8 +71,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.animateTransition = false
-        self.navigationController?.navigationBar.isTranslucent = true
-        
+        self.setNavigationBarTranslucent(To: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
