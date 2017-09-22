@@ -16,30 +16,27 @@ class ChangeNicknameTableViewController: UITableViewController, UITextFieldDeleg
     @IBOutlet weak var nickNameTextField: UITextField!
     
     @IBAction func nickNameChangeDone(_ sender: AnyObject) {
-        
         changeNickName()
     }
     
     func changeNickName() {
-        if nickNameTextField.text == nil || nickNameTextField.text!.trimmingCharacters(in: .whitespaces).characters.count == 0 {
-            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "昵称不能为空", infoSubTitle: "", target: self, buttonAction: #selector(self.dismissAlert))
-        } else {
-            AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nickNameTextField.text, pictureId: nil) { (response) -> Void in
-                OperationQueue.main.addOperation({ () -> Void in
-                    if response == nil {
-                        AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
-                    } else if response?.success != nil && response?.success == true {
-                        print("Update nick name succeed")
-                        self.navigationController?.popViewController(animated: true)
-                    } else if response?.error?.code != nil {
-                        AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.dismissAlert))
-                    } else {
-                        AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
-                    }
-                    
-                })
-                
-            }
+        guard nickNameTextField.text != nil && nickNameTextField.text!.trimmingCharacters(in: .whitespaces).characters.count != 0 else {
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "请输入昵称", infoSubTitle: "昵称不能为空", target: self, buttonAction: #selector(self.dismissAlert))
+            return
+        }
+        AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nickNameTextField.text, pictureId: nil) { (response) -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
+                if response == nil {
+                    AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
+                } else if response?.success != nil && response?.success == true {
+                    log.debug("Nickname update successful")
+                    self.navigationController?.popViewController(animated: true)
+                } else if response?.error?.code != nil {
+                    AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.dismissAlert))
+                } else {
+                    AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
+                }
+            })
         }
     }
     
