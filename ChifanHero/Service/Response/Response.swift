@@ -328,8 +328,12 @@ class UpsertReviewResponse: HttpResponseProtocol{
     }
 
     required init(data: JSON) {
-        result = Review(data: data["result"])
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
+        if data["result"].exists() {
+            result = Review(data: data["result"])
+        }
     }
 }
 
