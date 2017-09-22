@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,9 +13,9 @@
         <!--Sign Up Table View Controller-->
         <scene sceneID="zII-os-KAy">
             <objects>
-                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="zbF-ZS-OOK" customClass="SignUpTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="zbF-ZS-OOK" customClass="SignUpTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Lb4-mv-Orh">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="9GF-8P-CyT">
@@ -168,7 +169,6 @@
                             <outlet property="delegate" destination="zbF-ZS-OOK" id="Yb4-c2-UpQ"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
                         <outlet property="checkmarkImageFour" destination="JFO-PV-0kj" id="naE-sI-SCf"/>
                         <outlet property="checkmarkImageOne" destination="1N0-17-MaO" id="JlM-cZ-aBQ"/>
@@ -185,9 +185,9 @@
         <!--Forgot Password-->
         <scene sceneID="pdT-Hf-qmH">
             <objects>
-                <tableViewController id="Vpu-hV-WHY" userLabel="Forgot Password" customClass="ForgotPasswordTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="Vpu-hV-WHY" userLabel="Forgot Password" customClass="ForgotPasswordTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="MGt-8i-ex7">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -224,7 +224,6 @@
                             <outlet property="delegate" destination="Vpu-hV-WHY" id="gQa-er-bfS"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
                         <outlet property="emailTextField" destination="L6X-mM-24c" id="MKZ-VR-khP"/>
                     </connections>
@@ -236,9 +235,9 @@
         <!--Login-->
         <scene sceneID="cpS-Vj-nIK">
             <objects>
-                <tableViewController id="9p7-xE-WoC" userLabel="Login" customClass="LogInTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="9p7-xE-WoC" userLabel="Login" customClass="LogInTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="HZ1-9Z-weg">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
@@ -298,7 +297,6 @@
                             <outlet property="delegate" destination="9p7-xE-WoC" id="tKb-1F-KXF"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="pWE-d6-QIZ"/>
                     <connections>
                         <outlet property="passwordTextField" destination="yN5-2z-i0j" id="pWZ-jJ-gbg"/>
@@ -315,17 +313,17 @@
         <!--Notification Detail View Controller-->
         <scene sceneID="Obt-bZ-Ch9">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="VbO-DQ-jbI" customClass="NotificationDetailViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="VbO-DQ-jbI" customClass="NotificationDetailViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EXR-tV-coN"/>
                         <viewControllerLayoutGuide type="bottom" id="NEZ-cy-Qsm"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="GkZ-pw-jYH">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sTH-az-9L7" userLabel="Message Detail View" customClass="NotificationDetailView" customModule="吃饭英雄" customModuleProvider="target">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="554"/>
+                                <rect key="frame" x="-4" y="84" width="383" height="583"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
@@ -337,7 +335,6 @@
                             <constraint firstItem="sTH-az-9L7" firstAttribute="top" secondItem="EXR-tV-coN" secondAttribute="bottom" id="U9G-8e-ZPa"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="SGH-t0-Y7T"/>
                     <connections>
                         <outlet property="notificationDetailView" destination="sTH-az-9L7" id="Y4T-wa-JYv"/>
@@ -350,9 +347,9 @@
         <!--Notifications Table View Controller-->
         <scene sceneID="e91-gg-Zdm">
             <objects>
-                <tableViewController title="Notifications Table View Controller" automaticallyAdjustsScrollViewInsets="NO" clearsSelectionOnViewWillAppear="NO" id="Mh2-l3-mUO" customClass="NotificationTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Notifications Table View Controller" extendedLayoutIncludesOpaqueBars="YES" clearsSelectionOnViewWillAppear="NO" id="Mh2-l3-mUO" customClass="NotificationTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="51" sectionHeaderHeight="22" sectionFooterHeight="22" id="6tv-t9-qnK">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <connections>
@@ -360,7 +357,6 @@
                             <outlet property="delegate" destination="Mh2-l3-mUO" id="h18-HA-sqD"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="消息" id="vQD-P1-NLy"/>
                     <connections>
                         <segue destination="VbO-DQ-jbI" kind="show" identifier="showNotificationDetail" id="OR4-wE-8Sb"/>
@@ -373,12 +369,12 @@
         <!--Personal View Navigation Controller-->
         <scene sceneID="fWs-ur-bdD">
             <objects>
-                <navigationController restorationIdentifier="LogInNavigationController" storyboardIdentifier="LogInNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="rsz-yd-yxl" userLabel="Personal View Navigation Controller" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="LogInNavigationController" storyboardIdentifier="LogInNavigationController" extendedLayoutIncludesOpaqueBars="YES" id="rsz-yd-yxl" userLabel="Personal View Navigation Controller" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="个人" image="Me_Tab" selectedImage="Me_Tab" id="oU7-IP-qJ9"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lvn-nc-qt2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
@@ -438,7 +434,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="昵称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="15u-Fe-p5A">
-                                                    <rect key="frame" x="15" y="12" width="33" height="19.5"/>
+                                                    <rect key="frame" x="16" y="12" width="33" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -462,7 +458,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j8m-Br-r6V">
-                                                    <rect key="frame" x="15" y="12" width="49" height="19.5"/>
+                                                    <rect key="frame" x="16" y="12" width="49" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -486,7 +482,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Smh-yZ-m4W">
-                                                    <rect key="frame" x="15" y="12" width="33" height="19.5"/>
+                                                    <rect key="frame" x="16" y="12" width="33" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -510,7 +506,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="邮箱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cRD-Dp-q1Z">
-                                                    <rect key="frame" x="15" y="12" width="33" height="19.5"/>
+                                                    <rect key="frame" x="16" y="12" width="33" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -560,7 +556,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="退出登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AlI-7L-7QB">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.95686274510000002" green="0.19499014070000001" blue="0.17996054989999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -577,7 +573,6 @@
                             <outlet property="delegate" destination="RWo-pa-nC2" id="4j6-jr-AyU"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="我的主页" id="Xdz-mG-pgg"/>
                     <connections>
                         <outlet property="emailLabel" destination="1Q3-4D-6O2" id="Wuq-Dr-svv"/>
@@ -599,13 +594,13 @@
         <!--Change Password-->
         <scene sceneID="22z-es-upB">
             <objects>
-                <tableViewController id="qsm-pr-05C" userLabel="Change Password" customClass="ChangePasswordTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="qsm-pr-05C" userLabel="Change Password" customClass="ChangePasswordTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="20" id="UQU-WG-xJH">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="9IA-s4-wgF">
-                            <rect key="frame" x="0.0" y="229" width="375" height="398"/>
+                            <rect key="frame" x="0.0" y="229" width="375" height="375"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fxm-fW-pE4">
@@ -795,14 +790,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJ7-ow-eqm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2082" y="1440"/>
+            <point key="canvasLocation" x="2080.8000000000002" y="1439.7301349325339"/>
         </scene>
         <!--Associate Email-->
         <scene sceneID="C47-m2-4Be">
             <objects>
-                <tableViewController id="cFq-WW-bpv" userLabel="Associate Email" customClass="AssociateEmailTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="cFq-WW-bpv" userLabel="Associate Email" customClass="AssociateEmailTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="RFr-Pa-mIe">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -851,11 +846,10 @@
         <!--Personal Home View Navigation Controller-->
         <scene sceneID="nme-1x-kYF">
             <objects>
-                <navigationController restorationIdentifier="AboutMeNavigationController" storyboardIdentifier="AboutMeNavigationController" id="Kbt-CP-Gvk" userLabel="Personal Home View Navigation Controller" customClass="ARNImageTransitionNavigationController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                <navigationController restorationIdentifier="AboutMeNavigationController" storyboardIdentifier="AboutMeNavigationController" extendedLayoutIncludesOpaqueBars="YES" id="Kbt-CP-Gvk" userLabel="Personal Home View Navigation Controller" customClass="ARNImageTransitionNavigationController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="JP8-e4-4S2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
@@ -874,9 +868,9 @@
         <!--Change Username-->
         <scene sceneID="nJw-bj-amV">
             <objects>
-                <tableViewController id="84e-vV-1X7" userLabel="Change Username" customClass="ChangeUsernameTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="84e-vV-1X7" userLabel="Change Username" customClass="ChangeUsernameTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="a3S-0Z-rsH">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -927,9 +921,9 @@
         <!--Change Nickname-->
         <scene sceneID="HML-qX-zqg">
             <objects>
-                <tableViewController title="Nick name" id="Vcx-YV-iJk" userLabel="Change Nickname" customClass="ChangeNicknameTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Nick name" extendedLayoutIncludesOpaqueBars="YES" id="Vcx-YV-iJk" userLabel="Change Nickname" customClass="ChangeNicknameTableViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Lrm-L0-k48">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
@@ -979,10 +973,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Me_Tab" width="69" height="66"/>
-        <image name="Profile_Picture" width="69" height="66"/>
+        <image name="Me_Tab" width="25" height="25"/>
+        <image name="Profile_Picture" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ywi-rP-cqW"/>
+        <segue reference="6rd-oO-rcX"/>
     </inferredMetricsTieBreakers>
 </document>

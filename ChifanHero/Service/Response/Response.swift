@@ -40,7 +40,9 @@ class GetCitiesResponse: HttpResponseProtocol {
                 results.append(result)
             }
         }
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 
 }
@@ -75,7 +77,9 @@ class GetHomepageResponse: HttpResponseProtocol {
     }
 
     required init(data: JSON) {
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
         if let resultsJson = data["homepagesections"].array {
             for resultJson in resultsJson {
                 let result = HomepageSection(data: resultJson)
@@ -96,7 +100,9 @@ class GetImagesResponse: HttpResponseProtocol {
     }
 
     required init(data: JSON) {
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
         if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
                 let result = Picture(data: resultJson)
@@ -157,7 +163,9 @@ class GetRestaurantCollectionMembersResponse: HttpResponseProtocol{
                 results.append(result)
             }
         }
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 
 }
@@ -172,7 +180,9 @@ class GetRestaurantsResponse: HttpResponseProtocol {
     }
 
     required init(data: JSON) {
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
         if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
                 let result = Restaurant(data: resultJson)
@@ -193,8 +203,12 @@ class GetReviewByIdResponse: HttpResponseProtocol{
     }
 
     required init(data: JSON) {
-        error = CFHError(data: data["error"])
-        result = Review(data: data["result"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
+        if data["result"].exists() {
+            result = Review(data: data["result"])
+        }
     }
 
 }
@@ -209,7 +223,9 @@ class GetAllReviewsOfOneRestaurantResponse: HttpResponseProtocol {
     }
 
     required init(data: JSON) {
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
         if let resultsJson = data["results"].array {
             for resultJson in resultsJson {
                 let result = Review(data: resultJson)
@@ -236,7 +252,9 @@ class GetSelectedCollectionsByLatAndLonResponse: HttpResponseProtocol{
                 results.append(result)
             }
         }
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 
 }
@@ -251,8 +269,12 @@ class LoginResponse: AccountResponse {
         super.init(data: data)
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
-        self.user = User(data: data["user"])
-        self.error = CFHError(data: data["error"])
+        if data["user"].exists() {
+            self.user = User(data: data["user"])
+        }
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 }
 
@@ -264,7 +286,9 @@ class LogOutResponse: AccountResponse{
 
     required init(data: JSON) {
         super.init()
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
         success = data["success"].bool
     }
 }
@@ -280,7 +304,9 @@ class NominateRestaurantResponse: HttpResponseProtocol{
 
     required init(data: JSON) {
         result = data["result"]["count"].int
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 
 }
@@ -314,7 +340,9 @@ class RemoveFavoriteResponse: HttpResponseProtocol{
 
     required init(data: JSON) {
         result = Favorite(data: data["result"])
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 }
 
@@ -347,8 +375,12 @@ class SignUpResponse: AccountResponse {
         super.init(data: data)
         success = data["success"].bool
         sessionToken = data["session_token"].string
-        user = User(data: data["user"])
-        error = CFHError(data: data["error"])
+        if data["user"].exists() {
+            self.user = User(data: data["user"])
+        }
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 
 }
@@ -361,8 +393,12 @@ class UpdateInfoResponse: AccountResponse{
 
     required init(data: JSON) {
         super.init(data: data)
-        error = CFHError(data: data["error"])
-        user = User(data: data["user"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
+        if data["user"].exists() {
+            user = User(data: data["user"])
+        }
         success = data["success"].bool
     }
 }
@@ -377,8 +413,12 @@ class UpdateRestaurantInfoResponse: HttpResponseProtocol{
     }
 
     required init(data: JSON) {
-        error = CFHError(data: data["error"])
-        result = Restaurant(data: data["result"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
+        if data["result"].exists() {
+            result = Restaurant(data: data["result"])
+        }
     }
 
 }
@@ -393,8 +433,12 @@ class UploadPictureResponse: HttpResponseProtocol{
     }
 
     required init(data: JSON) {
-        error = CFHError(data: data["error"])
-        result = Picture(data: data["result"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
+        if data["result"].exists() {
+            result = Picture(data: data["result"])
+        }
     }
 }
 
@@ -408,7 +452,9 @@ class DeletePicturesResponse: HttpResponseProtocol{
     }
     
     required init(data: JSON) {
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
         result = data["result"].object
     }
 }
@@ -423,8 +469,12 @@ class UploadRestaurantPictureResponse: HttpResponseProtocol{
     }
 
     required init(data: JSON) {
-        error = CFHError(data: data["error"])
-        result = Picture(data: data["result"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
+        if data["result"].exists() {
+            result = Picture(data: data["result"])
+        }
     }
 }
 
@@ -437,8 +487,12 @@ class AddRecommendDishResponse: HttpResponseProtocol {
     }
     
     required init(data: JSON) {
-        result = RecommendedDish(data: data["result"])
-        error = CFHError(data: data["error"])
+        if data["result"].exists() {
+            result = RecommendedDish(data: data["result"])
+        }
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 }
 
@@ -452,7 +506,9 @@ class TrackRestaurantResponse: HttpResponseProtocol {
     
     required init(data: JSON) {
         success = data["success"].bool
-        error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 }
 
@@ -464,7 +520,9 @@ class ChangePasswordResponse: AccountResponse {
     
     required init(data: JSON) {
         super.init(data: data)
-        self.error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
     }
@@ -479,7 +537,9 @@ class ResetPasswordResponse: AccountResponse {
         super.init(data: data)
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
-        self.error = CFHError(data: data["error"])
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 }
 
@@ -492,8 +552,12 @@ class NewRandomUserResponse: AccountResponse {
         super.init(data: data)
         self.success = data["success"].bool
         self.sessionToken = data["session_token"].string
-        self.user = User(data: data["user"])
-        self.error = CFHError(data: data["error"])
+        if data["user"].exists() {
+            self.user = User(data: data["user"])
+        }
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 }
 
@@ -505,8 +569,12 @@ class GetMyInfoResponse: AccountResponse {
     required init(data: JSON) {
         print(data)
         super.init(data: data)
-        self.user = User(data: data["user"])
-        self.error = CFHError(data: data["error"])
+        if data["user"].exists() {
+            self.user = User(data: data["user"])
+        }
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
     }
 }
 

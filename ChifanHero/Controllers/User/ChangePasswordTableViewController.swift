@@ -50,7 +50,7 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
         let defaultPassword = getDefaultPassword()
         if (isUsingDefaultPassword && defaultPassword != nil) {
             oldPasswordTextField.isUserInteractionEnabled = false
-            oldPasswordTextField.text = "您的系统生成密码为: " + defaultPassword! + "。 请尽快修改"
+            oldPasswordTextField.text = "您的密码是: " + defaultPassword! + "。 请尽快修改"
             oldPasswordTextField.isSecureTextEntry = false
         }
         
@@ -124,11 +124,11 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
     
     private func changePassword(oldPassword: String?, newPassword: String?, newPasswordConfirmation: String?) {
         if oldPassword == nil || oldPassword == "" {
-            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "当前密码不能为空", infoSubTitle: "请提供您的当前密码", target: self, buttonAction: #selector(self.doNothing))
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "旧密码不能为空", infoSubTitle: "请输入旧密码", target: self, buttonAction: #selector(self.doNothing))
             return
         }
         if !isValidPassword() {
-            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "新密码未满足安全要求", infoSubTitle: "为保护您的账户安全，新密码至少包含一位大写字母、一位小写字母、一位数字且长度至少8位", target: self, buttonAction: #selector(self.doNothing))
+            AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "新密码不符合安全条件", infoSubTitle: "为保护您的账户安全，新密码至少包含一位大写字母、一位小写字母、一位数字且长度至少8位", target: self, buttonAction: #selector(self.doNothing))
             return
         }
         if newPassword != newPasswordConfirmation {

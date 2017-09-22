@@ -280,7 +280,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             userImageView.image = image
             self.uploadPicture(image: image)
         } else{
-            print("Something went wrong")
+            log.debug("Something went wrong")
         }
         
         self.dismiss(animated: true, completion: nil);
@@ -305,7 +305,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
                             if response == nil {
                                 AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
                             } else if response!.success == true {
-                                log.info("Update profile picture succeed")
+                                log.info("Profile picture upload successfully")
                                 if let userPicURL = response?.user?.picture?.thumbnail {
                                     self.userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
                                 }
@@ -329,9 +329,9 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func logOutAction(){
-        let alert = UIAlertController(title: "退出登录", message: getLogoutActionMessage(), preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alert = UIAlertController(title: "退出", message: getLogoutActionMessage(), preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        let confirmAction = UIAlertAction(title: "确认", style: .default, handler: self.confirmLogOut)
+        let confirmAction = UIAlertAction(title: "确定", style: .default, handler: self.confirmLogOut)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: self.cancelLogOut)
         
         alert.addAction(confirmAction)
@@ -341,24 +341,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func getLogoutActionMessage() -> String {
-        if isUsingDefaultUsername && isUsingDefaultPasword && !isEmailVerified { //000
-            return "您仍然在使用临时用户名和密码且未绑定邮箱。请记住临时用户名和密码，否则退出后账户将永久丢失"
-        } else if isUsingDefaultUsername && isUsingDefaultPasword && isEmailVerified { //001
-            return "您仍然在使用临时用户名和密码。再次登录时请使用邮箱和临时密码。如忘记临时密码，请通过密码找回重设密码"
-        } else if isUsingDefaultUsername && !isUsingDefaultPasword && !isEmailVerified { //010
-            return "您仍然在使用临时用户名且未绑定邮箱。请记住临时用户名，否则退出后账户将永久丢失"
-        } else if isUsingDefaultUsername && !isUsingDefaultPasword && isEmailVerified {//011
-            return "您仍然在使用临时用户名。如忘记临时用户名可通过您的邮箱登录"
-        } else if !isUsingDefaultUsername && isUsingDefaultPasword && !isEmailVerified {//100
-            return "您仍未绑定邮箱且未修改临时密码。如忘记密码则将无法找回"
-        } else if !isUsingDefaultUsername && isUsingDefaultPasword && isEmailVerified { //101
-            return "您仍未修改临时密码。如忘记密码，请通过密码找回重设密码"
-        } else if !isUsingDefaultUsername && !isUsingDefaultPasword && !isEmailVerified { //110
-            return "您仍未绑定邮箱。如忘记密码则将无法找回"
-        } else {
-            return "登出当前用户"
+        guard isEmailVerified else {
+            return "您仍未绑定邮箱。请牢记密码否则将无法找回"
         }
-        
+        return "确定要退出？"
     }
     
     private func confirmLogOut(_ alertAction: UIAlertAction!) {

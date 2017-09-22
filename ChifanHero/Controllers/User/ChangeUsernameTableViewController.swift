@@ -50,7 +50,7 @@ class ChangeUsernameTableViewController: UITableViewController, UITextFieldDeleg
                     if response == nil {
                         AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
                     } else if response!.success == true {
-                        print("Update username succeed")
+                        log.debug("Username update successfully")
                         self.navigationController?.popViewController(animated: true)
                     } else if response?.error?.code != nil {
                         AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.dismissAlert))
