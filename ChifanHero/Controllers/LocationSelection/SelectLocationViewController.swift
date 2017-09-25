@@ -367,9 +367,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: - Search
     func search(_ prefix : String) {
-        
-        let request : GetCitiesRequest = GetCitiesRequest()
-        request.prefix = StringUtil.capitalizeString(prefix)
+        let request = GetCitiesRequest(withPrefix: StringUtil.capitalizeFirstLetterOfEachWordInString(prefix).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
         DataAccessor(serviceConfiguration: ParseConfiguration()).getCities(request) { (searchResponse) in
             OperationQueue.main.addOperation({
                 if let results = searchResponse?.results {
@@ -379,7 +377,6 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
                 }
             })
         }
-        
     }
     
     func clearStates() {

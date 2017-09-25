@@ -10,10 +10,13 @@ import Foundation
 
 class GetCitiesRequest: HttpRequest {
     
-    var prefix: String = ""
+    private var prefix: String = ""
 
+    init(withPrefix: String) {
+        self.prefix = withPrefix
+    }
     override func getRelativeURL() -> String {
-        return "/cities?prefix=" + prefix.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        return "/cities?prefix=" + prefix
     }
 }
 

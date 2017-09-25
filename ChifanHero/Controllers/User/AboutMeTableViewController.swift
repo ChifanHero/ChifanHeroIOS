@@ -280,7 +280,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             userImageView.image = image
             self.uploadPicture(image: image)
         } else{
-            log.debug("Something went wrong")
+            log.error("Something went wrong")
         }
         
         self.dismiss(animated: true, completion: nil);
@@ -341,10 +341,20 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func getLogoutActionMessage() -> String {
-        guard isEmailVerified else {
-            return "您仍未绑定邮箱。请牢记密码否则将无法找回"
+        var message = ""
+        if isUsingDefaultUsername && isUsingDefaultPasword {
+            message = "您还没有修改临时用户名和密码。"
+        } else if isUsingDefaultUsername && !isUsingDefaultPasword {
+            message = "您还没有修改临时用户名。"
+        } else if !isUsingDefaultUsername && isUsingDefaultPasword {
+            message = "您还没有修改临时密码。"
         }
-        return "确定要退出？"
+        
+        if !isEmailVerified {
+            message += "您仍未绑定邮箱。请牢记密码否则无法找回。"
+        }
+        message += "确定要退出？"
+        return message
     }
     
     private func confirmLogOut(_ alertAction: UIAlertAction!) {
