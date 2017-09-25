@@ -50,7 +50,7 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
         let defaultPassword = getDefaultPassword()
         if (isUsingDefaultPassword && defaultPassword != nil) {
             oldPasswordTextField.isUserInteractionEnabled = false
-            oldPasswordTextField.text = "您的密码是: " + defaultPassword! + "。 请尽快修改"
+            oldPasswordTextField.text = "请尽快修改临时密码:\(defaultPassword!)(修改后将隐藏)"
             oldPasswordTextField.isSecureTextEntry = false
         }
         
