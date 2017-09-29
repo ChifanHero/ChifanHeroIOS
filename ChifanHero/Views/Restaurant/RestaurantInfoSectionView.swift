@@ -38,14 +38,19 @@ class RestaurantInfoSectionView: UIView {
             let distanceValue = String(format: "%.1f", restaurant?.distance?.value ?? 0)
             let distanceUnit = restaurant?.distance?.unit ?? "mi"
             self.distanceLabel.text = "\(distanceValue) \(distanceUnit)"
-            if self.restaurant?.openNow ?? false {
-                self.openNowLabel.text = "正在营业"
-                self.openNowLabel.textColor = UIColor.chifanHeroGreen()
+            if let openNow = self.restaurant?.openNow {
+                if openNow {
+                    self.openNowLabel.text = "正在营业"
+                    self.openNowLabel.textColor = UIColor.chifanHeroGreen()
+                } else {
+                    self.openNowLabel.text = "店家已休息"
+                    self.openNowLabel.textColor = UIColor.chifanHeroRed()
+                }
             } else {
-                self.openNowLabel.text = "店家已休息"
+                self.openNowLabel.text = "营业信息未知"
                 self.openNowLabel.textColor = UIColor.chifanHeroRed()
             }
-            self.openTimeTodayLabel.text = self.restaurant?.openTimeToday ?? "今日暂停营业"
+            self.openTimeTodayLabel.text = self.restaurant?.openTimeToday ?? "今日营业时间未知"
             if self.restaurant?.current_user_favorite != nil && self.restaurant?.current_user_favorite == true {
                 self.bookmarkImageView.renderColorChangableImage(UIImage(named: "ChifanHero_Bookmarked.png")!, fillColor: UIColor.themeOrange())
             } else {
