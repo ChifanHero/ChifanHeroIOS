@@ -15,7 +15,7 @@ class SearchServiceConfiguration: ServiceConfiguration {
         if defaults.bool(forKey: "usingStaging") {
             return "http://staging-aggregateapi-chifanhero.us-west-2.elasticbeanstalk.com"
         } else {
-            return "http://Sample-env.ypevmdxyt6.us-west-2.elasticbeanstalk.com"
+            return "https://search.chifanhero.com"
         }
     }
 }

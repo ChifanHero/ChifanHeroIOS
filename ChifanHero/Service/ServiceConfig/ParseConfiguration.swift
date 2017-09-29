@@ -17,7 +17,7 @@ class ParseConfiguration: ServiceConfiguration {
             return "http://chifanhero-staging.us-east-1.elasticbeanstalk.com/parse"
             //return "http://localhost:1337/parse"
         } else {
-            return "http://chifanhero.us-east-1.elasticbeanstalk.com/parse"
+            return "https://chifanhero.com/parse"
         }
         
     }
