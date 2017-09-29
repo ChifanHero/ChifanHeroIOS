@@ -258,33 +258,28 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func chooseFromPhotoRoll(_ alertAction: UIAlertAction!) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
-            imagePicker.allowsEditing = true
-            self.present(imagePicker, animated: true, completion: nil)
+        let pickerController = DKImagePickerController()
+        pickerController.singleSelect = true
+        pickerController.assetType = DKImagePickerControllerAssetType.allPhotos
+        pickerController.sourceType = DKImagePickerControllerSourceType.photo
+        pickerController.allowMultipleTypes = false
+        pickerController.allowsLandscape = false
+        pickerController.didSelectAssets = { (assets: [DKAsset]) in
+            self.processSelectedPhotosFromPhotoLibrary(assets)
         }
+        self.present(pickerController, animated: true) {}
     }
     
     private func cancelChoosingImage(_ alertAction: UIAlertAction!) {
         
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            userImageView.image = image
-            self.uploadPicture(image: image)
-        } else if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
-            userImageView.image = image
-            self.uploadPicture(image: image)
-        } else{
-            log.error("Something went wrong")
+    private func processSelectedPhotosFromPhotoLibrary(_ assets: [DKAsset]) {
+        for asset in assets { // Only one asset here
+            asset.fetchOriginalImageWithCompleteBlock({ (image, info) in
+                self.uploadPicture(image: image!)
+            })
         }
-        
-        self.dismiss(animated: true, completion: nil);
-        
     }
     
     private func uploadPicture(image: UIImage) {
@@ -296,34 +291,39 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         DataAccessor(serviceConfiguration: ParseConfiguration()).uploadPicture(request) { (response) -> Void in
             OperationQueue.main.addOperation({ () -> Void in
                 let defaults: UserDefaults = UserDefaults.standard
-                defaults.set(response!.result?.thumbnail, forKey: "userPicURL")
+                defaults.set(response?.result?.thumbnail, forKey: "userPicURL")
                 
-                if response?.result != nil{
-                    AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: response?.result?.id) { (response) -> Void in
-                        OperationQueue.main.addOperation({ () -> Void in
-                            self.updatingUserInfo = false
-                            if response == nil {
-                                AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
-                            } else if response!.success == true {
-                                log.info("Profile picture upload successfully")
-                                if let userPicURL = response?.user?.picture?.thumbnail {
-                                    self.userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
-                                }
-                            } else if response!.error?.code != nil {
-                                AlertUtil.showErrorAlert(errorCode: response?.error?.code, target: self, buttonAction: #selector(self.doNothing))
-                                if response?.error?.code != nil && response?.error?.code == ErrorCode.INVALID_SESSION_TOKEN {
-                                    self.logOut()
-                                }
-                            } else {
-                                AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
-                            }
-                        })
-                        
+                guard let result = response?.result else {
+                    if let error = response?.error {
+                        log.error(error)
                     }
-                } else {
                     self.updatingUserInfo = false
+                    return
                 }
-                
+                AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: result.id) { (response) -> Void in
+                    OperationQueue.main.addOperation({ () -> Void in
+                        self.updatingUserInfo = false
+                        guard let response = response else {
+                            AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
+                            return
+                        }
+                        if let errorCode = response.error?.code {
+                            AlertUtil.showErrorAlert(errorCode: errorCode, target: self, buttonAction: #selector(self.doNothing))
+                            if errorCode == ErrorCode.INVALID_SESSION_TOKEN {
+                                self.logOut()
+                            }
+                            return
+                        }
+                        if response.success == true {
+                            log.debug("Profile picture upload successfully")
+                            if let userPicURL = response.user?.picture?.thumbnail {
+                                self.userImageView.kf.setImage(with: URL(string: userPicURL)!, placeholder: nil, options: [.transition(ImageTransition.fade(0.5))])
+                            }
+                        } else {
+                            AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
+                        }
+                    })
+                }
             });
         }
     }
