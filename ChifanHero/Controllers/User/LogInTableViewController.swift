@@ -43,6 +43,7 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
         self.configureLoginButton()
 //        self.addNotificationButton()
         self.addSignUpButton()
+        self.addTermsAndPrivacy()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,6 +77,28 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     func showSignUp(){
 //        performSegue(withIdentifier: "signUp", sender: nil)
         AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "暂不接受用户注册", infoSubTitle: "感谢您的支持！此版本为测试版本，暂不接受用户注册", target: self, buttonAction: #selector(dismissAlert))
+    }
+    
+    func addTermsAndPrivacy() {
+        print(self.view.frame.height)
+//        let label: UILabel = UILabel(frame: CGRect(x: self.view.frame.width * 0.1, y: 536, width: self.view.frame.width * 0.8, height: 40))
+//        label.text = "登录即表示您同意吃饭英雄服务条款以及隐私政策"
+//        label.textAlignment = .center
+//        self.view.addSubview(label)
+        let termsAndPrivacyTextView: UITextView = UITextView(frame: CGRect(x: self.view.frame.width * 0.1, y: 310, width: self.view.frame.width * 0.8, height: 40))
+        let termsAndPrivacy: NSMutableAttributedString = NSMutableAttributedString()
+        let terms = "<a href=\"https://www.chifanhero.com/terms.html\" style=\"text-decoration:none;\">《服务条款》</a>"
+        let privacy = "<a href=\"https://www.chifanhero.com/privacy.html\" style=\"text-decoration:none;\">《隐私政策》</a>"
+        termsAndPrivacy.append("登录即表示您同意吃饭英雄".attributedStringFromHTML()!)
+        termsAndPrivacy.append(terms.attributedStringFromHTML()!)
+        termsAndPrivacy.append("以及".attributedStringFromHTML()!)
+        termsAndPrivacy.append(privacy.attributedStringFromHTML()!)
+        termsAndPrivacyTextView.attributedText = termsAndPrivacy
+        termsAndPrivacyTextView.textAlignment = .center
+        termsAndPrivacyTextView.backgroundColor = UIColor.clear
+        termsAndPrivacyTextView.isEditable = false
+        termsAndPrivacyTextView.font = UIFont.systemFont(ofSize: 12)
+        self.view.addSubview(termsAndPrivacyTextView)
     }
     
     func configureLoginButton(){
