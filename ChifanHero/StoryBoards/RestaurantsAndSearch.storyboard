@@ -294,7 +294,6 @@
                                                     <segment title="最优"/>
                                                     <segment title="评分"/>
                                                     <segment title="距离"/>
-                                                    <segment title="人气"/>
                                                 </segments>
                                                 <color key="tintColor" red="0.99607843137254903" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>

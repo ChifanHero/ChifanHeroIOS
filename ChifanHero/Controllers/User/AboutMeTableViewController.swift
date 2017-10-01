@@ -15,7 +15,8 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     // Sections
     let PROFILE_IMAGE_SECTION = 0 // Profile Image Section
     let INFO_SECTION = 1 // Information Section
-    let LOGOUT_SECTION = 2 // Logout Section
+    let TERMS_PRIVACY_SECTION = 2
+    let LOGOUT_SECTION = 3 // Logout Section
     
     // PROFILE_IMAGE_SECTION Rows
     let PROFILE_IMAGE_ROW = 0
@@ -25,6 +26,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     let USERNAME_ROW = 1
     let PASSWORD_ROW = 2
     let EMAIL_ROW = 3
+    
+    // TERMS_PRIVACY_SECTION Rows
+    let TERMS_ROW = 0
+    let PRIVACY_ROW = 1
     
     // LOGOUT_SECTION Rows
     let LOGOUT_ROW = 0
@@ -189,6 +194,12 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             }
         } else if indexPath.section == LOGOUT_SECTION {
             self.logOutAction()
+        } else if indexPath.section == TERMS_PRIVACY_SECTION {
+            if indexPath.row == TERMS_ROW {
+                openURL(urlString: "https://www.chifanhero.com/terms.html")
+            } else if indexPath.row == PRIVACY_ROW {
+                openURL(urlString: "https://www.chifanhero.com/privacy.html")
+            }
         }
             
         // TODO: Add favorites in later version
@@ -203,6 +214,17 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
         } */
         //make table cell not stay highlighted
         self.tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func openURL(urlString: String) {
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
     }
     
     func showRestaurants() {
