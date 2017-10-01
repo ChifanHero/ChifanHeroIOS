@@ -71,8 +71,6 @@ class RestaurantsFilterViewController: UIViewController {
             sortingSC.selectedSegmentIndex = 1
         } else if sort == SortOptions.distance {
             sortingSC.selectedSegmentIndex = 2
-        } else if sort == SortOptions.hotness {
-            sortingSC.selectedSegmentIndex = 3
         }
     }
     
@@ -158,8 +156,6 @@ class RestaurantsFilterViewController: UIViewController {
             sort = SortOptions.rating
         } else if sender.selectedSegmentIndex == 2 {
             sort = SortOptions.distance
-        } else if sender.selectedSegmentIndex == 3 {
-            sort = SortOptions.hotness
         }
     }
 
