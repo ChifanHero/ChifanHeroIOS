@@ -16,10 +16,10 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
     
     @IBOutlet weak var newPasswordConfirmationTextField: UITextField!
     
-    
     @IBOutlet weak var passwordHintsContainer: UIStackView!
     
     var isUsingDefaultPassword: Bool = false
+    var isChangingPassword = false
     
     @IBOutlet weak var checkmarkImageOne: UIImageView!
     @IBOutlet weak var checkmarkImageTwo: UIImageView!
@@ -123,6 +123,9 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
     }
     
     private func changePassword(oldPassword: String?, newPassword: String?, newPasswordConfirmation: String?) {
+        if (isChangingPassword) {
+            return
+        }
         if oldPassword == nil || oldPassword == "" {
             AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "旧密码不能为空", infoSubTitle: "请输入旧密码", target: self, buttonAction: #selector(self.doNothing))
             return
@@ -135,6 +138,7 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
             AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "请重新确认密码", infoSubTitle: "您两次输入的密码不同，请重新确认密码", target: self, buttonAction: #selector(self.doNothing))
             return
         }
+        isChangingPassword = true
         AccountManager(serviceConfiguration: ParseConfiguration()).changePassword(oldPassword: oldPassword, newPassword: newPassword) { (response) in
             if response == nil {
                 AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
@@ -145,6 +149,7 @@ class ChangePasswordTableViewController: UITableViewController, UITextFieldDeleg
             } else {
                 AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.doNothing))
             }
+            self.isChangingPassword = false
         }
     }
     

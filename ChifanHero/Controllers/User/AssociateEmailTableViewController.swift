@@ -25,6 +25,10 @@ class AssociateEmailTableViewController: UITableViewController, UITextFieldDeleg
         self.configureButton()
         emailTextField.addTarget(self, action: #selector(AssociateEmailTableViewController.didChangeText(_:)), for: .editingChanged)
     }
+    
+    func done() {
+        self.navigationController?.popViewController(animated: true)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

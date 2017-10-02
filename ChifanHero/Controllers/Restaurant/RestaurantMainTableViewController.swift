@@ -653,6 +653,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             self.performSegue(withIdentifier: "writeReview", sender: nil)
         } else {
             AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: "只有登录用户可以添加评论", target: self, buttonAction: #selector(dismissAlert))
+            self.reviewSectionView.resetRatingStar()
         }
     }
     
