@@ -13,7 +13,7 @@ class ChangeUsernameTableViewController: UITableViewController, UITextFieldDeleg
     @IBOutlet weak var usernameTextField: UITextField!
     
     var username: String?
-    
+    var isChangingUsername = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +42,13 @@ class ChangeUsernameTableViewController: UITableViewController, UITextFieldDeleg
     }
     
     private func changeUsername() {
+        if (isChangingUsername) {
+            return
+        }
         if usernameTextField.text == nil || usernameTextField.text!.trimmingCharacters(in: .whitespaces).characters.count == 0 {
             AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "用户名不能为空", infoSubTitle: "", target: self, buttonAction: #selector(self.dismissAlert))
         } else {
+            isChangingUsername = true
             AccountManager(serviceConfiguration: ParseConfiguration()).updateInfo(nickName: nil, pictureId: nil, email: nil, username: usernameTextField.text, responseHandler: { (response) in
                 OperationQueue.main.addOperation({ () -> Void in
                     if response == nil {
@@ -57,7 +61,7 @@ class ChangeUsernameTableViewController: UITableViewController, UITextFieldDeleg
                     } else {
                         AlertUtil.showGeneralErrorAlert(target: self, buttonAction: #selector(self.dismissAlert))
                     }
-                    
+                    self.isChangingUsername = false
                 })
             })
         }
