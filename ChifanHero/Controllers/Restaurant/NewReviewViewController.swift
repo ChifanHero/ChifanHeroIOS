@@ -311,7 +311,7 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
     }
     
-    func displayImages(_ images: [UIImage]) {
+    private func displayImages(_ images: [UIImage]) {
         self.toBeUploadedImages.append(contentsOf: images)
         imagePoolView.reloadData()
     }

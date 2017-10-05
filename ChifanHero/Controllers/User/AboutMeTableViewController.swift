@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 import Flurry_iOS_SDK
 
-class AboutMeTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class AboutMeTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImagePickerDelegate {
     
     // Sections
     let PROFILE_IMAGE_SECTION = 0 // Profile Image Section
@@ -273,13 +273,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     }
     
     private func takePhotoFromCamera(_ alertAction: UIAlertAction!) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
-            imagePicker.allowsEditing = true
-            self.present(imagePicker, animated: true, completion: nil)
-        }
+        let imagePickerController = ImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.imageLimit = 1
+        self.present(imagePickerController, animated: true, completion: nil)
     }
     
     private func chooseFromPhotoRoll(_ alertAction: UIAlertAction!) {
@@ -430,6 +427,23 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     
     func doNothing() {
         
+    }
+    
+    //MARK: ImagePickerDelegate
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        
+    }
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        self.dismiss(animated: true, completion: nil)
+        prepareForUploadImage(images)
+    }
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+    }
+    
+    private func prepareForUploadImage(_ images: [UIImage]) {
+        for image in images { // Only one image here
+            self.uploadPicture(image: image)
+        }
     }
     
 

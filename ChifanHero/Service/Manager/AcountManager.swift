@@ -344,7 +344,7 @@ class AccountManager {
         let defaults = UserDefaults.standard
         let request: GetMyInfoRequest = GetMyInfoRequest()
         if defaults.string(forKey: "sessionToken") != nil {
-            print(defaults.string(forKey: "sessionToken")!)
+            log.debug(defaults.string(forKey: "sessionToken")!)
             request.addHeader(key: "User-Session", value: defaults.string(forKey: "sessionToken")!)
         }
         self.callApi(method: "GET", request, afterSuccess: self.doNothing, responseHandler: responseHandler)
