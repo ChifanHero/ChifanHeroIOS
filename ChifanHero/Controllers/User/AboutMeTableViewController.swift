@@ -15,7 +15,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     // Sections
     let PROFILE_IMAGE_SECTION = 0 // Profile Image Section
     let INFO_SECTION = 1 // Information Section
-    let TERMS_PRIVACY_SECTION = 2
+    let TERMS_PRIVACY_CONTACT_SECTION = 2
     let LOGOUT_SECTION = 3 // Logout Section
     
     // PROFILE_IMAGE_SECTION Rows
@@ -27,9 +27,10 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     let PASSWORD_ROW = 2
     let EMAIL_ROW = 3
     
-    // TERMS_PRIVACY_SECTION Rows
+    // TERMS_PRIVACY_CONTACT_SECTION Rows
     let TERMS_ROW = 0
     let PRIVACY_ROW = 1
+    let CONTACT_ROW = 2
     
     // LOGOUT_SECTION Rows
     let LOGOUT_ROW = 0
@@ -194,11 +195,13 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
             }
         } else if indexPath.section == LOGOUT_SECTION {
             self.logOutAction()
-        } else if indexPath.section == TERMS_PRIVACY_SECTION {
+        } else if indexPath.section == TERMS_PRIVACY_CONTACT_SECTION {
             if indexPath.row == TERMS_ROW {
                 openURL(urlString: "https://www.chifanhero.com/terms.html")
             } else if indexPath.row == PRIVACY_ROW {
                 openURL(urlString: "https://www.chifanhero.com/privacy.html")
+            } else if indexPath.row == CONTACT_ROW {
+                openURL(urlString: "https://www.chifanhero.com")
             }
         }
             
