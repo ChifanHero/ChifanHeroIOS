@@ -308,40 +308,6 @@
             </objects>
             <point key="canvasLocation" x="1545" y="784"/>
         </scene>
-        <!--Notification Detail View Controller-->
-        <scene sceneID="Obt-bZ-Ch9">
-            <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="VbO-DQ-jbI" customClass="NotificationDetailViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="EXR-tV-coN"/>
-                        <viewControllerLayoutGuide type="bottom" id="NEZ-cy-Qsm"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GkZ-pw-jYH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sTH-az-9L7" userLabel="Message Detail View" customClass="NotificationDetailView" customModule="吃饭英雄" customModuleProvider="target">
-                                <rect key="frame" x="-4" y="64" width="383" height="554"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="sTH-az-9L7" secondAttribute="trailing" constant="-20" id="0E5-Gf-mZI"/>
-                            <constraint firstItem="sTH-az-9L7" firstAttribute="leading" secondItem="GkZ-pw-jYH" secondAttribute="leadingMargin" constant="-20" id="KLN-Y8-gQd"/>
-                            <constraint firstItem="NEZ-cy-Qsm" firstAttribute="top" secondItem="sTH-az-9L7" secondAttribute="bottom" id="Mwy-kQ-tNU"/>
-                            <constraint firstItem="sTH-az-9L7" firstAttribute="top" secondItem="EXR-tV-coN" secondAttribute="bottom" id="U9G-8e-ZPa"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="SGH-t0-Y7T"/>
-                    <connections>
-                        <outlet property="notificationDetailView" destination="sTH-az-9L7" id="Y4T-wa-JYv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ERb-Rh-UcZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2470" y="2704"/>
-        </scene>
         <!--Notifications Table View Controller-->
         <scene sceneID="e91-gg-Zdm">
             <objects>
@@ -356,9 +322,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="消息" id="vQD-P1-NLy"/>
-                    <connections>
-                        <segue destination="VbO-DQ-jbI" kind="show" identifier="showNotificationDetail" id="OR4-wE-8Sb"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Viu-B5-RD2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
