@@ -147,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     private func askForLocationAuthorization() {
-        let rootVC : UIViewController? = self.window?.rootViewController
+        let rootVC = self.window?.rootViewController
         if rootVC != nil {
             AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "友情提示", infoSubTitle: TextUtil.getLocationServicePromptText(), target: self, buttonAction: #selector(askLocationAlertViewDismissed))
             
@@ -283,14 +283,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func registerForPushNotifications() {
         // Register for Push Notitications
-        if application.responds(to: #selector(UIApplication.registerUserNotificationSettings(_:))) {
-            //view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
-            let settings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-            application.registerForRemoteNotifications()
-        } else {
-            application.registerForRemoteNotifications()
-        }
+        
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

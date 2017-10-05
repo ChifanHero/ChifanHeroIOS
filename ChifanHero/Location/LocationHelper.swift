@@ -107,7 +107,7 @@ class LocationHelper {
     }
     
     class func saveDefaultCityToCoreData(_ city : City) {
-        print("saving default city")
+        log.debug("Saving default city")
         clearDataForEntity("DefaultCity")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext

@@ -80,7 +80,6 @@ class LogInTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func addTermsAndPrivacy() {
-        print(self.view.frame.height)
 //        let label: UILabel = UILabel(frame: CGRect(x: self.view.frame.width * 0.1, y: 536, width: self.view.frame.width * 0.8, height: 40))
 //        label.text = "登录即表示您同意吃饭英雄服务条款以及隐私政策"
 //        label.textAlignment = .center

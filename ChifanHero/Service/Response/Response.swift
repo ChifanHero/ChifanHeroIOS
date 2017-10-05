@@ -567,7 +567,6 @@ class GetMyInfoResponse: AccountResponse {
     }
     
     required init(data: JSON) {
-        print(data)
         super.init(data: data)
         if data["user"].exists() {
             self.user = User(data: data["user"])

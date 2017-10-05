@@ -259,7 +259,6 @@
                                             <constraints>
                                                 <constraint firstItem="aBy-9A-Cdj" firstAttribute="leading" secondItem="Nck-il-rLg" secondAttribute="leadingMargin" constant="10" id="eOp-4p-msV"/>
                                                 <constraint firstItem="aBy-9A-Cdj" firstAttribute="top" secondItem="Nck-il-rLg" secondAttribute="topMargin" constant="5" id="qcx-nX-gal"/>
-                                                <constraint firstItem="aBy-9A-Cdj" firstAttribute="centerY" secondItem="Nck-il-rLg" secondAttribute="centerY" id="sLx-pZ-Zul"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="aBy-9A-Cdj" secondAttribute="bottom" constant="5.5" id="vxh-nu-ETp"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="aBy-9A-Cdj" secondAttribute="trailing" constant="10" id="zJ9-ta-Z13"/>
                                             </constraints>
@@ -284,7 +283,6 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="yN5-2z-i0j" secondAttribute="bottom" constant="5.5" id="37a-yH-EEG"/>
                                                 <constraint firstItem="yN5-2z-i0j" firstAttribute="leading" secondItem="pxd-En-1nj" secondAttribute="leadingMargin" constant="10" id="JCA-bK-uoU"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yN5-2z-i0j" secondAttribute="trailing" constant="10" id="dDl-N0-u4b"/>
-                                                <constraint firstItem="yN5-2z-i0j" firstAttribute="centerY" secondItem="pxd-En-1nj" secondAttribute="centerY" id="pLi-pz-4ph"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -310,40 +308,6 @@
             </objects>
             <point key="canvasLocation" x="1545" y="784"/>
         </scene>
-        <!--Notification Detail View Controller-->
-        <scene sceneID="Obt-bZ-Ch9">
-            <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="VbO-DQ-jbI" customClass="NotificationDetailViewController" customModule="吃饭英雄" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="EXR-tV-coN"/>
-                        <viewControllerLayoutGuide type="bottom" id="NEZ-cy-Qsm"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GkZ-pw-jYH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sTH-az-9L7" userLabel="Message Detail View" customClass="NotificationDetailView" customModule="吃饭英雄" customModuleProvider="target">
-                                <rect key="frame" x="-4" y="84" width="383" height="583"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="sTH-az-9L7" secondAttribute="trailing" constant="-20" id="0E5-Gf-mZI"/>
-                            <constraint firstItem="sTH-az-9L7" firstAttribute="leading" secondItem="GkZ-pw-jYH" secondAttribute="leadingMargin" constant="-20" id="KLN-Y8-gQd"/>
-                            <constraint firstItem="NEZ-cy-Qsm" firstAttribute="top" secondItem="sTH-az-9L7" secondAttribute="bottom" id="Mwy-kQ-tNU"/>
-                            <constraint firstItem="sTH-az-9L7" firstAttribute="top" secondItem="EXR-tV-coN" secondAttribute="bottom" id="U9G-8e-ZPa"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="SGH-t0-Y7T"/>
-                    <connections>
-                        <outlet property="notificationDetailView" destination="sTH-az-9L7" id="Y4T-wa-JYv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ERb-Rh-UcZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2470" y="2704"/>
-        </scene>
         <!--Notifications Table View Controller-->
         <scene sceneID="e91-gg-Zdm">
             <objects>
@@ -358,9 +322,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="消息" id="vQD-P1-NLy"/>
-                    <connections>
-                        <segue destination="VbO-DQ-jbI" kind="show" identifier="showNotificationDetail" id="OR4-wE-8Sb"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Viu-B5-RD2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1032,6 +993,6 @@
         <image name="Profile_Picture" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6rd-oO-rcX"/>
+        <segue reference="ywi-rP-cqW"/>
     </inferredMetricsTieBreakers>
 </document>

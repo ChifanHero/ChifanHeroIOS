@@ -182,7 +182,11 @@ open class ImagePickerController: UIViewController {
         
         let alertAction = UIAlertAction(title: configuration.OKButtonTitle, style: .default) { _ in
             if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
-                UIApplication.shared.openURL(settingsURL)
+                UIApplication.shared.open(settingsURL, options: [:],
+                                          completionHandler: {
+                                            (success) in
+                                            log.debug("Open Settings: \(success)")
+                })
             }
         }
         
