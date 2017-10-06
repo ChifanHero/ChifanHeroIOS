@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RestaurantPhotoSectionView" customModule="吃饭英雄" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="442" height="269"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLs-t0-KJZ" userLabel="Photo Header View">
+                    <rect key="frame" x="0.0" y="0.0" width="442" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="照片" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFg-WN-bj9">
+                            <rect key="frame" x="25" y="10" width="30" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="8Yv-LN-7QA"/>
+                                <constraint firstAttribute="width" constant="30" id="Kjp-CD-9Hc"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkW-hh-dXA">
+                            <rect key="frame" x="332" y="10" width="100" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="Q2a-tO-U1M"/>
+                                <constraint firstAttribute="height" constant="15" id="oAP-L9-q8i"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="查看所有照片&gt;">
+                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="showAllPhotos:" destination="iN0-l3-epB" eventType="touchUpInside" id="U8T-iT-fdV"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="HgJ-sn-uls"/>
+                        <constraint firstItem="zkW-hh-dXA" firstAttribute="top" secondItem="DLs-t0-KJZ" secondAttribute="top" constant="10" id="RN1-Cc-Wev"/>
+                        <constraint firstItem="rFg-WN-bj9" firstAttribute="leading" secondItem="DLs-t0-KJZ" secondAttribute="leading" constant="25" id="UpH-Nz-g5K"/>
+                        <constraint firstItem="rFg-WN-bj9" firstAttribute="top" secondItem="DLs-t0-KJZ" secondAttribute="top" constant="10" id="nbb-A0-syv"/>
+                        <constraint firstAttribute="trailing" secondItem="zkW-hh-dXA" secondAttribute="trailing" constant="10" id="p0L-uP-396"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="XET-M3-i65" userLabel="Image Pool View">
+                    <rect key="frame" x="0.0" y="40" width="442" height="229"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uV0-Se-5Ql">
+                        <size key="itemSize" width="140" height="130"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <cells/>
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="wcm-dl-JoN"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="Qz5-qD-ZNR"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="XET-M3-i65" firstAttribute="top" secondItem="DLs-t0-KJZ" secondAttribute="bottom" id="1eN-8g-XTK"/>
+                <constraint firstAttribute="trailing" secondItem="XET-M3-i65" secondAttribute="trailing" id="Of6-Zz-HFM"/>
+                <constraint firstItem="XET-M3-i65" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RpL-ap-l9p"/>
+                <constraint firstAttribute="bottom" secondItem="XET-M3-i65" secondAttribute="bottom" id="h7k-K2-L5Q"/>
+                <constraint firstItem="DLs-t0-KJZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tsw-tm-u8V"/>
+                <constraint firstItem="DLs-t0-KJZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xWG-MB-UIY"/>
+                <constraint firstAttribute="trailing" secondItem="DLs-t0-KJZ" secondAttribute="trailing" id="zQ6-4k-jsl"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="imagePoolView" destination="XET-M3-i65" id="G6g-Qa-0LN"/>
+            </connections>
+            <point key="canvasLocation" x="92" y="-345.5"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userActivityCell" rowHeight="167" id="lL7-TK-sR5" customClass="UserActivityTableViewCell" customModule="吃饭英雄" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="395" height="167"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lL7-TK-sR5" id="n5E-DP-KtG">
+                <rect key="frame" x="0.0" y="0.0" width="395" height="166"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10月10日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hkf-zI-QWZ" userLabel="Date Label">
+                        <rect key="frame" x="18" y="18" width="60" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="KEM-mY-whc"/>
+                            <constraint firstAttribute="height" constant="20" id="Sf9-CK-xLs"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评价了韶山印象" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjP-RU-hPA" userLabel="Comment Label">
+                        <rect key="frame" x="98" y="18" width="200" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="2X2-H4-43d"/>
+                            <constraint firstAttribute="width" constant="200" id="NAG-2i-uyt"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dgo-0d-iGN">
+                        <rect key="frame" x="98" y="48" width="269" height="100"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UXc-sD-EHV">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="lL7-TK-sR5" id="CyF-qv-9KX"/>
+                            <outlet property="delegate" destination="lL7-TK-sR5" id="dib-Hj-bRk"/>
+                        </connections>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="dgo-0d-iGN" secondAttribute="trailing" constant="20" id="4VX-CF-BVl"/>
+                    <constraint firstItem="dgo-0d-iGN" firstAttribute="top" secondItem="rjP-RU-hPA" secondAttribute="bottom" constant="10" id="HL8-p8-t9U"/>
+                    <constraint firstItem="dgo-0d-iGN" firstAttribute="leading" secondItem="rjP-RU-hPA" secondAttribute="leading" id="IHE-8f-CxH"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="dgo-0d-iGN" secondAttribute="bottom" constant="10" id="IQI-ac-xb1"/>
+                    <constraint firstItem="Hkf-zI-QWZ" firstAttribute="leading" secondItem="n5E-DP-KtG" secondAttribute="leadingMargin" constant="10" id="Z6g-xz-eOv"/>
+                    <constraint firstItem="rjP-RU-hPA" firstAttribute="leading" secondItem="Hkf-zI-QWZ" secondAttribute="trailing" constant="20" id="a5H-ic-fVR"/>
+                    <constraint firstItem="rjP-RU-hPA" firstAttribute="top" secondItem="n5E-DP-KtG" secondAttribute="topMargin" constant="10" id="mYN-bz-PkO"/>
+                    <constraint firstItem="Hkf-zI-QWZ" firstAttribute="top" secondItem="n5E-DP-KtG" secondAttribute="topMargin" constant="10" id="qQs-IJ-PPz"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="DateLabel" destination="Hkf-zI-QWZ" id="rLk-OZ-0eg"/>
+                <outlet property="commentLabel" destination="rjP-RU-hPA" id="QoP-kX-s8R"/>
+                <outlet property="dateLabel" destination="Hkf-zI-QWZ" id="eHC-Zf-5fp"/>
+                <outlet property="userUploadedImagePoolView" destination="dgo-0d-iGN" id="iCm-DE-V9o"/>
+            </connections>
+            <point key="canvasLocation" x="105.5" y="43.5"/>
+        </tableViewCell>
+    </objects>
+</document>
