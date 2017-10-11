@@ -463,6 +463,7 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
     
     private func downloadReviewUserProfileImages() {
         if let reviews = self.restaurant?.reviewInfo?.reviews {
+            self.reviewUserProfileImageContent.removeAll()
             for review in reviews {
                 let imageView = UIImageView()
                 let url: URL! = URL(string: review.user?.picture?.thumbnail ?? "")
