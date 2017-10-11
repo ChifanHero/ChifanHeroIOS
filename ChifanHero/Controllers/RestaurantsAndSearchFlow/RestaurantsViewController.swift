@@ -189,7 +189,7 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
         let distance = Distance()
         distance.unit = DistanceUnit.mile.description
         if rangeFilter == RangeFilter.auto {
-            distance.value = 30.0
+            distance.value = 3.0
         } else if rangeFilter == RangeFilter.point5{
             distance.value = 0.5
         } else if rangeFilter == RangeFilter.one{
