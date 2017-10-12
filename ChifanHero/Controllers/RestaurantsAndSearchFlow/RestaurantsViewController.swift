@@ -45,8 +45,7 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackRestaurantsView()
-        self.loadingIndicator.startAnimation()
-        self.refreshData()
+        self.newSearchRefreshData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -228,6 +227,11 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     // MARK - Pull to refresh
     func pullToRefreshData() {
         SearchContext.coordinates = userLocationManager.getLocationInUse()
+        self.refreshData()
+    }
+    
+    func newSearchRefreshData() {
+        self.loadingIndicator.startAnimation()
         self.refreshData()
     }
     

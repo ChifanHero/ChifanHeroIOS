@@ -49,7 +49,7 @@ class RestaurantsContainerViewController: SlideMenuController, SlideMenuControll
     }
     
     func rightDidClose() {
-        restaurantsVC.refreshData()
+        restaurantsVC.newSearchRefreshData()
     }
     
 
