@@ -531,21 +531,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mWQ-z0-Kgc">
-                                <rect key="frame" x="16" y="64" width="343" height="120"/>
+                                <rect key="frame" x="10" y="64" width="355" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="i2O-19-0SN"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5k-76-SCI">
-                                <rect key="frame" x="16" y="184" width="343" height="363"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Cool" translatesAutoresizingMaskIntoConstraints="NO" id="u5k-76-SCI">
+                                <rect key="frame" x="10" y="184" width="355" height="363"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rMp-j2-U67">
-                                <rect key="frame" x="16" y="547" width="343" height="120"/>
+                                <rect key="frame" x="10" y="547" width="355" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="Hdi-Bf-e6e"/>
@@ -561,16 +560,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="u5k-76-SCI" firstAttribute="leading" secondItem="GuA-p1-2sj" secondAttribute="leadingMargin" id="98b-DE-mHR"/>
+                            <constraint firstItem="u5k-76-SCI" firstAttribute="leading" secondItem="GuA-p1-2sj" secondAttribute="leading" constant="10" id="8Fg-lA-TbX"/>
+                            <constraint firstAttribute="trailing" secondItem="rMp-j2-U67" secondAttribute="trailing" constant="10" id="965-4y-U1b"/>
                             <constraint firstItem="pF3-a1-iPW" firstAttribute="top" secondItem="rMp-j2-U67" secondAttribute="bottom" id="Dvb-jt-9rC"/>
-                            <constraint firstItem="mWQ-z0-Kgc" firstAttribute="leading" secondItem="GuA-p1-2sj" secondAttribute="leadingMargin" id="EmD-8A-UN1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rMp-j2-U67" secondAttribute="trailing" id="FYr-9U-f4m"/>
                             <constraint firstItem="u5k-76-SCI" firstAttribute="top" secondItem="mWQ-z0-Kgc" secondAttribute="bottom" id="HZg-ve-wat"/>
-                            <constraint firstItem="rMp-j2-U67" firstAttribute="leading" secondItem="GuA-p1-2sj" secondAttribute="leadingMargin" id="K1r-4F-sQI"/>
                             <constraint firstItem="rMp-j2-U67" firstAttribute="top" secondItem="u5k-76-SCI" secondAttribute="bottom" id="MiD-9u-TLC"/>
+                            <constraint firstItem="rMp-j2-U67" firstAttribute="leading" secondItem="GuA-p1-2sj" secondAttribute="leading" constant="10" id="N10-ZJ-ggo"/>
                             <constraint firstItem="mWQ-z0-Kgc" firstAttribute="top" secondItem="jya-v7-44S" secondAttribute="bottom" id="Pxp-S2-luA"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="u5k-76-SCI" secondAttribute="trailing" id="VPW-CS-HeE"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="mWQ-z0-Kgc" secondAttribute="trailing" id="eNj-Zo-AnS"/>
+                            <constraint firstAttribute="trailing" secondItem="u5k-76-SCI" secondAttribute="trailing" constant="10" id="ere-Bn-ChW"/>
+                            <constraint firstItem="mWQ-z0-Kgc" firstAttribute="leading" secondItem="GuA-p1-2sj" secondAttribute="leading" constant="10" id="lzS-zP-EKA"/>
+                            <constraint firstAttribute="trailing" secondItem="mWQ-z0-Kgc" secondAttribute="trailing" constant="10" id="mnb-m2-gyI"/>
                         </constraints>
                     </view>
                     <connections>
