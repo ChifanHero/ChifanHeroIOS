@@ -190,6 +190,11 @@ class DataAccessor {
         self.callApi(method: "GET", request: request, responseHandler: responseHandler)
     }
     
+    func getAppVersionInfo(_ request: GetAppVersionInfoRequest, responseHandler : @escaping (GetAppVersionInfoResponse?) -> Void) {
+        
+        self.callApi(method: "GET", request: request, responseHandler: responseHandler)
+    }
+    
     //Post----------------------------------------------------------------------------------------------//
     func uploadPicture(_ request: UploadPictureRequest, responseHandler: @escaping (UploadPictureResponse?) -> Void) {
         self.callApi(method: "POST", request: request, responseHandler: responseHandler)

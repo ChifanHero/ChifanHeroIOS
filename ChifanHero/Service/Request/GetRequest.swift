@@ -240,3 +240,17 @@ class GetEmailVerifiedRequest: HttpRequest {
         return "/me/emailVerified"
     }
 }
+
+class GetAppVersionInfoRequest: HttpRequest{
+    
+    init(appVersionNumber: String) {
+        self.appVersionNumber = appVersionNumber
+    }
+    
+    var appVersionNumber: String?
+    
+    override func getRelativeURL() -> String {
+        return "/appVersionInfo?appVersion=\(appVersionNumber ?? "")"
+    }
+    
+}
