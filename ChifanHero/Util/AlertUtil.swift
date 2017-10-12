@@ -9,6 +9,14 @@
 import Foundation
 
 class AlertUtil {
+    class func showAlertViewWithoutAutoDismiss(buttonText: String, infoTitle: String, infoSubTitle: String, target: AnyObject, buttonAction: Selector) {
+        let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true, shouldAutoDismiss: false)
+        let alertView = SCLAlertView(appearance: appearance)
+        let alertViewIcon = UIImage(named: "LogoWithBorder")
+        alertView.addButton(buttonText, backgroundColor: UIColor.themeOrange(), target: target, selector: buttonAction)
+        alertView.showInfo(infoTitle, subTitle: infoSubTitle, colorStyle: UIColor.themeOrange().getColorCode(), circleIconImage: alertViewIcon)
+    }
+    
     class func showAlertView(buttonText: String, infoTitle: String, infoSubTitle: String, target: AnyObject, buttonAction: Selector) {
         let appearance = SCLAlertView.SCLAppearance(kCircleIconHeight: 40.0, showCloseButton: false, showCircularIcon: true)
         let alertView = SCLAlertView(appearance: appearance)
