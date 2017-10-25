@@ -14,6 +14,7 @@ class ParseConfiguration: ServiceConfiguration {
     func hostEndpoint() -> String {
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: "usingStaging") {
+//            return "http://10.0.1.19:1337/parse"
             return "http://chifanhero-staging.us-east-1.elasticbeanstalk.com/parse"
             //return "http://localhost:1337/parse"
         } else {
