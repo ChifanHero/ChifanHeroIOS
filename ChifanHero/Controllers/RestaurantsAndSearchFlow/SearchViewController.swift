@@ -19,13 +19,15 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     @IBOutlet weak var suggestionTableView: UITableView!
     
-    fileprivate var currentState: CurrentState?
+    private var currentState: CurrentState?
     
     var keywordHistory: [String] = [String]()
     var addressHistory: [String] = [String]()
     var addressAutoCompletion: [NSAttributedString] = [NSAttributedString]()
     
     var bounds: GMSCoordinateBounds?
+    
+    var parentVC: RestaurantsViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +77,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     func addSearchButton() {
         let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("搜索", size: CGRect(x: 0, y: 0, width: 80, height: 26))
-        button.addTarget(self, action: #selector(SearchViewController.confirmSearch), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(confirmSearch), for: UIControlEvents.touchUpInside)
         let cancelButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = cancelButton
     }
@@ -158,6 +160,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         } else {
             tabBarController!.selectedIndex = 1
         }
+        self.parentVC.newSearchRefreshData()
     }
     
     // Mark : TableView methods
@@ -228,7 +231,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         return SearchHistory.getRecentAddress(10)
     }
     
-    fileprivate enum CurrentState {
+    private enum CurrentState {
         case keyword
         case address
     }

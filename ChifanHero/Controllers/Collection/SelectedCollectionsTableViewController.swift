@@ -147,8 +147,12 @@ class SelectedCollectionsTableViewController: AutoNetworkCheckTableViewControlle
         self.performSegue(withIdentifier: "showCollectionMember", sender: indexPath)
     }
     
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == selectedCollections.count {
+        if section == selectedCollections.count - 1 {
             return 0
         } else {
             return 10
