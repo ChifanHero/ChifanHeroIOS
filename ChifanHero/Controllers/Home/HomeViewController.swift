@@ -43,6 +43,7 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         self.configurePullToRefresh()
         self.addLocationSelectionToLeftCorner()
         self.addEnvironmentControlToRightCorner()
+        self.requestAppVersionInfo()
         self.initHomepageTable()
         
         homepageTable.delegate = self
@@ -161,6 +162,39 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         let selectLocationController: SelectLocationViewController = selectLocationNavigationController.viewControllers[0] as! SelectLocationViewController
         selectLocationController.homeViewController = self
         self.present(selectLocationNavigationController, animated: true, completion: nil)
+    }
+    
+    private func requestAppVersionInfo() {
+        let request = GetAppVersionInfoRequest(appVersionNumber: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String)
+        DataAccessor(serviceConfiguration: ParseConfiguration()).getAppVersionInfo(request) { (response) -> Void in
+            OperationQueue.main.addOperation({ () -> Void in
+                guard response?.error == nil else {
+                    return
+                }
+                guard let isMandatory = response?.isMandatory, let isLatestVersion = response?.isLatestVersion, let latestVersion = response?.latestVersion, let updateInfo = response?.updateInfo else {
+                    return
+                }
+                if isMandatory {
+                    AlertUtil.showAlertViewWithoutAutoDismiss(buttonText: "立即更新", infoTitle: "请立即更新", infoSubTitle: "请更新至最新版吃饭英雄", target: self, buttonAction: #selector(self.openAppStore))
+                    return
+                }
+                if !isLatestVersion {
+                    AlertUtil.showAlertViewWithTwoButtons(firstButtonText: "我知道了", secondButtonText: "立即更新", infoTitle: "吃饭英雄\(latestVersion)已上线", infoSubTitle: "\(updateInfo)", target: self, firstButtonAction: #selector(self.doNothing), secondButtonAction: #selector(self.openAppStore))
+                }
+            });
+        }
+    }
+    
+    func openAppStore() {
+        if let url = URL(string: "itms-apps://itunes.apple.com/app/id1095530432"),
+            UIApplication.shared.canOpenURL(url)
+        {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
     }
     
     private func initHomepageTable(){

@@ -44,6 +44,7 @@ class ReviewDetailViewController: UIViewController, UICollectionViewDelegate, UI
     
     private func setUp() {
         self.reviewTextView.text = self.review.content
+        self.reviewTextView.textContainer.lineFragmentPadding = 0
         
         self.photosCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "photosCollectionViewCell")
         self.photosCollectionView.delegate = self

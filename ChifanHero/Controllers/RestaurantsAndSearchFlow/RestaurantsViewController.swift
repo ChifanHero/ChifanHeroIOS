@@ -12,8 +12,9 @@ import MapKit
 class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
     
     @IBOutlet weak var searchResultsTable: UITableView!
-    @IBOutlet weak var searchBar: UITextField!
     @IBOutlet weak var currentLocationLabel: UILabel!
+    
+    lazy var searchBar = UITextField(frame: CGRect(x: 0, y: 0, width: self.view.frame.width / 10 * 7, height: 20))
     
     var containerViewController: RestaurantsContainerViewController?
     
@@ -35,18 +36,19 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.setDefaultSearchContext()
         self.configureNavigationController()
+        self.addSearchBar()
         self.addFilterButton()
         self.configPullToRefresh()
         self.clearTitleForBackBarButtonItem()
         self.searchResultsTable.register(UINib(nibName: "RestaurantCell", bundle: nil), forCellReuseIdentifier: "restaurantCell")
         self.searchResultsTable.tableFooterView = UIView()
+        self.newSearchRefreshData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackRestaurantsView()
-        self.loadingIndicator.startAnimation()
-        self.refreshData()
+        //self.newSearchRefreshData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +66,16 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     private func configPullToRefresh() {
         pullRefresher.addTarget(self, action: #selector(self.pullToRefreshData), for: .valueChanged)
         self.searchResultsTable.insertSubview(pullRefresher, at: 0)
+    }
+    
+    private func addSearchBar() {
+        self.searchBar.backgroundColor = UIColor.white
+        self.searchBar.placeholder = "搜索餐厅"
+        self.searchBar.borderStyle = .roundedRect
+        self.searchBar.textAlignment = .center
+        self.searchBar.font = UIFont(name: "Arial", size: 14)
+        let leftNavBarButton = UIBarButtonItem(customView: self.searchBar)
+        self.navigationItem.leftBarButtonItem = leftNavBarButton
     }
     
     // MARK - TextField methods
@@ -189,7 +201,8 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
         let distance = Distance()
         distance.unit = DistanceUnit.mile.description
         if rangeFilter == RangeFilter.auto {
-            distance.value = 30.0
+            // if range is auto, let server side to decide the best range
+            distance.value = nil
         } else if rangeFilter == RangeFilter.point5{
             distance.value = 0.5
         } else if rangeFilter == RangeFilter.one{
@@ -231,6 +244,11 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
         self.refreshData()
     }
     
+    func newSearchRefreshData() {
+        self.loadingIndicator.startAnimation()
+        self.refreshData()
+    }
+    
     override func refreshData() {
         super.refreshData()
     }
@@ -247,14 +265,20 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as! RestaurantTableViewCell
         cell.setUp(restaurant: restaurants[indexPath.row])
+        cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UINib(
-            nibName: "SearchResultsTableViewHeader",
-            bundle: nil
-            ).instantiate(withOwner: nil, options: nil).first as! SearchResultsTableViewHeader
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+        headerView.backgroundColor = UIColor.groupTableViewBackground
+        
+        let poweredByGoogleView = UIImageView(frame: CGRect(x: 10, y: 0, width: 150, height: 40))
+        poweredByGoogleView.image = UIImage(named: "powered_by_google_on_white")
+        poweredByGoogleView.contentMode = .scaleAspectFit
+        poweredByGoogleView.clipsToBounds = true
+        headerView.addSubview(poweredByGoogleView)
+        
         return headerView
     }
     
@@ -326,7 +350,7 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     }
     
     private func addFilterButton() {
-        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("筛选", size: CGRect(x: 0, y: 0, width: 80, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("筛选", size: CGRect(x: 0, y: 0, width: self.view.frame.width / 10 * 2, height: 26))
         button.addTarget(self, action: #selector(RestaurantsViewController.openFilter), for: UIControlEvents.touchUpInside)
         let filterButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = filterButton
@@ -336,5 +360,13 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
         case browse
         case search
     }
-
+    
+    // MARK: Segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "search" {
+            let searchVC = segue.destination as! SearchViewController
+            searchVC.parentVC = self
+        }
+    }
 }

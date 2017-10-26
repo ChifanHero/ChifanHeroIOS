@@ -21,4 +21,17 @@ class ButtonUtil {
         button.backgroundColor = UIColor.themeOrange()
         return button
     }
+    
+    class func buttonWithTextAndBorder(_ title: String, size: CGRect) -> UIButton{
+        let button: UIButton = UIButton(type: .custom)
+        button.frame = size
+        button.layer.cornerRadius = 3.0
+        button.layer.borderWidth = 1.0
+        button.layer.borderColor = UIColor.themeOrange().cgColor
+        button.setTitle(title, for: UIControlState())
+        button.titleLabel!.font =  UIFont(name: "Arial", size: 14)
+        button.setTitleColor(UIColor.themeOrange(), for: UIControlState())
+        button.backgroundColor = UIColor.white
+        return button
+    }
 }

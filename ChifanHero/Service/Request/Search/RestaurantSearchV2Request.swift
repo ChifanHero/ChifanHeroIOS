@@ -25,8 +25,11 @@ class RestaurantSearchV2Request: HttpRequest{
     }
     
     private func constructNearBySearchApi() -> String {
-        var result = "/nearBy?radius="
-        result += String(Int((range?.distance?.value ?? 1) * 1.6 * 1000))
+        var result = "/nearBy?"
+        if let radius = range?.distance?.value {
+            result += "radius="
+            result += String(Int(radius * 1.6 * 1000))
+        }
         result += "&location.lat=" + String(range?.center?.lat ?? 37.2784)
         result += "&location.lon=" + String(range?.center?.lon ?? -121.9475)
         result += "&rating=" + String(rating ?? 1.0)
@@ -38,8 +41,11 @@ class RestaurantSearchV2Request: HttpRequest{
     }
     
     private func constructTextSearchApi() -> String {
-        var result = "/text?radius="
-        result += String(Int((range?.distance?.value ?? 1) * 1.6 * 1000))
+        var result = "/text?"
+        if let radius = range?.distance?.value {
+            result += "radius="
+            result += String(Int(radius * 1.6 * 1000))
+        }
         result += "&location.lat=" + String(range?.center?.lat ?? 37.2784)
         result += "&location.lon=" + String(range?.center?.lon ?? -121.9475)
         result += "&rating=" + String(rating ?? 1.0)

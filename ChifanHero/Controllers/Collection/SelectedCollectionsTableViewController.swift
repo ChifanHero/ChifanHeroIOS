@@ -128,16 +128,16 @@ class SelectedCollectionsTableViewController: AutoNetworkCheckTableViewControlle
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return selectedCollections.count
+        return 1
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return selectedCollections.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "selectedCollectionCell") as! SelectedCollectionTableViewCell
-        cell.setUp(selectedCollection: selectedCollections[indexPath.row])
+        cell.setUp(selectedCollection: selectedCollections[indexPath.section])
         return cell
     }
 
@@ -147,10 +147,22 @@ class SelectedCollectionsTableViewController: AutoNetworkCheckTableViewControlle
         self.performSegue(withIdentifier: "showCollectionMember", sender: indexPath)
     }
     
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == selectedCollections.count - 1 {
+            return 0
+        } else {
+            return 10
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showCollectionMember" {
             let controller: RestaurantCollectionMembersViewController = segue.destination as! RestaurantCollectionMembersViewController
-            controller.selectedCollection = selectedCollections[(sender as! IndexPath).row]
+            controller.selectedCollection = selectedCollections[(sender as! IndexPath).section]
             controller.lastUsedLocation = self.lastUsedLocation
         }
     }

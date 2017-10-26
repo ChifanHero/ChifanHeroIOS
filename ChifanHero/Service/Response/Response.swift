@@ -588,3 +588,27 @@ class GetEmailVerifiedResponse: HttpResponseProtocol {
         verified = data["verified"].bool
     }
 }
+
+class GetAppVersionInfoResponse: HttpResponseProtocol{
+    
+    var isLatestVersion: Bool?
+    var isMandatory: Bool?
+    var latestVersion: String?
+    var updateInfo: String?
+    var error: CFHError?
+    
+    required init() {
+        
+    }
+    
+    required init(data: JSON) {
+        if data["error"].exists() {
+            error = CFHError(data: data["error"])
+        }
+        isLatestVersion = data["isLatestVersion"].bool
+        isMandatory = data["isMandatory"].bool
+        latestVersion = data["latestVersion"].string
+        updateInfo = data["updateInfo"].string
+    }
+    
+}

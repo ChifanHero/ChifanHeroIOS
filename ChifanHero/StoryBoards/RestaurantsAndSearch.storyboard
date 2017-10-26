@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,46 +21,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y8d-Zt-dE1" userLabel="Search Bar Container">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aeS-kE-J8j" userLabel="Address Container">
                                 <rect key="frame" x="0.0" y="64" width="375" height="30"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="搜索餐厅" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0UK-nu-r2W" userLabel="Search Bar">
-                                        <rect key="frame" x="10" y="0.0" width="355" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="0UK-nu-r2W" secondAttribute="bottom" constant="7" id="4SO-DD-JZi"/>
-                                    <constraint firstItem="0UK-nu-r2W" firstAttribute="centerY" secondItem="y8d-Zt-dE1" secondAttribute="centerY" id="6m3-gc-ear"/>
-                                    <constraint firstItem="0UK-nu-r2W" firstAttribute="centerX" secondItem="y8d-Zt-dE1" secondAttribute="centerX" id="7FP-mo-IWL"/>
-                                    <constraint firstItem="0UK-nu-r2W" firstAttribute="top" secondItem="y8d-Zt-dE1" secondAttribute="top" id="CYX-Xl-wAo"/>
-                                    <constraint firstItem="0UK-nu-r2W" firstAttribute="leading" secondItem="y8d-Zt-dE1" secondAttribute="leading" constant="10" id="M1h-Km-aNE"/>
-                                    <constraint firstAttribute="trailing" secondItem="0UK-nu-r2W" secondAttribute="trailing" constant="10" id="NOV-3z-yDf"/>
-                                    <constraint firstItem="0UK-nu-r2W" firstAttribute="top" secondItem="y8d-Zt-dE1" secondAttribute="top" constant="7" id="PBU-33-qIk"/>
-                                    <constraint firstAttribute="bottom" secondItem="0UK-nu-r2W" secondAttribute="bottom" id="Uyt-UO-dW5"/>
-                                    <constraint firstItem="0UK-nu-r2W" firstAttribute="centerY" secondItem="y8d-Zt-dE1" secondAttribute="centerY" id="Y9d-eS-UB8"/>
-                                    <constraint firstItem="0UK-nu-r2W" firstAttribute="centerX" secondItem="y8d-Zt-dE1" secondAttribute="centerX" id="rcB-QA-X7Q"/>
-                                    <constraint firstAttribute="height" constant="30" id="zNG-MI-QOw"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="4SO-DD-JZi"/>
-                                        <exclude reference="6m3-gc-ear"/>
-                                        <exclude reference="7FP-mo-IWL"/>
-                                        <exclude reference="PBU-33-qIk"/>
-                                        <exclude reference="Y9d-eS-UB8"/>
-                                    </mask>
-                                </variation>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aeS-kE-J8j" userLabel="Address Container">
-                                <rect key="frame" x="0.0" y="94" width="375" height="35"/>
-                                <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="位置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UcF-zK-Edb">
-                                        <rect key="frame" x="20" y="7" width="335" height="21"/>
+                                        <rect key="frame" x="20" y="4" width="335" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="yW0-cc-9qw"/>
+                                            <constraint firstAttribute="height" constant="22" id="yW0-cc-9qw"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -70,13 +37,13 @@
                                 <color key="backgroundColor" red="0.99607843139999996" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="UcF-zK-Edb" firstAttribute="centerY" secondItem="aeS-kE-J8j" secondAttribute="centerY" id="4Xd-Hq-Q5q"/>
-                                    <constraint firstAttribute="height" constant="35" id="ECP-Nm-4vC"/>
+                                    <constraint firstAttribute="height" constant="30" id="ECP-Nm-4vC"/>
                                     <constraint firstItem="UcF-zK-Edb" firstAttribute="centerX" secondItem="aeS-kE-J8j" secondAttribute="centerX" id="IkO-Lg-VGe"/>
                                     <constraint firstItem="UcF-zK-Edb" firstAttribute="leading" secondItem="aeS-kE-J8j" secondAttribute="leading" constant="20" id="ZGY-H9-Vca"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gZP-ug-CeJ">
-                                <rect key="frame" x="0.0" y="129" width="375" height="538"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="573"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -88,29 +55,19 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="aeS-kE-J8j" firstAttribute="leading" secondItem="vxQ-MS-Cq1" secondAttribute="leading" id="2vb-FP-EW5"/>
+                            <constraint firstItem="gZP-ug-CeJ" firstAttribute="top" secondItem="aeS-kE-J8j" secondAttribute="bottom" id="7vV-uO-w1R"/>
                             <constraint firstItem="gZP-ug-CeJ" firstAttribute="leading" secondItem="vxQ-MS-Cq1" secondAttribute="leading" id="8IK-F1-2wZ"/>
-                            <constraint firstItem="y8d-Zt-dE1" firstAttribute="leading" secondItem="vxQ-MS-Cq1" secondAttribute="leading" id="AjO-AA-6qf"/>
                             <constraint firstAttribute="trailing" secondItem="gZP-ug-CeJ" secondAttribute="trailing" id="DaC-zb-F0g"/>
-                            <constraint firstItem="y8d-Zt-dE1" firstAttribute="top" secondItem="lI7-Ca-hwN" secondAttribute="bottom" id="GyH-NC-MBx"/>
-                            <constraint firstItem="aeS-kE-J8j" firstAttribute="top" secondItem="y8d-Zt-dE1" secondAttribute="bottom" id="OS9-51-aRI"/>
-                            <constraint firstItem="gZP-ug-CeJ" firstAttribute="top" secondItem="aeS-kE-J8j" secondAttribute="bottom" id="PMf-qb-Qpb"/>
                             <constraint firstItem="yT6-rF-TOD" firstAttribute="top" secondItem="gZP-ug-CeJ" secondAttribute="bottom" id="Zp4-To-Xfk"/>
+                            <constraint firstItem="aeS-kE-J8j" firstAttribute="top" secondItem="lI7-Ca-hwN" secondAttribute="bottom" id="beR-pj-lme"/>
                             <constraint firstAttribute="trailing" secondItem="aeS-kE-J8j" secondAttribute="trailing" id="fmq-NX-ltg"/>
-                            <constraint firstItem="gZP-ug-CeJ" firstAttribute="top" secondItem="y8d-Zt-dE1" secondAttribute="bottom" id="i00-c5-buf"/>
-                            <constraint firstAttribute="trailing" secondItem="y8d-Zt-dE1" secondAttribute="trailing" id="vA1-DC-q9W"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="i00-c5-buf"/>
-                            </mask>
-                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="所有餐厅" id="F9c-YQ-FS3"/>
+                    <navigationItem key="navigationItem" id="F9c-YQ-FS3"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="currentLocationLabel" destination="UcF-zK-Edb" id="vS8-UY-eS6"/>
-                        <outlet property="searchBar" destination="0UK-nu-r2W" id="qCo-xK-pHp"/>
                         <outlet property="searchResultsTable" destination="gZP-ug-CeJ" id="fOP-98-w9E"/>
                         <segue destination="nsa-gt-gFD" kind="show" identifier="search" animates="NO" id="Dcb-fL-o6H"/>
                     </connections>

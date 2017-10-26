@@ -61,6 +61,8 @@ class ReviewSnapshotTableViewCell: UITableViewCell {
         profileImageButton.imageView?.contentMode = UIViewContentMode.scaleAspectFill
         profileImageButton.layer.cornerRadius = 2
         profileImageButton.clipsToBounds = true
+        
+        self.reviewTextView.textContainer.lineFragmentPadding = 0
     }
     
     func reset() {
