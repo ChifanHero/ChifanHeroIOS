@@ -69,9 +69,9 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="吃 饭 英 雄" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jV0-cZ-CEC">
-                                                    <rect key="frame" x="40" y="35" width="200" height="50"/>
+                                                    <rect key="frame" x="40" y="35" width="133" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="200" id="6mq-gA-1TK"/>
+                                                        <constraint firstAttribute="width" constant="133" id="6mq-gA-1TK"/>
                                                         <constraint firstAttribute="height" constant="50" id="iUN-WE-aud"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="26"/>
@@ -88,14 +88,24 @@
                                                     <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-ys-TX4" userLabel="EnvControl">
+                                                    <rect key="frame" x="183" y="40" width="200" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="4Tm-0Y-GxN"/>
+                                                        <constraint firstAttribute="width" constant="200" id="9hk-9e-7ap"/>
+                                                    </constraints>
+                                                    <state key="normal" title="正在使用xxxxxx"/>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="0Yp-Mv-LZH" secondAttribute="trailing" id="276-YW-CEM"/>
+                                                <constraint firstItem="EZm-ys-TX4" firstAttribute="top" secondItem="KuW-Ac-dv8" secondAttribute="top" constant="40" id="8qp-Ac-S8j"/>
                                                 <constraint firstItem="0Yp-Mv-LZH" firstAttribute="top" secondItem="KuW-Ac-dv8" secondAttribute="top" id="B0H-Oi-k5s"/>
                                                 <constraint firstItem="njy-9l-JTa" firstAttribute="top" secondItem="jV0-cZ-CEC" secondAttribute="bottom" constant="10" id="QTp-Jb-g4q"/>
                                                 <constraint firstItem="jV0-cZ-CEC" firstAttribute="top" secondItem="0Yp-Mv-LZH" secondAttribute="bottom" constant="20" id="RF7-ae-evx"/>
                                                 <constraint firstItem="jV0-cZ-CEC" firstAttribute="leading" secondItem="KuW-Ac-dv8" secondAttribute="leading" constant="40" id="V2X-qz-s2S"/>
+                                                <constraint firstAttribute="trailing" secondItem="EZm-ys-TX4" secondAttribute="trailing" id="cCt-6E-OiQ"/>
                                                 <constraint firstItem="njy-9l-JTa" firstAttribute="leading" secondItem="KuW-Ac-dv8" secondAttribute="leading" constant="40" id="mwU-qs-WbG"/>
                                                 <constraint firstItem="0Yp-Mv-LZH" firstAttribute="leading" secondItem="KuW-Ac-dv8" secondAttribute="leading" id="ozd-Xb-eCC"/>
                                             </constraints>
@@ -128,13 +138,23 @@
                     </view>
                     <navigationItem key="navigationItem" id="u4i-fS-GAn" userLabel="Lightning Order"/>
                     <connections>
+                        <outlet property="envControlButton" destination="EZm-ys-TX4" id="ufz-Eq-Cnb"/>
                         <outlet property="frontCoverImage" destination="9em-ug-eiK" id="hoE-4g-IXF"/>
                         <outlet property="homepageTable" destination="oFq-hJ-yGc" id="4Ta-73-4rW"/>
+                        <segue destination="rut-RH-9Mk" kind="show" identifier="search" animates="NO" id="3jl-Ls-bQP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x4N-Xo-Gm5" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3007" y="-202"/>
+            <point key="canvasLocation" x="3005.5999999999999" y="-202.84857571214394"/>
+        </scene>
+        <!--SearchActionVC-->
+        <scene sceneID="WkW-xy-QlB">
+            <objects>
+                <viewControllerPlaceholder storyboardName="RestaurantsAndSearch" referencedIdentifier="SearchActionVC" id="rut-RH-9Mk" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WdJ-Tz-jZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3667" y="-180"/>
         </scene>
     </scenes>
     <resources>
