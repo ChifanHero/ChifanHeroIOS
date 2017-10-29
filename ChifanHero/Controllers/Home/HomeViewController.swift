@@ -9,13 +9,17 @@
 import UIKit
 import MapKit
 
-class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable {
+class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable, UITextFieldDelegate {
     
     @IBOutlet weak var homepageTable: UITableView!
     
     @IBOutlet weak var frontCoverImage: UIImageView!
     
     weak var selectedImageView: UIImageView!
+    
+    lazy var searchBar = UITextField(frame: CGRect(x: 0, y: 0, width: self.view.frame.width / 10 * 7.5 - 10, height: 20))
+    
+    @IBOutlet weak var envControlButton: UIButton!
     
     var selectedRestaurantName: String?
     
@@ -42,18 +46,21 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         self.configureNavigationController()
         self.configurePullToRefresh()
         self.addLocationSelectionToLeftCorner()
-        self.addEnvironmentControlToRightCorner()
+        self.addEnvironmentControl()
+        self.addSearchBar()
         self.requestAppVersionInfo()
         self.initHomepageTable()
         
         homepageTable.delegate = self
         homepageTable.dataSource = self
+        self.searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarTranslucent(To: false)
         self.tabBarController?.tabBar.isHidden = false
+        self.selectedImageView?.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,6 +70,16 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
             loadingIndicator.startAnimation()
             refreshData()
         }
+    }
+    
+    private func addSearchBar() {
+        self.searchBar.backgroundColor = UIColor.white
+        self.searchBar.placeholder = "搜索餐厅"
+        self.searchBar.borderStyle = .roundedRect
+        self.searchBar.textAlignment = .center
+        self.searchBar.font = UIFont(name: "Arial", size: 14)
+        let leftNavBarButton = UIBarButtonItem(customView: self.searchBar)
+        self.navigationItem.rightBarButtonItem = leftNavBarButton
     }
     
     func locationChangedSignificantly() -> Bool {
@@ -118,14 +135,16 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
     
     // MARK: - add location selection button to top left corner
     private func addLocationSelectionToLeftCorner() {
-        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("位置待定", size: CGRect(x: 0, y: 0, width: 200, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("NA", size: CGRect(x: 0, y: 0, width: self.view.frame.width / 10 * 1.5, height: 26))
         button.addTarget(self, action: #selector(self.editLocation), for: UIControlEvents.touchUpInside)
         let selectionLocationButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = selectionLocationButton
     }
     
-    private func addEnvironmentControlToRightCorner() {
+    private func addEnvironmentControl() {
+        envControlButton.isHidden = true
         #if DEBUG
+            envControlButton.isHidden = false
             var title = ""
             let defaults = UserDefaults.standard
             if defaults.bool(forKey: "usingStaging") {
@@ -133,10 +152,8 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
             } else {
                 title = "正在使用Production"
             }
-            let button: UIButton = ButtonUtil.barButtonWithTextAndBorder(title, size: CGRect(x: 0, y: 0, width: 150, height: 26))
-            button.addTarget(self, action: #selector(self.changeEnvironment), for: UIControlEvents.touchUpInside)
-            let selectionLocationButton = UIBarButtonItem(customView: button)
-            self.navigationItem.rightBarButtonItem = selectionLocationButton
+            envControlButton.setTitle(title, for: .normal)
+            envControlButton.addTarget(self, action: #selector(self.changeEnvironment), for: UIControlEvents.touchUpInside)
         #endif
     }
         
@@ -146,11 +163,11 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         if defaults.bool(forKey: "usingStaging") {
             defaults.set(false, forKey: "usingStaging")
             afterChangeEnv = "Production"
-            (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setTitle("正在使用Production", for: UIControlState())
+            self.envControlButton.setTitle("正在使用Production", for: .normal)
         } else {
             defaults.set(true, forKey: "usingStaging")
             afterChangeEnv = "Staging"
-            (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setTitle("正在使用Staging", for: UIControlState())
+            self.envControlButton.setTitle("正在使用Staging", for: .normal)
         }
         AlertUtil.showAlertView(buttonText: "我知道了", infoTitle: "正在使用\(afterChangeEnv)", infoSubTitle: "\(ParseConfiguration().hostEndpoint())", target: self, buttonAction: #selector(doNothing))
     }
@@ -207,7 +224,8 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         } else {
             // User restarted the app. Already have all the information we need. No need to observe anything
             let cityInUse = userLocationManager.getCityInUse()
-            let cityText: String = cityInUse!.name! + ", " + cityInUse!.state! + ", " + cityInUse!.localizedCountryName!
+//            let cityText: String = cityInUse!.name! + ", " + cityInUse!.state! + ", " + cityInUse!.localizedCountryName!
+            let cityText: String = getLocationAbbreviation(locationName: cityInUse!.name!)
             (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, for: UIControlState())
             refreshData()
         }
@@ -220,13 +238,30 @@ class HomeViewController: AutoNetworkCheckViewController, ARNImageTransitionZoom
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION) {
             let cityInUse = userLocationManager.getCityInUse()
-            let cityText: String = cityInUse!.name! + ", " + cityInUse!.state! + ", " + cityInUse!.localizedCountryName!
+            let cityText: String = getLocationAbbreviation(locationName: cityInUse!.name!)
             (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(cityText, for: UIControlState())
         } else {
-            currentLocationText = "实时位置"
+            currentLocationText = "GPS"
             (self.navigationItem.leftBarButtonItem?.customView as! UIButton).setTitle(currentLocationText, for: UIControlState())
         }
         refreshData()
+    }
+    
+    func getLocationAbbreviation(locationName: String)-> String {
+        let locationNameComponents = locationName.components(separatedBy: " ")
+        if locationNameComponents.count > 1 {
+            var abbreviation = ""
+            for component in locationNameComponents {
+                abbreviation.append(String(component.characters.prefix(1)))
+            }
+            return abbreviation
+        } else {
+            if locationName.characters.count > 7 {
+                return String(locationName.characters.prefix(4)) + "..."
+            } else {
+                return locationName
+            }
+        }
     }
     
     func prepareForDataRefresh() {
@@ -298,6 +333,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+    
+    // MARK - TextField methods
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        performSegue(withIdentifier: "search", sender: nil)
+        return false
     }
     
     // MARK: - ARNImageTransitionZoomable
