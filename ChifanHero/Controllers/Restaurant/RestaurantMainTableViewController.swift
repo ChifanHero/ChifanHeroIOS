@@ -315,9 +315,12 @@ class RestaurantMainTableViewController: UITableViewController, ImagePickerDeleg
             reviewsVC.restaurant = self.restaurant
             reviewsVC.reviewUserProfileImageContent = self.reviewUserProfileImageContent
         } else if segue.identifier == "showReview" {
-            let reviewVC: ReviewDetailViewController = segue.destination as! ReviewDetailViewController
+//            let reviewVC: ReviewDetailViewController = segue.destination as! ReviewDetailViewController
+//            reviewVC.review = self.restaurant?.reviewInfo?.reviews[(sender as! Int)]
+//            reviewVC.reviewUserProfileImage = self.reviewUserProfileImageContent[(sender as! Int)]
+            let reviewVC: ReviewDetailTableViewController = segue.destination as! ReviewDetailTableViewController
             reviewVC.review = self.restaurant?.reviewInfo?.reviews[(sender as! Int)]
-            reviewVC.reviewUserProfileImage = self.reviewUserProfileImageContent[(sender as! Int)]
+            reviewVC.reviewUserProfileImage = self.reviewUserProfileImageContent[(sender as! Int)].image
         } else if segue.identifier == "showAllRecommendedDishes" {
             let recommendedDishVC: RecommendedDishViewController = segue.destination as! RecommendedDishViewController
             recommendedDishVC.restaurant = self.restaurant
