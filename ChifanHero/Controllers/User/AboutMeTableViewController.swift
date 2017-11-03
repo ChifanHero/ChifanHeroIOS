@@ -103,7 +103,7 @@ class AboutMeTableViewController: UITableViewController, UIImagePickerController
     
     fileprivate func setUserProfileImageProperty(){
         self.view.layoutIfNeeded()
-        self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width / 2
+        self.userImageView.layer.cornerRadius = 5
         self.userImageView.clipsToBounds = true
         self.userImageView.layer.borderWidth = 3.0
         self.userImageView.layer.borderColor = UIColor.white.cgColor
