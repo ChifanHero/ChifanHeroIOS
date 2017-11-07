@@ -155,12 +155,16 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     func goToResultsDisplayVC() {
         let tabBarController = self.tabBarController
         let selectedIndex = tabBarController!.selectedIndex
+        let restaurantsContainerVC: RestaurantsContainerViewController = tabBarController?.viewControllers![1] as! RestaurantsContainerViewController
+        let restaurantsVC: RestaurantsViewController = restaurantsContainerVC.restaurantsVC as RestaurantsViewController
         if selectedIndex == 1 {
             self.navigationController?.popViewController(animated: false)
         } else {
+            restaurantsVC.navigationController?.popToRootViewController(animated: false)
             tabBarController!.selectedIndex = 1
+            self.navigationController?.popToRootViewController(animated: false)
         }
-        self.parentVC.newSearchRefreshData()
+        restaurantsVC.newSearchRefreshData()
     }
     
     // Mark : TableView methods

@@ -161,6 +161,10 @@
 		C4227F9B1F4955BA006395F3 /* PhotoBrowserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4227F9A1F4955BA006395F3 /* PhotoBrowserDelegate.swift */; };
 		C42D9BDB1B69EF2D0035C5A6 /* ChifanHeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BDA1B69EF2D0035C5A6 /* ChifanHeroTests.swift */; };
 		C42D9BE61B69EF2D0035C5A6 /* ChifanHeroUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9BE51B69EF2D0035C5A6 /* ChifanHeroUITests.swift */; };
+		C43D62C01FA8417400B64813 /* ReviewInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D62BF1FA8417400B64813 /* ReviewInfoTableViewCell.swift */; };
+		C43D62C21FA841AA00B64813 /* ReviewPhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D62C11FA841AA00B64813 /* ReviewPhotosTableViewCell.swift */; };
+		C43D62C61FA844F600B64813 /* ReviewDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D62C51FA844F600B64813 /* ReviewDetailTableViewCell.swift */; };
+		C43D62C81FA8452E00B64813 /* ReviewDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D62C71FA8452E00B64813 /* ReviewDetailTableViewController.swift */; };
 		C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C47A1C481C7DDF7B00E0DF3A /* Lightning.xcdatamodeld */; };
 		C4A597741F5D21B9005DF124 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597731F5D21B9005DF124 /* ErrorCode.swift */; };
 		C4A597761F62562C005DF124 /* RetryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A597751F62562C005DF124 /* RetryButton.swift */; };
@@ -449,6 +453,10 @@
 		C42D9BE11B69EF2D0035C5A6 /* ChifanHeroUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChifanHeroUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42D9BE51B69EF2D0035C5A6 /* ChifanHeroUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChifanHeroUITests.swift; sourceTree = "<group>"; };
 		C42D9BE71B69EF2D0035C5A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C43D62BF1FA8417400B64813 /* ReviewInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewInfoTableViewCell.swift; sourceTree = "<group>"; };
+		C43D62C11FA841AA00B64813 /* ReviewPhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotosTableViewCell.swift; sourceTree = "<group>"; };
+		C43D62C51FA844F600B64813 /* ReviewDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailTableViewCell.swift; sourceTree = "<group>"; };
+		C43D62C71FA8452E00B64813 /* ReviewDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailTableViewController.swift; sourceTree = "<group>"; };
 		C47A1C491C7DDF7B00E0DF3A /* Lightning.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lightning.xcdatamodel; sourceTree = "<group>"; };
 		C4A597731F5D21B9005DF124 /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		C4A597751F62562C005DF124 /* RetryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryButton.swift; sourceTree = "<group>"; };
@@ -790,6 +798,7 @@
 				8E88CC02C899D6A30002819B /* UserActivityTableViewController.swift */,
 				8E88C5EBFC32AB2EB937BF5E /* NewReviewViewController.swift */,
 				CA44A56E1F4CE6FD002FEF7F /* UpdateRestaurantViewController.swift */,
+				C43D62C71FA8452E00B64813 /* ReviewDetailTableViewController.swift */,
 			);
 			path = Restaurant;
 			sourceTree = "<group>";
@@ -1120,6 +1129,9 @@
 				8E88CD67249AEA4682F55709 /* RatingStarTableViewCell.swift */,
 				8E88C006310CF58C122467CD /* RemovablePhotoCollectionViewCell.swift */,
 				8E88C45233FF94C200DCB9D7 /* ReviewSnapshotTableViewCell.swift */,
+				C43D62BF1FA8417400B64813 /* ReviewInfoTableViewCell.swift */,
+				C43D62C11FA841AA00B64813 /* ReviewPhotosTableViewCell.swift */,
+				C43D62C51FA844F600B64813 /* ReviewDetailTableViewCell.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -1883,6 +1895,7 @@
 				CACC22AC1EB2B26700FC353E /* VideoInfoView.swift in Sources */,
 				CACC22DE1EB2B3A900FC353E /* DKAssetGroup.swift in Sources */,
 				CACC22DA1EB2B3A900FC353E /* DKCamera.swift in Sources */,
+				C43D62C81FA8452E00B64813 /* ReviewDetailTableViewController.swift in Sources */,
 				CACC22A51EB2B26700FC353E /* Configuration.swift in Sources */,
 				CACC22841EB2B24B00FC353E /* TRMosaicColumn.swift in Sources */,
 				CACC22EE1EB2B3A900FC353E /* DKPermissionView.swift in Sources */,
@@ -1893,6 +1906,7 @@
 				CACC22AD1EB2B26700FC353E /* ImagePickerController.swift in Sources */,
 				CACC22BA1EB2B28900FC353E /* MILAlertView.swift in Sources */,
 				CACC22A91EB2B26700FC353E /* ImageGalleryView.swift in Sources */,
+				C43D62C21FA841AA00B64813 /* ReviewPhotosTableViewCell.swift in Sources */,
 				C47A1C4A1C7DDF7B00E0DF3A /* Lightning.xcdatamodeld in Sources */,
 				CACC22EA1EB2B3A900FC353E /* DKAssetGroupDetailVideoCell.swift in Sources */,
 				CACC22A01EB2B26700FC353E /* ButtonPicker.swift in Sources */,
@@ -1903,9 +1917,11 @@
 				CACC22DC1EB2B3A900FC353E /* DKGroupDataManager.swift in Sources */,
 				8E88C7C15604A137DF712734 /* HomepageTableViewCell.swift in Sources */,
 				8E88CA2AE82E75CE8A4B3731 /* PreviewCollectionViewCell.swift in Sources */,
+				C43D62C01FA8417400B64813 /* ReviewInfoTableViewCell.swift in Sources */,
 				8E88CC52DAB2C0CD1D8CDB24 /* RestaurantImagePoolCollectionViewCell.swift in Sources */,
 				C4A597761F62562C005DF124 /* RetryButton.swift in Sources */,
 				8E88CD475058AEAADFF8B1AB /* PhotoCollectionViewCell.swift in Sources */,
+				C43D62C61FA844F600B64813 /* ReviewDetailTableViewCell.swift in Sources */,
 				CA8677331ECF90A100FBF076 /* TextUtil.swift in Sources */,
 				8E88C9956520336E06A2C51A /* SearchHistoryCellDelegate.swift in Sources */,
 				8E88CD3C9D1D2C37A680423B /* SlideBar.swift in Sources */,
@@ -2265,8 +2281,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄-Test";
-				PROVISIONING_PROFILE = "9a8e3831-cc47-4ef7-bf3e-c7cec411d7a6";
-				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForAlex;
+				PROVISIONING_PROFILE = "b075c09c-552c-4f75-bcd1-cafd0d71b208";
+				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForRicky;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2292,8 +2308,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄";
-				PROVISIONING_PROFILE = "9a8e3831-cc47-4ef7-bf3e-c7cec411d7a6";
-				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForAlex;
+				PROVISIONING_PROFILE = "b075c09c-552c-4f75-bcd1-cafd0d71b208";
+				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForRicky;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
