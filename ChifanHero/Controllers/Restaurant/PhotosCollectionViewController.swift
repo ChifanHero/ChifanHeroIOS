@@ -48,6 +48,7 @@ class PhotosCollectionViewController: UICollectionViewController, TRMosaicLayout
         imageView.image  = imagePoolContent[indexPath.item].image
         imageView.frame = cell.contentView.frame
         imageView.contentMode = UIViewContentMode.scaleAspectFill
+        imageView.layer.cornerRadius = 3
         imageView.clipsToBounds = true
         cell.backgroundView = imageView
         return cell

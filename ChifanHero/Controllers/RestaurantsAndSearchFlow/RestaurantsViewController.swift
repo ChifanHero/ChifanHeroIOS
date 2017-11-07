@@ -14,7 +14,7 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     @IBOutlet weak var searchResultsTable: UITableView!
     @IBOutlet weak var currentLocationLabel: UILabel!
     
-    lazy var searchBar = UITextField(frame: CGRect(x: 0, y: 0, width: self.view.frame.width / 10 * 7, height: 20))
+    lazy var searchBar = UITextField(frame: CGRect(x: 0, y: 0, width: self.view.frame.width / 10 * 7.5 - 10, height: 20))
     
     var containerViewController: RestaurantsContainerViewController?
     
@@ -48,12 +48,12 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TrackingUtil.trackRestaurantsView()
-        //self.newSearchRefreshData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.animateTransition = false
+        self.selectedImageView?.isHidden = false
     }
     
     private func setDefaultSearchContext() {
@@ -350,7 +350,7 @@ class RestaurantsViewController: AutoNetworkCheckViewController, UITextFieldDele
     }
     
     private func addFilterButton() {
-        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("筛选", size: CGRect(x: 0, y: 0, width: self.view.frame.width / 10 * 2, height: 26))
+        let button: UIButton = ButtonUtil.barButtonWithTextAndBorder("筛选", size: CGRect(x: 0, y: 0, width: self.view.frame.width / 10 * 1.5, height: 26))
         button.addTarget(self, action: #selector(RestaurantsViewController.openFilter), for: UIControlEvents.touchUpInside)
         let filterButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = filterButton
