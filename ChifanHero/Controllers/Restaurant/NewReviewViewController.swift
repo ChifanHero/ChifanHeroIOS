@@ -162,20 +162,28 @@ class NewReviewViewController: UIViewController, UICollectionViewDelegate, UICol
     
     private func disableCurrentView() {
         self.view.addSubview(LoadingViewUtil.buildLoadingView(frame: CGRect(x: self.view.frame.width / 2 - 60, y: self.view.frame.height / 2, width: 120, height: 40), text: "正在上传"))
+        self.reviewTextView.resignFirstResponder()
+        self.view.layoutIfNeeded()
         self.view.isUserInteractionEnabled = false
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         self.navigationItem.leftBarButtonItem?.isEnabled = false
     }
     
     func observeKeyboard() {
-        NotificationCenter.default.addObserver(self, selector: #selector(NewReviewViewController.handleKeyboardDidShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewReviewViewController.handleKeyboardWillShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewReviewViewController.handleKeyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func handleKeyboardDidShowNotification(_ notification: Notification) {
+    func handleKeyboardWillShowNotification(_ notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             bottomDistanceConstraint.constant = keyboardSize.height
             self.view.layoutIfNeeded()
         }
+    }
+    
+    func handleKeyboardWillHideNotification(_ notification: Notification) {
+        bottomDistanceConstraint.constant = 0
+        self.view.layoutIfNeeded()
     }
     
     func dismissAlert() {
