@@ -10,15 +10,28 @@ import UIKit
 import Kingfisher
 import SKPhotoBrowser
 
-class ReviewPhotosTableViewCell: UITableViewCell, TRMosaicLayoutDelegate, UICollectionViewDelegate, UICollectionViewDataSource, SKPhotoBrowserDelegate {
+class ReviewPhotosTableViewCell: UITableViewCell, TRMosaicLayoutDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, SKPhotoBrowserDelegate {
 
     @IBOutlet weak var photosCollectionView: UICollectionView!
     
     var parentViewController: UIViewController?
     
+    let mosaicLayout = TRMosaicLayout()
+    
     var pictures: [Picture]? {
         didSet {
+            if pictures?.count != nil && pictures!.count >= 3 {
+                
+                photosCollectionView.collectionViewLayout = mosaicLayout
+                
+            } else {
+//                let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+//                layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//                layout.itemSize =
+//                photosCollectionView.collectionViewLayout = layout
+            }
             prepareImageViews(pictures: pictures)
+//            self.layoutIfNeeded()
             self.photosCollectionView.reloadData()
 //            self.superview?.layoutIfNeeded()
             self.layoutIfNeeded()
@@ -32,8 +45,6 @@ class ReviewPhotosTableViewCell: UITableViewCell, TRMosaicLayoutDelegate, UIColl
         self.photosCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "mosaicImageCell")
         photosCollectionView.delegate = self
         photosCollectionView.dataSource = self
-        let mosaicLayout = TRMosaicLayout()
-        photosCollectionView.collectionViewLayout = mosaicLayout
         mosaicLayout.delegate = self
     }
     
@@ -43,6 +54,16 @@ class ReviewPhotosTableViewCell: UITableViewCell, TRMosaicLayoutDelegate, UIColl
     
     func collectionView(_ collectionView:UICollectionView, layout collectionViewLayout: TRMosaicLayout, insetAtSection:Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 4)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = self.parentViewController!.view.frame.width - 16
+        let height = width * 0.8
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
