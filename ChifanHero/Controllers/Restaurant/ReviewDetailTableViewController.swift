@@ -21,6 +21,7 @@ class ReviewDetailTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 300
         self.addImageForBackBarButtonItem()
         self.clearTitleForBackBarButtonItem()
+        self.tableView.layoutIfNeeded()
         self.tableView.reloadData()
 
         // Uncomment the following line to preserve selection between presentations
