@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 import Flurry_iOS_SDK
+import BTNavigationDropdownMenu
 
 class RestaurantCollectionMembersViewController: UITableViewController, ARNImageTransitionZoomable, ARNImageTransitionIdentifiable{
     
@@ -18,6 +19,8 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     weak var selectedImageView: UIImageView!
     var selectedRestaurantName: String!
     var lastUsedLocation: Location?
+    
+    private var sortOrder: SortOrder = .RATING
     
     var favoriteCount: Int? {
         didSet {
@@ -55,11 +58,68 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         self.configureHeaderView()
         self.configureFavoriteView()
         self.configureNominationView()
-        
+        self.configDropDownMenu()
         self.tableView.register(UINib(nibName: "RestaurantCollectionMemberCell", bundle: nil), forCellReuseIdentifier: "restaurantCollectionMemberTableViewCell")
         
         favoriteCount = selectedCollection?.userFavoriteCount
         // Do any additional setup after loading the view.
+    }
+    
+    private func configDropDownMenu() {
+        if !userLocationManager.usingNotAutoDetectedLocation() {
+            let items = ["排序：按评分", "排序：按距离"]
+            let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: "排序：按评分", items: items as [AnyObject])
+            self.navigationItem.titleView = menuView
+            menuView.cellSelectionColor = UIColor.themeOrange()
+            menuView.selectedCellTextLabelColor = UIColor.white
+            menuView.animationDuration = 0.2
+            menuView.didSelectItemAtIndexHandler = {[weak self] (indexPath: Int) -> () in
+                if indexPath == 0 {
+                    self?.sortOrder = RestaurantCollectionMembersViewController.SortOrder.RATING
+                } else {
+                    self?.sortOrder = RestaurantCollectionMembersViewController.SortOrder.DISTANCE
+                }
+                self?.sort()
+//                self.tableView.visibleCells.forEach { (cell) in
+//                    UIView.animate(withDuration: 2.0, animations: {
+//                        cell.contentView.alpha = 0
+//                    })
+//                }
+                UIView.animate(withDuration: 0.5, animations: {
+                    self?.tableView.visibleCells.forEach({ (cell) in
+                        cell.contentView.alpha = 0
+                    })
+                }, completion: { (completed) in
+                    self?.tableView.reloadData()
+                })
+                
+            }
+        }
+    }
+    
+    private func sort() {
+        //Parameter areInIncreasingOrder: A predicate that returns `true` if its
+        //first argument should be ordered before its second argument; otherwise,`false`.
+        members.sort { (restaurant1, restaurant2) -> Bool in
+            if self.sortOrder == RestaurantCollectionMembersViewController.SortOrder.RATING {
+                if (restaurant1.rating == nil) {
+                    return false
+                } else if (restaurant2.rating == nil) {
+                    return true
+                } else {
+                    return restaurant1.rating! > restaurant2.rating!
+                }
+            } else {
+                if (restaurant1.distance?.value == nil) {
+                    return false
+                } else if (restaurant2.distance?.value == nil) {
+                    return true
+                } else {
+                    return restaurant1.distance!.value! < restaurant2.distance!.value!
+                }
+            }
+            return false
+        }
     }
     
     private func configActionButton() {
@@ -71,7 +131,7 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.animateTransition = false
-        self.setNavigationBarTranslucent(To: true)
+//        self.setNavigationBarTranslucent(To: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -158,13 +218,15 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     func loadTableData() {
         if selectedCollection?.id != nil {
             let request: GetRestaurantCollectionMembersRequest = GetRestaurantCollectionMembersRequest(id: (selectedCollection?.id!)!)
+            let location = userLocationManager.getLocationInUse()
+            request.userLocation = userLocationManager.getLocationInUse()
             DataAccessor(serviceConfiguration: ParseConfiguration()).getRestaurantCollectionMembersById(request, responseHandler: { (response) -> Void in
                 OperationQueue.main.addOperation({ () -> Void in
                     if response != nil && !response!.results.isEmpty {
                         self.members.removeAll()
                         self.members += response!.results
+                        self.sort()
                         self.tableView.reloadData()
-                        
                     }
                 })
                 
@@ -182,9 +244,20 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
         let cell: RestaurantCollectionMemberTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "restaurantCollectionMemberTableViewCell") as! RestaurantCollectionMemberTableViewCell
         cell.setUp(restaurant: self.members[indexPath.row], rank: indexPath.row + 1)
         cell.selectionStyle = .none
-        
+        UIView.animate(withDuration: 1.5) {
+            cell.contentView.alpha = 1
+        }
         return cell
     }
+    
+//    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if cell.contentView.alpha == 0 {
+//            UIView.animate(withDuration: 1.0, animations: {
+//                cell.contentView.alpha = 1.0
+//            })
+//        }
+//
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let restaurantSelected: Restaurant = members[indexPath.row]
@@ -291,6 +364,11 @@ class RestaurantCollectionMembersViewController: UITableViewController, ARNImage
     
     func getDirectAncestorId() -> String {
         return "SelectedCollectionTableViewController"
+    }
+    
+    private enum SortOrder {
+        case RATING
+        case DISTANCE
     }
 
 }

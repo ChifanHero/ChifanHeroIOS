@@ -27,6 +27,11 @@ class UserLocationManager {
         
     }
     
+    func usingNotAutoDetectedLocation() -> Bool {
+        let defaults = UserDefaults.standard
+        return defaults.bool(forKey: USING_NOT_AUTO_DETECTED_LOCATION)
+    }
+    
     func saveRealtimeLocation(_ location : Location) {
         realtimeLocation = location
     }

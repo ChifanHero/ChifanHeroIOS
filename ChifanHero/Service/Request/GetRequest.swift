@@ -141,13 +141,19 @@ class GetSelectedCollectionsByLatAndLonRequest: HttpRequest{
 class GetRestaurantCollectionMembersRequest: HttpRequest{
 
     var resourceId: String?
+    var userLocation : Location?
 
     init(id: String){
         self.resourceId = id
     }
 
     override func getRelativeURL() -> String {
-        return "/selectedCollections/" + resourceId! + "/restaurantCollectionMembers"
+        var result = "/selectedCollections/" + resourceId! + "/restaurantCollectionMembers"
+        if userLocation?.lat != nil && userLocation?.lon != nil {
+            result += "?lat=" + String(userLocation!.lat!)
+            result += "&lon=" + String(userLocation!.lon!)
+        }
+        return result
     }
 }
 
