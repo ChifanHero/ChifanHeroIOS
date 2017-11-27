@@ -2281,7 +2281,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lightning.lightningorder;
 				PRODUCT_NAME = "吃饭英雄-Test";
-				PROVISIONING_PROFILE = "b075c09c-552c-4f75-bcd1-cafd0d71b208";
+				PROVISIONING_PROFILE = "717e4731-fe3a-4998-a440-9e8a7ad7f67c";
 				PROVISIONING_PROFILE_SPECIFIER = ChiFanHeroForRicky;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChifanHero/BridgeHeader/ChifanHero-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

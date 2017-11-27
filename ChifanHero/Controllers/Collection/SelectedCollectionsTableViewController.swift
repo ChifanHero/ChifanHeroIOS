@@ -28,14 +28,14 @@ class SelectedCollectionsTableViewController: AutoNetworkCheckTableViewControlle
         self.clearTitleForBackBarButtonItem()
         self.configPullToRefresh()
         self.initialLoadData()
-        self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
+//        self.tableView.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0);
         self.configureNavigationController()
         self.tableView.register(UINib(nibName: "SelectedCollectionCell", bundle: nil), forCellReuseIdentifier: "selectedCollectionCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarTranslucent(To: true)
+//        self.setNavigationBarTranslucent(To: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {

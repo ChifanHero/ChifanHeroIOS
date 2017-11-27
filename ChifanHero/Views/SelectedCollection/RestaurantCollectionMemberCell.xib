@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,13 +34,34 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcZ-ZI-2gE" userLabel="Rating Label">
+                                <rect key="frame" x="436" y="224.5" width="60" height="30"/>
+                                <color key="backgroundColor" red="0.11965610951808503" green="1" blue="0.16306683352304641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="58O-G2-Gvy"/>
+                                    <constraint firstAttribute="height" constant="30" id="TGb-PZ-c7E"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCI-xi-h1l" userLabel="Distance Label">
+                                <rect key="frame" x="454" y="193.5" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="NcZ-ZI-2gE" firstAttribute="top" secondItem="qCI-xi-h1l" secondAttribute="bottom" constant="10" id="0Fh-D4-GN2"/>
                             <constraint firstAttribute="bottom" secondItem="hLp-BW-nXq" secondAttribute="bottom" constant="10" id="48h-zi-hMK"/>
+                            <constraint firstAttribute="trailing" secondItem="NcZ-ZI-2gE" secondAttribute="trailing" constant="10" id="G8X-KV-3C8"/>
+                            <constraint firstItem="qCI-xi-h1l" firstAttribute="trailing" secondItem="NcZ-ZI-2gE" secondAttribute="trailing" id="IcO-IE-Tlk"/>
                             <constraint firstAttribute="bottom" secondItem="ycw-HA-llA" secondAttribute="bottom" id="QRE-Iq-c7d"/>
                             <constraint firstItem="hLp-BW-nXq" firstAttribute="leading" secondItem="d9C-hT-Qc8" secondAttribute="leading" constant="10" id="Qrr-zl-kVV"/>
                             <constraint firstAttribute="trailing" secondItem="ycw-HA-llA" secondAttribute="trailing" id="iUK-s5-XGk"/>
+                            <constraint firstItem="NcZ-ZI-2gE" firstAttribute="centerY" secondItem="hLp-BW-nXq" secondAttribute="centerY" id="olJ-qn-R53"/>
                             <constraint firstItem="ycw-HA-llA" firstAttribute="leading" secondItem="d9C-hT-Qc8" secondAttribute="leading" id="qkU-ie-RiK"/>
                             <constraint firstItem="ycw-HA-llA" firstAttribute="top" secondItem="d9C-hT-Qc8" secondAttribute="top" id="zcw-RT-g9N"/>
                         </constraints>
@@ -56,10 +77,12 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="actualContentView" destination="d9C-hT-Qc8" id="pk3-KR-FoA"/>
+                <outlet property="distanceLabel" destination="qCI-xi-h1l" id="tx6-hv-JV9"/>
+                <outlet property="ratingLabel" destination="NcZ-ZI-2gE" id="mDX-b5-Yo0"/>
                 <outlet property="restaurantImage" destination="ycw-HA-llA" id="guE-rW-oG4"/>
                 <outlet property="restaurantName" destination="hLp-BW-nXq" id="cNh-Dr-obm"/>
             </connections>
-            <point key="canvasLocation" x="209" y="90.5"/>
+            <point key="canvasLocation" x="214" y="46"/>
         </tableViewCell>
     </objects>
 </document>

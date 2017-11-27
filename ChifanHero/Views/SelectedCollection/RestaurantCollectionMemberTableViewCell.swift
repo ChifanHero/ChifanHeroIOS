@@ -22,12 +22,31 @@ class RestaurantCollectionMemberTableViewCell: UITableViewCell {
     @IBOutlet weak var restaurantName: UILabel!
     @IBOutlet weak var actualContentView: UIView!
     
+    @IBOutlet weak var ratingLabel: UILabel!
+    
+    @IBOutlet weak var distanceLabel: UILabel!
+    
     func setUp(restaurant: Restaurant, rank: Int) {
         self.restaurant = restaurant
         self.rank = rank
         
+        ratingLabel.layer.cornerRadius = 4
+        ratingLabel.isHidden = true
+        distanceLabel.isHidden = true
+        
         if restaurant.name != nil {
             self.restaurantName.text = restaurant.name
+        }
+        
+        self.ratingLabel.text = String(format:"%.1f", self.restaurant?.rating ?? 0)
+        self.ratingLabel.backgroundColor = ScoreComputer.getScoreColor(self.restaurant?.rating ?? 0)
+        self.ratingLabel.isHidden = false
+        
+        if restaurant.distance != nil {
+            let distanceValue = String(format: "%.1f", restaurant.distance!.value ?? 0)
+            let distanceUnit = restaurant.distance!.unit ?? "mi"
+            self.distanceLabel.text = "\(distanceValue) \(distanceUnit)"
+            self.distanceLabel.isHidden = false
         }
         
         var url: URL!
